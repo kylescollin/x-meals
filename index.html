@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grocery List — Week of March 16</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf7f2;
+    --ink: #1a1a1a;
+    --muted: #7a7264;
+    --accent: #c8622a;
+    --accent-light: #f5e8de;
+    --border: #e4ded5;
+    --check: #2d7a4f;
+    --check-light: #e8f4ed;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 32px 20px 60px;
+  }
+
+  .header {
+    max-width: 680px;
+    margin: 0 auto 28px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+  }
+
+  .header-eyebrow {
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .header-meta {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .progress-bar-wrap {
+    margin-top: 16px;
+    background: var(--border);
+    border-radius: 99px;
+    height: 4px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: var(--check);
+    border-radius: 99px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  .progress-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .meals-strip {
+    max-width: 680px;
+    margin: 0 auto 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .meal-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+
+  .meal-card:hover { border-color: #ccc; }
+
+  .meal-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .meal-icon { font-size: 26px; flex-shrink: 0; }
+  .meal-info { flex: 1; min-width: 0; }
+
+  .meal-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .meal-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .meal-meta {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-weight: 300;
+  }
+
+  .meal-toggle {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .toggle-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    font-style: normal;
+  }
+
+  .meal-card.open .toggle-arrow { transform: rotate(180deg); }
+
+  .meal-recipe {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 18px 18px 20px;
+    background: #fdfdfc;
+  }
+
+  .meal-card.open .meal-recipe { display: block; }
+
+  .recipe-cols {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 520px) {
+    .recipe-cols { grid-template-columns: 1fr; }
+  }
+
+  .recipe-section-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .ingredient-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .ingredient-list li {
+    font-size: 12.5px;
+    color: var(--ink);
+    line-height: 1.4;
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .ingredient-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+  }
+
+  .steps-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .steps-list li {
+    font-size: 12.5px;
+    color: var(--ink);
+    line-height: 1.5;
+    display: flex;
+    gap: 10px;
+  }
+
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    min-width: 16px;
+    padding-top: 1px;
+  }
+
+  .recipe-note {
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: var(--accent-light);
+    border-radius: 7px;
+    font-size: 12px;
+    color: #7a4520;
+    line-height: 1.5;
+    grid-column: 1 / -1;
+  }
+
+  .section {
+    max-width: 680px;
+    margin: 0 auto 28px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .section-icon { font-size: 16px; }
+
+  .section-title {
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    user-select: none;
+  }
+
+  .item:hover { border-color: #ccc; }
+
+  .item.checked {
+    background: var(--check-light);
+    border-color: #b8ddc8;
+  }
+
+  .item.checked .item-name {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+
+  .item.checked .item-detail { color: #a8b8af; }
+
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s ease;
+    background: white;
+  }
+
+  .item.checked .checkbox {
+    background: var(--check);
+    border-color: var(--check);
+  }
+
+  .checkmark { display: none; color: white; font-size: 11px; font-weight: 700; }
+  .item.checked .checkmark { display: block; }
+
+  .item-body { flex: 1; min-width: 0; }
+  .item-name { font-size: 14px; font-weight: 400; color: var(--ink); line-height: 1.35; }
+  .item-detail { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 300; }
+  .item-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+  .item-tag {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding: 2px 7px;
+    border-radius: 99px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .tag-salmon { background: #fde8d8; color: #b85c22; }
+  .tag-tikka  { background: #e8dff5; color: #6b4f9e; }
+  .tag-pesto  { background: #e2f0e8; color: #2d6e44; }
+  .tag-both   { background: #e8f2fe; color: #2563a8; }
+  .tag-all    { background: #f0ecd8; color: #7a6020; }
+
+  .fresh-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #0072c6;
+    text-decoration: none;
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid #c8ddf0;
+    background: #f0f6fc;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+
+  .fresh-link:hover { background: #daeaf8; }
+
+  .note-box {
+    max-width: 680px;
+    margin: 0 auto 28px;
+    background: var(--accent-light);
+    border: 1px solid #e8c9b0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #7a4520;
+    line-height: 1.5;
+  }
+
+  .summary-bar {
+    max-width: 680px;
+    margin: 0 auto;
+    background: var(--ink);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .summary-count {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: white;
+  }
+
+  .summary-label { font-size: 12px; color: #888; margin-top: 1px; }
+  .btn-row { display: flex; gap: 8px; }
+
+  .reset-btn, .uncheck-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .reset-btn { color: var(--ink); background: white; }
+  .uncheck-btn { color: white; background: #444; }
+  .reset-btn:hover, .uncheck-btn:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Fox & Bear Kitchen</div>
+  <h1>Grocery List</h1>
+  <div class="header-meta">Week of March 16 &nbsp;·&nbsp; 3 dinners &nbsp;·&nbsp; Serves 4 + kids</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 of 0 items checked</div>
+</div>
+
+<div class="meals-strip">
+
+  <div class="meal-card" id="card-salmon">
+    <div class="meal-card-header" onclick="toggleRecipe('salmon')">
+      <div class="meal-icon">🐟</div>
+      <div class="meal-info">
+        <div class="meal-label">Meal A · Tuesday 3/17</div>
+        <div class="meal-name">Sheet Pan Lemon Herb Salmon & Veggies</div>
+        <div class="meal-meta">~35 min &nbsp;·&nbsp; One pan &nbsp;·&nbsp; Serves 4–6</div>
+      </div>
+      <div class="meal-toggle">Recipe <i class="toggle-arrow">▾</i></div>
+    </div>
+    <div class="meal-recipe">
+      <div class="recipe-cols">
+        <div>
+          <div class="recipe-section-title">Ingredients</div>
+          <ul class="ingredient-list">
+            <li>4–6 salmon fillets (~6 oz each), skinless</li>
+            <li>2 tbsp olive oil + 1 tsp for veggies</li>
+            <li>4 tbsp fresh lemon juice, divided</li>
+            <li>1 tsp garlic powder</li>
+            <li>1 tsp dried dill or parsley</li>
+            <li>1 tsp salt, ¾ tsp black pepper</li>
+            <li>2 cups broccoli florets</li>
+            <li>1 pint cherry tomatoes</li>
+            <li>2 medium zucchini, sliced</li>
+            <li>Lemon wedges to serve</li>
+          </ul>
+        </div>
+        <div>
+          <div class="recipe-section-title">Directions</div>
+          <ol class="steps-list">
+            <li><span class="step-num">1</span><span>Preheat oven to 425°F. Line a large rimmed baking sheet with parchment paper.</span></li>
+            <li><span class="step-num">2</span><span>Toss broccoli, cherry tomatoes, and zucchini with olive oil and ½ tsp salt. Spread in a single layer. Roast 12 minutes.</span></li>
+            <li><span class="step-num">3</span><span>While veggies roast, pat salmon dry. Whisk together olive oil, 2 tbsp lemon juice, garlic powder, dill, salt, and pepper.</span></li>
+            <li><span class="step-num">4</span><span>Pull sheet from oven. Push veggies to the sides. Nestle salmon in center skin-side down. Brush with herb mixture. Squeeze remaining lemon over top.</span></li>
+            <li><span class="step-num">5</span><span>Return to oven. Bake 12–15 minutes until salmon flakes easily and tomatoes are bursting. Internal temp 145°F.</span></li>
+            <li><span class="step-num">6</span><span>Serve with extra lemon wedges. Optional: scatter fresh dill or parsley on top.</span></li>
+          </ol>
+        </div>
+        <div class="recipe-note">💡 <strong>Tip:</strong> The tomatoes get jammy and sweet at high heat — kids love them. Great blood-sugar-friendly meal: high protein, high fiber, low carb.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="meal-card" id="card-tikka">
+    <div class="meal-card-header" onclick="toggleRecipe('tikka')">
+      <div class="meal-icon">🍗</div>
+      <div class="meal-info">
+        <div class="meal-label">Meal B · Wednesday 3/18</div>
+        <div class="meal-name">Chicken Tikka Masala + Cauliflower</div>
+        <div class="meal-meta">~45 min (marinate chicken tonight!) &nbsp;·&nbsp; Serves 4–6</div>
+      </div>
+      <div class="meal-toggle">Recipe <i class="toggle-arrow">▾</i></div>
+    </div>
+    <div class="meal-recipe">
+      <div class="recipe-cols">
+        <div>
+          <div class="recipe-section-title">Ingredients</div>
+          <ul class="ingredient-list">
+            <li><strong>Marinade:</strong></li>
+            <li>1 cup full-fat Greek yogurt</li>
+            <li>2 tbsp fresh lemon juice</li>
+            <li>1½ tsp ground cumin</li>
+            <li>1 tsp garam masala</li>
+            <li>¼–½ tsp chili powder (skip for kids)</li>
+            <li>1 tsp salt</li>
+            <li>2 tsp grated fresh ginger</li>
+            <li>2 tsp minced garlic</li>
+            <li>1.5 lbs chicken breast, bite-sized</li>
+            <li style="margin-top:6px"><strong>Sauce:</strong></li>
+            <li>2 tbsp oil + 2 tbsp butter</li>
+            <li>1 large sweet onion, finely diced</li>
+            <li>2 tsp grated ginger + 2 cloves garlic</li>
+            <li>2 tsp brown sugar</li>
+            <li>1 tsp each: coriander, cumin, smoked paprika, garam masala</li>
+            <li>2 cans (8 oz each) unseasoned tomato sauce</li>
+            <li>1½ cups heavy cream</li>
+            <li style="margin-top:6px"><strong>Add-ins & serving:</strong></li>
+            <li>1 head cauliflower, cut into florets</li>
+            <li>Basmati rice, naan, fresh cilantro</li>
+          </ul>
+        </div>
+        <div>
+          <div class="recipe-section-title">Directions</div>
+          <ol class="steps-list">
+            <li><span class="step-num">1</span><span><strong>Marinate (tonight!):</strong> Whisk marinade ingredients. Toss chicken to coat. Cover and refrigerate — at least 15 min, overnight is best.</span></li>
+            <li><span class="step-num">2</span><span><strong>Roast cauliflower:</strong> Preheat oven to 425°F. Toss cauliflower with olive oil, salt, pepper. Roast 20–25 min until golden and slightly charred. Set aside.</span></li>
+            <li><span class="step-num">3</span><span><strong>Sear chicken:</strong> Heat oil in a large skillet over medium-high. Add chicken in batches, don't crowd. Let sit 1 min untouched to crust, then sauté ~5 min until browned. Discard marinade. Set aside.</span></li>
+            <li><span class="step-num">4</span><span><strong>Build sauce:</strong> Melt butter in same pan. Sauté onion ~3 min. Add ginger + garlic, cook 30 sec. Add brown sugar and all spices, stir 15 sec until fragrant.</span></li>
+            <li><span class="step-num">5</span><span>Pour in both cans of tomato sauce. Simmer 3–5 min until thickened.</span></li>
+            <li><span class="step-num">6</span><span>Stir in cream. Return chicken and cauliflower to the pan. Simmer 8–10 min until cooked through and sauce is thick. Thin with water if needed.</span></li>
+            <li><span class="step-num">7</span><span>Serve over basmati rice with naan. Garnish with cilantro. Adults can add hot sauce.</span></li>
+          </ol>
+        </div>
+        <div class="recipe-note">🧠 <strong>Sauce note:</strong> Bumped to 1½ cups cream + 2 cans tomato sauce for proper saucy consistency — especially with cauliflower soaking it up.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="meal-card" id="card-pesto">
+    <div class="meal-card-header" onclick="toggleRecipe('pesto')">
+      <div class="meal-icon">🌿</div>
+      <div class="meal-info">
+        <div class="meal-label">Meal C · Thursday 3/19</div>
+        <div class="meal-name">Pesto Chicken Tortellini & Veggies</div>
+        <div class="meal-meta">~40 min &nbsp;·&nbsp; One pan &nbsp;·&nbsp; Serves 4</div>
+      </div>
+      <div class="meal-toggle">Recipe <i class="toggle-arrow">▾</i></div>
+    </div>
+    <div class="meal-recipe">
+      <div class="recipe-cols">
+        <div>
+          <div class="recipe-section-title">Ingredients</div>
+          <ul class="ingredient-list">
+            <li>2 tbsp olive oil</li>
+            <li>1 lb chicken thighs, boneless/skinless, sliced into strips</li>
+            <li>Salt to taste</li>
+            <li>½ cup sun-dried tomatoes, drained and chopped (divided)</li>
+            <li>1 lb asparagus, ends trimmed, cut in half</li>
+            <li>¼ cup basil pesto (or more to taste)</li>
+            <li>1 cup cherry tomatoes, halved</li>
+            <li>1 cup tortellini, uncooked (refrigerated)</li>
+          </ul>
+        </div>
+        <div>
+          <div class="recipe-section-title">Directions</div>
+          <ol class="steps-list">
+            <li><span class="step-num">1</span><span>Heat olive oil in a large skillet over medium heat. Add chicken (seasoned with salt) and ¼ cup sun-dried tomatoes. Cook 5–10 min until chicken is cooked through. Remove, leaving oil in pan.</span></li>
+            <li><span class="step-num">2</span><span>Add asparagus (seasoned with salt) and remaining sun-dried tomatoes. Cook 5–10 min until tender. Remove to a serving plate.</span></li>
+            <li><span class="step-num">3</span><span>Cook tortellini per package directions. Drain.</span></li>
+            <li><span class="step-num">4</span><span>Return chicken to skillet with pesto. Stir to coat and warm through over low-medium heat, 1–2 min.</span></li>
+            <li><span class="step-num">5</span><span>Add tortellini and halved cherry tomatoes. Stir to combine. Add more pesto if desired. Plate alongside the asparagus.</span></li>
+          </ol>
+        </div>
+        <div class="recipe-note">💡 <strong>Dad dinner night</strong> — Josephine is out (Andrea Night Out). Fast, colorful, kids love tortellini. Add extra pesto at the end if it tastes flat.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="note-box">
+  <strong>🧠 Sauce tip for Tikka Masala:</strong> Bumped to <strong>1½ cups cream + 2 × 8oz tomato sauce</strong> for proper saucy consistency. &nbsp;·&nbsp; <strong>Tonight:</strong> Marinate the tikka chicken before bed — overnight makes a big difference.
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-icon">🥦</span>
+    <div class="section-title">Produce</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="items-list">
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Broccoli</div><div class="item-detail">~2 cups florets</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=broccoli+fresh&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cherry tomatoes</div><div class="item-detail">2 pints (salmon + pesto)</div></div><div class="item-actions"><span class="item-tag tag-both">Salmon+Pesto</span><a href="https://www.amazon.com/s?k=cherry+tomatoes&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Zucchini</div><div class="item-detail">2 medium, sliced</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=zucchini&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Lemons</div><div class="item-detail">3–4 (salmon + tikka marinade + serving)</div></div><div class="item-actions"><span class="item-tag tag-both">Salmon+Tikka</span><a href="https://www.amazon.com/s?k=lemons&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cauliflower</div><div class="item-detail">1 medium head, cut into florets</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=cauliflower+head&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Sweet onion</div><div class="item-detail">1 large</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=sweet+onion&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh ginger</div><div class="item-detail">Small knob (~3-inch piece)</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=fresh+ginger+root&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garlic</div><div class="item-detail">1 head (need ~6 cloves total)</div></div><div class="item-actions"><span class="item-tag tag-both">Tikka+Pesto</span><a href="https://www.amazon.com/s?k=garlic+bulb&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh cilantro</div><div class="item-detail">1 bunch (tikka garnish)</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=fresh+cilantro&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Asparagus</div><div class="item-detail">1 lb, ends trimmed, halved</div></div><div class="item-actions"><span class="item-tag tag-pesto">Pesto</span><a href="https://www.amazon.com/s?k=fresh+asparagus&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-icon">🥩</span>
+    <div class="section-title">Protein</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="items-list">
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Salmon fillets</div><div class="item-detail">4–6 fillets (~6 oz each), skinless preferred</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=salmon+fillets+fresh&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Boneless skinless chicken breast</div><div class="item-detail">1.5 lbs, for tikka marinade</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=boneless+skinless+chicken+breast&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Boneless skinless chicken thighs</div><div class="item-detail">1 lb, sliced into strips</div></div><div class="item-actions"><span class="item-tag tag-pesto">Pesto</span><a href="https://www.amazon.com/s?k=boneless+skinless+chicken+thighs&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-icon">🧈</span>
+    <div class="section-title">Dairy & Refrigerated</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="items-list">
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Full-fat Greek yogurt</div><div class="item-detail">1 cup (tikka marinade — full fat is important)</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=full+fat+greek+yogurt&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Heavy cream</div><div class="item-detail">1 pint / 2 cups (need 1½ cups; buffer included)</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=heavy+whipping+cream&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Butter</div><div class="item-detail">2 tbsp — check pantry first</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=unsalted+butter&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Refrigerated cheese tortellini</div><div class="item-detail">1 cup / ~9 oz package</div></div><div class="item-actions"><span class="item-tag tag-pesto">Pesto</span><a href="https://www.amazon.com/s?k=fresh+cheese+tortellini+refrigerated&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-icon">🫙</span>
+    <div class="section-title">Pantry & Canned</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="items-list">
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Tomato sauce (unseasoned)</div><div class="item-detail">2 cans × 8 oz — bumped up for extra sauce</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=unseasoned+tomato+sauce+8oz&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Basmati rice</div><div class="item-detail">Check pantry — need 1.5–2 cups dry</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=basmati+rice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Naan bread</div><div class="item-detail">1 pack, store-bought is fine</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=naan+bread&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Brown sugar</div><div class="item-detail">Check pantry — need 2 tsp</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=brown+sugar&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Parchment paper</div><div class="item-detail">Check pantry — for the sheet pan</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=parchment+paper&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Sun-dried tomatoes</div><div class="item-detail">½ cup, oil-packed jar (drained)</div></div><div class="item-actions"><span class="item-tag tag-pesto">Pesto</span><a href="https://www.amazon.com/s?k=sun+dried+tomatoes+oil+packed&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Basil pesto</div><div class="item-detail">¼ cup+ — jarred is totally fine</div></div><div class="item-actions"><span class="item-tag tag-pesto">Pesto</span><a href="https://www.amazon.com/s?k=basil+pesto+jar&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-icon">🌿</span>
+    <div class="section-title">Spices — Check Pantry First</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="items-list">
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garam masala</div><div class="item-detail">Need ~2 tsp — the key spice, don't skip</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=garam+masala+spice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Ground coriander</div><div class="item-detail">Need 1 tsp</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=ground+coriander+spice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Smoked paprika</div><div class="item-detail">Need 1 tsp tikka + some for salmon</div></div><div class="item-actions"><span class="item-tag tag-both">Both</span><a href="https://www.amazon.com/s?k=smoked+paprika&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Ground cumin</div><div class="item-detail">Need ~2½ tsp — check pantry</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=ground+cumin&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Chili powder</div><div class="item-detail">Regular American chili powder — you likely have it</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=chili+powder&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Dried dill or parsley</div><div class="item-detail">1 tsp for salmon herb rub</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=dried+dill+weed&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garlic powder</div><div class="item-detail">1 tsp for salmon — check pantry</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=garlic+powder&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+  </div>
+</div>
+
+<div class="summary-bar">
+  <div>
+    <div class="summary-count" id="summaryCount">0 / 0</div>
+    <div class="summary-label">items checked</div>
+  </div>
+  <div class="btn-row">
+    <button class="reset-btn" onclick="resetAll()">Reset all</button>
+  </div>
+</div>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('checked');
+    updateProgress();
+  }
+
+  function toggleRecipe(id) {
+    const card = document.getElementById('card-' + id);
+    card.classList.toggle('open');
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('.item');
+    const checked = document.querySelectorAll('.item.checked');
+    const total = all.length;
+    const done = checked.length;
+    const pct = total > 0 ? (done / total) * 100 : 0;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = done + ' of ' + total + ' items checked';
+    document.getElementById('summaryCount').textContent = done + ' / ' + total;
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.item').forEach(el => el.classList.remove('checked'));
+    updateProgress();
+  }
+
+  document.querySelectorAll('.fresh-link').forEach(link => {
+    link.addEventListener('click', e => e.stopPropagation());
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>
