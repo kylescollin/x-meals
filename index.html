@@ -2,321 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grocery List — Week of March 16</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Recipe Collection — Fox & Bear Kitchen</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #faf7f2;
-    --ink: #1a1a1a;
-    --muted: #7a7264;
-    --accent: #c8622a;
-    --accent-light: #f5e8de;
-    --border: #e4ded5;
-    --check: #2d7a4f;
-    --check-light: #e8f4ed;
+    --cream: #faf7f2; --ink: #1a1a1a; --muted: #7a7264;
+    --accent: #c8622a; --accent-light: #f5e8de; --border: #e4ded5;
+    --check: #2d7a4f; --check-light: #e8f4ed;
+    --ck-bg: #131311; --ck-dim: #252520; --ck-border: #2e2d28;
+    --ck-text: #f0ebe0; --ck-muted: #6a6860; --ck-accent: #d4732e; --ck-done: #2d7a4f;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    min-height: 100vh;
-    padding: 32px 20px 60px;
+    background: var(--cream); color: var(--ink);
+    min-height: 100vh; -webkit-font-smoothing: antialiased;
   }
+
+  .site-nav {
+    max-width: 680px; margin: 0 auto;
+    display: flex; gap: 0; padding: 0 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-link {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; padding: 14px 16px 12px;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: color 0.15s;
+  }
+  .nav-link:hover { color: var(--ink); }
+  .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
 
   .header {
-    max-width: 680px;
-    margin: 0 auto 28px;
+    max-width: 680px; margin: 0 auto 28px;
     border-bottom: 1px solid var(--border);
-    padding-bottom: 24px;
+    padding: 28px 20px 24px;
   }
-
   .header-eyebrow {
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
+    font-weight: 500; font-size: 11px; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
   }
-
   h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 8px;
+    font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 8px;
   }
+  .header-meta { font-size: 13px; color: var(--muted); font-weight: 300; }
 
-  .header-meta {
-    font-size: 13px;
-    color: var(--muted);
-    font-weight: 300;
-  }
+  .progress-bar-wrap { margin-top: 16px; background: var(--border); border-radius: 99px; height: 4px; overflow: hidden; }
+  .progress-bar { height: 100%; background: var(--check); border-radius: 99px; width: 0%; transition: width 0.4s ease; }
+  .progress-label { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
-  .progress-bar-wrap {
-    margin-top: 16px;
-    background: var(--border);
-    border-radius: 99px;
-    height: 4px;
-    overflow: hidden;
-  }
+  .meals-strip { max-width: 680px; margin: 0 auto 32px; padding: 0 20px; display: flex; flex-direction: column; gap: 10px; }
 
-  .progress-bar {
-    height: 100%;
-    background: var(--check);
-    border-radius: 99px;
-    width: 0%;
-    transition: width 0.4s ease;
-  }
-
-  .progress-label {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-
-  .meals-strip {
-    max-width: 680px;
-    margin: 0 auto 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .meal-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: border-color 0.15s;
-  }
-
+  .meal-card { background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: border-color 0.15s; }
   .meal-card:hover { border-color: #ccc; }
-
-  .meal-card-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 16px;
-    cursor: pointer;
-    user-select: none;
-  }
-
+  .meal-card-header { display: flex; align-items: center; gap: 14px; padding: 14px 16px; cursor: pointer; user-select: none; }
   .meal-icon { font-size: 26px; flex-shrink: 0; }
   .meal-info { flex: 1; min-width: 0; }
-
-  .meal-label {
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-    margin-bottom: 2px;
-  }
-
-  .meal-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
-    font-weight: 500;
-  }
-
-  .meal-meta {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 2px;
-    font-weight: 300;
-  }
-
-  .meal-toggle {
-    font-size: 11px;
-    color: var(--accent);
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .toggle-arrow {
-    display: inline-block;
-    transition: transform 0.2s ease;
-    font-style: normal;
-  }
-
+  .meal-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 2px; }
+  .meal-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 500; }
+  .meal-meta { font-size: 11px; color: var(--muted); margin-top: 2px; font-weight: 300; }
+  .meal-toggle { font-size: 11px; color: var(--accent); font-weight: 500; letter-spacing: 0.5px; display: flex; align-items: center; gap: 4px; white-space: nowrap; flex-shrink: 0; }
+  .toggle-arrow { display: inline-block; transition: transform 0.2s ease; font-style: normal; }
   .meal-card.open .toggle-arrow { transform: rotate(180deg); }
-
-  .meal-recipe {
-    display: none;
-    border-top: 1px solid var(--border);
-    padding: 18px 18px 20px;
-    background: #fdfdfc;
-  }
-
+  .meal-recipe { display: none; border-top: 1px solid var(--border); padding: 18px 18px 20px; background: #fdfdfc; }
   .meal-card.open .meal-recipe { display: block; }
 
-  .recipe-cols {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 20px;
-  }
+  .recipe-cols { display: grid; grid-template-columns: 1fr 1.4fr; gap: 20px; }
+  @media (max-width: 520px) { .recipe-cols { grid-template-columns: 1fr; } }
 
-  @media (max-width: 520px) {
-    .recipe-cols { grid-template-columns: 1fr; }
-  }
+  .recipe-section-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; color: var(--accent); margin-bottom: 10px; }
+  .ingredient-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .ingredient-list li { font-size: 12.5px; color: var(--ink); line-height: 1.4; padding-left: 12px; position: relative; }
+  .ingredient-list li::before { content: '·'; position: absolute; left: 0; color: var(--muted); }
+  .steps-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .steps-list li { font-size: 12.5px; color: var(--ink); line-height: 1.5; display: flex; gap: 10px; }
+  .step-num { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: var(--accent); flex-shrink: 0; min-width: 16px; padding-top: 1px; }
+  .recipe-note { margin-top: 14px; padding: 10px 12px; background: var(--accent-light); border-radius: 7px; font-size: 12px; color: #7a4520; line-height: 1.5; grid-column: 1 / -1; }
 
-  .recipe-section-title {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 500;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-
-  .ingredient-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .ingredient-list li {
-    font-size: 12.5px;
-    color: var(--ink);
-    line-height: 1.4;
-    padding-left: 12px;
-    position: relative;
-  }
-
-  .ingredient-list li::before {
-    content: '·';
-    position: absolute;
-    left: 0;
-    color: var(--muted);
-  }
-
-  .steps-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .steps-list li {
-    font-size: 12.5px;
-    color: var(--ink);
-    line-height: 1.5;
-    display: flex;
-    gap: 10px;
-  }
-
-  .step-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--accent);
-    flex-shrink: 0;
-    min-width: 16px;
-    padding-top: 1px;
-  }
-
-  .recipe-note {
-    margin-top: 14px;
-    padding: 10px 12px;
-    background: var(--accent-light);
-    border-radius: 7px;
-    font-size: 12px;
-    color: #7a4520;
-    line-height: 1.5;
-    grid-column: 1 / -1;
-  }
-
-  .section {
-    max-width: 680px;
-    margin: 0 auto 28px;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
+  .section { max-width: 680px; margin: 0 auto 28px; padding: 0 20px; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .section-icon { font-size: 16px; }
+  .section-title { font-weight: 500; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+  .items-list { display: flex; flex-direction: column; gap: 4px; }
 
-  .section-title {
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .section-line {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .items-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 14px;
-    cursor: pointer;
-    transition: all 0.18s ease;
-    user-select: none;
-  }
-
+  .item { display: flex; align-items: flex-start; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.18s ease; user-select: none; }
   .item:hover { border-color: #ccc; }
-
-  .item.checked {
-    background: var(--check-light);
-    border-color: #b8ddc8;
-  }
-
-  .item.checked .item-name {
-    text-decoration: line-through;
-    color: var(--muted);
-  }
-
+  .item.checked { background: var(--check-light); border-color: #b8ddc8; }
+  .item.checked .item-name { text-decoration: line-through; color: var(--muted); }
   .item.checked .item-detail { color: #a8b8af; }
 
-  .checkbox {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border);
-    border-radius: 5px;
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.18s ease;
-    background: white;
-  }
-
-  .item.checked .checkbox {
-    background: var(--check);
-    border-color: var(--check);
-  }
-
+  .checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.18s ease; background: white; }
+  .item.checked .checkbox { background: var(--check); border-color: var(--check); }
   .checkmark { display: none; color: white; font-size: 11px; font-weight: 700; }
   .item.checked .checkmark { display: block; }
 
@@ -325,82 +107,25 @@
   .item-detail { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 300; }
   .item-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
-  .item-tag {
-    font-size: 10px;
-    letter-spacing: 0.5px;
-    padding: 2px 7px;
-    border-radius: 99px;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-
+  .item-tag { font-size: 10px; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
   .tag-salmon { background: #fde8d8; color: #b85c22; }
   .tag-tikka  { background: #e8dff5; color: #6b4f9e; }
   .tag-pesto  { background: #e2f0e8; color: #2d6e44; }
   .tag-both   { background: #e8f2fe; color: #2563a8; }
   .tag-all    { background: #f0ecd8; color: #7a6020; }
 
-  .fresh-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    color: #0072c6;
-    text-decoration: none;
-    padding: 3px 8px;
-    border-radius: 5px;
-    border: 1px solid #c8ddf0;
-    background: #f0f6fc;
-    white-space: nowrap;
-    transition: background 0.15s;
-  }
-
+  .fresh-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #0072c6; text-decoration: none; padding: 3px 8px; border-radius: 5px; border: 1px solid #c8ddf0; background: #f0f6fc; white-space: nowrap; transition: background 0.15s; }
   .fresh-link:hover { background: #daeaf8; }
 
-  .note-box {
-    max-width: 680px;
-    margin: 0 auto 28px;
-    background: var(--accent-light);
-    border: 1px solid #e8c9b0;
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 13px;
-    color: #7a4520;
-    line-height: 1.5;
-  }
+  .note-box { max-width: 680px; margin: 0 auto 28px; padding: 0 20px; }
+  .note-box-inner { background: var(--accent-light); border: 1px solid #e8c9b0; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #7a4520; line-height: 1.5; }
 
-  .summary-bar {
-    max-width: 680px;
-    margin: 0 auto;
-    background: var(--ink);
-    border-radius: 10px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .summary-count {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    color: white;
-  }
-
+  .summary-bar { max-width: 680px; margin: 0 auto; padding: 0 20px 40px; }
+  .summary-bar-inner { background: var(--ink); border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .summary-count { font-family: 'Playfair Display', serif; font-size: 22px; color: white; }
   .summary-label { font-size: 12px; color: #888; margin-top: 1px; }
   .btn-row { display: flex; gap: 8px; }
-
-  .reset-btn, .uncheck-btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 14px;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
-
+  .reset-btn, .uncheck-btn { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; border: none; border-radius: 6px; padding: 8px 14px; cursor: pointer; transition: opacity 0.15s; }
   .reset-btn { color: var(--ink); background: white; }
   .uncheck-btn { color: white; background: #444; }
   .reset-btn:hover, .uncheck-btn:hover { opacity: 0.8; }
@@ -408,8 +133,13 @@
 </head>
 <body>
 
+<nav class="site-nav">
+  <a href="index.html" class="nav-link active">This Week</a>
+  <a href="recipes.html" class="nav-link">Recipes</a>
+</nav>
+
 <div class="header">
-  <div class="header-eyebrow">Fox & Bear Kitchen</div>
+  <div class="header-eyebrow">Fox &amp; Bear Kitchen</div>
   <h1>Grocery List</h1>
   <div class="header-meta">Week of March 16 &nbsp;·&nbsp; 3 dinners &nbsp;·&nbsp; Serves 4 + kids</div>
   <div class="progress-bar-wrap">
@@ -425,7 +155,7 @@
       <div class="meal-icon">🐟</div>
       <div class="meal-info">
         <div class="meal-label">Meal A · Tuesday 3/17</div>
-        <div class="meal-name">Sheet Pan Lemon Herb Salmon & Veggies</div>
+        <div class="meal-name">Sheet Pan Lemon Herb Salmon &amp; Veggies</div>
         <div class="meal-meta">~35 min &nbsp;·&nbsp; One pan &nbsp;·&nbsp; Serves 4–6</div>
       </div>
       <div class="meal-toggle">Recipe <i class="toggle-arrow">▾</i></div>
@@ -496,7 +226,7 @@
             <li>1 tsp each: coriander, cumin, smoked paprika, garam masala</li>
             <li>2 cans (8 oz each) unseasoned tomato sauce</li>
             <li>1½ cups heavy cream</li>
-            <li style="margin-top:6px"><strong>Add-ins & serving:</strong></li>
+            <li style="margin-top:6px"><strong>Add-ins &amp; serving:</strong></li>
             <li>1 head cauliflower, cut into florets</li>
             <li>Basmati rice, naan, fresh cilantro</li>
           </ul>
@@ -523,7 +253,7 @@
       <div class="meal-icon">🌿</div>
       <div class="meal-info">
         <div class="meal-label">Meal C · Thursday 3/19</div>
-        <div class="meal-name">Pesto Chicken Tortellini & Veggies</div>
+        <div class="meal-name">Pesto Chicken Tortellini &amp; Veggies</div>
         <div class="meal-meta">~40 min &nbsp;·&nbsp; One pan &nbsp;·&nbsp; Serves 4</div>
       </div>
       <div class="meal-toggle">Recipe <i class="toggle-arrow">▾</i></div>
@@ -561,7 +291,9 @@
 </div>
 
 <div class="note-box">
-  <strong>🧠 Sauce tip for Tikka Masala:</strong> Bumped to <strong>1½ cups cream + 2 × 8oz tomato sauce</strong> for proper saucy consistency. &nbsp;·&nbsp; <strong>Tonight:</strong> Marinate the tikka chicken before bed — overnight makes a big difference.
+  <div class="note-box-inner">
+    <strong>🧠 Sauce tip for Tikka Masala:</strong> Bumped to <strong>1½ cups cream + 2 × 8oz tomato sauce</strong> for proper saucy consistency. &nbsp;·&nbsp; <strong>Tonight:</strong> Marinate the tikka chicken before bed — overnight makes a big difference.
+  </div>
 </div>
 
 <div class="section">
@@ -600,7 +332,7 @@
 <div class="section">
   <div class="section-header">
     <span class="section-icon">🧈</span>
-    <div class="section-title">Dairy & Refrigerated</div>
+    <div class="section-title">Dairy &amp; Refrigerated</div>
     <div class="section-line"></div>
   </div>
   <div class="items-list">
@@ -614,7 +346,7 @@
 <div class="section">
   <div class="section-header">
     <span class="section-icon">🫙</span>
-    <div class="section-title">Pantry & Canned</div>
+    <div class="section-title">Pantry &amp; Canned</div>
     <div class="section-line"></div>
   </div>
   <div class="items-list">
@@ -646,46 +378,31 @@
 </div>
 
 <div class="summary-bar">
-  <div>
-    <div class="summary-count" id="summaryCount">0 / 0</div>
-    <div class="summary-label">items checked</div>
-  </div>
-  <div class="btn-row">
-    <button class="reset-btn" onclick="resetAll()">Reset all</button>
+  <div class="summary-bar-inner">
+    <div>
+      <div class="summary-count" id="summaryCount">0 / 0</div>
+      <div class="summary-label">items checked</div>
+    </div>
+    <div class="btn-row">
+      <button class="reset-btn" onclick="resetAll()">Reset all</button>
+    </div>
   </div>
 </div>
 
 <script>
-  function toggle(el) {
-    el.classList.toggle('checked');
-    updateProgress();
-  }
-
-  function toggleRecipe(id) {
-    const card = document.getElementById('card-' + id);
-    card.classList.toggle('open');
-  }
-
+  function toggle(el) { el.classList.toggle('checked'); updateProgress(); }
+  function toggleRecipe(id) { document.getElementById('card-' + id).classList.toggle('open'); }
   function updateProgress() {
     const all = document.querySelectorAll('.item');
     const checked = document.querySelectorAll('.item.checked');
-    const total = all.length;
-    const done = checked.length;
+    const total = all.length, done = checked.length;
     const pct = total > 0 ? (done / total) * 100 : 0;
     document.getElementById('progressBar').style.width = pct + '%';
     document.getElementById('progressLabel').textContent = done + ' of ' + total + ' items checked';
     document.getElementById('summaryCount').textContent = done + ' / ' + total;
   }
-
-  function resetAll() {
-    document.querySelectorAll('.item').forEach(el => el.classList.remove('checked'));
-    updateProgress();
-  }
-
-  document.querySelectorAll('.fresh-link').forEach(link => {
-    link.addEventListener('click', e => e.stopPropagation());
-  });
-
+  function resetAll() { document.querySelectorAll('.item').forEach(el => el.classList.remove('checked')); updateProgress(); }
+  document.querySelectorAll('.fresh-link').forEach(link => { link.addEventListener('click', e => e.stopPropagation()); });
   updateProgress();
 </script>
 </body>
