@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Fox & Bear Kitchen — Cooking Mode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --cream:#faf7f2; --ink:#1a1a1a; --muted:#7a7264;
+  --accent:#c8622a; --border:#e4ded5;
+  --ck-bg:#131311; --ck-surface:#1c1c19; --ck-dim:#252520;
+  --ck-border:#2e2d28; --ck-text:#f0ebe0; --ck-muted:#6a6860;
+  --ck-accent:#d4732e; --ck-done:#2d7a4f;
+}
+
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream); color:var(--ink);
+  min-height:100vh; -webkit-font-smoothing:antialiased;
+}
+
+.demo-page { max-width:620px; margin:0 auto; padding:44px 20px 80px; }
+
+.eyebrow {
+  font-size:11px; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:10px;
+}
+
+h1.page-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(30px,7vw,46px); font-weight:700;
+  line-height:1.08; margin-bottom:6px;
+}
+
+.page-sub { font-size:14px; color:var(--muted); margin-bottom:40px; }
+
+.recipe-card {
+  background:#fff; border:1.5px solid var(--border);
+  border-radius:14px; overflow:hidden; margin-bottom:20px;
+}
+
+.card-header {
+  padding:22px 22px 18px; border-bottom:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:flex-start; gap:14px;
+}
+
+.meal-label {
+  font-size:11px; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted);
+  display:block; margin-bottom:6px;
+}
+
+.recipe-name {
+  font-family:'Playfair Display',serif;
+  font-size:21px; font-weight:600; line-height:1.2;
+  color:var(--ink); margin-bottom:7px;
+}
+
+.recipe-details { display:flex; gap:14px; font-size:12px; color:var(--muted); }
+
+.cook-btn {
+  flex-shrink:0; display:inline-flex; align-items:center; gap:7px;
+  background:var(--ink); color:var(--cream); border:none;
+  border-radius:100px; font-family:'DM Sans',sans-serif;
+  font-size:13px; font-weight:500; padding:10px 18px;
+  cursor:pointer; white-space:nowrap;
+  transition:transform .12s, background .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.cook-btn:active { transform:scale(.94); background:#333; }
+.cook-btn svg { width:13px; height:13px; fill:currentColor; }
+
+.recipe-preview {
+  padding:22px; display:grid;
+  grid-template-columns:1fr 1.5fr; gap:24px;
+}
+@media(max-width:460px){ .recipe-preview{grid-template-columns:1fr} }
+
+.preview-label {
+  font-size:10px; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted);
+  display:block; margin-bottom:12px;
+}
+
+.ing-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.ing-list li {
+  font-size:13px; color:var(--ink); line-height:1.4;
+  padding-left:13px; position:relative;
+}
+.ing-list li::before {
+  content:''; position:absolute; left:0; top:7px;
+  width:4px; height:4px; border-radius:50%;
+  background:var(--accent);
+}
+
+.step-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.step-list li { display:flex; gap:10px; font-size:13px; color:var(--ink); line-height:1.45; }
+.step-n {
+  font-family:'Playfair Display',serif; font-size:15px; font-weight:600;
+  color:var(--accent); flex-shrink:0; min-width:16px; padding-top:1px;
+}
+
+#ck-overlay {
+  position:fixed; inset:0; background:var(--ck-bg); z-index:9999;
+  display:flex; flex-direction:column;
+  transform:translateY(100%);
+  transition:transform .38s cubic-bezier(.4,0,.2,1);
+  overflow:hidden;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+#ck-overlay.open { transform:translateY(0); }
+
+.ck-bar {
+  display:flex; align-items:center; gap:12px;
+  padding:16px 18px 14px;
+  padding-top:calc(16px + env(safe-area-inset-top,0px));
+  border-bottom:1px solid var(--ck-border); flex-shrink:0;
+}
+.ck-title {
+  flex:1; font-size:13px; color:var(--ck-muted);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.ck-pips { display:flex; gap:5px; flex-shrink:0; }
+.ck-pip {
+  width:22px; height:3px; border-radius:2px;
+  background:var(--ck-border); transition:background .3s;
+}
+.ck-pip.on { background:var(--ck-accent); }
+.ck-x {
+  flex-shrink:0; width:32px; height:32px; border-radius:50%;
+  background:var(--ck-dim); border:1px solid var(--ck-border);
+  color:var(--ck-text); font-size:16px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  -webkit-tap-highlight-color:transparent; transition:background .15s;
+}
+.ck-x:active { background:#38372f; }
+
+.ck-panels-wrap { flex:1; overflow:hidden; position:relative; }
+.ck-track {
+  display:flex; width:200%; height:100%;
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+.ck-track.flipped { transform:translateX(-50%); }
+.ck-panel { flex:0 0 50%; height:100%; display:flex; flex-direction:column; overflow:hidden; }
+
+.ck-ing-scroll {
+  flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch;
+  padding:36px 28px 100px;
+}
+.ck-panel-tag {
+  font-size:11px; font-weight:600; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--ck-accent);
+  display:block; margin-bottom:20px;
+}
+.ck-ing-headline {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(24px,7vw,44px); font-weight:700;
+  color:var(--ck-text); line-height:1.1; margin-bottom:32px;
+}
+.ck-ings { list-style:none; }
+.ck-ing-row {
+  display:flex; align-items:baseline; gap:16px;
+  padding:16px 0; border-bottom:1px solid var(--ck-border);
+}
+.ck-ing-row:last-child { border-bottom:none; }
+.ck-qty {
+  font-family:'Playfair Display',serif; font-size:16px; font-weight:600;
+  color:var(--ck-accent); min-width:54px; text-align:right; flex-shrink:0;
+}
+.ck-item-name {
+  font-size:clamp(16px,4vw,20px); color:var(--ck-text);
+  font-weight:300; line-height:1.35;
+}
+
+.ck-swipe-hint-ing {
+  position:absolute; bottom:24px; left:0; right:50%;
+  display:flex; align-items:center; justify-content:center;
+  gap:7px; color:var(--ck-muted); font-size:12px;
+  pointer-events:none; transition:opacity .5s;
+}
+.ck-swipe-hint-ing.gone { opacity:0; }
+
+.ck-step-vp {
+  flex:1; position:relative; overflow:hidden;
+  touch-action:none;
+}
+.ck-slide {
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  justify-content:center; padding:28px 32px 16px; gap:10px;
+  opacity:0; transform:translateY(48px);
+  transition:opacity .28s ease, transform .28s ease;
+  pointer-events:none;
+}
+.ck-slide.active { opacity:1; transform:none; pointer-events:all; }
+.ck-slide.exit-up { opacity:0; transform:translateY(-48px); pointer-events:none; }
+.ck-slide.exit-down { opacity:0; transform:translateY(48px); pointer-events:none; }
+
+.ck-step-big {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(64px,20vw,100px); font-weight:700;
+  color:var(--ck-accent); line-height:1; letter-spacing:-.03em;
+}
+.ck-step-of { font-size:13px; color:var(--ck-muted); margin-top:-6px; }
+.ck-step-body {
+  font-size:clamp(17px,4.2vw,21px); color:var(--ck-text);
+  line-height:1.62; font-weight:300; margin-top:8px;
+}
+
+.ck-swipe-hint-steps {
+  position:absolute; bottom:16px; left:0; right:0;
+  display:flex; align-items:center; justify-content:center;
+  gap:7px; color:var(--ck-muted); font-size:12px;
+  pointer-events:none; transition:opacity .5s;
+}
+.ck-swipe-hint-steps.gone { opacity:0; }
+
+.ck-footer {
+  flex-shrink:0; display:flex; align-items:center; justify-content:space-between;
+  padding:14px 22px 18px; border-top:1px solid var(--ck-border);
+}
+.ck-nav {
+  width:46px; height:46px; border-radius:50%;
+  background:var(--ck-dim); border:1px solid var(--ck-border);
+  color:var(--ck-text); font-size:20px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; -webkit-tap-highlight-color:transparent;
+  transition:background .15s, opacity .2s; flex-shrink:0;
+}
+.ck-nav:active:not(:disabled) { background:#38372f; }
+.ck-nav:disabled { opacity:.2; cursor:default; }
+.ck-dots {
+  display:flex; gap:7px; align-items:center;
+  flex-wrap:wrap; justify-content:center; flex:1; padding:0 12px;
+}
+.ck-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--ck-border); transition:background .3s, transform .3s;
+  flex-shrink:0;
+}
+.ck-dot.on  { background:var(--ck-accent); transform:scale(1.5); }
+.ck-dot.done { background:var(--ck-done); }
+
+.hintsvg {
+  width:15px; height:15px; fill:none; stroke:currentColor;
+  stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round;
+}
+</style>
+</head>
+<body>
+
+<div class="demo-page">
+  <p class="eyebrow">Fox &amp; Bear Kitchen</p>
+  <h1 class="page-title">Cooking Mode Demo</h1>
+  <p class="page-sub">Tap <strong>Cook</strong> on any recipe below to try it out</p>
+
+  <div class="recipe-card js-recipe">
+    <div class="card-header">
+      <div>
+        <span class="meal-label">Meal A &middot; Tuesday 3/17</span>
+        <div class="recipe-name">Ground Turkey Teriyaki Stir Fry</div>
+        <div class="recipe-details"><span>🕒 25 min</span><span>🍳 Stovetop</span><span>👨‍👩‍👦 Serves 4</span></div>
+      </div>
+      <button class="cook-btn js-cook">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Cook
+      </button>
+    </div>
+    <div class="recipe-preview">
+      <div>
+        <span class="preview-label">Ingredients</span>
+        <ul class="ing-list js-ings">
+          <li>1 lb ground turkey</li>
+          <li>2 cups brown rice</li>
+          <li>1 head broccoli, florets</li>
+          <li>2 medium carrots, sliced</li>
+          <li>1 red bell pepper, sliced</li>
+          <li>3 cloves garlic, minced</li>
+          <li>1 tbsp fresh ginger, grated</li>
+          <li>3 tbsp soy sauce</li>
+          <li>2 tbsp honey</li>
+          <li>1 tbsp sesame oil</li>
+          <li>1 tbsp cornstarch</li>
+          <li>2 green onions, sliced</li>
+          <li>1 tbsp sesame seeds</li>
+          <li>2 tbsp avocado oil</li>
+        </ul>
+      </div>
+      <div>
+        <span class="preview-label">Instructions</span>
+        <ol class="step-list js-steps">
+          <li><span class="step-n">1</span><span>Cook brown rice first — it takes longest and can rest while you cook everything else.</span></li>
+          <li><span class="step-n">2</span><span>Whisk soy sauce, honey, sesame oil, cornstarch, and ¼ cup water together. Set aside.</span></li>
+          <li><span class="step-n">3</span><span>Heat avocado oil in a large wok over medium-high. Add turkey and cook 5–6 min, breaking it up, until no longer pink.</span></li>
+          <li><span class="step-n">4</span><span>Push turkey to the side. Add broccoli, carrots, and bell pepper. Stir-fry 3–4 min until crisp-tender.</span></li>
+          <li><span class="step-n">5</span><span>Add garlic and ginger. Stir constantly 30 seconds until fragrant.</span></li>
+          <li><span class="step-n">6</span><span>Pour sauce over everything. Toss to coat and cook 1–2 min until glossy and thickened.</span></li>
+          <li><span class="step-n">7</span><span>Serve over rice. Top with green onions and sesame seeds.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="recipe-card js-recipe">
+    <div class="card-header">
+      <div>
+        <span class="meal-label">Meal B &middot; Wednesday 3/18</span>
+        <div class="recipe-name">Creamy Tomato Gnocchi with Burrata</div>
+        <div class="recipe-details"><span>🕒 30 min</span><span>🍳 Stovetop</span><span>👨‍👩‍👦 Serves 4</span></div>
+      </div>
+      <button class="cook-btn js-cook">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Cook
+      </button>
+    </div>
+    <div class="recipe-preview">
+      <div>
+        <span class="preview-label">Ingredients</span>
+        <ul class="ing-list js-ings">
+          <li>1 lb potato gnocchi</li>
+          <li>1 can (28 oz) crushed tomatoes</li>
+          <li>2 balls fresh burrata</li>
+          <li>3 cups baby spinach</li>
+          <li>4 cloves garlic, minced</li>
+          <li>½ cup heavy cream</li>
+          <li>2 tbsp olive oil</li>
+          <li>1 tsp Italian seasoning</li>
+          <li>Fresh basil to serve</li>
+          <li>Salt &amp; pepper to taste</li>
+        </ul>
+      </div>
+      <div>
+        <span class="preview-label">Instructions</span>
+        <ol class="step-list js-steps">
+          <li><span class="step-n">1</span><span>Heat olive oil in a large skillet over medium. Add garlic and cook 1 min — don't let it brown.</span></li>
+          <li><span class="step-n">2</span><span>Pour in crushed tomatoes and Italian seasoning. Simmer uncovered 10 min, stirring occasionally.</span></li>
+          <li><span class="step-n">3</span><span>Stir in cream. Season with salt and pepper. Cook 2 more minutes.</span></li>
+          <li><span class="step-n">4</span><span>Cook gnocchi per package in salted boiling water. Drain and add directly to the sauce.</span></li>
+          <li><span class="step-n">5</span><span>Stir in spinach and cook 1 min until just wilted. Tear burrata over the top and finish with fresh basil.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="ck-overlay" aria-hidden="true" role="dialog" aria-label="Cooking mode">
+  <div class="ck-bar">
+    <span class="ck-title" id="ck-title">Recipe</span>
+    <div class="ck-pips">
+      <div class="ck-pip on" id="ck-pip0"></div>
+      <div class="ck-pip"    id="ck-pip1"></div>
+    </div>
+    <button class="ck-x" id="ck-x" aria-label="Exit cooking mode">✕</button>
+  </div>
+
+  <div class="ck-panels-wrap">
+    <div class="ck-track" id="ck-track">
+
+      <div class="ck-panel">
+        <div class="ck-ing-scroll" id="ck-ing-scroll">
+          <span class="ck-panel-tag">Ingredients</span>
+          <h2 class="ck-ing-headline" id="ck-ing-headline">What you'll need</h2>
+          <ul class="ck-ings" id="ck-ings"></ul>
+        </div>
+        <div class="ck-swipe-hint-ing" id="ck-hint-ing">
+          <svg class="hintsvg" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          Swipe right for steps
+        </div>
+      </div>
+
+      <div class="ck-panel">
+        <div class="ck-step-vp" id="ck-step-vp">
+          <div class="ck-swipe-hint-steps" id="ck-hint-steps">
+            <svg class="hintsvg" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            Swipe left for ingredients
+          </div>
+        </div>
+        <div class="ck-footer">
+          <button class="ck-nav" id="ck-prev" aria-label="Previous step">↑</button>
+          <div class="ck-dots" id="ck-dots"></div>
+          <button class="ck-nav" id="ck-next" aria-label="Next step">↓</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  const overlay   = document.getElementById('ck-overlay');
+  const track     = document.getElementById('ck-track');
+  const ingScroll = document.getElementById('ck-ing-scroll');
+  const ingHead   = document.getElementById('ck-ing-headline');
+  const ingsList  = document.getElementById('ck-ings');
+  const stepVp    = document.getElementById('ck-step-vp');
+  const dotsEl    = document.getElementById('ck-dots');
+  const prevBtn   = document.getElementById('ck-prev');
+  const nextBtn   = document.getElementById('ck-next');
+  const closeX    = document.getElementById('ck-x');
+  const titleEl   = document.getElementById('ck-title');
+  const pip0      = document.getElementById('ck-pip0');
+  const pip1      = document.getElementById('ck-pip1');
+  const hintIng   = document.getElementById('ck-hint-ing');
+  const hintSteps = document.getElementById('ck-hint-steps');
+
+  let recipe   = null;
+  let stepIdx  = 0;
+  let isSteps  = false;
+  let slides   = [];
+  let dots     = [];
+  let wakeLock = null;
+  let ingHid   = false;
+  let stpHid   = false;
+
+  async function lockOn() {
+    if ('wakeLock' in navigator) {
+      try { wakeLock = await navigator.wakeLock.request('screen'); } catch(_){}
+    }
+  }
+  function lockOff() {
+    if (wakeLock) { wakeLock.release().catch(()=>{}); wakeLock = null; }
+  }
+  document.addEventListener('visibilitychange', async () => {
+    if (overlay.classList.contains('open') && document.visibilityState === 'visible') await lockOn();
+  });
+
+  function extract(card) {
+    const name = card.querySelector('.recipe-name')?.textContent?.trim() || 'Recipe';
+    const ings = [...card.querySelectorAll('.js-ings li')]
+      .map(li => li.textContent.trim()).filter(Boolean);
+    const steps = [...card.querySelectorAll('.js-steps li')].map(li => {
+      const clone = li.cloneNode(true);
+      clone.querySelector('.step-n')?.remove();
+      return clone.textContent.trim();
+    }).filter(Boolean);
+    return { name, ings, steps };
+  }
+
+  function parseIng(str) {
+    const m = str.match(/^((?:[\d½⅓⅔¼¾⅛⅜⅝⅞\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|ball|bunch|sprig|sprigs|slice|slices|piece|pieces|pkg|handful|pinch|dash)?s?\.?)\s+([\s\S]+)/i);
+    return m ? { qty: m[1].trim(), name: m[2].trim() } : { qty: '—', name: str };
+  }
+
+  function buildIngs() {
+    ingHead.textContent = recipe.name;
+    titleEl.textContent = recipe.name;
+    ingsList.innerHTML = recipe.ings.map(ing => {
+      const { qty, name } = parseIng(ing);
+      return `<li class="ck-ing-row"><span class="ck-qty">${qty}</span><span class="ck-item-name">${name}</span></li>`;
+    }).join('');
+    ingScroll.scrollTop = 0;
+  }
+
+  function buildSteps() {
+    slides.forEach(s => s.remove()); slides = [];
+    dots = []; dotsEl.innerHTML = '';
+    stepVp.removeChild(hintSteps);
+
+    recipe.steps.forEach((text, i) => {
+      const sl = document.createElement('div');
+      sl.className = 'ck-slide' + (i === 0 ? ' active' : '');
+      sl.innerHTML = `<div class="ck-step-big">${String(i+1).padStart(2,'0')}</div><div class="ck-step-of">of ${recipe.steps.length}</div><div class="ck-step-body">${text}</div>`;
+      stepVp.appendChild(sl);
+      slides.push(sl);
+
+      const d = document.createElement('div');
+      d.className = 'ck-dot' + (i === 0 ? ' on' : '');
+      dotsEl.appendChild(d);
+      dots.push(d);
+    });
+
+    stepVp.appendChild(hintSteps);
+    stepIdx = 0;
+    refreshNav();
+  }
+
+  function goStep(next) {
+    if (next < 0 || next >= recipe.steps.length || next === stepIdx) return;
+    const fwd = next > stepIdx;
+    const from = slides[stepIdx];
+    const to   = slides[next];
+
+    from.classList.remove('active');
+    from.classList.add(fwd ? 'exit-up' : 'exit-down');
+
+    to.style.transition = 'none';
+    to.style.opacity = '0';
+    to.style.transform = fwd ? 'translateY(48px)' : 'translateY(-48px)';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      to.style.transition = '';
+      to.style.opacity = '';
+      to.style.transform = '';
+      to.classList.add('active');
+    }));
+    setTimeout(() => from.classList.remove('exit-up','exit-down'), 320);
+
+    dots[stepIdx].classList.remove('on');
+    dots[stepIdx].classList.toggle('done', fwd);
+    dots[next].classList.remove('done');
+    dots[next].classList.add('on');
+
+    stepIdx = next;
+    refreshNav();
+    hideStepHint();
+  }
+
+  function refreshNav() {
+    prevBtn.disabled = stepIdx === 0;
+    nextBtn.disabled = !recipe || stepIdx === recipe.steps.length - 1;
+  }
+
+  function showPanel(p) {
+    isSteps = p === 'steps';
+    track.classList.toggle('flipped', isSteps);
+    pip0.classList.toggle('on', !isSteps);
+    pip1.classList.toggle('on', isSteps);
+    if (isSteps) hideIngHint();
+  }
+
+  function hideIngHint()  { if (!ingHid)  { ingHid  = true; hintIng.classList.add('gone');   } }
+  function hideStepHint() { if (!stpHid)  { stpHid  = true; hintSteps.classList.add('gone'); } }
+
+  let t0 = null;
+  overlay.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    t0 = { x: t.clientX, y: t.clientY, ms: Date.now() };
+  }, { passive: true });
+
+  overlay.addEventListener('touchend', e => {
+    if (!t0) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - t0.x;
+    const dy = t.clientY - t0.y;
+    const ms = Date.now() - t0.ms;
+    t0 = null;
+    const D = 44;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < D || ms > 700) return;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (dx < -D && !isSteps) showPanel('steps');
+      if (dx >  D &&  isSteps) showPanel('ingredients');
+    } else {
+      if (isSteps) {
+        if (dy < -D) goStep(stepIdx + 1);
+        if (dy >  D) goStep(stepIdx - 1);
+      }
+    }
+  }, { passive: true });
+
+  document.addEventListener('keydown', e => {
+    if (!overlay.classList.contains('open')) return;
+    if (e.key === 'Escape') closeMode();
+    if (isSteps) {
+      if (e.key === 'ArrowDown'  || e.key === 'ArrowRight') goStep(stepIdx + 1);
+      if (e.key === 'ArrowUp'    || e.key === 'ArrowLeft')  goStep(stepIdx - 1);
+    } else {
+      if (e.key === 'ArrowRight') showPanel('steps');
+    }
+  });
+
+  async function openMode() {
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    await lockOn();
+  }
+
+  function closeMode() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    lockOff();
+    setTimeout(() => {
+      showPanel('ingredients');
+      ingHid = stpHid = false;
+      hintIng.classList.remove('gone');
+      hintSteps.classList.remove('gone');
+    }, 420);
+  }
+
+  closeX.addEventListener('click', closeMode);
+  prevBtn.addEventListener('click', () => goStep(stepIdx - 1));
+  nextBtn.addEventListener('click', () => goStep(stepIdx + 1));
+
+  document.querySelectorAll('.js-cook').forEach(btn => {
+    btn.addEventListener('click', () => {
+      recipe = extract(btn.closest('.js-recipe'));
+      buildIngs();
+      buildSteps();
+      openMode();
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
