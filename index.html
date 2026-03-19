@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Recipe Collection — Fox & Bear Kitchen</title>
+<title>Grocery List — Week of March 16</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -13,122 +13,127 @@
     --ck-bg: #131311; --ck-dim: #252520; --ck-border: #2e2d28;
     --ck-text: #f0ebe0; --ck-muted: #6a6860; --ck-accent: #d4732e; --ck-done: #2d7a4f;
   }
-
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream); color: var(--ink);
-    min-height: 100vh; -webkit-font-smoothing: antialiased;
-  }
-
-  .site-nav {
-    max-width: 680px; margin: 0 auto;
-    display: flex; gap: 0; padding: 0 20px;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-link {
-    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--muted);
-    text-decoration: none; padding: 14px 16px 12px;
-    border-bottom: 2px solid transparent; margin-bottom: -1px;
-    transition: color 0.15s;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  .site-nav { max-width: 680px; margin: 0 auto; display: flex; padding: 0 20px; border-bottom: 1px solid var(--border); }
+  .nav-link { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 14px 16px 12px; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .15s; }
   .nav-link:hover { color: var(--ink); }
   .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-  .header {
-    max-width: 680px; margin: 0 auto 28px;
-    border-bottom: 1px solid var(--border);
-    padding: 28px 20px 24px;
-  }
-  .header-eyebrow {
-    font-weight: 500; font-size: 11px; letter-spacing: 2.5px;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
-  }
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 8px;
-  }
+  .header { max-width: 680px; margin: 0 auto 28px; border-bottom: 1px solid var(--border); padding: 28px 20px 24px; }
+  .header-eyebrow { font-weight: 500; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  h1 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 8px; }
   .header-meta { font-size: 13px; color: var(--muted); font-weight: 300; }
-
   .progress-bar-wrap { margin-top: 16px; background: var(--border); border-radius: 99px; height: 4px; overflow: hidden; }
-  .progress-bar { height: 100%; background: var(--check); border-radius: 99px; width: 0%; transition: width 0.4s ease; }
+  .progress-bar { height: 100%; background: var(--check); border-radius: 99px; width: 0%; transition: width .4s ease; }
   .progress-label { font-size: 12px; color: var(--muted); margin-top: 6px; }
-
   .meals-strip { max-width: 680px; margin: 0 auto 32px; padding: 0 20px; display: flex; flex-direction: column; gap: 10px; }
-
-  .meal-card { background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: border-color 0.15s; }
-  .meal-card:hover { border-color: #ccc; }
-  .meal-card-header { display: flex; align-items: center; gap: 14px; padding: 14px 16px; cursor: pointer; user-select: none; }
+  .meal-card { background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: border-color .15s, box-shadow .15s; -webkit-tap-highlight-color: transparent; }
+  .meal-card:hover { border-color: #bbb; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .meal-card-header { display: flex; align-items: center; gap: 14px; padding: 14px 16px; user-select: none; }
   .meal-icon { font-size: 26px; flex-shrink: 0; }
   .meal-info { flex: 1; min-width: 0; }
   .meal-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 2px; }
   .meal-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 500; }
   .meal-meta { font-size: 11px; color: var(--muted); margin-top: 2px; font-weight: 300; }
-  .meal-toggle { font-size: 11px; color: var(--accent); font-weight: 500; letter-spacing: 0.5px; display: flex; align-items: center; gap: 4px; white-space: nowrap; flex-shrink: 0; }
-  .toggle-arrow { display: inline-block; transition: transform 0.2s ease; font-style: normal; }
-  .meal-card.open .toggle-arrow { transform: rotate(180deg); }
-  .meal-recipe { display: none; border-top: 1px solid var(--border); padding: 18px 18px 20px; background: #fdfdfc; }
-  .meal-card.open .meal-recipe { display: block; }
-
-  .recipe-cols { display: grid; grid-template-columns: 1fr 1.4fr; gap: 20px; }
-  @media (max-width: 520px) { .recipe-cols { grid-template-columns: 1fr; } }
-
-  .recipe-section-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; color: var(--accent); margin-bottom: 10px; }
-  .ingredient-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-  .ingredient-list li { font-size: 12.5px; color: var(--ink); line-height: 1.4; padding-left: 12px; position: relative; }
-  .ingredient-list li::before { content: '·'; position: absolute; left: 0; color: var(--muted); }
-  .steps-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .steps-list li { font-size: 12.5px; color: var(--ink); line-height: 1.5; display: flex; gap: 10px; }
-  .step-num { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: var(--accent); flex-shrink: 0; min-width: 16px; padding-top: 1px; }
-  .recipe-note { margin-top: 14px; padding: 10px 12px; background: var(--accent-light); border-radius: 7px; font-size: 12px; color: #7a4520; line-height: 1.5; grid-column: 1 / -1; }
-
+  .card-chevron { font-size: 20px; color: var(--border); flex-shrink: 0; line-height: 1; }
   .section { max-width: 680px; margin: 0 auto 28px; padding: 0 20px; }
   .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .section-icon { font-size: 16px; }
   .section-title { font-weight: 500; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
   .section-line { flex: 1; height: 1px; background: var(--border); }
   .items-list { display: flex; flex-direction: column; gap: 4px; }
-
-  .item { display: flex; align-items: flex-start; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.18s ease; user-select: none; }
+  .item { display: flex; align-items: flex-start; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all .18s ease; user-select: none; }
   .item:hover { border-color: #ccc; }
   .item.checked { background: var(--check-light); border-color: #b8ddc8; }
   .item.checked .item-name { text-decoration: line-through; color: var(--muted); }
   .item.checked .item-detail { color: #a8b8af; }
-
-  .checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.18s ease; background: white; }
+  .checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all .18s ease; background: white; }
   .item.checked .checkbox { background: var(--check); border-color: var(--check); }
   .checkmark { display: none; color: white; font-size: 11px; font-weight: 700; }
   .item.checked .checkmark { display: block; }
-
   .item-body { flex: 1; min-width: 0; }
   .item-name { font-size: 14px; font-weight: 400; color: var(--ink); line-height: 1.35; }
   .item-detail { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 300; }
   .item-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-
-  .item-tag { font-size: 10px; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
+  .item-tag { font-size: 10px; letter-spacing: .5px; padding: 2px 7px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
   .tag-salmon { background: #fde8d8; color: #b85c22; }
   .tag-tikka  { background: #e8dff5; color: #6b4f9e; }
   .tag-pesto  { background: #e2f0e8; color: #2d6e44; }
   .tag-both   { background: #e8f2fe; color: #2563a8; }
-  .tag-all    { background: #f0ecd8; color: #7a6020; }
-
-  .fresh-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #0072c6; text-decoration: none; padding: 3px 8px; border-radius: 5px; border: 1px solid #c8ddf0; background: #f0f6fc; white-space: nowrap; transition: background 0.15s; }
+  .fresh-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #0072c6; text-decoration: none; padding: 3px 8px; border-radius: 5px; border: 1px solid #c8ddf0; background: #f0f6fc; white-space: nowrap; transition: background .15s; }
   .fresh-link:hover { background: #daeaf8; }
-
   .note-box { max-width: 680px; margin: 0 auto 28px; padding: 0 20px; }
   .note-box-inner { background: var(--accent-light); border: 1px solid #e8c9b0; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #7a4520; line-height: 1.5; }
-
   .summary-bar { max-width: 680px; margin: 0 auto; padding: 0 20px 40px; }
   .summary-bar-inner { background: var(--ink); border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .summary-count { font-family: 'Playfair Display', serif; font-size: 22px; color: white; }
   .summary-label { font-size: 12px; color: #888; margin-top: 1px; }
   .btn-row { display: flex; gap: 8px; }
-  .reset-btn, .uncheck-btn { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; border: none; border-radius: 6px; padding: 8px 14px; cursor: pointer; transition: opacity 0.15s; }
-  .reset-btn { color: var(--ink); background: white; }
-  .uncheck-btn { color: white; background: #444; }
-  .reset-btn:hover, .uncheck-btn:hover { opacity: 0.8; }
+  .reset-btn { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; border: none; border-radius: 6px; padding: 8px 14px; cursor: pointer; color: var(--ink); background: white; transition: opacity .15s; }
+  .reset-btn:hover { opacity: .8; }
+  #rd-overlay { position: fixed; inset: 0; background: var(--cream); z-index: 1000; display: flex; flex-direction: column; transform: translateY(100%); transition: transform .38s cubic-bezier(.4,0,.2,1); overflow: hidden; }
+  #rd-overlay.open { transform: translateY(0); }
+  .rd-bar { display: flex; align-items: center; gap: 12px; padding: calc(16px + env(safe-area-inset-top,0px)) 20px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0; background: var(--cream); }
+  .rd-back { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: white; border: 1px solid var(--border); color: var(--ink); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; transition: background .15s; }
+  .rd-back:active { background: #eee; }
+  .rd-name { flex: 1; font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rd-cook-btn { flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; background: var(--ink); color: var(--cream); border: none; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; padding: 9px 16px; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: transform .12s, background .15s; }
+  .rd-cook-btn:active { transform: scale(.94); background: #333; }
+  .rd-cook-btn svg { width: 11px; height: 11px; fill: currentColor; }
+  .rd-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 28px 20px calc(48px + env(safe-area-inset-bottom,0px)); }
+  .rd-inner { max-width: 640px; margin: 0 auto; }
+  .rd-note { margin-bottom: 20px; padding: 11px 14px; background: var(--accent-light); border-radius: 8px; font-size: 13px; color: #7a4520; line-height: 1.5; }
+  .rd-cols { display: grid; grid-template-columns: 1fr 1.4fr; gap: 28px; }
+  @media (max-width: 520px) { .rd-cols { grid-template-columns: 1fr; } }
+  .rd-section-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; color: var(--accent); margin-bottom: 12px; }
+  .rd-ing-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .rd-ing-list li { font-size: 13px; color: var(--ink); line-height: 1.45; padding-left: 12px; position: relative; }
+  .rd-ing-list li::before { content: '·'; position: absolute; left: 0; color: var(--muted); }
+  .rd-step-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .rd-step-list li { font-size: 13px; color: var(--ink); line-height: 1.55; display: flex; gap: 10px; }
+  .rd-step-num { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--accent); flex-shrink: 0; min-width: 16px; padding-top: 1px; }
+  #ck-overlay { position: fixed; inset: 0; background: var(--ck-bg); z-index: 9999; display: flex; flex-direction: column; transform: translateY(100%); transition: transform .38s cubic-bezier(.4,0,.2,1); overflow: hidden; padding-bottom: env(safe-area-inset-bottom,0px); }
+  #ck-overlay.open { transform: translateY(0); }
+  .ck-bar { display: flex; align-items: center; gap: 12px; padding: calc(16px + env(safe-area-inset-top,0px)) 18px 14px; border-bottom: 1px solid var(--ck-border); flex-shrink: 0; }
+  .ck-title { flex: 1; font-size: 13px; color: var(--ck-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ck-pips { display: flex; gap: 5px; flex-shrink: 0; }
+  .ck-pip { width: 22px; height: 3px; border-radius: 2px; background: var(--ck-border); transition: background .3s; }
+  .ck-pip.on { background: var(--ck-accent); }
+  .ck-x { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: var(--ck-dim); border: 1px solid var(--ck-border); color: var(--ck-text); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; transition: background .15s; }
+  .ck-x:active { background: #38372f; }
+  .ck-panels-wrap { flex: 1; overflow: hidden; position: relative; }
+  .ck-track { display: flex; width: 200%; height: 100%; transition: transform .35s cubic-bezier(.4,0,.2,1); }
+  .ck-track.flipped { transform: translateX(-50%); }
+  .ck-panel { flex: 0 0 50%; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+  .ck-ing-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 36px 28px 100px; }
+  .ck-panel-tag { font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ck-accent); display: block; margin-bottom: 20px; }
+  .ck-ing-headline { font-family: 'Playfair Display', serif; font-size: clamp(24px,7vw,44px); font-weight: 700; color: var(--ck-text); line-height: 1.1; margin-bottom: 32px; }
+  .ck-ings { list-style: none; }
+  .ck-ing-row { display: flex; align-items: baseline; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--ck-border); }
+  .ck-ing-row:last-child { border-bottom: none; }
+  .ck-qty { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--ck-accent); min-width: 54px; text-align: right; flex-shrink: 0; }
+  .ck-item-name { font-size: clamp(16px,4vw,20px); color: var(--ck-text); font-weight: 300; line-height: 1.35; }
+  .ck-swipe-hint-ing { position: absolute; bottom: 24px; left: 0; right: 50%; display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--ck-muted); font-size: 12px; pointer-events: none; transition: opacity .5s; }
+  .ck-swipe-hint-ing.gone { opacity: 0; }
+  .ck-step-vp { flex: 1; position: relative; overflow: hidden; touch-action: none; }
+  .ck-slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 28px 32px 16px; gap: 10px; opacity: 0; transform: translateY(48px); transition: opacity .28s ease, transform .28s ease; pointer-events: none; }
+  .ck-slide.active { opacity: 1; transform: none; pointer-events: all; }
+  .ck-slide.exit-up { opacity: 0; transform: translateY(-48px); pointer-events: none; }
+  .ck-slide.exit-down { opacity: 0; transform: translateY(48px); pointer-events: none; }
+  .ck-step-big { font-family: 'Playfair Display', serif; font-size: clamp(64px,20vw,100px); font-weight: 700; color: var(--ck-accent); line-height: 1; letter-spacing: -.03em; }
+  .ck-step-of { font-size: 13px; color: var(--ck-muted); margin-top: -6px; }
+  .ck-step-body { font-size: clamp(17px,4.2vw,21px); color: var(--ck-text); line-height: 1.62; font-weight: 300; margin-top: 8px; }
+  .ck-swipe-hint-steps { position: absolute; bottom: 16px; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--ck-muted); font-size: 12px; pointer-events: none; transition: opacity .5s; }
+  .ck-swipe-hint-steps.gone { opacity: 0; }
+  .ck-footer { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 14px 22px 18px; border-top: 1px solid var(--ck-border); }
+  .ck-nav { width: 46px; height: 46px; border-radius: 50%; background: var(--ck-dim); border: 1px solid var(--ck-border); color: var(--ck-text); font-size: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background .15s, opacity .2s; flex-shrink: 0; }
+  .ck-nav:active:not(:disabled) { background: #38372f; }
+  .ck-nav:disabled { opacity: .2; cursor: default; }
+  .ck-dots { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; justify-content: center; flex: 1; padding: 0 12px; }
+  .ck-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ck-border); transition: background .3s, transform .3s; flex-shrink: 0; }
+  .ck-dot.on { background: var(--ck-accent); transform: scale(1.5); }
+  .ck-dot.done { background: var(--ck-done); }
+  .hintsvg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 </style>
 </head>
 <body>
@@ -142,152 +147,44 @@
   <div class="header-eyebrow">Fox &amp; Bear Kitchen</div>
   <h1>Grocery List</h1>
   <div class="header-meta">Week of March 16 &nbsp;·&nbsp; 3 dinners &nbsp;·&nbsp; Serves 4 + kids</div>
-  <div class="progress-bar-wrap">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
   <div class="progress-label" id="progressLabel">0 of 0 items checked</div>
 </div>
 
 <div class="meals-strip">
-
-  <div class="meal-card" id="card-salmon">
-    <div class="meal-card-header" onclick="toggleRecipe('salmon')">
+  <div class="meal-card js-recipe" data-idx="0">
+    <div class="meal-card-header">
       <div class="meal-icon">🐟</div>
       <div class="meal-info">
-        <div class="meal-label">Meal A · Tuesday 3/17</div>
+        <div class="meal-label">Meal A &middot; Tuesday 3/17</div>
         <div class="meal-name">Sheet Pan Lemon Herb Salmon &amp; Veggies</div>
         <div class="meal-meta">~35 min &nbsp;·&nbsp; One pan &nbsp;·&nbsp; Serves 4–6</div>
       </div>
-      <div class="meal-toggle">Recipe <i class="toggle-arrow">▾</i></div>
-    </div>
-    <div class="meal-recipe">
-      <div class="recipe-cols">
-        <div>
-          <div class="recipe-section-title">Ingredients</div>
-          <ul class="ingredient-list">
-            <li>4–6 salmon fillets (~6 oz each), skinless</li>
-            <li>2 tbsp olive oil + 1 tsp for veggies</li>
-            <li>4 tbsp fresh lemon juice, divided</li>
-            <li>1 tsp garlic powder</li>
-            <li>1 tsp dried dill or parsley</li>
-            <li>1 tsp salt, ¾ tsp black pepper</li>
-            <li>2 cups broccoli florets</li>
-            <li>1 pint cherry tomatoes</li>
-            <li>2 medium zucchini, sliced</li>
-            <li>Lemon wedges to serve</li>
-          </ul>
-        </div>
-        <div>
-          <div class="recipe-section-title">Directions</div>
-          <ol class="steps-list">
-            <li><span class="step-num">1</span><span>Preheat oven to 425°F. Line a large rimmed baking sheet with parchment paper.</span></li>
-            <li><span class="step-num">2</span><span>Toss broccoli, cherry tomatoes, and zucchini with olive oil and ½ tsp salt. Spread in a single layer. Roast 12 minutes.</span></li>
-            <li><span class="step-num">3</span><span>While veggies roast, pat salmon dry. Whisk together olive oil, 2 tbsp lemon juice, garlic powder, dill, salt, and pepper.</span></li>
-            <li><span class="step-num">4</span><span>Pull sheet from oven. Push veggies to the sides. Nestle salmon in center skin-side down. Brush with herb mixture. Squeeze remaining lemon over top.</span></li>
-            <li><span class="step-num">5</span><span>Return to oven. Bake 12–15 minutes until salmon flakes easily and tomatoes are bursting. Internal temp 145°F.</span></li>
-            <li><span class="step-num">6</span><span>Serve with extra lemon wedges. Optional: scatter fresh dill or parsley on top.</span></li>
-          </ol>
-        </div>
-        <div class="recipe-note">💡 <strong>Tip:</strong> The tomatoes get jammy and sweet at high heat — kids love them. Great blood-sugar-friendly meal: high protein, high fiber, low carb.</div>
-      </div>
+      <div class="card-chevron">›</div>
     </div>
   </div>
-
-  <div class="meal-card" id="card-tikka">
-    <div class="meal-card-header" onclick="toggleRecipe('tikka')">
+  <div class="meal-card js-recipe" data-idx="1">
+    <div class="meal-card-header">
       <div class="meal-icon">🍗</div>
       <div class="meal-info">
-        <div class="meal-label">Meal B · Wednesday 3/18</div>
+        <div class="meal-label">Meal B &middot; Wednesday 3/18</div>
         <div class="meal-name">Chicken Tikka Masala + Cauliflower</div>
-        <div class="meal-meta">~45 min (marinate chicken tonight!) &nbsp;·&nbsp; Serves 4–6</div>
+        <div class="meal-meta">~45 min (marinate tonight!) &nbsp;·&nbsp; Serves 4–6</div>
       </div>
-      <div class="meal-toggle">Recipe <i class="toggle-arrow">▾</i></div>
-    </div>
-    <div class="meal-recipe">
-      <div class="recipe-cols">
-        <div>
-          <div class="recipe-section-title">Ingredients</div>
-          <ul class="ingredient-list">
-            <li><strong>Marinade:</strong></li>
-            <li>1 cup full-fat Greek yogurt</li>
-            <li>2 tbsp fresh lemon juice</li>
-            <li>1½ tsp ground cumin</li>
-            <li>1 tsp garam masala</li>
-            <li>¼–½ tsp chili powder (skip for kids)</li>
-            <li>1 tsp salt</li>
-            <li>2 tsp grated fresh ginger</li>
-            <li>2 tsp minced garlic</li>
-            <li>1.5 lbs chicken breast, bite-sized</li>
-            <li style="margin-top:6px"><strong>Sauce:</strong></li>
-            <li>2 tbsp oil + 2 tbsp butter</li>
-            <li>1 large sweet onion, finely diced</li>
-            <li>2 tsp grated ginger + 2 cloves garlic</li>
-            <li>2 tsp brown sugar</li>
-            <li>1 tsp each: coriander, cumin, smoked paprika, garam masala</li>
-            <li>2 cans (8 oz each) unseasoned tomato sauce</li>
-            <li>1½ cups heavy cream</li>
-            <li style="margin-top:6px"><strong>Add-ins &amp; serving:</strong></li>
-            <li>1 head cauliflower, cut into florets</li>
-            <li>Basmati rice, naan, fresh cilantro</li>
-          </ul>
-        </div>
-        <div>
-          <div class="recipe-section-title">Directions</div>
-          <ol class="steps-list">
-            <li><span class="step-num">1</span><span><strong>Marinate (tonight!):</strong> Whisk marinade ingredients. Toss chicken to coat. Cover and refrigerate — at least 15 min, overnight is best.</span></li>
-            <li><span class="step-num">2</span><span><strong>Roast cauliflower:</strong> Preheat oven to 425°F. Toss cauliflower with olive oil, salt, pepper. Roast 20–25 min until golden and slightly charred. Set aside.</span></li>
-            <li><span class="step-num">3</span><span><strong>Sear chicken:</strong> Heat oil in a large skillet over medium-high. Add chicken in batches, don't crowd. Let sit 1 min untouched to crust, then sauté ~5 min until browned. Discard marinade. Set aside.</span></li>
-            <li><span class="step-num">4</span><span><strong>Build sauce:</strong> Melt butter in same pan. Sauté onion ~3 min. Add ginger + garlic, cook 30 sec. Add brown sugar and all spices, stir 15 sec until fragrant.</span></li>
-            <li><span class="step-num">5</span><span>Pour in both cans of tomato sauce. Simmer 3–5 min until thickened.</span></li>
-            <li><span class="step-num">6</span><span>Stir in cream. Return chicken and cauliflower to the pan. Simmer 8–10 min until cooked through and sauce is thick. Thin with water if needed.</span></li>
-            <li><span class="step-num">7</span><span>Serve over basmati rice with naan. Garnish with cilantro. Adults can add hot sauce.</span></li>
-          </ol>
-        </div>
-        <div class="recipe-note">🧠 <strong>Sauce note:</strong> Bumped to 1½ cups cream + 2 cans tomato sauce for proper saucy consistency — especially with cauliflower soaking it up.</div>
-      </div>
+      <div class="card-chevron">›</div>
     </div>
   </div>
-
-  <div class="meal-card" id="card-pesto">
-    <div class="meal-card-header" onclick="toggleRecipe('pesto')">
+  <div class="meal-card js-recipe" data-idx="2">
+    <div class="meal-card-header">
       <div class="meal-icon">🌿</div>
       <div class="meal-info">
-        <div class="meal-label">Meal C · Thursday 3/19</div>
+        <div class="meal-label">Meal C &middot; Thursday 3/19</div>
         <div class="meal-name">Pesto Chicken Tortellini &amp; Veggies</div>
         <div class="meal-meta">~40 min &nbsp;·&nbsp; One pan &nbsp;·&nbsp; Serves 4</div>
       </div>
-      <div class="meal-toggle">Recipe <i class="toggle-arrow">▾</i></div>
-    </div>
-    <div class="meal-recipe">
-      <div class="recipe-cols">
-        <div>
-          <div class="recipe-section-title">Ingredients</div>
-          <ul class="ingredient-list">
-            <li>2 tbsp olive oil</li>
-            <li>1 lb chicken thighs, boneless/skinless, sliced into strips</li>
-            <li>Salt to taste</li>
-            <li>½ cup sun-dried tomatoes, drained and chopped (divided)</li>
-            <li>1 lb asparagus, ends trimmed, cut in half</li>
-            <li>¼ cup basil pesto (or more to taste)</li>
-            <li>1 cup cherry tomatoes, halved</li>
-            <li>1 cup tortellini, uncooked (refrigerated)</li>
-          </ul>
-        </div>
-        <div>
-          <div class="recipe-section-title">Directions</div>
-          <ol class="steps-list">
-            <li><span class="step-num">1</span><span>Heat olive oil in a large skillet over medium heat. Add chicken (seasoned with salt) and ¼ cup sun-dried tomatoes. Cook 5–10 min until chicken is cooked through. Remove, leaving oil in pan.</span></li>
-            <li><span class="step-num">2</span><span>Add asparagus (seasoned with salt) and remaining sun-dried tomatoes. Cook 5–10 min until tender. Remove to a serving plate.</span></li>
-            <li><span class="step-num">3</span><span>Cook tortellini per package directions. Drain.</span></li>
-            <li><span class="step-num">4</span><span>Return chicken to skillet with pesto. Stir to coat and warm through over low-medium heat, 1–2 min.</span></li>
-            <li><span class="step-num">5</span><span>Add tortellini and halved cherry tomatoes. Stir to combine. Add more pesto if desired. Plate alongside the asparagus.</span></li>
-          </ol>
-        </div>
-        <div class="recipe-note">💡 <strong>Dad dinner night</strong> — Josephine is out (Andrea Night Out). Fast, colorful, kids love tortellini. Add extra pesto at the end if it tastes flat.</div>
-      </div>
+      <div class="card-chevron">›</div>
     </div>
   </div>
-
 </div>
 
 <div class="note-box">
@@ -297,11 +194,7 @@
 </div>
 
 <div class="section">
-  <div class="section-header">
-    <span class="section-icon">🥦</span>
-    <div class="section-title">Produce</div>
-    <div class="section-line"></div>
-  </div>
+  <div class="section-header"><span class="section-icon">🥦</span><div class="section-title">Produce</div><div class="section-line"></div></div>
   <div class="items-list">
     <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Broccoli</div><div class="item-detail">~2 cups florets</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=broccoli+fresh&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
     <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cherry tomatoes</div><div class="item-detail">2 pints (salmon + pesto)</div></div><div class="item-actions"><span class="item-tag tag-both">Salmon+Pesto</span><a href="https://www.amazon.com/s?k=cherry+tomatoes&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
@@ -317,11 +210,7 @@
 </div>
 
 <div class="section">
-  <div class="section-header">
-    <span class="section-icon">🥩</span>
-    <div class="section-title">Protein</div>
-    <div class="section-line"></div>
-  </div>
+  <div class="section-header"><span class="section-icon">🥩</span><div class="section-title">Protein</div><div class="section-line"></div></div>
   <div class="items-list">
     <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Salmon fillets</div><div class="item-detail">4–6 fillets (~6 oz each), skinless preferred</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=salmon+fillets+fresh&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
     <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Boneless skinless chicken breast</div><div class="item-detail">1.5 lbs, for tikka marinade</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=boneless+skinless+chicken+breast&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
@@ -330,11 +219,7 @@
 </div>
 
 <div class="section">
-  <div class="section-header">
-    <span class="section-icon">🧈</span>
-    <div class="section-title">Dairy &amp; Refrigerated</div>
-    <div class="section-line"></div>
-  </div>
+  <div class="section-header"><span class="section-icon">🧈</span><div class="section-title">Dairy &amp; Refrigerated</div><div class="section-line"></div></div>
   <div class="items-list">
     <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Full-fat Greek yogurt</div><div class="item-detail">1 cup (tikka marinade — full fat is important)</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=full+fat+greek+yogurt&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
     <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Heavy cream</div><div class="item-detail">1 pint / 2 cups (need 1½ cups; buffer included)</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=heavy+whipping+cream&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
@@ -344,11 +229,7 @@
 </div>
 
 <div class="section">
-  <div class="section-header">
-    <span class="section-icon">🫙</span>
-    <div class="section-title">Pantry &amp; Canned</div>
-    <div class="section-line"></div>
-  </div>
+  <div class="section-header"><span class="section-icon">🫙</span><div class="section-title">Pantry &amp; Canned</div><div class="section-line"></div></div>
   <div class="items-list">
     <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Tomato sauce (unseasoned)</div><div class="item-detail">2 cans × 8 oz — bumped up for extra sauce</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=unseasoned+tomato+sauce+8oz&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
     <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Basmati rice</div><div class="item-detail">Check pantry — need 1.5–2 cups dry</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=basmati+rice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
@@ -361,11 +242,7 @@
 </div>
 
 <div class="section">
-  <div class="section-header">
-    <span class="section-icon">🌿</span>
-    <div class="section-title">Spices — Check Pantry First</div>
-    <div class="section-line"></div>
-  </div>
+  <div class="section-header"><span class="section-icon">🌿</span><div class="section-title">Spices — Check Pantry First</div><div class="section-line"></div></div>
   <div class="items-list">
     <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garam masala</div><div class="item-detail">Need ~2 tsp — the key spice, don't skip</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=garam+masala+spice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
     <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Ground coriander</div><div class="item-detail">Need 1 tsp</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=ground+coriander+spice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
@@ -379,31 +256,178 @@
 
 <div class="summary-bar">
   <div class="summary-bar-inner">
-    <div>
-      <div class="summary-count" id="summaryCount">0 / 0</div>
-      <div class="summary-label">items checked</div>
+    <div><div class="summary-count" id="summaryCount">0 / 0</div><div class="summary-label">items checked</div></div>
+    <div class="btn-row"><button class="reset-btn" onclick="resetAll()">Reset all</button></div>
+  </div>
+</div>
+
+<!-- Recipe Detail Overlay -->
+<div id="rd-overlay" aria-hidden="true">
+  <div class="rd-bar">
+    <button class="rd-back" id="rd-back">←</button>
+    <span class="rd-name" id="rd-name"></span>
+    <button class="rd-cook-btn" id="rd-cook"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Cook</button>
+  </div>
+  <div class="rd-body">
+    <div class="rd-inner">
+      <div class="rd-note" id="rd-note" style="display:none"></div>
+      <div class="rd-cols">
+        <div><div class="rd-section-title">Ingredients</div><ul class="rd-ing-list" id="rd-ings"></ul></div>
+        <div><div class="rd-section-title">Directions</div><ol class="rd-step-list" id="rd-steps"></ol></div>
+      </div>
     </div>
-    <div class="btn-row">
-      <button class="reset-btn" onclick="resetAll()">Reset all</button>
+  </div>
+</div>
+
+<!-- Cooking Mode Overlay -->
+<div id="ck-overlay" aria-hidden="true">
+  <div class="ck-bar">
+    <span class="ck-title" id="ck-title"></span>
+    <div class="ck-pips"><div class="ck-pip on" id="ck-pip0"></div><div class="ck-pip" id="ck-pip1"></div></div>
+    <button class="ck-x" id="ck-x">✕</button>
+  </div>
+  <div class="ck-panels-wrap">
+    <div class="ck-track" id="ck-track">
+      <div class="ck-panel">
+        <div class="ck-ing-scroll" id="ck-ing-scroll">
+          <span class="ck-panel-tag">Ingredients</span>
+          <h2 class="ck-ing-headline" id="ck-ing-headline"></h2>
+          <ul class="ck-ings" id="ck-ings"></ul>
+        </div>
+        <div class="ck-swipe-hint-ing" id="ck-hint-ing"><svg class="hintsvg" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Swipe right for steps</div>
+      </div>
+      <div class="ck-panel">
+        <div class="ck-step-vp" id="ck-step-vp">
+          <div class="ck-swipe-hint-steps" id="ck-hint-steps"><svg class="hintsvg" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Swipe left for ingredients</div>
+        </div>
+        <div class="ck-footer">
+          <button class="ck-nav" id="ck-prev">↑</button>
+          <div class="ck-dots" id="ck-dots"></div>
+          <button class="ck-nav" id="ck-next">↓</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  function toggle(el) { el.classList.toggle('checked'); updateProgress(); }
-  function toggleRecipe(id) { document.getElementById('card-' + id).classList.toggle('open'); }
-  function updateProgress() {
-    const all = document.querySelectorAll('.item');
-    const checked = document.querySelectorAll('.item.checked');
-    const total = all.length, done = checked.length;
-    const pct = total > 0 ? (done / total) * 100 : 0;
-    document.getElementById('progressBar').style.width = pct + '%';
-    document.getElementById('progressLabel').textContent = done + ' of ' + total + ' items checked';
-    document.getElementById('summaryCount').textContent = done + ' / ' + total;
+var meals = [
+  {name:"Sheet Pan Lemon Herb Salmon & Veggies",ings:["4–6 salmon fillets (~6 oz each), skinless","2 tbsp olive oil + 1 tsp for veggies","4 tbsp fresh lemon juice, divided","1 tsp garlic powder","1 tsp dried dill or parsley","1 tsp salt, ¾ tsp black pepper","2 cups broccoli florets","1 pint cherry tomatoes","2 medium zucchini, sliced","Lemon wedges to serve"],steps:["Preheat oven to 425°F. Line a large rimmed baking sheet with parchment paper.","Toss broccoli, cherry tomatoes, and zucchini with olive oil and ½ tsp salt. Spread in a single layer. Roast 12 minutes.","While veggies roast, pat salmon dry. Whisk together olive oil, 2 tbsp lemon juice, garlic powder, dill, salt, and pepper.","Pull sheet from oven. Push veggies to the sides. Nestle salmon in center skin-side down. Brush with herb mixture. Squeeze remaining lemon over top.","Return to oven. Bake 12–15 minutes until salmon flakes easily and tomatoes are bursting. Internal temp 145°F.","Serve with extra lemon wedges. Optional: scatter fresh dill or parsley on top."],note:"💡 The tomatoes get jammy and sweet at high heat — kids love them."},
+  {name:"Chicken Tikka Masala + Cauliflower",ings:["1 cup full-fat Greek yogurt","2 tbsp fresh lemon juice","1½ tsp ground cumin, 1 tsp garam masala","¼–½ tsp chili powder (skip for kids), 1 tsp salt","2 tsp grated fresh ginger, 2 tsp minced garlic","1.5 lbs chicken breast, bite-sized","2 tbsp oil + 2 tbsp butter","1 large sweet onion, finely diced","2 tsp brown sugar","1 tsp each: coriander, cumin, smoked paprika, garam masala","2 cans (8 oz each) unseasoned tomato sauce","1½ cups heavy cream","1 head cauliflower, cut into florets","Basmati rice, naan, fresh cilantro"],steps:["Marinate (tonight!): Whisk marinade ingredients. Toss chicken to coat. Cover and refrigerate — at least 15 min, overnight is best.","Roast cauliflower: Preheat oven to 425°F. Toss cauliflower with olive oil, salt, pepper. Roast 20–25 min until golden and slightly charred. Set aside.","Sear chicken: Heat oil in a large skillet over medium-high. Add chicken in batches, don't crowd. Let sit 1 min untouched to crust, then sauté ~5 min until browned. Discard marinade. Set aside.","Build sauce: Melt butter in same pan. Sauté onion ~3 min. Add ginger + garlic, cook 30 sec. Add brown sugar and all spices, stir 15 sec until fragrant.","Pour in both cans of tomato sauce. Simmer 3–5 min until thickened.","Stir in cream. Return chicken and cauliflower to the pan. Simmer 8–10 min until cooked through and sauce is thick. Thin with water if needed.","Serve over basmati rice with naan. Garnish with cilantro. Adults can add hot sauce."],note:"🧠 Bumped to 1½ cups cream + 2 cans tomato sauce for proper saucy consistency — especially with cauliflower soaking it up."},
+  {name:"Pesto Chicken Tortellini & Veggies",ings:["2 tbsp olive oil","1 lb chicken thighs, boneless/skinless, sliced into strips","Salt to taste","½ cup sun-dried tomatoes, drained and chopped (divided)","1 lb asparagus, ends trimmed, cut in half","¼ cup basil pesto (or more to taste)","1 cup cherry tomatoes, halved","1 cup refrigerated tortellini, uncooked"],steps:["Heat olive oil over medium. Add chicken (seasoned with salt) and ¼ cup sun-dried tomatoes. Cook 5–10 min until chicken is cooked through. Remove, leaving oil in pan.","Add asparagus (seasoned with salt) and remaining sun-dried tomatoes. Cook 5–10 min until tender. Remove to a serving plate.","Cook tortellini per package directions. Drain.","Return chicken to skillet with pesto. Stir to coat and warm through over low-medium heat, 1–2 min.","Add tortellini and halved cherry tomatoes. Stir to combine. Add more pesto if desired. Plate alongside the asparagus."],note:"💡 Dad dinner night — Josephine is out. Fast, colorful, kids love tortellini. Add extra pesto at the end if it tastes flat."}
+];
+
+// Grocery list
+function toggle(el) { el.classList.toggle('checked'); updateProgress(); }
+function updateProgress() {
+  var all = document.querySelectorAll('.item'), done = document.querySelectorAll('.item.checked');
+  var pct = all.length ? (done.length / all.length) * 100 : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = done.length + ' of ' + all.length + ' items checked';
+  document.getElementById('summaryCount').textContent = done.length + ' / ' + all.length;
+}
+function resetAll() { document.querySelectorAll('.item').forEach(function(e) { e.classList.remove('checked'); }); updateProgress(); }
+document.querySelectorAll('.fresh-link').forEach(function(l) { l.addEventListener('click', function(e) { e.stopPropagation(); }); });
+updateProgress();
+
+// Recipe cards
+document.querySelectorAll('.js-recipe').forEach(function(card) {
+  card.addEventListener('click', function() { openDetail(meals[+card.dataset.idx]); });
+});
+
+// Detail overlay
+var curR = null;
+var rdEl = document.getElementById('rd-overlay');
+function openDetail(r) {
+  curR = r;
+  document.getElementById('rd-name').textContent = r.name;
+  document.getElementById('rd-ings').innerHTML = r.ings.map(function(i) { return '<li>' + i + '</li>'; }).join('');
+  document.getElementById('rd-steps').innerHTML = r.steps.map(function(s, n) { return '<li><span class="rd-step-num">' + (n+1) + '</span><span>' + s + '</span></li>'; }).join('');
+  var rno = document.getElementById('rd-note');
+  if (r.note) { rno.textContent = r.note; rno.style.display = ''; } else { rno.style.display = 'none'; }
+  document.querySelector('.rd-body').scrollTop = 0;
+  rdEl.classList.add('open'); rdEl.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
+}
+function closeDetail() {
+  rdEl.classList.remove('open'); rdEl.setAttribute('aria-hidden', 'true');
+  if (!document.getElementById('ck-overlay').classList.contains('open')) document.body.style.overflow = '';
+}
+document.getElementById('rd-back').addEventListener('click', closeDetail);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    if (document.getElementById('ck-overlay').classList.contains('open')) { window.closeMode && window.closeMode(); }
+    else if (rdEl.classList.contains('open')) { closeDetail(); }
   }
-  function resetAll() { document.querySelectorAll('.item').forEach(el => el.classList.remove('checked')); updateProgress(); }
-  document.querySelectorAll('.fresh-link').forEach(link => { link.addEventListener('click', e => e.stopPropagation()); });
-  updateProgress();
+});
+
+// Cooking mode
+(function() {
+  var ck = document.getElementById('ck-overlay'), track = document.getElementById('ck-track'),
+    ingScroll = document.getElementById('ck-ing-scroll'), ingHead = document.getElementById('ck-ing-headline'),
+    ingsList = document.getElementById('ck-ings'), stepVp = document.getElementById('ck-step-vp'),
+    dotsEl = document.getElementById('ck-dots'), prevBtn = document.getElementById('ck-prev'),
+    nextBtn = document.getElementById('ck-next'), closeX = document.getElementById('ck-x'),
+    titleEl = document.getElementById('ck-title'), pip0 = document.getElementById('ck-pip0'),
+    pip1 = document.getElementById('ck-pip1'), hintIng = document.getElementById('ck-hint-ing'),
+    hintSteps = document.getElementById('ck-hint-steps');
+  var recipe = null, stepIdx = 0, isSteps = false, slides = [], dots = [], wakeLock = null, ingHid = false, stpHid = false;
+  function lockOn() { if ('wakeLock' in navigator) { navigator.wakeLock.request('screen').then(function(l) { wakeLock = l; }).catch(function(){}); } }
+  function lockOff() { if (wakeLock) { wakeLock.release().catch(function(){}); wakeLock = null; } }
+  document.addEventListener('visibilitychange', function() { if (ck.classList.contains('open') && document.visibilityState === 'visible') lockOn(); });
+  function parseIng(s) { var m = s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i); return m ? {qty:m[1].trim(),name:m[2].trim()} : {qty:'\u2014',name:s}; }
+  function buildIngs(r) { ingHead.textContent = r.name; titleEl.textContent = r.name; ingsList.innerHTML = r.ings.map(function(i) { var p = parseIng(i); return '<li class="ck-ing-row"><span class="ck-qty">' + p.qty + '</span><span class="ck-item-name">' + p.name + '</span></li>'; }).join(''); ingScroll.scrollTop = 0; }
+  function buildSteps(r) {
+    slides.forEach(function(s) { s.remove(); }); slides = []; dots = []; dotsEl.innerHTML = ''; stepVp.removeChild(hintSteps);
+    r.steps.forEach(function(text, i) {
+      var sl = document.createElement('div'); sl.className = 'ck-slide' + (i===0?' active':'');
+      sl.innerHTML = '<div class="ck-step-big">' + String(i+1).padStart(2,'0') + '</div><div class="ck-step-of">of ' + r.steps.length + '</div><div class="ck-step-body">' + text + '</div>';
+      stepVp.appendChild(sl); slides.push(sl);
+      var d = document.createElement('div'); d.className = 'ck-dot' + (i===0?' on':''); dotsEl.appendChild(d); dots.push(d);
+    });
+    stepVp.appendChild(hintSteps); stepIdx = 0; refreshNav();
+  }
+  function goStep(n) {
+    if (n<0||n>=recipe.steps.length||n===stepIdx) return;
+    var fwd = n>stepIdx, from = slides[stepIdx], to = slides[n];
+    from.classList.remove('active'); from.classList.add(fwd?'exit-up':'exit-down');
+    to.style.transition='none'; to.style.opacity='0'; to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ to.style.transition=''; to.style.opacity=''; to.style.transform=''; to.classList.add('active'); }); });
+    setTimeout(function(){ from.classList.remove('exit-up','exit-down'); }, 320);
+    dots[stepIdx].classList.remove('on'); dots[stepIdx].classList.toggle('done',fwd);
+    dots[n].classList.remove('done'); dots[n].classList.add('on');
+    stepIdx = n; refreshNav(); hideStepHint();
+  }
+  function refreshNav() { prevBtn.disabled = stepIdx===0; nextBtn.disabled = !recipe||stepIdx===recipe.steps.length-1; }
+  function showPanel(p) { isSteps = p==='steps'; track.classList.toggle('flipped',isSteps); pip0.classList.toggle('on',!isSteps); pip1.classList.toggle('on',isSteps); if(isSteps) hideIngHint(); }
+  function hideIngHint() { if(!ingHid){ingHid=true;hintIng.classList.add('gone');} }
+  function hideStepHint() { if(!stpHid){stpHid=true;hintSteps.classList.add('gone');} }
+  var t0 = null;
+  ck.addEventListener('touchstart', function(e){ var t=e.touches[0]; t0={x:t.clientX,y:t.clientY,ms:Date.now()}; }, {passive:true});
+  ck.addEventListener('touchend', function(e){
+    if(!t0) return; var t=e.changedTouches[0], dx=t.clientX-t0.x, dy=t.clientY-t0.y, ms=Date.now()-t0.ms; t0=null;
+    var D=44; if(Math.max(Math.abs(dx),Math.abs(dy))<D||ms>700) return;
+    if(Math.abs(dx)>Math.abs(dy)){ if(dx<-D&&!isSteps)showPanel('steps'); if(dx>D&&isSteps)showPanel('ingredients'); }
+    else{ if(isSteps){ if(dy<-D)goStep(stepIdx+1); if(dy>D)goStep(stepIdx-1); } }
+  }, {passive:true});
+  document.addEventListener('keydown', function(e){
+    if(!ck.classList.contains('open')) return;
+    if(isSteps){ if(e.key==='ArrowDown'||e.key==='ArrowRight')goStep(stepIdx+1); if(e.key==='ArrowUp'||e.key==='ArrowLeft')goStep(stepIdx-1); }
+    else{ if(e.key==='ArrowRight')showPanel('steps'); }
+  });
+  window.openMode = function(r) {
+    recipe = r; buildIngs(r); buildSteps(r); showPanel('ingredients');
+    ingHid=stpHid=false; hintIng.classList.remove('gone'); hintSteps.classList.remove('gone');
+    ck.classList.add('open'); ck.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; lockOn();
+  };
+  window.closeMode = function() {
+    ck.classList.remove('open'); ck.setAttribute('aria-hidden','true'); lockOff();
+    if(!rdEl.classList.contains('open')) document.body.style.overflow='';
+  };
+  closeX.addEventListener('click', window.closeMode);
+  prevBtn.addEventListener('click', function(){ goStep(stepIdx-1); });
+  nextBtn.addEventListener('click', function(){ goStep(stepIdx+1); });
+  document.getElementById('rd-cook').addEventListener('click', function(){ if(curR) window.openMode(curR); });
+})();
 </script>
 </body>
 </html>
