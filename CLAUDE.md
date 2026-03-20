@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Handle technical decisions yourself rather than asking Kyle to choose between options he may not have context for. When you do need his input, give him a single clear instruction — not a list of choices.
 - Confirmations before executing are welcome (they help Kyle stay informed), but not required for routine tasks.
 - Never leave Kyle with a list of commands to run himself — always offer to execute them, or just run them directly.
-- This is a **private, personal tool** for Kyle and his wife. Default to the simplest, most reliable solution. Flag anything that could expose personal data or break the live site.
+- This is a **personal tool** for Kyle and his family. Default to the simplest, most reliable solution. Flag anything that could expose personal data or break the live site.
 
 ## Git Workflow
 
@@ -25,26 +25,36 @@ git push                          # Goes live on GitHub Pages immediately
 
 ## Project Overview
 
-This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for Kyle and his wife. It's a static site (plain HTML, CSS, and JavaScript — no build tools, no frameworks, no npm). Editing a file and pushing is all it takes to update the live site.
+This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for Kyle and his family. It's a static site (plain HTML, CSS, and JavaScript — no build tools, no frameworks, no npm). Editing a file and pushing is all it takes to update the live site.
 
-**Live site:** Served via GitHub Pages from the `master` branch. Pushes go live within a minute or two.
+**Live site:** Served via GitHub Pages from the `main` branch. Pushes go live within a minute or two.
 
-**Audience:** Kyle and his wife only. Optimized for mobile (used while grocery shopping and cooking).
+**Audience:** Kyle, his wife Josephine, and friends. Optimized for mobile (used while grocery shopping and cooking).
+
+**Agent X** (Kyle's personal AI assistant) writes to this repo directly via MCP tools. It publishes the weekly meal plan by writing JSON files — not by editing HTML.
 
 ## File Structure
 
-- `index.html` — The weekly meal plan and grocery list. Gets rewritten each week with new meals and ingredients. Includes a recipe detail overlay and full cooking mode (swipeable, step-by-step).
-- `recipes.html` — Browsable recipe collection, pulled from the data in `recipes.md`.
-- `recipes.md` — The master recipe list. This is the source of truth for all recipes Kyle has saved (originally imported from Mela). New recipes go here.
-- `cooking-demo.html` — A standalone demo/prototype page. Not part of the main nav.
+**Pages:**
+- `index.html` — This week's grocery list and meal plan. Fetches `data/week.json` on load. Includes recipe detail overlay and full cooking mode.
+- `recipes.html` — Browsable recipe collection. Fetches `data/recipes.json` on load.
+- `journal.html` — Chronological meal history. Fetches `data/week.json` (current week) + `data/history.json` (past weeks) on load.
 
-## Current Limitations (Known, Intentional)
+**Data:**
+- `data/week.json` — Current week's 3 meals. Agent X writes this each week.
+- `data/recipes.json` — All saved recipes (~37). Agent X can update this as new recipes are added.
+- `data/history.json` — Array of all past weeks, newest first. Agent X prepends to this each week before writing a new `week.json`. Powers the Journal page.
+- `data/history/YYYY-MM-DD.json` — Individual per-week archive files (backup copies).
+- `recipes.md` — Human-readable master recipe list. Source of truth for Agent X when suggesting meals.
 
-These are areas Kyle wants to improve over time — don't "fix" them unless asked:
+**Other:**
+- `cooking-demo.html` — Standalone prototype page. Not part of the main nav.
 
-- **Grocery checkboxes are not persisted.** Checking an item off is local to that browser session. A future goal is shared real-time state so both Kyle and his wife see the same checked items.
-- **No meal plan history.** `index.html` gets overwritten each week. A future goal is to archive past weekly plans so Kyle can look back at what he's cooked.
-- **Recipes.md is the master list but not yet the live data source.** Recipe data in `recipes.html` and `index.html` is currently embedded inline in the HTML. Longer term, `recipes.md` should be the single source of truth that drives the UI.
+## Architecture
+
+The HTML pages are render-only shells — they contain no embedded meal or recipe data. All data lives in JSON files under `data/`. Pages fetch their data on load via `fetch()`.
+
+**Firebase Realtime Database** (`fox-bear-hub` project) is used for one thing: syncing grocery checkbox state across devices in real-time. When Kyle or Josephine checks an item, the other person's screen updates instantly. Checkbox state is stored at `groceries/{weekOf}/{itemName}`. Agent X does not interact with Firebase — it's handled entirely by client-side JavaScript in `index.html`.
 
 ## Design Conventions
 
@@ -52,3 +62,7 @@ These are areas Kyle wants to improve over time — don't "fix" them unless aske
 - **Color palette:** Cream background (`#faf7f2`), warm accent orange (`#c8622a`), dark cooking mode background (`#131311`).
 - **Style:** Warm, editorial, food-forward. Not a generic app. Keep the visual tone consistent.
 - **Mobile-first:** Max content width 680px, touch targets sized for thumbs, swipe gestures in cooking mode.
+
+## Roadmap
+
+See `ROADMAP.md` for what's planned next.
