@@ -310,9 +310,34 @@
   </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script>
-// Grocery list (no data dependency)
-function toggle(el) { el.classList.toggle('checked'); updateProgress(); }
+// Firebase — shared grocery sync
+firebase.initializeApp({
+  apiKey: "AIzaSyA0QbDrrNG2UiCmVVs4SVNPid_D-NrQIh4",
+  authDomain: "fox-bear-hub.firebaseapp.com",
+  databaseURL: "https://fox-bear-hub-default-rtdb.firebaseio.com",
+  projectId: "fox-bear-hub",
+  storageBucket: "fox-bear-hub.firebasestorage.app",
+  messagingSenderId: "825321252461",
+  appId: "1:825321252461:web:a734af727229ad5916c164"
+});
+var db = firebase.database();
+var weekKey = null;
+
+// Stable key for each grocery item derived from its name
+function itemId(el) {
+  return el.querySelector('.item-name').textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+// Grocery list
+function toggle(el) {
+  var checked = !el.classList.contains('checked');
+  el.classList.toggle('checked', checked);
+  updateProgress();
+  if (weekKey) db.ref('groceries/' + weekKey + '/' + itemId(el)).set(checked || null);
+}
 function updateProgress() {
   var all = document.querySelectorAll('.item'), done = document.querySelectorAll('.item.checked');
   var pct = all.length ? (done.length / all.length) * 100 : 0;
@@ -320,15 +345,29 @@ function updateProgress() {
   document.getElementById('progressLabel').textContent = done.length + ' of ' + all.length + ' items checked';
   document.getElementById('summaryCount').textContent = done.length + ' / ' + all.length;
 }
-function resetAll() { document.querySelectorAll('.item').forEach(function(e) { e.classList.remove('checked'); }); updateProgress(); }
+function resetAll() {
+  document.querySelectorAll('.item').forEach(function(e) { e.classList.remove('checked'); });
+  if (weekKey) db.ref('groceries/' + weekKey).remove();
+  updateProgress();
+}
 document.querySelectorAll('.fresh-link').forEach(function(l) { l.addEventListener('click', function(e) { e.stopPropagation(); }); });
 updateProgress();
 
-// Load meal data then wire up recipe cards and overlays
+// Load meal data, set up Firebase sync, wire up recipe cards and overlays
 fetch('data/week.json')
   .then(function(r) { return r.json(); })
   .then(function(data) {
+    weekKey = data.weekOf;
     var meals = data.meals;
+
+    // Firebase real-time sync — applies checked state from cloud on load and on any remote change
+    db.ref('groceries/' + weekKey).on('value', function(snapshot) {
+      var states = snapshot.val() || {};
+      document.querySelectorAll('.item').forEach(function(item) {
+        item.classList.toggle('checked', states[itemId(item)] === true);
+      });
+      updateProgress();
+    });
 
     // Recipe cards
     document.querySelectorAll('.js-recipe').forEach(function(card) {
