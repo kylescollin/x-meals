@@ -311,13 +311,7 @@
 </div>
 
 <script>
-var meals = [
-  {name:"Sheet Pan Lemon Herb Salmon & Veggies",ings:["4–6 salmon fillets (~6 oz each), skinless","2 tbsp olive oil + 1 tsp for veggies","4 tbsp fresh lemon juice, divided","1 tsp garlic powder","1 tsp dried dill or parsley","1 tsp salt, ¾ tsp black pepper","2 cups broccoli florets","1 pint cherry tomatoes","2 medium zucchini, sliced","Lemon wedges to serve"],steps:["Preheat oven to 425°F. Line a large rimmed baking sheet with parchment paper.","Toss broccoli, cherry tomatoes, and zucchini with olive oil and ½ tsp salt. Spread in a single layer. Roast 12 minutes.","While veggies roast, pat salmon dry. Whisk together olive oil, 2 tbsp lemon juice, garlic powder, dill, salt, and pepper.","Pull sheet from oven. Push veggies to the sides. Nestle salmon in center skin-side down. Brush with herb mixture. Squeeze remaining lemon over top.","Return to oven. Bake 12–15 minutes until salmon flakes easily and tomatoes are bursting. Internal temp 145°F.","Serve with extra lemon wedges. Optional: scatter fresh dill or parsley on top."],note:"💡 The tomatoes get jammy and sweet at high heat — kids love them."},
-  {name:"Chicken Tikka Masala + Cauliflower",ings:["1 cup full-fat Greek yogurt","2 tbsp fresh lemon juice","1½ tsp ground cumin, 1 tsp garam masala","¼–½ tsp chili powder (skip for kids), 1 tsp salt","2 tsp grated fresh ginger, 2 tsp minced garlic","1.5 lbs chicken breast, bite-sized","2 tbsp oil + 2 tbsp butter","1 large sweet onion, finely diced","2 tsp brown sugar","1 tsp each: coriander, cumin, smoked paprika, garam masala","2 cans (8 oz each) unseasoned tomato sauce","1½ cups heavy cream","1 head cauliflower, cut into florets","Basmati rice, naan, fresh cilantro"],steps:["Marinate (tonight!): Whisk marinade ingredients. Toss chicken to coat. Cover and refrigerate — at least 15 min, overnight is best.","Roast cauliflower: Preheat oven to 425°F. Toss cauliflower with olive oil, salt, pepper. Roast 20–25 min until golden and slightly charred. Set aside.","Sear chicken: Heat oil in a large skillet over medium-high. Add chicken in batches, don't crowd. Let sit 1 min untouched to crust, then sauté ~5 min until browned. Discard marinade. Set aside.","Build sauce: Melt butter in same pan. Sauté onion ~3 min. Add ginger + garlic, cook 30 sec. Add brown sugar and all spices, stir 15 sec until fragrant.","Pour in both cans of tomato sauce. Simmer 3–5 min until thickened.","Stir in cream. Return chicken and cauliflower to the pan. Simmer 8–10 min until cooked through and sauce is thick. Thin with water if needed.","Serve over basmati rice with naan. Garnish with cilantro. Adults can add hot sauce."],note:"🧠 Bumped to 1½ cups cream + 2 cans tomato sauce for proper saucy consistency — especially with cauliflower soaking it up."},
-  {name:"Pesto Chicken Tortellini & Veggies",ings:["2 tbsp olive oil","1 lb chicken thighs, boneless/skinless, sliced into strips","Salt to taste","½ cup sun-dried tomatoes, drained and chopped (divided)","1 lb asparagus, ends trimmed, cut in half","¼ cup basil pesto (or more to taste)","1 cup cherry tomatoes, halved","1 cup refrigerated tortellini, uncooked"],steps:["Heat olive oil over medium. Add chicken (seasoned with salt) and ¼ cup sun-dried tomatoes. Cook 5–10 min until chicken is cooked through. Remove, leaving oil in pan.","Add asparagus (seasoned with salt) and remaining sun-dried tomatoes. Cook 5–10 min until tender. Remove to a serving plate.","Cook tortellini per package directions. Drain.","Return chicken to skillet with pesto. Stir to coat and warm through over low-medium heat, 1–2 min.","Add tortellini and halved cherry tomatoes. Stir to combine. Add more pesto if desired. Plate alongside the asparagus."],note:"💡 Dad dinner night — Josephine is out. Fast, colorful, kids love tortellini. Add extra pesto at the end if it tastes flat."}
-];
-
-// Grocery list
+// Grocery list (no data dependency)
 function toggle(el) { el.classList.toggle('checked'); updateProgress(); }
 function updateProgress() {
   var all = document.querySelectorAll('.item'), done = document.querySelectorAll('.item.checked');
@@ -330,104 +324,111 @@ function resetAll() { document.querySelectorAll('.item').forEach(function(e) { e
 document.querySelectorAll('.fresh-link').forEach(function(l) { l.addEventListener('click', function(e) { e.stopPropagation(); }); });
 updateProgress();
 
-// Recipe cards
-document.querySelectorAll('.js-recipe').forEach(function(card) {
-  card.addEventListener('click', function() { openDetail(meals[+card.dataset.idx]); });
-});
+// Load meal data then wire up recipe cards and overlays
+fetch('data/week.json')
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var meals = data.meals;
 
-// Detail overlay
-var curR = null;
-var rdEl = document.getElementById('rd-overlay');
-function openDetail(r) {
-  curR = r;
-  document.getElementById('rd-name').textContent = r.name;
-  document.getElementById('rd-ings').innerHTML = r.ings.map(function(i) { return '<li>' + i + '</li>'; }).join('');
-  document.getElementById('rd-steps').innerHTML = r.steps.map(function(s, n) { return '<li><span class="rd-step-num">' + (n+1) + '</span><span>' + s + '</span></li>'; }).join('');
-  var rno = document.getElementById('rd-note');
-  if (r.note) { rno.textContent = r.note; rno.style.display = ''; } else { rno.style.display = 'none'; }
-  document.querySelector('.rd-body').scrollTop = 0;
-  rdEl.classList.add('open'); rdEl.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
-}
-function closeDetail() {
-  rdEl.classList.remove('open'); rdEl.setAttribute('aria-hidden', 'true');
-  if (!document.getElementById('ck-overlay').classList.contains('open')) document.body.style.overflow = '';
-}
-document.getElementById('rd-back').addEventListener('click', closeDetail);
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    if (document.getElementById('ck-overlay').classList.contains('open')) { window.closeMode && window.closeMode(); }
-    else if (rdEl.classList.contains('open')) { closeDetail(); }
-  }
-});
-
-// Cooking mode
-(function() {
-  var ck = document.getElementById('ck-overlay'), track = document.getElementById('ck-track'),
-    ingScroll = document.getElementById('ck-ing-scroll'), ingHead = document.getElementById('ck-ing-headline'),
-    ingsList = document.getElementById('ck-ings'), stepVp = document.getElementById('ck-step-vp'),
-    dotsEl = document.getElementById('ck-dots'), prevBtn = document.getElementById('ck-prev'),
-    nextBtn = document.getElementById('ck-next'), closeX = document.getElementById('ck-x'),
-    titleEl = document.getElementById('ck-title'), pip0 = document.getElementById('ck-pip0'),
-    pip1 = document.getElementById('ck-pip1'), hintIng = document.getElementById('ck-hint-ing'),
-    hintSteps = document.getElementById('ck-hint-steps');
-  var recipe = null, stepIdx = 0, isSteps = false, slides = [], dots = [], wakeLock = null, ingHid = false, stpHid = false;
-  function lockOn() { if ('wakeLock' in navigator) { navigator.wakeLock.request('screen').then(function(l) { wakeLock = l; }).catch(function(){}); } }
-  function lockOff() { if (wakeLock) { wakeLock.release().catch(function(){}); wakeLock = null; } }
-  document.addEventListener('visibilitychange', function() { if (ck.classList.contains('open') && document.visibilityState === 'visible') lockOn(); });
-  function parseIng(s) { var m = s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i); return m ? {qty:m[1].trim(),name:m[2].trim()} : {qty:'\u2014',name:s}; }
-  function buildIngs(r) { ingHead.textContent = r.name; titleEl.textContent = r.name; ingsList.innerHTML = r.ings.map(function(i) { var p = parseIng(i); return '<li class="ck-ing-row"><span class="ck-qty">' + p.qty + '</span><span class="ck-item-name">' + p.name + '</span></li>'; }).join(''); ingScroll.scrollTop = 0; }
-  function buildSteps(r) {
-    slides.forEach(function(s) { s.remove(); }); slides = []; dots = []; dotsEl.innerHTML = ''; stepVp.removeChild(hintSteps);
-    r.steps.forEach(function(text, i) {
-      var sl = document.createElement('div'); sl.className = 'ck-slide' + (i===0?' active':'');
-      sl.innerHTML = '<div class="ck-step-big">' + String(i+1).padStart(2,'0') + '</div><div class="ck-step-of">of ' + r.steps.length + '</div><div class="ck-step-body">' + text + '</div>';
-      stepVp.appendChild(sl); slides.push(sl);
-      var d = document.createElement('div'); d.className = 'ck-dot' + (i===0?' on':''); dotsEl.appendChild(d); dots.push(d);
+    // Recipe cards
+    document.querySelectorAll('.js-recipe').forEach(function(card) {
+      card.addEventListener('click', function() { openDetail(meals[+card.dataset.idx]); });
     });
-    stepVp.appendChild(hintSteps); stepIdx = 0; refreshNav();
-  }
-  function goStep(n) {
-    if (n<0||n>=recipe.steps.length||n===stepIdx) return;
-    var fwd = n>stepIdx, from = slides[stepIdx], to = slides[n];
-    from.classList.remove('active'); from.classList.add(fwd?'exit-up':'exit-down');
-    to.style.transition='none'; to.style.opacity='0'; to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ to.style.transition=''; to.style.opacity=''; to.style.transform=''; to.classList.add('active'); }); });
-    setTimeout(function(){ from.classList.remove('exit-up','exit-down'); }, 320);
-    dots[stepIdx].classList.remove('on'); dots[stepIdx].classList.toggle('done',fwd);
-    dots[n].classList.remove('done'); dots[n].classList.add('on');
-    stepIdx = n; refreshNav(); hideStepHint();
-  }
-  function refreshNav() { prevBtn.disabled = stepIdx===0; nextBtn.disabled = !recipe||stepIdx===recipe.steps.length-1; }
-  function showPanel(p) { isSteps = p==='steps'; track.classList.toggle('flipped',isSteps); pip0.classList.toggle('on',!isSteps); pip1.classList.toggle('on',isSteps); if(isSteps) hideIngHint(); }
-  function hideIngHint() { if(!ingHid){ingHid=true;hintIng.classList.add('gone');} }
-  function hideStepHint() { if(!stpHid){stpHid=true;hintSteps.classList.add('gone');} }
-  var t0 = null;
-  ck.addEventListener('touchstart', function(e){ var t=e.touches[0]; t0={x:t.clientX,y:t.clientY,ms:Date.now()}; }, {passive:true});
-  ck.addEventListener('touchend', function(e){
-    if(!t0) return; var t=e.changedTouches[0], dx=t.clientX-t0.x, dy=t.clientY-t0.y, ms=Date.now()-t0.ms; t0=null;
-    var D=44; if(Math.max(Math.abs(dx),Math.abs(dy))<D||ms>700) return;
-    if(Math.abs(dx)>Math.abs(dy)){ if(dx<-D&&!isSteps)showPanel('steps'); if(dx>D&&isSteps)showPanel('ingredients'); }
-    else{ if(isSteps){ if(dy<-D)goStep(stepIdx+1); if(dy>D)goStep(stepIdx-1); } }
-  }, {passive:true});
-  document.addEventListener('keydown', function(e){
-    if(!ck.classList.contains('open')) return;
-    if(isSteps){ if(e.key==='ArrowDown'||e.key==='ArrowRight')goStep(stepIdx+1); if(e.key==='ArrowUp'||e.key==='ArrowLeft')goStep(stepIdx-1); }
-    else{ if(e.key==='ArrowRight')showPanel('steps'); }
+
+    // Detail overlay
+    var curR = null;
+    var rdEl = document.getElementById('rd-overlay');
+    function openDetail(r) {
+      curR = r;
+      document.getElementById('rd-name').textContent = r.name;
+      document.getElementById('rd-ings').innerHTML = r.ings.map(function(i) { return '<li>' + i + '</li>'; }).join('');
+      document.getElementById('rd-steps').innerHTML = r.steps.map(function(s, n) { return '<li><span class="rd-step-num">' + (n+1) + '</span><span>' + s + '</span></li>'; }).join('');
+      var rno = document.getElementById('rd-note');
+      if (r.note) { rno.textContent = r.note; rno.style.display = ''; } else { rno.style.display = 'none'; }
+      document.querySelector('.rd-body').scrollTop = 0;
+      rdEl.classList.add('open'); rdEl.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
+    }
+    function closeDetail() {
+      rdEl.classList.remove('open'); rdEl.setAttribute('aria-hidden', 'true');
+      if (!document.getElementById('ck-overlay').classList.contains('open')) document.body.style.overflow = '';
+    }
+    document.getElementById('rd-back').addEventListener('click', closeDetail);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        if (document.getElementById('ck-overlay').classList.contains('open')) { window.closeMode && window.closeMode(); }
+        else if (rdEl.classList.contains('open')) { closeDetail(); }
+      }
+    });
+
+    // Cooking mode
+    (function() {
+      var ck = document.getElementById('ck-overlay'), track = document.getElementById('ck-track'),
+        ingScroll = document.getElementById('ck-ing-scroll'), ingHead = document.getElementById('ck-ing-headline'),
+        ingsList = document.getElementById('ck-ings'), stepVp = document.getElementById('ck-step-vp'),
+        dotsEl = document.getElementById('ck-dots'), prevBtn = document.getElementById('ck-prev'),
+        nextBtn = document.getElementById('ck-next'), closeX = document.getElementById('ck-x'),
+        titleEl = document.getElementById('ck-title'), pip0 = document.getElementById('ck-pip0'),
+        pip1 = document.getElementById('ck-pip1'), hintIng = document.getElementById('ck-hint-ing'),
+        hintSteps = document.getElementById('ck-hint-steps');
+      var recipe = null, stepIdx = 0, isSteps = false, slides = [], dots = [], wakeLock = null, ingHid = false, stpHid = false;
+      function lockOn() { if ('wakeLock' in navigator) { navigator.wakeLock.request('screen').then(function(l) { wakeLock = l; }).catch(function(){}); } }
+      function lockOff() { if (wakeLock) { wakeLock.release().catch(function(){}); wakeLock = null; } }
+      document.addEventListener('visibilitychange', function() { if (ck.classList.contains('open') && document.visibilityState === 'visible') lockOn(); });
+      function parseIng(s) { var m = s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i); return m ? {qty:m[1].trim(),name:m[2].trim()} : {qty:'\u2014',name:s}; }
+      function buildIngs(r) { ingHead.textContent = r.name; titleEl.textContent = r.name; ingsList.innerHTML = r.ings.map(function(i) { var p = parseIng(i); return '<li class="ck-ing-row"><span class="ck-qty">' + p.qty + '</span><span class="ck-item-name">' + p.name + '</span></li>'; }).join(''); ingScroll.scrollTop = 0; }
+      function buildSteps(r) {
+        slides.forEach(function(s) { s.remove(); }); slides = []; dots = []; dotsEl.innerHTML = ''; stepVp.removeChild(hintSteps);
+        r.steps.forEach(function(text, i) {
+          var sl = document.createElement('div'); sl.className = 'ck-slide' + (i===0?' active':'');
+          sl.innerHTML = '<div class="ck-step-big">' + String(i+1).padStart(2,'0') + '</div><div class="ck-step-of">of ' + r.steps.length + '</div><div class="ck-step-body">' + text + '</div>';
+          stepVp.appendChild(sl); slides.push(sl);
+          var d = document.createElement('div'); d.className = 'ck-dot' + (i===0?' on':''); dotsEl.appendChild(d); dots.push(d);
+        });
+        stepVp.appendChild(hintSteps); stepIdx = 0; refreshNav();
+      }
+      function goStep(n) {
+        if (n<0||n>=recipe.steps.length||n===stepIdx) return;
+        var fwd = n>stepIdx, from = slides[stepIdx], to = slides[n];
+        from.classList.remove('active'); from.classList.add(fwd?'exit-up':'exit-down');
+        to.style.transition='none'; to.style.opacity='0'; to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){ to.style.transition=''; to.style.opacity=''; to.style.transform=''; to.classList.add('active'); }); });
+        setTimeout(function(){ from.classList.remove('exit-up','exit-down'); }, 320);
+        dots[stepIdx].classList.remove('on'); dots[stepIdx].classList.toggle('done',fwd);
+        dots[n].classList.remove('done'); dots[n].classList.add('on');
+        stepIdx = n; refreshNav(); hideStepHint();
+      }
+      function refreshNav() { prevBtn.disabled = stepIdx===0; nextBtn.disabled = !recipe||stepIdx===recipe.steps.length-1; }
+      function showPanel(p) { isSteps = p==='steps'; track.classList.toggle('flipped',isSteps); pip0.classList.toggle('on',!isSteps); pip1.classList.toggle('on',isSteps); if(isSteps) hideIngHint(); }
+      function hideIngHint() { if(!ingHid){ingHid=true;hintIng.classList.add('gone');} }
+      function hideStepHint() { if(!stpHid){stpHid=true;hintSteps.classList.add('gone');} }
+      var t0 = null;
+      ck.addEventListener('touchstart', function(e){ var t=e.touches[0]; t0={x:t.clientX,y:t.clientY,ms:Date.now()}; }, {passive:true});
+      ck.addEventListener('touchend', function(e){
+        if(!t0) return; var t=e.changedTouches[0], dx=t.clientX-t0.x, dy=t.clientY-t0.y, ms=Date.now()-t0.ms; t0=null;
+        var D=44; if(Math.max(Math.abs(dx),Math.abs(dy))<D||ms>700) return;
+        if(Math.abs(dx)>Math.abs(dy)){ if(dx<-D&&!isSteps)showPanel('steps'); if(dx>D&&isSteps)showPanel('ingredients'); }
+        else{ if(isSteps){ if(dy<-D)goStep(stepIdx+1); if(dy>D)goStep(stepIdx-1); } }
+      }, {passive:true});
+      document.addEventListener('keydown', function(e){
+        if(!ck.classList.contains('open')) return;
+        if(isSteps){ if(e.key==='ArrowDown'||e.key==='ArrowRight')goStep(stepIdx+1); if(e.key==='ArrowUp'||e.key==='ArrowLeft')goStep(stepIdx-1); }
+        else{ if(e.key==='ArrowRight')showPanel('steps'); }
+      });
+      window.openMode = function(r) {
+        recipe = r; buildIngs(r); buildSteps(r); showPanel('ingredients');
+        ingHid=stpHid=false; hintIng.classList.remove('gone'); hintSteps.classList.remove('gone');
+        ck.classList.add('open'); ck.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; lockOn();
+      };
+      window.closeMode = function() {
+        ck.classList.remove('open'); ck.setAttribute('aria-hidden','true'); lockOff();
+        if(!rdEl.classList.contains('open')) document.body.style.overflow='';
+      };
+      closeX.addEventListener('click', window.closeMode);
+      prevBtn.addEventListener('click', function(){ goStep(stepIdx-1); });
+      nextBtn.addEventListener('click', function(){ goStep(stepIdx+1); });
+      document.getElementById('rd-cook').addEventListener('click', function(){ if(curR) window.openMode(curR); });
+    })();
   });
-  window.openMode = function(r) {
-    recipe = r; buildIngs(r); buildSteps(r); showPanel('ingredients');
-    ingHid=stpHid=false; hintIng.classList.remove('gone'); hintSteps.classList.remove('gone');
-    ck.classList.add('open'); ck.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; lockOn();
-  };
-  window.closeMode = function() {
-    ck.classList.remove('open'); ck.setAttribute('aria-hidden','true'); lockOff();
-    if(!rdEl.classList.contains('open')) document.body.style.overflow='';
-  };
-  closeX.addEventListener('click', window.closeMode);
-  prevBtn.addEventListener('click', function(){ goStep(stepIdx-1); });
-  nextBtn.addEventListener('click', function(){ goStep(stepIdx+1); });
-  document.getElementById('rd-cook').addEventListener('click', function(){ if(curR) window.openMode(curR); });
-})();
 </script>
 </body>
 </html>
