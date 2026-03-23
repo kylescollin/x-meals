@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Grocery List — Week of March 16</title>
+<title>Grocery List — Week of March 22</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -56,10 +56,12 @@
   .item-detail { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 300; }
   .item-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
   .item-tag { font-size: 10px; letter-spacing: .5px; padding: 2px 7px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
-  .tag-salmon { background: #fde8d8; color: #b85c22; }
-  .tag-tikka  { background: #e8dff5; color: #6b4f9e; }
-  .tag-pesto  { background: #e2f0e8; color: #2d6e44; }
-  .tag-both   { background: #e8f2fe; color: #2563a8; }
+  .tag-shak  { background: #fce8d5; color: #c05218; }
+  .tag-cod   { background: #ddeeff; color: #1b6fa8; }
+  .tag-tacos { background: #e2f0e6; color: #2a6e3f; }
+  .tag-shak-tacos { background: #e8f2fe; color: #2563a8; }
+  .tag-cod-tacos  { background: #eaf0e8; color: #3a6040; }
+  .tag-all   { background: #f0ecd8; color: #7a6020; }
   .fresh-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #0072c6; text-decoration: none; padding: 3px 8px; border-radius: 5px; border: 1px solid #c8ddf0; background: #f0f6fc; white-space: nowrap; transition: background .15s; }
   .fresh-link:hover { background: #daeaf8; }
   .note-box { max-width: 680px; margin: 0 auto 28px; padding: 0 20px; }
@@ -137,132 +139,117 @@
 </style>
 </head>
 <body>
-
 <nav class="site-nav">
   <a href="index.html" class="nav-link active">This Week</a>
   <a href="recipes.html" class="nav-link">Recipes</a>
   <a href="journal.html" class="nav-link">Journal</a>
 </nav>
-
 <div class="header">
   <div class="header-eyebrow">Fox &amp; Bear Kitchen</div>
   <h1>Grocery List</h1>
-  <div class="header-meta">Week of March 16 &nbsp;·&nbsp; 3 dinners &nbsp;·&nbsp; Serves 4 + kids</div>
+  <div class="header-meta">Week of March 22 &nbsp;·&nbsp; 3 dinners &nbsp;·&nbsp; Serves 4 + kids</div>
   <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
   <div class="progress-label" id="progressLabel">0 of 0 items checked</div>
 </div>
-
 <div class="meals-strip">
   <div class="meal-card js-recipe" data-idx="0">
     <div class="meal-card-header">
-      <div class="meal-icon">🐟</div>
+      <div class="meal-icon">🍳</div>
       <div class="meal-info">
-        <div class="meal-label">Meal A &middot; Tuesday 3/17</div>
-        <div class="meal-name">Sheet Pan Lemon Herb Salmon &amp; Veggies</div>
-        <div class="meal-meta">~35 min &nbsp;·&nbsp; One pan &nbsp;·&nbsp; Serves 4–6</div>
+        <div class="meal-label">Meal A &middot; Tuesday 3/24</div>
+        <div class="meal-name">Shakshuka</div>
+        <div class="meal-meta">~30 min &nbsp;·&nbsp; One pan &nbsp;·&nbsp; Vegetarian &nbsp;·&nbsp; Serves 4–6</div>
       </div>
       <div class="card-chevron">›</div>
     </div>
   </div>
   <div class="meal-card js-recipe" data-idx="1">
     <div class="meal-card-header">
-      <div class="meal-icon">🍗</div>
+      <div class="meal-icon">🐠</div>
       <div class="meal-info">
-        <div class="meal-label">Meal B &middot; Wednesday 3/18</div>
-        <div class="meal-name">Chicken Tikka Masala + Cauliflower</div>
-        <div class="meal-meta">~45 min (marinate tonight!) &nbsp;·&nbsp; Serves 4–6</div>
+        <div class="meal-label">Meal B &middot; Wednesday 3/25</div>
+        <div class="meal-name">Lemon Herb Baked Cod with Asparagus &amp; Rice</div>
+        <div class="meal-meta">~35 min &nbsp;·&nbsp; Sheet pan &nbsp;·&nbsp; Serves 4</div>
       </div>
       <div class="card-chevron">›</div>
     </div>
   </div>
   <div class="meal-card js-recipe" data-idx="2">
     <div class="meal-card-header">
-      <div class="meal-icon">🌿</div>
+      <div class="meal-icon">🌮</div>
       <div class="meal-info">
-        <div class="meal-label">Meal C &middot; Thursday 3/19</div>
-        <div class="meal-name">Pesto Chicken Tortellini &amp; Veggies</div>
-        <div class="meal-meta">~40 min &nbsp;·&nbsp; One pan &nbsp;·&nbsp; Serves 4</div>
+        <div class="meal-label">Meal C &middot; Thursday 3/26</div>
+        <div class="meal-name">Turkey &amp; Black Bean Taco Bowls</div>
+        <div class="meal-meta">~30 min &nbsp;·&nbsp; Serves 4 &nbsp;·&nbsp; Build-your-own</div>
       </div>
       <div class="card-chevron">›</div>
     </div>
   </div>
 </div>
-
 <div class="note-box">
   <div class="note-box-inner">
-    <strong>🧠 Sauce tip for Tikka Masala:</strong> Bumped to <strong>1½ cups cream + 2 × 8oz tomato sauce</strong> for proper saucy consistency. &nbsp;·&nbsp; <strong>Tonight:</strong> Marinate the tikka chicken before bed — overnight makes a big difference.
+    🌾 <strong>Rice tip:</strong> Buy one 2-lb bag — you'll use it for both Cod (Wed) and Taco Bowls (Thu). Cook a double batch Wednesday and just reheat Thursday. &nbsp;·&nbsp; 🍳 <strong>Shakshuka</strong> is a great low-carb dinner — serve with pita or crusty bread.
   </div>
 </div>
-
 <div class="section">
   <div class="section-header"><span class="section-icon">🥦</span><div class="section-title">Produce</div><div class="section-line"></div></div>
   <div class="items-list">
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Broccoli</div><div class="item-detail">~2 cups florets</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=broccoli+fresh&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cherry tomatoes</div><div class="item-detail">2 pints (salmon + pesto)</div></div><div class="item-actions"><span class="item-tag tag-both">Salmon+Pesto</span><a href="https://www.amazon.com/s?k=cherry+tomatoes&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Zucchini</div><div class="item-detail">2 medium, sliced</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=zucchini&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Lemons</div><div class="item-detail">3–4 (salmon + tikka marinade + serving)</div></div><div class="item-actions"><span class="item-tag tag-both">Salmon+Tikka</span><a href="https://www.amazon.com/s?k=lemons&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cauliflower</div><div class="item-detail">1 medium head, cut into florets</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=cauliflower+head&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Sweet onion</div><div class="item-detail">1 large</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=sweet+onion&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh ginger</div><div class="item-detail">Small knob (~3-inch piece)</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=fresh+ginger+root&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garlic</div><div class="item-detail">1 head (need ~6 cloves total)</div></div><div class="item-actions"><span class="item-tag tag-both">Tikka+Pesto</span><a href="https://www.amazon.com/s?k=garlic+bulb&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh cilantro</div><div class="item-detail">1 bunch (tikka garnish)</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=fresh+cilantro&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Asparagus</div><div class="item-detail">1 lb, ends trimmed, halved</div></div><div class="item-actions"><span class="item-tag tag-pesto">Pesto</span><a href="https://www.amazon.com/s?k=fresh+asparagus&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Yellow onion</div><div class="item-detail">1 medium, diced</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=yellow+onion&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Red bell pepper</div><div class="item-detail">1 medium, seeded and diced</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=red+bell+pepper&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garlic</div><div class="item-detail">7–8 cloves total (4 for shakshuka, 3 for tacos)</div></div><div class="item-actions"><span class="item-tag tag-shak-tacos">Shak+Tacos</span><a href="https://www.amazon.com/s?k=garlic+bulb&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh cilantro</div><div class="item-detail">1 bunch (shakshuka garnish + taco bowls)</div></div><div class="item-actions"><span class="item-tag tag-shak-tacos">Shak+Tacos</span><a href="https://www.amazon.com/s?k=fresh+cilantro&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh parsley</div><div class="item-detail">Small bunch, for shakshuka garnish</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=fresh+parsley&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Asparagus</div><div class="item-detail">1 lb, ends trimmed</div></div><div class="item-actions"><span class="item-tag tag-cod">Cod</span><a href="https://www.amazon.com/s?k=fresh+asparagus&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Lemons</div><div class="item-detail">3 (juice + slices for baking + serving)</div></div><div class="item-actions"><span class="item-tag tag-cod">Cod</span><a href="https://www.amazon.com/s?k=lemons&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Small onion</div><div class="item-detail">1 small, diced (for taco bowl turkey)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=small+onion&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Avocado</div><div class="item-detail">1–2 ripe (buy 2 if you want extra)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=avocado&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cherry tomatoes</div><div class="item-detail">1 cup (halved, for taco bowls topping)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=cherry+tomatoes&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Lime</div><div class="item-detail">1–2 (squeeze over taco bowls at the end)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=lime&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
   </div>
 </div>
-
 <div class="section">
   <div class="section-header"><span class="section-icon">🥩</span><div class="section-title">Protein</div><div class="section-line"></div></div>
   <div class="items-list">
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Salmon fillets</div><div class="item-detail">4–6 fillets (~6 oz each), skinless preferred</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=salmon+fillets+fresh&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Boneless skinless chicken breast</div><div class="item-detail">1.5 lbs, for tikka marinade</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=boneless+skinless+chicken+breast&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Boneless skinless chicken thighs</div><div class="item-detail">1 lb, sliced into strips</div></div><div class="item-actions"><span class="item-tag tag-pesto">Pesto</span><a href="https://www.amazon.com/s?k=boneless+skinless+chicken+thighs&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Eggs</div><div class="item-detail">6 large (cracked right into the shakshuka pan)</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=large+eggs&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cod fillets</div><div class="item-detail">4 fillets (~6 oz each), skinless — fresh or thawed</div></div><div class="item-actions"><span class="item-tag tag-cod">Cod</span><a href="https://www.amazon.com/s?k=cod+fillets+fresh&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Ground turkey</div><div class="item-detail">1 lb (93% lean works great)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=ground+turkey+93+lean&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
   </div>
 </div>
-
 <div class="section">
   <div class="section-header"><span class="section-icon">🧈</span><div class="section-title">Dairy &amp; Refrigerated</div><div class="section-line"></div></div>
   <div class="items-list">
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Full-fat Greek yogurt</div><div class="item-detail">1 cup (tikka marinade — full fat is important)</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=full+fat+greek+yogurt&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Heavy cream</div><div class="item-detail">1 pint / 2 cups (need 1½ cups; buffer included)</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=heavy+whipping+cream&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Butter</div><div class="item-detail">2 tbsp — check pantry first</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=unsalted+butter&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Refrigerated cheese tortellini</div><div class="item-detail">1 cup / ~9 oz package</div></div><div class="item-actions"><span class="item-tag tag-pesto">Pesto</span><a href="https://www.amazon.com/s?k=fresh+cheese+tortellini+refrigerated&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Shredded Mexican cheese blend</div><div class="item-detail">1 bag (taco bowl topping)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=shredded+mexican+cheese+blend&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Sour cream</div><div class="item-detail">Small container (taco bowl topping)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=sour+cream&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Feta cheese (optional)</div><div class="item-detail">Crumbled feta is excellent on shakshuka — worth getting</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=crumbled+feta+cheese&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
   </div>
 </div>
-
 <div class="section">
   <div class="section-header"><span class="section-icon">🫙</span><div class="section-title">Pantry &amp; Canned</div><div class="section-line"></div></div>
   <div class="items-list">
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Tomato sauce (unseasoned)</div><div class="item-detail">2 cans × 8 oz — bumped up for extra sauce</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=unseasoned+tomato+sauce+8oz&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Basmati rice</div><div class="item-detail">Check pantry — need 1.5–2 cups dry</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=basmati+rice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Naan bread</div><div class="item-detail">1 pack, store-bought is fine</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=naan+bread&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Brown sugar</div><div class="item-detail">Check pantry — need 2 tsp</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=brown+sugar&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Parchment paper</div><div class="item-detail">Check pantry — for the sheet pan</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=parchment+paper&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Sun-dried tomatoes</div><div class="item-detail">½ cup, oil-packed jar (drained)</div></div><div class="item-actions"><span class="item-tag tag-pesto">Pesto</span><a href="https://www.amazon.com/s?k=sun+dried+tomatoes+oil+packed&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Basil pesto</div><div class="item-detail">¼ cup+ — jarred is totally fine</div></div><div class="item-actions"><span class="item-tag tag-pesto">Pesto</span><a href="https://www.amazon.com/s?k=basil+pesto+jar&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Whole peeled tomatoes (28 oz)</div><div class="item-detail">1 can — break them down with a spoon in the pan</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=whole+peeled+tomatoes+28oz+can&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Black beans (15 oz)</div><div class="item-detail">1 can, drained and rinsed</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=black+beans+15oz+can&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">White rice</div><div class="item-detail">Check pantry — need ~3 cups dry (cook double Wed, reheat Thu)</div></div><div class="item-actions"><span class="item-tag tag-cod-tacos">Cod+Tacos</span><a href="https://www.amazon.com/s?k=long+grain+white+rice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Pita bread</div><div class="item-detail">1 pack — for serving with shakshuka</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=pita+bread&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Salsa</div><div class="item-detail">Jar of mild salsa for taco bowls — check pantry first</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=mild+salsa+jar&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
   </div>
 </div>
-
 <div class="section">
   <div class="section-header"><span class="section-icon">🌿</span><div class="section-title">Spices — Check Pantry First</div><div class="section-line"></div></div>
   <div class="items-list">
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garam masala</div><div class="item-detail">Need ~2 tsp — the key spice, don't skip</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=garam+masala+spice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Ground coriander</div><div class="item-detail">Need 1 tsp</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=ground+coriander+spice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Smoked paprika</div><div class="item-detail">Need 1 tsp tikka + some for salmon</div></div><div class="item-actions"><span class="item-tag tag-both">Both</span><a href="https://www.amazon.com/s?k=smoked+paprika&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Ground cumin</div><div class="item-detail">Need ~2½ tsp — check pantry</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=ground+cumin&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Chili powder</div><div class="item-detail">Regular American chili powder — you likely have it</div></div><div class="item-actions"><span class="item-tag tag-tikka">Tikka</span><a href="https://www.amazon.com/s?k=chili+powder&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Dried dill or parsley</div><div class="item-detail">1 tsp for salmon herb rub</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=dried+dill+weed&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garlic powder</div><div class="item-detail">1 tsp for salmon — check pantry</div></div><div class="item-actions"><span class="item-tag tag-salmon">Salmon</span><a href="https://www.amazon.com/s?k=garlic+powder&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Paprika</div><div class="item-detail">Need 2 tsp shakshuka + ½ tsp tacos — should have from tikka masala last week</div></div><div class="item-actions"><span class="item-tag tag-shak-tacos">Shak+Tacos</span><a href="https://www.amazon.com/s?k=paprika+spice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Ground cumin</div><div class="item-detail">Need 1 tsp shakshuka + 1 tsp tacos — should have from tikka last week</div></div><div class="item-actions"><span class="item-tag tag-shak-tacos">Shak+Tacos</span><a href="https://www.amazon.com/s?k=ground+cumin&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Chili powder (mild)</div><div class="item-detail">Need ¼ tsp shakshuka + 1 tsp tacos — standard pantry item</div></div><div class="item-actions"><span class="item-tag tag-shak-tacos">Shak+Tacos</span><a href="https://www.amazon.com/s?k=chili+powder&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garlic powder</div><div class="item-detail">1 tsp cod + ½ tsp tacos — very likely have it</div></div><div class="item-actions"><span class="item-tag tag-cod-tacos">Cod+Tacos</span><a href="https://www.amazon.com/s?k=garlic+powder&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Dried thyme</div><div class="item-detail">1 tsp for cod herb rub — check pantry</div></div><div class="item-actions"><span class="item-tag tag-cod">Cod</span><a href="https://www.amazon.com/s?k=dried+thyme&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Smoked paprika</div><div class="item-detail">½ tsp tacos — leftover from tikka masala last week</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=smoked+paprika&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
   </div>
 </div>
-
 <div class="summary-bar">
   <div class="summary-bar-inner">
     <div><div class="summary-count" id="summaryCount">0 / 0</div><div class="summary-label">items checked</div></div>
     <div class="btn-row"><button class="reset-btn" onclick="resetAll()">Reset all</button></div>
   </div>
 </div>
-
-<!-- Recipe Detail Overlay -->
 <div id="rd-overlay" aria-hidden="true">
   <div class="rd-bar">
     <button class="rd-back" id="rd-back">←</button>
@@ -279,8 +266,6 @@
     </div>
   </div>
 </div>
-
-<!-- Cooking Mode Overlay -->
 <div id="ck-overlay" aria-hidden="true">
   <div class="ck-bar">
     <span class="ck-title" id="ck-title"></span>
@@ -310,165 +295,51 @@
     </div>
   </div>
 </div>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script>
-// Firebase — shared grocery sync
-firebase.initializeApp({
-  apiKey: "AIzaSyA0QbDrrNG2UiCmVVs4SVNPid_D-NrQIh4",
-  authDomain: "fox-bear-hub.firebaseapp.com",
-  databaseURL: "https://fox-bear-hub-default-rtdb.firebaseio.com",
-  projectId: "fox-bear-hub",
-  storageBucket: "fox-bear-hub.firebasestorage.app",
-  messagingSenderId: "825321252461",
-  appId: "1:825321252461:web:a734af727229ad5916c164"
-});
-var db = firebase.database();
-var weekKey = null;
-
-// Stable key for each grocery item derived from its name
-function itemId(el) {
-  return el.querySelector('.item-name').textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
-
-// Grocery list
-function toggle(el) {
-  var checked = !el.classList.contains('checked');
-  el.classList.toggle('checked', checked);
-  updateProgress();
-  if (weekKey) db.ref('groceries/' + weekKey + '/' + itemId(el)).set(checked || null);
-}
-function updateProgress() {
-  var all = document.querySelectorAll('.item'), done = document.querySelectorAll('.item.checked');
-  var pct = all.length ? (done.length / all.length) * 100 : 0;
-  document.getElementById('progressBar').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = done.length + ' of ' + all.length + ' items checked';
-  document.getElementById('summaryCount').textContent = done.length + ' / ' + all.length;
-}
-function resetAll() {
-  document.querySelectorAll('.item').forEach(function(e) { e.classList.remove('checked'); });
-  if (weekKey) db.ref('groceries/' + weekKey).remove();
-  updateProgress();
-}
-document.querySelectorAll('.fresh-link').forEach(function(l) { l.addEventListener('click', function(e) { e.stopPropagation(); }); });
+firebase.initializeApp({apiKey:"AIzaSyA0QbDrrNG2UiCmVVs4SVNPid_D-NrQIh4",authDomain:"fox-bear-hub.firebaseapp.com",databaseURL:"https://fox-bear-hub-default-rtdb.firebaseio.com",projectId:"fox-bear-hub",storageBucket:"fox-bear-hub.firebasestorage.app",messagingSenderId:"825321252461",appId:"1:825321252461:web:a734af727229ad5916c164"});
+var db=firebase.database(),weekKey=null;
+function itemId(el){return el.querySelector('.item-name').textContent.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
+function toggle(el){var c=!el.classList.contains('checked');el.classList.toggle('checked',c);updateProgress();if(weekKey)db.ref('groceries/'+weekKey+'/'+itemId(el)).set(c||null);}
+function updateProgress(){var a=document.querySelectorAll('.item'),d=document.querySelectorAll('.item.checked');var p=a.length?(d.length/a.length)*100:0;document.getElementById('progressBar').style.width=p+'%';document.getElementById('progressLabel').textContent=d.length+' of '+a.length+' items checked';document.getElementById('summaryCount').textContent=d.length+' / '+a.length;}
+function resetAll(){document.querySelectorAll('.item').forEach(function(e){e.classList.remove('checked');});if(weekKey)db.ref('groceries/'+weekKey).remove();updateProgress();}
+document.querySelectorAll('.fresh-link').forEach(function(l){l.addEventListener('click',function(e){e.stopPropagation();});});
 updateProgress();
-
-// Load meal data, set up Firebase sync, wire up recipe cards and overlays
-fetch('data/week.json')
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    weekKey = data.weekOf;
-    var meals = data.meals;
-
-    // Firebase real-time sync — applies checked state from cloud on load and on any remote change
-    db.ref('groceries/' + weekKey).on('value', function(snapshot) {
-      var states = snapshot.val() || {};
-      document.querySelectorAll('.item').forEach(function(item) {
-        item.classList.toggle('checked', states[itemId(item)] === true);
-      });
-      updateProgress();
-    });
-
-    // Recipe cards
-    document.querySelectorAll('.js-recipe').forEach(function(card) {
-      card.addEventListener('click', function() { openDetail(meals[+card.dataset.idx]); });
-    });
-
-    // Detail overlay
-    var curR = null;
-    var rdEl = document.getElementById('rd-overlay');
-    function openDetail(r) {
-      curR = r;
-      document.getElementById('rd-name').textContent = r.name;
-      document.getElementById('rd-ings').innerHTML = r.ings.map(function(i) { return '<li>' + i + '</li>'; }).join('');
-      document.getElementById('rd-steps').innerHTML = r.steps.map(function(s, n) { return '<li><span class="rd-step-num">' + (n+1) + '</span><span>' + s + '</span></li>'; }).join('');
-      var rno = document.getElementById('rd-note');
-      if (r.note) { rno.textContent = r.note; rno.style.display = ''; } else { rno.style.display = 'none'; }
-      document.querySelector('.rd-body').scrollTop = 0;
-      rdEl.classList.add('open'); rdEl.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
-    }
-    function closeDetail() {
-      rdEl.classList.remove('open'); rdEl.setAttribute('aria-hidden', 'true');
-      if (!document.getElementById('ck-overlay').classList.contains('open')) document.body.style.overflow = '';
-    }
-    document.getElementById('rd-back').addEventListener('click', closeDetail);
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        if (document.getElementById('ck-overlay').classList.contains('open')) { window.closeMode && window.closeMode(); }
-        else if (rdEl.classList.contains('open')) { closeDetail(); }
-      }
-    });
-
-    // Cooking mode
-    (function() {
-      var ck = document.getElementById('ck-overlay'), track = document.getElementById('ck-track'),
-        ingScroll = document.getElementById('ck-ing-scroll'), ingHead = document.getElementById('ck-ing-headline'),
-        ingsList = document.getElementById('ck-ings'), stepVp = document.getElementById('ck-step-vp'),
-        dotsEl = document.getElementById('ck-dots'), prevBtn = document.getElementById('ck-prev'),
-        nextBtn = document.getElementById('ck-next'), closeX = document.getElementById('ck-x'),
-        titleEl = document.getElementById('ck-title'), pip0 = document.getElementById('ck-pip0'),
-        pip1 = document.getElementById('ck-pip1'), hintIng = document.getElementById('ck-hint-ing'),
-        hintSteps = document.getElementById('ck-hint-steps');
-      var recipe = null, stepIdx = 0, isSteps = false, slides = [], dots = [], wakeLock = null, ingHid = false, stpHid = false;
-      function lockOn() { if ('wakeLock' in navigator) { navigator.wakeLock.request('screen').then(function(l) { wakeLock = l; }).catch(function(){}); } }
-      function lockOff() { if (wakeLock) { wakeLock.release().catch(function(){}); wakeLock = null; } }
-      document.addEventListener('visibilitychange', function() { if (ck.classList.contains('open') && document.visibilityState === 'visible') lockOn(); });
-      function parseIng(s) { var m = s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i); return m ? {qty:m[1].trim(),name:m[2].trim()} : {qty:'\u2014',name:s}; }
-      function buildIngs(r) { ingHead.textContent = r.name; titleEl.textContent = r.name; ingsList.innerHTML = r.ings.map(function(i) { var p = parseIng(i); return '<li class="ck-ing-row"><span class="ck-qty">' + p.qty + '</span><span class="ck-item-name">' + p.name + '</span></li>'; }).join(''); ingScroll.scrollTop = 0; }
-      function buildSteps(r) {
-        slides.forEach(function(s) { s.remove(); }); slides = []; dots = []; dotsEl.innerHTML = ''; stepVp.removeChild(hintSteps);
-        r.steps.forEach(function(text, i) {
-          var sl = document.createElement('div'); sl.className = 'ck-slide' + (i===0?' active':'');
-          sl.innerHTML = '<div class="ck-step-big">' + String(i+1).padStart(2,'0') + '</div><div class="ck-step-of">of ' + r.steps.length + '</div><div class="ck-step-body">' + text + '</div>';
-          stepVp.appendChild(sl); slides.push(sl);
-          var d = document.createElement('div'); d.className = 'ck-dot' + (i===0?' on':''); dotsEl.appendChild(d); dots.push(d);
-        });
-        stepVp.appendChild(hintSteps); stepIdx = 0; refreshNav();
-      }
-      function goStep(n) {
-        if (n<0||n>=recipe.steps.length||n===stepIdx) return;
-        var fwd = n>stepIdx, from = slides[stepIdx], to = slides[n];
-        from.classList.remove('active'); from.classList.add(fwd?'exit-up':'exit-down');
-        to.style.transition='none'; to.style.opacity='0'; to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';
-        requestAnimationFrame(function(){ requestAnimationFrame(function(){ to.style.transition=''; to.style.opacity=''; to.style.transform=''; to.classList.add('active'); }); });
-        setTimeout(function(){ from.classList.remove('exit-up','exit-down'); }, 320);
-        dots[stepIdx].classList.remove('on'); dots[stepIdx].classList.toggle('done',fwd);
-        dots[n].classList.remove('done'); dots[n].classList.add('on');
-        stepIdx = n; refreshNav(); hideStepHint();
-      }
-      function refreshNav() { prevBtn.disabled = stepIdx===0; nextBtn.disabled = !recipe||stepIdx===recipe.steps.length-1; }
-      function showPanel(p) { isSteps = p==='steps'; track.classList.toggle('flipped',isSteps); pip0.classList.toggle('on',!isSteps); pip1.classList.toggle('on',isSteps); if(isSteps) hideIngHint(); }
-      function hideIngHint() { if(!ingHid){ingHid=true;hintIng.classList.add('gone');} }
-      function hideStepHint() { if(!stpHid){stpHid=true;hintSteps.classList.add('gone');} }
-      var t0 = null;
-      ck.addEventListener('touchstart', function(e){ var t=e.touches[0]; t0={x:t.clientX,y:t.clientY,ms:Date.now()}; }, {passive:true});
-      ck.addEventListener('touchend', function(e){
-        if(!t0) return; var t=e.changedTouches[0], dx=t.clientX-t0.x, dy=t.clientY-t0.y, ms=Date.now()-t0.ms; t0=null;
-        var D=44; if(Math.max(Math.abs(dx),Math.abs(dy))<D||ms>700) return;
-        if(Math.abs(dx)>Math.abs(dy)){ if(dx<-D&&!isSteps)showPanel('steps'); if(dx>D&&isSteps)showPanel('ingredients'); }
-        else{ if(isSteps){ if(dy<-D)goStep(stepIdx+1); if(dy>D)goStep(stepIdx-1); } }
-      }, {passive:true});
-      document.addEventListener('keydown', function(e){
-        if(!ck.classList.contains('open')) return;
-        if(isSteps){ if(e.key==='ArrowDown'||e.key==='ArrowRight')goStep(stepIdx+1); if(e.key==='ArrowUp'||e.key==='ArrowLeft')goStep(stepIdx-1); }
-        else{ if(e.key==='ArrowRight')showPanel('steps'); }
-      });
-      window.openMode = function(r) {
-        recipe = r; buildIngs(r); buildSteps(r); showPanel('ingredients');
-        ingHid=stpHid=false; hintIng.classList.remove('gone'); hintSteps.classList.remove('gone');
-        ck.classList.add('open'); ck.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; lockOn();
-      };
-      window.closeMode = function() {
-        ck.classList.remove('open'); ck.setAttribute('aria-hidden','true'); lockOff();
-        if(!rdEl.classList.contains('open')) document.body.style.overflow='';
-      };
-      closeX.addEventListener('click', window.closeMode);
-      prevBtn.addEventListener('click', function(){ goStep(stepIdx-1); });
-      nextBtn.addEventListener('click', function(){ goStep(stepIdx+1); });
-      document.getElementById('rd-cook').addEventListener('click', function(){ if(curR) window.openMode(curR); });
-    })();
-  });
+fetch('data/week.json').then(function(r){return r.json();}).then(function(data){
+  weekKey=data.weekOf;var meals=data.meals;
+  db.ref('groceries/'+weekKey).on('value',function(snapshot){var states=snapshot.val()||{};document.querySelectorAll('.item').forEach(function(item){item.classList.toggle('checked',states[itemId(item)]===true);});updateProgress();});
+  document.querySelectorAll('.js-recipe').forEach(function(card){card.addEventListener('click',function(){openDetail(meals[+card.dataset.idx]);});});
+  var curR=null,rdEl=document.getElementById('rd-overlay');
+  function openDetail(r){curR=r;document.getElementById('rd-name').textContent=r.name;document.getElementById('rd-ings').innerHTML=r.ings.map(function(i){return'<li>'+i+'</li>';}).join('');document.getElementById('rd-steps').innerHTML=r.steps.map(function(s,n){return'<li><span class="rd-step-num">'+(n+1)+'</span><span>'+s+'</span></li>';}).join('');var rno=document.getElementById('rd-note');if(r.note){rno.textContent=r.note;rno.style.display='';}else{rno.style.display='none';}document.querySelector('.rd-body').scrollTop=0;rdEl.classList.add('open');rdEl.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+  function closeDetail(){rdEl.classList.remove('open');rdEl.setAttribute('aria-hidden','true');if(!document.getElementById('ck-overlay').classList.contains('open'))document.body.style.overflow='';}
+  document.getElementById('rd-back').addEventListener('click',closeDetail);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document.getElementById('ck-overlay').classList.contains('open')){window.closeMode&&window.closeMode();}else if(rdEl.classList.contains('open')){closeDetail();}}});
+  (function(){var ck=document.getElementById('ck-overlay'),track=document.getElementById('ck-track'),ingScroll=document.getElementById('ck-ing-scroll'),ingHead=document.getElementById('ck-ing-headline'),ingsList=document.getElementById('ck-ings'),stepVp=document.getElementById('ck-step-vp'),dotsEl=document.getElementById('ck-dots'),prevBtn=document.getElementById('ck-prev'),nextBtn=document.getElementById('ck-next'),closeX=document.getElementById('ck-x'),titleEl=document.getElementById('ck-title'),pip0=document.getElementById('ck-pip0'),pip1=document.getElementById('ck-pip1'),hintIng=document.getElementById('ck-hint-ing'),hintSteps=document.getElementById('ck-hint-steps');
+  var recipe=null,stepIdx=0,isSteps=false,slides=[],dots=[],wakeLock=null,ingHid=false,stpHid=false;
+  function lockOn(){if('wakeLock'in navigator){navigator.wakeLock.request('screen').then(function(l){wakeLock=l;}).catch(function(){});}}
+  function lockOff(){if(wakeLock){wakeLock.release().catch(function(){});wakeLock=null;}}
+  document.addEventListener('visibilitychange',function(){if(ck.classList.contains('open')&&document.visibilityState==='visible')lockOn();});
+  function parseIng(s){var m=s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i);return m?{qty:m[1].trim(),name:m[2].trim()}:{qty:'\u2014',name:s};}
+  function buildIngs(r){ingHead.textContent=r.name;titleEl.textContent=r.name;ingsList.innerHTML=r.ings.map(function(i){var p=parseIng(i);return'<li class="ck-ing-row"><span class="ck-qty">'+p.qty+'</span><span class="ck-item-name">'+p.name+'</span></li>';}).join('');ingScroll.scrollTop=0;}
+  function buildSteps(r){slides.forEach(function(s){s.remove();});slides=[];dots=[];dotsEl.innerHTML='';stepVp.removeChild(hintSteps);r.steps.forEach(function(text,i){var sl=document.createElement('div');sl.className='ck-slide'+(i===0?' active':'');sl.innerHTML='<div class="ck-step-big">'+String(i+1).padStart(2,'0')+'</div><div class="ck-step-of">of '+r.steps.length+'</div><div class="ck-step-body">'+text+'</div>';stepVp.appendChild(sl);slides.push(sl);var d=document.createElement('div');d.className='ck-dot'+(i===0?' on':'');dotsEl.appendChild(d);dots.push(d);});stepVp.appendChild(hintSteps);stepIdx=0;refreshNav();}
+  function goStep(n){if(n<0||n>=recipe.steps.length||n===stepIdx)return;var fwd=n>stepIdx,from=slides[stepIdx],to=slides[n];from.classList.remove('active');from.classList.add(fwd?'exit-up':'exit-down');to.style.transition='none';to.style.opacity='0';to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';requestAnimationFrame(function(){requestAnimationFrame(function(){to.style.transition='';to.style.opacity='';to.style.transform='';to.classList.add('active');});});setTimeout(function(){from.classList.remove('exit-up','exit-down');},320);dots[stepIdx].classList.remove('on');dots[stepIdx].classList.toggle('done',fwd);dots[n].classList.remove('done');dots[n].classList.add('on');stepIdx=n;refreshNav();hideStepHint();}
+  function refreshNav(){prevBtn.disabled=stepIdx===0;nextBtn.disabled=!recipe||stepIdx===recipe.steps.length-1;}
+  function showPanel(p){isSteps=p==='steps';track.classList.toggle('flipped',isSteps);pip0.classList.toggle('on',!isSteps);pip1.classList.toggle('on',isSteps);if(isSteps)hideIngHint();}
+  function hideIngHint(){if(!ingHid){ingHid=true;hintIng.classList.add('gone');}}
+  function hideStepHint(){if(!stpHid){stpHid=true;hintSteps.classList.add('gone');}}
+  var t0=null;
+  ck.addEventListener('touchstart',function(e){var t=e.touches[0];t0={x:t.clientX,y:t.clientY,ms:Date.now()};},{passive:true});
+  ck.addEventListener('touchend',function(e){if(!t0)return;var t=e.changedTouches[0],dx=t.clientX-t0.x,dy=t.clientY-t0.y,ms=Date.now()-t0.ms;t0=null;var D=44;if(Math.max(Math.abs(dx),Math.abs(dy))<D||ms>700)return;if(Math.abs(dx)>Math.abs(dy)){if(dx<-D&&!isSteps)showPanel('steps');if(dx>D&&isSteps)showPanel('ingredients');}else{if(isSteps){if(dy<-D)goStep(stepIdx+1);if(dy>D)goStep(stepIdx-1);}}},{passive:true});
+  document.addEventListener('keydown',function(e){if(!ck.classList.contains('open'))return;if(isSteps){if(e.key==='ArrowDown'||e.key==='ArrowRight')goStep(stepIdx+1);if(e.key==='ArrowUp'||e.key==='ArrowLeft')goStep(stepIdx-1);}else{if(e.key==='ArrowRight')showPanel('steps');}});
+  window.openMode=function(r){recipe=r;buildIngs(r);buildSteps(r);showPanel('ingredients');ingHid=stpHid=false;hintIng.classList.remove('gone');hintSteps.classList.remove('gone');ck.classList.add('open');ck.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';lockOn();};
+  window.closeMode=function(){ck.classList.remove('open');ck.setAttribute('aria-hidden','true');lockOff();if(!rdEl.classList.contains('open'))document.body.style.overflow='';};
+  closeX.addEventListener('click',window.closeMode);
+  prevBtn.addEventListener('click',function(){goStep(stepIdx-1);});
+  nextBtn.addEventListener('click',function(){goStep(stepIdx+1);});
+  document.getElementById('rd-cook').addEventListener('click',function(){if(curR)window.openMode(curR);});
+  })();
+});
 </script>
 </body>
 </html>
