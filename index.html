@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Grocery List — Week of March 22</title>
+<title>Grocery List — Week of March 29</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -56,12 +56,11 @@
   .item-detail { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 300; }
   .item-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
   .item-tag { font-size: 10px; letter-spacing: .5px; padding: 2px 7px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
-  .tag-shak  { background: #fce8d5; color: #c05218; }
-  .tag-cod   { background: #ddeeff; color: #1b6fa8; }
-  .tag-tacos { background: #e2f0e6; color: #2a6e3f; }
-  .tag-shak-tacos { background: #e8f2fe; color: #2563a8; }
-  .tag-cod-tacos  { background: #eaf0e8; color: #3a6040; }
-  .tag-all   { background: #f0ecd8; color: #7a6020; }
+  .tag-rice   { background: #fef3c0; color: #92640a; }
+  .tag-greek  { background: #dbeafe; color: #1d4ed8; }
+  .tag-wraps  { background: #dcfce7; color: #15803d; }
+  .tag-rice-wraps { background: #e8f2fe; color: #2563a8; }
+  .tag-all    { background: #f0ecd8; color: #7a6020; }
   .fresh-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #0072c6; text-decoration: none; padding: 3px 8px; border-radius: 5px; border: 1px solid #c8ddf0; background: #f0f6fc; white-space: nowrap; transition: background .15s; }
   .fresh-link:hover { background: #daeaf8; }
   .note-box { max-width: 680px; margin: 0 auto 28px; padding: 0 20px; }
@@ -147,40 +146,40 @@
 <div class="header">
   <div class="header-eyebrow">Fox &amp; Bear Kitchen</div>
   <h1>Grocery List</h1>
-  <div class="header-meta">Week of March 22 &nbsp;·&nbsp; 3 dinners &nbsp;·&nbsp; Serves 4 + kids</div>
+  <div class="header-meta">Week of March 29 &nbsp;·&nbsp; 3 dinners &nbsp;·&nbsp; Serves 4 + kids</div>
   <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
   <div class="progress-label" id="progressLabel">0 of 0 items checked</div>
 </div>
 <div class="meals-strip">
   <div class="meal-card js-recipe" data-idx="0">
     <div class="meal-card-header">
-      <div class="meal-icon">🍳</div>
+      <div class="meal-icon">🍚</div>
       <div class="meal-info">
-        <div class="meal-label">Meal A &middot; Tuesday 3/24</div>
-        <div class="meal-name">Shakshuka</div>
-        <div class="meal-meta">~30 min &nbsp;·&nbsp; One pan &nbsp;·&nbsp; Vegetarian &nbsp;·&nbsp; Serves 4–6</div>
+        <div class="meal-label">Meal A &middot; Tuesday 3/31</div>
+        <div class="meal-name">Chicken Pineapple Fried Rice</div>
+        <div class="meal-meta">~30 min &nbsp;·&nbsp; Wok or skillet &nbsp;·&nbsp; Serves 4</div>
       </div>
       <div class="card-chevron">›</div>
     </div>
   </div>
   <div class="meal-card js-recipe" data-idx="1">
     <div class="meal-card-header">
-      <div class="meal-icon">🐠</div>
+      <div class="meal-icon">🥙</div>
       <div class="meal-info">
-        <div class="meal-label">Meal B &middot; Wednesday 3/25</div>
-        <div class="meal-name">Lemon Herb Baked Cod with Asparagus &amp; Rice</div>
-        <div class="meal-meta">~35 min &nbsp;·&nbsp; Sheet pan &nbsp;·&nbsp; Serves 4</div>
+        <div class="meal-label">Meal B &middot; Wednesday 4/1</div>
+        <div class="meal-name">Greek Chicken Bowls with Tzatziki</div>
+        <div class="meal-meta">~35 min &nbsp;·&nbsp; Marinate Tuesday night &nbsp;·&nbsp; Serves 4</div>
       </div>
       <div class="card-chevron">›</div>
     </div>
   </div>
   <div class="meal-card js-recipe" data-idx="2">
     <div class="meal-card-header">
-      <div class="meal-icon">🌮</div>
+      <div class="meal-icon">🥬</div>
       <div class="meal-info">
-        <div class="meal-label">Meal C &middot; Thursday 3/26</div>
-        <div class="meal-name">Turkey &amp; Black Bean Taco Bowls</div>
-        <div class="meal-meta">~30 min &nbsp;·&nbsp; Serves 4 &nbsp;·&nbsp; Build-your-own</div>
+        <div class="meal-label">Meal C &middot; Thursday 4/2</div>
+        <div class="meal-name">Asian Turkey Lettuce Wraps</div>
+        <div class="meal-meta">~25 min &nbsp;·&nbsp; Skillet &nbsp;·&nbsp; Low carb &nbsp;·&nbsp; Serves 4</div>
       </div>
       <div class="card-chevron">›</div>
     </div>
@@ -188,60 +187,63 @@
 </div>
 <div class="note-box">
   <div class="note-box-inner">
-    🌾 <strong>Rice tip:</strong> Buy one 2-lb bag — you'll use it for both Cod (Wed) and Taco Bowls (Thu). Cook a double batch Wednesday and just reheat Thursday. &nbsp;·&nbsp; 🍳 <strong>Shakshuka</strong> is a great low-carb dinner — serve with pita or crusty bread.
+    🍚 <strong>Rice note:</strong> Cook jasmine rice <em>Monday</em> and refrigerate overnight — cold rice is essential for good fried rice. Fresh rice will turn mushy. &nbsp;·&nbsp; 🥙 <strong>Greek bowls:</strong> Marinate the chicken Tuesday evening for best flavor. Tzatziki can be made a day ahead.
   </div>
 </div>
 <div class="section">
   <div class="section-header"><span class="section-icon">🥦</span><div class="section-title">Produce</div><div class="section-line"></div></div>
   <div class="items-list">
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Yellow onion</div><div class="item-detail">1 medium, diced</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=yellow+onion&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Red bell pepper</div><div class="item-detail">1 medium, seeded and diced</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=red+bell+pepper&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garlic</div><div class="item-detail">7–8 cloves total (4 for shakshuka, 3 for tacos)</div></div><div class="item-actions"><span class="item-tag tag-shak-tacos">Shak+Tacos</span><a href="https://www.amazon.com/s?k=garlic+bulb&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh cilantro</div><div class="item-detail">1 bunch (shakshuka garnish + taco bowls)</div></div><div class="item-actions"><span class="item-tag tag-shak-tacos">Shak+Tacos</span><a href="https://www.amazon.com/s?k=fresh+cilantro&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh parsley</div><div class="item-detail">Small bunch, for shakshuka garnish</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=fresh+parsley&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Asparagus</div><div class="item-detail">1 lb, ends trimmed</div></div><div class="item-actions"><span class="item-tag tag-cod">Cod</span><a href="https://www.amazon.com/s?k=fresh+asparagus&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Lemons</div><div class="item-detail">3 (juice + slices for baking + serving)</div></div><div class="item-actions"><span class="item-tag tag-cod">Cod</span><a href="https://www.amazon.com/s?k=lemons&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Small onion</div><div class="item-detail">1 small, diced (for taco bowl turkey)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=small+onion&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Avocado</div><div class="item-detail">1–2 ripe (buy 2 if you want extra)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=avocado&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cherry tomatoes</div><div class="item-detail">1 cup (halved, for taco bowls topping)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=cherry+tomatoes&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Lime</div><div class="item-detail">1–2 (squeeze over taco bowls at the end)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=lime&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garlic</div><div class="item-detail">8 cloves total — 2 fried rice, 3 greek bowls, 3 lettuce wraps</div></div><div class="item-actions"><span class="item-tag tag-all">All meals</span><a href="https://www.amazon.com/s?k=garlic+bulb&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Green onions / scallions</div><div class="item-detail">1 bunch — garnish for fried rice and lettuce wraps</div></div><div class="item-actions"><span class="item-tag tag-rice-wraps">Rice+Wraps</span><a href="https://www.amazon.com/s?k=green+onions+scallions&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh ginger</div><div class="item-detail">Small knob — 1 tbsp grated for lettuce wraps</div></div><div class="item-actions"><span class="item-tag tag-wraps">Wraps</span><a href="https://www.amazon.com/s?k=fresh+ginger+root&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Yellow onion</div><div class="item-detail">1 small — ½ cup finely diced for fried rice</div></div><div class="item-actions"><span class="item-tag tag-rice">Fried Rice</span><a href="https://www.amazon.com/s?k=yellow+onion&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh pineapple (or canned chunks)</div><div class="item-detail">1 cup diced — fresh preferred, canned in juice works fine</div></div><div class="item-actions"><span class="item-tag tag-rice">Fried Rice</span><a href="https://www.amazon.com/s?k=fresh+pineapple+chunks&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">English cucumber</div><div class="item-detail">2 medium — half for tzatziki, half for cucumber salad</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=english+cucumber&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cherry tomatoes</div><div class="item-detail">1 cup — halved for cucumber salad topping</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=cherry+tomatoes&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Red onion</div><div class="item-detail">½ small — thinly sliced for cucumber salad</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=red+onion&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Lemons</div><div class="item-detail">2 — juice for chicken marinade, tzatziki, and cucumber salad</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=lemons&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh dill or mint</div><div class="item-detail">Small bunch — for tzatziki</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=fresh+dill&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fresh parsley</div><div class="item-detail">Small bunch — garnish for greek bowls</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=fresh+parsley&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Butter lettuce</div><div class="item-detail">1 large head — the lettuce cups for the wraps</div></div><div class="item-actions"><span class="item-tag tag-wraps">Wraps</span><a href="https://www.amazon.com/s?k=butter+lettuce&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Shredded carrots (optional)</div><div class="item-detail">Small bag — garnish for lettuce wraps, adds color and crunch</div></div><div class="item-actions"><span class="item-tag tag-wraps">Wraps</span><a href="https://www.amazon.com/s?k=shredded+carrots+bag&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
   </div>
 </div>
 <div class="section">
   <div class="section-header"><span class="section-icon">🥩</span><div class="section-title">Protein</div><div class="section-line"></div></div>
   <div class="items-list">
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Eggs</div><div class="item-detail">6 large (cracked right into the shakshuka pan)</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=large+eggs&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cod fillets</div><div class="item-detail">4 fillets (~6 oz each), skinless — fresh or thawed</div></div><div class="item-actions"><span class="item-tag tag-cod">Cod</span><a href="https://www.amazon.com/s?k=cod+fillets+fresh&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Ground turkey</div><div class="item-detail">1 lb (93% lean works great)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=ground+turkey+93+lean&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Chicken thighs, boneless skinless</div><div class="item-detail">2 lbs total — ½ lb for fried rice (sliced thin), 1½ lb for greek bowls</div></div><div class="item-actions"><span class="item-tag tag-rice-wraps">Rice+Greek</span><a href="https://www.amazon.com/s?k=boneless+skinless+chicken+thighs&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Ground turkey, 93% lean</div><div class="item-detail">1 lb — for the lettuce wrap filling</div></div><div class="item-actions"><span class="item-tag tag-wraps">Wraps</span><a href="https://www.amazon.com/s?k=ground+turkey+93+lean&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
   </div>
 </div>
 <div class="section">
   <div class="section-header"><span class="section-icon">🧈</span><div class="section-title">Dairy &amp; Refrigerated</div><div class="section-line"></div></div>
   <div class="items-list">
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Shredded Mexican cheese blend</div><div class="item-detail">1 bag (taco bowl topping)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=shredded+mexican+cheese+blend&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Sour cream</div><div class="item-detail">Small container (taco bowl topping)</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=sour+cream&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Feta cheese (optional)</div><div class="item-detail">Crumbled feta is excellent on shakshuka — worth getting</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=crumbled+feta+cheese&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Greek yogurt, plain full-fat</div><div class="item-detail">1 cup — base for tzatziki</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=plain+full+fat+greek+yogurt&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Feta cheese, crumbled (optional)</div><div class="item-detail">2–3 oz — strongly recommended for the greek bowls</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=crumbled+feta+cheese&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
   </div>
 </div>
 <div class="section">
   <div class="section-header"><span class="section-icon">🫙</span><div class="section-title">Pantry &amp; Canned</div><div class="section-line"></div></div>
   <div class="items-list">
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Whole peeled tomatoes (28 oz)</div><div class="item-detail">1 can — break them down with a spoon in the pan</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=whole+peeled+tomatoes+28oz+can&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Black beans (15 oz)</div><div class="item-detail">1 can, drained and rinsed</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=black+beans+15oz+can&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">White rice</div><div class="item-detail">Check pantry — need ~3 cups dry (cook double Wed, reheat Thu)</div></div><div class="item-actions"><span class="item-tag tag-cod-tacos">Cod+Tacos</span><a href="https://www.amazon.com/s?k=long+grain+white+rice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Pita bread</div><div class="item-detail">1 pack — for serving with shakshuka</div></div><div class="item-actions"><span class="item-tag tag-shak">Shakshuka</span><a href="https://www.amazon.com/s?k=pita+bread&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Salsa</div><div class="item-detail">Jar of mild salsa for taco bowls — check pantry first</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=mild+salsa+jar&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Jasmine rice</div><div class="item-detail">2 cups dry — cook extra Monday for fried rice, rest for greek bowls Wed</div></div><div class="item-actions"><span class="item-tag tag-rice-wraps">Rice+Greek</span><a href="https://www.amazon.com/s?k=jasmine+rice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Frozen mixed vegetables</div><div class="item-detail">1 cup — peas, carrots, corn, green beans for fried rice</div></div><div class="item-actions"><span class="item-tag tag-rice">Fried Rice</span><a href="https://www.amazon.com/s?k=frozen+mixed+vegetables&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Water chestnuts (8 oz can)</div><div class="item-detail">1 can — drained and diced for lettuce wraps, adds crunch</div></div><div class="item-actions"><span class="item-tag tag-wraps">Wraps</span><a href="https://www.amazon.com/s?k=water+chestnuts+canned&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Hoisin sauce</div><div class="item-detail">3 tablespoons — the main sauce for lettuce wraps</div></div><div class="item-actions"><span class="item-tag tag-wraps">Wraps</span><a href="https://www.amazon.com/s?k=hoisin+sauce&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Low-sodium soy sauce</div><div class="item-detail">Check pantry — 1½ tbsp fried rice + 2 tbsp wraps + marinade</div></div><div class="item-actions"><span class="item-tag tag-rice-wraps">Rice+Wraps</span><a href="https://www.amazon.com/s?k=low+sodium+soy+sauce&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Toasted sesame oil</div><div class="item-detail">Check pantry — marinade for fried rice + 1 tsp wraps sauce</div></div><div class="item-actions"><span class="item-tag tag-rice-wraps">Rice+Wraps</span><a href="https://www.amazon.com/s?k=toasted+sesame+oil&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Fish sauce</div><div class="item-detail">1 tsp — adds depth to fried rice, check pantry</div></div><div class="item-actions"><span class="item-tag tag-rice">Fried Rice</span><a href="https://www.amazon.com/s?k=fish+sauce&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Rice vinegar</div><div class="item-detail">1 tablespoon — for lettuce wrap sauce</div></div><div class="item-actions"><span class="item-tag tag-wraps">Wraps</span><a href="https://www.amazon.com/s?k=rice+vinegar&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Vegetable oil</div><div class="item-detail">Check pantry — for wok frying and lettuce wraps</div></div><div class="item-actions"><span class="item-tag tag-rice-wraps">Rice+Wraps</span><a href="https://www.amazon.com/s?k=vegetable+oil&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Hummus (store-bought)</div><div class="item-detail">Small container — scoop into greek bowls alongside tzatziki</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=hummus&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Olive oil</div><div class="item-detail">Check pantry — for chicken marinade, tzatziki, and cucumber salad</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=olive+oil&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Cornstarch + baking soda</div><div class="item-detail">Check pantry — small amounts for fried rice chicken marinade</div></div><div class="item-actions"><span class="item-tag tag-rice">Fried Rice</span><a href="https://www.amazon.com/s?k=cornstarch&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
   </div>
 </div>
 <div class="section">
   <div class="section-header"><span class="section-icon">🌿</span><div class="section-title">Spices — Check Pantry First</div><div class="section-line"></div></div>
   <div class="items-list">
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Paprika</div><div class="item-detail">Need 2 tsp shakshuka + ½ tsp tacos — should have from tikka masala last week</div></div><div class="item-actions"><span class="item-tag tag-shak-tacos">Shak+Tacos</span><a href="https://www.amazon.com/s?k=paprika+spice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Ground cumin</div><div class="item-detail">Need 1 tsp shakshuka + 1 tsp tacos — should have from tikka last week</div></div><div class="item-actions"><span class="item-tag tag-shak-tacos">Shak+Tacos</span><a href="https://www.amazon.com/s?k=ground+cumin&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Chili powder (mild)</div><div class="item-detail">Need ¼ tsp shakshuka + 1 tsp tacos — standard pantry item</div></div><div class="item-actions"><span class="item-tag tag-shak-tacos">Shak+Tacos</span><a href="https://www.amazon.com/s?k=chili+powder&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Garlic powder</div><div class="item-detail">1 tsp cod + ½ tsp tacos — very likely have it</div></div><div class="item-actions"><span class="item-tag tag-cod-tacos">Cod+Tacos</span><a href="https://www.amazon.com/s?k=garlic+powder&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Dried thyme</div><div class="item-detail">1 tsp for cod herb rub — check pantry</div></div><div class="item-actions"><span class="item-tag tag-cod">Cod</span><a href="https://www.amazon.com/s?k=dried+thyme&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Smoked paprika</div><div class="item-detail">½ tsp tacos — leftover from tikka masala last week</div></div><div class="item-actions"><span class="item-tag tag-tacos">Tacos</span><a href="https://www.amazon.com/s?k=smoked+paprika&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Dried oregano</div><div class="item-detail">1½ tsp — for greek chicken marinade</div></div><div class="item-actions"><span class="item-tag tag-greek">Greek Bowls</span><a href="https://www.amazon.com/s?k=dried+oregano+spice&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="checkbox"><span class="checkmark">✓</span></div><div class="item-body"><div class="item-name">Sesame seeds</div><div class="item-detail">For garnish on fried rice and lettuce wraps</div></div><div class="item-actions"><span class="item-tag tag-rice-wraps">Rice+Wraps</span><a href="https://www.amazon.com/s?k=sesame+seeds&i=amazonfresh" target="_blank" class="fresh-link">🛒 Fresh</a></div></div>
   </div>
 </div>
 <div class="summary-bar">
@@ -323,7 +325,7 @@ fetch('data/week.json').then(function(r){return r.json();}).then(function(data){
   function parseIng(s){var m=s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i);return m?{qty:m[1].trim(),name:m[2].trim()}:{qty:'\u2014',name:s};}
   function buildIngs(r){ingHead.textContent=r.name;titleEl.textContent=r.name;ingsList.innerHTML=r.ings.map(function(i){var p=parseIng(i);return'<li class="ck-ing-row"><span class="ck-qty">'+p.qty+'</span><span class="ck-item-name">'+p.name+'</span></li>';}).join('');ingScroll.scrollTop=0;}
   function buildSteps(r){slides.forEach(function(s){s.remove();});slides=[];dots=[];dotsEl.innerHTML='';stepVp.removeChild(hintSteps);r.steps.forEach(function(text,i){var sl=document.createElement('div');sl.className='ck-slide'+(i===0?' active':'');sl.innerHTML='<div class="ck-step-big">'+String(i+1).padStart(2,'0')+'</div><div class="ck-step-of">of '+r.steps.length+'</div><div class="ck-step-body">'+text+'</div>';stepVp.appendChild(sl);slides.push(sl);var d=document.createElement('div');d.className='ck-dot'+(i===0?' on':'');dotsEl.appendChild(d);dots.push(d);});stepVp.appendChild(hintSteps);stepIdx=0;refreshNav();}
-  function goStep(n){if(n<0||n>=recipe.steps.length||n===stepIdx)return;var fwd=n>stepIdx,from=slides[stepIdx],to=slides[n];from.classList.remove('active');from.classList.add(fwd?'exit-up':'exit-down');to.style.transition='none';to.style.opacity='0';to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';requestAnimationFrame(function(){requestAnimationFrame(function(){to.style.transition='';to.style.opacity='';to.style.transform='';to.classList.add('active');});});setTimeout(function(){from.classList.remove('exit-up','exit-down');},320);dots[stepIdx].classList.remove('on');dots[stepIdx].classList.toggle('done',fwd);dots[n].classList.remove('done');dots[n].classList.add('on');stepIdx=n;refreshNav();hideStepHint();}
+  function goStep(n){if(n<0||n>=recipe.steps.length||n===stepIdx)return;var fwd=n>stepIdx,from=slides[stepIdx],to=slides[n];from.classList.remove('active');from.classList.add(fwd?'exit-up':'exit-down');to.style.transition='none';to.style.opacity='0';to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';requestAnimationFrame(function(){requestAnimationFrame(function(){to.style.transition='';to.style.opacity='';to.style.transform='';to.classList.add('active');});});setTimeout(function(){from.classList.remove('exit-up','exit-down');},320);dots[stepIdx].classList.remove('on');dots[stepIdx].classList.toggle('done',fwd);dots[n].classList.remove('done');dots[n].classList.add('on');stepIdx=n;refreshNav();}
   function refreshNav(){prevBtn.disabled=stepIdx===0;nextBtn.disabled=!recipe||stepIdx===recipe.steps.length-1;}
   function showPanel(p){isSteps=p==='steps';track.classList.toggle('flipped',isSteps);pip0.classList.toggle('on',!isSteps);pip1.classList.toggle('on',isSteps);if(isSteps)hideIngHint();}
   function hideIngHint(){if(!ingHid){ingHid=true;hintIng.classList.add('gone');}}
