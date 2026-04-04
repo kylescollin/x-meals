@@ -6,88 +6,90 @@
 <title>Fox & Bear Kitchen — Grocery List</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root { --cream: #faf7f2; --ink: #1a1a1a; --muted: #7a7264; --accent: #c8622a; --accent-light: #f5e8de; --border: #e4ded5; --check: #2d7a4f; --check-light: #e8f4ed; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
-  .site-nav { display: flex; gap: 0; border-bottom: 1px solid var(--border); background: #fff; }
-  .nav-link { padding: 14px 20px; text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 500; letter-spacing: .03em; border-bottom: 2px solid transparent; transition: color .15s; }
-  .nav-link:hover { color: var(--ink); }
-  .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
-  .container { max-width: 680px; margin: 0 auto; padding: 28px 16px 80px; }
-  .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-  h1 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; line-height: 1.15; margin-bottom: 6px; }
-  .subhead { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
-  .progress-wrap { background: var(--border); border-radius: 99px; height: 6px; margin-bottom: 6px; overflow: hidden; }
-  .progress-bar { height: 100%; background: var(--check); border-radius: 99px; width: 0%; transition: width .3s ease; }
-  .progress-label { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
-  .meal-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-  .meal-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: box-shadow .15s, border-color .15s; user-select: none; }
-  .meal-card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(200,98,42,.1); }
-  .meal-card-label { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
-  .meal-card-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; margin-bottom: 2px; }
-  .meal-card-meta { font-size: 12px; color: var(--muted); }
-  .section { margin-bottom: 20px; }
-  .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-  .section-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-  .item { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; margin-bottom: 6px; cursor: pointer; transition: background .12s, border-color .12s; }
-  .item:hover { border-color: #ccc; }
-  .item.checked { background: var(--check-light); border-color: #b8dfc9; }
-  .cb { width: 20px; height: 20px; border-radius: 5px; border: 2px solid var(--border); background: #fff; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
-  .item.checked .cb { background: var(--check); border-color: var(--check); }
-  .cb-check { display: none; color: #fff; font-size: 12px; font-weight: 700; }
-  .item.checked .cb-check { display: block; }
-  .item-body { flex: 1; min-width: 0; }
-  .item-name { font-size: 14px; font-weight: 500; }
-  .item.checked .item-name { text-decoration: line-through; color: var(--muted); }
-  .item-detail { font-size: 12px; color: var(--muted); margin-top: 1px; }
-  .item.checked .item-detail { color: #b0a898; }
-  .item-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-  .tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
-  .tag-shrimp { background: #fde8d8; color: #b85c22; }
-  .tag-cauliflower { background: #e8dff5; color: #6b4f9e; }
-  .tag-gnocchi { background: #fef3c0; color: #92640a; }
-  .tag-shared { background: #e8f2fe; color: #2563a8; }
-  .tag-all { background: #f0ecd8; color: #7a6020; }
-  .amz-btn { font-size: 11px; font-weight: 600; color: #fff; background: #FF9900; border: none; border-radius: 5px; padding: 3px 8px; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; }
-  .amz-btn:hover { background: #e88b00; }
-  .note-box { background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 10px 14px; font-size: 13px; color: #7a4820; margin-bottom: 18px; }
-  .summary-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--ink); color: #fff; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; z-index: 100; }
-  .summary-count { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; }
-  .summary-label { font-size: 12px; color: #8a8a8a; margin-top: 1px; }
-  .reset-btn { background: transparent; border: 1px solid #555; color: #ccc; font-size: 12px; font-weight: 500; border-radius: 6px; padding: 6px 14px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: border-color .15s, color .15s; }
-  .reset-btn:hover { border-color: #999; color: #fff; }
-  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; align-items: flex-end; justify-content: center; }
-  .overlay.open { display: flex; }
-  .overlay-sheet { background: #fff; border-radius: 18px 18px 0 0; max-width: 680px; width: 100%; max-height: 88vh; overflow-y: auto; padding: 0 0 40px; }
-  .overlay-handle { width: 36px; height: 4px; background: var(--border); border-radius: 99px; margin: 14px auto 16px; }
-  .overlay-inner { padding: 0 20px; }
-  .overlay-label { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
-  .overlay-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 4px; }
-  .overlay-meta { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
-  .overlay-close { float: right; font-size: 22px; color: var(--muted); cursor: pointer; margin-top: -48px; line-height: 1; padding: 4px; }
-  .overlay-section-title { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
-  .overlay-ings { list-style: none; }
-  .overlay-ings li { font-size: 14px; padding: 5px 0; border-bottom: 1px solid var(--border); }
-  .overlay-ings li:last-child { border-bottom: none; }
-  .overlay-steps { list-style: none; counter-reset: steps; }
-  .overlay-steps li { counter-increment: steps; display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; line-height: 1.55; }
-  .overlay-steps li:last-child { border-bottom: none; }
-  .overlay-steps li::before { content: counter(steps); font-size: 11px; font-weight: 700; color: #fff; background: var(--accent); border-radius: 50%; width: 20px; height: 20px; min-width: 20px; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
-  .overlay-note { background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 10px 14px; font-size: 13px; color: #7a4820; margin-top: 16px; }
-  .cook-btn { display: block; width: 100%; background: var(--check); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; border: none; border-radius: 10px; padding: 14px; cursor: pointer; margin-top: 20px; }
-  .cook-btn:hover { background: #236040; }
-  .cook-mode { display: none; position: fixed; inset: 0; background: #0f1f18; color: #fff; z-index: 300; flex-direction: column; }
-  .cook-mode.open { display: flex; }
-  .cook-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 10px; border-bottom: 1px solid #1e3028; }
-  .cook-title { font-family: 'Playfair Display', serif; font-size: 18px; }
-  .cook-close { font-size: 22px; cursor: pointer; color: #8aab99; }
-  .cook-body { flex: 1; overflow-y: auto; padding: 24px 20px; }
-  .cook-step-num { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #4caf82; margin-bottom: 8px; }
-  .cook-step-text { font-size: 18px; line-height: 1.6; color: #e8f4ed; }
-  .cook-footer { display: flex; gap: 10px; padding: 16px 20px; border-top: 1px solid #1e3028; }
-  .cook-nav { flex: 1; padding: 14px; border-radius: 10px; border: none; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
-  .cook-prev { background: #1e3028; color: #8aab99; }
-  .cook-next { background: var(--check); color: #fff; }
+  :root{--cream:#faf7f2;--ink:#1a1a1a;--muted:#7a7264;--accent:#c8622a;--accent-light:#f5e8de;--border:#e4ded5;--check:#2d7a4f;--check-light:#e8f4ed;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;}
+  .site-nav{display:flex;border-bottom:1px solid var(--border);background:#fff;}
+  .nav-link{padding:14px 20px;text-decoration:none;color:var(--muted);font-size:13px;font-weight:500;letter-spacing:.03em;border-bottom:2px solid transparent;transition:color .15s;}
+  .nav-link:hover{color:var(--ink);}
+  .nav-link.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .container{max-width:680px;margin:0 auto;padding:28px 16px 80px;}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1.15;margin-bottom:6px;}
+  .subhead{color:var(--muted);font-size:14px;margin-bottom:20px;}
+  .progress-wrap{background:var(--border);border-radius:99px;height:6px;margin-bottom:6px;overflow:hidden;}
+  .progress-bar{height:100%;background:var(--check);border-radius:99px;width:0%;transition:width .3s ease;}
+  .progress-label{font-size:12px;color:var(--muted);margin-bottom:24px;}
+  .meal-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+  .meal-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,border-color .15s;user-select:none;}
+  .meal-card:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(200,98,42,.1);}
+  .meal-card-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;}
+  .meal-card-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;margin-bottom:2px;}
+  .meal-card-meta{font-size:12px;color:var(--muted);}
+  .section{margin-bottom:20px;}
+  .section-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+  .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+  .item{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:11px 14px;margin-bottom:6px;cursor:pointer;transition:background .12s,border-color .12s;}
+  .item:hover{border-color:#ccc;}
+  .item.checked{background:var(--check-light);border-color:#b8dfc9;}
+  .cb{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);background:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+  .item.checked .cb{background:var(--check);border-color:var(--check);}
+  .cb-check{display:none;color:#fff;font-size:12px;font-weight:700;}
+  .item.checked .cb-check{display:block;}
+  .item-body{flex:1;min-width:0;}
+  .item-name{font-size:14px;font-weight:500;}
+  .item.checked .item-name{text-decoration:line-through;color:var(--muted);}
+  .item-detail{font-size:12px;color:var(--muted);margin-top:1px;}
+  .item.checked .item-detail{color:#b0a898;}
+  .item-right{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+  .tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap;}
+  .tag-soup{background:#fff0e0;color:#8a4a10;}
+  .tag-tacos{background:#e8f5e9;color:#2e7d32;}
+  .tag-salmon{background:#e3f0fb;color:#1a5c9e;}
+  .tag-shared{background:#e8f2fe;color:#2563a8;}
+  .tag-all{background:#f0ecd8;color:#7a6020;}
+  .amz-btn{font-size:11px;font-weight:600;color:#fff;background:#FF9900;border:none;border-radius:5px;padding:3px 8px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;}
+  .amz-btn:hover{background:#e88b00;}
+  .note-box{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#7a4820;margin-bottom:18px;}
+  .summary-bar{position:fixed;bottom:0;left:0;right:0;background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
+  .summary-count{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;}
+  .summary-label{font-size:12px;color:#8a8a8a;margin-top:1px;}
+  .reset-btn{background:transparent;border:1px solid #555;color:#ccc;font-size:12px;font-weight:500;border-radius:6px;padding:6px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color .15s,color .15s;}
+  .reset-btn:hover{border-color:#999;color:#fff;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;justify-content:center;}
+  .overlay.open{display:flex;}
+  .overlay-sheet{background:#fff;border-radius:18px 18px 0 0;max-width:680px;width:100%;max-height:88vh;overflow-y:auto;padding:0 0 40px;}
+  .overlay-handle{width:36px;height:4px;background:var(--border);border-radius:99px;margin:14px auto 16px;}
+  .overlay-inner{padding:0 20px;}
+  .overlay-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+  .overlay-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:4px;}
+  .overlay-meta{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .overlay-close{float:right;font-size:22px;color:var(--muted);cursor:pointer;margin-top:-48px;line-height:1;padding:4px;}
+  .overlay-section-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px;}
+  .overlay-ings{list-style:none;}
+  .overlay-ings li{font-size:14px;padding:5px 0;border-bottom:1px solid var(--border);}
+  .overlay-ings li:last-child{border-bottom:none;}
+  .overlay-steps{list-style:none;counter-reset:steps;}
+  .overlay-steps li{counter-increment:steps;display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;line-height:1.55;}
+  .overlay-steps li:last-child{border-bottom:none;}
+  .overlay-steps li::before{content:counter(steps);font-size:11px;font-weight:700;color:#fff;background:var(--accent);border-radius:50%;width:20px;height:20px;min-width:20px;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+  .overlay-note{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#7a4820;margin-top:16px;}
+  .cook-btn{display:block;width:100%;background:var(--check);color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;border:none;border-radius:10px;padding:14px;cursor:pointer;margin-top:20px;transition:background .15s;}
+  .cook-btn:hover{background:#236040;}
+  .cook-mode{display:none;position:fixed;inset:0;background:#0f1f18;color:#fff;z-index:300;flex-direction:column;}
+  .cook-mode.open{display:flex;}
+  .cook-header{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 10px;border-bottom:1px solid #1e3028;}
+  .cook-title{font-family:'Playfair Display',serif;font-size:18px;}
+  .cook-close{font-size:22px;cursor:pointer;color:#8aab99;}
+  .cook-body{flex:1;overflow-y:auto;padding:24px 20px;}
+  .cook-step-num{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4caf82;margin-bottom:8px;}
+  .cook-step-text{font-size:18px;line-height:1.6;color:#e8f4ed;}
+  .cook-footer{display:flex;gap:10px;padding:16px 20px;border-top:1px solid #1e3028;}
+  .cook-nav{flex:1;padding:14px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background .15s;}
+  .cook-prev{background:#1e3028;color:#8aab99;}
+  .cook-prev:hover{background:#263d30;}
+  .cook-next{background:var(--check);color:#fff;}
+  .cook-next:hover{background:#236040;}
 </style>
 </head>
 <body>
@@ -102,73 +104,91 @@
   <p class="subhead">Week of April 6 &nbsp;·&nbsp; 3 dinners &nbsp;·&nbsp; Serves 4</p>
   <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
   <p class="progress-label" id="progressLabel">0 of 0 items checked</p>
+
   <div class="meal-cards">
     <div class="meal-card js-recipe" data-idx="0">
       <div class="meal-card-label">Meal A &middot; Monday 4/6</div>
-      <div class="meal-card-name">🍤 Easy Shrimp Alfredo</div>
-      <div class="meal-card-meta">~30 min &middot; One pan &middot; Serves 4</div>
+      <div class="meal-card-name">🍲 Sausage White Bean Soup</div>
+      <div class="meal-card-meta">~35 min &middot; One pot &middot; Serves 4–6</div>
     </div>
     <div class="meal-card js-recipe" data-idx="1">
       <div class="meal-card-label">Meal B &middot; Tuesday 4/7</div>
-      <div class="meal-card-name">🥦 Butter Cauliflower</div>
-      <div class="meal-card-meta">~1 hr 5 min &middot; Serves 4 &middot; Pre-diabetic friendly</div>
+      <div class="meal-card-name">🌮 Air Fryer Fish Tacos with Cilantro Lime Slaw</div>
+      <div class="meal-card-meta">~20 min &middot; Air fryer &middot; Serves 4</div>
     </div>
     <div class="meal-card js-recipe" data-idx="2">
       <div class="meal-card-label">Meal C &middot; Wednesday 4/8</div>
-      <div class="meal-card-name">🍅 Creamy Tomato Gnocchi with Burrata</div>
-      <div class="meal-card-meta">~30 min &middot; One pan &middot; Serves 6</div>
+      <div class="meal-card-name">🐟 Miso Glazed Salmon Bowls</div>
+      <div class="meal-card-meta">~30 min &middot; Sheet pan + rice &middot; Serves 4</div>
     </div>
   </div>
+
+  <!-- PRODUCE -->
   <div class="section">
     <div class="section-header"><span>🥦</span><span class="section-label">Produce</span></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 medium head cauliflower</div><div class="item-detail">Cut into florets for Butter Cauliflower</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=cauliflower+head&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">2 pints cherry tomatoes</div><div class="item-detail">For Creamy Tomato Gnocchi sauce</div></div><div class="item-right"><span class="tag tag-gnocchi">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=cherry+tomatoes&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 yellow onion</div><div class="item-detail">For Butter Cauliflower sauce</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=yellow+onion&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Fresh basil (½ cup+)</div><div class="item-detail">For Creamy Tomato Gnocchi</div></div><div class="item-right"><span class="tag tag-gnocchi">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=fresh+basil&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 head garlic</div><div class="item-detail">All three meals use garlic</div></div><div class="item-right"><span class="tag tag-all">All meals</span><a class="amz-btn" href="https://www.amazon.com/s?k=garlic+head&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Fresh ginger (small knob)</div><div class="item-detail">For Butter Cauliflower</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=fresh+ginger+root&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Fresh cilantro (garnish)</div><div class="item-detail">For Butter Cauliflower — skip if not a fan</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=fresh+cilantro&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 lemon</div><div class="item-detail">Lemon juice for Butter Cauliflower</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=lemon&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">2 carrots, peeled and sliced</div><div class="item-detail">For Sausage White Bean Soup</div></div><div class="item-right"><span class="tag tag-soup">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=carrots&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">2 stalks celery</div><div class="item-detail">For Sausage White Bean Soup</div></div><div class="item-right"><span class="tag tag-soup">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=celery&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Fresh parsley</div><div class="item-detail">Garnish for Sausage White Bean Soup</div></div><div class="item-right"><span class="tag tag-soup">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=fresh+parsley&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 bag coleslaw mix (2½ cups)</div><div class="item-detail">Base for cilantro lime slaw</div></div><div class="item-right"><span class="tag tag-tacos">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=coleslaw+mix+bag&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Fresh cilantro (⅓ cup+)</div><div class="item-detail">For fish taco slaw</div></div><div class="item-right"><span class="tag tag-tacos">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=fresh+cilantro&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">3 limes</div><div class="item-detail">Slaw + squeeze to serve with tacos</div></div><div class="item-right"><span class="tag tag-tacos">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=limes&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 large English cucumber</div><div class="item-detail">Thinly sliced for salmon bowls</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=english+cucumber&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 bag shredded carrots (1 cup)</div><div class="item-detail">For salmon bowls — or shred your own</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=shredded+carrots+bag&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">2–3 green onions</div><div class="item-detail">Garnish for salmon bowls</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=green+onions&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Fresh ginger (small knob)</div><div class="item-detail">For miso glaze</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=fresh+ginger+root&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 head garlic</div><div class="item-detail">Soup + slaw + miso glaze</div></div><div class="item-right"><span class="tag tag-all">All meals</span><a class="amz-btn" href="https://www.amazon.com/s?k=garlic+head&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 medium onion</div><div class="item-detail">For Sausage White Bean Soup</div></div><div class="item-right"><span class="tag tag-soup">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=yellow+onion&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
   </div>
+
+  <!-- PROTEIN -->
   <div class="section">
     <div class="section-header"><span>🥩</span><span class="section-label">Protein</span></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 lb uncooked shrimp (31-40/lb, peeled & deveined)</div><div class="item-detail">Thawed for Shrimp Alfredo</div></div><div class="item-right"><span class="tag tag-shrimp">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=frozen+shrimp+31-40&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 lb mild Italian sausage, crumbled</div><div class="item-detail">For Sausage White Bean Soup</div></div><div class="item-right"><span class="tag tag-soup">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=italian+sausage+mild&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1½ lb white fish (tilapia, cod, or mahi mahi)</div><div class="item-detail">For Air Fryer Fish Tacos</div></div><div class="item-right"><span class="tag tag-tacos">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=tilapia+fillets+fresh&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">4 salmon fillets (~6 oz each), skinless</div><div class="item-detail">For Miso Glazed Salmon Bowls</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=salmon+fillets&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
   </div>
+
+  <!-- DAIRY & REFRIGERATED -->
   <div class="section">
     <div class="section-header"><span>🧈</span><span class="section-label">Dairy & Refrigerated</span></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">2 balls fresh burrata (4 oz each)</div><div class="item-detail">The whole point of Meal C — don't skip!</div></div><div class="item-right"><span class="tag tag-gnocchi">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=fresh+burrata+cheese&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">4 oz cream cheese (softened)</div><div class="item-detail">For Shrimp Alfredo sauce</div></div><div class="item-right"><span class="tag tag-shrimp">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=cream+cheese&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Heavy whipping cream (1¼ cups total)</div><div class="item-detail">¾ cup Shrimp Alfredo + ½ cup Butter Cauliflower</div></div><div class="item-right"><span class="tag tag-shared">Meals A+B</span><a class="amz-btn" href="https://www.amazon.com/s?k=heavy+whipping+cream&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Parmesan cheese (block, ~1 cup grated)</div><div class="item-detail">For Shrimp Alfredo — freshly grated is key</div></div><div class="item-right"><span class="tag tag-shrimp">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=parmesan+cheese+wedge&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Unsalted butter (5 tbsp total)</div><div class="item-detail">2 tbsp Shrimp Alfredo + 3 tbsp Butter Cauliflower</div></div><div class="item-right"><span class="tag tag-shared">Meals A+B</span><a class="amz-btn" href="https://www.amazon.com/s?k=unsalted+butter&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Plain Greek yogurt (small container)</div><div class="item-detail">Garnish for Butter Cauliflower</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=plain+greek+yogurt&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Mayonnaise (3 tbsp)</div><div class="item-detail">For cilantro lime slaw</div></div><div class="item-right"><span class="tag tag-tacos">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=mayonnaise&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Frozen edamame, shelled (1 cup)</div><div class="item-detail">For salmon bowls — thaw before serving</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=frozen+edamame+shelled&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
   </div>
+
+  <!-- PANTRY & CANNED -->
   <div class="section">
     <div class="section-header"><span>🫙</span><span class="section-label">Pantry & Canned</span></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">8 oz fettuccine pasta</div><div class="item-detail">For Shrimp Alfredo</div></div><div class="item-right"><span class="tag tag-shrimp">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=fettuccine+pasta&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">2 packages potato gnocchi (16 oz each)</div><div class="item-detail">For Creamy Tomato Gnocchi</div></div><div class="item-right"><span class="tag tag-gnocchi">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=potato+gnocchi&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Basmati rice (1½ cups)</div><div class="item-detail">To serve with Butter Cauliflower</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=basmati+rice&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 can (8 oz) tomato sauce</div><div class="item-detail">For Butter Cauliflower</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=tomato+sauce+can&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Tomato paste (2 tbsp)</div><div class="item-detail">For Butter Cauliflower</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=tomato+paste&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Vegetable broth (2 cups)</div><div class="item-detail">For Butter Cauliflower</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=vegetable+broth&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Chicken broth (¼ cup)</div><div class="item-detail">For Shrimp Alfredo sauce</div></div><div class="item-right"><span class="tag tag-shrimp">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=chicken+broth&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Extra-virgin olive oil</div><div class="item-detail">All three meals</div></div><div class="item-right"><span class="tag tag-all">All meals</span><a class="amz-btn" href="https://www.amazon.com/s?k=extra+virgin+olive+oil&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Cornstarch (2 tsp)</div><div class="item-detail">For Butter Cauliflower coating</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">1 can (15 oz) white beans (cannellini)</div><div class="item-detail">For Sausage White Bean Soup</div></div><div class="item-right"><span class="tag tag-soup">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=cannellini+white+beans+can&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">4 cups chicken broth</div><div class="item-detail">For Sausage White Bean Soup</div></div><div class="item-right"><span class="tag tag-soup">Meal A</span><a class="amz-btn" href="https://www.amazon.com/s?k=chicken+broth+carton&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Small flour or corn tortillas</div><div class="item-detail">For fish tacos — flour or corn, your call</div></div><div class="item-right"><span class="tag tag-tacos">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=small+flour+tortillas&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">White miso paste (3 tbsp)</div><div class="item-detail">Core of the salmon glaze — check fridge/pantry first</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=white+miso+paste&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Low-sodium soy sauce</div><div class="item-detail">Miso glaze + optional drizzle for bowls</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=low+sodium+soy+sauce&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Honey or maple syrup (2 tbsp)</div><div class="item-detail">For miso glaze</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=honey&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Rice vinegar</div><div class="item-detail">Miso glaze + fish taco slaw</div></div><div class="item-right"><span class="tag tag-shared">Meals B+C</span><a class="amz-btn" href="https://www.amazon.com/s?k=rice+vinegar&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Sesame oil (toasted)</div><div class="item-detail">For miso glaze</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=toasted+sesame+oil&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Sesame seeds (1 tbsp)</div><div class="item-detail">Garnish for salmon bowls</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=sesame+seeds&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Jasmine rice (1½ cups)</div><div class="item-detail">For salmon bowls</div></div><div class="item-right"><span class="tag tag-salmon">Meal C</span><a class="amz-btn" href="https://www.amazon.com/s?k=jasmine+rice&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Olive oil</div><div class="item-detail">Soup + fish rub</div></div><div class="item-right"><span class="tag tag-shared">Meals A+B</span><a class="amz-btn" href="https://www.amazon.com/s?k=olive+oil&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
   </div>
+
+  <!-- SPICES -->
   <div class="section">
     <div class="section-header"><span>🌿</span><span class="section-label">Spices</span></div>
-    <div class="note-box">Check pantry before ordering — you likely have many of these.</div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Garam masala (3 tsp needed)</div><div class="item-detail">Butter Cauliflower — make sure you have enough</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span><a class="amz-btn" href="https://www.amazon.com/s?k=garam+masala+spice&i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Turmeric, paprika, cumin, cinnamon</div><div class="item-detail">All for Butter Cauliflower — check pantry</div></div><div class="item-right"><span class="tag tag-cauliflower">Meal B</span></div></div>
-    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Salt, black pepper, red pepper flakes (optional)</div><div class="item-detail">All meals — flakes optional for Gnocchi</div></div><div class="item-right"><span class="tag tag-all">All meals</span></div></div>
+    <div class="note-box">Check pantry before ordering — you likely have most of these.</div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Dried thyme + dried rosemary</div><div class="item-detail">For Sausage White Bean Soup</div></div><div class="item-right"><span class="tag tag-soup">Meal A</span></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Chili powder, paprika, garlic powder, cumin, oregano, onion powder</div><div class="item-detail">Fish taco spice rub — skip cayenne</div></div><div class="item-right"><span class="tag tag-tacos">Meal B</span></div></div>
+    <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Salt, black pepper</div><div class="item-detail">All meals</div></div><div class="item-right"><span class="tag tag-all">All meals</span></div></div>
   </div>
+
 </div>
+
 <div class="summary-bar">
   <div><div class="summary-count" id="summaryCount">0 / 0</div><div class="summary-label">items checked</div></div>
   <button class="reset-btn" onclick="resetAll()">Reset all</button>
 </div>
+
 <div class="overlay" id="overlay" onclick="closeOverlay(event)">
-  <div class="overlay-sheet" id="overlaySheet">
+  <div class="overlay-sheet">
     <div class="overlay-handle"></div>
     <div class="overlay-inner">
       <div id="overlayClose" class="overlay-close" onclick="closeOverlay()">✕</div>
@@ -184,33 +204,34 @@
     </div>
   </div>
 </div>
+
 <div class="cook-mode" id="cookMode">
   <div class="cook-header"><div class="cook-title" id="cookTitle"></div><div class="cook-close" onclick="closeCook()">✕</div></div>
   <div class="cook-body"><div class="cook-step-num" id="cookStepNum"></div><div class="cook-step-text" id="cookStepText"></div></div>
   <div class="cook-footer">
-    <button class="cook-nav cook-prev" id="cookPrev" onclick="cookNav(-1)">← Back</button>
+    <button class="cook-nav cook-prev" onclick="cookNav(-1)">← Back</button>
     <button class="cook-nav cook-next" id="cookNext" onclick="cookNav(1)">Next →</button>
   </div>
 </div>
+
 <script>
 const FB_URL='https://fox-bear-kitchen-default-rtdb.firebaseio.com/groceries/week-apr-6';
-let fbEnabled=true;
 function fbKey(el){return el.querySelector('.item-name').textContent.trim().replace(/[^a-z0-9]/gi,'_').substring(0,60);}
-function syncToFB(key,checked){fetch(`${FB_URL}/${key}.json`,{method:'PUT',body:JSON.stringify(checked)}).catch(()=>{});}
-function loadFromFB(){fetch(`${FB_URL}.json`).then(r=>r.json()).then(data=>{if(!data)return;document.querySelectorAll('.item').forEach(el=>{if(data[fbKey(el)]===true)el.classList.add('checked');});updateProgress();}).catch(()=>{});}
+function syncToFB(k,v){fetch(`${FB_URL}/${k}.json`,{method:'PUT',body:JSON.stringify(v)}).catch(()=>{});}
+function loadFromFB(){fetch(`${FB_URL}.json`).then(r=>r.json()).then(d=>{if(!d)return;document.querySelectorAll('.item').forEach(el=>{if(d[fbKey(el)]===true)el.classList.add('checked');});updateProgress();}).catch(()=>{});}
 function toggle(el){el.classList.toggle('checked');syncToFB(fbKey(el),el.classList.contains('checked'));updateProgress();}
 function e(ev){ev.stopPropagation();}
-function updateProgress(){const items=document.querySelectorAll('.item');const checked=document.querySelectorAll('.item.checked');const t=items.length,c=checked.length;document.getElementById('progressBar').style.width=t?(c/t*100)+'%':'0%';document.getElementById('progressLabel').textContent=c+' of '+t+' items checked';document.getElementById('summaryCount').textContent=c+' / '+t;}
+function updateProgress(){const items=document.querySelectorAll('.item'),checked=document.querySelectorAll('.item.checked'),t=items.length,c=checked.length;document.getElementById('progressBar').style.width=t?(c/t*100)+'%':'0%';document.getElementById('progressLabel').textContent=c+' of '+t+' items checked';document.getElementById('summaryCount').textContent=c+' / '+t;}
 function resetAll(){document.querySelectorAll('.item.checked').forEach(el=>{el.classList.remove('checked');syncToFB(fbKey(el),false);});updateProgress();}
-let weekData=null,currentMealIdx=0,cookSteps=[],cookIdx=0;
-async function loadWeekData(){try{const r=await fetch('data/week.json?v='+Date.now());weekData=await r.json();}catch(e){weekData=null;}}
-document.querySelectorAll('.js-recipe').forEach(card=>{card.addEventListener('click',async()=>{const idx=parseInt(card.dataset.idx);if(!weekData)await loadWeekData();if(!weekData||!weekData.meals||!weekData.meals[idx])return;currentMealIdx=idx;const meal=weekData.meals[idx];document.getElementById('ovLabel').textContent=meal.label+' · '+meal.day+' '+meal.date;document.getElementById('ovTitle').textContent=meal.icon+' '+meal.name;document.getElementById('ovMeta').textContent=meal.meta;document.getElementById('ovIngs').innerHTML=meal.ings.map(i=>`<li>${i}</li>`).join('');document.getElementById('ovSteps').innerHTML=meal.steps.map(s=>`<li>${s}</li>`).join('');const noteEl=document.getElementById('ovNote');if(meal.note){noteEl.textContent=meal.note;noteEl.style.display='block';}else{noteEl.style.display='none';}cookSteps=meal.steps;document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';});});
-document.getElementById('cookModeBtn').addEventListener('click',()=>{if(!weekData||!weekData.meals[currentMealIdx])return;const meal=weekData.meals[currentMealIdx];cookSteps=meal.steps;cookIdx=0;document.getElementById('cookTitle').textContent=meal.icon+' '+meal.name;document.getElementById('overlay').classList.remove('open');document.getElementById('cookMode').classList.add('open');renderCookStep();});
-function renderCookStep(){document.getElementById('cookStepNum').textContent='Step '+(cookIdx+1)+' of '+cookSteps.length;document.getElementById('cookStepText').textContent=cookSteps[cookIdx];document.getElementById('cookPrev').style.opacity=cookIdx===0?'.4':'1';document.getElementById('cookNext').textContent=cookIdx===cookSteps.length-1?'Done ✓':'Next →';}
-function cookNav(dir){cookIdx+=dir;if(cookIdx>=cookSteps.length){closeCook();return;}if(cookIdx<0)cookIdx=0;renderCookStep();}
+let weekData=null,currentIdx=0,cookSteps=[],cookIdx=0;
+async function loadWeek(){try{const r=await fetch('data/week.json?v='+Date.now());weekData=await r.json();}catch(e){}}
+document.querySelectorAll('.js-recipe').forEach(card=>{card.addEventListener('click',async()=>{const idx=parseInt(card.dataset.idx);if(!weekData)await loadWeek();if(!weekData?.meals?.[idx])return;currentIdx=idx;const m=weekData.meals[idx];document.getElementById('ovLabel').textContent=m.label+' · '+m.day+' '+m.date;document.getElementById('ovTitle').textContent=m.icon+' '+m.name;document.getElementById('ovMeta').textContent=m.meta;document.getElementById('ovIngs').innerHTML=m.ings.map(i=>`<li>${i}</li>`).join('');document.getElementById('ovSteps').innerHTML=m.steps.map(s=>`<li>${s}</li>`).join('');const n=document.getElementById('ovNote');if(m.note){n.textContent=m.note;n.style.display='block';}else n.style.display='none';cookSteps=m.steps;document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';});});
+document.getElementById('cookModeBtn').addEventListener('click',()=>{if(!weekData?.meals?.[currentIdx])return;const m=weekData.meals[currentIdx];cookSteps=m.steps;cookIdx=0;document.getElementById('cookTitle').textContent=m.icon+' '+m.name;document.getElementById('overlay').classList.remove('open');document.getElementById('cookMode').classList.add('open');renderStep();});
+function renderStep(){document.getElementById('cookStepNum').textContent='Step '+(cookIdx+1)+' of '+cookSteps.length;document.getElementById('cookStepText').textContent=cookSteps[cookIdx];document.getElementById('cookNext').textContent=cookIdx===cookSteps.length-1?'Done ✓':'Next →';}
+function cookNav(d){cookIdx+=d;if(cookIdx>=cookSteps.length){closeCook();return;}if(cookIdx<0)cookIdx=0;renderStep();}
 function closeCook(){document.getElementById('cookMode').classList.remove('open');document.body.style.overflow='';}
 function closeOverlay(ev){if(ev&&ev.target!==document.getElementById('overlay')&&ev.target.id!=='overlayClose')return;document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
-window.addEventListener('load',()=>{updateProgress();loadFromFB();loadWeekData();});
+window.addEventListener('load',()=>{updateProgress();loadFromFB();loadWeek();});
 </script>
 </body>
 </html>
