@@ -52,9 +52,6 @@
   .amz-btn{font-size:11px;font-weight:600;color:#fff;background:#FF9900;border:none;border-radius:5px;padding:3px 8px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;}
   .amz-btn:hover{background:#e88b00;}
   .note-box{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#7a4820;margin-bottom:18px;}
-  .sync-indicator{font-size:11px;color:var(--muted);text-align:right;margin-bottom:8px;height:14px;}
-  .sync-indicator.syncing{color:var(--accent);}
-  .sync-indicator.live{color:var(--check);}
   .summary-bar{position:fixed;bottom:0;left:0;right:0;background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
   .summary-count{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;}
   .summary-label{font-size:12px;color:#8a8a8a;margin-top:1px;}
@@ -108,7 +105,6 @@
   <p class="subhead">Week of April 6 &nbsp;·&nbsp; 4 dinners &nbsp;·&nbsp; Serves 4</p>
   <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
   <p class="progress-label" id="progressLabel">0 of 0 items checked</p>
-  <div class="sync-indicator" id="syncIndicator"></div>
 
   <div class="meal-cards">
     <div class="meal-card js-recipe" data-idx="0">
@@ -232,25 +228,15 @@
 </div>
 
 <script>
-const FB_URL='https://fox-bear-kitchen-default-rtdb.firebaseio.com/groceries/week-apr-6';
-const POLL_INTERVAL = 8000; // re-sync every 8 seconds
+const FB_URL='https://fox-bear-hub-default-rtdb.firebaseio.com/groceries/week-apr-6';
+const POLL_INTERVAL = 8000;
 let lastKnownState = {};
-let isSyncing = false;
 
 function fbKey(el){return el.querySelector('.item-name').textContent.trim().replace(/[^a-z0-9]/gi,'_').substring(0,60);}
 
-function setIndicator(state){
-  const el = document.getElementById('syncIndicator');
-  if(state === 'syncing'){el.textContent='↑ Saving…';el.className='sync-indicator syncing';}
-  else if(state === 'live'){el.textContent='✓ Live — updates shared with Jo';el.className='sync-indicator live';}
-  else{el.textContent='';el.className='sync-indicator';}
-}
-
 function syncToFB(k,v){
-  setIndicator('syncing');
   fetch(`${FB_URL}/${k}.json`,{method:'PUT',body:JSON.stringify(v)})
-    .then(()=>setIndicator('live'))
-    .catch(()=>setIndicator(''));
+    .catch(()=>{});
 }
 
 function applyState(d){
@@ -270,13 +256,11 @@ function pollFB(){
     .then(r=>r.json())
     .then(d=>{
       if(!d) return;
-      // Only apply if something changed (avoid flicker while user is tapping)
       const newStr = JSON.stringify(d);
       if(newStr !== JSON.stringify(lastKnownState)){
         lastKnownState = d;
         applyState(d);
       }
-      setIndicator('live');
     })
     .catch(()=>{});
 }
@@ -288,7 +272,6 @@ function loadFromFB(){
       if(!d) return;
       lastKnownState = d;
       applyState(d);
-      setIndicator('live');
     })
     .catch(()=>{});
 }
@@ -334,7 +317,6 @@ window.addEventListener('load',()=>{
   updateProgress();
   loadFromFB();
   loadWeek();
-  // Poll Firebase every 8 seconds so both Kyle and Jo see each other's updates live
   setInterval(pollFB, POLL_INTERVAL);
 });
 </script>
