@@ -228,96 +228,137 @@
 </div>
 
 <script>
+// ── Firebase grocery sync ──────────────────────────────────────────────────
 const FB_URL='https://fox-bear-hub-default-rtdb.firebaseio.com/groceries/week-apr-6';
 const POLL_INTERVAL = 8000;
 let lastKnownState = {};
 
 function fbKey(el){return el.querySelector('.item-name').textContent.trim().replace(/[^a-z0-9]/gi,'_').substring(0,60);}
-
-function syncToFB(k,v){
-  fetch(`${FB_URL}/${k}.json`,{method:'PUT',body:JSON.stringify(v)})
-    .catch(()=>{});
-}
-
+function syncToFB(k,v){fetch(`${FB_URL}/${k}.json`,{method:'PUT',body:JSON.stringify(v)}).catch(()=>{});}
 function applyState(d){
   if(!d) return;
   document.querySelectorAll('.item').forEach(el=>{
-    const k = fbKey(el);
-    const shouldBeChecked = d[k] === true;
-    const isChecked = el.classList.contains('checked');
-    if(shouldBeChecked && !isChecked) el.classList.add('checked');
-    else if(!shouldBeChecked && isChecked) el.classList.remove('checked');
+    const k=fbKey(el),shouldBeChecked=d[k]===true,isChecked=el.classList.contains('checked');
+    if(shouldBeChecked&&!isChecked)el.classList.add('checked');
+    else if(!shouldBeChecked&&isChecked)el.classList.remove('checked');
   });
   updateProgress();
 }
-
 function pollFB(){
-  fetch(`${FB_URL}.json`)
-    .then(r=>r.json())
-    .then(d=>{
-      if(!d) return;
-      const newStr = JSON.stringify(d);
-      if(newStr !== JSON.stringify(lastKnownState)){
-        lastKnownState = d;
-        applyState(d);
-      }
-    })
-    .catch(()=>{});
+  fetch(`${FB_URL}.json`).then(r=>r.json()).then(d=>{
+    if(!d)return;
+    const s=JSON.stringify(d);
+    if(s!==JSON.stringify(lastKnownState)){lastKnownState=d;applyState(d);}
+  }).catch(()=>{});
 }
-
 function loadFromFB(){
-  fetch(`${FB_URL}.json`)
-    .then(r=>r.json())
-    .then(d=>{
-      if(!d) return;
-      lastKnownState = d;
-      applyState(d);
-    })
-    .catch(()=>{});
+  fetch(`${FB_URL}.json`).then(r=>r.json()).then(d=>{
+    if(!d)return;
+    lastKnownState=d;applyState(d);
+  }).catch(()=>{});
 }
-
 function toggle(el){
   el.classList.toggle('checked');
-  const k = fbKey(el);
-  const checked = el.classList.contains('checked');
-  lastKnownState[k] = checked;
-  syncToFB(k, checked);
-  updateProgress();
+  const k=fbKey(el),checked=el.classList.contains('checked');
+  lastKnownState[k]=checked;syncToFB(k,checked);updateProgress();
 }
-
 function e(ev){ev.stopPropagation();}
-
 function updateProgress(){
   const items=document.querySelectorAll('.item'),checked=document.querySelectorAll('.item.checked'),t=items.length,c=checked.length;
   document.getElementById('progressBar').style.width=t?(c/t*100)+'%':'0%';
   document.getElementById('progressLabel').textContent=c+' of '+t+' items checked';
   document.getElementById('summaryCount').textContent=c+' / '+t;
 }
-
 function resetAll(){
   document.querySelectorAll('.item.checked').forEach(el=>{
-    el.classList.remove('checked');
-    const k = fbKey(el);
-    lastKnownState[k] = false;
-    syncToFB(k,false);
+    el.classList.remove('checked');const k=fbKey(el);lastKnownState[k]=false;syncToFB(k,false);
   });
   updateProgress();
 }
 
-let weekData=null,currentIdx=0,cookSteps=[],cookIdx=0;
-async function loadWeek(){try{const r=await fetch('data/week.json?v='+Date.now());weekData=await r.json();}catch(e){}}
-document.querySelectorAll('.js-recipe').forEach(card=>{card.addEventListener('click',async()=>{const idx=parseInt(card.dataset.idx);if(!weekData)await loadWeek();if(!weekData?.meals?.[idx])return;currentIdx=idx;const m=weekData.meals[idx];document.getElementById('ovLabel').textContent=m.label+' · '+m.day+' '+m.date;document.getElementById('ovTitle').textContent=m.icon+' '+m.name;document.getElementById('ovMeta').textContent=m.meta;document.getElementById('ovIngs').innerHTML=m.ings.map(i=>`<li>${i}</li>`).join('');document.getElementById('ovSteps').innerHTML=m.steps.map(s=>`<li>${s}</li>`).join('');const n=document.getElementById('ovNote');if(m.note){n.textContent=m.note;n.style.display='block';}else n.style.display='none';cookSteps=m.steps;document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';});});
-document.getElementById('cookModeBtn').addEventListener('click',()=>{if(!weekData?.meals?.[currentIdx])return;const m=weekData.meals[currentIdx];cookSteps=m.steps;cookIdx=0;document.getElementById('cookTitle').textContent=m.icon+' '+m.name;document.getElementById('overlay').classList.remove('open');document.getElementById('cookMode').classList.add('open');renderStep();});
-function renderStep(){document.getElementById('cookStepNum').textContent='Step '+(cookIdx+1)+' of '+cookSteps.length;document.getElementById('cookStepText').textContent=cookSteps[cookIdx];document.getElementById('cookNext').textContent=cookIdx===cookSteps.length-1?'Done ✓':'Next →';}
+// ── Meal data (inlined — no fetch required) ────────────────────────────────
+const MEALS = [
+  {
+    label:"Meal D",day:"Sunday",date:"4/5",icon:"🍝",
+    name:"Creamy Sausage and Peppers Pasta",
+    meta:"~40 min · One pan · Serves 4",
+    ings:["8 oz uncooked pasta (bucatini works great)","1 lb Italian sausage (ground or removed from casings)","1 tbsp olive oil","½ medium onion, chopped","1 medium red bell pepper, chopped","1 medium yellow bell pepper, chopped","1 tbsp butter","2–3 cloves garlic, minced","1 tsp flour","1 cup heavy/whipping cream","½ tsp Dijon mustard","2 cups fresh baby spinach (packed)","Salt & pepper to taste","Freshly grated Parmesan cheese"],
+    steps:["Boil a large salted pot of water and cook pasta al dente per package directions.","Brown sausage in a skillet over medium-high heat, breaking it up as you go (8–10 minutes). Transfer to a paper towel-lined plate.","Add oil to the skillet with onion and both bell peppers. Cook until lightly browned and softened, about 7–8 minutes.","Reduce heat to medium. Add butter and garlic; once butter melts, sprinkle in flour and cook 1 minute, stirring well.","Stir in cream and Dijon mustard. Sauce should thicken quickly — don't cook more than a minute before next step.","Add cooked sausage and spinach to the skillet and stir to combine.","Splash in a couple tablespoons of pasta water, then drain pasta and add to the skillet. Toss until spinach wilts and pasta is coated. Serve immediately with Parmesan."],
+    note:"Use ground sausage or buy links and remove the meat from casings. Mild or spicy — your call!"
+  },
+  {
+    label:"Meal A",day:"Monday",date:"4/6",icon:"🍲",
+    name:"Sausage White Bean Soup",
+    meta:"~35 min · One pot · Serves 4–6",
+    ings:["1 lb mild Italian sausage, crumbled","1 tbsp olive oil","1 medium onion, diced","3 cloves garlic, minced","2 carrots, peeled and sliced","2 stalks celery, chopped","1 can (15 oz) white beans, drained and rinsed","4 cups chicken broth","1 tsp dried thyme","1 tsp dried rosemary","Salt and pepper to taste","Fresh parsley for garnish"],
+    steps:["Heat olive oil in a large pot over medium heat. Brown sausage, breaking it apart. Remove and set aside.","In the same pot, cook onion, garlic, carrots, and celery until softened, about 5–7 minutes.","Return sausage to pot. Add white beans, broth, thyme, rosemary, salt, and pepper. Stir and bring to a simmer.","Cover and simmer on low 20–25 minutes. Serve garnished with fresh parsley."],
+    note:"Mash some of the beans before adding for a creamier texture."
+  },
+  {
+    label:"Meal B",day:"Tuesday",date:"4/7",icon:"🌮",
+    name:"Air Fryer Fish Tacos with Cilantro Lime Slaw",
+    meta:"~20 min · Air fryer · Serves 4",
+    ings:["1½ lb tilapia or white fish (mahi mahi, cod, etc.)","Fish rub: 1 tsp chili powder, ½ tsp each oregano/garlic powder/paprika, ¼ tsp each onion powder/cumin, salt & pepper","Cilantro lime slaw: 2½ cups coleslaw mix, 3 tbsp mayo, 1 tbsp lime juice, 1 garlic clove minced, ⅓ cup chopped cilantro, ¼ tsp each salt & pepper","Tortillas for serving"],
+    steps:["Spray the air fryer basket with oil. Mix the spices together.","Pat fish dry and lay in the air fryer basket. Brush with olive oil, coat generously with spice rub, and spritz with oil.","Preheat air fryer to 400°F. Cook fish 8–10 minutes until opaque and flaking (internal temp 145°F).","While fish cooks, toss together the cilantro lime slaw. Adjust salt and lime to taste.","Remove fish, cut into pieces, and serve in tortillas topped with slaw and extra lime."],
+    note:"No air fryer? Bake at 400°F for about 15 minutes. Do not flip fish in the air fryer — it may fall apart."
+  },
+  {
+    label:"Meal C",day:"Wednesday",date:"4/8",icon:"🐟",
+    name:"Miso Glazed Salmon Bowls",
+    meta:"~30 min · Sheet pan + rice · Serves 4",
+    ings:["4 salmon fillets (~6 oz each), skinless","3 tbsp white miso paste","2 tbsp low-sodium soy sauce","2 tbsp honey or maple syrup","1 tbsp rice vinegar","1 tsp toasted sesame oil","1 tsp fresh ginger, grated","2 cloves garlic, minced","1½ cups jasmine rice","1 large English cucumber, thinly sliced","1 cup shredded carrots","1 cup shelled edamame (thawed)","2–3 green onions, sliced","1 tbsp sesame seeds"],
+    steps:["Cook jasmine rice per package instructions.","Whisk together miso paste, soy sauce, honey, rice vinegar, sesame oil, ginger, and garlic to make the glaze.","Pat salmon dry. Place on a foil-lined baking sheet. Spoon half the glaze over each fillet.","Broil at 400°F for 12–15 minutes, basting with remaining glaze halfway through, until salmon flakes easily.","Assemble bowls: rice base topped with salmon, cucumber, carrots, and edamame. Drizzle with any remaining glaze.","Garnish with sliced green onions and sesame seeds."],
+    note:"Leftovers keep well — store components separately and assemble fresh."
+  }
+];
+
+// ── Recipe overlay & cooking mode ─────────────────────────────────────────
+let currentIdx=0,cookSteps=[],cookIdx=0;
+
+document.querySelectorAll('.js-recipe').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const idx=parseInt(card.dataset.idx);
+    const m=MEALS[idx];
+    if(!m) return;
+    currentIdx=idx;
+    document.getElementById('ovLabel').textContent=m.label+' · '+m.day+' '+m.date;
+    document.getElementById('ovTitle').textContent=m.icon+' '+m.name;
+    document.getElementById('ovMeta').textContent=m.meta;
+    document.getElementById('ovIngs').innerHTML=m.ings.map(i=>`<li>${i}</li>`).join('');
+    document.getElementById('ovSteps').innerHTML=m.steps.map(s=>`<li>${s}</li>`).join('');
+    const n=document.getElementById('ovNote');
+    if(m.note){n.textContent=m.note;n.style.display='block';}else n.style.display='none';
+    cookSteps=m.steps;
+    document.getElementById('overlay').classList.add('open');
+    document.body.style.overflow='hidden';
+  });
+});
+
+document.getElementById('cookModeBtn').addEventListener('click',()=>{
+  const m=MEALS[currentIdx];if(!m)return;
+  cookSteps=m.steps;cookIdx=0;
+  document.getElementById('cookTitle').textContent=m.icon+' '+m.name;
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('cookMode').classList.add('open');
+  renderStep();
+});
+
+function renderStep(){
+  document.getElementById('cookStepNum').textContent='Step '+(cookIdx+1)+' of '+cookSteps.length;
+  document.getElementById('cookStepText').textContent=cookSteps[cookIdx];
+  document.getElementById('cookNext').textContent=cookIdx===cookSteps.length-1?'Done ✓':'Next →';
+}
 function cookNav(d){cookIdx+=d;if(cookIdx>=cookSteps.length){closeCook();return;}if(cookIdx<0)cookIdx=0;renderStep();}
 function closeCook(){document.getElementById('cookMode').classList.remove('open');document.body.style.overflow='';}
-function closeOverlay(ev){if(ev&&ev.target!==document.getElementById('overlay')&&ev.target.id!=='overlayClose')return;document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
+function closeOverlay(ev){
+  if(ev&&ev.target!==document.getElementById('overlay')&&ev.target.id!=='overlayClose')return;
+  document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';
+}
 
 window.addEventListener('load',()=>{
   updateProgress();
   loadFromFB();
-  loadWeek();
-  setInterval(pollFB, POLL_INTERVAL);
+  setInterval(pollFB,POLL_INTERVAL);
 });
 </script>
 </body>
