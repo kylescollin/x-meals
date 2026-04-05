@@ -52,6 +52,9 @@
   .amz-btn{font-size:11px;font-weight:600;color:#fff;background:#FF9900;border:none;border-radius:5px;padding:3px 8px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;}
   .amz-btn:hover{background:#e88b00;}
   .note-box{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#7a4820;margin-bottom:18px;}
+  .sync-indicator{font-size:11px;color:var(--muted);text-align:right;margin-bottom:8px;height:14px;}
+  .sync-indicator.syncing{color:var(--accent);}
+  .sync-indicator.live{color:var(--check);}
   .summary-bar{position:fixed;bottom:0;left:0;right:0;background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
   .summary-count{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;}
   .summary-label{font-size:12px;color:#8a8a8a;margin-top:1px;}
@@ -105,6 +108,7 @@
   <p class="subhead">Week of April 6 &nbsp;·&nbsp; 4 dinners &nbsp;·&nbsp; Serves 4</p>
   <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
   <p class="progress-label" id="progressLabel">0 of 0 items checked</p>
+  <div class="sync-indicator" id="syncIndicator"></div>
 
   <div class="meal-cards">
     <div class="meal-card js-recipe" data-idx="0">
@@ -229,13 +233,94 @@
 
 <script>
 const FB_URL='https://fox-bear-kitchen-default-rtdb.firebaseio.com/groceries/week-apr-6';
+const POLL_INTERVAL = 8000; // re-sync every 8 seconds
+let lastKnownState = {};
+let isSyncing = false;
+
 function fbKey(el){return el.querySelector('.item-name').textContent.trim().replace(/[^a-z0-9]/gi,'_').substring(0,60);}
-function syncToFB(k,v){fetch(`${FB_URL}/${k}.json`,{method:'PUT',body:JSON.stringify(v)}).catch(()=>{});}
-function loadFromFB(){fetch(`${FB_URL}.json`).then(r=>r.json()).then(d=>{if(!d)return;document.querySelectorAll('.item').forEach(el=>{if(d[fbKey(el)]===true)el.classList.add('checked');});updateProgress();}).catch(()=>{});}
-function toggle(el){el.classList.toggle('checked');syncToFB(fbKey(el),el.classList.contains('checked'));updateProgress();}
+
+function setIndicator(state){
+  const el = document.getElementById('syncIndicator');
+  if(state === 'syncing'){el.textContent='↑ Saving…';el.className='sync-indicator syncing';}
+  else if(state === 'live'){el.textContent='✓ Live — updates shared with Jo';el.className='sync-indicator live';}
+  else{el.textContent='';el.className='sync-indicator';}
+}
+
+function syncToFB(k,v){
+  setIndicator('syncing');
+  fetch(`${FB_URL}/${k}.json`,{method:'PUT',body:JSON.stringify(v)})
+    .then(()=>setIndicator('live'))
+    .catch(()=>setIndicator(''));
+}
+
+function applyState(d){
+  if(!d) return;
+  document.querySelectorAll('.item').forEach(el=>{
+    const k = fbKey(el);
+    const shouldBeChecked = d[k] === true;
+    const isChecked = el.classList.contains('checked');
+    if(shouldBeChecked && !isChecked) el.classList.add('checked');
+    else if(!shouldBeChecked && isChecked) el.classList.remove('checked');
+  });
+  updateProgress();
+}
+
+function pollFB(){
+  fetch(`${FB_URL}.json`)
+    .then(r=>r.json())
+    .then(d=>{
+      if(!d) return;
+      // Only apply if something changed (avoid flicker while user is tapping)
+      const newStr = JSON.stringify(d);
+      if(newStr !== JSON.stringify(lastKnownState)){
+        lastKnownState = d;
+        applyState(d);
+      }
+      setIndicator('live');
+    })
+    .catch(()=>{});
+}
+
+function loadFromFB(){
+  fetch(`${FB_URL}.json`)
+    .then(r=>r.json())
+    .then(d=>{
+      if(!d) return;
+      lastKnownState = d;
+      applyState(d);
+      setIndicator('live');
+    })
+    .catch(()=>{});
+}
+
+function toggle(el){
+  el.classList.toggle('checked');
+  const k = fbKey(el);
+  const checked = el.classList.contains('checked');
+  lastKnownState[k] = checked;
+  syncToFB(k, checked);
+  updateProgress();
+}
+
 function e(ev){ev.stopPropagation();}
-function updateProgress(){const items=document.querySelectorAll('.item'),checked=document.querySelectorAll('.item.checked'),t=items.length,c=checked.length;document.getElementById('progressBar').style.width=t?(c/t*100)+'%':'0%';document.getElementById('progressLabel').textContent=c+' of '+t+' items checked';document.getElementById('summaryCount').textContent=c+' / '+t;}
-function resetAll(){document.querySelectorAll('.item.checked').forEach(el=>{el.classList.remove('checked');syncToFB(fbKey(el),false);});updateProgress();}
+
+function updateProgress(){
+  const items=document.querySelectorAll('.item'),checked=document.querySelectorAll('.item.checked'),t=items.length,c=checked.length;
+  document.getElementById('progressBar').style.width=t?(c/t*100)+'%':'0%';
+  document.getElementById('progressLabel').textContent=c+' of '+t+' items checked';
+  document.getElementById('summaryCount').textContent=c+' / '+t;
+}
+
+function resetAll(){
+  document.querySelectorAll('.item.checked').forEach(el=>{
+    el.classList.remove('checked');
+    const k = fbKey(el);
+    lastKnownState[k] = false;
+    syncToFB(k,false);
+  });
+  updateProgress();
+}
+
 let weekData=null,currentIdx=0,cookSteps=[],cookIdx=0;
 async function loadWeek(){try{const r=await fetch('data/week.json?v='+Date.now());weekData=await r.json();}catch(e){}}
 document.querySelectorAll('.js-recipe').forEach(card=>{card.addEventListener('click',async()=>{const idx=parseInt(card.dataset.idx);if(!weekData)await loadWeek();if(!weekData?.meals?.[idx])return;currentIdx=idx;const m=weekData.meals[idx];document.getElementById('ovLabel').textContent=m.label+' · '+m.day+' '+m.date;document.getElementById('ovTitle').textContent=m.icon+' '+m.name;document.getElementById('ovMeta').textContent=m.meta;document.getElementById('ovIngs').innerHTML=m.ings.map(i=>`<li>${i}</li>`).join('');document.getElementById('ovSteps').innerHTML=m.steps.map(s=>`<li>${s}</li>`).join('');const n=document.getElementById('ovNote');if(m.note){n.textContent=m.note;n.style.display='block';}else n.style.display='none';cookSteps=m.steps;document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';});});
@@ -244,7 +329,14 @@ function renderStep(){document.getElementById('cookStepNum').textContent='Step '
 function cookNav(d){cookIdx+=d;if(cookIdx>=cookSteps.length){closeCook();return;}if(cookIdx<0)cookIdx=0;renderStep();}
 function closeCook(){document.getElementById('cookMode').classList.remove('open');document.body.style.overflow='';}
 function closeOverlay(ev){if(ev&&ev.target!==document.getElementById('overlay')&&ev.target.id!=='overlayClose')return;document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
-window.addEventListener('load',()=>{updateProgress();loadFromFB();loadWeek();});
+
+window.addEventListener('load',()=>{
+  updateProgress();
+  loadFromFB();
+  loadWeek();
+  // Poll Firebase every 8 seconds so both Kyle and Jo see each other's updates live
+  setInterval(pollFB, POLL_INTERVAL);
+});
 </script>
 </body>
 </html>
