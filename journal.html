@@ -23,18 +23,12 @@
   .header-eyebrow { font-weight: 500; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
   h1 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 8px; }
   .header-meta { font-size: 13px; color: var(--muted); font-weight: 300; }
-
-  /* Journal entries */
   .journal { max-width: 680px; margin: 0 auto; padding: 0 20px 60px; display: flex; flex-direction: column; gap: 40px; }
-
   .week-entry { display: flex; flex-direction: column; gap: 12px; }
-
   .week-header { display: flex; align-items: baseline; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
   .week-label { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); flex-shrink: 0; }
   .week-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; flex: 1; }
   .week-count { font-size: 12px; color: var(--muted); font-weight: 300; flex-shrink: 0; }
-
-  /* Meal cards */
   .meal-card { background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: border-color .15s, box-shadow .15s; -webkit-tap-highlight-color: transparent; }
   .meal-card:hover { border-color: #bbb; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
   .meal-card-header { display: flex; align-items: center; gap: 14px; padding: 14px 16px; user-select: none; }
@@ -44,12 +38,8 @@
   .meal-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 500; }
   .meal-meta { font-size: 11px; color: var(--muted); margin-top: 2px; font-weight: 300; }
   .card-chevron { font-size: 20px; color: var(--border); flex-shrink: 0; line-height: 1; }
-
-  /* Empty state */
   .empty-history { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.6; border: 1px dashed var(--border); border-radius: 10px; }
   .empty-history strong { display: block; font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
-
-  /* Recipe detail overlay */
   #rd-overlay { position: fixed; inset: 0; background: var(--cream); z-index: 1000; display: flex; flex-direction: column; transform: translateY(100%); transition: transform .38s cubic-bezier(.4,0,.2,1); overflow: hidden; }
   #rd-overlay.open { transform: translateY(0); }
   .rd-bar { display: flex; align-items: center; gap: 12px; padding: calc(16px + env(safe-area-inset-top,0px)) 20px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0; background: var(--cream); }
@@ -71,8 +61,6 @@
   .rd-step-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .rd-step-list li { font-size: 13px; color: var(--ink); line-height: 1.55; display: flex; gap: 10px; }
   .rd-step-num { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--accent); flex-shrink: 0; min-width: 16px; padding-top: 1px; }
-
-  /* Cooking mode overlay */
   #ck-overlay { position: fixed; inset: 0; background: var(--ck-bg); z-index: 9999; display: flex; flex-direction: column; transform: translateY(100%); transition: transform .38s cubic-bezier(.4,0,.2,1); overflow: hidden; padding-bottom: env(safe-area-inset-bottom,0px); }
   #ck-overlay.open { transform: translateY(0); }
   .ck-bar { display: flex; align-items: center; gap: 12px; padding: calc(16px + env(safe-area-inset-top,0px)) 18px 14px; border-bottom: 1px solid var(--ck-border); flex-shrink: 0; }
@@ -128,12 +116,11 @@
 <div class="header">
   <div class="header-eyebrow">Fox &amp; Bear Kitchen</div>
   <h1>Journal</h1>
-  <div class="header-meta" id="headerMeta">Loading…</div>
+  <div class="header-meta" id="headerMeta"></div>
 </div>
 
 <div class="journal" id="journal"></div>
 
-<!-- Recipe Detail Overlay -->
 <div id="rd-overlay" aria-hidden="true">
   <div class="rd-bar">
     <button class="rd-back" id="rd-back">←</button>
@@ -151,7 +138,6 @@
   </div>
 </div>
 
-<!-- Cooking Mode Overlay -->
 <div id="ck-overlay" aria-hidden="true">
   <div class="ck-bar">
     <span class="ck-title" id="ck-title"></span>
@@ -183,11 +169,15 @@
 </div>
 
 <script>
-// Render a single week entry into the journal
+// ── Inlined data (no fetch required) ─────────────────────────────────────
+var CURRENT_WEEK = {"weekOf":"2026-04-06","title":"Week of April 6","meals":[{"id":"creamy-sausage-and-peppers-pasta","label":"Meal D","day":"Sunday","date":"4/5","icon":"🍝","name":"Creamy Sausage and Peppers Pasta","meta":"~40 min · One pan · Serves 4","ings":["8 oz uncooked pasta (bucatini works great)","1 lb Italian sausage (ground or removed from casings)","1 tbsp olive oil","½ medium onion, chopped","1 medium red bell pepper, chopped","1 medium yellow bell pepper, chopped","1 tbsp butter","2–3 cloves garlic, minced","1 tsp flour","1 cup heavy/whipping cream","½ tsp Dijon mustard","2 cups fresh baby spinach (packed)","Salt & pepper to taste","Freshly grated Parmesan cheese"],"steps":["Boil a large salted pot of water and cook pasta al dente per package directions.","Brown sausage in a skillet over medium-high heat, breaking it up as you go (8–10 minutes). Transfer to a paper towel-lined plate.","Add oil to the skillet with onion and both bell peppers. Cook until lightly browned and softened, about 7–8 minutes.","Reduce heat to medium. Add butter and garlic; once butter melts, sprinkle in flour and cook 1 minute, stirring well.","Stir in cream and Dijon mustard. Sauce should thicken quickly — don't cook more than a minute before next step.","Add cooked sausage and spinach to the skillet and stir to combine.","Splash in a couple tablespoons of pasta water, then drain pasta and add to the skillet. Toss until spinach wilts and pasta is coated. Serve immediately with Parmesan."],"note":"Use ground sausage or buy links and remove the meat from casings."},{"id":"sausage-white-bean-soup","label":"Meal A","day":"Monday","date":"4/6","icon":"🍲","name":"Sausage White Bean Soup","meta":"~35 min · One pot · Serves 4–6","ings":["1 lb mild Italian sausage, crumbled","1 tbsp olive oil","1 medium onion, diced","3 cloves garlic, minced","2 carrots, peeled and sliced","2 stalks celery, chopped","1 can (15 oz) white beans, drained and rinsed","4 cups chicken broth","1 tsp dried thyme","1 tsp dried rosemary","Salt and pepper to taste","Fresh parsley for garnish"],"steps":["Heat olive oil in a large pot over medium heat. Brown sausage, breaking it apart. Remove and set aside.","In the same pot, cook onion, garlic, carrots, and celery until softened, about 5–7 minutes.","Return sausage to pot. Add white beans, broth, thyme, rosemary, salt, and pepper. Stir and bring to a simmer.","Cover and simmer on low 20–25 minutes. Serve garnished with fresh parsley."],"note":"Mash some of the beans before adding for a creamier texture."},{"id":"air-fryer-fish-tacos","label":"Meal B","day":"Tuesday","date":"4/7","icon":"🌮","name":"Air Fryer Fish Tacos with Cilantro Lime Slaw","meta":"~20 min · Air fryer · Serves 4","ings":["1½ lb tilapia or white fish (mahi mahi, cod, etc.)","Fish rub: 1 tsp chili powder, ½ tsp each oregano/garlic powder/paprika, ¼ tsp each onion powder/cumin, salt & pepper","Cilantro lime slaw: 2½ cups coleslaw mix, 3 tbsp mayo, 1 tbsp lime juice, 1 garlic clove minced, ⅓ cup chopped cilantro, ¼ tsp each salt & pepper","Tortillas for serving"],"steps":["Spray the air fryer basket with oil. Mix the spices together.","Pat fish dry and lay in the air fryer basket. Brush with olive oil, coat generously with spice rub, and spritz with oil.","Preheat air fryer to 400°F. Cook fish 8–10 minutes until opaque and flaking (internal temp 145°F).","While fish cooks, toss together the cilantro lime slaw. Adjust salt and lime to taste.","Remove fish, cut into pieces, and serve in tortillas topped with slaw and extra lime."],"note":"No air fryer? Bake at 400°F for about 15 minutes. Do not flip fish in the air fryer — it may fall apart."},{"id":"miso-glazed-salmon-bowls","label":"Meal C","day":"Wednesday","date":"4/8","icon":"🐟","name":"Miso Glazed Salmon Bowls","meta":"~30 min · Sheet pan + rice · Serves 4","ings":["4 salmon fillets (~6 oz each), skinless","3 tbsp white miso paste","2 tbsp low-sodium soy sauce","2 tbsp honey or maple syrup","1 tbsp rice vinegar","1 tsp toasted sesame oil","1 tsp fresh ginger, grated","2 cloves garlic, minced","1½ cups jasmine rice","1 large English cucumber, thinly sliced","1 cup shredded carrots","1 cup shelled edamame (thawed)","2–3 green onions, sliced","1 tbsp sesame seeds"],"steps":["Cook jasmine rice per package instructions.","Whisk together miso paste, soy sauce, honey, rice vinegar, sesame oil, ginger, and garlic to make the glaze.","Pat salmon dry. Place on a foil-lined baking sheet. Spoon half the glaze over each fillet.","Broil at 400°F for 12–15 minutes, basting with remaining glaze halfway through, until salmon flakes easily.","Assemble bowls: rice base topped with salmon, cucumber, carrots, and edamame. Drizzle with any remaining glaze.","Garnish with sliced green onions and sesame seeds."],"note":"Leftovers keep well — store components separately and assemble fresh."}]};
+
+var HISTORY = [{"weekOf":"2026-03-29","title":"Week of March 29","meals":[{"id":"chicken-pineapple-fried-rice","name":"Chicken Pineapple Fried Rice","day":"Tuesday","date":"3/31","label":"Meal A","icon":"🍚","meta":"~30 min · Wok or skillet · Serves 4","ings":["3 cups cooked jasmine rice, cold — cook and refrigerate Monday or day before","½ lb boneless skinless chicken thighs, sliced thin","1 cup frozen mixed vegetables (peas, carrots, corn, green beans)","1 cup pineapple, diced (fresh or canned)","½ cup onion, finely diced","2 cloves garlic, minced","2 tablespoons vegetable oil","1½ tablespoons soy sauce","1 teaspoon fish sauce","¼ tsp salt, ¼ tsp black pepper","Green onions, sliced (garnish)","Sesame seeds (garnish)","Marinade: 2 tsp soy sauce + 2 tsp sesame oil + 1 tsp cornstarch + ¼ tsp baking soda"],"steps":["Cook rice ahead of time (Monday): Cook 1½ cups jasmine rice. Let cool completely, then refrigerate overnight. Cold rice is the key to good fried rice — fresh rice will turn mushy.","Slice chicken thighs thin and toss with marinade (soy sauce, sesame oil, cornstarch, baking soda). Let sit 10–15 minutes.","Break up the cold rice with clean hands or a rice paddle into individual grains. Set aside.","Heat 1 tbsp vegetable oil in a large wok or skillet over medium-high. Fry chicken in a single layer until cooked through, about 4–5 minutes. Remove and set aside.","Sauté garlic and onion in remaining oil until fragrant, 1–2 minutes. Add frozen vegetables and pineapple. Cook 3–4 minutes, letting liquids evaporate fully.","Push everything to the side. Add remaining oil. Add rice and toss everything together. Drizzle soy sauce and fish sauce over top. Stir-fry 2–3 minutes until rice is hot and slightly caramelized.","Add chicken back to pan. Toss everything together and heat through. Serve hot with sliced green onions and sesame seeds."],"note":"💡 Pre-cook the rice Monday — this is non-negotiable for good fried rice. Also great for using up pantry staples. Totally kid-friendly."},{"id":"greek-chicken-bowls","name":"Greek Chicken Bowls with Tzatziki","day":"Wednesday","date":"4/1","label":"Meal B","icon":"🥙","meta":"~35 min · Bowls · Marinate Tuesday night · Serves 4","ings":["1½ lb boneless skinless chicken thighs","3 tablespoons olive oil (divided)","3 tablespoons fresh lemon juice (about 1.5 lemons)","3 cloves garlic, minced (divided)","1½ tsp dried oregano","Salt and black pepper to taste","1 English cucumber — half for tzatziki, half for salad","1 cup plain Greek yogurt, full-fat","1 tablespoon fresh dill or mint, chopped","1 cup cherry tomatoes, halved","½ small red onion, thinly sliced","1 tablespoon lemon juice (for salad)","1½ cups jasmine rice + 3 cups water","½ cup hummus (store-bought)","Feta cheese, crumbled — optional but recommended","Fresh parsley to garnish"],"steps":["Marinate chicken (Tuesday night ideally): Whisk 2 tbsp olive oil, 3 tbsp lemon juice, 2 cloves garlic, oregano, salt, and pepper. Coat chicken thighs. Refrigerate 15–30 min or overnight.","Make tzatziki: Grate half the cucumber and squeeze out moisture with a paper towel or clean kitchen towel. Mix with Greek yogurt, 1 tbsp olive oil, 1 clove minced garlic, a squeeze of lemon, and chopped dill. Season with salt. Refrigerate — it gets better the longer it sits.","Cook rice: 1½ cups rice + 3 cups water, bring to boil, cover, reduce to low, cook 18 minutes. Fluff and set aside.","Make cucumber salad: Dice remaining half cucumber. Toss with halved cherry tomatoes, red onion, 1 tbsp olive oil, 1 tbsp lemon juice, salt, and pepper.","Cook chicken: Heat skillet or grill pan over medium-high. Cook chicken thighs 5–7 minutes per side until golden and cooked through (165°F). Rest 5 minutes, then slice.","Build bowls: Rice first, then sliced chicken, a generous scoop of hummus, cucumber salad, and a big dollop of tzatziki. Top with crumbled feta and fresh parsley."],"note":"💡 Marinate the chicken Tuesday evening — even 30 minutes makes a big difference. Tzatziki can be made the day before and actually improves overnight."},{"id":"asian-turkey-lettuce-wraps","name":"Asian Turkey Lettuce Wraps","day":"Thursday","date":"4/2","label":"Meal C","icon":"🥬","meta":"~25 min · Skillet · Serves 4 · Low carb","ings":["1 lb ground turkey (93% lean)","1 tablespoon vegetable oil","3 cloves garlic, minced","1 tablespoon fresh ginger, grated (or ½ tsp ground ginger)","1 can (8 oz) water chestnuts, drained and diced","3 tablespoons hoisin sauce","2 tablespoons low-sodium soy sauce","1 tablespoon rice vinegar","1 teaspoon sesame oil","3 green onions, sliced (plus more to garnish)","1 large head butter lettuce, leaves separated","Sesame seeds (garnish)","Shredded carrots (garnish, optional)"],"steps":["In a small bowl, whisk together hoisin sauce, soy sauce, rice vinegar, and sesame oil. Set aside.","Heat vegetable oil in a large skillet over medium-high. Add garlic and ginger and cook 30 seconds, stirring, until fragrant.","Add ground turkey, breaking it apart with a spatula. Cook 6–8 minutes until fully cooked through with no pink.","Add diced water chestnuts and pour in the sauce. Toss to coat everything. Cook 2 minutes until sauce is absorbed and turkey is glazed.","Stir in half the green onions. Remove from heat.","Serve turkey mixture in butter lettuce cups. Top with remaining green onions, a sprinkle of sesame seeds, and shredded carrots."],"note":"💡 Kid tip: serve the filling in a bowl and let them build their own lettuce tacos. Super fast to make."}]},{"weekOf":"2026-03-22","title":"Week of March 22","meals":[{"id":"shakshuka","name":"Shakshuka","day":"Tuesday","date":"3/24","label":"Meal A","icon":"🍳","meta":"~30 min · One pan · Vegetarian · Serves 4–6","ings":["2 tablespoons olive oil","1 medium onion, diced","1 red bell pepper, seeded and diced","4 garlic cloves, finely chopped","2 tsp paprika","1 tsp cumin","¼ tsp chili powder","1 (28-oz) can whole peeled tomatoes","6 large eggs","Salt and pepper to taste","Small bunch fresh cilantro, chopped","Small bunch fresh parsley, chopped","Pita or crusty bread for serving","Optional: crumbled feta cheese"],"steps":["Heat olive oil in a large sauté pan over medium heat. Add diced onion and bell pepper. Cook 5 minutes until onion is translucent.","Add garlic and spices (paprika, cumin, chili powder). Cook 1 minute, stirring, until fragrant.","Pour in the can of tomatoes with juice, breaking them down with a spoon. Season with salt and pepper. Bring to a simmer and cook 5 minutes.","Use a spoon to make 6 small wells in the sauce. Crack an egg into each well.","Cook 5–8 minutes until eggs are set to your liking. Cover with a lid to speed things up — runny yolks take about 5 min, fully set about 8.","Garnish with cilantro and parsley. Crumble feta on top if using. Serve directly from the pan with warm pita or crusty bread."],"note":"💡 Crumbled feta on top is excellent — worth grabbing. Use stainless steel — tomatoes can damage cast iron seasoning."},{"id":"lemon-herb-baked-cod","name":"Lemon Herb Baked Cod with Asparagus & Rice","day":"Wednesday","date":"3/25","label":"Meal B","icon":"🐠","meta":"~35 min · Sheet pan · Serves 4","ings":["4 cod fillets (~6 oz each), skinless","2 tablespoons olive oil","3 tablespoons fresh lemon juice (about 1.5 lemons)","1 teaspoon garlic powder","1 teaspoon dried thyme or parsley","½ teaspoon salt, ¼ tsp black pepper","1 lb asparagus, ends trimmed","1 tablespoon butter (optional, to finish)","1 extra lemon, sliced for baking","1½ cups white rice + 3 cups water (cook separately)"],"steps":["Preheat oven to 400°F. Start rice on the stovetop: 1½ cups rice + 3 cups water, bring to boil, reduce to low, cover, cook 18 min.","Toss asparagus with olive oil, salt, and pepper on a rimmed baking sheet. Spread in a single layer. Roast 8 minutes.","Meanwhile, whisk together 2 tbsp olive oil, lemon juice, garlic powder, dried thyme, salt, and pepper.","Push asparagus to the sides. Pat cod dry and place fillets in the center. Spoon herb-lemon mixture generously over each fillet. Lay lemon slices on top.","Bake 12–15 minutes until cod flakes easily with a fork. Internal temp 145°F. Thin fillets cook fast — check at 12 min.","Serve cod and asparagus over rice. Add a small pat of butter on the fish if desired. Squeeze extra lemon over top."],"note":"💡 Make a double batch of rice tonight — reheat for Thursday's taco bowls. The lemon slices caramelize in the oven and are delicious."},{"id":"turkey-black-bean-taco-bowls","name":"Turkey & Black Bean Taco Bowls","day":"Thursday","date":"3/26","label":"Meal C","icon":"🌮","meta":"~30 min · Serves 4 · Build-your-own","ings":["1 lb ground turkey (93% lean)","1 small onion, diced","3 garlic cloves, minced","1 tablespoon olive oil","1 tsp ground cumin","1 tsp chili powder (mild)","½ tsp garlic powder","½ tsp smoked paprika","Salt and pepper to taste","1 (15-oz) can black beans, drained and rinsed","1 avocado, sliced","1 cup cherry tomatoes, halved","1–2 limes, cut into wedges","Fresh cilantro","Shredded Mexican cheese blend","Sour cream","Cooked white rice for serving (leftover from Wednesday works great)"],"steps":["Reheat leftover rice from Wednesday (or cook fresh: 1½ cups rice + 3 cups water).","Heat olive oil in a large skillet over medium-high heat. Add onion and cook 3–4 minutes until softened. Add garlic and cook 30 seconds.","Add ground turkey, breaking it up with a spatula. Cook 6–8 minutes until cooked through with no pink.","Stir in cumin, chili powder, garlic powder, paprika, salt, and pepper. Add black beans and toss to warm through, about 2 minutes.","Build the bowls: rice first, then the turkey-bean mixture. Top with avocado slices, halved cherry tomatoes, cheese, and sour cream.","Squeeze lime generously over each bowl. Scatter fresh cilantro on top. Let everyone build their own — kids can customize."],"note":"💡 This makes great leftovers for lunch Friday. Double the turkey-bean mix if you want extra. Mild as written — totally kid-friendly."}]},{"weekOf":"2026-03-19","title":"Week of March 16","meals":[{"id":"sheet-pan-lemon-herb-salmon","name":"Sheet Pan Lemon Herb Salmon & Veggies","day":"Tuesday","date":"3/17","label":"Meal A","icon":"🐟","meta":"~35 min · One pan · Serves 4–6","ings":["4–6 salmon fillets (~6 oz each), skinless","2 tbsp olive oil + 1 tsp for veggies","4 tbsp fresh lemon juice, divided","1 tsp garlic powder","1 tsp dried dill or parsley","1 tsp salt, ¾ tsp black pepper","2 cups broccoli florets","1 pint cherry tomatoes","2 medium zucchini, sliced","Lemon wedges to serve"],"steps":["Preheat oven to 425°F. Line a large rimmed baking sheet with parchment paper.","Toss broccoli, cherry tomatoes, and zucchini with olive oil and ½ tsp salt. Spread in a single layer. Roast 12 minutes.","While veggies roast, pat salmon dry. Whisk together olive oil, 2 tbsp lemon juice, garlic powder, dill, salt, and pepper.","Pull sheet from oven. Push veggies to the sides. Nestle salmon in center skin-side down. Brush with herb mixture. Squeeze remaining lemon over top.","Return to oven. Bake 12–15 minutes until salmon flakes easily and tomatoes are bursting. Internal temp 145°F.","Serve with extra lemon wedges. Optional: scatter fresh dill or parsley on top."],"note":"💡 The tomatoes get jammy and sweet at high heat — kids love them."},{"id":"chicken-tikka-masala-cauliflower","name":"Chicken Tikka Masala + Cauliflower","day":"Wednesday","date":"3/18","label":"Meal B","icon":"🍗","meta":"~45 min (marinate tonight!) · Serves 4–6","ings":["1 cup full-fat Greek yogurt","2 tbsp fresh lemon juice","1½ tsp ground cumin, 1 tsp garam masala","¼–½ tsp chili powder (skip for kids), 1 tsp salt","2 tsp grated fresh ginger, 2 tsp minced garlic","1.5 lbs chicken breast, bite-sized","2 tbsp oil + 2 tbsp butter","1 large sweet onion, finely diced","2 tsp brown sugar","1 tsp each: coriander, cumin, smoked paprika, garam masala","2 cans (8 oz each) unseasoned tomato sauce","1½ cups heavy cream","1 head cauliflower, cut into florets","Basmati rice, naan, fresh cilantro"],"steps":["Marinate (tonight!): Whisk marinade ingredients. Toss chicken to coat. Cover and refrigerate — at least 15 min, overnight is best.","Roast cauliflower: Preheat oven to 425°F. Toss cauliflower with olive oil, salt, pepper. Roast 20–25 min until golden and slightly charred. Set aside.","Sear chicken: Heat oil in a large skillet over medium-high. Add chicken in batches, don't crowd. Let sit 1 min untouched to crust, then sauté ~5 min until browned. Discard marinade. Set aside.","Build sauce: Melt butter in same pan. Sauté onion ~3 min. Add ginger + garlic, cook 30 sec. Add brown sugar and all spices, stir 15 sec until fragrant.","Pour in both cans of tomato sauce. Simmer 3–5 min until thickened.","Stir in cream. Return chicken and cauliflower to the pan. Simmer 8–10 min until cooked through and sauce is thick. Thin with water if needed.","Serve over basmati rice with naan. Garnish with cilantro. Adults can add hot sauce."],"note":"🧠 Bumped to 1½ cups cream + 2 cans tomato sauce for proper saucy consistency — especially with cauliflower soaking it up."},{"id":"pesto-chicken-tortellini-veggies","name":"Pesto Chicken Tortellini & Veggies","day":"Thursday","date":"3/19","label":"Meal C","icon":"🌿","meta":"~40 min · One pan · Serves 4","ings":["2 tbsp olive oil","1 lb chicken thighs, boneless/skinless, sliced into strips","Salt to taste","½ cup sun-dried tomatoes, drained and chopped (divided)","1 lb asparagus, ends trimmed, cut in half","¼ cup basil pesto (or more to taste)","1 cup cherry tomatoes, halved","1 cup refrigerated tortellini, uncooked"],"steps":["Heat olive oil over medium. Add chicken (seasoned with salt) and ¼ cup sun-dried tomatoes. Cook 5–10 min until chicken is cooked through. Remove, leaving oil in pan.","Add asparagus (seasoned with salt) and remaining sun-dried tomatoes. Cook 5–10 min until tender. Remove to a serving plate.","Cook tortellini per package directions. Drain.","Return chicken to skillet with pesto. Stir to coat and warm through over low-medium heat, 1–2 min.","Add tortellini and halved cherry tomatoes. Stir to combine. Add more pesto if desired. Plate alongside the asparagus."],"note":"💡 Fast, colorful, kids love tortellini. Add extra pesto at the end if it tastes flat."}]}];
+
+// ── Render ────────────────────────────────────────────────────────────────
 function renderWeek(week, isCurrent) {
   var entry = document.createElement('div');
   entry.className = 'week-entry';
-
   var mealCount = week.meals ? week.meals.length : 0;
   var label = isCurrent ? 'This Week' : 'Week of';
   entry.innerHTML =
@@ -201,7 +191,7 @@ function renderWeek(week, isCurrent) {
         '<div class="meal-card-header">' +
           '<div class="meal-icon">' + (meal.icon || '🍽') + '</div>' +
           '<div class="meal-info">' +
-            '<div class="meal-label">' + (meal.label || ('Meal ' + String.fromCharCode(65 + i))) + (meal.day ? ' &middot; ' + meal.day + ' ' + (meal.date || '') : '') + '</div>' +
+            '<div class="meal-label">' + (meal.label || ('Meal ' + String.fromCharCode(65+i))) + (meal.day ? ' · ' + meal.day + ' ' + (meal.date || '') : '') + '</div>' +
             '<div class="meal-name">' + meal.name + '</div>' +
             '<div class="meal-meta">' + (meal.meta || '') + '</div>' +
           '</div>' +
@@ -209,18 +199,30 @@ function renderWeek(week, isCurrent) {
         '</div>' +
       '</div>';
     }).join('');
-
-  // Wire up meal card clicks
   entry.querySelectorAll('.meal-card').forEach(function(card) {
     card.addEventListener('click', function() {
       openDetail(JSON.parse(decodeURIComponent(card.dataset.mealJson)));
     });
   });
-
   return entry;
 }
 
-// Recipe detail overlay
+var totalWeeks = 1 + HISTORY.length;
+document.getElementById('headerMeta').textContent = totalWeeks + ' week' + (totalWeeks !== 1 ? 's' : '') + ' logged';
+
+var journal = document.getElementById('journal');
+journal.appendChild(renderWeek(CURRENT_WEEK, true));
+
+if (HISTORY.length === 0) {
+  var empty = document.createElement('div');
+  empty.className = 'empty-history';
+  empty.innerHTML = '<strong>More weeks coming soon</strong>Past meals will appear here each time a new week is planned.';
+  journal.appendChild(empty);
+} else {
+  HISTORY.forEach(function(week) { journal.appendChild(renderWeek(week, false)); });
+}
+
+// ── Recipe detail overlay ─────────────────────────────────────────────────
 var curR = null;
 var rdEl = document.getElementById('rd-overlay');
 
@@ -246,107 +248,39 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// Cooking mode
+// ── Cooking mode ──────────────────────────────────────────────────────────
 (function() {
-  var ck = document.getElementById('ck-overlay'), track = document.getElementById('ck-track'),
-    ingScroll = document.getElementById('ck-ing-scroll'), ingHead = document.getElementById('ck-ing-headline'),
-    ingsList = document.getElementById('ck-ings'), stepVp = document.getElementById('ck-step-vp'),
-    dotsEl = document.getElementById('ck-dots'), prevBtn = document.getElementById('ck-prev'),
-    nextBtn = document.getElementById('ck-next'), closeX = document.getElementById('ck-x'),
-    titleEl = document.getElementById('ck-title'), pip0 = document.getElementById('ck-pip0'),
-    pip1 = document.getElementById('ck-pip1'), hintIng = document.getElementById('ck-hint-ing'),
-    hintSteps = document.getElementById('ck-hint-steps');
-  var recipe = null, stepIdx = 0, isSteps = false, slides = [], dots = [], wakeLock = null, ingHid = false, stpHid = false;
-  function lockOn() { if ('wakeLock' in navigator) { navigator.wakeLock.request('screen').then(function(l) { wakeLock = l; }).catch(function(){}); } }
-  function lockOff() { if (wakeLock) { wakeLock.release().catch(function(){}); wakeLock = null; } }
-  document.addEventListener('visibilitychange', function() { if (ck.classList.contains('open') && document.visibilityState === 'visible') lockOn(); });
-  function parseIng(s) { var m = s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i); return m ? {qty:m[1].trim(),name:m[2].trim()} : {qty:'\u2014',name:s}; }
-  function buildIngs(r) { ingHead.textContent = r.name; titleEl.textContent = r.name; ingsList.innerHTML = (r.ings || []).map(function(i) { var p = parseIng(i); return '<li class="ck-ing-row"><span class="ck-qty">' + p.qty + '</span><span class="ck-item-name">' + p.name + '</span></li>'; }).join(''); ingScroll.scrollTop = 0; }
-  function buildSteps(r) {
-    slides.forEach(function(s) { s.remove(); }); slides = []; dots = []; dotsEl.innerHTML = ''; stepVp.removeChild(hintSteps);
-    (r.steps || []).forEach(function(text, i) {
-      var sl = document.createElement('div'); sl.className = 'ck-slide' + (i===0?' active':'');
-      sl.innerHTML = '<div class="ck-step-big">' + String(i+1).padStart(2,'0') + '</div><div class="ck-step-of">of ' + r.steps.length + '</div><div class="ck-step-body">' + text + '</div>';
-      stepVp.appendChild(sl); slides.push(sl);
-      var d = document.createElement('div'); d.className = 'ck-dot' + (i===0?' on':''); dotsEl.appendChild(d); dots.push(d);
-    });
-    stepVp.appendChild(hintSteps); stepIdx = 0; refreshNav();
-  }
-  function goStep(n) {
-    if (n<0||n>=recipe.steps.length||n===stepIdx) return;
-    var fwd = n>stepIdx, from = slides[stepIdx], to = slides[n];
-    from.classList.remove('active'); from.classList.add(fwd?'exit-up':'exit-down');
-    to.style.transition='none'; to.style.opacity='0'; to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ to.style.transition=''; to.style.opacity=''; to.style.transform=''; to.classList.add('active'); }); });
-    setTimeout(function(){ from.classList.remove('exit-up','exit-down'); }, 320);
-    dots[stepIdx].classList.remove('on'); dots[stepIdx].classList.toggle('done',fwd);
-    dots[n].classList.remove('done'); dots[n].classList.add('on');
-    stepIdx = n; refreshNav(); hideStepHint();
-  }
-  function refreshNav() { prevBtn.disabled = stepIdx===0; nextBtn.disabled = !recipe||stepIdx===recipe.steps.length-1; }
-  function showPanel(p) { isSteps = p==='steps'; track.classList.toggle('flipped',isSteps); pip0.classList.toggle('on',!isSteps); pip1.classList.toggle('on',isSteps); if(isSteps) hideIngHint(); }
-  function hideIngHint() { if(!ingHid){ingHid=true;hintIng.classList.add('gone');} }
-  function hideStepHint() { if(!stpHid){stpHid=true;hintSteps.classList.add('gone');} }
-  var t0 = null;
-  ck.addEventListener('touchstart', function(e){ var t=e.touches[0]; t0={x:t.clientX,y:t.clientY,ms:Date.now()}; }, {passive:true});
-  ck.addEventListener('touchend', function(e){
-    if(!t0) return; var t=e.changedTouches[0], dx=t.clientX-t0.x, dy=t.clientY-t0.y, ms=Date.now()-t0.ms; t0=null;
-    var D=44; if(Math.max(Math.abs(dx),Math.abs(dy))<D||ms>700) return;
-    if(Math.abs(dx)>Math.abs(dy)){ if(dx<-D&&!isSteps)showPanel('steps'); if(dx>D&&isSteps)showPanel('ingredients'); }
-    else{ if(isSteps){ if(dy<-D)goStep(stepIdx+1); if(dy>D)goStep(stepIdx-1); } }
-  }, {passive:true});
-  document.addEventListener('keydown', function(e){
-    if(!ck.classList.contains('open')) return;
-    if(isSteps){ if(e.key==='ArrowDown'||e.key==='ArrowRight')goStep(stepIdx+1); if(e.key==='ArrowUp'||e.key==='ArrowLeft')goStep(stepIdx-1); }
-    else{ if(e.key==='ArrowRight')showPanel('steps'); }
-  });
-  window.openMode = function(r) {
-    recipe = r; buildIngs(r); buildSteps(r); showPanel('ingredients');
-    ingHid=stpHid=false; hintIng.classList.remove('gone'); hintSteps.classList.remove('gone');
-    ck.classList.add('open'); ck.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; lockOn();
-  };
-  window.closeMode = function() {
-    ck.classList.remove('open'); ck.setAttribute('aria-hidden','true'); lockOff();
-    if(!rdEl.classList.contains('open')) document.body.style.overflow='';
-  };
-  closeX.addEventListener('click', window.closeMode);
-  prevBtn.addEventListener('click', function(){ goStep(stepIdx-1); });
-  nextBtn.addEventListener('click', function(){ goStep(stepIdx+1); });
-  document.getElementById('rd-cook').addEventListener('click', function(){ if(curR) window.openMode(curR); });
+  var ck=document.getElementById('ck-overlay'),track=document.getElementById('ck-track'),
+    ingScroll=document.getElementById('ck-ing-scroll'),ingHead=document.getElementById('ck-ing-headline'),
+    ingsList=document.getElementById('ck-ings'),stepVp=document.getElementById('ck-step-vp'),
+    dotsEl=document.getElementById('ck-dots'),prevBtn=document.getElementById('ck-prev'),
+    nextBtn=document.getElementById('ck-next'),closeX=document.getElementById('ck-x'),
+    titleEl=document.getElementById('ck-title'),pip0=document.getElementById('ck-pip0'),
+    pip1=document.getElementById('ck-pip1'),hintIng=document.getElementById('ck-hint-ing'),
+    hintSteps=document.getElementById('ck-hint-steps');
+  var recipe=null,stepIdx=0,isSteps=false,slides=[],dots=[],wakeLock=null,ingHid=false,stpHid=false;
+  function lockOn(){if('wakeLock'in navigator){navigator.wakeLock.request('screen').then(function(l){wakeLock=l;}).catch(function(){});}}
+  function lockOff(){if(wakeLock){wakeLock.release().catch(function(){});wakeLock=null;}}
+  document.addEventListener('visibilitychange',function(){if(ck.classList.contains('open')&&document.visibilityState==='visible')lockOn();});
+  function parseIng(s){var m=s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i);return m?{qty:m[1].trim(),name:m[2].trim()}:{qty:'\u2014',name:s};}
+  function buildIngs(r){ingHead.textContent=r.name;titleEl.textContent=r.name;ingsList.innerHTML=(r.ings||[]).map(function(i){var p=parseIng(i);return'<li class="ck-ing-row"><span class="ck-qty">'+p.qty+'</span><span class="ck-item-name">'+p.name+'</span></li>';}).join('');ingScroll.scrollTop=0;}
+  function buildSteps(r){slides.forEach(function(s){s.remove();});slides=[];dots=[];dotsEl.innerHTML='';stepVp.removeChild(hintSteps);(r.steps||[]).forEach(function(text,i){var sl=document.createElement('div');sl.className='ck-slide'+(i===0?' active':'');sl.innerHTML='<div class="ck-step-big">'+String(i+1).padStart(2,'0')+'</div><div class="ck-step-of">of '+r.steps.length+'</div><div class="ck-step-body">'+text+'</div>';stepVp.appendChild(sl);slides.push(sl);var d=document.createElement('div');d.className='ck-dot'+(i===0?' on':'');dotsEl.appendChild(d);dots.push(d);});stepVp.appendChild(hintSteps);stepIdx=0;refreshNav();}
+  function goStep(n){if(n<0||n>=recipe.steps.length||n===stepIdx)return;var fwd=n>stepIdx,from=slides[stepIdx],to=slides[n];from.classList.remove('active');from.classList.add(fwd?'exit-up':'exit-down');to.style.transition='none';to.style.opacity='0';to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';requestAnimationFrame(function(){requestAnimationFrame(function(){to.style.transition='';to.style.opacity='';to.style.transform='';to.classList.add('active');});});setTimeout(function(){from.classList.remove('exit-up','exit-down');},320);dots[stepIdx].classList.remove('on');dots[stepIdx].classList.toggle('done',fwd);dots[n].classList.remove('done');dots[n].classList.add('on');stepIdx=n;refreshNav();hideStepHint();}
+  function refreshNav(){prevBtn.disabled=stepIdx===0;nextBtn.disabled=!recipe||stepIdx===recipe.steps.length-1;}
+  function showPanel(p){isSteps=p==='steps';track.classList.toggle('flipped',isSteps);pip0.classList.toggle('on',!isSteps);pip1.classList.toggle('on',isSteps);if(isSteps)hideIngHint();}
+  function hideIngHint(){if(!ingHid){ingHid=true;hintIng.classList.add('gone');}}
+  function hideStepHint(){if(!stpHid){stpHid=true;hintSteps.classList.add('gone');}}
+  var t0=null;
+  ck.addEventListener('touchstart',function(e){var t=e.touches[0];t0={x:t.clientX,y:t.clientY,ms:Date.now()};},{passive:true});
+  ck.addEventListener('touchend',function(e){if(!t0)return;var t=e.changedTouches[0],dx=t.clientX-t0.x,dy=t.clientY-t0.y,ms=Date.now()-t0.ms;t0=null;var D=44;if(Math.max(Math.abs(dx),Math.abs(dy))<D||ms>700)return;if(Math.abs(dx)>Math.abs(dy)){if(dx<-D&&!isSteps)showPanel('steps');if(dx>D&&isSteps)showPanel('ingredients');}else{if(isSteps){if(dy<-D)goStep(stepIdx+1);if(dy>D)goStep(stepIdx-1);}}},{passive:true});
+  document.addEventListener('keydown',function(e){if(!ck.classList.contains('open'))return;if(isSteps){if(e.key==='ArrowDown'||e.key==='ArrowRight')goStep(stepIdx+1);if(e.key==='ArrowUp'||e.key==='ArrowLeft')goStep(stepIdx-1);}else{if(e.key==='ArrowRight')showPanel('steps');}});
+  window.openMode=function(r){recipe=r;buildIngs(r);buildSteps(r);showPanel('ingredients');ingHid=stpHid=false;hintIng.classList.remove('gone');hintSteps.classList.remove('gone');ck.classList.add('open');ck.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';lockOn();};
+  window.closeMode=function(){ck.classList.remove('open');ck.setAttribute('aria-hidden','true');lockOff();if(!rdEl.classList.contains('open'))document.body.style.overflow='';};
+  closeX.addEventListener('click',window.closeMode);
+  prevBtn.addEventListener('click',function(){goStep(stepIdx-1);});
+  nextBtn.addEventListener('click',function(){goStep(stepIdx+1);});
+  document.getElementById('rd-cook').addEventListener('click',function(){if(curR)window.openMode(curR);});
 })();
-
-// Load current week + history, then render
-Promise.all([
-  fetch('data/week.json').then(function(r) { return r.json(); }),
-  fetch('data/history.json').then(function(r) { return r.json(); })
-]).then(function(results) {
-  var current = results[0];
-  var history = results[1]; // array of past weeks, newest first
-
-  var totalWeeks = 1 + history.length;
-  document.getElementById('headerMeta').textContent =
-    totalWeeks + ' week' + (totalWeeks !== 1 ? 's' : '') + ' logged';
-
-  var journal = document.getElementById('journal');
-
-  // Current week at top
-  journal.appendChild(renderWeek(current, true));
-
-  // Past weeks
-  if (history.length === 0) {
-    var empty = document.createElement('div');
-    empty.className = 'empty-history';
-    empty.innerHTML = '<strong>More weeks coming soon</strong>Past meals will appear here each time a new week is planned.';
-    journal.appendChild(empty);
-  } else {
-    history.forEach(function(week) {
-      journal.appendChild(renderWeek(week, false));
-    });
-  }
-}).catch(function(err) {
-  document.getElementById('headerMeta').textContent = 'Could not load journal data';
-  console.error(err);
-});
 </script>
 </body>
 </html>
