@@ -49,13 +49,11 @@
   .rd-back { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: white; border: 1px solid var(--border); color: var(--ink); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; transition: background .15s; }
   .rd-back:active { background: #eee; }
   .rd-name { flex: 1; font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  /* Save button — interactive state */
   .rd-save-btn { flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; background: white; color: var(--muted); border: 1px solid var(--border); border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; padding: 8px 14px; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: all .15s; }
   .rd-save-btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; transition: all .15s; }
   .rd-save-btn.saved { background: var(--accent-light); color: var(--accent); border-color: #e0bfad; }
   .rd-save-btn.saved svg { fill: var(--accent); stroke: var(--accent); }
   .rd-save-btn:active { transform: scale(.94); }
-  /* "Already in your recipes" — non-interactive label */
   .rd-in-recipes { flex-shrink: 0; display: none; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; color: var(--muted); padding: 8px 12px; }
   .rd-in-recipes.visible { display: inline-flex; }
   .rd-in-recipes svg { width: 11px; height: 11px; fill: var(--muted); flex-shrink: 0; }
@@ -119,19 +117,16 @@
 </style>
 </head>
 <body>
-
 <nav class="site-nav">
   <a href="index.html" class="nav-link">This Week</a>
   <a href="recipes.html" class="nav-link">Recipes</a>
   <a href="journal.html" class="nav-link active">Journal</a>
 </nav>
-
 <div class="header">
   <div class="header-eyebrow">Fox &amp; Bear Kitchen</div>
   <h1>Journal</h1>
   <div class="header-meta" id="headerMeta"></div>
 </div>
-
 <div class="journal" id="journal"></div>
 
 <!-- Recipe detail overlay -->
@@ -139,12 +134,10 @@
   <div class="rd-bar">
     <button class="rd-back" id="rd-back">←</button>
     <span class="rd-name" id="rd-name"></span>
-    <!-- Shown only when recipe is NOT in core collection -->
     <button class="rd-save-btn" id="rd-save" aria-label="Save to recipes">
       <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
       <span id="rd-save-label">Save</span>
     </button>
-    <!-- Shown only when recipe IS already in core collection -->
     <span class="rd-in-recipes" id="rd-in-recipes">
       <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
       In your recipes
@@ -199,7 +192,7 @@ var CURRENT_WEEK = {"weekOf":"2026-04-06","title":"Week of April 6","meals":[{"i
 
 var HISTORY = [{"weekOf":"2026-03-29","title":"Week of March 29","meals":[{"id":"chicken-pineapple-fried-rice","name":"Chicken Pineapple Fried Rice","day":"Tuesday","date":"3/31","label":"Meal A","icon":"🍚","meta":"~30 min · Wok or skillet · Serves 4","ings":["3 cups cooked jasmine rice, cold — cook and refrigerate Monday or day before","½ lb boneless skinless chicken thighs, sliced thin","1 cup frozen mixed vegetables (peas, carrots, corn, green beans)","1 cup pineapple, diced (fresh or canned)","½ cup onion, finely diced","2 cloves garlic, minced","2 tablespoons vegetable oil","1½ tablespoons soy sauce","1 teaspoon fish sauce","¼ tsp salt, ¼ tsp black pepper","Green onions, sliced (garnish)","Sesame seeds (garnish)","Marinade: 2 tsp soy sauce + 2 tsp sesame oil + 1 tsp cornstarch + ¼ tsp baking soda"],"steps":["Cook rice ahead of time (Monday): Cook 1½ cups jasmine rice. Let cool completely, then refrigerate overnight. Cold rice is the key to good fried rice — fresh rice will turn mushy.","Slice chicken thighs thin and toss with marinade (soy sauce, sesame oil, cornstarch, baking soda). Let sit 10–15 minutes.","Break up the cold rice with clean hands or a rice paddle into individual grains. Set aside.","Heat 1 tbsp vegetable oil in a large wok or skillet over medium-high. Fry chicken in a single layer until cooked through, about 4–5 minutes. Remove and set aside.","Sauté garlic and onion in remaining oil until fragrant, 1–2 minutes. Add frozen vegetables and pineapple. Cook 3–4 minutes, letting liquids evaporate fully.","Push everything to the side. Add remaining oil. Add rice and toss everything together. Drizzle soy sauce and fish sauce over top. Stir-fry 2–3 minutes until rice is hot and slightly caramelized.","Add chicken back to pan. Toss everything together and heat through. Serve hot with sliced green onions and sesame seeds."],"note":"💡 Pre-cook the rice Monday — this is non-negotiable for good fried rice. Also great for using up pantry staples. Totally kid-friendly."},{"id":"greek-chicken-bowls","name":"Greek Chicken Bowls with Tzatziki","day":"Wednesday","date":"4/1","label":"Meal B","icon":"🥙","meta":"~35 min · Bowls · Marinate Tuesday night · Serves 4","ings":["1½ lb boneless skinless chicken thighs","3 tablespoons olive oil (divided)","3 tablespoons fresh lemon juice (about 1.5 lemons)","3 cloves garlic, minced (divided)","1½ tsp dried oregano","Salt and black pepper to taste","1 English cucumber — half for tzatziki, half for salad","1 cup plain Greek yogurt, full-fat","1 tablespoon fresh dill or mint, chopped","1 cup cherry tomatoes, halved","½ small red onion, thinly sliced","1 tablespoon lemon juice (for salad)","1½ cups jasmine rice + 3 cups water","½ cup hummus (store-bought)","Feta cheese, crumbled — optional but recommended","Fresh parsley to garnish"],"steps":["Marinate chicken (Tuesday night ideally): Whisk 2 tbsp olive oil, 3 tbsp lemon juice, 2 cloves garlic, oregano, salt, and pepper. Coat chicken thighs. Refrigerate 15–30 min or overnight.","Make tzatziki: Grate half the cucumber and squeeze out moisture with a paper towel or clean kitchen towel. Mix with Greek yogurt, 1 tbsp olive oil, 1 clove minced garlic, a squeeze of lemon, and chopped dill. Season with salt. Refrigerate — it gets better the longer it sits.","Cook rice: 1½ cups rice + 3 cups water, bring to boil, cover, reduce to low, cook 18 minutes. Fluff and set aside.","Make cucumber salad: Dice remaining half cucumber. Toss with halved cherry tomatoes, red onion, 1 tbsp olive oil, 1 tbsp lemon juice, salt, and pepper.","Cook chicken: Heat skillet or grill pan over medium-high. Cook chicken thighs 5–7 minutes per side until golden and cooked through (165°F). Rest 5 minutes, then slice.","Build bowls: Rice first, then sliced chicken, a generous scoop of hummus, cucumber salad, and a big dollop of tzatziki. Top with crumbled feta and fresh parsley."],"note":"💡 Marinate the chicken Tuesday evening — even 30 minutes makes a big difference. Tzatziki can be made the day before and actually improves overnight."},{"id":"asian-turkey-lettuce-wraps","name":"Asian Turkey Lettuce Wraps","day":"Thursday","date":"4/2","label":"Meal C","icon":"🥬","meta":"~25 min · Skillet · Serves 4 · Low carb","ings":["1 lb ground turkey (93% lean)","1 tablespoon vegetable oil","3 cloves garlic, minced","1 tablespoon fresh ginger, grated (or ½ tsp ground ginger)","1 can (8 oz) water chestnuts, drained and diced","3 tablespoons hoisin sauce","2 tablespoons low-sodium soy sauce","1 tablespoon rice vinegar","1 teaspoon sesame oil","3 green onions, sliced (plus more to garnish)","1 large head butter lettuce, leaves separated","Sesame seeds (garnish)","Shredded carrots (garnish, optional)"],"steps":["In a small bowl, whisk together hoisin sauce, soy sauce, rice vinegar, and sesame oil. Set aside.","Heat vegetable oil in a large skillet over medium-high. Add garlic and ginger and cook 30 seconds, stirring, until fragrant.","Add ground turkey, breaking it apart with a spatula. Cook 6–8 minutes until fully cooked through with no pink.","Add diced water chestnuts and pour in the sauce. Toss to coat everything. Cook 2 minutes until sauce is absorbed and turkey is glazed.","Stir in half the green onions. Remove from heat.","Serve turkey mixture in butter lettuce cups. Top with remaining green onions, a sprinkle of sesame seeds, and shredded carrots."],"note":"💡 Kid tip: serve the filling in a bowl and let them build their own lettuce tacos. Super fast to make."}]},{"weekOf":"2026-03-22","title":"Week of March 22","meals":[{"id":"shakshuka","name":"Shakshuka","day":"Tuesday","date":"3/24","label":"Meal A","icon":"🍳","meta":"~30 min · One pan · Vegetarian · Serves 4–6","ings":["2 tablespoons olive oil","1 medium onion, diced","1 red bell pepper, seeded and diced","4 garlic cloves, finely chopped","2 tsp paprika","1 tsp cumin","¼ tsp chili powder","1 (28-oz) can whole peeled tomatoes","6 large eggs","Salt and pepper to taste","Small bunch fresh cilantro, chopped","Small bunch fresh parsley, chopped","Pita or crusty bread for serving","Optional: crumbled feta cheese"],"steps":["Heat olive oil in a large sauté pan over medium heat. Add diced onion and bell pepper. Cook 5 minutes until onion is translucent.","Add garlic and spices (paprika, cumin, chili powder). Cook 1 minute, stirring, until fragrant.","Pour in the can of tomatoes with juice, breaking them down with a spoon. Season with salt and pepper. Bring to a simmer and cook 5 minutes.","Use a spoon to make 6 small wells in the sauce. Crack an egg into each well.","Cook 5–8 minutes until eggs are set to your liking. Cover with a lid to speed things up — runny yolks take about 5 min, fully set about 8.","Garnish with cilantro and parsley. Crumble feta on top if using. Serve directly from the pan with warm pita or crusty bread."],"note":"💡 Crumbled feta on top is excellent — worth grabbing. Use stainless steel — tomatoes can damage cast iron seasoning."},{"id":"lemon-herb-baked-cod","name":"Lemon Herb Baked Cod with Asparagus & Rice","day":"Wednesday","date":"3/25","label":"Meal B","icon":"🐠","meta":"~35 min · Sheet pan · Serves 4","ings":["4 cod fillets (~6 oz each), skinless","2 tablespoons olive oil","3 tablespoons fresh lemon juice (about 1.5 lemons)","1 teaspoon garlic powder","1 teaspoon dried thyme or parsley","½ teaspoon salt, ¼ tsp black pepper","1 lb asparagus, ends trimmed","1 tablespoon butter (optional, to finish)","1 extra lemon, sliced for baking","1½ cups white rice + 3 cups water (cook separately)"],"steps":["Preheat oven to 400°F. Start rice on the stovetop: 1½ cups rice + 3 cups water, bring to boil, reduce to low, cover, cook 18 min.","Toss asparagus with olive oil, salt, and pepper on a rimmed baking sheet. Spread in a single layer. Roast 8 minutes.","Meanwhile, whisk together 2 tbsp olive oil, lemon juice, garlic powder, dried thyme, salt, and pepper.","Push asparagus to the sides. Pat cod dry and place fillets in the center. Spoon herb-lemon mixture generously over each fillet. Lay lemon slices on top.","Bake 12–15 minutes until cod flakes easily with a fork. Internal temp 145°F. Thin fillets cook fast — check at 12 min.","Serve cod and asparagus over rice. Add a small pat of butter on the fish if desired. Squeeze extra lemon over top."],"note":"💡 Make a double batch of rice tonight — reheat for Thursday's taco bowls. The lemon slices caramelize in the oven and are delicious."},{"id":"turkey-black-bean-taco-bowls","name":"Turkey & Black Bean Taco Bowls","day":"Thursday","date":"3/26","label":"Meal C","icon":"🌮","meta":"~30 min · Serves 4 · Build-your-own","ings":["1 lb ground turkey (93% lean)","1 small onion, diced","3 garlic cloves, minced","1 tablespoon olive oil","1 tsp ground cumin","1 tsp chili powder (mild)","½ tsp garlic powder","½ tsp smoked paprika","Salt and pepper to taste","1 (15-oz) can black beans, drained and rinsed","1 avocado, sliced","1 cup cherry tomatoes, halved","1–2 limes, cut into wedges","Fresh cilantro","Shredded Mexican cheese blend","Sour cream","Cooked white rice for serving (leftover from Wednesday works great)"],"steps":["Reheat leftover rice from Wednesday (or cook fresh: 1½ cups rice + 3 cups water).","Heat olive oil in a large skillet over medium-high heat. Add onion and cook 3–4 minutes until softened. Add garlic and cook 30 seconds.","Add ground turkey, breaking it up with a spatula. Cook 6–8 minutes until cooked through with no pink.","Stir in cumin, chili powder, garlic powder, paprika, salt, and pepper. Add black beans and toss to warm through, about 2 minutes.","Build the bowls: rice first, then the turkey-bean mixture. Top with avocado slices, halved cherry tomatoes, cheese, and sour cream.","Squeeze lime generously over each bowl. Scatter fresh cilantro on top. Let everyone build their own — kids can customize."],"note":"💡 This makes great leftovers for lunch Friday. Double the turkey-bean mix if you want extra. Mild as written — totally kid-friendly."}]},{"weekOf":"2026-03-19","title":"Week of March 16","meals":[{"id":"sheet-pan-lemon-herb-salmon","name":"Sheet Pan Lemon Herb Salmon & Veggies","day":"Tuesday","date":"3/17","label":"Meal A","icon":"🐟","meta":"~35 min · One pan · Serves 4–6","ings":["4–6 salmon fillets (~6 oz each), skinless","2 tbsp olive oil + 1 tsp for veggies","4 tbsp fresh lemon juice, divided","1 tsp garlic powder","1 tsp dried dill or parsley","1 tsp salt, ¾ tsp black pepper","2 cups broccoli florets","1 pint cherry tomatoes","2 medium zucchini, sliced","Lemon wedges to serve"],"steps":["Preheat oven to 425°F. Line a large rimmed baking sheet with parchment paper.","Toss broccoli, cherry tomatoes, and zucchini with olive oil and ½ tsp salt. Spread in a single layer. Roast 12 minutes.","While veggies roast, pat salmon dry. Whisk together olive oil, 2 tbsp lemon juice, garlic powder, dill, salt, and pepper.","Pull sheet from oven. Push veggies to the sides. Nestle salmon in center skin-side down. Brush with herb mixture. Squeeze remaining lemon over top.","Return to oven. Bake 12–15 minutes until salmon flakes easily and tomatoes are bursting. Internal temp 145°F.","Serve with extra lemon wedges. Optional: scatter fresh dill or parsley on top."],"note":"💡 The tomatoes get jammy and sweet at high heat — kids love them."},{"id":"chicken-tikka-masala-cauliflower","name":"Chicken Tikka Masala + Cauliflower","day":"Wednesday","date":"3/18","label":"Meal B","icon":"🍗","meta":"~45 min (marinate tonight!) · Serves 4–6","ings":["1 cup full-fat Greek yogurt","2 tbsp fresh lemon juice","1½ tsp ground cumin, 1 tsp garam masala","¼–½ tsp chili powder (skip for kids), 1 tsp salt","2 tsp grated fresh ginger, 2 tsp minced garlic","1.5 lbs chicken breast, bite-sized","2 tbsp oil + 2 tbsp butter","1 large sweet onion, finely diced","2 tsp brown sugar","1 tsp each: coriander, cumin, smoked paprika, garam masala","2 cans (8 oz each) unseasoned tomato sauce","1½ cups heavy cream","1 head cauliflower, cut into florets","Basmati rice, naan, fresh cilantro"],"steps":["Marinate (tonight!): Whisk marinade ingredients. Toss chicken to coat. Cover and refrigerate — at least 15 min, overnight is best.","Roast cauliflower: Preheat oven to 425°F. Toss cauliflower with olive oil, salt, pepper. Roast 20–25 min until golden and slightly charred. Set aside.","Sear chicken: Heat oil in a large skillet over medium-high. Add chicken in batches, don't crowd. Let sit 1 min untouched to crust, then sauté ~5 min until browned. Discard marinade. Set aside.","Build sauce: Melt butter in same pan. Sauté onion ~3 min. Add ginger + garlic, cook 30 sec. Add brown sugar and all spices, stir 15 sec until fragrant.","Pour in both cans of tomato sauce. Simmer 3–5 min until thickened.","Stir in cream. Return chicken and cauliflower to the pan. Simmer 8–10 min until cooked through and sauce is thick. Thin with water if needed.","Serve over basmati rice with naan. Garnish with cilantro. Adults can add hot sauce."],"note":"🧠 Bumped to 1½ cups cream + 2 cans tomato sauce for proper saucy consistency — especially with cauliflower soaking it up."},{"id":"pesto-chicken-tortellini-veggies","name":"Pesto Chicken Tortellini & Veggies","day":"Thursday","date":"3/19","label":"Meal C","icon":"🌿","meta":"~40 min · One pan · Serves 4","ings":["2 tbsp olive oil","1 lb chicken thighs, boneless/skinless, sliced into strips","Salt to taste","½ cup sun-dried tomatoes, drained and chopped (divided)","1 lb asparagus, ends trimmed, cut in half","¼ cup basil pesto (or more to taste)","1 cup cherry tomatoes, halved","1 cup refrigerated tortellini, uncooked"],"steps":["Heat olive oil over medium. Add chicken (seasoned with salt) and ¼ cup sun-dried tomatoes. Cook 5–10 min until chicken is cooked through. Remove, leaving oil in pan.","Add asparagus (seasoned with salt) and remaining sun-dried tomatoes. Cook 5–10 min until tender. Remove to a serving plate.","Cook tortellini per package directions. Drain.","Return chicken to skillet with pesto. Stir to coat and warm through over low-medium heat, 1–2 min.","Add tortellini and halved cherry tomatoes. Stir to combine. Add more pesto if desired. Plate alongside the asparagus."],"note":"💡 Fast, colorful, kids love tortellini. Add extra pesto at the end if it tastes flat."}]}];
 
-// ── Core recipe IDs (already in recipes.html — Save button hidden for these) ──
+// ── Core recipe IDs ───────────────────────────────────────────────────────
 var CORE_RECIPE_IDS = {
   "slow-cooker-chili":true,"creamy-sausage-and-peppers-pasta":true,
   "zucchini-tomato-italian-sausage-soup":true,"vegetarian-quesadillas":true,
@@ -221,32 +214,45 @@ var CORE_RECIPE_IDS = {
   "creamy-spinach-and-mushroom-tortellini":true,"garlic-sesame-noodles":true,
   "shakshuka":true,"miso-glazed-salmon-bowls":true
 };
-
 function isCore(id) { return CORE_RECIPE_IDS[id] === true; }
 
-// ── Firebase save state ───────────────────────────────────────────────────
-var FB_SAVED = 'https://fox-bear-hub-default-rtdb.firebaseio.com/saved-recipes.json';
+// ── Firebase ──────────────────────────────────────────────────────────────
+var FB_BASE = 'https://fox-bear-hub-default-rtdb.firebaseio.com';
+var FB_FLAGS = FB_BASE + '/saved-recipes.json';
 var savedIds = {};
 
+function fbSafeKey(id) {
+  // Firebase keys can't contain . # $ [ ]
+  return id.replace(/[.#$[\]]/g, '_');
+}
+
 function loadSavedState(callback) {
-  fetch(FB_SAVED)
+  fetch(FB_FLAGS)
     .then(function(r) { return r.json(); })
     .then(function(d) { savedIds = d || {}; callback(); })
     .catch(function() { callback(); });
 }
 
-function persistSavedState() {
-  fetch(FB_SAVED, { method: 'PUT', body: JSON.stringify(savedIds) }).catch(function() {});
-}
-
 function isSaved(id) { return savedIds[id] === true; }
 
-function toggleSave(id) {
-  savedIds[id] = !isSaved(id);
-  persistSavedState();
+function toggleSave(id, recipeObj) {
+  var nowSaving = !isSaved(id);
+  savedIds[id] = nowSaving;
+
+  // Persist the flag
+  fetch(FB_FLAGS, { method: 'PUT', body: JSON.stringify(savedIds) }).catch(function() {});
+
+  // Persist or delete the full recipe data
+  var dataUrl = FB_BASE + '/saved-recipe-data/' + fbSafeKey(id) + '.json';
+  if (nowSaving) {
+    fetch(dataUrl, { method: 'PUT', body: JSON.stringify(recipeObj) }).catch(function() {});
+  } else {
+    fetch(dataUrl, { method: 'DELETE' }).catch(function() {});
+  }
+
   refreshSaveUI(id);
   var badge = document.querySelector('.saved-badge[data-id="' + id + '"]');
-  if (badge) badge.classList.toggle('visible', isSaved(id));
+  if (badge) badge.classList.toggle('visible', nowSaving);
 }
 
 function refreshSaveUI(id) {
@@ -254,13 +260,10 @@ function refreshSaveUI(id) {
   var inRecipesLabel = document.getElementById('rd-in-recipes');
   var label = document.getElementById('rd-save-label');
   if (!saveBtn || !inRecipesLabel || !label) return;
-
   if (isCore(id)) {
-    // Already in core collection — hide Save button, show static label
     saveBtn.style.display = 'none';
     inRecipesLabel.classList.add('visible');
   } else {
-    // Not in core collection — show Save button, hide static label
     saveBtn.style.display = '';
     inRecipesLabel.classList.remove('visible');
     var saved = isSaved(id);
@@ -270,7 +273,7 @@ function refreshSaveUI(id) {
   }
 }
 
-// ── Render ────────────────────────────────────────────────────────────────
+// ── Render journal ────────────────────────────────────────────────────────
 function renderWeek(week, isCurrent) {
   var entry = document.createElement('div');
   entry.className = 'week-entry';
@@ -310,7 +313,6 @@ function renderWeek(week, isCurrent) {
 
 function applyBadges() {
   document.querySelectorAll('.saved-badge').forEach(function(badge) {
-    // Only show saved badge for non-core recipes (core ones are always accessible)
     var id = badge.dataset.id;
     badge.classList.toggle('visible', !isCore(id) && isSaved(id));
   });
@@ -345,11 +347,9 @@ function openDetail(r) {
   var rno = document.getElementById('rd-note');
   if (r.note) { rno.textContent = r.note; rno.style.display = ''; } else { rno.style.display = 'none'; }
   document.querySelector('.rd-body').scrollTop = 0;
-
   var saveBtn = document.getElementById('rd-save');
-  saveBtn.onclick = function() { toggleSave(mealId); };
+  saveBtn.onclick = function() { toggleSave(mealId, r); };
   refreshSaveUI(mealId);
-
   rdEl.classList.add('open');
   rdEl.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
@@ -360,7 +360,6 @@ function closeDetail() {
   rdEl.setAttribute('aria-hidden', 'true');
   if (!document.getElementById('ck-overlay').classList.contains('open')) document.body.style.overflow = '';
 }
-
 document.getElementById('rd-back').addEventListener('click', closeDetail);
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
