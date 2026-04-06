@@ -9,10 +9,6 @@
   :root{--cream:#faf7f2;--ink:#1a1a1a;--muted:#7a7264;--accent:#c8622a;--accent-light:#f5e8de;--border:#e4ded5;--check:#2d7a4f;--check-light:#e8f4ed;--ck-bg:#131311;--ck-dim:#252520;--ck-border:#2e2d28;--ck-text:#f0ebe0;--ck-muted:#6a6860;--ck-accent:#d4732e;--ck-done:#2d7a4f;}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;}
-  .site-nav{max-width:680px;margin:0 auto;display:flex;padding:0 20px;border-bottom:1px solid var(--border);}
-  .nav-link{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:14px 16px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s;}
-  .nav-link:hover{color:var(--ink);}
-  .nav-link.active{color:var(--accent);border-bottom-color:var(--accent);}
   .header{max-width:680px;margin:0 auto 36px;border-bottom:1px solid var(--border);padding:28px 20px 24px;}
   .header-eyebrow{font-weight:500;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
   h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;line-height:1.1;margin-bottom:8px;}
@@ -28,11 +24,7 @@
 </style>
 </head>
 <body>
-<nav class="site-nav">
-  <a href="index.html" class="nav-link">This Week</a>
-  <a href="recipes.html" class="nav-link">Recipes</a>
-  <a href="journal.html" class="nav-link active">Journal</a>
-</nav>
+<script src="nav.js"></script>
 <div class="header">
   <div class="header-eyebrow">Fox &amp; Bear Kitchen</div>
   <h1>Journal</h1>

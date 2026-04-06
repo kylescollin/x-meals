@@ -9,10 +9,6 @@
   :root{--cream:#faf7f2;--ink:#1a1a1a;--muted:#7a7264;--accent:#c8622a;--accent-light:#f5e8de;--border:#e4ded5;--check:#2d7a4f;--check-light:#e8f4ed;--ck-bg:#131311;--ck-dim:#252520;--ck-border:#2e2d28;--ck-text:#f0ebe0;--ck-muted:#6a6860;--ck-accent:#d4732e;--ck-done:#2d7a4f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
-  .site-nav{display:flex;border-bottom:1px solid var(--border);background:#fff;}
-  .nav-link{padding:14px 20px;text-decoration:none;color:var(--muted);font-size:13px;font-weight:500;letter-spacing:.03em;border-bottom:2px solid transparent;transition:color .15s;}
-  .nav-link:hover{color:var(--ink);}
-  .nav-link.active{color:var(--accent);border-bottom-color:var(--accent);}
   .container{max-width:680px;margin:0 auto;padding:28px 16px 80px;}
   .eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
   h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1.15;margin-bottom:6px;}
@@ -55,11 +51,7 @@
 </style>
 </head>
 <body>
-<nav class="site-nav">
-  <a href="index.html" class="nav-link active">This Week</a>
-  <a href="recipes.html" class="nav-link">Recipes</a>
-  <a href="journal.html" class="nav-link">Journal</a>
-</nav>
+<script src="nav.js"></script>
 <div class="container">
   <p class="eyebrow">Fox & Bear Kitchen</p>
   <h1>Grocery List</h1>
