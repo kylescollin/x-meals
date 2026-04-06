@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Fox & Bear Kitchen — Grocery List</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{--cream:#faf7f2;--ink:#1a1a1a;--muted:#7a7264;--accent:#c8622a;--accent-light:#f5e8de;--border:#e4ded5;--check:#2d7a4f;--check-light:#e8f4ed;}
+  :root{--cream:#faf7f2;--ink:#1a1a1a;--muted:#7a7264;--accent:#c8622a;--accent-light:#f5e8de;--border:#e4ded5;--check:#2d7a4f;--check-light:#e8f4ed;--ck-bg:#131311;--ck-dim:#252520;--ck-border:#2e2d28;--ck-text:#f0ebe0;--ck-muted:#6a6860;--ck-accent:#d4732e;--ck-done:#2d7a4f;}
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;}
+  body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
   .site-nav{display:flex;border-bottom:1px solid var(--border);background:#fff;}
   .nav-link{padding:14px 20px;text-decoration:none;color:var(--muted);font-size:13px;font-weight:500;letter-spacing:.03em;border-bottom:2px solid transparent;transition:color .15s;}
   .nav-link:hover{color:var(--ink);}
@@ -21,11 +21,15 @@
   .progress-bar{height:100%;background:var(--check);border-radius:99px;width:0%;transition:width .3s ease;}
   .progress-label{font-size:12px;color:var(--muted);margin-bottom:24px;}
   .meal-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
-  .meal-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,border-color .15s;user-select:none;}
-  .meal-card:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(200,98,42,.1);}
-  .meal-card-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;}
-  .meal-card-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;margin-bottom:2px;}
-  .meal-card-meta{font-size:12px;color:var(--muted);}
+  .meal-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:box-shadow .15s,border-color .15s;-webkit-tap-highlight-color:transparent;}
+  .meal-card:hover{border-color:#bbb;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .meal-card-inner{display:flex;align-items:center;gap:14px;padding:14px 16px;user-select:none;}
+  .meal-card-icon{font-size:26px;flex-shrink:0;}
+  .meal-card-body{flex:1;min-width:0;}
+  .meal-card-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:2px;}
+  .meal-card-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;line-height:1.3;}
+  .meal-card-meta{font-size:11px;color:var(--muted);margin-top:2px;font-weight:300;}
+  .meal-card-chevron{font-size:20px;color:var(--border);flex-shrink:0;}
   .section{margin-bottom:20px;}
   .section-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
   .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
@@ -57,40 +61,73 @@
   .summary-label{font-size:12px;color:#8a8a8a;margin-top:1px;}
   .reset-btn{background:transparent;border:1px solid #555;color:#ccc;font-size:12px;font-weight:500;border-radius:6px;padding:6px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color .15s,color .15s;}
   .reset-btn:hover{border-color:#999;color:#fff;}
-  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;justify-content:center;}
-  .overlay.open{display:flex;}
-  .overlay-sheet{background:#fff;border-radius:18px 18px 0 0;max-width:680px;width:100%;max-height:88vh;overflow-y:auto;padding:0 0 40px;}
-  .overlay-handle{width:36px;height:4px;background:var(--border);border-radius:99px;margin:14px auto 16px;}
-  .overlay-inner{padding:0 20px;}
-  .overlay-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
-  .overlay-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:4px;}
-  .overlay-meta{font-size:13px;color:var(--muted);margin-bottom:18px;}
-  .overlay-close{float:right;font-size:22px;color:var(--muted);cursor:pointer;margin-top:-48px;line-height:1;padding:4px;}
-  .overlay-section-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px;}
-  .overlay-ings{list-style:none;}
-  .overlay-ings li{font-size:14px;padding:5px 0;border-bottom:1px solid var(--border);}
-  .overlay-ings li:last-child{border-bottom:none;}
-  .overlay-steps{list-style:none;counter-reset:steps;}
-  .overlay-steps li{counter-increment:steps;display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;line-height:1.55;}
-  .overlay-steps li:last-child{border-bottom:none;}
-  .overlay-steps li::before{content:counter(steps);font-size:11px;font-weight:700;color:#fff;background:var(--accent);border-radius:50%;width:20px;height:20px;min-width:20px;display:flex;align-items:center;justify-content:center;margin-top:2px;}
-  .overlay-note{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#7a4820;margin-top:16px;}
-  .cook-btn{display:block;width:100%;background:var(--check);color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;border:none;border-radius:10px;padding:14px;cursor:pointer;margin-top:20px;transition:background .15s;}
-  .cook-btn:hover{background:#236040;}
-  .cook-mode{display:none;position:fixed;inset:0;background:#0f1f18;color:#fff;z-index:300;flex-direction:column;}
-  .cook-mode.open{display:flex;}
-  .cook-header{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 10px;border-bottom:1px solid #1e3028;}
-  .cook-title{font-family:'Playfair Display',serif;font-size:18px;}
-  .cook-close{font-size:22px;cursor:pointer;color:#8aab99;}
-  .cook-body{flex:1;overflow-y:auto;padding:24px 20px;}
-  .cook-step-num{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4caf82;margin-bottom:8px;}
-  .cook-step-text{font-size:18px;line-height:1.6;color:#e8f4ed;}
-  .cook-footer{display:flex;gap:10px;padding:16px 20px;border-top:1px solid #1e3028;}
-  .cook-nav{flex:1;padding:14px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background .15s;}
-  .cook-prev{background:#1e3028;color:#8aab99;}
-  .cook-prev:hover{background:#263d30;}
-  .cook-next{background:var(--check);color:#fff;}
-  .cook-next:hover{background:#236040;}
+
+  /* ── Recipe detail overlay (matches recipes.html / journal.html) ── */
+  #rd-overlay{position:fixed;inset:0;background:var(--cream);z-index:1000;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;}
+  #rd-overlay.open{transform:translateY(0);}
+  .rd-bar{display:flex;align-items:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 20px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--cream);}
+  .rd-back{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:white;border:1px solid var(--border);color:var(--ink);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s;}
+  .rd-back:active{background:#eee;}
+  .rd-name{flex:1;font-family:'Playfair Display',serif;font-size:17px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .rd-cook-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--cream);border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:9px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}
+  .rd-cook-btn:active{transform:scale(.94);background:#333;}
+  .rd-cook-btn svg{width:11px;height:11px;fill:currentColor;}
+  .rd-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:28px 20px calc(48px + env(safe-area-inset-bottom,0px));}
+  .rd-inner{max-width:640px;margin:0 auto;}
+  .rd-note{margin-bottom:20px;padding:11px 14px;background:var(--accent-light);border-radius:8px;font-size:13px;color:#7a4520;line-height:1.5;}
+  .rd-cols{display:grid;grid-template-columns:1fr 1.4fr;gap:28px;}
+  @media(max-width:520px){.rd-cols{grid-template-columns:1fr;}}
+  .rd-section-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:500;color:var(--accent);margin-bottom:12px;}
+  .rd-ing-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+  .rd-ing-list li{font-size:13px;color:var(--ink);line-height:1.45;padding-left:12px;position:relative;}
+  .rd-ing-list li::before{content:'·';position:absolute;left:0;color:var(--muted);}
+  .rd-step-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .rd-step-list li{font-size:13px;color:var(--ink);line-height:1.55;display:flex;gap:10px;}
+  .rd-step-num{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0;min-width:16px;padding-top:1px;}
+
+  /* ── Cooking mode (matches recipes.html / journal.html) ── */
+  #ck-overlay{position:fixed;inset:0;background:var(--ck-bg);z-index:9999;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;padding-bottom:env(safe-area-inset-bottom,0px);}
+  #ck-overlay.open{transform:translateY(0);}
+  .ck-bar{display:flex;align-items:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 18px 14px;border-bottom:1px solid var(--ck-border);flex-shrink:0;}
+  .ck-title{flex:1;font-size:13px;color:var(--ck-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ck-pips{display:flex;gap:5px;flex-shrink:0;}
+  .ck-pip{width:22px;height:3px;border-radius:2px;background:var(--ck-border);transition:background .3s;}
+  .ck-pip.on{background:var(--ck-accent);}
+  .ck-x{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--ck-dim);border:1px solid var(--ck-border);color:var(--ck-text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s;}
+  .ck-x:active{background:#38372f;}
+  .ck-panels-wrap{flex:1;overflow:hidden;position:relative;}
+  .ck-track{display:flex;width:200%;height:100%;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+  .ck-track.flipped{transform:translateX(-50%);}
+  .ck-panel{flex:0 0 50%;height:100%;display:flex;flex-direction:column;overflow:hidden;}
+  .ck-ing-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:36px 28px 100px;}
+  .ck-panel-tag{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ck-accent);display:block;margin-bottom:20px;}
+  .ck-ing-headline{font-family:'Playfair Display',serif;font-size:clamp(24px,7vw,44px);font-weight:700;color:var(--ck-text);line-height:1.1;margin-bottom:32px;}
+  .ck-ings{list-style:none;}
+  .ck-ing-row{display:flex;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--ck-border);}
+  .ck-ing-row:last-child{border-bottom:none;}
+  .ck-qty{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ck-accent);min-width:54px;text-align:right;flex-shrink:0;}
+  .ck-item-name{font-size:clamp(16px,4vw,20px);color:var(--ck-text);font-weight:300;line-height:1.35;}
+  .ck-swipe-hint-ing{position:absolute;bottom:24px;left:0;right:50%;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--ck-muted);font-size:12px;pointer-events:none;transition:opacity .5s;}
+  .ck-swipe-hint-ing.gone{opacity:0;}
+  .ck-step-vp{flex:1;position:relative;overflow:hidden;touch-action:none;}
+  .ck-slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:28px 32px 16px;gap:10px;opacity:0;transform:translateY(48px);transition:opacity .28s ease,transform .28s ease;pointer-events:none;}
+  .ck-slide.active{opacity:1;transform:none;pointer-events:all;}
+  .ck-slide.exit-up{opacity:0;transform:translateY(-48px);pointer-events:none;}
+  .ck-slide.exit-down{opacity:0;transform:translateY(48px);pointer-events:none;}
+  .ck-step-big{font-family:'Playfair Display',serif;font-size:clamp(64px,20vw,100px);font-weight:700;color:var(--ck-accent);line-height:1;letter-spacing:-.03em;}
+  .ck-step-of{font-size:13px;color:var(--ck-muted);margin-top:-6px;}
+  .ck-step-body{font-size:clamp(17px,4.2vw,21px);color:var(--ck-text);line-height:1.62;font-weight:300;margin-top:8px;}
+  .ck-swipe-hint-steps{position:absolute;bottom:16px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--ck-muted);font-size:12px;pointer-events:none;transition:opacity .5s;}
+  .ck-swipe-hint-steps.gone{opacity:0;}
+  .ck-footer{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:14px 22px 18px;border-top:1px solid var(--ck-border);}
+  .ck-nav{width:46px;height:46px;border-radius:50%;background:var(--ck-dim);border:1px solid var(--ck-border);color:var(--ck-text);font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s,opacity .2s;flex-shrink:0;}
+  .ck-nav:active:not(:disabled){background:#38372f;}
+  .ck-nav:disabled{opacity:.2;cursor:default;}
+  .ck-dots{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:center;flex:1;padding:0 12px;}
+  .ck-dot{width:7px;height:7px;border-radius:50%;background:var(--ck-border);transition:background .3s,transform .3s;flex-shrink:0;}
+  .ck-dot.on{background:var(--ck-accent);transform:scale(1.5);}
+  .ck-dot.done{background:var(--ck-done);}
+  .hintsvg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 </style>
 </head>
 <body>
@@ -108,24 +145,16 @@
 
   <div class="meal-cards">
     <div class="meal-card js-recipe" data-idx="0">
-      <div class="meal-card-label">Meal D &middot; Sunday 4/5</div>
-      <div class="meal-card-name">🍝 Creamy Sausage and Peppers Pasta</div>
-      <div class="meal-card-meta">~40 min &middot; One pan &middot; Serves 4</div>
+      <div class="meal-card-inner"><div class="meal-card-icon">🍝</div><div class="meal-card-body"><div class="meal-card-label">Meal D &middot; Sunday 4/5</div><div class="meal-card-name">Creamy Sausage and Peppers Pasta</div><div class="meal-card-meta">~40 min &middot; One pan &middot; Serves 4</div></div><div class="meal-card-chevron">›</div></div>
     </div>
     <div class="meal-card js-recipe" data-idx="1">
-      <div class="meal-card-label">Meal A &middot; Monday 4/6</div>
-      <div class="meal-card-name">🍲 Sausage White Bean Soup</div>
-      <div class="meal-card-meta">~35 min &middot; One pot &middot; Serves 4–6</div>
+      <div class="meal-card-inner"><div class="meal-card-icon">🍲</div><div class="meal-card-body"><div class="meal-card-label">Meal A &middot; Monday 4/6</div><div class="meal-card-name">Sausage White Bean Soup</div><div class="meal-card-meta">~35 min &middot; One pot &middot; Serves 4–6</div></div><div class="meal-card-chevron">›</div></div>
     </div>
     <div class="meal-card js-recipe" data-idx="2">
-      <div class="meal-card-label">Meal B &middot; Tuesday 4/7</div>
-      <div class="meal-card-name">🌮 Air Fryer Fish Tacos with Cilantro Lime Slaw</div>
-      <div class="meal-card-meta">~20 min &middot; Air fryer &middot; Serves 4</div>
+      <div class="meal-card-inner"><div class="meal-card-icon">🌮</div><div class="meal-card-body"><div class="meal-card-label">Meal B &middot; Tuesday 4/7</div><div class="meal-card-name">Air Fryer Fish Tacos with Cilantro Lime Slaw</div><div class="meal-card-meta">~20 min &middot; Air fryer &middot; Serves 4</div></div><div class="meal-card-chevron">›</div></div>
     </div>
     <div class="meal-card js-recipe" data-idx="3">
-      <div class="meal-card-label">Meal C &middot; Wednesday 4/8</div>
-      <div class="meal-card-name">🐟 Miso Glazed Salmon Bowls</div>
-      <div class="meal-card-meta">~30 min &middot; Sheet pan + rice &middot; Serves 4</div>
+      <div class="meal-card-inner"><div class="meal-card-icon">🐟</div><div class="meal-card-body"><div class="meal-card-label">Meal C &middot; Wednesday 4/8</div><div class="meal-card-name">Miso Glazed Salmon Bowls</div><div class="meal-card-meta">~30 min &middot; Sheet pan + rice &middot; Serves 4</div></div><div class="meal-card-chevron">›</div></div>
     </div>
   </div>
 
@@ -192,7 +221,6 @@
     <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">½ tsp Dijon mustard</div><div class="item-detail">For Creamy Sausage and Peppers Pasta sauce</div></div><div class="item-right"><span class="tag tag-pasta">Meal D</span></div></div>
     <div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">✓</span></div><div class="item-body"><div class="item-name">Salt, black pepper</div><div class="item-detail">All meals</div></div><div class="item-right"><span class="tag tag-all">All meals</span></div></div>
   </div>
-
 </div>
 
 <div class="summary-bar">
@@ -200,166 +228,145 @@
   <button class="reset-btn" onclick="resetAll()">Reset all</button>
 </div>
 
-<div class="overlay" id="overlay" onclick="closeOverlay(event)">
-  <div class="overlay-sheet">
-    <div class="overlay-handle"></div>
-    <div class="overlay-inner">
-      <div id="overlayClose" class="overlay-close" onclick="closeOverlay()">✕</div>
-      <div class="overlay-label" id="ovLabel"></div>
-      <div class="overlay-title" id="ovTitle"></div>
-      <div class="overlay-meta" id="ovMeta"></div>
-      <div class="overlay-section-title">Ingredients</div>
-      <ul class="overlay-ings" id="ovIngs"></ul>
-      <div class="overlay-section-title">Instructions</div>
-      <ol class="overlay-steps" id="ovSteps"></ol>
-      <div class="overlay-note" id="ovNote" style="display:none"></div>
-      <button class="cook-btn" id="cookModeBtn">Start Cooking Mode 👨‍🍳</button>
+<!-- Recipe detail overlay -->
+<div id="rd-overlay" aria-hidden="true">
+  <div class="rd-bar">
+    <button class="rd-back" id="rd-back">←</button>
+    <span class="rd-name" id="rd-name"></span>
+    <button class="rd-cook-btn" id="rd-cook"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Cook</button>
+  </div>
+  <div class="rd-body">
+    <div class="rd-inner">
+      <div class="rd-note" id="rd-note" style="display:none"></div>
+      <div class="rd-cols">
+        <div><div class="rd-section-title">Ingredients</div><ul class="rd-ing-list" id="rd-ings"></ul></div>
+        <div><div class="rd-section-title">Directions</div><ol class="rd-step-list" id="rd-steps"></ol></div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="cook-mode" id="cookMode">
-  <div class="cook-header"><div class="cook-title" id="cookTitle"></div><div class="cook-close" onclick="closeCook()">✕</div></div>
-  <div class="cook-body"><div class="cook-step-num" id="cookStepNum"></div><div class="cook-step-text" id="cookStepText"></div></div>
-  <div class="cook-footer">
-    <button class="cook-nav cook-prev" onclick="cookNav(-1)">← Back</button>
-    <button class="cook-nav cook-next" id="cookNext" onclick="cookNav(1)">Next →</button>
+<!-- Cooking mode overlay -->
+<div id="ck-overlay" aria-hidden="true">
+  <div class="ck-bar">
+    <span class="ck-title" id="ck-title"></span>
+    <div class="ck-pips"><div class="ck-pip on" id="ck-pip0"></div><div class="ck-pip" id="ck-pip1"></div></div>
+    <button class="ck-x" id="ck-x">✕</button>
+  </div>
+  <div class="ck-panels-wrap">
+    <div class="ck-track" id="ck-track">
+      <div class="ck-panel">
+        <div class="ck-ing-scroll" id="ck-ing-scroll">
+          <span class="ck-panel-tag">Ingredients</span>
+          <h2 class="ck-ing-headline" id="ck-ing-headline"></h2>
+          <ul class="ck-ings" id="ck-ings"></ul>
+        </div>
+        <div class="ck-swipe-hint-ing" id="ck-hint-ing"><svg class="hintsvg" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Swipe right for steps</div>
+      </div>
+      <div class="ck-panel">
+        <div class="ck-step-vp" id="ck-step-vp">
+          <div class="ck-swipe-hint-steps" id="ck-hint-steps"><svg class="hintsvg" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Swipe left for ingredients</div>
+        </div>
+        <div class="ck-footer">
+          <button class="ck-nav" id="ck-prev">↑</button>
+          <div class="ck-dots" id="ck-dots"></div>
+          <button class="ck-nav" id="ck-next">↓</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-// ── Firebase grocery sync ──────────────────────────────────────────────────
+// ── Firebase grocery sync ─────────────────────────────────────────────────
 const FB_URL='https://fox-bear-hub-default-rtdb.firebaseio.com/groceries/week-apr-6';
-const POLL_INTERVAL = 8000;
-let lastKnownState = {};
-
+const POLL_INTERVAL=8000;
+let lastKnownState={};
 function fbKey(el){return el.querySelector('.item-name').textContent.trim().replace(/[^a-z0-9]/gi,'_').substring(0,60);}
 function syncToFB(k,v){fetch(`${FB_URL}/${k}.json`,{method:'PUT',body:JSON.stringify(v)}).catch(()=>{});}
-function applyState(d){
-  if(!d) return;
-  document.querySelectorAll('.item').forEach(el=>{
-    const k=fbKey(el),shouldBeChecked=d[k]===true,isChecked=el.classList.contains('checked');
-    if(shouldBeChecked&&!isChecked)el.classList.add('checked');
-    else if(!shouldBeChecked&&isChecked)el.classList.remove('checked');
-  });
-  updateProgress();
-}
-function pollFB(){
-  fetch(`${FB_URL}.json`).then(r=>r.json()).then(d=>{
-    if(!d)return;
-    const s=JSON.stringify(d);
-    if(s!==JSON.stringify(lastKnownState)){lastKnownState=d;applyState(d);}
-  }).catch(()=>{});
-}
-function loadFromFB(){
-  fetch(`${FB_URL}.json`).then(r=>r.json()).then(d=>{
-    if(!d)return;
-    lastKnownState=d;applyState(d);
-  }).catch(()=>{});
-}
-function toggle(el){
-  el.classList.toggle('checked');
-  const k=fbKey(el),checked=el.classList.contains('checked');
-  lastKnownState[k]=checked;syncToFB(k,checked);updateProgress();
-}
+function applyState(d){if(!d)return;document.querySelectorAll('.item').forEach(el=>{const k=fbKey(el),s=d[k]===true,c=el.classList.contains('checked');if(s&&!c)el.classList.add('checked');else if(!s&&c)el.classList.remove('checked');});updateProgress();}
+function pollFB(){fetch(`${FB_URL}.json`).then(r=>r.json()).then(d=>{if(!d)return;const s=JSON.stringify(d);if(s!==JSON.stringify(lastKnownState)){lastKnownState=d;applyState(d);}}).catch(()=>{});}
+function loadFromFB(){fetch(`${FB_URL}.json`).then(r=>r.json()).then(d=>{if(!d)return;lastKnownState=d;applyState(d);}).catch(()=>{});}
+function toggle(el){el.classList.toggle('checked');const k=fbKey(el),c=el.classList.contains('checked');lastKnownState[k]=c;syncToFB(k,c);updateProgress();}
 function e(ev){ev.stopPropagation();}
-function updateProgress(){
-  const items=document.querySelectorAll('.item'),checked=document.querySelectorAll('.item.checked'),t=items.length,c=checked.length;
-  document.getElementById('progressBar').style.width=t?(c/t*100)+'%':'0%';
-  document.getElementById('progressLabel').textContent=c+' of '+t+' items checked';
-  document.getElementById('summaryCount').textContent=c+' / '+t;
-}
-function resetAll(){
-  document.querySelectorAll('.item.checked').forEach(el=>{
-    el.classList.remove('checked');const k=fbKey(el);lastKnownState[k]=false;syncToFB(k,false);
-  });
-  updateProgress();
-}
+function updateProgress(){const items=document.querySelectorAll('.item'),checked=document.querySelectorAll('.item.checked'),t=items.length,c=checked.length;document.getElementById('progressBar').style.width=t?(c/t*100)+'%':'0%';document.getElementById('progressLabel').textContent=c+' of '+t+' items checked';document.getElementById('summaryCount').textContent=c+' / '+t;}
+function resetAll(){document.querySelectorAll('.item.checked').forEach(el=>{el.classList.remove('checked');const k=fbKey(el);lastKnownState[k]=false;syncToFB(k,false);});updateProgress();}
 
-// ── Meal data (inlined — no fetch required) ────────────────────────────────
-const MEALS = [
-  {
-    label:"Meal D",day:"Sunday",date:"4/5",icon:"🍝",
-    name:"Creamy Sausage and Peppers Pasta",
-    meta:"~40 min · One pan · Serves 4",
-    ings:["8 oz uncooked pasta (bucatini works great)","1 lb Italian sausage (ground or removed from casings)","1 tbsp olive oil","½ medium onion, chopped","1 medium red bell pepper, chopped","1 medium yellow bell pepper, chopped","1 tbsp butter","2–3 cloves garlic, minced","1 tsp flour","1 cup heavy/whipping cream","½ tsp Dijon mustard","2 cups fresh baby spinach (packed)","Salt & pepper to taste","Freshly grated Parmesan cheese"],
-    steps:["Boil a large salted pot of water and cook pasta al dente per package directions.","Brown sausage in a skillet over medium-high heat, breaking it up as you go (8–10 minutes). Transfer to a paper towel-lined plate.","Add oil to the skillet with onion and both bell peppers. Cook until lightly browned and softened, about 7–8 minutes.","Reduce heat to medium. Add butter and garlic; once butter melts, sprinkle in flour and cook 1 minute, stirring well.","Stir in cream and Dijon mustard. Sauce should thicken quickly — don't cook more than a minute before next step.","Add cooked sausage and spinach to the skillet and stir to combine.","Splash in a couple tablespoons of pasta water, then drain pasta and add to the skillet. Toss until spinach wilts and pasta is coated. Serve immediately with Parmesan."],
-    note:"Use ground sausage or buy links and remove the meat from casings. Mild or spicy — your call!"
-  },
-  {
-    label:"Meal A",day:"Monday",date:"4/6",icon:"🍲",
-    name:"Sausage White Bean Soup",
-    meta:"~35 min · One pot · Serves 4–6",
-    ings:["1 lb mild Italian sausage, crumbled","1 tbsp olive oil","1 medium onion, diced","3 cloves garlic, minced","2 carrots, peeled and sliced","2 stalks celery, chopped","1 can (15 oz) white beans, drained and rinsed","4 cups chicken broth","1 tsp dried thyme","1 tsp dried rosemary","Salt and pepper to taste","Fresh parsley for garnish"],
-    steps:["Heat olive oil in a large pot over medium heat. Brown sausage, breaking it apart. Remove and set aside.","In the same pot, cook onion, garlic, carrots, and celery until softened, about 5–7 minutes.","Return sausage to pot. Add white beans, broth, thyme, rosemary, salt, and pepper. Stir and bring to a simmer.","Cover and simmer on low 20–25 minutes. Serve garnished with fresh parsley."],
-    note:"Mash some of the beans before adding for a creamier texture."
-  },
-  {
-    label:"Meal B",day:"Tuesday",date:"4/7",icon:"🌮",
-    name:"Air Fryer Fish Tacos with Cilantro Lime Slaw",
-    meta:"~20 min · Air fryer · Serves 4",
-    ings:["1½ lb tilapia or white fish (mahi mahi, cod, etc.)","Fish rub: 1 tsp chili powder, ½ tsp each oregano/garlic powder/paprika, ¼ tsp each onion powder/cumin, salt & pepper","Cilantro lime slaw: 2½ cups coleslaw mix, 3 tbsp mayo, 1 tbsp lime juice, 1 garlic clove minced, ⅓ cup chopped cilantro, ¼ tsp each salt & pepper","Tortillas for serving"],
-    steps:["Spray the air fryer basket with oil. Mix the spices together.","Pat fish dry and lay in the air fryer basket. Brush with olive oil, coat generously with spice rub, and spritz with oil.","Preheat air fryer to 400°F. Cook fish 8–10 minutes until opaque and flaking (internal temp 145°F).","While fish cooks, toss together the cilantro lime slaw. Adjust salt and lime to taste.","Remove fish, cut into pieces, and serve in tortillas topped with slaw and extra lime."],
-    note:"No air fryer? Bake at 400°F for about 15 minutes. Do not flip fish in the air fryer — it may fall apart."
-  },
-  {
-    label:"Meal C",day:"Wednesday",date:"4/8",icon:"🐟",
-    name:"Miso Glazed Salmon Bowls",
-    meta:"~30 min · Sheet pan + rice · Serves 4",
-    ings:["4 salmon fillets (~6 oz each), skinless","3 tbsp white miso paste","2 tbsp low-sodium soy sauce","2 tbsp honey or maple syrup","1 tbsp rice vinegar","1 tsp toasted sesame oil","1 tsp fresh ginger, grated","2 cloves garlic, minced","1½ cups jasmine rice","1 large English cucumber, thinly sliced","1 cup shredded carrots","1 cup shelled edamame (thawed)","2–3 green onions, sliced","1 tbsp sesame seeds"],
-    steps:["Cook jasmine rice per package instructions.","Whisk together miso paste, soy sauce, honey, rice vinegar, sesame oil, ginger, and garlic to make the glaze.","Pat salmon dry. Place on a foil-lined baking sheet. Spoon half the glaze over each fillet.","Broil at 400°F for 12–15 minutes, basting with remaining glaze halfway through, until salmon flakes easily.","Assemble bowls: rice base topped with salmon, cucumber, carrots, and edamame. Drizzle with any remaining glaze.","Garnish with sliced green onions and sesame seeds."],
-    note:"Leftovers keep well — store components separately and assemble fresh."
-  }
+// ── Inlined meal data ─────────────────────────────────────────────────────
+const MEALS=[
+  {label:"Meal D",day:"Sunday",date:"4/5",icon:"🍝",name:"Creamy Sausage and Peppers Pasta",meta:"~40 min · One pan · Serves 4",ings:["8 oz uncooked pasta (bucatini works great)","1 lb Italian sausage (ground or removed from casings)","1 tbsp olive oil","½ medium onion, chopped","1 medium red bell pepper, chopped","1 medium yellow bell pepper, chopped","1 tbsp butter","2–3 cloves garlic, minced","1 tsp flour","1 cup heavy/whipping cream","½ tsp Dijon mustard","2 cups fresh baby spinach (packed)","Salt & pepper to taste","Freshly grated Parmesan cheese"],steps:["Boil a large salted pot of water and cook pasta al dente per package directions.","Brown sausage in a skillet over medium-high heat, breaking it up as you go (8–10 minutes). Transfer to a paper towel-lined plate.","Add oil to the skillet with onion and both bell peppers. Cook until lightly browned and softened, about 7–8 minutes.","Reduce heat to medium. Add butter and garlic; once butter melts, sprinkle in flour and cook 1 minute, stirring well.","Stir in cream and Dijon mustard. Sauce should thicken quickly — don't cook more than a minute before next step.","Add cooked sausage and spinach to the skillet and stir to combine.","Splash in a couple tablespoons of pasta water, then drain pasta and add to the skillet. Toss until spinach wilts and pasta is coated. Serve immediately with Parmesan."],note:"Use ground sausage or buy links and remove the meat from casings. Mild or spicy — your call!"},
+  {label:"Meal A",day:"Monday",date:"4/6",icon:"🍲",name:"Sausage White Bean Soup",meta:"~35 min · One pot · Serves 4–6",ings:["1 lb mild Italian sausage, crumbled","1 tbsp olive oil","1 medium onion, diced","3 cloves garlic, minced","2 carrots, peeled and sliced","2 stalks celery, chopped","1 can (15 oz) white beans, drained and rinsed","4 cups chicken broth","1 tsp dried thyme","1 tsp dried rosemary","Salt and pepper to taste","Fresh parsley for garnish"],steps:["Heat olive oil in a large pot over medium heat. Brown sausage, breaking it apart. Remove and set aside.","In the same pot, cook onion, garlic, carrots, and celery until softened, about 5–7 minutes.","Return sausage to pot. Add white beans, broth, thyme, rosemary, salt, and pepper. Stir and bring to a simmer.","Cover and simmer on low 20–25 minutes. Serve garnished with fresh parsley."],note:"Mash some of the beans before adding for a creamier texture."},
+  {label:"Meal B",day:"Tuesday",date:"4/7",icon:"🌮",name:"Air Fryer Fish Tacos with Cilantro Lime Slaw",meta:"~20 min · Air fryer · Serves 4",ings:["1½ lb tilapia or white fish (mahi mahi, cod, etc.)","Fish rub: 1 tsp chili powder, ½ tsp each oregano/garlic powder/paprika, ¼ tsp each onion powder/cumin, salt & pepper","Cilantro lime slaw: 2½ cups coleslaw mix, 3 tbsp mayo, 1 tbsp lime juice, 1 garlic clove minced, ⅓ cup chopped cilantro, ¼ tsp each salt & pepper","Tortillas for serving"],steps:["Spray the air fryer basket with oil. Mix the spices together.","Pat fish dry and lay in the air fryer basket. Brush with olive oil, coat generously with spice rub, and spritz with oil.","Preheat air fryer to 400°F. Cook fish 8–10 minutes until opaque and flaking (internal temp 145°F).","While fish cooks, toss together the cilantro lime slaw. Adjust salt and lime to taste.","Remove fish, cut into pieces, and serve in tortillas topped with slaw and extra lime."],note:"No air fryer? Bake at 400°F for about 15 minutes. Do not flip fish in the air fryer — it may fall apart."},
+  {label:"Meal C",day:"Wednesday",date:"4/8",icon:"🐟",name:"Miso Glazed Salmon Bowls",meta:"~30 min · Sheet pan + rice · Serves 4",ings:["4 salmon fillets (~6 oz each), skinless","3 tbsp white miso paste","2 tbsp low-sodium soy sauce","2 tbsp honey or maple syrup","1 tbsp rice vinegar","1 tsp toasted sesame oil","1 tsp fresh ginger, grated","2 cloves garlic, minced","1½ cups jasmine rice","1 large English cucumber, thinly sliced","1 cup shredded carrots","1 cup shelled edamame (thawed)","2–3 green onions, sliced","1 tbsp sesame seeds"],steps:["Cook jasmine rice per package instructions.","Whisk together miso paste, soy sauce, honey, rice vinegar, sesame oil, ginger, and garlic to make the glaze.","Pat salmon dry. Place on a foil-lined baking sheet. Spoon half the glaze over each fillet.","Broil at 400°F for 12–15 minutes, basting with remaining glaze halfway through, until salmon flakes easily.","Assemble bowls: rice base topped with salmon, cucumber, carrots, and edamame. Drizzle with any remaining glaze.","Garnish with sliced green onions and sesame seeds."],note:"Leftovers keep well — store components separately and assemble fresh."}
 ];
 
-// ── Recipe overlay & cooking mode ─────────────────────────────────────────
-let currentIdx=0,cookSteps=[],cookIdx=0;
+// ── Recipe detail overlay ─────────────────────────────────────────────────
+let curR=null;
+const rdEl=document.getElementById('rd-overlay');
 
+function openDetail(r){
+  curR=r;
+  document.getElementById('rd-name').textContent=r.name;
+  document.getElementById('rd-ings').innerHTML=(r.ings||[]).map(i=>`<li>${i}</li>`).join('');
+  document.getElementById('rd-steps').innerHTML=(r.steps||[]).map((s,n)=>`<li><span class="rd-step-num">${n+1}</span><span>${s}</span></li>`).join('');
+  const rno=document.getElementById('rd-note');
+  if(r.note){rno.textContent=r.note;rno.style.display='';}else{rno.style.display='none';}
+  document.querySelector('.rd-body').scrollTop=0;
+  rdEl.classList.add('open');rdEl.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+}
+function closeDetail(){
+  rdEl.classList.remove('open');rdEl.setAttribute('aria-hidden','true');
+  if(!document.getElementById('ck-overlay').classList.contains('open'))document.body.style.overflow='';
+}
+document.getElementById('rd-back').addEventListener('click',closeDetail);
 document.querySelectorAll('.js-recipe').forEach(card=>{
   card.addEventListener('click',()=>{
-    const idx=parseInt(card.dataset.idx);
-    const m=MEALS[idx];
-    if(!m) return;
-    currentIdx=idx;
-    document.getElementById('ovLabel').textContent=m.label+' · '+m.day+' '+m.date;
-    document.getElementById('ovTitle').textContent=m.icon+' '+m.name;
-    document.getElementById('ovMeta').textContent=m.meta;
-    document.getElementById('ovIngs').innerHTML=m.ings.map(i=>`<li>${i}</li>`).join('');
-    document.getElementById('ovSteps').innerHTML=m.steps.map(s=>`<li>${s}</li>`).join('');
-    const n=document.getElementById('ovNote');
-    if(m.note){n.textContent=m.note;n.style.display='block';}else n.style.display='none';
-    cookSteps=m.steps;
-    document.getElementById('overlay').classList.add('open');
-    document.body.style.overflow='hidden';
+    const m=MEALS[parseInt(card.dataset.idx)];
+    if(m)openDetail(m);
   });
 });
-
-document.getElementById('cookModeBtn').addEventListener('click',()=>{
-  const m=MEALS[currentIdx];if(!m)return;
-  cookSteps=m.steps;cookIdx=0;
-  document.getElementById('cookTitle').textContent=m.icon+' '+m.name;
-  document.getElementById('overlay').classList.remove('open');
-  document.getElementById('cookMode').classList.add('open');
-  renderStep();
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('ck-overlay').classList.contains('open'))window.closeMode&&window.closeMode();
+    else if(rdEl.classList.contains('open'))closeDetail();
+  }
 });
 
-function renderStep(){
-  document.getElementById('cookStepNum').textContent='Step '+(cookIdx+1)+' of '+cookSteps.length;
-  document.getElementById('cookStepText').textContent=cookSteps[cookIdx];
-  document.getElementById('cookNext').textContent=cookIdx===cookSteps.length-1?'Done ✓':'Next →';
-}
-function cookNav(d){cookIdx+=d;if(cookIdx>=cookSteps.length){closeCook();return;}if(cookIdx<0)cookIdx=0;renderStep();}
-function closeCook(){document.getElementById('cookMode').classList.remove('open');document.body.style.overflow='';}
-function closeOverlay(ev){
-  if(ev&&ev.target!==document.getElementById('overlay')&&ev.target.id!=='overlayClose')return;
-  document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';
-}
+// ── Cooking mode ──────────────────────────────────────────────────────────
+(function(){
+  const ck=document.getElementById('ck-overlay'),track=document.getElementById('ck-track'),
+    ingScroll=document.getElementById('ck-ing-scroll'),ingHead=document.getElementById('ck-ing-headline'),
+    ingsList=document.getElementById('ck-ings'),stepVp=document.getElementById('ck-step-vp'),
+    dotsEl=document.getElementById('ck-dots'),prevBtn=document.getElementById('ck-prev'),
+    nextBtn=document.getElementById('ck-next'),closeX=document.getElementById('ck-x'),
+    titleEl=document.getElementById('ck-title'),pip0=document.getElementById('ck-pip0'),
+    pip1=document.getElementById('ck-pip1'),hintIng=document.getElementById('ck-hint-ing'),
+    hintSteps=document.getElementById('ck-hint-steps');
+  let recipe=null,stepIdx=0,isSteps=false,slides=[],dots=[],wakeLock=null,ingHid=false,stpHid=false;
+  function lockOn(){if('wakeLock'in navigator)navigator.wakeLock.request('screen').then(l=>{wakeLock=l;}).catch(()=>{});}
+  function lockOff(){if(wakeLock){wakeLock.release().catch(()=>{});wakeLock=null;}}
+  document.addEventListener('visibilitychange',()=>{if(ck.classList.contains('open')&&document.visibilityState==='visible')lockOn();});
+  function parseIng(s){const m=s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i);return m?{qty:m[1].trim(),name:m[2].trim()}:{qty:'—',name:s};}
+  function buildIngs(r){ingHead.textContent=r.name;titleEl.textContent=r.name;ingsList.innerHTML=(r.ings||[]).map(i=>{const p=parseIng(i);return`<li class="ck-ing-row"><span class="ck-qty">${p.qty}</span><span class="ck-item-name">${p.name}</span></li>`;}).join('');ingScroll.scrollTop=0;}
+  function buildSteps(r){slides.forEach(s=>s.remove());slides=[];dots=[];dotsEl.innerHTML='';stepVp.removeChild(hintSteps);(r.steps||[]).forEach((text,i)=>{const sl=document.createElement('div');sl.className='ck-slide'+(i===0?' active':'');sl.innerHTML=`<div class="ck-step-big">${String(i+1).padStart(2,'0')}</div><div class="ck-step-of">of ${r.steps.length}</div><div class="ck-step-body">${text}</div>`;stepVp.appendChild(sl);slides.push(sl);const d=document.createElement('div');d.className='ck-dot'+(i===0?' on':'');dotsEl.appendChild(d);dots.push(d);});stepVp.appendChild(hintSteps);stepIdx=0;refreshNav();}
+  function goStep(n){if(n<0||n>=recipe.steps.length||n===stepIdx)return;const fwd=n>stepIdx,from=slides[stepIdx],to=slides[n];from.classList.remove('active');from.classList.add(fwd?'exit-up':'exit-down');to.style.transition='none';to.style.opacity='0';to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';requestAnimationFrame(()=>requestAnimationFrame(()=>{to.style.transition='';to.style.opacity='';to.style.transform='';to.classList.add('active');}));setTimeout(()=>from.classList.remove('exit-up','exit-down'),320);dots[stepIdx].classList.remove('on');dots[stepIdx].classList.toggle('done',fwd);dots[n].classList.remove('done');dots[n].classList.add('on');stepIdx=n;refreshNav();hideStepHint();}
+  function refreshNav(){prevBtn.disabled=stepIdx===0;nextBtn.disabled=!recipe||stepIdx===recipe.steps.length-1;}
+  function showPanel(p){isSteps=p==='steps';track.classList.toggle('flipped',isSteps);pip0.classList.toggle('on',!isSteps);pip1.classList.toggle('on',isSteps);if(isSteps)hideIngHint();}
+  function hideIngHint(){if(!ingHid){ingHid=true;hintIng.classList.add('gone');}}
+  function hideStepHint(){if(!stpHid){stpHid=true;hintSteps.classList.add('gone');}}
+  let t0=null;
+  ck.addEventListener('touchstart',e=>{const t=e.touches[0];t0={x:t.clientX,y:t.clientY,ms:Date.now()};},{passive:true});
+  ck.addEventListener('touchend',e=>{if(!t0)return;const t=e.changedTouches[0],dx=t.clientX-t0.x,dy=t.clientY-t0.y,ms=Date.now()-t0.ms;t0=null;const D=44;if(Math.max(Math.abs(dx),Math.abs(dy))<D||ms>700)return;if(Math.abs(dx)>Math.abs(dy)){if(dx<-D&&!isSteps)showPanel('steps');if(dx>D&&isSteps)showPanel('ingredients');}else if(isSteps){if(dy<-D)goStep(stepIdx+1);if(dy>D)goStep(stepIdx-1);}},{passive:true});
+  document.addEventListener('keydown',e=>{if(!ck.classList.contains('open'))return;if(isSteps){if(e.key==='ArrowDown'||e.key==='ArrowRight')goStep(stepIdx+1);if(e.key==='ArrowUp'||e.key==='ArrowLeft')goStep(stepIdx-1);}else if(e.key==='ArrowRight')showPanel('steps');});
+  window.openMode=function(r){recipe=r;buildIngs(r);buildSteps(r);showPanel('ingredients');ingHid=stpHid=false;hintIng.classList.remove('gone');hintSteps.classList.remove('gone');ck.classList.add('open');ck.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';lockOn();};
+  window.closeMode=function(){ck.classList.remove('open');ck.setAttribute('aria-hidden','true');lockOff();if(!rdEl.classList.contains('open'))document.body.style.overflow='';};
+  closeX.addEventListener('click',window.closeMode);
+  prevBtn.addEventListener('click',()=>goStep(stepIdx-1));
+  nextBtn.addEventListener('click',()=>goStep(stepIdx+1));
+  document.getElementById('rd-cook').addEventListener('click',()=>{if(curR)window.openMode(curR);});
+})();
 
-window.addEventListener('load',()=>{
-  updateProgress();
-  loadFromFB();
-  setInterval(pollFB,POLL_INTERVAL);
-});
+window.addEventListener('load',()=>{updateProgress();loadFromFB();setInterval(pollFB,POLL_INTERVAL);});
 </script>
 </body>
 </html>
