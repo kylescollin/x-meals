@@ -5,20 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Recipe Collection — Fox &amp; Bear Kitchen</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>:root{--cr:#faf7f2;--ink:#1a1a1a;--mu:#7a7264;--ac:#c8622a;--al:#f5e8de;--bd:#e4ded5;--ck-bg:#131311;--ck-d:#252520;--ck-b:#2e2d28;--ck-t:#f0ebe0;--ck-m:#6a6860;--ck-a:#d4732e;--ck-ok:#2d7a4f;}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}body{font-family:'DM Sans',sans-serif;background:var(--cr);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;}.sn{max-width:680px;margin:0 auto;display:flex;padding:0 20px;border-bottom:1px solid var(--bd);}.nl{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);text-decoration:none;padding:14px 16px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s;}.nl:hover{color:var(--ink);}.nl.active{color:var(--ac);border-bottom-color:var(--ac);}.hd{max-width:680px;margin:0 auto 28px;border-bottom:1px solid var(--bd);padding:28px 20px 24px;}.ey{font-weight:500;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px;}h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;line-height:1.1;margin-bottom:8px;}.hm{font-size:13px;color:var(--mu);font-weight:300;}.rl{max-width:680px;margin:0 auto 60px;padding:0 20px;display:flex;flex-direction:column;gap:10px;}.mc{background:white;border:1px solid var(--bd);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;}.mc:hover{border-color:#bbb;box-shadow:0 2px 8px rgba(0,0,0,.06);}.mh{display:flex;align-items:center;gap:14px;padding:14px 16px;user-select:none;}.mi{font-size:26px;flex-shrink:0;}.mn{flex:1;min-width:0;}.ml{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mu);font-weight:500;margin-bottom:2px;}.mn2{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;line-height:1.3;}.mm{font-size:11px;color:var(--mu);margin-top:2px;font-weight:300;}.ch{font-size:20px;color:var(--bd);flex-shrink:0;}
-/* From Your Journal section */
-.section-divider{max-width:680px;margin:0 auto 16px;padding:0 20px;display:flex;align-items:center;gap:14px;}.section-divider-line{flex:1;height:1px;background:var(--bd);}.section-divider-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--mu);white-space:nowrap;}
-#rd{position:fixed;inset:0;background:var(--cr);z-index:1000;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;}#rd.open{transform:translateY(0);}.rb{display:flex;align-items:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 20px 14px;border-bottom:1px solid var(--bd);flex-shrink:0;background:var(--cr);}.rbk{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:white;border:1px solid var(--bd);color:var(--ink);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s;}.rbk:active{background:#eee;}.rn{flex:1;font-family:'Playfair Display',serif;font-size:17px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.rck{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--cr);border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:9px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}.rck:active{transform:scale(.94);background:#333;}.rck svg{width:11px;height:11px;fill:currentColor;}.rbd{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:28px 20px calc(48px + env(safe-area-inset-bottom,0px));}.ri{max-width:640px;margin:0 auto;}.rno{margin-bottom:20px;padding:11px 14px;background:var(--al);border-radius:8px;font-size:13px;color:#7a4520;line-height:1.5;}.rc{display:grid;grid-template-columns:1fr 1.4fr;gap:28px;}@media(max-width:520px){.rc{grid-template-columns:1fr;}}.rst{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:500;color:var(--ac);margin-bottom:12px;}.ril{list-style:none;display:flex;flex-direction:column;gap:5px;}.ril li{font-size:13px;color:var(--ink);line-height:1.45;padding-left:12px;position:relative;}.ril li::before{content:'·';position:absolute;left:0;color:var(--mu);}.rsl{list-style:none;display:flex;flex-direction:column;gap:10px;}.rsl li{font-size:13px;color:var(--ink);line-height:1.55;display:flex;gap:10px;}.rsn{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--ac);flex-shrink:0;min-width:16px;padding-top:1px;}#ck{position:fixed;inset:0;background:var(--ck-bg);z-index:9999;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;padding-bottom:env(safe-area-inset-bottom,0px);}#ck.open{transform:translateY(0);}.cb{display:flex;align-items:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 18px 14px;border-bottom:1px solid var(--ck-b);flex-shrink:0;}.ct{flex:1;font-size:13px;color:var(--ck-m);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}.cp{display:flex;gap:5px;flex-shrink:0;}.cpp{width:22px;height:3px;border-radius:2px;background:var(--ck-b);transition:background .3s;}.cpp.on{background:var(--ck-a);}.cx{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--ck-d);border:1px solid var(--ck-b);color:var(--ck-t);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}.cx:active{background:#38372f;}.cpw{flex:1;overflow:hidden;position:relative;}.ctr{display:flex;width:200%;height:100%;transition:transform .35s cubic-bezier(.4,0,.2,1);}.ctr.fl{transform:translateX(-50%);}.cpn{flex:0 0 50%;height:100%;display:flex;flex-direction:column;overflow:hidden;}.cis{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:36px 28px 100px;}.cpt{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ck-a);display:block;margin-bottom:20px;}.cih{font-family:'Playfair Display',serif;font-size:clamp(24px,7vw,44px);font-weight:700;color:var(--ck-t);line-height:1.1;margin-bottom:32px;}.cil{list-style:none;}.cir{display:flex;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--ck-b);}.cir:last-child{border-bottom:none;}.cq{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ck-a);min-width:54px;text-align:right;flex-shrink:0;}.cn{font-size:clamp(16px,4vw,20px);color:var(--ck-t);font-weight:300;line-height:1.35;}.shi{position:absolute;bottom:24px;left:0;right:50%;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--ck-m);font-size:12px;pointer-events:none;transition:opacity .5s;}.shi.gone{opacity:0;}.sv{flex:1;position:relative;overflow:hidden;touch-action:none;}.sl{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:28px 32px 16px;gap:10px;opacity:0;transform:translateY(48px);transition:opacity .28s ease,transform .28s ease;pointer-events:none;}.sl.active{opacity:1;transform:none;pointer-events:all;}.sl.eu{opacity:0;transform:translateY(-48px);pointer-events:none;}.sl.ed{opacity:0;transform:translateY(48px);pointer-events:none;}.sb{font-family:'Playfair Display',serif;font-size:clamp(64px,20vw,100px);font-weight:700;color:var(--ck-a);line-height:1;letter-spacing:-.03em;}.so{font-size:13px;color:var(--ck-m);margin-top:-6px;}.st{font-size:clamp(17px,4.2vw,21px);color:var(--ck-t);line-height:1.62;font-weight:300;margin-top:8px;}.shs{position:absolute;bottom:16px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--ck-m);font-size:12px;pointer-events:none;transition:opacity .5s;}.shs.gone{opacity:0;}.cf{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:14px 22px 18px;border-top:1px solid var(--ck-b);}.nav{width:46px;height:46px;border-radius:50%;background:var(--ck-d);border:1px solid var(--ck-b);color:var(--ck-t);font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s,opacity .2s;flex-shrink:0;}.nav:active:not(:disabled){background:#38372f;}.nav:disabled{opacity:.2;cursor:default;}.cdo{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:center;flex:1;padding:0 12px;}.cd{width:7px;height:7px;border-radius:50%;background:var(--ck-b);transition:background .3s,transform .3s;flex-shrink:0;}.cd.on{background:var(--ck-a);transform:scale(1.5);}.cd.done{background:var(--ck-ok);}.hs{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}</style>
+<style>
+  :root{--cream:#faf7f2;--ink:#1a1a1a;--muted:#7a7264;--accent:#c8622a;--accent-light:#f5e8de;--border:#e4ded5;--ck-bg:#131311;--ck-dim:#252520;--ck-border:#2e2d28;--ck-text:#f0ebe0;--ck-muted:#6a6860;--ck-accent:#d4732e;--ck-done:#2d7a4f;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;}
+  .site-nav{max-width:680px;margin:0 auto;display:flex;padding:0 20px;border-bottom:1px solid var(--border);}
+  .nav-link{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:14px 16px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s;}
+  .nav-link:hover{color:var(--ink);}
+  .nav-link.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .hd{max-width:680px;margin:0 auto 28px;border-bottom:1px solid var(--border);padding:28px 20px 24px;}
+  .ey{font-weight:500;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;line-height:1.1;margin-bottom:8px;}
+  .hm{font-size:13px;color:var(--muted);font-weight:300;}
+  .rl{max-width:680px;margin:0 auto 60px;padding:0 20px;display:flex;flex-direction:column;gap:10px;}
+  .section-divider{display:flex;align-items:center;gap:14px;}
+  .section-divider-line{flex:1;height:1px;background:var(--border);}
+  .section-divider-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+</style>
 </head>
 <body>
-<nav class="sn"><a href="index.html" class="nl">This Week</a><a href="recipes.html" class="nl active">Recipes</a><a href="journal.html" class="nl">Journal</a></nav>
-<div class="hd"><div class="ey">Fox &amp; Bear Kitchen</div><h1>Recipe Collection</h1><div class="hm" id="hm"></div></div>
+<nav class="site-nav">
+  <a href="index.html" class="nav-link">This Week</a>
+  <a href="recipes.html" class="nav-link active">Recipes</a>
+  <a href="journal.html" class="nav-link">Journal</a>
+</nav>
+<div class="hd">
+  <div class="ey">Fox &amp; Bear Kitchen</div>
+  <h1>Recipe Collection</h1>
+  <div class="hm" id="hm"></div>
+</div>
 <div class="rl" id="list"></div>
-<div id="rd" aria-hidden="true"><div class="rb"><button class="rbk" id="rbk">&#8592;</button><span class="rn" id="rn"></span><button class="rck" id="rck"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Cook</button></div><div class="rbd"><div class="ri"><div class="rno" id="rno" style="display:none"></div><div class="rc"><div><div class="rst">Ingredients</div><ul class="ril" id="ril"></ul></div><div><div class="rst">Directions</div><ol class="rsl" id="rsl"></ol></div></div></div></div></div>
-<div id="ck" aria-hidden="true"><div class="cb"><span class="ct" id="ct"></span><div class="cp"><div class="cpp on" id="cp0"></div><div class="cpp" id="cp1"></div></div><button class="cx" id="cx">&#x2715;</button></div><div class="cpw"><div class="ctr" id="ctr"><div class="cpn"><div class="cis" id="cis"><span class="cpt">Ingredients</span><h2 class="cih" id="cih"></h2><ul class="cil" id="cil"></ul></div><div class="shi" id="shi"><svg class="hs" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Swipe right for steps</div></div><div class="cpn"><div class="sv" id="sv"><div class="shs" id="shs"><svg class="hs" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Swipe left for ingredients</div></div><div class="cf"><button class="nav" id="prev">&#8593;</button><div class="cdo" id="cdo"></div><button class="nav" id="next">&#8595;</button></div></div></div></div></div>
 
+<script src="recipe-card.js"></script>
 <script>
-// ── Inlined recipe data ────────────────────────────────────────────────────
 var RECIPES = [
   {id:"slow-cooker-chili",icon:"🌶️",label:"Soup · 6 hrs",name:"Slow Cooker Chili",meta:"6 hrs 15 min · Slow Cooker · Serves 8",ings:["1 Tbsp olive oil","2 lbs lean ground beef","1 large yellow onion, finely chopped","3 cloves garlic, finely minced","2 (14.5 oz) cans diced tomatoes with green chilies","3 (8 oz) cans tomato sauce","½ cup beef broth","2 Tbsp chili powder","2½ tsp ground cumin","2 tsp paprika","2 tsp unsweetened cocoa powder","1 tsp granulated sugar","½ tsp ground coriander","Salt and freshly ground black pepper","1 (15 oz) can dark red kidney beans, drained","1 (15 oz) can light red kidney beans, drained","Shredded cheddar cheese for serving"],steps:["Heat olive oil in a large skillet over medium-high. Sauté onion 3 min, add garlic 30 sec. Pour into slow cooker.","Return skillet to medium-high. Add beef and cook, stirring occasionally, until browned. Drain most fat.","Add beef to slow cooker. Stir in tomatoes, tomato sauce, broth, all spices, salt and pepper.","Cover and cook on low 5–6 hours.","Stir in kidney beans and heat through, about 2 min. Serve with desired toppings."],note:"💡 Look for tomatoes labeled \"mild\" green chilies. Bloom spices in the last minute for extra depth."},
   {id:"creamy-sausage-and-peppers-pasta",icon:"🍝",label:"Pasta · 40 min",name:"Creamy Sausage and Peppers Pasta",meta:"40 min · Stovetop · Serves 4",ings:["8 oz uncooked pasta (bucatini recommended)","1 lb Italian sausage","1 Tbsp olive oil","½ medium onion, chopped","1 medium red bell pepper, chopped","1 medium yellow bell pepper, chopped","1 Tbsp butter","2–3 cloves garlic, minced","1 tsp flour","1 cup heavy cream","½ tsp Dijon mustard","2 cups fresh baby spinach","Salt, pepper, freshly grated Parmesan to taste"],steps:["Boil salted pasta water and cook pasta al dente per package.","Brown sausage in skillet over medium-high, breaking it up, 8–10 min. Transfer to paper towel–lined plate.","Add oil, onion, and peppers to same skillet. Cook until onion is lightly browned, 7–8 min.","Reduce to medium. Add butter and garlic; once melted, sprinkle in flour and cook 1 min.","Stir in cream and Dijon — no lumps. Sauce thickens quickly; don't overcook.","Add sausage and spinach. Splash in pasta water, drain pasta, add to skillet. Toss until spinach wilts."],note:""},
@@ -60,114 +79,74 @@ var RECIPES = [
   {id:"miso-glazed-salmon-bowls",icon:"🐟",label:"Seafood · 30 min",name:"Miso Glazed Salmon Bowls",meta:"~30 min · Sheet pan + rice · Serves 4",ings:["4 salmon fillets (~6 oz each), skinless","3 tbsp white miso paste","2 tbsp low-sodium soy sauce","2 tbsp honey or maple syrup","1 tbsp rice vinegar","1 tsp toasted sesame oil","1 tsp fresh ginger, grated","2 cloves garlic, minced","1½ cups jasmine rice","1 large English cucumber, thinly sliced","1 cup shredded carrots","1 cup shelled edamame (thawed)","2–3 green onions, sliced","1 tbsp sesame seeds"],steps:["Cook jasmine rice per package instructions.","Whisk together miso paste, soy sauce, honey, rice vinegar, sesame oil, ginger, and garlic to make the glaze.","Pat salmon dry. Place on a foil-lined baking sheet. Spoon half the glaze over each fillet.","Broil at 400°F for 12–15 minutes, basting with remaining glaze halfway through, until salmon flakes easily.","Assemble bowls: rice base topped with salmon, cucumber, carrots, and edamame. Drizzle with any remaining glaze.","Garnish with sliced green onions and sesame seeds."],note:"Leftovers keep well — store components separately and assemble fresh."}
 ];
 
-// ── Build core recipe list ────────────────────────────────────────────────
+// All IDs in the core RECIPES array above
+var CORE_IDS = {};
+RECIPES.forEach(function(r) { CORE_IDS[r.id] = true; });
+
 var list = document.getElementById('list');
-var curR = null;
-var rdEl = document.getElementById('rd');
 
-function makeCard(r) {
-  var d = document.createElement('div');
-  d.className = 'mc';
-  d.innerHTML = '<div class="mh"><div class="mi">'+(r.icon||'🍽')+'</div><div class="mn"><div class="ml">'+r.label+'</div><div class="mn2">'+r.name+'</div><div class="mm">'+r.meta+'</div></div><div class="ch">›</div></div>';
-  d.addEventListener('click', function() { openDetail(r); });
-  return d;
-}
-
-RECIPES.forEach(function(r) { list.appendChild(makeCard(r)); });
-
-// ── Load saved recipes from Firebase and append ───────────────────────────
-var FB_DATA = 'https://fox-bear-hub-default-rtdb.firebaseio.com/saved-recipe-data.json';
-
-fetch(FB_DATA)
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (!data) return;
-    var saved = Object.values(data).filter(function(r) { return r && r.name; });
-    if (saved.length === 0) return;
-
-    // Section divider
-    var divider = document.createElement('div');
-    divider.className = 'section-divider';
-    divider.innerHTML = '<div class="section-divider-line"></div><span class="section-divider-label">From Your Journal</span><div class="section-divider-line"></div>';
-    list.appendChild(divider);
-
-    saved.forEach(function(r) {
-      // Normalise: journal stores label as "Meal A · Tuesday 4/7" — use a cleaner label for the recipe list
-      var displayR = Object.assign({}, r);
-      if (!displayR.label || displayR.label.match(/Meal [A-Z]/)) {
-        displayR.label = 'Saved from journal';
+window.addEventListener('load', function() {
+  RecipeCard.init({
+    coreIds: CORE_IDS,
+    onSaveChange: function(id, saved, recipeObj) {
+      // If a journal recipe was just saved, add it to the list; if unsaved, remove it
+      var existing = list.querySelector('.rc-card[data-saved-id="' + id + '"]');
+      if (saved && !existing) {
+        // Find or create the "From Your Journal" divider
+        var divider = list.querySelector('.section-divider');
+        if (!divider) {
+          divider = document.createElement('div');
+          divider.className = 'section-divider';
+          divider.innerHTML = '<div class="section-divider-line"></div><span class="section-divider-label">From Your Journal</span><div class="section-divider-line"></div>';
+          list.appendChild(divider);
+        }
+        var card = RecipeCard.makeCard(recipeObj, 'Saved from journal');
+        card.setAttribute('data-saved-id', id);
+        list.appendChild(card);
+        updateCount();
+      } else if (!saved && existing) {
+        existing.remove();
+        // Remove divider if no more saved cards
+        if (!list.querySelector('.rc-card[data-saved-id]')) {
+          var div = list.querySelector('.section-divider');
+          if (div) div.remove();
+        }
+        updateCount();
       }
-      list.appendChild(makeCard(displayR));
-    });
+    },
+    onReady: function() {
+      RecipeCard.applyBadges();
+      // Load saved journal recipes
+      RecipeCard.loadSavedRecipes(function(saved) {
+        if (saved.length > 0) {
+          var divider = document.createElement('div');
+          divider.className = 'section-divider';
+          divider.innerHTML = '<div class="section-divider-line"></div><span class="section-divider-label">From Your Journal</span><div class="section-divider-line"></div>';
+          list.appendChild(divider);
+          saved.forEach(function(r) {
+            var displayR = Object.assign({}, r);
+            if (!displayR.label || /Meal [A-Z]/.test(displayR.label)) displayR.label = 'Saved from journal';
+            var card = RecipeCard.makeCard(displayR, displayR.label);
+            var id = r.id || r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            card.setAttribute('data-saved-id', id);
+            list.appendChild(card);
+          });
+          updateCount(saved.length);
+        }
+        RecipeCard.applyBadges();
+      });
+    }
+  });
 
-    // Update count in header
-    document.getElementById('hm').textContent = (RECIPES.length + saved.length) + ' recipes · tap any recipe to view & cook';
-  })
-  .catch(function() {});  // Silently degrade if Firebase unreachable
-
-// Initial count (updated above if saved recipes found)
-document.getElementById('hm').textContent = RECIPES.length + ' recipes · tap any recipe to view & cook';
-
-// ── Recipe detail overlay ──────────────────────────────────────────────────
-var rdName = document.getElementById('rn');
-var rdNote = document.getElementById('rno');
-var rdIngs = document.getElementById('ril');
-var rdSteps = document.getElementById('rsl');
-
-function openDetail(r) {
-  curR = r;
-  rdName.textContent = r.name;
-  rdIngs.innerHTML = (r.ings || []).map(function(i) { return '<li>'+i+'</li>'; }).join('');
-  rdSteps.innerHTML = (r.steps || []).map(function(s, n) { return '<li><span class="rsn">'+(n+1)+'</span><span>'+s+'</span></li>'; }).join('');
-  if (r.note) { rdNote.textContent = r.note; rdNote.style.display = ''; }
-  else { rdNote.style.display = 'none'; }
-  document.querySelector('.rbd').scrollTop = 0;
-  rdEl.classList.add('open');
-  rdEl.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeDetail() {
-  rdEl.classList.remove('open');
-  rdEl.setAttribute('aria-hidden', 'true');
-  if (!document.getElementById('ck').classList.contains('open')) document.body.style.overflow = '';
-}
-
-document.getElementById('rbk').addEventListener('click', closeDetail);
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    var ck = document.getElementById('ck');
-    if (ck.classList.contains('open')) window.closeMode && window.closeMode();
-    else if (rdEl.classList.contains('open')) closeDetail();
-  }
+  // Render core recipes
+  RECIPES.forEach(function(r) { list.appendChild(RecipeCard.makeCard(r)); });
+  updateCount(0);
 });
 
-// ── Cooking mode ───────────────────────────────────────────────────────────
-(function() {
-  var ck=document.getElementById('ck'),track=document.getElementById('ctr'),ingScroll=document.getElementById('cis'),ingHead=document.getElementById('cih'),ingsList=document.getElementById('cil'),stepVp=document.getElementById('sv'),dotsEl=document.getElementById('cdo'),prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next'),closeX=document.getElementById('cx'),titleEl=document.getElementById('ct'),pip0=document.getElementById('cp0'),pip1=document.getElementById('cp1'),hintIng=document.getElementById('shi'),hintSteps=document.getElementById('shs');
-  var recipe=null,stepIdx=0,isSteps=false,slides=[],dots=[],wakeLock=null,ingHid=false,stpHid=false;
-  function lockOn(){if('wakeLock'in navigator){navigator.wakeLock.request('screen').then(function(l){wakeLock=l;}).catch(function(){});}}
-  function lockOff(){if(wakeLock){wakeLock.release().catch(function(){});wakeLock=null;}}
-  document.addEventListener('visibilitychange',function(){if(ck.classList.contains('open')&&document.visibilityState==='visible')lockOn();});
-  function parseIng(s){var m=s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)?\s*([^\n]+)/i);return m&&m[1]?{qty:m[1].trim(),name:m[2].trim()}:{qty:'—',name:s};}
-  function buildIngs(r){ingHead.textContent=r.name;titleEl.textContent=r.name;ingsList.innerHTML=(r.ings||[]).map(function(i){var p=parseIng(i);return'<li class="cir"><span class="cq">'+p.qty+'</span><span class="cn">'+p.name+'</span></li>';}).join('');ingScroll.scrollTop=0;}
-  function buildSteps(r){slides.forEach(function(s){s.remove();});slides=[];dots=[];dotsEl.innerHTML='';stepVp.removeChild(hintSteps);(r.steps||[]).forEach(function(text,i){var sl=document.createElement('div');sl.className='sl'+(i===0?' active':'');sl.innerHTML='<div class="sb">'+String(i+1).padStart(2,'0')+'</div><div class="so">of '+r.steps.length+'</div><div class="st">'+text+'</div>';stepVp.appendChild(sl);slides.push(sl);var d=document.createElement('div');d.className='cd'+(i===0?' on':'');dotsEl.appendChild(d);dots.push(d);});stepVp.appendChild(hintSteps);stepIdx=0;refreshNav();}
-  function goStep(n){if(n<0||n>=recipe.steps.length||n===stepIdx)return;var fwd=n>stepIdx,from=slides[stepIdx],to=slides[n];from.classList.remove('active');from.classList.add(fwd?'eu':'ed');to.style.transition='none';to.style.opacity='0';to.style.transform=fwd?'translateY(48px)':'translateY(-48px)';requestAnimationFrame(function(){requestAnimationFrame(function(){to.style.transition='';to.style.opacity='';to.style.transform='';to.classList.add('active');});});setTimeout(function(){from.classList.remove('eu','ed');},320);dots[stepIdx].classList.remove('on');dots[stepIdx].classList.toggle('done',fwd);dots[n].classList.remove('done');dots[n].classList.add('on');stepIdx=n;refreshNav();hideStepHint();}
-  function refreshNav(){prevBtn.disabled=stepIdx===0;nextBtn.disabled=!recipe||stepIdx===recipe.steps.length-1;}
-  function showPanel(p){isSteps=p==='steps';track.classList.toggle('fl',isSteps);pip0.classList.toggle('on',!isSteps);pip1.classList.toggle('on',isSteps);if(isSteps)hideIngHint();}
-  function hideIngHint(){if(!ingHid){ingHid=true;hintIng.classList.add('gone');}}
-  function hideStepHint(){if(!stpHid){stpHid=true;hintSteps.classList.add('gone');}}
-  var t0=null;
-  ck.addEventListener('touchstart',function(e){var t=e.touches[0];t0={x:t.clientX,y:t.clientY,ms:Date.now()};},{passive:true});
-  ck.addEventListener('touchend',function(e){if(!t0)return;var t=e.changedTouches[0],dx=t.clientX-t0.x,dy=t.clientY-t0.y,ms=Date.now()-t0.ms;t0=null;var D=44;if(Math.max(Math.abs(dx),Math.abs(dy))<D||ms>700)return;if(Math.abs(dx)>Math.abs(dy)){if(dx<-D&&!isSteps)showPanel('steps');if(dx>D&&isSteps)showPanel('ingredients');}else{if(isSteps){if(dy<-D)goStep(stepIdx+1);if(dy>D)goStep(stepIdx-1);}}},{passive:true});
-  document.addEventListener('keydown',function(e){if(!ck.classList.contains('open'))return;if(isSteps){if(e.key==='ArrowDown'||e.key==='ArrowRight')goStep(stepIdx+1);if(e.key==='ArrowUp'||e.key==='ArrowLeft')goStep(stepIdx-1);}else{if(e.key==='ArrowRight')showPanel('steps');}});
-  window.openMode=function(r){recipe=r;buildIngs(r);buildSteps(r);showPanel('ingredients');ingHid=stpHid=false;hintIng.classList.remove('gone');hintSteps.classList.remove('gone');ck.classList.add('open');ck.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';lockOn();};
-  window.closeMode=function(){ck.classList.remove('open');ck.setAttribute('aria-hidden','true');lockOff();if(!rdEl.classList.contains('open'))document.body.style.overflow='';};
-  closeX.addEventListener('click',window.closeMode);
-  prevBtn.addEventListener('click',function(){goStep(stepIdx-1);});
-  nextBtn.addEventListener('click',function(){goStep(stepIdx+1);});
-  document.getElementById('rck').addEventListener('click',function(){if(curR)window.openMode(curR);});
-})();
+function updateCount(savedCount) {
+  var sc = savedCount !== undefined ? savedCount : list.querySelectorAll('.rc-card[data-saved-id]').length;
+  document.getElementById('hm').textContent = (RECIPES.length + sc) + ' recipes · tap any recipe to view & cook';
+}
 </script>
 </body>
 </html>
