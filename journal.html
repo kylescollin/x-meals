@@ -40,32 +40,39 @@ var HISTORY = [{"weekOf":"2026-04-06","title":"Week of April 6","meals":[{"id":"
 
 var CORE_IDS = {"slow-cooker-chili":true,"creamy-sausage-and-peppers-pasta":true,"zucchini-tomato-italian-sausage-soup":true,"vegetarian-quesadillas":true,"creamy-chorizo-gnocchi":true,"easy-weeknight-salmon-sushi-bowls":true,"butternut-squash-ravioli-with-brown-butter-sage":true,"creamy-chicken-tortilla-soup":true,"lentil-soup-with-sausage-chard-and-garlic":true,"best-lasagna":true,"italian-meat-sauce":true,"vegetarian-grain-bowl-meal-prep":true,"air-fryer-fish-tacos-with-cilantro-lime-slaw":true,"creamy-tomato-gnocchi-with-burrata":true,"white-chicken-chili":true,"teriyaki-chicken-tacos-with-sesame-cucumber-slaw":true,"sausage-white-bean-soup":true,"slow-cooker-chicken-pot-pie":true,"creamy-parmesan-sausage-ditalini-soup":true,"seared-salmon-with-lemon-orzo":true,"falafel-bowl-with-tahini-dressing":true,"one-pan-coconut-curry-salmon":true,"ground-turkey-teriyaki-stir-fry":true,"corn-chowder":true,"pesto-chicken-tortellini-and-veggies":true,"butter-cauliflower":true,"vegan-mushroom-bourguignon":true,"louisiana-red-beans-and-rice":true,"spicy-garlic-chicken-bowl-with-hummus":true,"lemon-chili-grilled-chicken-bowls-with-hummus":true,"homemade-crunchwrap-supreme":true,"chicken-pineapple-fried-rice":true,"easy-shrimp-alfredo":true,"creamy-spinach-and-mushroom-tortellini":true,"garlic-sesame-noodles":true,"shakshuka":true,"miso-glazed-salmon-bowls":true};
 
-function renderWeek(week,isCurrent){
-  var entry=document.createElement('div');entry.className='week-entry';
-  var mealCount=week.meals?week.meals.length:0;
-  var labelText=isCurrent?'This Week':'Week of';
-  var header=document.createElement('div');header.className='week-header';
-  header.innerHTML='<span class="week-label">'+labelText+'</span><span class="week-title">'+(week.title||week.weekOf)+'</span><span class="week-count">'+mealCount+' meal'+(mealCount!==1?'s':'')+'</span>';
+function renderWeek(week, isCurrent) {
+  var entry = document.createElement('div');
+  entry.className = 'week-entry';
+  var mealCount = week.meals ? week.meals.length : 0;
+  var labelText = isCurrent ? 'This Week' : 'Week of';
+  var header = document.createElement('div');
+  header.className = 'week-header';
+  header.innerHTML = '<span class="week-label">' + labelText + '</span><span class="week-title">' + (week.title || week.weekOf) + '</span><span class="week-count">' + mealCount + ' meal' + (mealCount !== 1 ? 's' : '') + '</span>';
   entry.appendChild(header);
-  (week.meals||[]).forEach(function(meal,i){
-    var mealLabel=(meal.label||('Meal '+String.fromCharCode(65+i)))+(meal.day?' · '+meal.day+' '+(meal.date||')':'');
-    entry.appendChild(RecipeCard.makeCard(meal,mealLabel));
+  (week.meals || []).forEach(function(meal, i) {
+    var mealLabel = (meal.label || ('Meal ' + String.fromCharCode(65 + i))) + (meal.day ? ' · ' + meal.day + ' ' + (meal.date || '') : '');
+    entry.appendChild(RecipeCard.makeCard(meal, mealLabel));
   });
   return entry;
 }
 
-window.addEventListener('load',function(){
-  RecipeCard.init({coreIds:CORE_IDS,onSaveChange:function(){RecipeCard.applyBadges();},onReady:function(){RecipeCard.applyBadges();}});
-  var totalWeeks=1+HISTORY.length;
-  document.getElementById('headerMeta').textContent=totalWeeks+' week'+(totalWeeks!==1?'s':'')+' logged';
-  var journal=document.getElementById('journal');
-  journal.appendChild(renderWeek(CURRENT_WEEK,true));
-  if(HISTORY.length===0){
-    var empty=document.createElement('div');empty.className='empty-history';
-    empty.innerHTML='<strong>More weeks coming soon</strong>Past meals will appear here each time a new week is planned.';
+window.addEventListener('load', function() {
+  RecipeCard.init({
+    coreIds: CORE_IDS,
+    onSaveChange: function() { RecipeCard.applyBadges(); },
+    onReady: function() { RecipeCard.applyBadges(); }
+  });
+  var totalWeeks = 1 + HISTORY.length;
+  document.getElementById('headerMeta').textContent = totalWeeks + ' week' + (totalWeeks !== 1 ? 's' : '') + ' logged';
+  var journal = document.getElementById('journal');
+  journal.appendChild(renderWeek(CURRENT_WEEK, true));
+  if (HISTORY.length === 0) {
+    var empty = document.createElement('div');
+    empty.className = 'empty-history';
+    empty.innerHTML = '<strong>More weeks coming soon</strong>Past meals will appear here each time a new week is planned.';
     journal.appendChild(empty);
   } else {
-    HISTORY.forEach(function(week){journal.appendChild(renderWeek(week,false));});
+    HISTORY.forEach(function(week) { journal.appendChild(renderWeek(week, false)); });
   }
 });
 </script>
