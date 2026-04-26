@@ -11,12 +11,13 @@ import {
 // Instructions: console.firebase.google.com → fox-bear-hub → gear icon →
 // Project settings → Your apps → firebaseConfig
 const FIREBASE_CONFIG = {
-  apiKey:            'PASTE_API_KEY_HERE',
+  apiKey:            'AIzaSyA0QbDrrNG2UiCmVVs4SVNPid_D-NrQIh4',
   authDomain:        'fox-bear-hub.firebaseapp.com',
+  databaseURL:       'https://fox-bear-hub-default-rtdb.firebaseio.com',
   projectId:         'fox-bear-hub',
-  storageBucket:     'fox-bear-hub.appspot.com',
-  messagingSenderId: 'PASTE_SENDER_ID_HERE',
-  appId:             'PASTE_APP_ID_HERE'
+  storageBucket:     'fox-bear-hub.firebasestorage.app',
+  messagingSenderId: '825321252461',
+  appId:             '1:825321252461:web:a734af727229ad5916c164'
 };
 
 // ── Allowlist — only these Google accounts can sign in ────────────────────
