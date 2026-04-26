@@ -20,9 +20,17 @@
     return id.replace(/[.#$[\]]/g, '_');
   }
 
+  function authedFetch(url, options) {
+    var getToken = window.getToken;
+    if (!getToken) return fetch(url, options);
+    return getToken().then(function(token) {
+      return fetch(url + '?auth=' + token, options);
+    });
+  }
+
   // Load saved flags from Firebase; call callback when ready
   function loadSavedState(callback) {
-    fetch(FB_FLAGS)
+    authedFetch(FB_FLAGS)
       .then(function (r) { return r.json(); })
       .then(function (d) { savedIds = d || {}; if (callback) callback(); })
       .catch(function () { if (callback) callback(); });
@@ -36,14 +44,14 @@
     savedIds[id] = nowSaving;
 
     // Persist flag
-    fetch(FB_FLAGS, { method: 'PUT', body: JSON.stringify(savedIds) }).catch(function () {});
+    authedFetch(FB_FLAGS, { method: 'PUT', body: JSON.stringify(savedIds) }).catch(function () {});
 
     // Persist or delete full recipe data
     var dataUrl = FB_BASE + '/saved-recipe-data/' + fbSafeKey(id) + '.json';
     if (nowSaving) {
-      fetch(dataUrl, { method: 'PUT', body: JSON.stringify(recipeObj) }).catch(function () {});
+      authedFetch(dataUrl, { method: 'PUT', body: JSON.stringify(recipeObj) }).catch(function () {});
     } else {
-      fetch(dataUrl, { method: 'DELETE' }).catch(function () {});
+      authedFetch(dataUrl, { method: 'DELETE' }).catch(function () {});
     }
 
     refreshSaveUI(id);

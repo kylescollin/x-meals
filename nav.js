@@ -18,5 +18,16 @@
     a.textContent = l.label;
     nav.appendChild(a);
   });
+  var signOutLink = document.createElement('a');
+  signOutLink.href = '#';
+  signOutLink.className = 'nav-link';
+  signOutLink.textContent = 'Sign Out';
+  signOutLink.style.marginLeft = 'auto';
+  signOutLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (window.doSignOut) window.doSignOut();
+  });
+  nav.appendChild(signOutLink);
+
   document.currentScript.parentNode.insertBefore(nav, document.currentScript);
 })();

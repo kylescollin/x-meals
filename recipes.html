@@ -29,7 +29,11 @@
 <div class="rl" id="list"></div>
 
 <script src="recipe-card.js"></script>
-<script>
+<script type="module">
+import { requireAuth, getAuthToken, signOut } from './auth.js';
+window.getToken  = getAuthToken;
+window.doSignOut = signOut;
+await requireAuth();
 var RECIPES = [
   {id:"slow-cooker-chili",icon:"🌶️",label:"Soup · 6 hrs",name:"Slow Cooker Chili",meta:"6 hrs 15 min · Slow Cooker · Serves 8",ings:["1 Tbsp olive oil","2 lbs lean ground beef","1 large yellow onion, finely chopped","3 cloves garlic, finely minced","2 (14.5 oz) cans diced tomatoes with green chilies","3 (8 oz) cans tomato sauce","½ cup beef broth","2 Tbsp chili powder","2½ tsp ground cumin","2 tsp paprika","2 tsp unsweetened cocoa powder","1 tsp granulated sugar","½ tsp ground coriander","Salt and freshly ground black pepper","1 (15 oz) can dark red kidney beans, drained","1 (15 oz) can light red kidney beans, drained","Shredded cheddar cheese for serving"],steps:["Heat olive oil in a large skillet over medium-high. Sauté onion 3 min, add garlic 30 sec. Pour into slow cooker.","Return skillet to medium-high. Add beef and cook, stirring occasionally, until browned. Drain most fat.","Add beef to slow cooker. Stir in tomatoes, tomato sauce, broth, all spices, salt and pepper.","Cover and cook on low 5–6 hours.","Stir in kidney beans and heat through, about 2 min. Serve with desired toppings."],note:"💡 Look for tomatoes labeled \"mild\" green chilies. Bloom spices in the last minute for extra depth."},
   {id:"creamy-sausage-and-peppers-pasta",icon:"🍝",label:"Pasta · 40 min",name:"Creamy Sausage and Peppers Pasta",meta:"40 min · Stovetop · Serves 4",ings:["8 oz uncooked pasta (bucatini recommended)","1 lb Italian sausage","1 Tbsp olive oil","½ medium onion, chopped","1 medium red bell pepper, chopped","1 medium yellow bell pepper, chopped","1 Tbsp butter","2–3 cloves garlic, minced","1 tsp flour","1 cup heavy cream","½ tsp Dijon mustard","2 cups fresh baby spinach","Salt, pepper, freshly grated Parmesan to taste"],steps:["Boil salted pasta water and cook pasta al dente per package.","Brown sausage in skillet over medium-high, breaking it up, 8–10 min. Transfer to paper towel–lined plate.","Add oil, onion, and peppers to same skillet. Cook until onion is lightly browned, 7–8 min.","Reduce to medium. Add butter and garlic; once melted, sprinkle in flour and cook 1 min.","Stir in cream and Dijon — no lumps. Sauce thickens quickly; don't overcook.","Add sausage and spinach. Splash in pasta water, drain pasta, add to skillet. Toss until spinach wilts."],note:""},
@@ -76,8 +80,7 @@ RECIPES.forEach(function(r) { CORE_IDS[r.id] = true; });
 
 var list = document.getElementById('list');
 
-window.addEventListener('load', function() {
-  RecipeCard.init({
+RecipeCard.init({
     coreIds: CORE_IDS,
     onSaveChange: function(id, saved, recipeObj) {
       // If a journal recipe was just saved, add it to the list; if unsaved, remove it
@@ -130,9 +133,8 @@ window.addEventListener('load', function() {
   });
 
   // Render core recipes
-  RECIPES.forEach(function(r) { list.appendChild(RecipeCard.makeCard(r)); });
-  updateCount(0);
-});
+RECIPES.forEach(function(r) { list.appendChild(RecipeCard.makeCard(r)); });
+updateCount(0);
 
 function updateCount(savedCount) {
   var sc = savedCount !== undefined ? savedCount : list.querySelectorAll('.rc-card[data-saved-id]').length;

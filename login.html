@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — Fox &amp; Bear Kitchen</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--cream:#faf7f2;--ink:#1a1a1a;--muted:#7a7264;--accent:#c8622a;--accent-light:#f5e8de;--border:#e4ded5;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .card{max-width:360px;width:100%;text-align:center;}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;margin-bottom:8px;}
+  .sub{color:var(--muted);font-size:14px;font-weight:300;line-height:1.5;margin-bottom:36px;}
+  .btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 20px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink);cursor:pointer;transition:box-shadow .15s,border-color .15s;}
+  .btn:hover{border-color:#bbb;box-shadow:0 2px 10px rgba(0,0,0,.08);}
+  .btn:disabled{opacity:.5;cursor:not-allowed;}
+  .btn img{width:18px;height:18px;flex-shrink:0;}
+  .status{margin-top:20px;font-size:13px;color:var(--muted);min-height:20px;}
+  .error{padding:12px 16px;background:#fff0f0;border:1px solid #fcc;border-radius:8px;font-size:13px;color:#c00;display:none;text-align:left;line-height:1.5;}
+  .error.visible{display:block;}
+</style>
+</head>
+<body>
+<div class="card">
+  <p class="eyebrow">Fox &amp; Bear Kitchen</p>
+  <h1>Welcome back</h1>
+  <p class="sub">Sign in to access your meal plan,<br>recipes, and grocery list.</p>
+  <button class="btn" id="signInBtn">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+    Sign in with Google
+  </button>
+  <p class="status" id="status"></p>
+  <div class="error" id="error"></div>
+</div>
+
+<script type="module">
+import { auth, onAuthStateChanged, signInWithGoogle, ALLOWED_EMAILS } from './auth.js';
+
+const btn    = document.getElementById('signInBtn');
+const status = document.getElementById('status');
+const errEl  = document.getElementById('error');
+
+// If already signed in with an allowed account, skip straight to the app
+onAuthStateChanged(auth, (user) => {
+  if (user && ALLOWED_EMAILS.includes(user.email)) {
+    location.replace('index.html');
+  }
+});
+
+// Show "access denied" message when redirected here after a failed allowlist check
+if (new URLSearchParams(location.search).get('denied') === '1') {
+  showError("Your Google account isn't on the access list for Fox & Bear Kitchen.");
+}
+
+btn.addEventListener('click', async () => {
+  btn.disabled = true;
+  status.textContent = 'Signing you in…';
+  errEl.classList.remove('visible');
+  try {
+    const result = await signInWithGoogle();
+    if (!ALLOWED_EMAILS.includes(result.user.email)) {
+      showError('Your Google account (' + result.user.email + ') doesn\'t have access to this site.');
+      btn.disabled = false;
+      status.textContent = '';
+    }
+    // If allowed, onAuthStateChanged fires above and redirects automatically
+  } catch (err) {
+    if (err.code !== 'auth/popup-closed-by-user') {
+      showError('Sign-in failed. Please try again.');
+    }
+    btn.disabled = false;
+    status.textContent = '';
+  }
+});
+
+function showError(msg) {
+  errEl.textContent = msg;
+  errEl.classList.add('visible');
+}
+</script>
+</body>
+</html>
