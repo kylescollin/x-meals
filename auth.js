@@ -22,9 +22,8 @@ const FIREBASE_CONFIG = {
 
 // ── Allowlist — only these Google accounts can sign in ────────────────────
 const ALLOWED_EMAILS = [
-  'kscollin@gmail.com'
-  // Add Josephine's email here when ready, e.g.:
-  // 'josephine@gmail.com'
+  'kscollin@gmail.com',
+  'missjosephinefox@gmail.com'
 ];
 
 // ── Init ──────────────────────────────────────────────────────────────────
