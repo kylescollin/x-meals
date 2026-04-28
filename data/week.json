@@ -1,86 +1,107 @@
 {
-  "weekOf": "2026-04-21",
-  "title": "Week of April 21",
-  "subhead": "3 dinners · Serves 4–8",
+  "weekOf": "2026-04-27",
+  "title": "Week of April 27",
+  "subhead": "3 dinners · Serves 4",
   "meals": [
-    {"id":"slow-cooker-chili","label":"Meal A","day":"Tuesday","date":"4/21","icon":"🌶️","name":"Slow Cooker Chili","meta":"~15 min prep · 6 hrs slow cooker · Serves 8","ings":["1 Tbsp olive oil","2 lbs lean ground beef","1 large yellow onion, finely chopped","3 cloves garlic, finely minced","2 (14.5 oz) cans diced tomatoes with mild green chilies","3 (8 oz) cans tomato sauce","½ cup beef broth","2 Tbsp chili powder","2½ tsp ground cumin","2 tsp paprika","2 tsp unsweetened cocoa powder","1 tsp granulated sugar","½ tsp ground coriander","Salt and freshly ground black pepper","1 (15 oz) can dark red kidney beans, drained","1 (15 oz) can light red kidney beans, drained","Toppings: shredded cheddar, sour cream, sliced green onions"],"steps":["Set up Monday morning. Sauté onion 3 min in olive oil, add garlic 30 sec. Transfer to slow cooker.","Brown ground beef in same skillet. Drain fat. Add to slow cooker.","Stir in all remaining ingredients. Season with salt and pepper.","Cover and cook on LOW 5–6 hours (or HIGH 3 hours).","Stir in kidney beans. Heat through 2 min.","Serve with cheddar, sour cream, and green onions."],"note":"💡 Set up Monday morning — dinner is hands-off by Tuesday. Makes 8 servings; freeze half."},
-    {"id":"butter-cauliflower","label":"Meal B","day":"Wednesday","date":"4/22","icon":"🧈","name":"Butter Cauliflower","meta":"~65 min · One pan · Vegetarian · Serves 4","ings":["1 medium head cauliflower, cut into florets","2 Tbsp olive oil (divided)","2 tsp fresh lemon juice","2 tsp cornstarch","½ tsp ground cumin","1 tsp ground turmeric (divided)","3 tsp garam masala (divided)","1½ tsp salt (divided)","3 Tbsp unsalted butter","1 yellow onion, finely chopped","3 garlic cloves, minced","2 tsp fresh ginger, grated","2 Tbsp tomato paste","1 tsp paprika","¼ tsp ground cinnamon","1 (8 oz) can plain tomato sauce","2 cups vegetable broth","½ cup heavy cream","Basmati rice for serving","Fresh cilantro + plain Greek yogurt to garnish"],"steps":["Mix lemon juice, cornstarch, ½ tsp cumin, ½ tsp turmeric, 1 tsp garam masala, ½ tsp salt in a bowl.","Sear cauliflower in 1 tbsp oil 7–8 min. Toss in cornstarch mixture, return to skillet, cook 7–8 more min. Remove to bowl.","Add remaining oil and butter. Sauté onion 8 min. Add garlic, ginger, tomato paste; cook 2 min. Add spices; toast 1 min.","Add tomato sauce and broth. Simmer. Stir in cream, return cauliflower. Simmer 15 min.","Serve over basmati rice with cilantro and Greek yogurt."],"note":"💡 The double-cook on the cauliflower is what makes this dish. Skip cayenne for the kids."},
-    {"id":"turkey-veggie-bolognese-casarecce","label":"Meal C","day":"Thursday","date":"4/23","icon":"🍝","name":"Turkey & Veggie Bolognese over Casarecce","meta":"~50 min · One pot · Serves 4–6","ings":["12 oz casarecce pasta (or mafaldine)","3 Tbsp extra virgin olive oil","1 medium onion, diced","4 cloves garlic, minced","1½ lbs ground turkey (93% lean)","1 medium zucchini, diced","8 oz cremini mushrooms, sliced","1 tsp granulated garlic","Salt and freshly ground black pepper","3 Tbsp tomato paste","1 (28 oz) can crushed tomatoes","1 (14 oz) can tomato puree","1 tbsp fresh basil, chopped (or 1 tsp dried)","1 tsp sugar","Parmesan, for serving"],"steps":["Sauté onion 5–7 min in olive oil. Add garlic, cook 30 sec.","Add turkey, brown 7–8 min. Season with granulated garlic, salt, pepper.","Add zucchini and mushrooms. Cook 4–5 min until softened.","Stir in tomato paste, cook 2 min.","Add crushed tomatoes, puree, sugar, basil. Simmer uncovered 30–35 min until thick.","Cook casarecce al dente. Reserve 1 cup pasta water. Toss pasta with sauce.","Serve with generous Parmesan."],"note":"💡 Can't find casarecce? Rigatoni or mafaldine work great. Sauce freezes well — make a full batch and stash half."}
-  ],
-  "groceries": [
     {
-      "icon": "🥦",
-      "label": "Produce",
-      "items": [
-        {"name": "3 medium yellow onions", "detail": "1 for chili · 1 for cauliflower · 1 for pasta sauce", "tag": "All meals", "tagClass": "tag-all", "amazon": "yellow onion"},
-        {"name": "2 heads garlic", "detail": "All three meals — plenty to work with", "tag": "All meals", "tagClass": "tag-all", "amazon": "garlic head"},
-        {"name": "1 medium head cauliflower", "detail": "Cut into florets, seared then simmered in sauce", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "cauliflower head"},
-        {"name": "1 medium zucchini", "detail": "Diced into turkey bolognese", "tag": "Meal C", "tagClass": "tag-pasta", "amazon": "zucchini"},
-        {"name": "8 oz cremini mushrooms", "detail": "Sliced into turkey bolognese sauce", "tag": "Meal C", "tagClass": "tag-pasta", "amazon": "cremini mushrooms"},
-        {"name": "Fresh ginger (small knob)", "detail": "2 tsp grated for butter cauliflower sauce", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "fresh ginger root"},
-        {"name": "1 lemon", "detail": "2 tbsp juice for cauliflower coating", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "lemons"},
-        {"name": "Fresh cilantro (small bunch)", "detail": "Garnish for butter cauliflower", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "fresh cilantro"},
-        {"name": "Fresh basil (small bunch) — optional", "detail": "Stirred into pasta sauce; dried works fine too", "tag": "Meal C", "tagClass": "tag-pasta", "amazon": "fresh basil"},
-        {"name": "Green onions (for serving)", "detail": "Chili topping", "tag": "Meal A", "tagClass": "tag-chili", "amazon": "green onions"}
-      ]
+      "id": "teriyaki-chicken-tacos",
+      "label": "Meal A",
+      "day": "Tuesday",
+      "date": "4/28",
+      "icon": "🌮",
+      "name": "Teriyaki Chicken Tacos with Creamy Sesame Cucumbers",
+      "meta": "~30 min · Instant Pot + broil · Serves 4",
+      "ings": [
+        "2 lb boneless skinless chicken thighs",
+        "Salt and pepper",
+        "⅓ cup + ¼ cup teriyaki sauce (divided)",
+        "2 tbsp sweet chili sauce",
+        "8 (6-inch) flour tortillas",
+        "1 avocado, sliced",
+        "¼ cup crushed peanuts",
+        "Sesame seeds for garnish",
+        "Creamy Sesame Cucumbers: 1 large English cucumber (or 3–4 Persian), thinly sliced",
+        "¼ cup plain Greek yogurt",
+        "1½ tbsp mayo",
+        "2 tbsp rice vinegar",
+        "1 tbsp sweet chili sauce",
+        "1 tsp toasted sesame oil",
+        "¼ tsp salt",
+        "1 cup fresh herbs (cilantro, green onions, and/or mint)"
+      ],
+      "steps": [
+        "Season chicken thighs with salt and pepper. Place in Instant Pot and add ⅓ cup teriyaki sauce. Toss to coat. Pressure cook on HIGH for 10 minutes.",
+        "While chicken cooks, thinly slice cucumbers. Whisk together yogurt, mayo, rice vinegar, sweet chili sauce, sesame oil, and salt. Toss with cucumbers and fresh herbs. Set aside.",
+        "Natural or quick release the Instant Pot. Remove chicken and shred. Spread on a foil-lined baking sheet. Drizzle with remaining ¼ cup teriyaki sauce and 2 tbsp sweet chili sauce, toss to coat.",
+        "Broil 3–6 minutes until chicken is caramelized and slightly crispy at the edges.",
+        "Warm tortillas. Layer each with crispy teriyaki chicken, creamy sesame cucumbers, sliced avocado, and a drizzle of extra dressing. Top with crushed peanuts and sesame seeds."
+      ],
+      "note": "💡 No Instant Pot? Crockpot on high 2.5–3.5 hrs or low 4–5 hrs, then shred and broil. The broil step is key — don't skip it."
     },
     {
-      "icon": "🥩",
-      "label": "Protein",
-      "items": [
-        {"name": "2 lbs lean ground beef", "detail": "Slow cooker chili — makes 8 servings, freeze half", "tag": "Meal A", "tagClass": "tag-chili", "amazon": "lean ground beef"},
-        {"name": "1½ lbs ground turkey (93% lean)", "detail": "Turkey veggie bolognese", "tag": "Meal C", "tagClass": "tag-pasta", "amazon": "ground turkey 93 lean"}
-      ]
+      "id": "lemon-dill-salmon-roasted-broccoli",
+      "label": "Meal B",
+      "day": "Wednesday",
+      "date": "4/29",
+      "icon": "🐟",
+      "name": "Lemon Dill Salmon with Roasted Broccoli & Brown Rice",
+      "meta": "~25 min · Sheet pan · Serves 4",
+      "ings": [
+        "4 salmon fillets (5–6 oz each)",
+        "1 lemon, half sliced thin, half for juice",
+        "1 tbsp olive oil",
+        "1 tsp garlic powder",
+        "1 tsp dried dill (or 1 tbsp fresh)",
+        "Salt and black pepper",
+        "4 cups broccoli florets",
+        "1 tbsp olive oil (for broccoli)",
+        "2 pouches microwaveable brown rice (8.5 oz each)",
+        "Optional: lemon zest, fresh dill, flaky salt to finish"
+      ],
+      "steps": [
+        "Preheat oven to 400°F. Line a large sheet pan with foil.",
+        "Toss broccoli florets with olive oil, salt, and pepper. Spread on the sheet pan. Roast 10 minutes.",
+        "Pat salmon dry. Rub with olive oil, garlic powder, dill, salt, and pepper. Place on the sheet pan alongside the broccoli. Lay lemon slices on top of each fillet.",
+        "Roast 12–14 minutes until salmon flakes easily and broccoli edges are lightly charred.",
+        "Microwave brown rice pouches per package directions (about 90 seconds). Fluff and serve.",
+        "Squeeze fresh lemon over everything before serving. Finish with a pinch of flaky salt if you have it."
+      ],
+      "note": "💡 The lemon slices on top perfume the fish as it roasts. If fillets are thick (over 1 inch), add 2 minutes. Broccoli should be in a single layer for good char — use two pans if needed."
     },
     {
-      "icon": "🧈",
-      "label": "Dairy & Refrigerated",
-      "items": [
-        {"name": "Shredded cheddar cheese", "detail": "Topping for chili", "tag": "Meal A", "tagClass": "tag-chili", "amazon": "shredded cheddar cheese"},
-        {"name": "Sour cream", "detail": "Chili topping", "tag": "Meal A", "tagClass": "tag-chili", "amazon": "sour cream"},
-        {"name": "3 tbsp unsalted butter", "detail": "Butter cauliflower sauce base", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "unsalted butter"},
-        {"name": "½ cup heavy cream", "detail": "Stirs into cauliflower sauce at the end", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "heavy cream"},
-        {"name": "Plain Greek yogurt", "detail": "Garnish for butter cauliflower", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "plain greek yogurt"},
-        {"name": "Parmesan (block or pre-grated)", "detail": "Finish the turkey bolognese generously", "tag": "Meal C", "tagClass": "tag-pasta", "amazon": "parmesan cheese"}
-      ]
-    },
-    {
-      "icon": "🫙",
-      "label": "Pantry & Canned",
-      "items": [
-        {"name": "2 cans (14.5 oz) diced tomatoes with mild green chilies", "detail": "Chili base — look for \"mild\" on the label", "tag": "Meal A", "tagClass": "tag-chili", "amazon": "diced tomatoes green chilies mild"},
-        {"name": "3 cans (8 oz) tomato sauce", "detail": "Chili liquid base", "tag": "Meal A", "tagClass": "tag-chili", "amazon": "tomato sauce 8oz can"},
-        {"name": "1 can (8 oz) plain tomato sauce", "detail": "Butter cauliflower sauce", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "tomato sauce 8oz can"},
-        {"name": "½ cup beef broth", "detail": "Chili — adds depth", "tag": "Meal A", "tagClass": "tag-chili", "amazon": "beef broth carton"},
-        {"name": "1 can (15 oz) dark red kidney beans", "detail": "Stirred into chili at the end", "tag": "Meal A", "tagClass": "tag-chili", "amazon": "dark red kidney beans canned"},
-        {"name": "1 can (15 oz) light red kidney beans", "detail": "Stirred into chili at the end", "tag": "Meal A", "tagClass": "tag-chili", "amazon": "light red kidney beans canned"},
-        {"name": "2 cups vegetable broth", "detail": "Butter cauliflower sauce", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "vegetable broth carton"},
-        {"name": "Basmati rice", "detail": "Served alongside butter cauliflower", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "basmati rice"},
-        {"name": "1 can (28 oz) crushed tomatoes", "detail": "Base for turkey bolognese", "tag": "Meal C", "tagClass": "tag-pasta", "amazon": "crushed tomatoes 28oz"},
-        {"name": "1 can (14 oz) tomato puree", "detail": "Body and depth for turkey bolognese", "tag": "Meal C", "tagClass": "tag-pasta", "amazon": "tomato puree can"},
-        {"name": "Tomato paste (small can or tube)", "detail": "2 tbsp for cauliflower + 3 tbsp for pasta sauce", "tag": "Meals B+C", "tagClass": "tag-shared", "amazon": "tomato paste"},
-        {"name": "12 oz casarecce pasta", "detail": "Twisted ridges grab every bit of chunky sauce — or try mafaldine", "tag": "Meal C", "tagClass": "tag-pasta", "amazon": "casarecce pasta"},
-        {"name": "2 tsp unsweetened cocoa powder", "detail": "Secret depth ingredient in the chili — check pantry first", "tag": "Meal A", "tagClass": "tag-chili", "amazon": "unsweetened cocoa powder"},
-        {"name": "2 tsp cornstarch", "detail": "Cauliflower coating for char & texture", "tag": "Meal B", "tagClass": "tag-cauliflower", "amazon": "cornstarch"},
-        {"name": "Olive oil", "detail": "All three meals", "tag": "All meals", "tagClass": "tag-all", "amazon": "olive oil"}
-      ]
-    },
-    {
-      "icon": "🌿",
-      "label": "Spices",
-      "note": "Check pantry before ordering — you likely have most of these.",
-      "items": [
-        {"name": "Chili powder (2 tbsp)", "detail": "Slow cooker chili", "tag": "Meal A", "tagClass": "tag-chili"},
-        {"name": "Ground cumin (3 tsp total)", "detail": "2½ tsp chili + ½ tsp cauliflower", "tag": "Meals A+B", "tagClass": "tag-shared"},
-        {"name": "Paprika (3 tsp total)", "detail": "2 tsp chili + 1 tsp cauliflower", "tag": "Meals A+B", "tagClass": "tag-shared"},
-        {"name": "Ground coriander (½ tsp)", "detail": "Slow cooker chili", "tag": "Meal A", "tagClass": "tag-chili"},
-        {"name": "Garam masala (3 tsp)", "detail": "Butter cauliflower — the key spice", "tag": "Meal B", "tagClass": "tag-cauliflower"},
-        {"name": "Ground turmeric (1 tsp)", "detail": "Butter cauliflower", "tag": "Meal B", "tagClass": "tag-cauliflower"},
-        {"name": "Ground cinnamon (¼ tsp)", "detail": "Butter cauliflower — small amount, big effect", "tag": "Meal B", "tagClass": "tag-cauliflower"},
-        {"name": "Granulated garlic (1 tsp)", "detail": "Turkey bolognese seasoning", "tag": "Meal C", "tagClass": "tag-pasta"},
-        {"name": "Dried basil (1 tsp) — if not using fresh", "detail": "Turkey bolognese", "tag": "Meal C", "tagClass": "tag-pasta"},
-        {"name": "Salt & black pepper", "detail": "All meals", "tag": "All meals", "tagClass": "tag-all"}
-      ]
+      "id": "honey-mustard-chicken-sheet-pan",
+      "label": "Meal C",
+      "day": "Thursday",
+      "date": "4/30",
+      "icon": "🍯",
+      "name": "Sheet Pan Honey Mustard Chicken with Potatoes & Green Beans",
+      "meta": "~45 min · Sheet pan · Serves 4",
+      "ings": [
+        "4 bone-in, skin-on chicken thighs",
+        "1 lb baby red potatoes, halved",
+        "8 oz green beans, trimmed",
+        "2 tbsp olive oil",
+        "Salt, pepper, garlic powder, paprika",
+        "Honey Mustard Sauce:",
+        "3 tbsp honey",
+        "2 tbsp Dijon mustard",
+        "1 tbsp whole grain mustard (or extra Dijon)",
+        "1 tbsp olive oil",
+        "1 tsp apple cider vinegar",
+        "½ tsp garlic powder",
+        "½ tsp paprika",
+        "Salt and pepper to taste"
+      ],
+      "steps": [
+        "Preheat oven to 425°F. Whisk together all honey mustard sauce ingredients in a bowl. Set aside.",
+        "Toss halved baby potatoes with olive oil, salt, pepper, garlic powder, and paprika. Spread on a large sheet pan in a single layer. Roast 15 minutes.",
+        "Season chicken thighs all over with salt, pepper, garlic powder, and paprika. Remove pan from oven. Push potatoes to the sides and add chicken thighs skin-side up in the center. Brush generously with honey mustard sauce.",
+        "Return to oven and roast 15 more minutes.",
+        "Add green beans to the pan, tossing with any remaining sauce and pan juices. Roast 12–15 more minutes until chicken reaches 165°F and skin is golden and caramelized.",
+        "Rest chicken 5 minutes. Drizzle pan juices over everything before serving."
+      ],
+      "note": "💡 The staggered timing — potatoes first, then chicken, then green beans — is the key to everything cooking perfectly together. Don't crowd the pan."
     }
-  ]
+  ],
+  "groceries": []
 }
