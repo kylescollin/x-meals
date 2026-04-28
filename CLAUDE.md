@@ -118,13 +118,17 @@ Agent X must write `data/week.json` in this exact format each week:
 Each week when publishing a new meal plan:
 
 1. Prepend the current `data/week.json` content to `data/history.json` (keeps history current)
-2. Write the new `data/week.json` with the full schema above (meals + groceries)
+2. Write the new `data/week.json` with the meals array fully populated and `"groceries": []` (empty — the GitHub Action generates groceries automatically)
 3. Commit and push to `main`
 
 The GitHub Action runs automatically and:
+- Detects the empty `groceries` array and calls the Claude API to generate the complete grocery list
+- Commits the updated `week.json` (with groceries) back to the repo
 - Archives the old week from Firebase `/meals/current` → `/meals/history/{weekOf}`
-- Writes the new week to `/meals/current`
+- Writes the new week (meals + groceries) to `/meals/current`
 - Backfills any history entries not yet in Firebase
+
+**Note:** X does not generate the groceries array. That is handled automatically by `scripts/generate-groceries.js` in the GitHub Action using `ANTHROPIC_API_KEY`. If groceries are already present in `week.json`, the generation step is skipped.
 
 ## Design Conventions
 

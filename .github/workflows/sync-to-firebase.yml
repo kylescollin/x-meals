@@ -11,6 +11,8 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -20,6 +22,22 @@ jobs:
 
       - name: Install dependencies
         run: cd scripts && npm install
+
+      - name: Generate groceries if missing
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-groceries.js
+
+      - name: Commit generated groceries
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet data/week.json; then
+            WEEK_OF=$(node -e "console.log(require('./data/week.json').weekOf)")
+            git add data/week.json
+            git commit -m "Auto-generate grocery list for week of $WEEK_OF"
+            git push
+          fi
 
       - name: Sync to Firebase
         env:
