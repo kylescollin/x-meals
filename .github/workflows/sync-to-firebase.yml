@@ -6,6 +6,7 @@ on:
     paths:
       - 'data/week.json'
       - 'data/history.json'
+  workflow_dispatch:
 
 jobs:
   sync:
