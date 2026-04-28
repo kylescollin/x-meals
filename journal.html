@@ -43,12 +43,15 @@ function renderWeek(week,isCurrent){var entry=document.createElement('div');entr
 
 RecipeCard.init({coreIds:CORE_IDS,onSaveChange:function(){RecipeCard.applyBadges();},onReady:function(){RecipeCard.applyBadges();}});
 
+var FB_BASE='https://fox-bear-hub-default-rtdb.firebaseio.com';
+var token=await getAuthToken();
 var results=await Promise.all([
-  fetch('data/week.json').then(function(r){return r.json();}),
-  fetch('data/history.json').then(function(r){return r.json();}).catch(function(){return [];})
+  fetch(FB_BASE+'/meals/current.json?auth='+token).then(function(r){return r.json();}),
+  fetch(FB_BASE+'/meals/history.json?auth='+token).then(function(r){return r.json();}).catch(function(){return null;})
 ]);
 var weekData=results[0];
-var histData=results[1];
+var histObj=results[1];
+var histData=histObj?Object.values(histObj).sort(function(a,b){return b.weekOf.localeCompare(a.weekOf);}):[];
 
 var totalWeeks=1+histData.length;
 document.getElementById('headerMeta').textContent=totalWeeks+' week'+(totalWeeks!==1?'s':'')+' logged';
