@@ -103,5 +103,242 @@
       "note": "💡 The staggered timing — potatoes first, then chicken, then green beans — is the key to everything cooking perfectly together. Don't crowd the pan."
     }
   ],
-  "groceries": []
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "1 large English cucumber (or 3–4 Persian cucumbers)",
+          "detail": "Meal A · thinly sliced for creamy sesame cucumbers",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "english cucumber"
+        },
+        {
+          "name": "1 avocado",
+          "detail": "Meal A · sliced for taco topping",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "ripe avocado"
+        },
+        {
+          "name": "1 cup fresh herbs (cilantro, green onions, and/or mint)",
+          "detail": "Meal A · mixed into creamy sesame cucumbers and used as taco garnish",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "fresh cilantro"
+        },
+        {
+          "name": "2 lemons",
+          "detail": "Meal B · 1 lemon sliced thin for roasting on salmon, 1 lemon for juice to finish",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "fresh lemons"
+        },
+        {
+          "name": "4 cups broccoli florets",
+          "detail": "Meal B · tossed in olive oil and roasted on sheet pan",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "broccoli florets"
+        },
+        {
+          "name": "1 lb baby red potatoes",
+          "detail": "Meal C · halved and roasted with olive oil and spices",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "baby red potatoes"
+        },
+        {
+          "name": "8 oz green beans, trimmed",
+          "detail": "Meal C · added to sheet pan in final roasting stage",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "fresh green beans trimmed"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "2 lb boneless skinless chicken thighs",
+          "detail": "Meal A · pressure cooked, shredded, and broiled with teriyaki sauce",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "boneless skinless chicken thighs"
+        },
+        {
+          "name": "4 salmon fillets (5–6 oz each)",
+          "detail": "Meal B · rubbed with olive oil and spices, roasted on sheet pan",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "fresh salmon fillets"
+        },
+        {
+          "name": "4 bone-in skin-on chicken thighs",
+          "detail": "Meal C · seasoned and roasted with honey mustard sauce",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "bone in skin on chicken thighs"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "¼ cup plain Greek yogurt",
+          "detail": "Meal A · whisked into creamy sesame cucumber dressing",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "plain greek yogurt"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "⅓ cup + ¼ cup teriyaki sauce (about ¾ cup total)",
+          "detail": "Meal A · ⅓ cup for Instant Pot cooking · ¼ cup drizzled before broiling",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "teriyaki sauce"
+        },
+        {
+          "name": "3 tbsp sweet chili sauce",
+          "detail": "Meal A · 2 tbsp tossed with chicken before broiling · 1 tbsp whisked into cucumber dressing",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "sweet chili sauce"
+        },
+        {
+          "name": "8 (6-inch) flour tortillas",
+          "detail": "Meal A · warmed and used as taco shells",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "6 inch flour tortillas"
+        },
+        {
+          "name": "¼ cup crushed peanuts",
+          "detail": "Meal A · sprinkled over tacos as topping",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "crushed peanuts"
+        },
+        {
+          "name": "1½ tbsp mayonnaise",
+          "detail": "Meal A · whisked into creamy sesame cucumber dressing",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "mayonnaise"
+        },
+        {
+          "name": "2 tbsp rice vinegar",
+          "detail": "Meal A · part of creamy sesame cucumber dressing",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "rice vinegar"
+        },
+        {
+          "name": "1 tsp toasted sesame oil",
+          "detail": "Meal A · adds flavor to creamy sesame cucumber dressing",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "toasted sesame oil"
+        },
+        {
+          "name": "Sesame seeds",
+          "detail": "Meal A · sprinkled over finished tacos as garnish",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "sesame seeds"
+        },
+        {
+          "name": "3 tbsp olive oil (divided)",
+          "detail": "Meal B · 1 tbsp for salmon rub · 1 tbsp for tossing broccoli · 1 tbsp for Meal C potatoes and sauce",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared",
+          "amazon": "olive oil"
+        },
+        {
+          "name": "2 pouches microwaveable brown rice (8.5 oz each)",
+          "detail": "Meal B · microwaved and served alongside salmon and broccoli",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "microwaveable brown rice pouches"
+        },
+        {
+          "name": "3 tbsp honey",
+          "detail": "Meal C · base of honey mustard sauce",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "honey"
+        },
+        {
+          "name": "2 tbsp Dijon mustard",
+          "detail": "Meal C · part of honey mustard sauce",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "dijon mustard"
+        },
+        {
+          "name": "1 tbsp whole grain mustard",
+          "detail": "Meal C · part of honey mustard sauce (can substitute extra Dijon)",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "whole grain mustard"
+        },
+        {
+          "name": "1 tsp apple cider vinegar",
+          "detail": "Meal C · added to honey mustard sauce for brightness",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "apple cider vinegar"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these.",
+      "items": [
+        {
+          "name": "Salt",
+          "detail": "All meals · general seasoning throughout",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "name": "Black pepper",
+          "detail": "All meals · general seasoning throughout",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "name": "Garlic powder",
+          "detail": "Meals B+C · Meal B for salmon rub · Meal C for potatoes and honey mustard sauce",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Paprika",
+          "detail": "Meal C · used in potato seasoning and honey mustard sauce",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "Dried dill",
+          "detail": "Meal B · rubbed onto salmon before roasting (or substitute 1 tbsp fresh dill)",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ]
+    }
+  ]
 }
