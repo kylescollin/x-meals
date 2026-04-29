@@ -121,6 +121,8 @@ Each week when publishing a new meal plan:
 2. Write the new `data/week.json` with the meals array fully populated and `"groceries": []` (empty — the GitHub Action generates groceries automatically)
 3. Commit and push to `main`
 
+**Important — meal IDs:** When a meal comes from the saved recipe collection (`data/recipes.json`), use the **exact `id` value** from that file. The site uses these IDs to detect whether a recipe is already saved, so a mismatch (e.g. `"teriyaki-chicken-tacos"` instead of `"teriyaki-chicken-tacos-with-sesame-cucumber-slaw"`) causes a Save button to incorrectly appear. Always look up the canonical ID in `data/recipes.json` rather than generating one from the name.
+
 The GitHub Action runs automatically and:
 - Detects the empty `groceries` array and calls the Claude API to generate the complete grocery list
 - Commits the updated `week.json` (with groceries) back to the repo

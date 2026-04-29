@@ -104,11 +104,14 @@ function renderSection(sec){
   return html+'</div>';
 }
 
-var CORE_IDS={"slow-cooker-chili":true,"creamy-sausage-and-peppers-pasta":true,"zucchini-tomato-italian-sausage-soup":true,"vegetarian-quesadillas":true,"creamy-chorizo-gnocchi":true,"easy-weeknight-salmon-sushi-bowls":true,"butternut-squash-ravioli-with-brown-butter-sage":true,"creamy-chicken-tortilla-soup":true,"lentil-soup-with-sausage-chard-and-garlic":true,"best-lasagna":true,"italian-meat-sauce":true,"vegetarian-grain-bowl-meal-prep":true,"air-fryer-fish-tacos-with-cilantro-lime-slaw":true,"creamy-tomato-gnocchi-with-burrata":true,"white-chicken-chili":true,"teriyaki-chicken-tacos-with-sesame-cucumber-slaw":true,"sausage-white-bean-soup":true,"slow-cooker-chicken-pot-pie":true,"creamy-parmesan-sausage-ditalini-soup":true,"seared-salmon-with-lemon-orzo":true,"falafel-bowl-with-tahini-dressing":true,"one-pan-coconut-curry-salmon":true,"ground-turkey-teriyaki-stir-fry":true,"corn-chowder":true,"pesto-chicken-tortellini-and-veggies":true,"butter-cauliflower":true,"vegan-mushroom-bourguignon":true,"louisiana-red-beans-and-rice":true,"spicy-garlic-chicken-bowl-with-hummus":true,"lemon-chili-grilled-chicken-bowls-with-hummus":true,"homemade-crunchwrap-supreme":true,"chicken-pineapple-fried-rice":true,"easy-shrimp-alfredo":true,"creamy-spinach-and-mushroom-tortellini":true,"garlic-sesame-noodles":true,"shakshuka":true,"miso-glazed-salmon-bowls":true,"turkey-veggie-bolognese-casarecce":true};
-RecipeCard.init({coreIds:CORE_IDS,onReady:function(){RecipeCard.applyBadges();}});
-
 var token=await getAuthToken();
-var weekData=await fetch(FB_BASE+'/meals/current.json?auth='+token).then(function(r){return r.json();});
+var [recipesResp,weekData]=await Promise.all([
+  fetch('data/recipes.json').then(function(r){return r.json();}),
+  fetch(FB_BASE+'/meals/current.json?auth='+token).then(function(r){return r.json();})
+]);
+var CORE_IDS={};
+(recipesResp.recipes||[]).forEach(function(r){CORE_IDS[r.id]=true;});
+RecipeCard.init({coreIds:CORE_IDS,onReady:function(){RecipeCard.applyBadges();}});
 var MEALS=weekData.meals||[];
 FB_URL=FB_BASE+'/groceries/'+weekData.weekOf;
 
