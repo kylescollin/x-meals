@@ -1090,3 +1090,134 @@ Garnish with chopped cilantro and parsley before serving.
 
 ### Notes
 Crumbled feta or goat cheese on top is a delicious addition. Traditionally served with pita. Recommend using a stainless steel pan — tomatoes are acidic and may damage cast iron seasoning.
+## Chicken Tikka Masala + Cauliflower
+
+**Meta:** ~45 min (marinate tonight!) · Serves 4–6
+
+### Ingredients
+
+1 cup full-fat Greek yogurt
+2 tbsp fresh lemon juice
+1½ tsp ground cumin, 1 tsp garam masala
+¼–½ tsp chili powder (skip for kids), 1 tsp salt
+2 tsp grated fresh ginger, 2 tsp minced garlic
+1.5 lbs chicken breast, bite-sized
+2 tbsp oil + 2 tbsp butter
+1 large sweet onion, finely diced
+2 tsp brown sugar
+1 tsp each: coriander, cumin, smoked paprika, garam masala
+2 cans (8 oz each) unseasoned tomato sauce
+1½ cups heavy cream
+1 head cauliflower, cut into florets
+Basmati rice, naan, fresh cilantro
+
+### Instructions
+
+Marinate (tonight!): Whisk marinade ingredients. Toss chicken to coat. Cover and refrigerate — at least 15 min, overnight is best.
+Roast cauliflower: Preheat oven to 425°F. Toss cauliflower with olive oil, salt, pepper. Roast 20–25 min until golden and slightly charred. Set aside.
+Sear chicken: Heat oil in a large skillet over medium-high. Add chicken in batches, don't crowd. Let sit 1 min untouched to crust, then sauté ~5 min until browned. Discard marinade. Set aside.
+Build sauce: Melt butter in same pan. Sauté onion ~3 min. Add ginger + garlic, cook 30 sec. Add brown sugar and all spices, stir 15 sec until fragrant.
+Pour in both cans of tomato sauce. Simmer 3–5 min until thickened.
+Stir in cream. Return chicken and cauliflower to the pan. Simmer 8–10 min until cooked through and sauce is thick. Thin with water if needed.
+Serve over basmati rice with naan. Garnish with cilantro. Adults can add hot sauce.
+
+### Notes
+🧠 Bumped to 1½ cups cream + 2 cans tomato sauce for proper saucy consistency — especially with cauliflower soaking it up.
+
+---
+## Sheet Pan Honey Mustard Chicken with Potatoes & Green Beans
+
+**Meta:** ~45 min · Sheet pan · Serves 4
+
+### Ingredients
+
+4 bone-in, skin-on chicken thighs
+1 lb baby red potatoes, halved
+8 oz green beans, trimmed
+2 tbsp olive oil
+Salt, pepper, garlic powder, paprika
+Honey Mustard Sauce:
+3 tbsp honey
+2 tbsp Dijon mustard
+1 tbsp whole grain mustard (or extra Dijon)
+1 tbsp olive oil
+1 tsp apple cider vinegar
+½ tsp garlic powder
+½ tsp paprika
+Salt and pepper to taste
+
+### Instructions
+
+Preheat oven to 425°F. Whisk together all honey mustard sauce ingredients in a bowl. Set aside.
+Toss halved baby potatoes with olive oil, salt, pepper, garlic powder, and paprika. Spread on a large sheet pan in a single layer. Roast 15 minutes.
+Season chicken thighs all over with salt, pepper, garlic powder, and paprika. Remove pan from oven. Push potatoes to the sides and add chicken thighs skin-side up in the center. Brush generously with honey mustard sauce.
+Return to oven and roast 15 more minutes.
+Add green beans to the pan, tossing with any remaining sauce and pan juices. Roast 12–15 more minutes until chicken reaches 165°F and skin is golden and caramelized.
+Rest chicken 5 minutes. Drizzle pan juices over everything before serving.
+
+### Notes
+The staggered timing — potatoes first, then chicken, then green beans — is the key to everything cooking perfectly together. Don't crowd the pan.
+
+---
+## Lemon Dill Salmon with Roasted Broccoli & Brown Rice
+
+**Meta:** ~25 min · Sheet pan · Serves 4
+
+### Ingredients
+
+4 salmon fillets (5–6 oz each)
+1 lemon, half sliced thin, half for juice
+1 tbsp olive oil
+1 tsp garlic powder
+1 tsp dried dill (or 1 tbsp fresh)
+Salt and black pepper
+4 cups broccoli florets
+1 tbsp olive oil (for broccoli)
+2 pouches microwaveable brown rice (8.5 oz each)
+Optional: lemon zest, fresh dill, flaky salt to finish
+
+### Instructions
+
+Preheat oven to 400°F. Line a large sheet pan with foil.
+Toss broccoli florets with olive oil, salt, and pepper. Spread on the sheet pan. Roast 10 minutes.
+Pat salmon dry. Rub with olive oil, garlic powder, dill, salt, and pepper. Place on the sheet pan alongside the broccoli. Lay lemon slices on top of each fillet.
+Roast 12–14 minutes until salmon flakes easily and broccoli edges are lightly charred.
+Microwave brown rice pouches per package directions (about 90 seconds). Fluff and serve.
+Squeeze fresh lemon over everything before serving. Finish with a pinch of flaky salt if you have it.
+
+### Notes
+The lemon slices on top perfume the fish as it roasts. If fillets are thick (over 1 inch), add 2 minutes. Broccoli should be in a single layer for good char — use two pans if needed.
+
+---
+## Sheet Pan Beef & Broccoli
+
+**Meta:** ~30 min · Sheet pan · Serves 4
+
+### Ingredients
+
+1½ lb flank steak or sirloin, sliced thin against the grain
+4 cups broccoli florets
+3 cloves garlic, minced
+¼ cup low-sodium soy sauce
+2 tbsp oyster sauce
+1 tbsp sesame oil
+1 tbsp honey
+½ tsp ground ginger
+2 tbsp cornstarch
+2 tbsp vegetable oil
+1½ cups jasmine rice
+Sesame seeds + sliced green onions for garnish
+
+### Instructions
+
+Preheat oven to 425°F. Start rice on stovetop: 1½ cups rice + 3 cups water, bring to boil, reduce to low, cover, 18 min.
+Slice beef very thin against the grain. Whisk together soy sauce, oyster sauce, sesame oil, honey, ginger, garlic, and cornstarch into a marinade. Toss beef in half the marinade and set aside 10 minutes.
+Toss broccoli florets with vegetable oil, salt, and pepper on a large sheet pan. Roast 8 minutes.
+Push broccoli to the sides. Spread marinated beef in a single layer in the center. Roast everything 8–10 more minutes until beef is cooked through and broccoli is lightly charred.
+Warm remaining marinade in a small saucepan over medium heat, adding a splash of water to thin slightly, until it simmers and thickens into a glossy sauce.
+Serve beef and broccoli over rice. Drizzle with extra sauce. Garnish with sesame seeds and green onions.
+
+### Notes
+Slice the beef as thin as possible — even partially frozen beef is easier to slice thin. The marinade does double duty as the finishing sauce.
+
+---
