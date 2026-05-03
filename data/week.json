@@ -99,5 +99,242 @@
       "note": "💡 Caramelized onions can be made 1–2 days ahead and refrigerated — do it Monday while the pot pie bakes to save time Wednesday."
     }
   ],
-  "groceries": []
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "16 oz cremini mushrooms, sliced",
+          "detail": "8 oz sautéed into pot pie filling · 8 oz cooked into tortellini sauce",
+          "tag": "Meals A+C",
+          "tagClass": "tag-shared",
+          "amazon": "cremini mushrooms"
+        },
+        {
+          "name": "3 medium carrots, diced",
+          "detail": "all for pot pie filling",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "medium carrots"
+        },
+        {
+          "name": "3 stalks celery, diced",
+          "detail": "all for pot pie filling",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "celery stalks"
+        },
+        {
+          "name": "1 cup frozen peas",
+          "detail": "stirred into pot pie filling",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "frozen green peas"
+        },
+        {
+          "name": "½ cup frozen pearl onions",
+          "detail": "stirred into pot pie filling",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "frozen pearl onions"
+        },
+        {
+          "name": "1 small bunch fresh thyme",
+          "detail": "1 tsp leaves for pot pie filling",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "fresh thyme"
+        },
+        {
+          "name": "½ medium yellow onion, chopped",
+          "detail": "sautéed as soup base for tortilla soup",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "yellow onion"
+        },
+        {
+          "name": "2 large yellow onions, thinly sliced",
+          "detail": "caramelized for tortellini sauce",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "yellow onion"
+        },
+        {
+          "name": "8 oz fresh spinach",
+          "detail": "wilted into tortellini sauce",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "fresh baby spinach"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "1 large rotisserie chicken (yields ~5 cups shredded)",
+          "detail": "3 cups shredded for pot pie · 2 cups shredded for tortilla soup",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared",
+          "amazon": "rotisserie chicken"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "2 cups heavy cream",
+          "detail": "1 cup for tortilla soup · 1 cup for tortellini sauce",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared",
+          "amazon": "heavy cream"
+        },
+        {
+          "name": "1 cup unsweetened almond milk (or low-fat milk)",
+          "detail": "added to pot pie sauce",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "unsweetened almond milk"
+        },
+        {
+          "name": "1 egg",
+          "detail": "beaten for pot pie crust egg wash",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "large eggs"
+        },
+        {
+          "name": "9 oz refrigerated 3-cheese tortellini",
+          "detail": "cooked and tossed in tortellini sauce",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "refrigerated three cheese tortellini"
+        },
+        {
+          "name": "Sour cream, shredded Tex-Mex cheese (for topping)",
+          "detail": "served as toppings for tortilla soup",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "sour cream"
+        },
+        {
+          "name": "1 avocado (for topping)",
+          "detail": "sliced or diced as topping for tortilla soup",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "avocado"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "3 Tbsp olive oil",
+          "detail": "1 Tbsp for pot pie · 1 Tbsp for tortilla soup · 1 Tbsp (plus 2 Tbsp) for tortellini",
+          "tag": "All meals",
+          "tagClass": "tag-all",
+          "amazon": "olive oil"
+        },
+        {
+          "name": "2½ cups low-sodium chicken broth",
+          "detail": "1½ cups for pot pie sauce · 1 cup for tortilla soup",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared",
+          "amazon": "low sodium chicken broth"
+        },
+        {
+          "name": "¼ cup all-purpose flour",
+          "detail": "used to thicken pot pie filling",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "all purpose flour"
+        },
+        {
+          "name": "1 store-bought deep dish pie crust",
+          "detail": "used as top-only crust for pot pie",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "deep dish pie crust refrigerated"
+        },
+        {
+          "name": "1 (28 oz) can crushed tomatoes",
+          "detail": "base of tortilla soup",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "crushed tomatoes 28 oz"
+        },
+        {
+          "name": "1 (10 oz) can Rotel diced tomatoes with green chilies, mild",
+          "detail": "added to tortilla soup base",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "rotel diced tomatoes green chilies mild"
+        },
+        {
+          "name": "1 (12 oz) can corn, drained",
+          "detail": "stirred into tortilla soup",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "canned whole kernel corn"
+        },
+        {
+          "name": "1 (14 oz) can black beans, drained & rinsed",
+          "detail": "stirred into tortilla soup",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "canned black beans"
+        },
+        {
+          "name": "Tortilla strips (for topping)",
+          "detail": "served as topping for tortilla soup",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "tortilla strips soup topping"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these.",
+      "items": [
+        {
+          "name": "Garlic powder",
+          "detail": "1 tsp for pot pie · 1 tsp for tortilla soup",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Salt",
+          "detail": "1 tsp for pot pie · pinches throughout tortellini",
+          "tag": "Meals A+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Black pepper",
+          "detail": "½ tsp for pot pie · ¼ tsp for tortellini · cracked to finish tortellini",
+          "tag": "Meals A+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Smoked paprika",
+          "detail": "1 tsp for tortilla soup",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "Chili powder",
+          "detail": "½ Tbsp for tortilla soup",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ]
+    }
+  ]
 }
