@@ -1,5 +1,110 @@
 [
   {
+    "weekOf": "2026-04-27",
+    "title": "Week of April 27",
+    "subhead": "3 dinners · Serves 4",
+    "meals": [
+      {
+        "id": "teriyaki-chicken-tacos-with-sesame-cucumber-slaw",
+        "label": "Meal A",
+        "day": "Tuesday",
+        "date": "4/28",
+        "icon": "🌮",
+        "name": "Teriyaki Chicken Tacos with Creamy Sesame Cucumbers",
+        "meta": "~30 min · Instant Pot + broil · Serves 4",
+        "ings": [
+          "2 lb boneless skinless chicken thighs",
+          "Salt and pepper",
+          "⅓ cup + ¼ cup teriyaki sauce (divided)",
+          "2 tbsp sweet chili sauce",
+          "8 (6-inch) flour tortillas",
+          "1 avocado, sliced",
+          "¼ cup crushed peanuts",
+          "Sesame seeds for garnish",
+          "Creamy Sesame Cucumbers: 1 large English cucumber (or 3–4 Persian), thinly sliced",
+          "¼ cup plain Greek yogurt",
+          "1½ tbsp mayo",
+          "2 tbsp rice vinegar",
+          "1 tbsp sweet chili sauce",
+          "1 tsp toasted sesame oil",
+          "¼ tsp salt",
+          "1 cup fresh herbs (cilantro, green onions, and/or mint)"
+        ],
+        "steps": [
+          "Season chicken thighs with salt and pepper. Place in Instant Pot and add ⅓ cup teriyaki sauce. Toss to coat. Pressure cook on HIGH for 10 minutes.",
+          "While chicken cooks, thinly slice cucumbers. Whisk together yogurt, mayo, rice vinegar, sweet chili sauce, sesame oil, and salt. Toss with cucumbers and fresh herbs. Set aside.",
+          "Natural or quick release the Instant Pot. Remove chicken and shred. Spread on a foil-lined baking sheet. Drizzle with remaining ¼ cup teriyaki sauce and 2 tbsp sweet chili sauce, toss to coat.",
+          "Broil 3–6 minutes until chicken is caramelized and slightly crispy at the edges.",
+          "Warm tortillas. Layer each with crispy teriyaki chicken, creamy sesame cucumbers, sliced avocado, and a drizzle of extra dressing. Top with crushed peanuts and sesame seeds."
+        ],
+        "note": "💡 No Instant Pot? Crockpot on high 2.5–3.5 hrs or low 4–5 hrs, then shred and broil. The broil step is key — don't skip it."
+      },
+      {
+        "id": "lemon-dill-salmon-roasted-broccoli",
+        "label": "Meal B",
+        "day": "Wednesday",
+        "date": "4/29",
+        "icon": "🐟",
+        "name": "Lemon Dill Salmon with Roasted Broccoli & Brown Rice",
+        "meta": "~25 min · Sheet pan · Serves 4",
+        "ings": [
+          "4 salmon fillets (5–6 oz each)",
+          "1 lemon, half sliced thin, half for juice",
+          "1 tbsp olive oil",
+          "1 tsp garlic powder",
+          "1 tsp dried dill (or 1 tbsp fresh)",
+          "Salt and black pepper",
+          "4 cups broccoli florets",
+          "1 tbsp olive oil (for broccoli)",
+          "2 pouches microwaveable brown rice (8.5 oz each)",
+          "Optional: lemon zest, fresh dill, flaky salt to finish"
+        ],
+        "steps": [
+          "Preheat oven to 400°F. Line a large sheet pan with foil.",
+          "Toss broccoli florets with olive oil, salt, and pepper. Spread on the sheet pan. Roast 10 minutes.",
+          "Pat salmon dry. Rub with olive oil, garlic powder, dill, salt, and pepper. Place on the sheet pan alongside the broccoli. Lay lemon slices on top of each fillet.",
+          "Roast 12–14 minutes until salmon flakes easily and broccoli edges are lightly charred.",
+          "Microwave brown rice pouches per package directions (about 90 seconds). Fluff and serve.",
+          "Squeeze fresh lemon over everything before serving. Finish with a pinch of flaky salt if you have it."
+        ],
+        "note": "💡 The lemon slices on top perfume the fish as it roasts. If fillets are thick (over 1 inch), add 2 minutes. Broccoli should be in a single layer for good char — use two pans if needed."
+      },
+      {
+        "id": "honey-mustard-chicken-sheet-pan",
+        "label": "Meal C",
+        "day": "Thursday",
+        "date": "4/30",
+        "icon": "🍯",
+        "name": "Sheet Pan Honey Mustard Chicken with Potatoes & Green Beans",
+        "meta": "~45 min · Sheet pan · Serves 4",
+        "ings": [
+          "4 bone-in, skin-on chicken thighs",
+          "1 lb baby red potatoes, halved",
+          "8 oz green beans, trimmed",
+          "2 tbsp olive oil",
+          "Salt, pepper, garlic powder, paprika",
+          "3 tbsp honey",
+          "2 tbsp Dijon mustard",
+          "1 tbsp whole grain mustard (or extra Dijon)",
+          "1 tbsp olive oil",
+          "1 tsp apple cider vinegar",
+          "½ tsp garlic powder",
+          "½ tsp paprika",
+          "Salt and pepper to taste"
+        ],
+        "steps": [
+          "Preheat oven to 425°F. Whisk together all honey mustard sauce ingredients in a bowl. Set aside.",
+          "Toss halved baby potatoes with olive oil, salt, pepper, garlic powder, and paprika. Spread on a large sheet pan in a single layer. Roast 15 minutes.",
+          "Season chicken thighs all over with salt, pepper, garlic powder, and paprika. Remove pan from oven. Push potatoes to the sides and add chicken thighs skin-side up in the center. Brush generously with honey mustard sauce.",
+          "Return to oven and roast 15 more minutes.",
+          "Add green beans to the pan, tossing with any remaining sauce and pan juices. Roast 12–15 more minutes until chicken reaches 165°F and skin is golden and caramelized.",
+          "Rest chicken 5 minutes. Drizzle pan juices over everything before serving."
+        ],
+        "note": "💡 The staggered timing — potatoes first, then chicken, then green beans — is the key to everything cooking perfectly together. Don't crowd the pan."
+      }
+    ]
+  },
+  {
     "weekOf": "2026-04-21",
     "meals": [
       {
@@ -7,112 +112,33 @@
         "label": "Meal A",
         "day": "Tuesday",
         "date": "4/21",
-        "icon": "\ud83c\udf36\ufe0f",
+        "icon": "🌶️",
         "name": "Slow Cooker Chili",
-        "meta": "~15 min prep \u00b7 6 hrs slow cooker \u00b7 Serves 8",
-        "ings": [
-          "1 Tbsp olive oil",
-          "2 lbs lean ground beef",
-          "1 large yellow onion, finely chopped",
-          "3 cloves garlic, finely minced",
-          "2 (14.5 oz) cans diced tomatoes with mild green chilies",
-          "3 (8 oz) cans tomato sauce",
-          "\u00bd cup beef broth",
-          "2 Tbsp chili powder",
-          "2\u00bd tsp ground cumin",
-          "2 tsp paprika",
-          "2 tsp unsweetened cocoa powder",
-          "1 tsp granulated sugar",
-          "\u00bd tsp ground coriander",
-          "Salt and freshly ground black pepper",
-          "1 (15 oz) can dark red kidney beans, drained",
-          "1 (15 oz) can light red kidney beans, drained",
-          "Toppings: shredded cheddar, sour cream, sliced green onions"
-        ],
-        "steps": [
-          "Set up Monday morning. Saut\u00e9 onion 3 min in olive oil, add garlic 30 sec. Transfer to slow cooker.",
-          "Brown ground beef in same skillet. Drain fat. Add to slow cooker.",
-          "Stir in all remaining ingredients. Season with salt and pepper.",
-          "Cover and cook on LOW 5\u20136 hours (or HIGH 3 hours).",
-          "Stir in kidney beans. Heat through 2 min.",
-          "Serve with cheddar, sour cream, and green onions."
-        ],
-        "note": "\ud83d\udca1 Set up Monday morning \u2014 dinner is hands-off by Tuesday. Makes 8 servings; freeze half."
+        "meta": "~15 min prep · 6 hrs slow cooker · Serves 8",
+        "ings": ["2 lbs lean ground beef","1 large yellow onion","3 cloves garlic","2 cans diced tomatoes with mild green chilies","3 cans tomato sauce","½ cup beef broth","Chili powder, cumin, paprika, cocoa, coriander, sugar","2 cans kidney beans","Toppings: cheddar, sour cream, green onions"],
+        "steps": ["Sauté onion and garlic, transfer to slow cooker.","Brown beef, drain, add to slow cooker.","Add all remaining ingredients. Cook LOW 5–6 hrs.","Stir in beans, heat 2 min. Serve with toppings."]
       },
       {
         "id": "butter-cauliflower",
         "label": "Meal B",
         "day": "Wednesday",
         "date": "4/22",
-        "icon": "\ud83e\uddc8",
+        "icon": "🌸",
         "name": "Butter Cauliflower",
-        "meta": "~65 min \u00b7 One pan \u00b7 Vegetarian \u00b7 Serves 4",
-        "ings": [
-          "1 medium head cauliflower, cut into florets",
-          "2 Tbsp olive oil (divided)",
-          "2 tsp fresh lemon juice",
-          "2 tsp cornstarch",
-          "\u00bd tsp ground cumin",
-          "1 tsp ground turmeric (divided)",
-          "3 tsp garam masala (divided)",
-          "1\u00bd tsp salt (divided)",
-          "3 Tbsp unsalted butter",
-          "1 yellow onion, finely chopped",
-          "3 garlic cloves, minced",
-          "2 tsp fresh ginger, grated",
-          "2 Tbsp tomato paste",
-          "1 tsp paprika",
-          "\u00bc tsp ground cinnamon",
-          "1 (8 oz) can plain tomato sauce",
-          "2 cups vegetable broth",
-          "\u00bd cup heavy cream",
-          "Basmati rice for serving",
-          "Fresh cilantro + plain Greek yogurt to garnish"
-        ],
-        "steps": [
-          "Mix lemon juice, cornstarch, \u00bd tsp cumin, \u00bd tsp turmeric, 1 tsp garam masala, \u00bd tsp salt in a bowl.",
-          "Sear cauliflower in 1 tbsp oil 7\u20138 min. Toss in cornstarch mixture, return to skillet, cook 7\u20138 more min. Remove to bowl.",
-          "Add remaining oil and butter. Saut\u00e9 onion 8 min. Add garlic, ginger, tomato paste; cook 2 min. Add spices; toast 1 min.",
-          "Add tomato sauce and broth. Simmer. Stir in cream, return cauliflower. Simmer 15 min.",
-          "Serve over basmati rice with cilantro and Greek yogurt."
-        ],
-        "note": "\ud83d\udca1 The double-cook on the cauliflower is what makes this dish. Skip cayenne for the kids."
+        "meta": "~65 min · One pan · Vegetarian · Serves 4",
+        "ings": ["1 head cauliflower","Olive oil, lemon juice, cornstarch, spices","Butter, onion, garlic, ginger, tomato paste","Tomato sauce, vegetable broth, heavy cream","Basmati rice, cilantro, Greek yogurt"],
+        "steps": ["Sear cauliflower, toss in cornstarch mixture, cook again.","Sauté aromatics, build sauce with tomato and broth.","Stir in cream, return cauliflower, simmer 15 min.","Serve over rice with cilantro and yogurt."]
       },
       {
         "id": "turkey-veggie-bolognese-casarecce",
         "label": "Meal C",
         "day": "Thursday",
         "date": "4/23",
-        "icon": "\ud83c\udf5d",
+        "icon": "🍝",
         "name": "Turkey & Veggie Bolognese over Casarecce",
-        "meta": "~50 min \u00b7 One pot \u00b7 Serves 4\u20136",
-        "ings": [
-          "12 oz casarecce pasta (or mafaldine)",
-          "3 Tbsp extra virgin olive oil",
-          "1 medium onion, diced",
-          "4 cloves garlic, minced",
-          "1\u00bd lbs ground turkey (93% lean)",
-          "1 medium zucchini, diced",
-          "8 oz cremini mushrooms, sliced",
-          "1 tsp granulated garlic",
-          "Salt and freshly ground black pepper",
-          "3 Tbsp tomato paste",
-          "1 (28 oz) can crushed tomatoes",
-          "1 (14 oz) can tomato puree",
-          "1 tbsp fresh basil, chopped (or 1 tsp dried)",
-          "1 tsp sugar",
-          "Parmesan, for serving"
-        ],
-        "steps": [
-          "Saut\u00e9 onion 5\u20137 min in olive oil. Add garlic, cook 30 sec.",
-          "Add turkey, brown 7\u20138 min. Season with granulated garlic, salt, pepper.",
-          "Add zucchini and mushrooms. Cook 4\u20135 min until softened.",
-          "Stir in tomato paste, cook 2 min.",
-          "Add crushed tomatoes, puree, sugar, basil. Simmer uncovered 30\u201335 min until thick.",
-          "Cook casarecce al dente. Reserve 1 cup pasta water. Toss pasta with sauce.",
-          "Serve with generous Parmesan."
-        ],
-        "note": "\ud83d\udca1 Can't find casarecce? Rigatoni or mafaldine work great. Sauce freezes well \u2014 make a full batch and stash half."
+        "meta": "~50 min · One pot · Serves 4–6",
+        "ings": ["12 oz casarecce pasta","1½ lbs ground turkey","Onion, garlic, zucchini, mushrooms","Tomato paste, crushed tomatoes, tomato puree","Basil, sugar, Parmesan"],
+        "steps": ["Sauté onion and garlic. Brown turkey.","Add zucchini and mushrooms. Stir in tomato paste.","Add tomatoes, simmer 30–35 min.","Cook pasta, toss with sauce. Serve with Parmesan."]
       }
     ]
   },
@@ -120,437 +146,46 @@
     "weekOf": "2026-04-13",
     "title": "Week of April 13",
     "meals": [
-      {
-        "id": "sheet-pan-beef-broccoli",
-        "label": "Meal A",
-        "day": "Tuesday",
-        "date": "4/14",
-        "icon": "\ud83e\udd69",
-        "name": "Sheet Pan Beef & Broccoli",
-        "meta": "~30 min \u00b7 Sheet pan \u00b7 Serves 4",
-        "ings": [
-          "1\u00bd lb flank steak or sirloin, sliced thin against the grain",
-          "4 cups broccoli florets",
-          "3 cloves garlic, minced",
-          "\u00bc cup low-sodium soy sauce",
-          "2 tbsp oyster sauce",
-          "1 tbsp sesame oil",
-          "1 tbsp honey",
-          "\u00bd tsp ground ginger",
-          "2 tbsp cornstarch",
-          "2 tbsp vegetable oil",
-          "1\u00bd cups jasmine rice",
-          "Sesame seeds + sliced green onions for garnish"
-        ],
-        "steps": [
-          "Preheat oven to 425\u00b0F. Start rice on stovetop: 1\u00bd cups rice + 3 cups water, bring to boil, reduce to low, cover, 18 min.",
-          "Slice beef very thin against the grain. Whisk together soy sauce, oyster sauce, sesame oil, honey, ginger, garlic, and cornstarch into a marinade. Toss beef in half the marinade and set aside 10 minutes.",
-          "Toss broccoli florets with vegetable oil, salt, and pepper on a large sheet pan. Roast 8 minutes.",
-          "Push broccoli to the sides. Spread marinated beef in a single layer in the center. Roast everything 8\u201310 more minutes until beef is cooked through and broccoli is lightly charred.",
-          "Warm remaining marinade in a small saucepan over medium heat, adding a splash of water to thin slightly, until it simmers and thickens into a glossy sauce.",
-          "Serve beef and broccoli over rice. Drizzle with extra sauce. Garnish with sesame seeds and green onions."
-        ],
-        "note": "\ud83d\udca1 Slice the beef as thin as possible. The marinade does double duty as the finishing sauce."
-      },
-      {
-        "id": "black-bean-sweet-potato-enchiladas",
-        "label": "Meal B",
-        "day": "Wednesday",
-        "date": "4/15",
-        "icon": "\ud83e\uded8",
-        "name": "Black Bean & Sweet Potato Enchiladas",
-        "meta": "~40 min \u00b7 Baked \u00b7 Vegetarian \u00b7 Serves 4",
-        "ings": [
-          "2 large sweet potatoes, peeled and diced small",
-          "1 can (15 oz) black beans, drained and rinsed",
-          "\u00bd cup frozen corn",
-          "1 small onion, diced",
-          "3 cloves garlic, minced",
-          "1 tsp cumin, 1 tsp chili powder, \u00bd tsp smoked paprika, \u00bd tsp garlic powder",
-          "Salt and pepper to taste",
-          "8 small corn tortillas",
-          "1 can (10 oz) mild red enchilada sauce",
-          "2 cups shredded Mexican cheese blend",
-          "Olive oil, sour cream and cilantro for serving"
-        ],
-        "steps": [
-          "Preheat oven to 400\u00b0F. Toss diced sweet potato with olive oil and spices. Roast 20 minutes until tender and caramelized.",
-          "Saut\u00e9 onion and garlic in olive oil until soft. Stir in black beans and corn; warm through.",
-          "Combine roasted sweet potato with the bean mixture.",
-          "Warm tortillas in a dry skillet so they roll without cracking. Spoon filling into each tortilla, roll tightly, place seam-side down in a greased 9x13 dish.",
-          "Pour enchilada sauce over top. Sprinkle cheese all over.",
-          "Bake 20 minutes until cheese is melted and bubbling. Serve with sour cream and cilantro."
-        ],
-        "note": "\ud83d\udca1 Warming the tortillas is the key step \u2014 cold corn tortillas crack when rolled."
-      },
-      {
-        "id": "lemon-herb-chicken-meatballs-orzo",
-        "label": "Meal C",
-        "day": "Thursday",
-        "date": "4/16",
-        "icon": "\ud83c\udf4b",
-        "name": "Lemon Herb Chicken Meatballs with Orzo",
-        "meta": "~35 min \u00b7 One pan \u00b7 Serves 4",
-        "ings": [
-          "1 lb ground chicken",
-          "\u00bc cup breadcrumbs",
-          "1 egg",
-          "\u00bc cup grated Parmesan",
-          "2 tbsp fresh parsley, chopped",
-          "1 tsp dried oregano",
-          "Zest of 1 lemon",
-          "3 cloves garlic, minced (divided)",
-          "Salt and black pepper",
-          "2 tbsp olive oil",
-          "1 small onion, finely diced",
-          "\u00bc cup white wine or chicken broth",
-          "2\u00bd cups chicken broth",
-          "1\u00bd cups orzo",
-          "Juice of 1 lemon",
-          "\u00bd cup heavy cream",
-          "2 cups fresh baby spinach",
-          "Extra Parmesan to finish"
-        ],
-        "steps": [
-          "Mix ground chicken, breadcrumbs, egg, Parmesan, parsley, oregano, lemon zest, half the garlic, salt, and pepper. Roll into 16\u201318 small meatballs.",
-          "Heat olive oil in a large deep skillet over medium-high. Sear meatballs in batches, browning on 2\u20133 sides, about 4\u20135 minutes. Remove and set aside.",
-          "Saut\u00e9 onion until soft, 3\u20134 minutes. Add remaining garlic and cook 30 seconds. Deglaze with white wine.",
-          "Pour in chicken broth and bring to a simmer. Stir in orzo and cook 7\u20138 minutes, stirring often.",
-          "Stir in lemon juice and heavy cream. Nestle meatballs back in. Cook 4\u20135 more minutes until meatballs are cooked through.",
-          "Add spinach and stir until wilted. Finish with extra Parmesan and more lemon."
-        ],
-        "note": "\ud83d\udca1 Stir the orzo frequently so it doesn't stick. Kids love the little meatballs."
-      }
+      {"id": "sheet-pan-beef-broccoli","label": "Meal A","day": "Tuesday","date": "4/14","icon": "🥩","name": "Sheet Pan Beef & Broccoli","meta": "~30 min · Sheet pan · Serves 4","ings": [],"steps": []},
+      {"id": "black-bean-sweet-potato-enchiladas","label": "Meal B","day": "Wednesday","date": "4/15","icon": "🫘","name": "Black Bean & Sweet Potato Enchiladas","meta": "~40 min · Baked · Vegetarian · Serves 4","ings": [],"steps": []},
+      {"id": "lemon-herb-chicken-meatballs-orzo","label": "Meal C","day": "Thursday","date": "4/16","icon": "🍋","name": "Lemon Herb Chicken Meatballs with Orzo","meta": "~35 min · One pan · Serves 4","ings": [],"steps": []}
     ]
   },
   {
     "weekOf": "2026-04-06",
     "title": "Week of April 6",
     "meals": [
-      {
-        "id": "creamy-sausage-and-peppers-pasta",
-        "label": "Meal D",
-        "day": "Sunday",
-        "date": "4/5",
-        "icon": "\ud83c\udf5d",
-        "name": "Creamy Sausage and Peppers Pasta",
-        "meta": "~40 min \u00b7 One pan \u00b7 Serves 4",
-        "ings": [
-          "8 oz uncooked pasta (bucatini)",
-          "1 lb Italian sausage",
-          "1 tbsp olive oil",
-          "\u00bd medium onion, chopped",
-          "1 red bell pepper, 1 yellow bell pepper (chopped)",
-          "1 tbsp butter",
-          "2\u20133 cloves garlic, minced",
-          "1 tsp flour",
-          "1 cup heavy cream",
-          "\u00bd tsp Dijon mustard",
-          "2 cups fresh baby spinach",
-          "Salt, pepper, Parmesan"
-        ],
-        "steps": [
-          "Boil pasta al dente per package directions.",
-          "Brown sausage in a skillet, breaking it up. Transfer to plate.",
-          "Cook onion and peppers in oil until softened, 7\u20138 minutes.",
-          "Reduce heat. Add butter and garlic; sprinkle in flour and cook 1 minute.",
-          "Stir in cream and Dijon. Thickens quickly.",
-          "Add sausage and spinach. Splash pasta water in, drain pasta, add to skillet. Toss and serve with Parmesan."
-        ],
-        "note": "Use ground sausage or remove meat from casings."
-      },
-      {
-        "id": "sausage-white-bean-soup",
-        "label": "Meal A",
-        "day": "Monday",
-        "date": "4/6",
-        "icon": "\ud83c\udf72",
-        "name": "Sausage White Bean Soup",
-        "meta": "~35 min \u00b7 One pot \u00b7 Serves 4\u20136",
-        "ings": [
-          "1 lb mild Italian sausage",
-          "1 tbsp olive oil",
-          "1 medium onion, diced",
-          "3 cloves garlic, minced",
-          "2 carrots, sliced",
-          "2 stalks celery, chopped",
-          "1 can (15 oz) white beans, drained",
-          "4 cups chicken broth",
-          "1 tsp thyme, 1 tsp rosemary",
-          "Salt, pepper, fresh parsley"
-        ],
-        "steps": [
-          "Brown sausage, remove and set aside.",
-          "Cook onion, garlic, carrots, celery until softened.",
-          "Return sausage. Add white beans, broth, herbs, salt, pepper. Simmer.",
-          "Cover and simmer 20\u201325 minutes. Garnish with parsley."
-        ],
-        "note": "Mash some beans before adding for creamier texture."
-      },
-      {
-        "id": "air-fryer-fish-tacos",
-        "label": "Meal B",
-        "day": "Tuesday",
-        "date": "4/7",
-        "icon": "\ud83c\udf2e",
-        "name": "Air Fryer Fish Tacos with Cilantro Lime Slaw",
-        "meta": "~20 min \u00b7 Air fryer \u00b7 Serves 4",
-        "ings": [
-          "1\u00bd lb tilapia or white fish",
-          "Fish rub: chili powder, oregano, garlic powder, paprika, cayenne, cumin, salt, pepper",
-          "Cilantro lime slaw: coleslaw mix, mayo, lime juice, garlic, cilantro",
-          "Tortillas for serving"
-        ],
-        "steps": [
-          "Spray air fryer basket with oil. Mix spices.",
-          "Pat fish dry, brush with olive oil, coat with spice rub, spritz with oil.",
-          "Air fry at 400\u00b0F for 8\u201310 minutes.",
-          "Toss together cilantro lime slaw.",
-          "Cut fish into pieces and serve in tortillas with slaw."
-        ],
-        "note": "No air fryer? Bake at 400\u00b0F for about 15 minutes."
-      },
-      {
-        "id": "miso-glazed-salmon-bowls",
-        "label": "Meal C",
-        "day": "Wednesday",
-        "date": "4/8",
-        "icon": "\ud83d\udc1f",
-        "name": "Miso Glazed Salmon Bowls",
-        "meta": "~30 min \u00b7 Sheet pan + rice \u00b7 Serves 4",
-        "ings": [
-          "4 salmon fillets (~6 oz each)",
-          "3 tbsp white miso paste",
-          "2 tbsp soy sauce, 2 tbsp honey, 1 tbsp rice vinegar, 1 tsp sesame oil",
-          "Fresh ginger, garlic",
-          "Jasmine rice, cucumber, carrots, edamame, sesame seeds, green onions"
-        ],
-        "steps": [
-          "Cook rice. Whisk together miso glaze.",
-          "Spoon glaze over salmon on a foil-lined sheet.",
-          "Broil at 400\u00b0F for 12\u201315 minutes, basting halfway.",
-          "Assemble bowls with rice, salmon, veggies. Drizzle with remaining glaze."
-        ],
-        "note": "Store components separately and assemble fresh."
-      }
+      {"id": "creamy-sausage-and-peppers-pasta","label": "Meal D","day": "Sunday","date": "4/5","icon": "🍝","name": "Creamy Sausage and Peppers Pasta","meta": "~40 min · One pan · Serves 4","ings": [],"steps": []},
+      {"id": "sausage-white-bean-soup","label": "Meal A","day": "Monday","date": "4/6","icon": "🥣","name": "Sausage White Bean Soup","meta": "~35 min · One pot · Serves 4–6","ings": [],"steps": []},
+      {"id": "air-fryer-fish-tacos-with-cilantro-lime-slaw","label": "Meal B","day": "Tuesday","date": "4/7","icon": "🌮","name": "Air Fryer Fish Tacos with Cilantro Lime Slaw","meta": "~20 min · Air fryer · Serves 4","ings": [],"steps": []},
+      {"id": "miso-glazed-salmon-bowls","label": "Meal C","day": "Wednesday","date": "4/8","icon": "🐟","name": "Miso Glazed Salmon Bowls","meta": "~30 min · Sheet pan + rice · Serves 4","ings": [],"steps": []}
     ]
   },
   {
     "weekOf": "2026-03-29",
     "title": "Week of March 29",
     "meals": [
-      {
-        "id": "chicken-pineapple-fried-rice",
-        "name": "Chicken Pineapple Fried Rice",
-        "day": "Tuesday",
-        "date": "3/31",
-        "label": "Meal A",
-        "icon": "\ud83c\udf5a",
-        "meta": "~30 min \u00b7 Wok or skillet \u00b7 Serves 4",
-        "ings": [
-          "3 cups cooked jasmine rice, cold",
-          "\u00bd lb boneless skinless chicken thighs",
-          "1 cup frozen mixed vegetables",
-          "1 cup pineapple, diced",
-          "\u00bd cup onion",
-          "2 cloves garlic",
-          "2 tbsp vegetable oil",
-          "1\u00bd tbsp soy sauce, 1 tsp fish sauce",
-          "Marinade: soy sauce, sesame oil, cornstarch, baking soda"
-        ],
-        "steps": [
-          "Cook rice ahead and refrigerate overnight.",
-          "Slice and marinate chicken.",
-          "Fry chicken, remove. Saut\u00e9 garlic and onion, add vegetables and pineapple.",
-          "Push to side, add rice with soy and fish sauce. Stir-fry.",
-          "Add chicken back, toss and serve."
-        ],
-        "note": "\ud83d\udca1 Cold rice is essential \u2014 non-negotiable."
-      },
-      {
-        "id": "greek-chicken-bowls",
-        "name": "Greek Chicken Bowls with Tzatziki",
-        "day": "Wednesday",
-        "date": "4/1",
-        "label": "Meal B",
-        "icon": "\ud83e\udd59",
-        "meta": "~35 min \u00b7 Bowls \u00b7 Serves 4",
-        "ings": [
-          "1\u00bd lb chicken thighs, lemon-oregano marinade",
-          "1 English cucumber",
-          "1 cup plain Greek yogurt, dill",
-          "Cherry tomatoes, red onion, rice",
-          "Hummus, feta, fresh parsley"
-        ],
-        "steps": [
-          "Marinate chicken overnight.",
-          "Make tzatziki: grated cucumber + yogurt + garlic + dill.",
-          "Cook rice. Make cucumber salad.",
-          "Cook chicken until golden, rest and slice.",
-          "Build bowls: rice, chicken, hummus, cucumber salad, tzatziki, feta."
-        ],
-        "note": "\ud83d\udca1 Marinate the night before."
-      },
-      {
-        "id": "asian-turkey-lettuce-wraps",
-        "name": "Asian Turkey Lettuce Wraps",
-        "day": "Thursday",
-        "date": "4/2",
-        "label": "Meal C",
-        "icon": "\ud83e\udd6c",
-        "meta": "~25 min \u00b7 Skillet \u00b7 Serves 4",
-        "ings": [
-          "1 lb ground turkey",
-          "Hoisin, soy sauce, rice vinegar, sesame oil",
-          "Water chestnuts, butter lettuce",
-          "Green onions, sesame seeds, shredded carrots"
-        ],
-        "steps": [
-          "Whisk sauce ingredients.",
-          "Saut\u00e9 garlic and ginger, add turkey, cook through.",
-          "Add water chestnuts and sauce, cook 2 minutes.",
-          "Serve in lettuce cups with garnishes."
-        ],
-        "note": "\ud83d\udca1 Let kids build their own lettuce tacos."
-      }
+      {"id": "chicken-pineapple-fried-rice","name": "Chicken Pineapple Fried Rice","day": "Tuesday","date": "3/31","label": "Meal A","icon": "🍍","meta": "~30 min · Wok · Serves 4","ings": [],"steps": []},
+      {"id": "greek-chicken-bowls","name": "Greek Chicken Bowls with Tzatziki","day": "Wednesday","date": "4/1","label": "Meal B","icon": "🥙","meta": "~35 min · Bowls · Serves 4","ings": [],"steps": []},
+      {"id": "asian-turkey-lettuce-wraps","name": "Asian Turkey Lettuce Wraps","day": "Thursday","date": "4/2","label": "Meal C","icon": "🥬","meta": "~25 min · Skillet · Serves 4","ings": [],"steps": []}
     ]
   },
   {
     "weekOf": "2026-03-22",
     "title": "Week of March 22",
     "meals": [
-      {
-        "id": "shakshuka",
-        "name": "Shakshuka",
-        "day": "Tuesday",
-        "date": "3/24",
-        "label": "Meal A",
-        "icon": "\ud83c\udf73",
-        "meta": "~30 min \u00b7 One pan \u00b7 Vegetarian \u00b7 Serves 4\u20136",
-        "ings": [
-          "2 tbsp olive oil, 1 onion, 1 red bell pepper, 4 garlic cloves",
-          "Paprika, cumin, chili powder",
-          "1 (28-oz) can whole peeled tomatoes",
-          "6 large eggs",
-          "Cilantro, parsley, feta, pita"
-        ],
-        "steps": [
-          "Saut\u00e9 onion and bell pepper 5 minutes.",
-          "Add garlic and spices, cook 1 minute.",
-          "Add tomatoes, break down, simmer 5 minutes.",
-          "Make 6 wells, crack eggs in each.",
-          "Cover and cook 5\u20138 minutes until eggs set."
-        ]
-      },
-      {
-        "id": "lemon-herb-baked-cod",
-        "name": "Lemon Herb Baked Cod with Asparagus & Rice",
-        "day": "Wednesday",
-        "date": "3/25",
-        "label": "Meal B",
-        "icon": "\ud83d\udc20",
-        "meta": "~35 min \u00b7 Sheet pan \u00b7 Serves 4",
-        "ings": [
-          "4 cod fillets",
-          "Lemon, olive oil, garlic powder, thyme",
-          "1 lb asparagus, white rice"
-        ],
-        "steps": [
-          "Preheat 400\u00b0F. Start rice.",
-          "Roast asparagus 8 min.",
-          "Add cod with herb-lemon mixture, bake 12\u201315 min.",
-          "Serve over rice."
-        ]
-      },
-      {
-        "id": "turkey-black-bean-taco-bowls",
-        "name": "Turkey & Black Bean Taco Bowls",
-        "day": "Thursday",
-        "date": "3/26",
-        "label": "Meal C",
-        "icon": "\ud83c\udf2e",
-        "meta": "~30 min \u00b7 Serves 4",
-        "ings": [
-          "1 lb ground turkey, taco spices",
-          "Black beans, avocado, cherry tomatoes",
-          "Rice, lime, cheese, sour cream"
-        ],
-        "steps": [
-          "Cook rice.",
-          "Brown turkey with onion, garlic, taco spices.",
-          "Add black beans and warm through.",
-          "Build bowls with all toppings."
-        ],
-        "note": "\ud83d\udca1 Great leftovers."
-      }
+      {"id": "shakshuka","name": "Shakshuka","day": "Tuesday","date": "3/24","label": "Meal A","icon": "🍳","meta": "~30 min · One pan · Vegetarian · Serves 4–6","ings": [],"steps": []},
+      {"id": "lemon-herb-baked-cod","name": "Lemon Herb Baked Cod with Asparagus & Rice","day": "Wednesday","date": "3/25","label": "Meal B","icon": "🐠","meta": "~35 min · Sheet pan · Serves 4","ings": [],"steps": []},
+      {"id": "turkey-black-bean-taco-bowls","name": "Turkey & Black Bean Taco Bowls","day": "Thursday","date": "3/26","label": "Meal C","icon": "🌮","meta": "~30 min · Serves 4","ings": [],"steps": []}
     ]
   },
   {
     "weekOf": "2026-03-19",
     "title": "Week of March 16",
     "meals": [
-      {
-        "id": "sheet-pan-lemon-herb-salmon",
-        "name": "Sheet Pan Lemon Herb Salmon & Veggies",
-        "day": "Tuesday",
-        "date": "3/17",
-        "label": "Meal A",
-        "icon": "\ud83d\udc1f",
-        "meta": "~35 min \u00b7 One pan \u00b7 Serves 4\u20136",
-        "ings": [
-          "4\u20136 salmon fillets",
-          "Lemon, olive oil, garlic powder, dill",
-          "Broccoli, cherry tomatoes, zucchini"
-        ],
-        "steps": [
-          "Preheat 425\u00b0F. Roast veggies 12 min.",
-          "Add salmon with herb-lemon mixture.",
-          "Bake 12\u201315 min.",
-          "Serve with lemon wedges."
-        ]
-      },
-      {
-        "id": "chicken-tikka-masala-cauliflower",
-        "name": "Chicken Tikka Masala + Cauliflower",
-        "day": "Wednesday",
-        "date": "3/18",
-        "label": "Meal B",
-        "icon": "\ud83c\udf57",
-        "meta": "~45 min \u00b7 Serves 4\u20136",
-        "ings": [
-          "1.5 lbs chicken breast, yogurt-spice marinade",
-          "1 head cauliflower",
-          "Tomato sauce, heavy cream, basmati rice, naan"
-        ],
-        "steps": [
-          "Marinate chicken overnight.",
-          "Roast cauliflower at 425\u00b0F.",
-          "Sear chicken, build sauce.",
-          "Add tomato sauce and cream, return chicken and cauliflower.",
-          "Simmer until thick. Serve over rice."
-        ]
-      },
-      {
-        "id": "pesto-chicken-tortellini-veggies",
-        "name": "Pesto Chicken Tortellini & Veggies",
-        "day": "Thursday",
-        "date": "3/19",
-        "label": "Meal C",
-        "icon": "\ud83c\udf3f",
-        "meta": "~40 min \u00b7 One pan \u00b7 Serves 4",
-        "ings": [
-          "1 lb chicken thighs, sun-dried tomatoes",
-          "Asparagus, basil pesto",
-          "Cherry tomatoes, refrigerated tortellini"
-        ],
-        "steps": [
-          "Cook chicken with sun-dried tomatoes.",
-          "Cook asparagus separately.",
-          "Cook tortellini, drain.",
-          "Toss chicken with pesto, add tortellini and tomatoes.",
-          "Plate with asparagus."
-        ]
-      }
+      {"id": "sheet-pan-lemon-herb-salmon","name": "Sheet Pan Lemon Herb Salmon & Veggies","day": "Tuesday","date": "3/17","label": "Meal A","icon": "🐟","meta": "~35 min · One pan · Serves 4–6","ings": [],"steps": []},
+      {"id": "chicken-tikka-masala-cauliflower","name": "Chicken Tikka Masala + Cauliflower","day": "Wednesday","date": "3/18","label": "Meal B","icon": "🍗","meta": "~45 min · Serves 4–6","ings": [],"steps": []},
+      {"id": "pesto-chicken-tortellini-veggies","name": "Pesto Chicken Tortellini & Veggies","day": "Thursday","date": "3/19","label": "Meal C","icon": "🌿","meta": "~40 min · One pan · Serves 4","ings": [],"steps": []}
     ]
   }
 ]
