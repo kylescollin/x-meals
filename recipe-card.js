@@ -267,7 +267,7 @@
     curR = r;
     var id = r.id || r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     document.getElementById('rc-rd-name').textContent = r.name;
-    document.getElementById('rc-rd-ings').innerHTML  = (r.ings  || []).map(function (i) { return '<li>' + i + '</li>'; }).join('');
+    document.getElementById('rc-rd-ings').innerHTML  = (r.ings || r.ingredients || []).map(function (i) { return '<li>' + i + '</li>'; }).join('');
     document.getElementById('rc-rd-steps').innerHTML = (r.steps || []).map(function (s, n) {
       return '<li><span class="rc-rd-step-num">' + (n + 1) + '</span><span>' + s + '</span></li>';
     }).join('');
@@ -330,7 +330,7 @@
     function buildIngs(r) {
       ingHead.textContent = r.name;
       titleEl.textContent = r.name;
-      ingsList.innerHTML  = (r.ings || []).map(function (i) {
+      ingsList.innerHTML  = (r.ings || r.ingredients || []).map(function (i) {
         var p = parseIng(i);
         return '<li class="rc-ck-ing-row"><span class="rc-ck-qty">' + p.qty + '</span><span class="rc-ck-item-name">' + p.name + '</span></li>';
       }).join('');
@@ -532,7 +532,7 @@
 
     /** Load saved recipe data from Firebase (for "From Your Journal" section in recipes.html) */
     loadSavedRecipes: function (callback) {
-      fetch(FB_DATA)
+      authedFetch(FB_DATA)
         .then(function (r) { return r.json(); })
         .then(function (data) {
           if (!data) { callback([]); return; }
