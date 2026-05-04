@@ -1,6 +1,6 @@
 /**
  * Fox & Bear Kitchen — Shared Recipe Card Component
- * Provides: meal card rendering, recipe detail overlay, cooking mode, save/unsave
+ * Provides: meal card rendering, recipe detail overlay, cooking mode, save/unsave, edit
  * Used by: index.html, recipes.html, journal.html
  */
 
@@ -8,16 +8,26 @@
   'use strict';
 
   // ── Firebase ────────────────────────────────────────────────────────────
-  var FB_BASE = 'https://fox-bear-hub-default-rtdb.firebaseio.com';
+  var FB_BASE  = 'https://fox-bear-hub-default-rtdb.firebaseio.com';
   var FB_FLAGS = FB_BASE + '/saved-recipes.json';
   var FB_DATA  = FB_BASE + '/saved-recipe-data.json';
+  var FB_EDITS = FB_BASE + '/recipe-edits';
 
-  var savedIds = {};    // id → true/false
-  var coreIds  = {};    // id → true (already in recipes.html RECIPES array)
+  var savedIds    = {};    // id → true/false
+  var coreIds     = {};    // id → true (already in recipes.html RECIPES array)
+  var recipeEdits = {};    // safeId → edited recipe object
   var _onSaveChange = null; // optional callback(id, isSaved)
 
   function fbSafeKey(id) {
     return id.replace(/[.#$[\]]/g, '_');
+  }
+
+  function escAttr(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
   }
 
   function authedFetch(url, options) {
@@ -34,6 +44,28 @@
       .then(function (r) { return r.json(); })
       .then(function (d) { savedIds = d || {}; if (callback) callback(); })
       .catch(function () { if (callback) callback(); });
+  }
+
+  // Load recipe edits from Firebase; call callback when ready
+  function loadRecipeEdits(callback) {
+    authedFetch(FB_EDITS + '.json')
+      .then(function (r) { return r.json(); })
+      .then(function (d) { recipeEdits = d || {}; applyEditsToCards(); if (callback) callback(); })
+      .catch(function () { if (callback) callback(); });
+  }
+
+  // Update any rendered card names/meta to reflect saved edits
+  function applyEditsToCards() {
+    Object.keys(recipeEdits).forEach(function (safeId) {
+      var edit = recipeEdits[safeId];
+      if (!edit || !edit.id) return;
+      var card = document.querySelector('.rc-card[data-recipe-id="' + edit.id + '"]');
+      if (!card) return;
+      var nameEl = card.querySelector('.rc-card-name');
+      var metaEl = card.querySelector('.rc-card-meta');
+      if (nameEl && edit.name) nameEl.textContent = edit.name;
+      if (metaEl && edit.meta !== undefined) metaEl.textContent = edit.meta;
+    });
   }
 
   function isSaved(id) { return savedIds[id] === true; }
@@ -66,8 +98,8 @@
 
   // ── Ingredient parser (shared) ──────────────────────────────────────────
   function parseIng(s) {
-    var m = s.match(/^((?:[\d\u00bd\u2153\u2154\u00bc\u00be\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i);
-    return m ? { qty: m[1].trim(), name: m[2].trim() } : { qty: '\u2014', name: s };
+    var m = s.match(/^((?:[\d½⅓⅔¼¾\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i);
+    return m ? { qty: m[1].trim(), name: m[2].trim() } : { qty: '—', name: s };
   }
 
   // ── Inject shared HTML + CSS ────────────────────────────────────────────
@@ -105,6 +137,8 @@
       '.rc-rd-in-recipes{flex-shrink:0;display:none;align-items:center;gap:5px;font-size:11px;font-weight:500;color:var(--muted);padding:8px 12px;}',
       '.rc-rd-in-recipes.visible{display:inline-flex;}',
       '.rc-rd-in-recipes svg{width:11px;height:11px;fill:var(--muted);flex-shrink:0;}',
+      '.rc-rd-edit-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:5px;background:white;color:var(--muted);border:1px solid var(--border);border-radius:100px;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;padding:8px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s;}',
+      '.rc-rd-edit-btn:active{transform:scale(.94);}',
       '.rc-rd-cook-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--cream);border:none;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;padding:9px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}',
       '.rc-rd-cook-btn:active{transform:scale(.94);background:#333;}',
       '.rc-rd-cook-btn svg{width:11px;height:11px;fill:currentColor;}',
@@ -120,6 +154,20 @@
       '.rc-rd-step-list{list-style:none;display:flex;flex-direction:column;gap:10px;}',
       '.rc-rd-step-list li{font-size:13px;color:var(--ink);line-height:1.55;display:flex;gap:10px;}',
       '.rc-rd-step-num{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0;min-width:16px;padding-top:1px;}',
+
+      // Edit mode
+      '.rc-rd-edit-bar{display:flex;align-items:center;justify-content:space-between;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--cream);}',
+      '.rc-rd-edit-bar-title{font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;color:var(--muted);}',
+      '.rc-rd-cancel-btn{background:none;border:none;color:var(--muted);font-family:"DM Sans",sans-serif;font-size:14px;font-weight:400;padding:8px 4px;cursor:pointer;-webkit-tap-highlight-color:transparent;}',
+      '.rc-rd-cancel-btn:active{opacity:.6;}',
+      '.rc-rd-save-edit-btn{background:var(--accent);color:white;border:none;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;padding:9px 18px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}',
+      '.rc-rd-save-edit-btn:active{transform:scale(.94);background:#b3581f;}',
+      '.rc-rd-edit-form{padding:24px 20px calc(60px + env(safe-area-inset-bottom,0px));max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:20px;}',
+      '.rc-rd-field{display:flex;flex-direction:column;gap:6px;}',
+      '.rc-rd-field-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:500;color:var(--accent);}',
+      '.rc-rd-input{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:300;color:var(--ink);background:white;-webkit-appearance:none;appearance:none;outline:none;transition:border-color .15s;}',
+      '.rc-rd-input:focus{border-color:var(--accent);}',
+      'textarea.rc-rd-input{resize:vertical;line-height:1.6;}',
 
       // Cooking mode
       '#rc-ck-overlay{position:fixed;inset:0;background:var(--ck-bg);z-index:9999;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;padding-bottom:env(safe-area-inset-bottom,0px);}',
@@ -172,8 +220,9 @@
     wrap.innerHTML = [
       // ── Detail overlay
       '<div id="rc-rd-overlay" aria-hidden="true">',
-        '<div class="rc-rd-bar">',
-          '<button class="rc-rd-back" id="rc-rd-back">\u2190</button>',
+        // View mode header
+        '<div class="rc-rd-bar" id="rc-rd-view-bar">',
+          '<button class="rc-rd-back" id="rc-rd-back">←</button>',
           '<span class="rc-rd-name" id="rc-rd-name"></span>',
           '<button class="rc-rd-save-btn" id="rc-rd-save" aria-label="Save to recipes">',
             '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',
@@ -183,12 +232,19 @@
             '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',
             'In your recipes',
           '</span>',
+          '<button class="rc-rd-edit-btn" id="rc-rd-edit">Edit</button>',
           '<button class="rc-rd-cook-btn" id="rc-rd-cook">',
             '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Cook',
           '</button>',
         '</div>',
+        // Edit mode header
+        '<div class="rc-rd-edit-bar" id="rc-rd-edit-bar" style="display:none">',
+          '<button class="rc-rd-cancel-btn" id="rc-rd-cancel">Cancel</button>',
+          '<span class="rc-rd-edit-bar-title">Editing</span>',
+          '<button class="rc-rd-save-edit-btn" id="rc-rd-save-edit">Save</button>',
+        '</div>',
         '<div class="rc-rd-body">',
-          '<div class="rc-rd-inner">',
+          '<div class="rc-rd-inner" id="rc-rd-inner">',
             '<div class="rc-rd-note" id="rc-rd-note" style="display:none"></div>',
             '<div class="rc-rd-cols">',
               '<div><div class="rc-rd-section-title">Ingredients</div><ul class="rc-rd-ing-list" id="rc-rd-ings"></ul></div>',
@@ -206,7 +262,7 @@
             '<div class="rc-ck-pip on" id="rc-ck-pip0"></div>',
             '<div class="rc-ck-pip" id="rc-ck-pip1"></div>',
           '</div>',
-          '<button class="rc-ck-x" id="rc-ck-x">\u2715</button>',
+          '<button class="rc-ck-x" id="rc-ck-x">✕</button>',
         '</div>',
         '<div class="rc-ck-panels-wrap">',
           '<div class="rc-ck-track" id="rc-ck-track">',
@@ -227,9 +283,9 @@
                 '</div>',
               '</div>',
               '<div class="rc-ck-footer">',
-                '<button class="rc-ck-nav" id="rc-ck-prev">\u2191</button>',
+                '<button class="rc-ck-nav" id="rc-ck-prev">↑</button>',
                 '<div class="rc-ck-dots" id="rc-ck-dots"></div>',
-                '<button class="rc-ck-nav" id="rc-ck-next">\u2193</button>',
+                '<button class="rc-ck-nav" id="rc-ck-next">↓</button>',
               '</div>',
             '</div>',
           '</div>',
@@ -242,8 +298,9 @@
   }
 
   // ── Detail overlay logic ────────────────────────────────────────────────
-  var curR  = null;
-  var rdEl  = null;
+  var curR      = null;
+  var rdEl      = null;
+  var inEditMode = false;
 
   function refreshSaveUI(id) {
     var saveBtn      = document.getElementById('rc-rd-save');
@@ -263,22 +320,28 @@
     }
   }
 
-  function openDetail(r) {
-    curR = r;
-    var id = r.id || r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    document.getElementById('rc-rd-name').textContent = r.name;
-    document.getElementById('rc-rd-ings').innerHTML  = (r.ings || r.ingredients || []).map(function (i) { return '<li>' + i + '</li>'; }).join('');
-    document.getElementById('rc-rd-steps').innerHTML = (r.steps || []).map(function (s, n) {
+  function renderDetailBody(recipe) {
+    document.getElementById('rc-rd-name').textContent = recipe.name;
+    document.getElementById('rc-rd-ings').innerHTML  = (recipe.ings || recipe.ingredients || []).map(function (i) { return '<li>' + i + '</li>'; }).join('');
+    document.getElementById('rc-rd-steps').innerHTML = (recipe.steps || []).map(function (s, n) {
       return '<li><span class="rc-rd-step-num">' + (n + 1) + '</span><span>' + s + '</span></li>';
     }).join('');
     var noteEl = document.getElementById('rc-rd-note');
-    if (r.note) { noteEl.textContent = r.note; noteEl.style.display = ''; }
-    else         { noteEl.style.display = 'none'; }
+    if (recipe.note) { noteEl.textContent = recipe.note; noteEl.style.display = ''; }
+    else             { noteEl.style.display = 'none'; }
+  }
+
+  function openDetail(r) {
+    var id     = r.id || r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    var edit   = recipeEdits[fbSafeKey(id)];
+    curR = edit ? Object.assign({}, r, edit) : r;
+
+    renderDetailBody(curR);
     document.querySelector('.rc-rd-body').scrollTop = 0;
 
     // Wire save button to this recipe
     var saveBtn = document.getElementById('rc-rd-save');
-    saveBtn.onclick = function () { toggleSave(id, r); };
+    saveBtn.onclick = function () { toggleSave(id, curR); };
     refreshSaveUI(id);
 
     rdEl.classList.add('open');
@@ -287,10 +350,101 @@
   }
 
   function closeDetail() {
+    if (inEditMode) exitEditMode();
     rdEl.classList.remove('open');
     rdEl.setAttribute('aria-hidden', 'true');
     var ckEl = document.getElementById('rc-ck-overlay');
     if (!ckEl || !ckEl.classList.contains('open')) document.body.style.overflow = '';
+  }
+
+  function enterEditMode() {
+    if (!curR) return;
+    inEditMode = true;
+
+    document.getElementById('rc-rd-view-bar').style.display = 'none';
+    document.getElementById('rc-rd-edit-bar').style.display = '';
+    document.getElementById('rc-rd-inner').style.display = 'none';
+
+    var ings  = (curR.ings || curR.ingredients || []).join('\n');
+    var steps = (curR.steps || []).join('\n');
+
+    var form = document.createElement('div');
+    form.id = 'rc-rd-edit-form';
+    form.className = 'rc-rd-edit-form';
+    form.innerHTML =
+      '<div class="rc-rd-field">' +
+        '<label class="rc-rd-field-label">Recipe Name</label>' +
+        '<input class="rc-rd-input" id="rc-rd-ef-name" type="text" value="' + escAttr(curR.name || '') + '">' +
+      '</div>' +
+      '<div class="rc-rd-field">' +
+        '<label class="rc-rd-field-label">Details</label>' +
+        '<input class="rc-rd-input" id="rc-rd-ef-meta" type="text" value="' + escAttr(curR.meta || '') + '" placeholder="30 min · One pan · Serves 4">' +
+      '</div>' +
+      '<div class="rc-rd-field">' +
+        '<label class="rc-rd-field-label">Ingredients &mdash; one per line</label>' +
+        '<textarea class="rc-rd-input" id="rc-rd-ef-ings" rows="8" placeholder="1 cup flour&#10;2 eggs&#10;...">' + escHtml(ings) + '</textarea>' +
+      '</div>' +
+      '<div class="rc-rd-field">' +
+        '<label class="rc-rd-field-label">Steps &mdash; one per line</label>' +
+        '<textarea class="rc-rd-input" id="rc-rd-ef-steps" rows="10" placeholder="Preheat oven to 375°F.&#10;Mix dry ingredients.&#10;...">' + escHtml(steps) + '</textarea>' +
+      '</div>' +
+      '<div class="rc-rd-field">' +
+        '<label class="rc-rd-field-label">Tip (optional)</label>' +
+        '<input class="rc-rd-input" id="rc-rd-ef-note" type="text" value="' + escAttr(curR.note || '') + '" placeholder="💡 Optional tip for cooks">' +
+      '</div>';
+
+    document.querySelector('.rc-rd-body').appendChild(form);
+    document.querySelector('.rc-rd-body').scrollTop = 0;
+  }
+
+  function exitEditMode() {
+    inEditMode = false;
+
+    document.getElementById('rc-rd-view-bar').style.display = '';
+    document.getElementById('rc-rd-edit-bar').style.display = 'none';
+    document.getElementById('rc-rd-inner').style.display = '';
+
+    var form = document.getElementById('rc-rd-edit-form');
+    if (form) form.remove();
+  }
+
+  function saveRecipeEdit() {
+    if (!curR) return;
+    var id = curR.id || curR.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+    var nameVal  = document.getElementById('rc-rd-ef-name').value.trim();
+    var metaVal  = document.getElementById('rc-rd-ef-meta').value.trim();
+    var ingsRaw  = document.getElementById('rc-rd-ef-ings').value;
+    var stepsRaw = document.getElementById('rc-rd-ef-steps').value;
+    var noteVal  = document.getElementById('rc-rd-ef-note').value.trim();
+
+    var ings  = ingsRaw.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    var steps = stepsRaw.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+
+    var updated = Object.assign({}, curR, {
+      name:        nameVal  || curR.name,
+      meta:        metaVal,
+      ingredients: ings,
+      ings:        ings,
+      steps:       steps
+    });
+    if (noteVal) { updated.note = noteVal; } else { delete updated.note; }
+
+    // Update state
+    curR = updated;
+    recipeEdits[fbSafeKey(id)] = updated;
+
+    // Persist to Firebase
+    authedFetch(FB_EDITS + '/' + fbSafeKey(id) + '.json', {
+      method: 'PUT',
+      body: JSON.stringify(updated)
+    }).catch(function () {});
+
+    applyEditsToCards();
+    exitEditMode();
+    renderDetailBody(curR);
+    document.querySelector('.rc-rd-body').scrollTop = 0;
+    refreshSaveUI(id);
   }
 
   // ── Cooking mode logic ──────────────────────────────────────────────────
@@ -467,7 +621,7 @@
      * init(options)
      * options.coreIds      — object of id→true for recipes already in the collection
      * options.onSaveChange — fn(id, isSaved, recipeObj) called after save toggle
-     * options.onReady      — fn() called after saved state loaded from Firebase
+     * options.onReady      — fn() called after saved state + edits loaded from Firebase
      */
     init: function (options) {
       options = options || {};
@@ -479,18 +633,24 @@
 
       // Wire static buttons
       document.getElementById('rc-rd-back').addEventListener('click', closeDetail);
+      document.getElementById('rc-rd-edit').addEventListener('click', enterEditMode);
+      document.getElementById('rc-rd-cancel').addEventListener('click', exitEditMode);
+      document.getElementById('rc-rd-save-edit').addEventListener('click', saveRecipeEdit);
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
           var ck = document.getElementById('rc-ck-overlay');
           if (ck && ck.classList.contains('open')) { global.RecipeCard.closeMode && global.RecipeCard.closeMode(); }
+          else if (inEditMode) { exitEditMode(); }
           else if (rdEl && rdEl.classList.contains('open')) { closeDetail(); }
         }
       });
 
       initCookingMode();
-      loadSavedState(function () {
-        if (options.onReady) options.onReady();
-      });
+
+      var pending = 2;
+      function onLoaded() { if (--pending === 0 && options.onReady) options.onReady(); }
+      loadSavedState(onLoaded);
+      loadRecipeEdits(onLoaded);
     },
 
     /**
@@ -502,9 +662,10 @@
       var lbl = labelOverride !== undefined ? labelOverride : (r.label || '');
       var div = document.createElement('div');
       div.className = 'rc-card';
+      div.setAttribute('data-recipe-id', id);
       div.innerHTML =
         '<div class="rc-card-inner">' +
-          '<div class="rc-card-icon">' + (r.icon || '\ud83c\udf7d') + '</div>' +
+          '<div class="rc-card-icon">' + (r.icon || '🍽') + '</div>' +
           '<div class="rc-card-body">' +
             '<div class="rc-card-label">' + lbl + '</div>' +
             '<div class="rc-card-name">' + r.name + '</div>' +
@@ -515,7 +676,7 @@
               '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
               'Saved' +
             '</span>' +
-            '<span class="rc-chevron">\u203a</span>' +
+            '<span class="rc-chevron">›</span>' +
           '</div>' +
         '</div>';
       div.addEventListener('click', function () { openDetail(r); });
