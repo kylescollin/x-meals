@@ -1177,6 +1177,43 @@
         "Serve beef and broccoli over rice. Drizzle with extra sauce. Garnish with sesame seeds and green onions."
       ],
       "note": "💡 Slice the beef as thin as possible — even partially frozen beef is easier to slice thin. The marinade does double duty as the finishing sauce."
+    },
+    {
+      "id": "healthy-chicken-pot-pie",
+      "icon": "🥧",
+      "label": "",
+      "name": "Healthy Chicken Pot Pie",
+      "meta": "~55 min · Oven · Serves 6",
+      "tags": [],
+      "ingredients": [
+        "1 tbsp olive oil",
+        "8 oz cremini mushrooms, sliced",
+        "3 medium carrots, diced",
+        "3 stalks celery, diced",
+        "1 tsp garlic powder",
+        "1 tsp salt, ½ tsp black pepper",
+        "¼ cup all-purpose flour",
+        "1½ cups low-sodium chicken broth",
+        "1 cup unsweetened almond milk (or low-fat milk)",
+        "3 cups cooked shredded chicken (rotisserie works great)",
+        "1 cup frozen peas",
+        "½ cup frozen pearl onions (or ½ small onion, diced and sautéed)",
+        "1 tsp fresh thyme (or ½ tsp dried)",
+        "1 store-bought deep dish pie crust (Great Value works — use as top crust only)",
+        "1 egg, beaten (for egg wash)"
+      ],
+      "steps": [
+        "Preheat oven to 425°F. Lightly grease a 9-inch pie dish or use a cast iron skillet.",
+        "Heat olive oil in a large Dutch oven or deep skillet over medium-high. Add mushrooms and cook 8 min until browned and sweated. Add carrots, celery, garlic powder, salt, and pepper. Cook 3 more min until carrots begin to soften.",
+        "Sprinkle flour over the vegetables and stir well. Cook 2 minutes so the flour loses its raw taste.",
+        "Pour in chicken broth slowly, stirring constantly to avoid lumps. Add almond milk. Cook over medium heat, stirring regularly, until sauce thickens — about 5–6 minutes. Do not boil hard.",
+        "Stir in shredded chicken, frozen peas, pearl onions, and thyme. Taste and adjust salt. Remove from heat.",
+        "Transfer filling to your prepared pie dish (or leave in cast iron if oven-safe).",
+        "Unroll the pie crust from the package. Lay it over the top of the dish, trimming to leave about ½ inch overhang. Press edges to seal and crimp with a fork. Cut 3–4 small slits to vent steam.",
+        "Brush crust all over with beaten egg wash.",
+        "Bake 20–25 minutes until crust is deeply golden and filling is bubbling at the edges. Let rest 5–10 minutes before serving — the filling will thicken as it sits."
+      ],
+      "note": "💡 Top-crust only keeps this lighter and the crust stays flaky (no soggy bottom). Rotisserie chicken is the easy shortcut here. The Great Value deep dish crust works perfectly as a top-only crust — just unroll it over the dish."
     }
   ]
 }
