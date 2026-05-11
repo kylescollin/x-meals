@@ -1,340 +1,75 @@
 {
-  "weekOf": "2026-05-04",
-  "title": "Week of May 4",
-  "subhead": "3 dinners · Serves 4–6",
+  "weekOf": "2026-05-10",
+  "title": "Week of May 10",
+  "subhead": "2 dinners · Serves 4",
   "meals": [
     {
-      "id": "healthy-chicken-pot-pie",
+      "id": "garlic-shrimp-scampi-linguine",
       "label": "Meal A",
-      "day": "Monday",
-      "date": "5/4",
-      "icon": "🥧",
-      "name": "Healthy Chicken Pot Pie",
-      "meta": "~55 min · Oven · Serves 6",
-      "ings": [
-        "1 tbsp olive oil",
-        "8 oz cremini mushrooms, sliced",
-        "3 medium carrots, diced",
-        "3 stalks celery, diced",
-        "1 tsp garlic powder",
-        "1 tsp salt, ½ tsp black pepper",
-        "¼ cup all-purpose flour",
-        "1½ cups low-sodium chicken broth",
-        "1 cup unsweetened almond milk (or low-fat milk)",
-        "3 cups cooked shredded chicken (rotisserie works great)",
-        "1 cup frozen peas",
-        "½ cup frozen pearl onions (or ½ small onion, diced and sautéed)",
-        "1 tsp fresh thyme (or ½ tsp dried)",
-        "1 store-bought deep dish pie crust (Great Value works — use as top crust only)",
-        "1 egg, beaten (for egg wash)"
-      ],
-      "steps": [
-        "Preheat oven to 425°F. Lightly grease a 9-inch pie dish or use a cast iron skillet.",
-        "Heat olive oil in a large Dutch oven or deep skillet over medium-high. Add mushrooms and cook 8 min until browned and sweated. Add carrots, celery, garlic powder, salt, and pepper. Cook 3 more min until carrots begin to soften.",
-        "Sprinkle flour over the vegetables and stir well. Cook 2 minutes so the flour loses its raw taste.",
-        "Pour in chicken broth slowly, stirring constantly to avoid lumps. Add almond milk. Cook over medium heat, stirring regularly, until sauce thickens — about 5–6 minutes. Do not boil hard.",
-        "Stir in shredded chicken, frozen peas, pearl onions, and thyme. Taste and adjust salt. Remove from heat.",
-        "Transfer filling to your prepared pie dish (or leave in cast iron if oven-safe).",
-        "Unroll the pie crust from the package. Lay it over the top of the dish, trimming to leave about ½ inch overhang. Press edges to seal and crimp with a fork. Cut 3–4 small slits to vent steam.",
-        "Brush crust all over with beaten egg wash.",
-        "Bake 20–25 minutes until crust is deeply golden and filling is bubbling at the edges. Let rest 5–10 minutes before serving — the filling will thicken as it sits."
-      ],
-      "note": "💡 Top-crust only keeps this lighter and the crust stays flaky (no soggy bottom). Rotisserie chicken is the easy shortcut here. The Great Value deep dish crust works perfectly as a top-only crust — just unroll it over the dish."
-    },
-    {
-      "id": "creamy-chicken-tortilla-soup",
-      "label": "Meal B",
       "day": "Tuesday",
-      "date": "5/5",
-      "icon": "🍲",
-      "name": "Creamy Chicken Tortilla Soup",
-      "meta": "30 min · Stovetop · Serves 6",
+      "date": "5/12",
+      "icon": "🍝",
+      "name": "Garlic Shrimp Scampi Linguine",
+      "meta": "~30 min · Stovetop · Serves 4",
       "ings": [
-        "1 Tbsp olive oil",
-        "½ medium onion, chopped",
-        "1 (28 oz) can crushed tomatoes",
-        "1 (10 oz) can Rotel diced tomatoes with green chilies (mild)",
-        "1 cup chicken broth",
-        "1 tsp garlic powder",
-        "1 tsp smoked paprika",
-        "½ Tbsp chili powder",
-        "1 (12 oz) can corn, drained",
-        "1 (14 oz) can black beans, drained & rinsed",
-        "1 cup heavy cream",
-        "2 cups cooked shredded chicken",
-        "Tortilla strips, avocado, sour cream, Tex-Mex cheese for topping"
+        "1 lb large shrimp, peeled and deveined",
+        "8 oz linguine",
+        "4 Tbsp unsalted butter",
+        "2 Tbsp olive oil",
+        "6 cloves garlic, minced",
+        "½ cup dry white wine",
+        "Juice of 1 lemon",
+        "¼ cup reserved pasta water",
+        "¼ cup fresh parsley, chopped",
+        "Salt and black pepper",
+        "Red pepper flakes (optional, on the side for adults)",
+        "Grated Parmesan for serving"
       ],
       "steps": [
-        "Sauté onion in oil over medium-high 5–7 min until lightly browned.",
-        "Stir in tomatoes, Rotel, broth, spices, corn, and beans. Increase to high.",
-        "Boil, then reduce and simmer lid slightly ajar for 5 min.",
-        "Stir in cream and chicken. Warm through 3–5 min. Season and serve with toppings."
+        "Bring a large pot of salted water to boil. Cook linguine al dente per package. Reserve ¼ cup pasta water before draining.",
+        "Pat shrimp dry. Season with salt and pepper.",
+        "Heat 1 Tbsp butter and olive oil in a large skillet over medium-high. Add shrimp in a single layer — don't crowd. Cook 1–2 min per side until just pink. Remove and set aside.",
+        "Lower heat to medium. Add remaining butter and garlic. Cook 1 min until fragrant — don't let it brown.",
+        "Add white wine and lemon juice. Let simmer 2–3 min, scraping up any bits, until slightly reduced.",
+        "Add pasta and reserved pasta water. Toss to coat — the starchy water helps emulsify the sauce.",
+        "Return shrimp to the pan. Toss everything together. Add parsley, taste, adjust salt.",
+        "Serve immediately with Parmesan and red pepper flakes on the side for adults."
       ],
-      "note": "💡 Use the mild Rotel (green label) and skip any extra heat — the soup is plenty flavorful for the kids. Leftovers from Monday's pot pie chicken work great here."
+      "note": "💡 The key is not overcooking the shrimp — pull them the moment they turn pink. They'll finish in the sauce."
     },
     {
-      "id": "creamy-spinach-and-mushroom-tortellini",
-      "label": "Meal C",
+      "id": "seared-salmon-with-lemon-orzo",
+      "label": "Meal B",
       "day": "Wednesday",
-      "date": "5/6",
-      "icon": "🍄",
-      "name": "Creamy Spinach and Mushroom Tortellini",
-      "meta": "50 min · Stovetop · Serves 4",
+      "date": "5/13",
+      "icon": "🐟",
+      "name": "Seared Salmon with Lemon Orzo",
+      "meta": "30 min · Stovetop · Serves 4",
       "ings": [
+        "4 salmon fillets, ~6 oz each, skinless",
         "2 Tbsp olive oil",
-        "2 large yellow onions, thinly sliced",
-        "1 Tbsp olive oil",
-        "8 oz crimini mushrooms, sliced",
-        "8 oz fresh spinach",
-        "1 cup heavy cream",
-        "¼ tsp salt, ¼ tsp black pepper",
-        "9 oz refrigerated 3-cheese tortellini"
+        "Salt, pepper, 1 tsp garlic powder",
+        "2 Tbsp butter",
+        "3 cloves garlic, minced",
+        "1 small shallot, finely chopped",
+        "¼ cup white wine",
+        "2½ cups chicken broth",
+        "1½ cups orzo pasta",
+        "½ cup heavy cream",
+        "½ cup grated Parmesan",
+        "1 Tbsp fresh lemon juice",
+        "2 cups fresh baby spinach",
+        "Lemon zest and fresh parsley for garnish"
       ],
       "steps": [
-        "Caramelize onions: heat 2 Tbsp oil over medium-high; cook onions 10 min stirring constantly. Reduce to medium, cook 10 more min. Add pinch of salt, cook 10 min on medium-low. Total: 30 min. Remove to a plate.",
-        "Heat 1 Tbsp oil in same skillet over medium. Cook mushrooms with a pinch of salt 5 min until soft.",
-        "Add spinach; stir on low until wilted. Add back caramelized onions. Pour in cream and salt; bring to quick boil. Reduce, simmer 2 min.",
-        "Cook tortellini per package; drain. Add to sauce; stir on low a few minutes. Serve with cracked black pepper."
+        "Season salmon with salt, pepper, and garlic powder. Heat skillet over medium-high with oil. Sear salmon 2 min per side. Remove and set aside.",
+        "Melt butter in same skillet. Add garlic and shallots; cook 1–2 min. Add wine to deglaze, scraping up any bits.",
+        "Add broth; bring to simmer. Stir in orzo; cook 10 min, stirring occasionally, until tender and broth is absorbed.",
+        "Stir in cream, Parmesan, and lemon juice.",
+        "Return salmon to skillet. Add spinach; cook 2–3 min until wilted. Garnish with parsley and lemon zest."
       ],
-      "note": "💡 Caramelized onions can be made 1–2 days ahead and refrigerated — do it Monday while the pot pie bakes to save time Wednesday."
+      "note": "💡 Stir the orzo regularly while it cooks — it sticks to the pan if you leave it alone."
     }
   ],
-  "groceries": [
-    {
-      "icon": "🥦",
-      "label": "Produce",
-      "items": [
-        {
-          "name": "16 oz cremini mushrooms, sliced",
-          "detail": "8 oz sautéed into pot pie filling · 8 oz cooked into tortellini sauce",
-          "tag": "Meals A+C",
-          "tagClass": "tag-shared",
-          "amazon": "cremini mushrooms"
-        },
-        {
-          "name": "3 medium carrots, diced",
-          "detail": "all for pot pie filling",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "medium carrots"
-        },
-        {
-          "name": "3 stalks celery, diced",
-          "detail": "all for pot pie filling",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "celery stalks"
-        },
-        {
-          "name": "1 cup frozen peas",
-          "detail": "stirred into pot pie filling",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "frozen green peas"
-        },
-        {
-          "name": "½ cup frozen pearl onions",
-          "detail": "stirred into pot pie filling",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "frozen pearl onions"
-        },
-        {
-          "name": "1 small bunch fresh thyme",
-          "detail": "1 tsp leaves for pot pie filling",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "fresh thyme"
-        },
-        {
-          "name": "½ medium yellow onion, chopped",
-          "detail": "sautéed as soup base for tortilla soup",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "yellow onion"
-        },
-        {
-          "name": "2 large yellow onions, thinly sliced",
-          "detail": "caramelized for tortellini sauce",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "yellow onion"
-        },
-        {
-          "name": "8 oz fresh spinach",
-          "detail": "wilted into tortellini sauce",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "fresh baby spinach"
-        }
-      ]
-    },
-    {
-      "icon": "🥩",
-      "label": "Protein",
-      "items": [
-        {
-          "name": "1 large rotisserie chicken (yields ~5 cups shredded)",
-          "detail": "3 cups shredded for pot pie · 2 cups shredded for tortilla soup",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "rotisserie chicken"
-        }
-      ]
-    },
-    {
-      "icon": "🧈",
-      "label": "Dairy & Refrigerated",
-      "items": [
-        {
-          "name": "2 cups heavy cream",
-          "detail": "1 cup for tortilla soup · 1 cup for tortellini sauce",
-          "tag": "Meals B+C",
-          "tagClass": "tag-shared",
-          "amazon": "heavy cream"
-        },
-        {
-          "name": "1 cup unsweetened almond milk (or low-fat milk)",
-          "detail": "added to pot pie sauce",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "unsweetened almond milk"
-        },
-        {
-          "name": "1 egg",
-          "detail": "beaten for pot pie crust egg wash",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "large eggs"
-        },
-        {
-          "name": "9 oz refrigerated 3-cheese tortellini",
-          "detail": "cooked and tossed in tortellini sauce",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "refrigerated three cheese tortellini"
-        },
-        {
-          "name": "Sour cream, shredded Tex-Mex cheese (for topping)",
-          "detail": "served as toppings for tortilla soup",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "sour cream"
-        },
-        {
-          "name": "1 avocado (for topping)",
-          "detail": "sliced or diced as topping for tortilla soup",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "avocado"
-        }
-      ]
-    },
-    {
-      "icon": "🫙",
-      "label": "Pantry & Canned",
-      "items": [
-        {
-          "name": "3 Tbsp olive oil",
-          "detail": "1 Tbsp for pot pie · 1 Tbsp for tortilla soup · 1 Tbsp (plus 2 Tbsp) for tortellini",
-          "tag": "All meals",
-          "tagClass": "tag-all",
-          "amazon": "olive oil"
-        },
-        {
-          "name": "2½ cups low-sodium chicken broth",
-          "detail": "1½ cups for pot pie sauce · 1 cup for tortilla soup",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "low sodium chicken broth"
-        },
-        {
-          "name": "¼ cup all-purpose flour",
-          "detail": "used to thicken pot pie filling",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "all purpose flour"
-        },
-        {
-          "name": "1 store-bought deep dish pie crust",
-          "detail": "used as top-only crust for pot pie",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "deep dish pie crust refrigerated"
-        },
-        {
-          "name": "1 (28 oz) can crushed tomatoes",
-          "detail": "base of tortilla soup",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "crushed tomatoes 28 oz"
-        },
-        {
-          "name": "1 (10 oz) can Rotel diced tomatoes with green chilies, mild",
-          "detail": "added to tortilla soup base",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "rotel diced tomatoes green chilies mild"
-        },
-        {
-          "name": "1 (12 oz) can corn, drained",
-          "detail": "stirred into tortilla soup",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "canned whole kernel corn"
-        },
-        {
-          "name": "1 (14 oz) can black beans, drained & rinsed",
-          "detail": "stirred into tortilla soup",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "canned black beans"
-        },
-        {
-          "name": "Tortilla strips (for topping)",
-          "detail": "served as topping for tortilla soup",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "tortilla strips soup topping"
-        }
-      ]
-    },
-    {
-      "icon": "🌿",
-      "label": "Spices",
-      "note": "Check pantry before ordering — you likely have most of these.",
-      "items": [
-        {
-          "name": "Garlic powder",
-          "detail": "1 tsp for pot pie · 1 tsp for tortilla soup",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "Salt",
-          "detail": "1 tsp for pot pie · pinches throughout tortellini",
-          "tag": "Meals A+C",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "Black pepper",
-          "detail": "½ tsp for pot pie · ¼ tsp for tortellini · cracked to finish tortellini",
-          "tag": "Meals A+C",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "Smoked paprika",
-          "detail": "1 tsp for tortilla soup",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Chili powder",
-          "detail": "½ Tbsp for tortilla soup",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        }
-      ]
-    }
-  ]
+  "groceries": []
 }
