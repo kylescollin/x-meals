@@ -71,5 +71,166 @@
       "note": "💡 Stir the orzo regularly while it cooks — it sticks to the pan if you leave it alone."
     }
   ],
-  "groceries": []
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "9 cloves garlic",
+          "detail": "6 cloves minced for scampi sauce · 3 cloves minced for orzo base",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared",
+          "amazon": "garlic bulb"
+        },
+        {
+          "name": "1 lemon",
+          "detail": "Juice of 1 lemon for scampi sauce · 1 Tbsp lemon juice + zest for garnish in orzo",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared",
+          "amazon": "fresh lemon"
+        },
+        {
+          "name": "¼ cup fresh flat-leaf parsley",
+          "detail": "Chopped and stirred into scampi · Garnish for orzo",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared",
+          "amazon": "fresh flat leaf parsley"
+        },
+        {
+          "name": "1 small shallot",
+          "detail": "Finely chopped for orzo base",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "fresh shallots"
+        },
+        {
+          "name": "2 cups fresh baby spinach",
+          "detail": "Wilted into orzo at the end",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "fresh baby spinach"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "1 lb large shrimp, peeled and deveined",
+          "detail": "Seared and tossed in scampi sauce",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "large shrimp peeled deveined"
+        },
+        {
+          "name": "4 salmon fillets (~6 oz each, skinless)",
+          "detail": "Seared and returned to orzo skillet",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "skinless salmon fillets"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "6 Tbsp unsalted butter",
+          "detail": "4 Tbsp for scampi sauce · 2 Tbsp for orzo base",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared",
+          "amazon": "unsalted butter"
+        },
+        {
+          "name": "1 cup grated Parmesan",
+          "detail": "Served alongside scampi · ½ cup stirred into orzo",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared",
+          "amazon": "grated parmesan cheese"
+        },
+        {
+          "name": "½ cup heavy cream",
+          "detail": "Stirred into orzo for creamy sauce",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "heavy cream"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "4 Tbsp olive oil",
+          "detail": "2 Tbsp for scampi skillet · 2 Tbsp for searing salmon",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared",
+          "amazon": "olive oil"
+        },
+        {
+          "name": "¾ cup dry white wine",
+          "detail": "½ cup for scampi sauce · ¼ cup to deglaze orzo pan",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared",
+          "amazon": "dry white wine cooking"
+        },
+        {
+          "name": "8 oz linguine",
+          "detail": "Boiled and tossed in scampi sauce",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "linguine pasta"
+        },
+        {
+          "name": "1½ cups orzo pasta",
+          "detail": "Simmered in broth for the salmon dish",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "orzo pasta"
+        },
+        {
+          "name": "2½ cups chicken broth",
+          "detail": "Cooking liquid for orzo",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "chicken broth low sodium"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these.",
+      "items": [
+        {
+          "name": "Salt",
+          "detail": "Pasta water · seasoning shrimp · seasoning salmon",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Black pepper",
+          "detail": "Seasoning shrimp · seasoning salmon",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Red pepper flakes",
+          "detail": "Optional — served on the side for adults with scampi",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1 tsp garlic powder",
+          "detail": "Seasoning rub for salmon fillets",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ]
+    }
+  ]
 }
