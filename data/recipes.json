@@ -1214,6 +1214,39 @@
         "Bake 20–25 minutes until crust is deeply golden and filling is bubbling at the edges. Let rest 5–10 minutes before serving — the filling will thicken as it sits."
       ],
       "note": "💡 Top-crust only keeps this lighter and the crust stays flaky (no soggy bottom). Rotisserie chicken is the easy shortcut here. The Great Value deep dish crust works perfectly as a top-only crust — just unroll it over the dish."
+    },
+    {
+      "id": "garlic-shrimp-scampi-linguine",
+      "icon": "🍝",
+      "label": "",
+      "name": "Garlic Shrimp Scampi Linguine",
+      "meta": "~30 min · Stovetop · Serves 4",
+      "tags": [],
+      "ingredients": [
+        "1 lb large shrimp, peeled and deveined",
+        "8 oz linguine",
+        "4 Tbsp unsalted butter",
+        "2 Tbsp olive oil",
+        "6 cloves garlic, minced",
+        "½ cup dry white wine",
+        "Juice of 1 lemon",
+        "¼ cup reserved pasta water",
+        "¼ cup fresh parsley, chopped",
+        "Salt and black pepper",
+        "Red pepper flakes (optional, on the side for adults)",
+        "Grated Parmesan for serving"
+      ],
+      "steps": [
+        "Bring a large pot of salted water to boil. Cook linguine al dente per package. Reserve ¼ cup pasta water before draining.",
+        "Pat shrimp dry. Season with salt and pepper.",
+        "Heat 1 Tbsp butter and olive oil in a large skillet over medium-high. Add shrimp in a single layer — don't crowd. Cook 1–2 min per side until just pink. Remove and set aside.",
+        "Lower heat to medium. Add remaining butter and garlic. Cook 1 min until fragrant — don't let it brown.",
+        "Add white wine and lemon juice. Let simmer 2–3 min, scraping up any bits, until slightly reduced.",
+        "Add pasta and reserved pasta water. Toss to coat — the starchy water helps emulsify the sauce.",
+        "Return shrimp to the pan. Toss everything together. Add parsley, taste, adjust salt.",
+        "Serve immediately with Parmesan and red pepper flakes on the side for adults."
+      ],
+      "note": "💡 The key is not overcooking the shrimp — pull them the moment they turn pink. They'll finish in the sauce."
     }
   ]
 }
