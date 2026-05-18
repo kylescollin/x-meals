@@ -1,236 +1,106 @@
 {
-  "weekOf": "2026-05-10",
-  "title": "Week of May 10",
-  "subhead": "2 dinners · Serves 4",
+  "weekOf": "2026-05-17",
+  "title": "Week of May 17",
+  "subhead": "3 dinners · Serves 4",
   "meals": [
     {
-      "id": "garlic-shrimp-scampi-linguine",
+      "id": "ground-turkey-teriyaki-stir-fry",
       "label": "Meal A",
       "day": "Tuesday",
-      "date": "5/12",
-      "icon": "🍝",
-      "name": "Garlic Shrimp Scampi Linguine",
-      "meta": "~30 min · Stovetop · Serves 4",
-      "ings": [
-        "1 lb large shrimp, peeled and deveined",
-        "8 oz linguine",
-        "4 Tbsp unsalted butter",
-        "2 Tbsp olive oil",
-        "6 cloves garlic, minced",
-        "½ cup dry white wine",
-        "Juice of 1 lemon",
-        "¼ cup reserved pasta water",
-        "¼ cup fresh parsley, chopped",
-        "Salt and black pepper",
-        "Red pepper flakes (optional, on the side for adults)",
-        "Grated Parmesan for serving"
-      ],
-      "steps": [
-        "Bring a large pot of salted water to boil. Cook linguine al dente per package. Reserve ¼ cup pasta water before draining.",
-        "Pat shrimp dry. Season with salt and pepper.",
-        "Heat 1 Tbsp butter and olive oil in a large skillet over medium-high. Add shrimp in a single layer — don't crowd. Cook 1–2 min per side until just pink. Remove and set aside.",
-        "Lower heat to medium. Add remaining butter and garlic. Cook 1 min until fragrant — don't let it brown.",
-        "Add white wine and lemon juice. Let simmer 2–3 min, scraping up any bits, until slightly reduced.",
-        "Add pasta and reserved pasta water. Toss to coat — the starchy water helps emulsify the sauce.",
-        "Return shrimp to the pan. Toss everything together. Add parsley, taste, adjust salt.",
-        "Serve immediately with Parmesan and red pepper flakes on the side for adults."
-      ],
-      "note": "💡 The key is not overcooking the shrimp — pull them the moment they turn pink. They'll finish in the sauce."
-    },
-    {
-      "id": "seared-salmon-with-lemon-orzo",
-      "label": "Meal B",
-      "day": "Wednesday",
-      "date": "5/13",
-      "icon": "🐟",
-      "name": "Seared Salmon with Lemon Orzo",
+      "date": "5/19",
+      "icon": "🥦",
+      "name": "Ground Turkey Teriyaki Stir Fry",
       "meta": "30 min · Stovetop · Serves 4",
       "ings": [
-        "4 salmon fillets, ~6 oz each, skinless",
-        "2 Tbsp olive oil",
-        "Salt, pepper, 1 tsp garlic powder",
-        "2 Tbsp butter",
-        "3 cloves garlic, minced",
-        "1 small shallot, finely chopped",
-        "¼ cup white wine",
-        "2½ cups chicken broth",
-        "1½ cups orzo pasta",
-        "½ cup heavy cream",
-        "½ cup grated Parmesan",
-        "1 Tbsp fresh lemon juice",
-        "2 cups fresh baby spinach",
-        "Lemon zest and fresh parsley for garnish"
+        "1 lb ground turkey",
+        "2 tsp sesame oil",
+        "3 cups broccoli florets",
+        "1 small onion, small diced",
+        "1 cup shredded carrots",
+        "Salt and pepper",
+        "¼ cup soy sauce",
+        "3 Tbsp brown sugar",
+        "1 cup water, divided",
+        "2 Tbsp honey",
+        "3 garlic cloves, minced",
+        "1 tsp fresh ginger",
+        "2 Tbsp cornstarch",
+        "1 Tbsp orange zest",
+        "Cooked rice for serving"
       ],
       "steps": [
-        "Season salmon with salt, pepper, and garlic powder. Heat skillet over medium-high with oil. Sear salmon 2 min per side. Remove and set aside.",
-        "Melt butter in same skillet. Add garlic and shallots; cook 1–2 min. Add wine to deglaze, scraping up any bits.",
-        "Add broth; bring to simmer. Stir in orzo; cook 10 min, stirring occasionally, until tender and broth is absorbed.",
-        "Stir in cream, Parmesan, and lemon juice.",
-        "Return salmon to skillet. Add spinach; cook 2–3 min until wilted. Garnish with parsley and lemon zest."
+        "Sauce: Combine ¾ cup water, soy sauce, garlic, ginger, honey, and brown sugar in a saucepan over medium. Bring to a low boil. Whisk remaining ¼ cup water with cornstarch; stir in slowly until thickened. Add orange zest. Set aside.",
+        "Heat sesame oil in a wok or large skillet over medium-high. Sauté onion until softened. Add turkey; cook until fully cooked, 7–10 min.",
+        "Add broccoli and carrots; cook until tender.",
+        "Reduce heat to low; stir in teriyaki sauce. Simmer a few minutes. Serve over rice."
       ],
-      "note": "💡 Stir the orzo regularly while it cooks — it sticks to the pan if you leave it alone."
+      "note": "💡 Naturally not spicy and very kid-friendly. Steam the broccoli a couple minutes first if you want it softer for the boys."
+    },
+    {
+      "id": "marry-me-chicken-gnocchi",
+      "label": "Meal B",
+      "day": "Wednesday",
+      "date": "5/20",
+      "icon": "🍲",
+      "name": "Marry Me Chicken Gnocchi",
+      "meta": "~30 min · One pan · Serves 4",
+      "ings": [
+        "1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces",
+        "2 Tbsp olive oil (or oil from the sun-dried tomato jar)",
+        "Salt and black pepper",
+        "1 small shallot or ½ onion, diced",
+        "4 cloves garlic, minced",
+        "⅔ cup sun-dried tomatoes (oil-packed), drained and chopped",
+        "1 (16 oz) package shelf-stable potato gnocchi",
+        "1 cup low-sodium chicken broth",
+        "1 cup half-and-half (or ¾ cup heavy cream)",
+        "½ cup freshly grated Parmesan",
+        "2 cups fresh baby spinach",
+        "Fresh basil, torn, for serving",
+        "Red pepper flakes (optional, for adults only)"
+      ],
+      "steps": [
+        "Season chicken with salt and pepper. Heat 1 Tbsp oil in a large high-sided skillet over medium-high. Sear chicken in a single layer 3–4 min per side until golden (doesn't need to be cooked through). Remove and set aside.",
+        "Add remaining oil and shallot to the skillet; sauté 2–3 min. Add garlic and sun-dried tomatoes; cook 1 min until fragrant.",
+        "Add uncooked gnocchi, breaking apart any stuck pieces. Pour in chicken broth and half-and-half; season with salt and pepper. Cover and cook over medium 5 min until gnocchi are tender and fluffy.",
+        "Return chicken to the pan. Add spinach; cook uncovered 3–5 min until chicken is cooked through and spinach is wilted.",
+        "Stir in Parmesan until melted and the sauce is creamy. Top with torn basil. Serve with red pepper flakes on the side for adults."
+      ],
+      "note": "💡 The base recipe is mild — keep the red pepper flakes off to the side so the kids can eat it. Gnocchi cooks right in the sauce, no boiling needed."
+    },
+    {
+      "id": "sheet-pan-greek-chicken",
+      "label": "Meal C",
+      "day": "Thursday",
+      "date": "5/21",
+      "icon": "🍋",
+      "name": "Sheet-Pan Greek Chicken & Veggies",
+      "meta": "~40 min · Sheet pan · Serves 4",
+      "ings": [
+        "1½ lbs boneless skinless chicken thighs",
+        "¼ cup olive oil",
+        "Juice of 1 lemon (about 3 Tbsp)",
+        "1 Tbsp Dijon mustard",
+        "4 cloves garlic, minced",
+        "2 tsp dried oregano",
+        "1 tsp dried thyme",
+        "Salt and black pepper",
+        "1 medium zucchini, sliced into ½-inch half-moons",
+        "1 bell pepper, cut into 1-inch pieces",
+        "1 large red onion, cut into wedges",
+        "1½ cups cherry tomatoes",
+        "4 oz feta cheese, crumbled",
+        "Cooked rice or warm pita, for serving"
+      ],
+      "steps": [
+        "Whisk together olive oil, lemon juice, Dijon, garlic, oregano, thyme, salt, and pepper. Toss chicken with ⅔ of the marinade and let sit 15 min while the oven heats to 425°F.",
+        "Spread zucchini, bell pepper, red onion, and cherry tomatoes on a large sheet pan. Drizzle with the remaining marinade and toss to coat. Spread in a single layer.",
+        "Nestle the marinated chicken among the vegetables. Roast 25 min.",
+        "Remove pan, scatter crumbled feta over everything, and return to the oven 10–15 min more until chicken reaches 165°F and veggies are tender.",
+        "Spoon the pan juices over everything. Serve over rice or with warm pita."
+      ],
+      "note": "💡 Naturally not spicy, pre-diabetic friendly. Pound thicker thighs to even thickness so they cook evenly."
     }
   ],
-  "groceries": [
-    {
-      "icon": "🥦",
-      "label": "Produce",
-      "items": [
-        {
-          "name": "9 cloves garlic",
-          "detail": "6 cloves minced for scampi sauce · 3 cloves minced for orzo base",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "garlic bulb"
-        },
-        {
-          "name": "1 lemon",
-          "detail": "Juice of 1 lemon for scampi sauce · 1 Tbsp lemon juice + zest for garnish in orzo",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "fresh lemon"
-        },
-        {
-          "name": "¼ cup fresh flat-leaf parsley",
-          "detail": "Chopped and stirred into scampi · Garnish for orzo",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "fresh flat leaf parsley"
-        },
-        {
-          "name": "1 small shallot",
-          "detail": "Finely chopped for orzo base",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "fresh shallots"
-        },
-        {
-          "name": "2 cups fresh baby spinach",
-          "detail": "Wilted into orzo at the end",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "fresh baby spinach"
-        }
-      ]
-    },
-    {
-      "icon": "🥩",
-      "label": "Protein",
-      "items": [
-        {
-          "name": "1 lb large shrimp, peeled and deveined",
-          "detail": "Seared and tossed in scampi sauce",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "large shrimp peeled deveined"
-        },
-        {
-          "name": "4 salmon fillets (~6 oz each, skinless)",
-          "detail": "Seared and returned to orzo skillet",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "skinless salmon fillets"
-        }
-      ]
-    },
-    {
-      "icon": "🧈",
-      "label": "Dairy & Refrigerated",
-      "items": [
-        {
-          "name": "6 Tbsp unsalted butter",
-          "detail": "4 Tbsp for scampi sauce · 2 Tbsp for orzo base",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "unsalted butter"
-        },
-        {
-          "name": "1 cup grated Parmesan",
-          "detail": "Served alongside scampi · ½ cup stirred into orzo",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "grated parmesan cheese"
-        },
-        {
-          "name": "½ cup heavy cream",
-          "detail": "Stirred into orzo for creamy sauce",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "heavy cream"
-        }
-      ]
-    },
-    {
-      "icon": "🫙",
-      "label": "Pantry & Canned",
-      "items": [
-        {
-          "name": "4 Tbsp olive oil",
-          "detail": "2 Tbsp for scampi skillet · 2 Tbsp for searing salmon",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "olive oil"
-        },
-        {
-          "name": "¾ cup dry white wine",
-          "detail": "½ cup for scampi sauce · ¼ cup to deglaze orzo pan",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "dry white wine cooking"
-        },
-        {
-          "name": "8 oz linguine",
-          "detail": "Boiled and tossed in scampi sauce",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "linguine pasta"
-        },
-        {
-          "name": "1½ cups orzo pasta",
-          "detail": "Simmered in broth for the salmon dish",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "orzo pasta"
-        },
-        {
-          "name": "2½ cups chicken broth",
-          "detail": "Cooking liquid for orzo",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "chicken broth low sodium"
-        }
-      ]
-    },
-    {
-      "icon": "🌿",
-      "label": "Spices",
-      "note": "Check pantry before ordering — you likely have most of these.",
-      "items": [
-        {
-          "name": "Salt",
-          "detail": "Pasta water · seasoning shrimp · seasoning salmon",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "Black pepper",
-          "detail": "Seasoning shrimp · seasoning salmon",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "Red pepper flakes",
-          "detail": "Optional — served on the side for adults with scampi",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 tsp garlic powder",
-          "detail": "Seasoning rub for salmon fillets",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        }
-      ]
-    }
-  ]
+  "groceries": []
 }
