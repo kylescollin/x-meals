@@ -102,5 +102,285 @@
       "note": "💡 Naturally not spicy, pre-diabetic friendly. Pound thicker thighs to even thickness so they cook evenly."
     }
   ],
-  "groceries": []
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "3 cups broccoli florets",
+          "detail": "Meal A · stir fry vegetable base",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "broccoli florets"
+        },
+        {
+          "name": "1 cup shredded carrots",
+          "detail": "Meal A · stir fry vegetable base",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "shredded carrots"
+        },
+        {
+          "name": "1 small onion + 1 large red onion",
+          "detail": "1 small diced onion for Meal A stir fry · 1 large red onion cut into wedges for Meal C sheet pan",
+          "tag": "Meals A+C",
+          "tagClass": "tag-shared",
+          "amazon": "yellow onion"
+        },
+        {
+          "name": "1 small shallot (or ½ onion)",
+          "detail": "Meal B · sautéed as aromatic base for sauce",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "shallots"
+        },
+        {
+          "name": "11 cloves garlic (about 1 head)",
+          "detail": "3 cloves for Meal A teriyaki sauce · 4 cloves for Meal B sauce base · 4 cloves for Meal C marinade",
+          "tag": "All meals",
+          "tagClass": "tag-all",
+          "amazon": "garlic bulb"
+        },
+        {
+          "name": "1 tsp fresh ginger (small knob)",
+          "detail": "Meal A · teriyaki sauce",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "fresh ginger root"
+        },
+        {
+          "name": "1 orange (for zest)",
+          "detail": "Meal A · 1 Tbsp orange zest stirred into teriyaki sauce",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "navel orange"
+        },
+        {
+          "name": "2 cups fresh baby spinach",
+          "detail": "Meal B · wilted into sauce at the end",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "baby spinach"
+        },
+        {
+          "name": "Fresh basil",
+          "detail": "Meal B · torn, for serving",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "fresh basil"
+        },
+        {
+          "name": "1 lemon",
+          "detail": "Meal C · juice of 1 lemon (~3 Tbsp) for marinade",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "lemon"
+        },
+        {
+          "name": "1 medium zucchini",
+          "detail": "Meal C · sliced into ½-inch half-moons for sheet pan",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "zucchini"
+        },
+        {
+          "name": "1 bell pepper",
+          "detail": "Meal C · cut into 1-inch pieces for sheet pan",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "bell pepper"
+        },
+        {
+          "name": "1½ cups cherry tomatoes",
+          "detail": "Meal C · roasted on sheet pan with veggies",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "cherry tomatoes"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "1 lb ground turkey",
+          "detail": "Meal A · stir fry protein base",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "lean ground turkey"
+        },
+        {
+          "name": "1¼ lb boneless skinless chicken thighs or breasts",
+          "detail": "Meal B · cut into bite-sized pieces for gnocchi skillet",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "boneless skinless chicken thighs"
+        },
+        {
+          "name": "1½ lbs boneless skinless chicken thighs",
+          "detail": "Meal C · marinated and roasted on sheet pan",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "boneless skinless chicken thighs"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "1 cup half-and-half (or ¾ cup heavy cream)",
+          "detail": "Meal B · creamy sauce base for gnocchi",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "half and half"
+        },
+        {
+          "name": "½ cup Parmesan, freshly grated",
+          "detail": "Meal B · stirred in at end for creamy finish",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "parmesan cheese wedge"
+        },
+        {
+          "name": "4 oz feta cheese, crumbled",
+          "detail": "Meal C · scattered over sheet pan in last 10–15 min of roasting",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "crumbled feta cheese"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "2 tsp sesame oil",
+          "detail": "Meal A · used to heat wok and start stir fry",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "toasted sesame oil"
+        },
+        {
+          "name": "¼ cup soy sauce",
+          "detail": "Meal A · teriyaki sauce base",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "low sodium soy sauce"
+        },
+        {
+          "name": "3 Tbsp brown sugar",
+          "detail": "Meal A · teriyaki sauce sweetener",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "light brown sugar"
+        },
+        {
+          "name": "2 Tbsp honey",
+          "detail": "Meal A · teriyaki sauce sweetener",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "pure honey"
+        },
+        {
+          "name": "2 Tbsp cornstarch",
+          "detail": "Meal A · thickens teriyaki sauce",
+          "tag": "Meal A",
+          "tagClass": "tag-chili",
+          "amazon": "cornstarch"
+        },
+        {
+          "name": "Cooked rice (2–3 cups dry)",
+          "detail": "Meal A served over rice · Meal C served over rice or with pita",
+          "tag": "Meals A+C",
+          "tagClass": "tag-shared",
+          "amazon": "long grain white rice"
+        },
+        {
+          "name": "¼ cup + 2 Tbsp olive oil",
+          "detail": "2 Tbsp for Meal B searing chicken and sautéing · ¼ cup for Meal C marinade",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared",
+          "amazon": "olive oil"
+        },
+        {
+          "name": "⅔ cup sun-dried tomatoes, oil-packed",
+          "detail": "Meal B · drained and chopped into sauce base",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "sun dried tomatoes oil packed jar"
+        },
+        {
+          "name": "1 (16 oz) package shelf-stable potato gnocchi",
+          "detail": "Meal B · cooks directly in the sauce, no boiling needed",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "shelf stable potato gnocchi"
+        },
+        {
+          "name": "1 cup low-sodium chicken broth",
+          "detail": "Meal B · liquid base for gnocchi sauce",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "low sodium chicken broth"
+        },
+        {
+          "name": "1 Tbsp Dijon mustard",
+          "detail": "Meal C · whisked into marinade",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "dijon mustard"
+        },
+        {
+          "name": "Warm pita (optional)",
+          "detail": "Meal C · optional alternative to rice for serving",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta",
+          "amazon": "pita bread"
+        },
+        {
+          "name": "Red pepper flakes (optional)",
+          "detail": "Meal B · on the side for adults only",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower",
+          "amazon": "red pepper flakes"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these.",
+      "items": [
+        {
+          "name": "Salt",
+          "detail": "All meals · general seasoning throughout",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "name": "Black pepper",
+          "detail": "All meals · general seasoning throughout",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "name": "2 tsp dried oregano",
+          "detail": "Meal C · whisked into marinade",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 tsp dried thyme",
+          "detail": "Meal C · whisked into marinade",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        }
+      ]
+    }
+  ]
 }
