@@ -1,5 +1,34 @@
 [
   {
+    "weekOf": "2026-05-10",
+    "title": "Week of May 10",
+    "subhead": "2 dinners · Serves 4",
+    "meals": [
+      {
+        "id": "garlic-shrimp-scampi-linguine",
+        "label": "Meal A",
+        "day": "Tuesday",
+        "date": "5/12",
+        "icon": "🍝",
+        "name": "Garlic Shrimp Scampi Linguine",
+        "meta": "~30 min · Stovetop · Serves 4",
+        "ings": [],
+        "steps": []
+      },
+      {
+        "id": "seared-salmon-with-lemon-orzo",
+        "label": "Meal B",
+        "day": "Wednesday",
+        "date": "5/13",
+        "icon": "🐟",
+        "name": "Seared Salmon with Lemon Orzo",
+        "meta": "30 min · Stovetop · Serves 4",
+        "ings": [],
+        "steps": []
+      }
+    ]
+  },
+  {
     "weekOf": "2026-05-04",
     "title": "Week of May 4",
     "subhead": "3 dinners · Serves 4–6",
