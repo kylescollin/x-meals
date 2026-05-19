@@ -11,12 +11,17 @@
   var FB_BASE  = 'https://fox-bear-hub-default-rtdb.firebaseio.com';
   var FB_FLAGS = FB_BASE + '/saved-recipes.json';
   var FB_DATA  = FB_BASE + '/saved-recipe-data.json';
-  var FB_EDITS = FB_BASE + '/recipe-edits';
+  var FB_EDITS    = FB_BASE + '/recipe-edits';
+  var FB_COMMENTS = FB_BASE + '/recipe-comments';
 
-  var savedIds    = {};    // id → true/false
-  var coreIds     = {};    // id → true (already in recipes.html RECIPES array)
-  var recipeEdits = {};    // safeId → edited recipe object
-  var _onSaveChange = null; // optional callback(id, isSaved)
+  var AUTHOR_MAP = { 'kscollin@gmail.com': 'Kyle', 'missjosephinefox@gmail.com': 'Josephine' };
+
+  var savedIds         = {};    // id → true/false
+  var coreIds          = {};    // id → true (already in recipes.html RECIPES array)
+  var recipeEdits      = {};    // safeId → edited recipe object
+  var _onSaveChange    = null;  // optional callback(id, isSaved)
+  var currentUserEmail = null;  // set in init() via options.userEmail
+  var currentRecipeId  = null;  // safe key of the open recipe, for comment ops
 
   function fbSafeKey(id) {
     return id.replace(/[.#$[\]]/g, '_');
@@ -169,6 +174,28 @@
       '.rc-rd-input:focus{border-color:var(--accent);}',
       'textarea.rc-rd-input{resize:vertical;line-height:1.6;}',
 
+      // Comments
+      '.rc-cm-section{margin-top:36px;border-top:1px solid var(--border);padding-top:24px;}',
+      '.rc-cm-heading{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:500;color:var(--accent);margin-bottom:14px;}',
+      '.rc-cm-list{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}',
+      '.rc-cm-empty{font-size:13px;color:var(--muted);font-style:italic;}',
+      '.rc-cm-item{background:white;border:1px solid var(--border);border-radius:8px;padding:11px 13px;display:flex;flex-direction:column;gap:5px;}',
+      '.rc-cm-item-header{display:flex;align-items:center;gap:8px;}',
+      '.rc-cm-author{font-size:12px;font-weight:600;color:var(--ink);}',
+      '.rc-cm-ts{font-size:11px;color:var(--muted);flex:1;}',
+      '.rc-cm-del{background:none;border:none;padding:4px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;border-radius:4px;transition:color .15s,background .15s;-webkit-tap-highlight-color:transparent;}',
+      '.rc-cm-del:hover{color:#c0392b;background:#fef0ee;}',
+      '.rc-cm-del:active{transform:scale(.9);}',
+      '.rc-cm-del svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}',
+      '.rc-cm-text{font-size:13px;color:var(--ink);line-height:1.5;white-space:pre-wrap;}',
+      '.rc-cm-compose{display:flex;flex-direction:column;gap:8px;}',
+      '.rc-cm-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:300;color:var(--ink);background:white;resize:vertical;line-height:1.6;-webkit-appearance:none;appearance:none;outline:none;transition:border-color .15s;box-sizing:border-box;}',
+      '.rc-cm-textarea:focus{border-color:var(--accent);}',
+      '.rc-cm-compose-footer{display:flex;justify-content:flex-end;}',
+      '.rc-cm-post-btn{background:var(--accent);color:white;border:none;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;padding:9px 20px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}',
+      '.rc-cm-post-btn:active{transform:scale(.94);background:#b3581f;}',
+      '.rc-cm-post-btn:disabled{opacity:.45;cursor:default;transform:none;}',
+
       // Cooking mode
       '#rc-ck-overlay{position:fixed;inset:0;background:var(--ck-bg);z-index:9999;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;padding-bottom:env(safe-area-inset-bottom,0px);}',
       '#rc-ck-overlay.open{transform:translateY(0);}',
@@ -249,6 +276,18 @@
             '<div class="rc-rd-cols">',
               '<div><div class="rc-rd-section-title">Ingredients</div><ul class="rc-rd-ing-list" id="rc-rd-ings"></ul></div>',
               '<div><div class="rc-rd-section-title">Directions</div><ol class="rc-rd-step-list" id="rc-rd-steps"></ol></div>',
+            '</div>',
+            '<div class="rc-cm-section">',
+              '<div class="rc-cm-heading">Notes</div>',
+              '<div class="rc-cm-list" id="rc-cm-list">',
+                '<div class="rc-cm-empty" id="rc-cm-empty">No notes yet</div>',
+              '</div>',
+              '<div class="rc-cm-compose">',
+                '<textarea class="rc-cm-textarea" id="rc-cm-textarea" placeholder="Add a note…" rows="3"></textarea>',
+                '<div class="rc-cm-compose-footer">',
+                  '<button class="rc-cm-post-btn" id="rc-cm-post">Post</button>',
+                '</div>',
+              '</div>',
             '</div>',
           '</div>',
         '</div>',
@@ -338,6 +377,11 @@
 
     renderDetailBody(curR);
     document.querySelector('.rc-rd-body').scrollTop = 0;
+
+    currentRecipeId = fbSafeKey(id);
+    loadComments(currentRecipeId);
+    var cmTa = document.getElementById('rc-cm-textarea');
+    if (cmTa) cmTa.value = '';
 
     // Wire save button to this recipe
     var saveBtn = document.getElementById('rc-rd-save');
@@ -445,6 +489,111 @@
     renderDetailBody(curR);
     document.querySelector('.rc-rd-body').scrollTop = 0;
     refreshSaveUI(id);
+  }
+
+  // ── Comments ────────────────────────────────────────────────────────────
+
+  function relativeTime(ts) {
+    var diff = Date.now() - ts;
+    var m = Math.floor(diff / 60000);
+    if (m < 1)  return 'just now';
+    if (m < 60) return m + 'm ago';
+    var h = Math.floor(m / 60);
+    if (h < 24) return h + 'h ago';
+    var d = Math.floor(h / 24);
+    if (d < 7)  return d + 'd ago';
+    return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function renderComment(c, safeId) {
+    var item = document.createElement('div');
+    item.className = 'rc-cm-item';
+    item.dataset.key = c._key;
+    var trashSvg = '<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>';
+    item.innerHTML =
+      '<div class="rc-cm-item-header">' +
+        '<span class="rc-cm-author">' + escHtml(c.author || 'Unknown') + '</span>' +
+        '<span class="rc-cm-ts">' + relativeTime(c.ts) + '</span>' +
+        '<button class="rc-cm-del" aria-label="Delete note">' + trashSvg + '</button>' +
+      '</div>' +
+      '<div class="rc-cm-text">' + escHtml(c.text) + '</div>';
+    item.querySelector('.rc-cm-del').addEventListener('click', function () {
+      deleteComment(safeId, c._key, item);
+    });
+    return item;
+  }
+
+  function loadComments(safeId) {
+    var listEl  = document.getElementById('rc-cm-list');
+    var emptyEl = document.getElementById('rc-cm-empty');
+    if (!listEl) return;
+    Array.from(listEl.querySelectorAll('.rc-cm-item')).forEach(function (el) { el.remove(); });
+    emptyEl.style.display = '';
+    authedFetch(FB_COMMENTS + '/' + safeId + '.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data || !Object.keys(data).length) return;
+        var entries = Object.keys(data)
+          .map(function (k) { return Object.assign({ _key: k }, data[k]); })
+          .sort(function (a, b) { return b.ts - a.ts; });
+        emptyEl.style.display = 'none';
+        entries.forEach(function (c) { listEl.appendChild(renderComment(c, safeId)); });
+      })
+      .catch(function () {});
+  }
+
+  function submitComment(safeId) {
+    var textarea = document.getElementById('rc-cm-textarea');
+    var postBtn  = document.getElementById('rc-cm-post');
+    if (!textarea || !postBtn) return;
+    var text = textarea.value.trim();
+    if (!text) return;
+    var email  = currentUserEmail || '';
+    var author = AUTHOR_MAP[email] || 'Unknown';
+    var ts     = Date.now();
+    var key    = String(ts);
+    var comment = { text: text, author: author, email: email, ts: ts };
+    postBtn.disabled  = true;
+    textarea.disabled = true;
+    authedFetch(FB_COMMENTS + '/' + safeId + '/' + key + '.json', {
+      method: 'PUT',
+      body: JSON.stringify(comment)
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error('write failed');
+        textarea.value = '';
+        var listEl  = document.getElementById('rc-cm-list');
+        var emptyEl = document.getElementById('rc-cm-empty');
+        if (listEl) {
+          emptyEl.style.display = 'none';
+          listEl.insertBefore(renderComment(Object.assign({ _key: key }, comment), safeId), listEl.firstChild);
+        }
+      })
+      .catch(function () {})
+      .finally(function () {
+        postBtn.disabled  = false;
+        textarea.disabled = false;
+        textarea.focus();
+      });
+  }
+
+  function deleteComment(safeId, key, itemEl) {
+    itemEl.style.opacity = '0.4';
+    itemEl.style.pointerEvents = 'none';
+    authedFetch(FB_COMMENTS + '/' + safeId + '/' + key + '.json', { method: 'DELETE' })
+      .then(function (r) {
+        if (!r.ok) throw new Error('delete failed');
+        var listEl  = document.getElementById('rc-cm-list');
+        var emptyEl = document.getElementById('rc-cm-empty');
+        itemEl.remove();
+        if (listEl && listEl.querySelectorAll('.rc-cm-item').length === 0) {
+          emptyEl.style.display = '';
+        }
+      })
+      .catch(function () {
+        itemEl.style.opacity = '';
+        itemEl.style.pointerEvents = '';
+      });
   }
 
   // ── Cooking mode logic ──────────────────────────────────────────────────
@@ -625,8 +774,9 @@
      */
     init: function (options) {
       options = options || {};
-      coreIds        = options.coreIds      || {};
-      _onSaveChange  = options.onSaveChange || null;
+      coreIds          = options.coreIds      || {};
+      _onSaveChange    = options.onSaveChange || null;
+      currentUserEmail = options.userEmail    || null;
 
       injectSharedUI();
       rdEl = document.getElementById('rc-rd-overlay');
@@ -636,6 +786,14 @@
       document.getElementById('rc-rd-edit').addEventListener('click', enterEditMode);
       document.getElementById('rc-rd-cancel').addEventListener('click', exitEditMode);
       document.getElementById('rc-rd-save-edit').addEventListener('click', saveRecipeEdit);
+      document.getElementById('rc-cm-post').addEventListener('click', function () {
+        if (currentRecipeId) submitComment(currentRecipeId);
+      });
+      document.getElementById('rc-cm-textarea').addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+          if (currentRecipeId) submitComment(currentRecipeId);
+        }
+      });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
           var ck = document.getElementById('rc-ck-overlay');

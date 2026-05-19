@@ -69,7 +69,7 @@
 import { requireAuth, getAuthToken, signOut } from './auth.js';
 window.getToken   = getAuthToken;
 window.doSignOut  = signOut;
-await requireAuth();
+var user = await requireAuth();
 
 var FB_BASE='https://fox-bear-hub-default-rtdb.firebaseio.com';
 var FB_URL;
@@ -111,7 +111,7 @@ var [recipesResp,weekData]=await Promise.all([
 ]);
 var CORE_IDS={};
 (recipesResp.recipes||[]).forEach(function(r){CORE_IDS[r.id]=true;});
-RecipeCard.init({coreIds:CORE_IDS,onReady:function(){RecipeCard.applyBadges();}});
+RecipeCard.init({coreIds:CORE_IDS,userEmail:user.email,onReady:function(){RecipeCard.applyBadges();}});
 var MEALS=weekData.meals||[];
 FB_URL=FB_BASE+'/groceries/'+weekData.weekOf;
 

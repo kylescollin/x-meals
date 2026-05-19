@@ -35,7 +35,7 @@
 import { requireAuth, getAuthToken, signOut } from './auth.js';
 window.getToken  = getAuthToken;
 window.doSignOut = signOut;
-await requireAuth();
+var user = await requireAuth();
 
 function renderWeek(week,isCurrent){var entry=document.createElement('div');entry.className='week-entry';var mealCount=week.meals?week.meals.length:0;var labelText=isCurrent?'This Week':'Week of';var header=document.createElement('div');header.className='week-header';header.innerHTML='<span class="week-label">'+labelText+'</span><span class="week-title">'+(week.title||week.weekOf)+'</span><span class="week-count">'+mealCount+' meal'+(mealCount!==1?'s':'')+'</span>';entry.appendChild(header);(week.meals||[]).forEach(function(meal,i){var mealLabel=(meal.label||('Meal '+String.fromCharCode(65+i)))+(meal.day?' · '+meal.day+' '+(meal.date||''):'');entry.appendChild(RecipeCard.makeCard(meal,mealLabel));});return entry;}
 
@@ -48,7 +48,7 @@ var results=await Promise.all([
 ]);
 var CORE_IDS={};
 (results[0].recipes||[]).forEach(function(r){CORE_IDS[r.id]=true;});
-RecipeCard.init({coreIds:CORE_IDS,onSaveChange:function(){RecipeCard.applyBadges();},onReady:function(){RecipeCard.applyBadges();}});
+RecipeCard.init({coreIds:CORE_IDS,userEmail:user.email,onSaveChange:function(){RecipeCard.applyBadges();},onReady:function(){RecipeCard.applyBadges();}});
 var weekData=results[1];
 var histObj=results[2];
 var histData=histObj?Object.values(histObj).sort(function(a,b){return b.weekOf.localeCompare(a.weekOf);}):[];

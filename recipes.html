@@ -33,7 +33,7 @@
 import { requireAuth, getAuthToken, signOut } from './auth.js';
 window.getToken  = getAuthToken;
 window.doSignOut = signOut;
-await requireAuth();
+var user = await requireAuth();
 
 var list = document.getElementById('list');
 
@@ -45,6 +45,7 @@ RECIPES.forEach(function(r) { CORE_IDS[r.id] = true; });
 
 RecipeCard.init({
     coreIds: CORE_IDS,
+    userEmail: user.email,
     onSaveChange: function(id, saved, recipeObj) {
       // If a journal recipe was just saved, add it to the list; if unsaved, remove it
       var existing = list.querySelector('.rc-card[data-saved-id="' + id + '"]');
