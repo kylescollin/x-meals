@@ -3,7 +3,8 @@ import {
   getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signOut as fbSignOut
 } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
@@ -64,7 +65,11 @@ export async function signOut() {
 
 export async function signInWithGoogle() {
   const provider = new GoogleAuthProvider();
-  return signInWithPopup(auth, provider);
+  return signInWithRedirect(auth, provider);
+}
+
+export function checkRedirectResult() {
+  return getRedirectResult(auth);
 }
 
 export { auth, onAuthStateChanged, ALLOWED_EMAILS };
