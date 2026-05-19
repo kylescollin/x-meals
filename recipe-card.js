@@ -532,7 +532,7 @@
     authedFetch(FB_COMMENTS + '/' + safeId + '.json')
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        if (!data || !Object.keys(data).length) return;
+        if (!data || typeof data !== 'object' || data.error || !Object.keys(data).length) return;
         var entries = Object.keys(data)
           .map(function (k) { return Object.assign({ _key: k }, data[k]); })
           .sort(function (a, b) { return b.ts - a.ts; });
