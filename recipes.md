@@ -1293,3 +1293,35 @@ Serve immediately with Parmesan and red pepper flakes on the side for adults.
 The key is not overcooking the shrimp — pull them the moment they turn pink. They'll finish in the sauce.
 
 ---
+## Marry Me Chicken Gnocchi
+
+**Meta:** ~30 min · One pan · Serves 4
+
+### Ingredients
+
+1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces
+2 Tbsp olive oil (or oil from the sun-dried tomato jar)
+Salt and black pepper
+1 small shallot or ½ onion, diced
+4 cloves garlic, minced
+⅔ cup sun-dried tomatoes (oil-packed), drained and chopped
+1 (16 oz) package shelf-stable potato gnocchi
+1 cup low-sodium chicken broth
+1 cup half-and-half (or ¾ cup heavy cream)
+½ cup freshly grated Parmesan
+2 cups fresh baby spinach
+Fresh basil, torn, for serving
+Red pepper flakes (optional, for adults only)
+
+### Instructions
+
+Season chicken with salt and pepper. Heat 1 Tbsp oil in a large high-sided skillet over medium-high. Sear chicken in a single layer 3–4 min per side until golden (doesn't need to be cooked through). Remove and set aside.
+Add remaining oil and shallot to the skillet; sauté 2–3 min. Add garlic and sun-dried tomatoes; cook 1 min until fragrant.
+Add uncooked gnocchi, breaking apart any stuck pieces. Pour in chicken broth and half-and-half; season with salt and pepper. Cover and cook over medium 5 min until gnocchi are tender and fluffy.
+Return chicken to the pan. Add spinach; cook uncovered 3–5 min until chicken is cooked through and spinach is wilted.
+Stir in Parmesan until melted and the sauce is creamy. Top with torn basil. Serve with red pepper flakes on the side for adults.
+
+### Notes
+The base recipe is mild — keep the red pepper flakes off to the side so the kids can eat it. Gnocchi cooks right in the sauce, no boiling needed.
+
+---
