@@ -1,5 +1,45 @@
 [
   {
+    "weekOf": "2026-05-17",
+    "title": "Week of May 17",
+    "subhead": "3 dinners · Serves 4",
+    "meals": [
+      {
+        "id": "ground-turkey-teriyaki-stir-fry",
+        "label": "Meal A",
+        "day": "Tuesday",
+        "date": "5/19",
+        "icon": "🥦",
+        "name": "Ground Turkey Teriyaki Stir Fry",
+        "meta": "30 min · Stovetop · Serves 4",
+        "ings": [],
+        "steps": []
+      },
+      {
+        "id": "marry-me-chicken-gnocchi",
+        "label": "Meal B",
+        "day": "Wednesday",
+        "date": "5/20",
+        "icon": "🍲",
+        "name": "Marry Me Chicken Gnocchi",
+        "meta": "~30 min · One pan · Serves 4",
+        "ings": [],
+        "steps": []
+      },
+      {
+        "id": "sheet-pan-greek-chicken",
+        "label": "Meal C",
+        "day": "Thursday",
+        "date": "5/21",
+        "icon": "🍋",
+        "name": "Sheet-Pan Greek Chicken & Veggies",
+        "meta": "~40 min · Sheet pan · Serves 4",
+        "ings": [],
+        "steps": []
+      }
+    ]
+  },
+  {
     "weekOf": "2026-05-10",
     "title": "Week of May 10",
     "subhead": "2 dinners · Serves 4",
@@ -41,8 +81,8 @@
         "icon": "🥧",
         "name": "Healthy Chicken Pot Pie",
         "meta": "~55 min · Oven · Serves 6",
-        "ings": ["1 tbsp olive oil","8 oz cremini mushrooms, sliced","3 medium carrots, diced","3 stalks celery, diced","1 tsp garlic powder","1 tsp salt, ½ tsp black pepper","¼ cup all-purpose flour","1½ cups low-sodium chicken broth","1 cup unsweetened almond milk","3 cups cooked shredded chicken","1 cup frozen peas","½ cup frozen pearl onions","1 tsp fresh thyme","1 store-bought deep dish pie crust","1 egg, beaten"],
-        "steps": ["Preheat oven to 425°F.","Sauté mushrooms, carrots, celery with garlic powder, salt, pepper.","Sprinkle flour, cook 2 min. Add broth and milk, thicken.","Stir in chicken, peas, onions, thyme. Transfer to pie dish.","Top with crust, egg wash. Bake 20–25 min until golden."]
+        "ings": [],
+        "steps": []
       },
       {
         "id": "creamy-chicken-tortilla-soup",
@@ -52,8 +92,8 @@
         "icon": "🍲",
         "name": "Creamy Chicken Tortilla Soup",
         "meta": "30 min · Stovetop · Serves 6",
-        "ings": ["1 Tbsp olive oil","½ medium onion","1 (28 oz) can crushed tomatoes","1 (10 oz) can Rotel mild","1 cup chicken broth","garlic powder, smoked paprika, chili powder","1 can corn","1 can black beans","1 cup heavy cream","2 cups shredded chicken","Tortilla strips, avocado, sour cream, cheese"],
-        "steps": ["Sauté onion 5–7 min.","Add tomatoes, Rotel, broth, spices, corn, beans. Boil then simmer 5 min.","Stir in cream and chicken. Warm through. Serve with toppings."]
+        "ings": [],
+        "steps": []
       },
       {
         "id": "creamy-spinach-and-mushroom-tortellini",
@@ -63,8 +103,8 @@
         "icon": "🍄",
         "name": "Creamy Spinach and Mushroom Tortellini",
         "meta": "50 min · Stovetop · Serves 4",
-        "ings": ["2 large yellow onions","8 oz crimini mushrooms","8 oz fresh spinach","1 cup heavy cream","9 oz refrigerated 3-cheese tortellini","Olive oil, salt, pepper"],
-        "steps": ["Caramelize onions 30 min.","Sauté mushrooms, wilt spinach, add onions back.","Add cream, simmer 2 min. Add tortellini, toss."]
+        "ings": [],
+        "steps": []
       }
     ]
   },
