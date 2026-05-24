@@ -1,386 +1,103 @@
 {
-  "weekOf": "2026-05-17",
-  "title": "Week of May 17",
-  "subhead": "3 dinners · Serves 4",
+  "weekOf": "2026-05-25",
+  "title": "Week of May 25",
+  "subhead": "3 dinners · Serves 4–6",
   "meals": [
     {
-      "id": "ground-turkey-teriyaki-stir-fry",
+      "id": "corn-chowder",
       "label": "Meal A",
       "day": "Tuesday",
-      "date": "5/19",
-      "icon": "🥦",
-      "name": "Ground Turkey Teriyaki Stir Fry",
-      "meta": "30 min · Stovetop · Serves 4",
+      "date": "5/26",
+      "icon": "🌽",
+      "name": "Corn Chowder",
+      "meta": "45 min · Stovetop · Serves 6",
       "ings": [
-        "1 lb ground turkey",
-        "2 tsp sesame oil",
-        "3 cups broccoli florets",
-        "1 small onion, small diced",
-        "1 cup shredded carrots",
-        "Salt and pepper",
-        "¼ cup soy sauce",
-        "3 Tbsp brown sugar",
-        "1 cup water, divided",
-        "2 Tbsp honey",
-        "3 garlic cloves, minced",
-        "1 tsp fresh ginger",
-        "2 Tbsp cornstarch",
-        "1 Tbsp orange zest",
-        "Cooked rice for serving"
+        "4 slices thick-cut bacon, diced",
+        "2 Tbsp butter",
+        "1 small sweet onion, finely diced",
+        "2 stalks celery, finely diced",
+        "3 cloves garlic, diced",
+        "1 tsp coarse salt, ½ tsp black pepper",
+        "¼ cup all-purpose flour",
+        "5 cups low-sodium chicken broth",
+        "2 medium russet potatoes, ½-inch cubes",
+        "3 cups corn kernels (frozen or fresh)",
+        "1 Tbsp honey, ¼ tsp dried thyme, 2 bay leaves",
+        "1 cup heavy cream",
+        "1 cup shredded cheddar cheese",
+        "2 scallions, diced"
       ],
       "steps": [
-        "Sauce: Combine ¾ cup water, soy sauce, garlic, ginger, honey, and brown sugar in a saucepan over medium. Bring to a low boil. Whisk remaining ¼ cup water with cornstarch; stir in slowly until thickened. Add orange zest. Set aside.",
-        "Heat sesame oil in a wok or large skillet over medium-high. Sauté onion until softened. Add turkey; cook until fully cooked, 7–10 min.",
-        "Add broccoli and carrots; cook until tender.",
-        "Reduce heat to low; stir in teriyaki sauce. Simmer a few minutes. Serve over rice."
+        "Cook bacon in heavy pot over medium until crispy. Remove, leaving ~3 Tbsp fat in the pot.",
+        "Add butter; cook onion and celery ~5 min. Add garlic 30 sec. Season with salt and pepper.",
+        "Sprinkle flour; cook 1–2 min. Pour in broth with potato, corn, honey, thyme, bay leaves. Bring to boil, simmer until potatoes tender, 10–12 min.",
+        "Discard bay leaves. Add cream. Blend to desired consistency with immersion blender (leave some chunks).",
+        "Stir in cheese until melted. Add most of bacon. Garnish bowls with remaining bacon and scallions."
       ],
-      "note": "💡 Naturally not spicy and very kid-friendly. Steam the broccoli a couple minutes first if you want it softer for the boys."
+      "note": "💡 Naturally not spicy, super kid-friendly. Leave a bit chunky — kids love the corn kernels. Leftovers freeze well."
     },
     {
-      "id": "marry-me-chicken-gnocchi",
+      "id": "one-pan-coconut-curry-salmon",
       "label": "Meal B",
       "day": "Wednesday",
-      "date": "5/20",
-      "icon": "🍲",
-      "name": "Marry Me Chicken Gnocchi",
-      "meta": "~30 min · One pan · Serves 4",
+      "date": "5/27",
+      "icon": "🥥",
+      "name": "One-Pan Coconut Curry Salmon",
+      "meta": "30 min · One Pan · Serves 4",
       "ings": [
-        "1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces",
-        "2 Tbsp olive oil (or oil from the sun-dried tomato jar)",
-        "Salt and black pepper",
-        "1 small shallot or ½ onion, diced",
+        "4 salmon fillets (5–6 oz each)",
+        "1 tsp salt, ½ tsp pepper, ½ tsp paprika",
+        "1 Tbsp olive oil",
+        "2 Tbsp butter",
         "4 cloves garlic, minced",
-        "⅔ cup sun-dried tomatoes (oil-packed), drained and chopped",
-        "1 (16 oz) package shelf-stable potato gnocchi",
-        "1 cup low-sodium chicken broth",
-        "1 cup half-and-half (or ¾ cup heavy cream)",
-        "½ cup freshly grated Parmesan",
-        "2 cups fresh baby spinach",
-        "Fresh basil, torn, for serving",
-        "Red pepper flakes (optional, for adults only)"
+        "1 tsp grated ginger",
+        "1 tsp curry powder, ½ tsp turmeric",
+        "1 (13.5 oz) can coconut milk (full fat)",
+        "1 Tbsp tomato paste",
+        "1 tsp honey or maple syrup",
+        "1 Tbsp soy sauce",
+        "Juice of ½ lime",
+        "Fresh cilantro or basil for garnish",
+        "Cooked jasmine rice for serving"
       ],
       "steps": [
-        "Season chicken with salt and pepper. Heat 1 Tbsp oil in a large high-sided skillet over medium-high. Sear chicken in a single layer 3–4 min per side until golden (doesn't need to be cooked through). Remove and set aside.",
-        "Add remaining oil and shallot to the skillet; sauté 2–3 min. Add garlic and sun-dried tomatoes; cook 1 min until fragrant.",
-        "Add uncooked gnocchi, breaking apart any stuck pieces. Pour in chicken broth and half-and-half; season with salt and pepper. Cover and cook over medium 5 min until gnocchi are tender and fluffy.",
-        "Return chicken to the pan. Add spinach; cook uncovered 3–5 min until chicken is cooked through and spinach is wilted.",
-        "Stir in Parmesan until melted and the sauce is creamy. Top with torn basil. Serve with red pepper flakes on the side for adults."
+        "Pat salmon dry; season with salt, pepper, paprika. Heat oil in skillet over medium-high. Sear salmon skin-side down 3–4 min until crispy. Flip, cook 2 more min. Remove to a plate.",
+        "Lower heat; melt butter in same pan. Sauté garlic and ginger 1 min. Stir in curry powder and turmeric; toast 30 sec until fragrant.",
+        "Add coconut milk, tomato paste, honey, soy sauce, and lime juice. Whisk together and simmer 5 min until slightly thickened.",
+        "Return salmon to pan; spoon sauce over. Simmer 5 min until salmon is cooked through and sauce coats it.",
+        "Garnish with cilantro. Serve over jasmine rice with extra sauce spooned over the top."
       ],
-      "note": "💡 The base recipe is mild — keep the red pepper flakes off to the side so the kids can eat it. Gnocchi cooks right in the sauce, no boiling needed."
+      "note": "💡 Skipping the red pepper flakes keeps this totally kid-friendly. The curry powder + turmeric give warmth and color without heat. Serve over rice to soak up the sauce."
     },
     {
-      "id": "sheet-pan-greek-chicken",
+      "id": "homemade-crunchwrap-supreme",
       "label": "Meal C",
       "day": "Thursday",
-      "date": "5/21",
-      "icon": "🍋",
-      "name": "Sheet-Pan Greek Chicken & Veggies",
-      "meta": "~40 min · Sheet pan · Serves 4",
+      "date": "5/28",
+      "icon": "🌯",
+      "name": "Homemade Crunchwrap Supreme",
+      "meta": "25 min · Stovetop · Serves 6",
       "ings": [
-        "1½ lbs boneless skinless chicken thighs",
-        "¼ cup olive oil",
-        "Juice of 1 lemon (about 3 Tbsp)",
-        "1 Tbsp Dijon mustard",
-        "4 cloves garlic, minced",
-        "2 tsp dried oregano",
-        "1 tsp dried thyme",
-        "Salt and black pepper",
-        "1 medium zucchini, sliced into ½-inch half-moons",
-        "1 bell pepper, cut into 1-inch pieces",
-        "1 large red onion, cut into wedges",
-        "1½ cups cherry tomatoes",
-        "4 oz feta cheese, crumbled",
-        "Cooked rice or warm pita, for serving"
+        "1 lb ground beef",
+        "1 packet taco seasoning (mild)",
+        "6 burrito-size flour tortillas",
+        "6 tostada shells",
+        "1 cup sour cream",
+        "2 cups shredded lettuce",
+        "1 large tomato, diced",
+        "1 cup shredded Mexican cheese blend",
+        "1 cup nacho cheese sauce (jarred is fine)",
+        "Oil for the skillet"
       ],
       "steps": [
-        "Whisk together olive oil, lemon juice, Dijon, garlic, oregano, thyme, salt, and pepper. Toss chicken with ⅔ of the marinade and let sit 15 min while the oven heats to 425°F.",
-        "Spread zucchini, bell pepper, red onion, and cherry tomatoes on a large sheet pan. Drizzle with the remaining marinade and toss to coat. Spread in a single layer.",
-        "Nestle the marinated chicken among the vegetables. Roast 25 min.",
-        "Remove pan, scatter crumbled feta over everything, and return to the oven 10–15 min more until chicken reaches 165°F and veggies are tender.",
-        "Spoon the pan juices over everything. Serve over rice or with warm pita."
+        "Cook and crumble ground beef in a skillet over medium-high heat until no longer pink. Drain excess fat. Stir in taco seasoning per packet directions (usually add ⅔ cup water and simmer 3–5 min).",
+        "Warm nacho cheese in microwave (about 1 min). Warm tortillas in microwave 20 sec to make them pliable.",
+        "Lay a tortilla flat. In the center: spread 2 Tbsp nacho cheese, add ½ cup taco meat, place a tostada shell on top, spread thin layer of sour cream, add lettuce, tomato, and shredded cheese.",
+        "Fold tortilla: start with the bottom edge, fold it up to the center over the filling. Work around the circle, folding each section tight and overlapping to create a hexagonal seal.",
+        "Heat a lightly oiled skillet over medium. Cook the wrap seam-side down for 2–3 min until golden and sealed. Flip carefully and cook other side 2 min. Repeat for remaining wraps. Serve immediately."
       ],
-      "note": "💡 Naturally not spicy, pre-diabetic friendly. Pound thicker thighs to even thickness so they cook evenly."
+      "note": "💡 Kid-favorite assembly night. Use mild taco seasoning so the boys can have it as-is. Set out hot sauce on the side for adults. The seam-side-down sear is what keeps it together — don't skip."
     }
   ],
-  "groceries": [
-    {
-      "icon": "🥦",
-      "label": "Produce",
-      "items": [
-        {
-          "name": "3 cups broccoli florets",
-          "detail": "Meal A · stir fry vegetable base",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "broccoli florets"
-        },
-        {
-          "name": "1 cup shredded carrots",
-          "detail": "Meal A · stir fry vegetable base",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "shredded carrots"
-        },
-        {
-          "name": "1 small onion + 1 large red onion",
-          "detail": "1 small diced onion for Meal A stir fry · 1 large red onion cut into wedges for Meal C sheet pan",
-          "tag": "Meals A+C",
-          "tagClass": "tag-shared",
-          "amazon": "yellow onion"
-        },
-        {
-          "name": "1 small shallot (or ½ onion)",
-          "detail": "Meal B · sautéed as aromatic base for sauce",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "shallots"
-        },
-        {
-          "name": "11 cloves garlic (about 1 head)",
-          "detail": "3 cloves for Meal A teriyaki sauce · 4 cloves for Meal B sauce base · 4 cloves for Meal C marinade",
-          "tag": "All meals",
-          "tagClass": "tag-all",
-          "amazon": "garlic bulb"
-        },
-        {
-          "name": "1 tsp fresh ginger (small knob)",
-          "detail": "Meal A · teriyaki sauce",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "fresh ginger root"
-        },
-        {
-          "name": "1 orange (for zest)",
-          "detail": "Meal A · 1 Tbsp orange zest stirred into teriyaki sauce",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "navel orange"
-        },
-        {
-          "name": "2 cups fresh baby spinach",
-          "detail": "Meal B · wilted into sauce at the end",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "baby spinach"
-        },
-        {
-          "name": "Fresh basil",
-          "detail": "Meal B · torn, for serving",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "fresh basil"
-        },
-        {
-          "name": "1 lemon",
-          "detail": "Meal C · juice of 1 lemon (~3 Tbsp) for marinade",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "lemon"
-        },
-        {
-          "name": "1 medium zucchini",
-          "detail": "Meal C · sliced into ½-inch half-moons for sheet pan",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "zucchini"
-        },
-        {
-          "name": "1 bell pepper",
-          "detail": "Meal C · cut into 1-inch pieces for sheet pan",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "bell pepper"
-        },
-        {
-          "name": "1½ cups cherry tomatoes",
-          "detail": "Meal C · roasted on sheet pan with veggies",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "cherry tomatoes"
-        }
-      ]
-    },
-    {
-      "icon": "🥩",
-      "label": "Protein",
-      "items": [
-        {
-          "name": "1 lb ground turkey",
-          "detail": "Meal A · stir fry protein base",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "lean ground turkey"
-        },
-        {
-          "name": "1¼ lb boneless skinless chicken thighs or breasts",
-          "detail": "Meal B · cut into bite-sized pieces for gnocchi skillet",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "boneless skinless chicken thighs"
-        },
-        {
-          "name": "1½ lbs boneless skinless chicken thighs",
-          "detail": "Meal C · marinated and roasted on sheet pan",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "boneless skinless chicken thighs"
-        }
-      ]
-    },
-    {
-      "icon": "🧈",
-      "label": "Dairy & Refrigerated",
-      "items": [
-        {
-          "name": "1 cup half-and-half (or ¾ cup heavy cream)",
-          "detail": "Meal B · creamy sauce base for gnocchi",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "half and half"
-        },
-        {
-          "name": "½ cup Parmesan, freshly grated",
-          "detail": "Meal B · stirred in at end for creamy finish",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "parmesan cheese wedge"
-        },
-        {
-          "name": "4 oz feta cheese, crumbled",
-          "detail": "Meal C · scattered over sheet pan in last 10–15 min of roasting",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "crumbled feta cheese"
-        }
-      ]
-    },
-    {
-      "icon": "🫙",
-      "label": "Pantry & Canned",
-      "items": [
-        {
-          "name": "2 tsp sesame oil",
-          "detail": "Meal A · used to heat wok and start stir fry",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "toasted sesame oil"
-        },
-        {
-          "name": "¼ cup soy sauce",
-          "detail": "Meal A · teriyaki sauce base",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "low sodium soy sauce"
-        },
-        {
-          "name": "3 Tbsp brown sugar",
-          "detail": "Meal A · teriyaki sauce sweetener",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "light brown sugar"
-        },
-        {
-          "name": "2 Tbsp honey",
-          "detail": "Meal A · teriyaki sauce sweetener",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "pure honey"
-        },
-        {
-          "name": "2 Tbsp cornstarch",
-          "detail": "Meal A · thickens teriyaki sauce",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "cornstarch"
-        },
-        {
-          "name": "Cooked rice (2–3 cups dry)",
-          "detail": "Meal A served over rice · Meal C served over rice or with pita",
-          "tag": "Meals A+C",
-          "tagClass": "tag-shared",
-          "amazon": "long grain white rice"
-        },
-        {
-          "name": "¼ cup + 2 Tbsp olive oil",
-          "detail": "2 Tbsp for Meal B searing chicken and sautéing · ¼ cup for Meal C marinade",
-          "tag": "Meals B+C",
-          "tagClass": "tag-shared",
-          "amazon": "olive oil"
-        },
-        {
-          "name": "⅔ cup sun-dried tomatoes, oil-packed",
-          "detail": "Meal B · drained and chopped into sauce base",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "sun dried tomatoes oil packed jar"
-        },
-        {
-          "name": "1 (16 oz) package shelf-stable potato gnocchi",
-          "detail": "Meal B · cooks directly in the sauce, no boiling needed",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "shelf stable potato gnocchi"
-        },
-        {
-          "name": "1 cup low-sodium chicken broth",
-          "detail": "Meal B · liquid base for gnocchi sauce",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "low sodium chicken broth"
-        },
-        {
-          "name": "1 Tbsp Dijon mustard",
-          "detail": "Meal C · whisked into marinade",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "dijon mustard"
-        },
-        {
-          "name": "Warm pita (optional)",
-          "detail": "Meal C · optional alternative to rice for serving",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "pita bread"
-        },
-        {
-          "name": "Red pepper flakes (optional)",
-          "detail": "Meal B · on the side for adults only",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "red pepper flakes"
-        }
-      ]
-    },
-    {
-      "icon": "🌿",
-      "label": "Spices",
-      "note": "Check pantry before ordering — you likely have most of these.",
-      "items": [
-        {
-          "name": "Salt",
-          "detail": "All meals · general seasoning throughout",
-          "tag": "All meals",
-          "tagClass": "tag-all"
-        },
-        {
-          "name": "Black pepper",
-          "detail": "All meals · general seasoning throughout",
-          "tag": "All meals",
-          "tagClass": "tag-all"
-        },
-        {
-          "name": "2 tsp dried oregano",
-          "detail": "Meal C · whisked into marinade",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 tsp dried thyme",
-          "detail": "Meal C · whisked into marinade",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
-        }
-      ]
-    }
-  ]
+  "groceries": []
 }
