@@ -569,7 +569,10 @@
           listEl.insertBefore(renderComment(Object.assign({ _key: key }, comment), safeId), listEl.firstChild);
         }
       })
-      .catch(function () {})
+      .catch(function () {
+        postBtn.textContent = 'Failed — try again';
+        setTimeout(function () { postBtn.textContent = 'Post'; }, 3000);
+      })
       .finally(function () {
         postBtn.disabled  = false;
         textarea.disabled = false;

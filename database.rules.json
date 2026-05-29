@@ -1,0 +1,28 @@
+{
+  "rules": {
+    "meals": {
+      ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')",
+      ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"
+    },
+    "groceries": {
+      ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email  == 'missjosephinefox@gmail.com')",
+      ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"
+    },
+    "saved-recipes": {
+      ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email  == 'missjosephinefox@gmail.com')",
+      ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"
+    },
+    "saved-recipe-data": {
+      ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')",
+      ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"
+    },
+    "recipe-edits": {
+      ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')",
+      ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"
+    },
+    "recipe-comments": {
+      ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')",
+      ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"
+    }
+  }
+}
