@@ -1,5 +1,45 @@
 [
   {
+    "weekOf": "2026-06-01",
+    "title": "Week of June 1",
+    "subhead": "3 dinners · Serves 4–6",
+    "meals": [
+      {
+        "id": "corn-chowder",
+        "label": "Meal A",
+        "day": "Tuesday",
+        "date": "6/2",
+        "icon": "🌽",
+        "name": "Corn Chowder",
+        "meta": "45 min · Stovetop · Serves 6",
+        "ings": [],
+        "steps": []
+      },
+      {
+        "id": "one-pan-coconut-curry-salmon",
+        "label": "Meal B",
+        "day": "Wednesday",
+        "date": "6/3",
+        "icon": "🥥",
+        "name": "One-Pan Coconut Curry Salmon",
+        "meta": "30 min · One Pan · Serves 4",
+        "ings": [],
+        "steps": []
+      },
+      {
+        "id": "homemade-crunchwrap-supreme",
+        "label": "Meal C",
+        "day": "Thursday",
+        "date": "6/4",
+        "icon": "🌯",
+        "name": "Homemade Crunchwrap Supreme",
+        "meta": "25 min · Stovetop · Serves 6",
+        "ings": [],
+        "steps": []
+      }
+    ]
+  },
+  {
     "weekOf": "2026-05-17",
     "title": "Week of May 17",
     "subhead": "3 dinners · Serves 4",
