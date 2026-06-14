@@ -1,394 +1,107 @@
 {
-  "weekOf": "2026-06-01",
-  "title": "Week of June 1",
-  "subhead": "3 dinners · Serves 4–6",
+  "weekOf": "2026-06-15",
+  "title": "Week of June 15",
+  "subhead": "3 dinners · Serves 4",
   "meals": [
     {
-      "id": "corn-chowder",
+      "id": "easy-weeknight-salmon-sushi-bowls",
       "label": "Meal A",
-      "day": "Tuesday",
-      "date": "6/2",
-      "icon": "🌽",
-      "name": "Corn Chowder",
-      "meta": "45 min · Stovetop · Serves 6",
+      "day": "Monday",
+      "date": "6/15",
+      "icon": "🍣",
+      "name": "Easy Weeknight Salmon Sushi Bowls",
+      "meta": "~20 min · Bowl · Serves 4",
       "ings": [
-        "4 slices thick-cut bacon, diced",
-        "2 Tbsp butter",
-        "1 small sweet onion, finely diced",
-        "2 stalks celery, finely diced",
-        "3 cloves garlic, diced",
-        "1 tsp coarse salt, ½ tsp black pepper",
-        "¼ cup all-purpose flour",
-        "5 cups low-sodium chicken broth",
-        "2 medium russet potatoes, ½-inch cubes",
-        "3 cups corn kernels (frozen or fresh)",
-        "1 Tbsp honey, ¼ tsp dried thyme, 2 bay leaves",
-        "1 cup heavy cream",
-        "1 cup shredded cheddar cheese",
-        "2 scallions, diced"
+        "2½ cups sushi or jasmine rice",
+        "¼ cup rice vinegar",
+        "5 tsp granulated sugar",
+        "4 (4 oz) cooked salmon filets",
+        "1 cup sliced Persian cucumbers",
+        "1 cup shredded carrots",
+        "2 small ripe avocados, thinly sliced",
+        "1 Tbsp oil",
+        "⅓ cup panko breadcrumbs",
+        "Pinch of garlic salt",
+        "Sriracha mayo, toasted sesame seeds, 1 nori sheet, pickled ginger"
       ],
       "steps": [
-        "Cook bacon in heavy pot over medium until crispy. Remove, leaving ~3 Tbsp fat in the pot.",
-        "Add butter; cook onion and celery ~5 min. Add garlic 30 sec. Season with salt and pepper.",
-        "Sprinkle flour; cook 1–2 min. Pour in broth with potato, corn, honey, thyme, bay leaves. Bring to boil, simmer until potatoes tender, 10–12 min.",
-        "Discard bay leaves. Add cream. Blend to desired consistency with immersion blender (leave some chunks).",
-        "Stir in cheese until melted. Add most of bacon. Garnish bowls with remaining bacon and scallions."
+        "Cook rice in rice cooker. Combine vinegar, sugar, ½ tsp salt; microwave 20 sec, stir until dissolved. Pour over rice. Let sit.",
+        "Panko crunchies: heat oil in small skillet, toast panko ~2 min until golden.",
+        "Build bowls: ¾ cup rice, flaked salmon, ¼ cup each cucumbers and carrots, ½ avocado, ginger, panko. Top with nori and sesame seeds. Drizzle sriracha mayo.",
+        "Sriracha mayo: mix ½ cup mayo, 1 Tbsp sriracha, 1 tsp sugar, 1 tsp low-sodium soy sauce."
       ],
-      "note": "💡 Naturally not spicy, super kid-friendly. Leave a bit chunky — kids love the corn kernels. Leftovers freeze well."
+      "note": "💡 Serve sriracha mayo on the side for adults only — kids can have it plain with extra soy on the rice. Pre-cooked salmon makes this a true 20-minute meal."
     },
     {
-      "id": "one-pan-coconut-curry-salmon",
+      "id": "air-fryer-fish-tacos-with-cilantro-lime-slaw",
       "label": "Meal B",
-      "day": "Wednesday",
-      "date": "6/3",
-      "icon": "🥥",
-      "name": "One-Pan Coconut Curry Salmon",
-      "meta": "30 min · One Pan · Serves 4",
+      "day": "Tuesday",
+      "date": "6/16",
+      "icon": "🌮",
+      "name": "Air Fryer Fish Tacos with Cilantro Lime Slaw",
+      "meta": "20 min · Air Fryer · Serves 4",
       "ings": [
-        "4 salmon fillets (5–6 oz each)",
-        "1 tsp salt, ½ tsp pepper, ½ tsp paprika",
-        "1 Tbsp olive oil",
-        "2 Tbsp butter",
-        "4 cloves garlic, minced",
-        "1 tsp grated ginger",
-        "1 tsp curry powder, ½ tsp turmeric",
-        "1 (13.5 oz) can coconut milk (full fat)",
-        "1 Tbsp tomato paste",
-        "1 tsp honey or maple syrup",
-        "1 Tbsp soy sauce",
-        "Juice of ½ lime",
-        "Fresh cilantro or basil for garnish",
-        "Cooked jasmine rice for serving"
+        "1½ lb tilapia or white fish",
+        "1 tsp chili powder",
+        "½ tsp oregano",
+        "½ tsp garlic powder",
+        "½ tsp paprika",
+        "¼ tsp onion powder",
+        "¼ tsp cumin",
+        "½ tsp sea salt",
+        "½ tsp cracked pepper",
+        "Tortillas for serving",
+        "2½ cups coleslaw mix",
+        "3 Tbsp mayo",
+        "1 Tbsp lime juice",
+        "1 garlic clove, minced",
+        "⅓ cup cilantro, chopped",
+        "½ tsp sugar (optional)",
+        "Extra salt and pepper to taste"
       ],
       "steps": [
-        "Pat salmon dry; season with salt, pepper, paprika. Heat oil in skillet over medium-high. Sear salmon skin-side down 3–4 min until crispy. Flip, cook 2 more min. Remove to a plate.",
-        "Lower heat; melt butter in same pan. Sauté garlic and ginger 1 min. Stir in curry powder and turmeric; toast 30 sec until fragrant.",
-        "Add coconut milk, tomato paste, honey, soy sauce, and lime juice. Whisk together and simmer 5 min until slightly thickened.",
-        "Return salmon to pan; spoon sauce over. Simmer 5 min until salmon is cooked through and sauce coats it.",
-        "Garnish with cilantro. Serve over jasmine rice with extra sauce spooned over the top."
+        "Spray air fryer basket with oil. Mix all spices in a small bowl.",
+        "Pat fish dry, lay in basket. Brush with olive oil, coat with spice rub, press gently to adhere. Spritz with oil.",
+        "Preheat air fryer to 400°F. Cook fish 8–10 min until opaque and flakes at 145°F. Do not flip.",
+        "While fish cooks, toss together all slaw ingredients. Adjust lime and salt to taste.",
+        "Cut fish into pieces. Serve in tortillas topped with slaw and extra lime."
       ],
-      "note": "💡 Skipping the red pepper flakes keeps this totally kid-friendly. The curry powder + turmeric give warmth and color without heat. Serve over rice to soak up the sauce."
+      "note": "💡 Cayenne omitted from this version to keep it kid-friendly — still flavorful from chili powder, paprika, and cumin. No air fryer? Bake at 400°F for ~15 min."
     },
     {
-      "id": "homemade-crunchwrap-supreme",
+      "id": "thai-peanut-chicken-wraps",
       "label": "Meal C",
-      "day": "Thursday",
-      "date": "6/4",
-      "icon": "🌯",
-      "name": "Homemade Crunchwrap Supreme",
-      "meta": "25 min · Stovetop · Serves 6",
+      "day": "Wednesday",
+      "date": "6/17",
+      "icon": "🥜",
+      "name": "Thai Peanut Chicken Wraps",
+      "meta": "~27 min · Skillet · Serves 4",
       "ings": [
-        "1 lb ground beef",
-        "1 packet taco seasoning (mild)",
-        "6 burrito-size flour tortillas",
-        "6 tostada shells",
-        "1 cup sour cream",
-        "2 cups shredded lettuce",
-        "1 large tomato, diced",
-        "1 cup shredded Mexican cheese blend",
-        "1 cup nacho cheese sauce (jarred is fine)",
-        "Oil for the skillet"
+        "1 lb boneless chicken breast, cut into strips",
+        "4 large flour tortillas",
+        "⅓ cup creamy peanut butter",
+        "3 Tbsp soy sauce, divided",
+        "2 Tbsp sesame oil, divided",
+        "2 cups fresh lettuce leaves",
+        "1 cup purple cabbage, shredded",
+        "2 large carrots, julienned",
+        "¼ cup fresh cilantro, chopped",
+        "2 Tbsp lime juice",
+        "2 cloves garlic, minced",
+        "1 tsp fresh ginger, grated",
+        "2 Tbsp honey"
       ],
       "steps": [
-        "Cook and crumble ground beef in a skillet over medium-high heat until no longer pink. Drain excess fat. Stir in taco seasoning per packet directions (usually add ⅔ cup water and simmer 3–5 min).",
-        "Warm nacho cheese in microwave (about 1 min). Warm tortillas in microwave 20 sec to make them pliable.",
-        "Lay a tortilla flat. In the center: spread 2 Tbsp nacho cheese, add ½ cup taco meat, place a tostada shell on top, spread thin layer of sour cream, add lettuce, tomato, and shredded cheese.",
-        "Fold tortilla: start with the bottom edge, fold it up to the center over the filling. Work around the circle, folding each section tight and overlapping to create a hexagonal seal.",
-        "Heat a lightly oiled skillet over medium. Cook the wrap seam-side down for 2–3 min until golden and sealed. Flip carefully and cook other side 2 min. Repeat for remaining wraps. Serve immediately."
+        "Whisk peanut butter, 2 Tbsp soy sauce, 1 Tbsp sesame oil, lime juice, garlic, ginger, and honey in a medium bowl until smooth. Set aside.",
+        "Cut chicken into thin strips and toss with remaining 1 Tbsp soy sauce and 1 Tbsp sesame oil. Marinate 10 min while you prep vegetables.",
+        "Wash and dry lettuce, finely shred cabbage, julienne carrots, chop cilantro. Set out in separate bowls for easy assembly.",
+        "Heat large skillet over medium-high. Cook chicken strips 6–8 min, stirring occasionally, until golden brown and cooked through. Let cool slightly.",
+        "Warm tortillas 30 sec per side in dry skillet, or wrap in damp paper towel and microwave 20 sec until pliable.",
+        "Spread 2 Tbsp peanut sauce down center of each tortilla. Layer with lettuce, cabbage, carrots, chicken, and cilantro. Drizzle with more sauce.",
+        "Fold in sides and roll tightly from the bottom. Cut in half diagonally. Serve with extra peanut sauce on the side for dipping."
       ],
-      "note": "💡 Kid-favorite assembly night. Use mild taco seasoning so the boys can have it as-is. Set out hot sauce on the side for adults. The seam-side-down sear is what keeps it together — don't skip."
+      "note": "💡 Peanut sauce keeps a week in the fridge — make a double batch. Pat veggies dry so wraps don't get soggy. For kids: assemble with less sauce or serve as a deconstructed bowl over rice if they're wary of wraps."
     }
   ],
-  "groceries": [
-    {
-      "icon": "🥦",
-      "label": "Produce",
-      "items": [
-        {
-          "name": "1 small sweet onion",
-          "detail": "finely diced for corn chowder base",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "sweet onion"
-        },
-        {
-          "name": "2 stalks celery",
-          "detail": "finely diced for corn chowder base",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "celery stalks"
-        },
-        {
-          "name": "7 cloves garlic",
-          "detail": "3 cloves diced for corn chowder · 4 cloves minced for coconut curry salmon",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "garlic bulb"
-        },
-        {
-          "name": "2 medium russet potatoes",
-          "detail": "cut into ½-inch cubes for corn chowder",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "russet potatoes"
-        },
-        {
-          "name": "2 scallions",
-          "detail": "diced for corn chowder garnish",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "green onions scallions"
-        },
-        {
-          "name": "1 knob fresh ginger",
-          "detail": "1 tsp grated for coconut curry salmon sauce",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "fresh ginger root"
-        },
-        {
-          "name": "1 lime",
-          "detail": "juice of ½ lime for coconut curry salmon sauce",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "fresh lime"
-        },
-        {
-          "name": "1 small bunch fresh cilantro or basil",
-          "detail": "garnish for coconut curry salmon",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "fresh cilantro"
-        },
-        {
-          "name": "1 large tomato",
-          "detail": "diced for crunchwrap supreme filling",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "beefsteak tomato"
-        },
-        {
-          "name": "1 small head iceberg or romaine lettuce",
-          "detail": "2 cups shredded for crunchwrap supreme filling",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "shredded lettuce bag"
-        }
-      ]
-    },
-    {
-      "icon": "🥩",
-      "label": "Protein",
-      "items": [
-        {
-          "name": "4 slices thick-cut bacon",
-          "detail": "diced and cooked for corn chowder base and garnish",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "thick cut bacon"
-        },
-        {
-          "name": "4 salmon fillets (5–6 oz each)",
-          "detail": "seared and simmered in coconut curry sauce",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "fresh salmon fillets"
-        },
-        {
-          "name": "1 lb ground beef",
-          "detail": "cooked and seasoned with taco seasoning for crunchwrap filling",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "lean ground beef"
-        }
-      ]
-    },
-    {
-      "icon": "🧈",
-      "label": "Dairy & Refrigerated",
-      "items": [
-        {
-          "name": "1 stick butter (4 Tbsp total)",
-          "detail": "2 Tbsp for corn chowder base · 2 Tbsp for coconut curry salmon sauce",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "unsalted butter"
-        },
-        {
-          "name": "1 cup heavy cream",
-          "detail": "stirred in at the end of corn chowder",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "heavy cream"
-        },
-        {
-          "name": "1 cup shredded cheddar cheese",
-          "detail": "melted into corn chowder",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "shredded cheddar cheese"
-        },
-        {
-          "name": "1 cup sour cream",
-          "detail": "spread inside crunchwrap supreme",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "sour cream"
-        },
-        {
-          "name": "1 cup shredded Mexican cheese blend",
-          "detail": "layered inside crunchwrap supreme",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "shredded mexican cheese blend"
-        }
-      ]
-    },
-    {
-      "icon": "🫙",
-      "label": "Pantry & Canned",
-      "items": [
-        {
-          "name": "¼ cup all-purpose flour",
-          "detail": "used as roux thickener for corn chowder",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "all purpose flour"
-        },
-        {
-          "name": "5 cups low-sodium chicken broth",
-          "detail": "soup base for corn chowder",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "low sodium chicken broth"
-        },
-        {
-          "name": "3 cups corn kernels (frozen or fresh)",
-          "detail": "main vegetable in corn chowder",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "frozen corn kernels"
-        },
-        {
-          "name": "2 Tbsp honey",
-          "detail": "1 Tbsp for corn chowder · 1 tsp for coconut curry salmon sauce",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "pure honey"
-        },
-        {
-          "name": "1 Tbsp olive oil",
-          "detail": "for searing salmon, plus a little extra oil for skillet when cooking crunchwraps",
-          "tag": "Meals B+C",
-          "tagClass": "tag-shared",
-          "amazon": "olive oil"
-        },
-        {
-          "name": "1 (13.5 oz) can coconut milk (full fat)",
-          "detail": "base of coconut curry salmon sauce",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "full fat coconut milk"
-        },
-        {
-          "name": "1 small can tomato paste",
-          "detail": "1 Tbsp stirred into coconut curry salmon sauce",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "tomato paste"
-        },
-        {
-          "name": "1 Tbsp soy sauce",
-          "detail": "added to coconut curry salmon sauce for depth",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "low sodium soy sauce"
-        },
-        {
-          "name": "2 cups jasmine rice",
-          "detail": "cooked and served as base for coconut curry salmon",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "jasmine rice"
-        },
-        {
-          "name": "1 packet mild taco seasoning",
-          "detail": "seasoning for crunchwrap taco meat",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "mild taco seasoning packet"
-        },
-        {
-          "name": "6 burrito-size flour tortillas",
-          "detail": "outer wrap for crunchwrap supreme",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "burrito size flour tortillas"
-        },
-        {
-          "name": "6 tostada shells",
-          "detail": "crunchy inner layer of crunchwrap supreme",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "tostada shells"
-        },
-        {
-          "name": "1 cup nacho cheese sauce (jarred)",
-          "detail": "spread as first layer inside crunchwrap supreme",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "jarred nacho cheese sauce"
-        }
-      ]
-    },
-    {
-      "icon": "🌿",
-      "label": "Spices",
-      "note": "Check pantry before ordering — you likely have most of these.",
-      "items": [
-        {
-          "name": "Coarse salt",
-          "detail": "1 tsp for corn chowder seasoning · 1 tsp for salmon seasoning",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "Black pepper",
-          "detail": "½ tsp for corn chowder · ½ tsp for salmon seasoning",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "Dried thyme",
-          "detail": "¼ tsp added to corn chowder with bay leaves",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "Bay leaves",
-          "detail": "2 leaves simmered in corn chowder, then discarded",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "Paprika",
-          "detail": "½ tsp for salmon seasoning",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Curry powder",
-          "detail": "1 tsp toasted in pan for coconut curry salmon sauce",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Ground turmeric",
-          "detail": "½ tsp toasted in pan for coconut curry salmon sauce",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        }
-      ]
-    }
-  ]
+  "groceries": []
 }
