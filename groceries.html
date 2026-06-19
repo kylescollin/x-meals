@@ -42,6 +42,14 @@
   .tag-all{background:#f0ecd8;color:#7a6020;}
   .amz-btn{font-size:11px;font-weight:600;color:#fff;background:#FF9900;border:none;border-radius:5px;padding:3px 8px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;}
   .amz-btn:hover{background:#e88b00;}
+  .rm-btn{font-size:15px;line-height:1;font-weight:500;color:var(--muted);background:transparent;border:none;border-radius:5px;width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .12s,color .12s;}
+  .rm-btn:hover{background:#f3e3df;color:var(--accent);}
+  .add-bar{display:flex;gap:8px;margin-bottom:24px;}
+  .add-input{flex:1;min-width:0;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:#fff;border:1px solid var(--border);border-radius:8px;padding:11px 14px;outline:none;transition:border-color .12s;}
+  .add-input:focus{border-color:var(--accent);}
+  .add-input::placeholder{color:#b0a898;}
+  .add-btn{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:8px;padding:0 18px;cursor:pointer;white-space:nowrap;transition:background .12s;}
+  .add-btn:hover{background:#b0531f;}
   .note-box{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#7a4820;margin-bottom:18px;}
   .summary-bar{position:fixed;bottom:0;left:0;right:0;background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
   .summary-count{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;}
@@ -64,6 +72,10 @@
   <p class="subhead" id="subhead"></p>
   <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
   <p class="progress-label" id="progressLabel">0 of 0 items checked</p>
+  <div class="add-bar">
+    <input class="add-input" id="addInput" type="text" placeholder="Add an item…" autocomplete="off" enterkeyhint="done" onkeydown="if(event.key==='Enter')addCustom()">
+    <button class="add-btn" onclick="addCustom()">Add</button>
+  </div>
   <div id="grocerySections"></div>
 </div>
 <div class="summary-bar">
@@ -87,27 +99,140 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
 function fbKey(el){return el.querySelector('.item-name').textContent.trim().replace(/[^a-z0-9]/gi,'_').substring(0,60);}
 async function syncToFB(k,v){var token=await getAuthToken();fetch(FB_URL+'/'+k+'.json?auth='+token,{method:'PUT',body:JSON.stringify(v)}).catch(function(){});}
 function applyState(d){if(!d)return;document.querySelectorAll('.item').forEach(function(el){var k=fbKey(el),s=d[k]===true,c=el.classList.contains('checked');if(s&&!c)el.classList.add('checked');else if(!s&&c)el.classList.remove('checked');});updateProgress();}
-async function pollFB(){var token=await getAuthToken();fetch(FB_URL+'.json?auth='+token).then(function(r){return r.json();}).then(function(d){if(!d)return;var s=JSON.stringify(d);if(s!==JSON.stringify(lastKnownState)){lastKnownState=d;applyState(d);}}).catch(function(){});}
-async function loadFromFB(){var token=await getAuthToken();fetch(FB_URL+'.json?auth='+token).then(function(r){return r.json();}).then(function(d){if(!d)return;lastKnownState=d;applyState(d);}).catch(function(){});}
+async function pollFB(){var token=await getAuthToken();fetch(FB_URL+'.json?auth='+token).then(function(r){return r.json();}).then(function(d){if(!d)return;var s=JSON.stringify(d);if(s!==JSON.stringify(lastKnownState)){lastKnownState=d;renderCustom(d._custom||{});}}).catch(function(){});}
+async function loadFromFB(){var token=await getAuthToken();fetch(FB_URL+'.json?auth='+token).then(function(r){return r.json();}).then(function(d){if(!d)return;lastKnownState=d;renderCustom(d._custom||{});}).catch(function(){});}
 function toggle(el){el.classList.toggle('checked');var k=fbKey(el),c=el.classList.contains('checked');lastKnownState[k]=c;syncToFB(k,c);updateProgress();}
 function e(ev){ev.stopPropagation();}
 function updateProgress(){var items=document.querySelectorAll('.item'),checked=document.querySelectorAll('.item.checked');var t=items.length,c=checked.length;document.getElementById('progressBar').style.width=t?(c/t*100)+'%':'0%';document.getElementById('progressLabel').textContent=c+' of '+t+' items checked';document.getElementById('summaryCount').textContent=c+' / '+t;}
 function resetAll(){document.querySelectorAll('.item.checked').forEach(function(el){el.classList.remove('checked');var k=fbKey(el);lastKnownState[k]=false;syncToFB(k,false);});updateProgress();}
 
-window.toggle   = toggle;
-window.resetAll = resetAll;
-window.e        = e;
+window.toggle       = toggle;
+window.resetAll     = resetAll;
+window.e            = e;
+window.addCustom    = addCustom;
+window.removeCustom = removeCustom;
+
+function amzBtn(term){return '<a class="amz-btn" href="https://www.amazon.com/s?k='+encodeURIComponent(term).replace(/%20/g,'+')+'&amp;i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a>';}
 
 function renderItem(item){
-  var amz=item.amazon?'<a class="amz-btn" href="https://www.amazon.com/s?k='+encodeURIComponent(item.amazon).replace(/%20/g,'+')+'&amp;i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a>':'';
+  var amz=item.amazon?amzBtn(item.amazon):'';
   return '<div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">&#x2713;</span></div><div class="item-body"><div class="item-name">'+esc(item.name)+'</div>'+(item.detail?'<div class="item-detail">'+esc(item.detail)+'</div>':'')+'</div><div class="item-right"><span class="tag '+esc(item.tagClass)+'">'+esc(item.tag)+'</span>'+amz+'</div></div>';
 }
 
 function renderSection(sec){
-  var html='<div class="section"><div class="section-header"><span>'+sec.icon+'</span><span class="section-label">'+esc(sec.label)+'</span></div>';
+  var html='<div class="section" data-section="'+esc(keyForLabel(sec.label))+'"><div class="section-header"><span>'+sec.icon+'</span><span class="section-label">'+esc(sec.label)+'</span></div>';
   if(sec.note)html+='<div class="note-box">'+esc(sec.note)+'</div>';
   (sec.items||[]).forEach(function(item){html+=renderItem(item);});
   return html+'</div>';
+}
+
+// ---- Custom (user-added) grocery items ----
+// Canonical sections, in display order. Matches CLAUDE.md.
+var SECTIONS=[
+  {key:'produce',icon:'🥦',label:'Produce'},
+  {key:'protein',icon:'🥩',label:'Protein'},
+  {key:'dairy',  icon:'🧈',label:'Dairy & Refrigerated'},
+  {key:'pantry', icon:'🫙',label:'Pantry & Canned'},
+  {key:'spices', icon:'🌿',label:'Spices'}
+];
+function keyForLabel(label){
+  var l=(label||'').toLowerCase();
+  if(l.indexOf('produce')>-1)return 'produce';
+  if(l.indexOf('protein')>-1)return 'protein';
+  if(l.indexOf('dairy')>-1||l.indexOf('refrigerat')>-1)return 'dairy';
+  if(l.indexOf('spice')>-1)return 'spices';
+  return 'pantry';
+}
+
+// Keyword → section. Order matters: earlier, more specific phrases win.
+var CLASSIFY=[
+  ['spices', ['black pepper','peppercorn','ground pepper','white pepper','cayenne','chili powder','chilli powder','garlic powder','onion powder','cumin','paprika','cinnamon','oregano','thyme','rosemary','turmeric','coriander','nutmeg','bay leaf','seasoning','spice','salt']],
+  ['protein',['chicken','beef','pork','turkey','salmon','tuna','shrimp','prawn','tofu','tempeh','bacon','sausage','steak','ground ','mince','lamb','cod','tilapia','meatball','hot dog','deli','ham ','meat']],
+  ['dairy',  ['milk','cheese','yogurt','yoghurt','butter','heavy cream','sour cream','half-and-half','half and half','cream cheese','kefir','egg']],
+  ['produce',['bell pepper','jalapeno','jalapeño','lettuce','spinach','kale','arugula','cucumber','tomato','onion','garlic','shallot','scallion','green onion','carrot','celery','broccoli','cauliflower','potato','sweet potato','avocado','lemon','lime','orange','apple','banana','grape','berry','berries','strawberr','blueberr','mushroom','zucchini','squash','cilantro','parsley','basil','mint','ginger','cabbage','corn','pepper','fruit','vegetable','veggie','greens','herb']],
+  ['pantry', ['rice','pasta','noodle','bean','lentil','chickpea','canned','can of','sauce','olive oil','oil','vinegar','flour','sugar','broth','stock','soy sauce','bread','tortilla','cereal','oat','peanut butter','almond butter','honey','maple','chip','cracker','coconut milk','tomato paste','salsa','ketchup','mustard','mayo','jam','jelly','snack','water','coffee','tea','wine','soda','paper towel','napkin','foil','wrap','bag','soap','detergent']]
+];
+function classify(name){
+  var n=' '+(name||'').toLowerCase()+' ';
+  for(var i=0;i<CLASSIFY.length;i++){
+    var sect=CLASSIFY[i][0],words=CLASSIFY[i][1];
+    for(var j=0;j<words.length;j++){if(n.indexOf(words[j])>-1)return sect;}
+  }
+  return 'pantry';
+}
+
+function getOrCreateSection(key){
+  var container=document.getElementById('grocerySections');
+  var existing=container.querySelector('.section[data-section="'+key+'"]');
+  if(existing)return existing;
+  var meta=null;for(var i=0;i<SECTIONS.length;i++){if(SECTIONS[i].key===key){meta=SECTIONS[i];break;}}
+  if(!meta)meta=SECTIONS[3];
+  var sec=document.createElement('div');
+  sec.className='section';sec.setAttribute('data-section',key);sec.setAttribute('data-custom-section','1');
+  sec.innerHTML='<div class="section-header"><span>'+meta.icon+'</span><span class="section-label">'+esc(meta.label)+'</span></div>';
+  // Insert in canonical order relative to other sections already on the page.
+  var order=SECTIONS.map(function(s){return s.key;});
+  var myIdx=order.indexOf(key);
+  var sections=container.querySelectorAll('.section');
+  var before=null;
+  for(var k=0;k<sections.length;k++){
+    if(order.indexOf(sections[k].getAttribute('data-section'))>myIdx){before=sections[k];break;}
+  }
+  container.insertBefore(sec,before);
+  return sec;
+}
+
+function renderCustom(map){
+  map=map||{};
+  // Clear previously-rendered custom rows.
+  document.querySelectorAll('.item.custom').forEach(function(el){el.remove();});
+  // Render in insertion order (ids are timestamp-prefixed, so sort keeps them stable).
+  Object.keys(map).sort().forEach(function(id){
+    var it=map[id];if(!it||!it.name)return;
+    var sec=getOrCreateSection(it.section||'pantry');
+    var row=document.createElement('div');
+    row.className='item custom';
+    row.setAttribute('data-id',id);
+    row.setAttribute('onclick','toggle(this)');
+    row.innerHTML='<div class="cb"><span class="cb-check">&#x2713;</span></div>'+
+      '<div class="item-body"><div class="item-name">'+esc(it.name)+'</div></div>'+
+      '<div class="item-right">'+amzBtn(it.name)+
+      '<button class="rm-btn" title="Remove" onclick="e(event);removeCustom(\''+id+'\')">&times;</button></div>';
+    sec.appendChild(row);
+  });
+  // Remove any dynamically-created sections left empty after a removal.
+  document.querySelectorAll('.section[data-custom-section]').forEach(function(sec){
+    if(!sec.querySelector('.item'))sec.remove();
+  });
+  applyState(lastKnownState);
+  updateProgress();
+}
+
+function newId(){return Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);}
+
+function addCustom(){
+  var input=document.getElementById('addInput');
+  var name=(input.value||'').trim();
+  if(!name)return;
+  var id=newId();
+  if(!lastKnownState._custom)lastKnownState._custom={};
+  lastKnownState._custom[id]={name:name,section:classify(name)};
+  input.value='';
+  renderCustom(lastKnownState._custom);
+  syncToFB('_custom/'+id,lastKnownState._custom[id]);
+  input.focus();
+}
+
+function removeCustom(id){
+  var it=lastKnownState._custom&&lastKnownState._custom[id];
+  if(it){
+    var k=it.name.trim().replace(/[^a-z0-9]/gi,'_').substring(0,60);
+    delete lastKnownState._custom[id];
+    delete lastKnownState[k];
+    syncToFB('_custom/'+id,null);
+    syncToFB(k,null);
+  }
+  renderCustom(lastKnownState._custom||{});
 }
 
 var token=await getAuthToken();
