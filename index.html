@@ -5,66 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Fox & Bear Kitchen">
-<title>Fox &amp; Bear Kitchen — Grocery List</title>
+<title>Fox &amp; Bear Kitchen — This Week</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{--cream:#faf7f2;--ink:#1a1a1a;--muted:#7a7264;--accent:#c8622a;--accent-light:#f5e8de;--border:#e4ded5;--check:#2d7a4f;--check-light:#e8f4ed;--ck-bg:#131311;--ck-dim:#252520;--ck-border:#2e2d28;--ck-text:#f0ebe0;--ck-muted:#6a6860;--ck-accent:#d4732e;--ck-done:#2d7a4f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
-  .container{max-width:680px;margin:0 auto;padding:28px 16px 80px;}
+  .container{max-width:680px;margin:0 auto;padding:28px 16px 40px;}
   .eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
   h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1.15;margin-bottom:6px;}
   .subhead{color:var(--muted);font-size:14px;margin-bottom:20px;}
-  .progress-wrap{background:var(--border);border-radius:99px;height:6px;margin-bottom:6px;overflow:hidden;}
-  .progress-bar{height:100%;background:var(--check);border-radius:99px;width:0%;transition:width .3s ease;}
-  .progress-label{font-size:12px;color:var(--muted);margin-bottom:24px;}
-  .meal-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
-  .section{margin-bottom:20px;}
-  .section-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-  .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
-  .item{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:11px 14px;margin-bottom:6px;cursor:pointer;transition:background .12s,border-color .12s;}
-  .item:hover{border-color:#ccc;}
-  .item.checked{background:var(--check-light);border-color:#b8dfc9;}
-  .cb{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);background:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-  .item.checked .cb{background:var(--check);border-color:var(--check);}
-  .cb-check{display:none;color:#fff;font-size:12px;font-weight:700;}
-  .item.checked .cb-check{display:block;}
-  .item-body{flex:1;min-width:0;}
-  .item-name{font-size:14px;font-weight:500;}
-  .item.checked .item-name{text-decoration:line-through;color:var(--muted);}
-  .item-detail{font-size:12px;color:var(--muted);margin-top:1px;}
-  .item.checked .item-detail{color:#b0a898;}
-  .item-right{display:flex;align-items:center;gap:6px;flex-shrink:0;}
-  .tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap;}
-  .tag-chili{background:#fdecea;color:#9b2a2a;}
-  .tag-cauliflower{background:#e8f5e9;color:#2e7d32;}
-  .tag-pasta{background:#f3e8fb;color:#6b2a9e;}
-  .tag-shared{background:#e8f2fe;color:#2563a8;}
-  .tag-all{background:#f0ecd8;color:#7a6020;}
-  .amz-btn{font-size:11px;font-weight:600;color:#fff;background:#FF9900;border:none;border-radius:5px;padding:3px 8px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;}
-  .amz-btn:hover{background:#e88b00;}
-  .note-box{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#7a4820;margin-bottom:18px;}
-  .summary-bar{position:fixed;bottom:0;left:0;right:0;background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
-  .summary-count{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;}
-  .summary-label{font-size:12px;color:#8a8a8a;margin-top:1px;}
-  .reset-btn{background:transparent;border:1px solid #555;color:#ccc;font-size:12px;font-weight:500;border-radius:6px;padding:6px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color .15s,color .15s;}
-  .reset-btn:hover{border-color:#999;color:#fff;}
+  .meal-cards{display:flex;flex-direction:column;gap:10px;}
 </style>
 </head>
 <body>
 <script src="nav.js"></script>
 <div class="container">
   <p class="eyebrow">Fox &amp; Bear Kitchen</p>
-  <h1>Grocery List</h1>
+  <h1>This Week</h1>
   <p class="subhead" id="subhead"></p>
-  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
-  <p class="progress-label" id="progressLabel">0 of 0 items checked</p>
   <div class="meal-cards" id="mealCards"></div>
-  <div id="grocerySections"></div>
-</div>
-<div class="summary-bar">
-  <div><div class="summary-count" id="summaryCount">0 / 0</div><div class="summary-label">items checked</div></div>
-  <button class="reset-btn" onclick="resetAll()">Reset all</button>
 </div>
 <script src="recipe-card.js"></script>
 <script type="module">
@@ -72,40 +32,9 @@ import { requireAuth, getAuthToken, signOut } from './auth.js';
 window.getToken   = getAuthToken;
 window.doSignOut  = signOut;
 var user = await requireAuth();
+if (window.setNavUser) window.setNavUser(user);
 
 var FB_BASE='https://fox-bear-hub-default-rtdb.firebaseio.com';
-var FB_URL;
-var POLL_INTERVAL=8000;
-var lastKnownState={};
-
-function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-function fbKey(el){return el.querySelector('.item-name').textContent.trim().replace(/[^a-z0-9]/gi,'_').substring(0,60);}
-async function syncToFB(k,v){var token=await getAuthToken();fetch(FB_URL+'/'+k+'.json?auth='+token,{method:'PUT',body:JSON.stringify(v)}).catch(function(){});}
-function applyState(d){if(!d)return;document.querySelectorAll('.item').forEach(function(el){var k=fbKey(el),s=d[k]===true,c=el.classList.contains('checked');if(s&&!c)el.classList.add('checked');else if(!s&&c)el.classList.remove('checked');});updateProgress();}
-async function pollFB(){var token=await getAuthToken();fetch(FB_URL+'.json?auth='+token).then(function(r){return r.json();}).then(function(d){if(!d)return;var s=JSON.stringify(d);if(s!==JSON.stringify(lastKnownState)){lastKnownState=d;applyState(d);}}).catch(function(){});}
-async function loadFromFB(){var token=await getAuthToken();fetch(FB_URL+'.json?auth='+token).then(function(r){return r.json();}).then(function(d){if(!d)return;lastKnownState=d;applyState(d);}).catch(function(){});}
-function toggle(el){el.classList.toggle('checked');var k=fbKey(el),c=el.classList.contains('checked');lastKnownState[k]=c;syncToFB(k,c);updateProgress();}
-function e(ev){ev.stopPropagation();}
-function updateProgress(){var items=document.querySelectorAll('.item'),checked=document.querySelectorAll('.item.checked');var t=items.length,c=checked.length;document.getElementById('progressBar').style.width=t?(c/t*100)+'%':'0%';document.getElementById('progressLabel').textContent=c+' of '+t+' items checked';document.getElementById('summaryCount').textContent=c+' / '+t;}
-function resetAll(){document.querySelectorAll('.item.checked').forEach(function(el){el.classList.remove('checked');var k=fbKey(el);lastKnownState[k]=false;syncToFB(k,false);});updateProgress();}
-
-window.toggle   = toggle;
-window.resetAll = resetAll;
-window.e        = e;
-
-function renderItem(item){
-  var amz=item.amazon?'<a class="amz-btn" href="https://www.amazon.com/s?k='+encodeURIComponent(item.amazon).replace(/%20/g,'+')+'&amp;i=amazonfresh" target="_blank" onclick="e(event)">Fresh</a>':'';
-  return '<div class="item" onclick="toggle(this)"><div class="cb"><span class="cb-check">&#x2713;</span></div><div class="item-body"><div class="item-name">'+esc(item.name)+'</div>'+(item.detail?'<div class="item-detail">'+esc(item.detail)+'</div>':'')+'</div><div class="item-right"><span class="tag '+esc(item.tagClass)+'">'+esc(item.tag)+'</span>'+amz+'</div></div>';
-}
-
-function renderSection(sec){
-  var html='<div class="section"><div class="section-header"><span>'+sec.icon+'</span><span class="section-label">'+esc(sec.label)+'</span></div>';
-  if(sec.note)html+='<div class="note-box">'+esc(sec.note)+'</div>';
-  (sec.items||[]).forEach(function(item){html+=renderItem(item);});
-  return html+'</div>';
-}
-
 var token=await getAuthToken();
 var [recipesResp,weekData]=await Promise.all([
   fetch('data/recipes.json').then(function(r){return r.json();}),
@@ -115,17 +44,11 @@ var CORE_IDS={};
 (recipesResp.recipes||[]).forEach(function(r){CORE_IDS[r.id]=true;});
 RecipeCard.init({coreIds:CORE_IDS,userEmail:user.email,onReady:function(){RecipeCard.applyBadges();}});
 var MEALS=weekData.meals||[];
-FB_URL=FB_BASE+'/groceries/'+weekData.weekOf;
 
 document.getElementById('subhead').textContent=weekData.subhead||'';
 
 var mealCards=document.getElementById('mealCards');
 MEALS.forEach(function(m){mealCards.appendChild(RecipeCard.makeCard(m,m.label+(m.day?' · '+m.day+' '+(m.date||''):'')));});
-
-var grocerySections=document.getElementById('grocerySections');
-(weekData.groceries||[]).forEach(function(sec){grocerySections.innerHTML+=renderSection(sec);});
-
-updateProgress();loadFromFB();setInterval(pollFB,POLL_INTERVAL);
 </script>
 </body>
 </html>

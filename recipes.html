@@ -47,6 +47,7 @@ import { requireAuth, getAuthToken, signOut } from './auth.js';
 window.getToken  = getAuthToken;
 window.doSignOut = signOut;
 var user = await requireAuth();
+if (window.setNavUser) window.setNavUser(user);
 
 var list = document.getElementById('list');
 
