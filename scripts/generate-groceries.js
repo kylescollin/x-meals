@@ -4,11 +4,19 @@ const Anthropic = require('@anthropic-ai/sdk');
 
 const client = new Anthropic();
 
+// Single-meal letter → color class. A/B/C keep their original names for
+// backward-compat with existing data + history; D–G are newer.
+const LETTER_CLASS = {
+  A: 'tag-chili', B: 'tag-cauliflower', C: 'tag-pasta',
+  D: 'tag-d', E: 'tag-e', F: 'tag-f', G: 'tag-g'
+};
+
 function getTagClass(tag) {
   if (tag === 'All meals') return 'tag-all';
-  if (tag === 'Meal A') return 'tag-chili';
-  if (tag === 'Meal B') return 'tag-cauliflower';
-  if (tag === 'Meal C') return 'tag-pasta';
+  // Single meal, e.g. "Meal A" → its own color
+  const single = /^Meal ([A-G])$/.exec(tag);
+  if (single) return LETTER_CLASS[single[1]] || 'tag-shared';
+  // Two or more (but not all), e.g. "Meals A+C"
   return 'tag-shared';
 }
 
@@ -35,17 +43,20 @@ Only the Spices category gets a "note" field.
 {
   "name": "quantity + item, e.g. '3 medium yellow onions'",
   "detail": "which meal(s) and how it's used, e.g. '1 for chili · 1 for cauliflower · 1 for pasta sauce'",
-  "tag": "Meal A" | "Meal B" | "Meal C" | "Meals A+B" | "Meals A+C" | "Meals B+C" | "All meals",
-  "tagClass": "tag-chili" | "tag-cauliflower" | "tag-pasta" | "tag-shared" | "tag-all",
+  "tag": "Meal A" | "Meal B" | ... | "Meals A+C" | "Meals B+D+E" | "All meals",
   "amazon": "lowercase amazon fresh search term"
 }
 
 Spices items: omit the "amazon" field entirely.
+Do NOT output a "tagClass" field — it is computed automatically from "tag".
 
 ## Tag Rules (strict)
-- Single meal only: tag "Meal A/B/C", tagClass "tag-chili/tag-cauliflower/tag-pasta"
-- Exactly 2 meals: tag "Meals A+B" etc., tagClass "tag-shared"
-- All 3 meals: tag "All meals", tagClass "tag-all"
+There may be anywhere from 1 to 7 meals in a week. Each meal has a "label" like
+"Meal A", "Meal B", … up to "Meal G". Use those exact letters.
+- Single meal only: tag "Meal X" (e.g. "Meal A")
+- Two or more meals but not all: tag "Meals X+Y" joining the letters with "+", in
+  alphabetical order (e.g. "Meals A+C", "Meals B+D+E")
+- Every meal that week: tag "All meals"
 
 ## Category Rules
 - Produce: Fresh vegetables, herbs, aromatics, fungi, citrus (onions, garlic, ginger, lemon, cilantro, basil, mushrooms, zucchini, cauliflower, green onions, etc.)

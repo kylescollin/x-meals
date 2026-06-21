@@ -65,6 +65,21 @@ The HTML pages are render-only shells — they contain no embedded meal or recip
 
 Agent X does not interact with Firebase directly — it writes JSON files to git, and the GitHub Action handles the Firebase sync.
 
+### In-browser meal editing (Edit mode on index.html)
+
+`index.html` has an **Edit mode** that lets Kyle adjust the current week from the phone: remove
+meals, add meals from the recipe collection, drag to reorder, set each meal's day, up to **7 meals**.
+On **Done** it:
+1. Writes the updated week to Firebase `/meals/current` (meals update instantly) with `groceries: []`.
+2. Fetches a fine-grained GitHub token from Firebase `/config/githubToken` and commits the updated
+   `data/week.json` (meals + empty groceries) via the GitHub Contents API — this triggers the
+   **existing** grocery-generation + sync Action, so the grocery list refreshes ~1 min later.
+
+The token lives in Firebase under `/config` (read/write restricted to the two allow-listed emails,
+same as all meal data); it is scoped to only this repo with Contents read/write. It is **not** in
+any committed file. If grocery regeneration ever stops working, check that the token is present and
+unexpired at `/config/githubToken`.
+
 ## data/week.json Schema
 
 Agent X must write `data/week.json` in this exact format each week:
@@ -107,7 +122,7 @@ Agent X must write `data/week.json` in this exact format each week:
 }
 ```
 
-**Tag classes:** `tag-chili` (Meal A), `tag-cauliflower` (Meal B), `tag-pasta` (Meal C), `tag-shared` (multiple meals), `tag-all` (all meals). These control the color of the tag pill. Update the tag name and class to match the actual meals for the week.
+**Tag classes:** A week can have 1–7 meals (labels `Meal A` … `Meal G`). Single-meal colors: `tag-chili` (A), `tag-cauliflower` (B), `tag-pasta` (C), `tag-d` (D), `tag-e` (E), `tag-f` (F), `tag-g` (G). Shared across multiple meals: `tag-shared`. All meals: `tag-all`. These control the color of the tag pill. `tagClass` is computed automatically from `tag` by `scripts/generate-groceries.js` — you only need to set `tag` correctly.
 
 **Amazon button:** Only include `"amazon"` for produce, protein, dairy, and pantry items. Omit it for spices — those don't get an Amazon button.
 

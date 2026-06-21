@@ -23,6 +23,10 @@
     "recipe-comments": {
       ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')",
       ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"
+    },
+    "config": {
+      ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')",
+      ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"
     }
   }
 }
