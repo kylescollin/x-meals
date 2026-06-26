@@ -102,5 +102,319 @@
       "date": "7/1"
     }
   ],
-  "groceries": []
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "8 oz cremini mushrooms, sliced",
+          "detail": "Sautéed into the pot pie filling",
+          "tag": "Meal A",
+          "amazon": "cremini mushrooms",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "3 medium carrots, diced",
+          "detail": "Cooked into the pot pie filling",
+          "tag": "Meal A",
+          "amazon": "medium carrots",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "3 stalks celery, diced",
+          "detail": "Cooked into the pot pie filling",
+          "tag": "Meal A",
+          "amazon": "celery stalks",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1 cup frozen peas",
+          "detail": "Stirred into the pot pie filling",
+          "tag": "Meal A",
+          "amazon": "frozen green peas",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "½ cup frozen pearl onions (or ½ small onion, diced)",
+          "detail": "Stirred into the pot pie filling",
+          "tag": "Meal A",
+          "amazon": "frozen pearl onions",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1 small bunch fresh thyme",
+          "detail": "Stirred into pot pie filling (1 tsp needed)",
+          "tag": "Meal A",
+          "amazon": "fresh thyme",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1 small shallot (or ½ onion), diced",
+          "detail": "Sautéed as the base for the gnocchi sauce",
+          "tag": "Meal B",
+          "amazon": "shallots",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "4 cloves garlic, minced",
+          "detail": "Cooked into the gnocchi sauce",
+          "tag": "Meal B",
+          "amazon": "garlic bulb",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "2 cups fresh baby spinach",
+          "detail": "Wilted into the marry me chicken gnocchi",
+          "tag": "Meal B",
+          "amazon": "fresh baby spinach",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 small bunch fresh basil",
+          "detail": "Torn and used as topping for the gnocchi dish",
+          "tag": "Meal B",
+          "amazon": "fresh basil",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 large English cucumber, thinly sliced",
+          "detail": "Sesame cucumber slaw for the teriyaki tacos",
+          "tag": "Meal C",
+          "amazon": "english cucumber",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 avocado, sliced",
+          "detail": "Taco topping for teriyaki chicken tacos",
+          "tag": "Meal C",
+          "amazon": "avocado",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 small bunch fresh cilantro",
+          "detail": "Tossed into the cucumber slaw",
+          "tag": "Meal C",
+          "amazon": "fresh cilantro",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 bunch green onions",
+          "detail": "Tossed into the cucumber slaw",
+          "tag": "Meal C",
+          "amazon": "green onions",
+          "tagClass": "tag-pasta"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "1 rotisserie chicken (yields ~3 cups shredded)",
+          "detail": "Shredded into the pot pie filling",
+          "tag": "Meal A",
+          "amazon": "rotisserie chicken",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces",
+          "detail": "Seared and simmered into the marry me chicken gnocchi",
+          "tag": "Meal B",
+          "amazon": "boneless skinless chicken thighs",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "2 lb boneless skinless chicken thighs",
+          "detail": "Pressure cooked and broiled for the teriyaki tacos",
+          "tag": "Meal C",
+          "amazon": "boneless skinless chicken thighs",
+          "tagClass": "tag-pasta"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "1 cup unsweetened almond milk (or low-fat milk)",
+          "detail": "Stirred into the pot pie sauce",
+          "tag": "Meal A",
+          "amazon": "unsweetened almond milk",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "2 eggs",
+          "detail": "1 beaten for pot pie egg wash",
+          "tag": "Meal A",
+          "amazon": "large eggs",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1 cup half-and-half (or ¾ cup heavy cream)",
+          "detail": "Simmered into the creamy gnocchi sauce",
+          "tag": "Meal B",
+          "amazon": "half and half",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "½ cup Parmesan, freshly grated",
+          "detail": "Melted into the gnocchi sauce",
+          "tag": "Meal B",
+          "amazon": "parmesan cheese block",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "¼ cup Greek yogurt",
+          "detail": "Whisked into the cucumber slaw dressing",
+          "tag": "Meal C",
+          "amazon": "plain greek yogurt",
+          "tagClass": "tag-pasta"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "2½ tbsp olive oil",
+          "detail": "1 tbsp for pot pie filling · 2 tbsp for gnocchi (can sub sun-dried tomato jar oil)",
+          "tag": "Meals A+B",
+          "amazon": "extra virgin olive oil",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "¼ cup all-purpose flour",
+          "detail": "Thickens the pot pie sauce",
+          "tag": "Meal A",
+          "amazon": "all purpose flour",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "2½ cups low-sodium chicken broth",
+          "detail": "1½ cups for pot pie sauce · 1 cup for gnocchi sauce",
+          "tag": "Meals A+B",
+          "amazon": "low sodium chicken broth",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "1 store-bought deep dish pie crust",
+          "detail": "Used as top crust only for the pot pie",
+          "tag": "Meal A",
+          "amazon": "deep dish pie crust",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "⅔ cup sun-dried tomatoes, oil-packed",
+          "detail": "Drained and chopped into the gnocchi sauce",
+          "tag": "Meal B",
+          "amazon": "sun dried tomatoes oil packed",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 (16 oz) package shelf-stable potato gnocchi",
+          "detail": "Cooked directly in the marry me chicken sauce",
+          "tag": "Meal B",
+          "amazon": "shelf stable potato gnocchi",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "⅔ cup teriyaki sauce (divided: ⅓ cup + ¼ cup)",
+          "detail": "Used to pressure cook and glaze the teriyaki chicken",
+          "tag": "Meal C",
+          "amazon": "teriyaki sauce",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "3 tbsp sweet chili sauce (divided)",
+          "detail": "2 tbsp for chicken glaze · 1 tbsp for slaw dressing",
+          "tag": "Meal C",
+          "amazon": "sweet chili sauce",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "8 (6-inch) flour tortillas",
+          "detail": "Warmed and used as taco shells",
+          "tag": "Meal C",
+          "amazon": "small flour tortillas",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "¼ cup crushed peanuts",
+          "detail": "Taco topping for teriyaki chicken tacos",
+          "tag": "Meal C",
+          "amazon": "crushed peanuts",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1½ tbsp mayonnaise",
+          "detail": "Whisked into the cucumber slaw dressing",
+          "tag": "Meal C",
+          "amazon": "mayonnaise",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "2 tbsp rice vinegar",
+          "detail": "Whisked into the cucumber slaw dressing",
+          "tag": "Meal C",
+          "amazon": "rice vinegar",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 tsp sesame oil",
+          "detail": "Whisked into the cucumber slaw dressing",
+          "tag": "Meal C",
+          "amazon": "toasted sesame oil",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "Sesame seeds",
+          "detail": "Sprinkled over the finished tacos",
+          "tag": "Meal C",
+          "amazon": "sesame seeds",
+          "tagClass": "tag-pasta"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these.",
+      "items": [
+        {
+          "name": "Garlic powder",
+          "detail": "Seasoning for the pot pie filling (1 tsp)",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "Salt",
+          "detail": "Used in all three meals",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "name": "Black pepper",
+          "detail": "Used in all three meals",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "name": "Dried thyme (½ tsp, if not using fresh)",
+          "detail": "Optional substitute for fresh thyme in the pot pie",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "Red pepper flakes (optional)",
+          "detail": "Served on the side for adults with the gnocchi",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ]
+    }
+  ]
 }
