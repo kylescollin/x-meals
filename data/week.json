@@ -1,383 +1,106 @@
 {
-  "weekOf": "2026-06-15",
-  "title": "Week of June 15",
+  "weekOf": "2026-06-29",
+  "title": "Week of June 29",
   "subhead": "3 dinners · Serves 4",
   "meals": [
     {
-      "id": "easy-weeknight-salmon-sushi-bowls",
-      "label": "Meal A",
+      "id": "healthy-chicken-pot-pie",
+      "icon": "🥧",
+      "name": "Healthy Chicken Pot Pie",
+      "meta": "~55 min · Oven · Serves 6",
+      "ings": [
+        "1 tbsp olive oil",
+        "8 oz cremini mushrooms, sliced",
+        "3 medium carrots, diced",
+        "3 stalks celery, diced",
+        "1 tsp garlic powder",
+        "1 tsp salt, ½ tsp black pepper",
+        "¼ cup all-purpose flour",
+        "1½ cups low-sodium chicken broth",
+        "1 cup unsweetened almond milk (or low-fat milk)",
+        "3 cups cooked shredded chicken (rotisserie works great)",
+        "1 cup frozen peas",
+        "½ cup frozen pearl onions (or ½ small onion, diced and sautéed)",
+        "1 tsp fresh thyme (or ½ tsp dried)",
+        "1 store-bought deep dish pie crust (Great Value works — use as top crust only)",
+        "1 egg, beaten (for egg wash)"
+      ],
+      "steps": [
+        "Preheat oven to 425°F. Lightly grease a 9-inch pie dish or use a cast iron skillet.",
+        "Heat olive oil in a large Dutch oven or deep skillet over medium-high. Add mushrooms and cook 8 min until browned and sweated. Add carrots, celery, garlic powder, salt, and pepper. Cook 3 more min until carrots begin to soften.",
+        "Sprinkle flour over the vegetables and stir well. Cook 2 minutes so the flour loses its raw taste.",
+        "Pour in chicken broth slowly, stirring constantly to avoid lumps. Add almond milk. Cook over medium heat, stirring regularly, until sauce thickens — about 5–6 minutes. Do not boil hard.",
+        "Stir in shredded chicken, frozen peas, pearl onions, and thyme. Taste and adjust salt. Remove from heat.",
+        "Transfer filling to your prepared pie dish (or leave in cast iron if oven-safe).",
+        "Unroll the pie crust from the package. Lay it over the top of the dish, trimming to leave about ½ inch overhang. Press edges to seal and crimp with a fork. Cut 3–4 small slits to vent steam.",
+        "Brush crust all over with beaten egg wash.",
+        "Bake 20–25 minutes until crust is deeply golden and filling is bubbling at the edges. Let rest 5–10 minutes before serving — the filling will thicken as it sits."
+      ],
       "day": "Monday",
-      "date": "6/15",
-      "icon": "🍣",
-      "name": "Easy Weeknight Salmon Sushi Bowls",
-      "meta": "~20 min · Bowl · Serves 4",
-      "ings": [
-        "2½ cups sushi or jasmine rice",
-        "¼ cup rice vinegar",
-        "5 tsp granulated sugar",
-        "4 (4 oz) cooked salmon filets",
-        "1 cup sliced Persian cucumbers",
-        "1 cup shredded carrots",
-        "2 small ripe avocados, thinly sliced",
-        "1 Tbsp oil",
-        "⅓ cup panko breadcrumbs",
-        "Pinch of garlic salt",
-        "Sriracha mayo, toasted sesame seeds, 1 nori sheet, pickled ginger"
-      ],
-      "steps": [
-        "Cook rice in rice cooker. Combine vinegar, sugar, ½ tsp salt; microwave 20 sec, stir until dissolved. Pour over rice. Let sit.",
-        "Panko crunchies: heat oil in small skillet, toast panko ~2 min until golden.",
-        "Build bowls: ¾ cup rice, flaked salmon, ¼ cup each cucumbers and carrots, ½ avocado, ginger, panko. Top with nori and sesame seeds. Drizzle sriracha mayo.",
-        "Sriracha mayo: mix ½ cup mayo, 1 Tbsp sriracha, 1 tsp sugar, 1 tsp low-sodium soy sauce."
-      ],
-      "note": "💡 Serve sriracha mayo on the side for adults only — kids can have it plain with extra soy on the rice. Pre-cooked salmon makes this a true 20-minute meal."
+      "note": "💡 Top-crust only keeps this lighter and the crust stays flaky (no soggy bottom). Rotisserie chicken is the easy shortcut here. The Great Value deep dish crust works perfectly as a top-only crust — just unroll it over the dish.",
+      "label": "Meal A",
+      "date": "6/29"
     },
     {
-      "id": "air-fryer-fish-tacos-with-cilantro-lime-slaw",
-      "label": "Meal B",
+      "id": "marry-me-chicken-gnocchi",
+      "icon": "🍲",
+      "name": "Marry Me Chicken Gnocchi",
+      "meta": "~30 min · One pan · Serves 4",
+      "ings": [
+        "1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces",
+        "2 Tbsp olive oil (or oil from the sun-dried tomato jar)",
+        "Salt and black pepper",
+        "1 small shallot or ½ onion, diced",
+        "4 cloves garlic, minced",
+        "⅔ cup sun-dried tomatoes (oil-packed), drained and chopped",
+        "1 (16 oz) package shelf-stable potato gnocchi",
+        "1 cup low-sodium chicken broth",
+        "1 cup half-and-half (or ¾ cup heavy cream)",
+        "½ cup freshly grated Parmesan",
+        "2 cups fresh baby spinach",
+        "Fresh basil, torn, for serving",
+        "Red pepper flakes (optional, for adults only)"
+      ],
+      "steps": [
+        "Season chicken with salt and pepper. Heat 1 Tbsp oil in a large high-sided skillet over medium-high. Sear chicken in a single layer 3–4 min per side until golden (doesn't need to be cooked through). Remove and set aside.",
+        "Add remaining oil and shallot to the skillet; sauté 2–3 min. Add garlic and sun-dried tomatoes; cook 1 min until fragrant.",
+        "Add uncooked gnocchi, breaking apart any stuck pieces. Pour in chicken broth and half-and-half; season with salt and pepper. Cover and cook over medium 5 min until gnocchi are tender and fluffy.",
+        "Return chicken to the pan. Add spinach; cook uncovered 3–5 min until chicken is cooked through and spinach is wilted.",
+        "Stir in Parmesan until melted and the sauce is creamy. Top with torn basil. Serve with red pepper flakes on the side for adults."
+      ],
       "day": "Tuesday",
-      "date": "6/16",
-      "icon": "🌮",
-      "name": "Air Fryer Fish Tacos with Cilantro Lime Slaw",
-      "meta": "20 min · Air Fryer · Serves 4",
-      "ings": [
-        "1½ lb tilapia or white fish",
-        "1 tsp chili powder",
-        "½ tsp oregano",
-        "½ tsp garlic powder",
-        "½ tsp paprika",
-        "¼ tsp onion powder",
-        "¼ tsp cumin",
-        "½ tsp sea salt",
-        "½ tsp cracked pepper",
-        "Tortillas for serving",
-        "2½ cups coleslaw mix",
-        "3 Tbsp mayo",
-        "1 Tbsp lime juice",
-        "1 garlic clove, minced",
-        "⅓ cup cilantro, chopped",
-        "½ tsp sugar (optional)",
-        "Extra salt and pepper to taste"
-      ],
-      "steps": [
-        "Spray air fryer basket with oil. Mix all spices in a small bowl.",
-        "Pat fish dry, lay in basket. Brush with olive oil, coat with spice rub, press gently to adhere. Spritz with oil.",
-        "Preheat air fryer to 400°F. Cook fish 8–10 min until opaque and flakes at 145°F. Do not flip.",
-        "While fish cooks, toss together all slaw ingredients. Adjust lime and salt to taste.",
-        "Cut fish into pieces. Serve in tortillas topped with slaw and extra lime."
-      ],
-      "note": "💡 Cayenne omitted from this version to keep it kid-friendly — still flavorful from chili powder, paprika, and cumin. No air fryer? Bake at 400°F for ~15 min."
+      "note": "💡 The base recipe is mild — keep the red pepper flakes off to the side so the kids can eat it. Gnocchi cooks right in the sauce, no boiling needed.",
+      "label": "Meal B",
+      "date": "6/30"
     },
     {
-      "id": "thai-peanut-chicken-wraps",
-      "label": "Meal C",
-      "day": "Wednesday",
-      "date": "6/17",
-      "icon": "🥜",
-      "name": "Thai Peanut Chicken Wraps",
-      "meta": "~27 min · Skillet · Serves 4",
+      "id": "teriyaki-chicken-tacos-with-sesame-cucumber-slaw",
+      "icon": "🌮",
+      "name": "Teriyaki Chicken Tacos with Sesame Cucumber Slaw",
+      "meta": "30 min · Instant Pot · Serves 4",
       "ings": [
-        "1 lb boneless chicken breast, cut into strips",
-        "4 large flour tortillas",
-        "⅓ cup creamy peanut butter",
-        "3 Tbsp soy sauce, divided",
-        "2 Tbsp sesame oil, divided",
-        "2 cups fresh lettuce leaves",
-        "1 cup purple cabbage, shredded",
-        "2 large carrots, julienned",
-        "¼ cup fresh cilantro, chopped",
-        "2 Tbsp lime juice",
-        "2 cloves garlic, minced",
-        "1 tsp fresh ginger, grated",
-        "2 Tbsp honey"
+        "2 lb boneless skinless chicken thighs",
+        "Salt and pepper",
+        "⅓ cup + ¼ cup teriyaki sauce",
+        "2 Tbsp sweet chili sauce",
+        "8 (6-inch) flour tortillas",
+        "1 avocado sliced, ¼ cup crushed peanuts, sesame seeds",
+        "Slaw: 1 large English cucumber, thinly sliced",
+        "¼ cup Greek yogurt, 1½ Tbsp mayo",
+        "2 Tbsp rice vinegar, 1 Tbsp sweet chili sauce",
+        "1 tsp sesame oil, fresh cilantro and green onions"
       ],
       "steps": [
-        "Whisk peanut butter, 2 Tbsp soy sauce, 1 Tbsp sesame oil, lime juice, garlic, ginger, and honey in a medium bowl until smooth. Set aside.",
-        "Cut chicken into thin strips and toss with remaining 1 Tbsp soy sauce and 1 Tbsp sesame oil. Marinate 10 min while you prep vegetables.",
-        "Wash and dry lettuce, finely shred cabbage, julienne carrots, chop cilantro. Set out in separate bowls for easy assembly.",
-        "Heat large skillet over medium-high. Cook chicken strips 6–8 min, stirring occasionally, until golden brown and cooked through. Let cool slightly.",
-        "Warm tortillas 30 sec per side in dry skillet, or wrap in damp paper towel and microwave 20 sec until pliable.",
-        "Spread 2 Tbsp peanut sauce down center of each tortilla. Layer with lettuce, cabbage, carrots, chicken, and cilantro. Drizzle with more sauce.",
-        "Fold in sides and roll tightly from the bottom. Cut in half diagonally. Serve with extra peanut sauce on the side for dipping."
+        "Season chicken with salt and pepper. Add to Instant Pot with ⅓ cup teriyaki sauce. Pressure cook 10 min.",
+        "Thinly slice cucumbers. Whisk dressing ingredients. Toss with cucumbers and herbs.",
+        "Release Instant Pot. Shred chicken. Spread on lined baking sheet, drizzle with remaining teriyaki and sweet chili sauce. Broil 3–6 min until caramelized.",
+        "Warm tortillas. Layer with chicken, cucumber slaw, avocado, crushed peanuts, sesame seeds."
       ],
-      "note": "💡 Peanut sauce keeps a week in the fridge — make a double batch. Pat veggies dry so wraps don't get soggy. For kids: assemble with less sauce or serve as a deconstructed bowl over rice if they're wary of wraps."
+      "day": "Wednesday",
+      "note": "💡 Crockpot: high 2.5–3.5 hrs or low 4–5 hrs. Oven: 400°F for 35 min. Always broil at the end for caramelized edges.",
+      "label": "Meal C",
+      "date": "7/1"
     }
   ],
-  "groceries": [
-    {
-      "icon": "🥦",
-      "label": "Produce",
-      "items": [
-        {
-          "name": "1 cup sliced Persian cucumbers (~2–3 small)",
-          "detail": "Sushi bowls · sliced and layered in bowl",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "persian cucumbers"
-        },
-        {
-          "name": "4 large carrots",
-          "detail": "1 cup shredded for sushi bowls · 2 large julienned for Thai wraps",
-          "tag": "Meals A+C",
-          "tagClass": "tag-shared",
-          "amazon": "large carrots"
-        },
-        {
-          "name": "2 small ripe avocados",
-          "detail": "Sushi bowls · thinly sliced and layered in bowl",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "ripe avocados"
-        },
-        {
-          "name": "1 lime",
-          "detail": "Fish tacos · 1 Tbsp juice for slaw · Thai wraps · 2 Tbsp juice for peanut sauce",
-          "tag": "Meals B+C",
-          "tagClass": "tag-shared",
-          "amazon": "fresh limes"
-        },
-        {
-          "name": "⅔ cup fresh cilantro, loosely packed",
-          "detail": "⅓ cup chopped for fish taco slaw · ¼ cup chopped for Thai wrap filling",
-          "tag": "Meals B+C",
-          "tagClass": "tag-shared",
-          "amazon": "fresh cilantro"
-        },
-        {
-          "name": "2½ cups coleslaw mix",
-          "detail": "Fish tacos · base of cilantro lime slaw",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "coleslaw mix shredded cabbage"
-        },
-        {
-          "name": "1 cup purple cabbage, shredded",
-          "detail": "Thai wraps · layered in wrap with chicken and veggies",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "purple cabbage"
-        },
-        {
-          "name": "2 cups fresh lettuce leaves",
-          "detail": "Thai wraps · layered inside wrap",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "romaine lettuce"
-        },
-        {
-          "name": "3 cloves garlic",
-          "detail": "1 clove minced for fish taco slaw · 2 cloves minced for Thai peanut sauce",
-          "tag": "Meals B+C",
-          "tagClass": "tag-shared",
-          "amazon": "fresh garlic"
-        },
-        {
-          "name": "1 tsp fresh ginger, grated (small knob)",
-          "detail": "Thai wraps · stirred into peanut sauce",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "fresh ginger root"
-        },
-        {
-          "name": "1 nori sheet",
-          "detail": "Sushi bowls · crumbled or cut over finished bowls",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "roasted seaweed nori sheets"
-        },
-        {
-          "name": "Pickled ginger, small jar",
-          "detail": "Sushi bowls · served in bowl as topping",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "pickled ginger sushi"
-        }
-      ]
-    },
-    {
-      "icon": "🥩",
-      "label": "Protein",
-      "items": [
-        {
-          "name": "4 (4 oz) cooked salmon filets",
-          "detail": "Sushi bowls · flaked over rice",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "cooked salmon fillets"
-        },
-        {
-          "name": "1½ lb tilapia or white fish fillets",
-          "detail": "Fish tacos · air fried with spice rub",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower",
-          "amazon": "tilapia fillets fresh"
-        },
-        {
-          "name": "1 lb boneless chicken breast",
-          "detail": "Thai wraps · sliced into strips and pan seared",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "boneless skinless chicken breast"
-        }
-      ]
-    },
-    {
-      "icon": "🧈",
-      "label": "Dairy & Refrigerated",
-      "items": [
-        {
-          "name": "½ cup + 3 Tbsp mayo",
-          "detail": "½ cup for sushi bowl sriracha mayo · 3 Tbsp for fish taco slaw",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "mayonnaise"
-        }
-      ]
-    },
-    {
-      "icon": "🫙",
-      "label": "Pantry & Canned",
-      "items": [
-        {
-          "name": "2½ cups sushi or jasmine rice",
-          "detail": "Sushi bowls · seasoned with vinegar and sugar as base",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "jasmine rice"
-        },
-        {
-          "name": "¼ cup rice vinegar",
-          "detail": "Sushi bowls · mixed with sugar and salt to season rice",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "rice vinegar"
-        },
-        {
-          "name": "⅓ cup panko breadcrumbs",
-          "detail": "Sushi bowls · toasted in oil for crunchy topping",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "panko breadcrumbs"
-        },
-        {
-          "name": "Sriracha, small bottle",
-          "detail": "Sushi bowls · mixed with mayo for sriracha mayo drizzle",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "sriracha hot sauce"
-        },
-        {
-          "name": "Toasted sesame seeds",
-          "detail": "Sushi bowls · sprinkled over finished bowl",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "toasted sesame seeds"
-        },
-        {
-          "name": "6 large flour tortillas",
-          "detail": "Fish tacos · 2 per serving for tacos · Thai wraps · 4 large for wraps",
-          "tag": "Meals B+C",
-          "tagClass": "tag-shared",
-          "amazon": "flour tortillas large"
-        },
-        {
-          "name": "⅓ cup creamy peanut butter",
-          "detail": "Thai wraps · base of peanut sauce",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "creamy peanut butter"
-        },
-        {
-          "name": "4 Tbsp soy sauce (low sodium recommended)",
-          "detail": "1 tsp for sushi bowl sriracha mayo · 3 Tbsp divided for Thai wrap marinade and sauce",
-          "tag": "Meals A+C",
-          "tagClass": "tag-shared",
-          "amazon": "low sodium soy sauce"
-        },
-        {
-          "name": "2 Tbsp sesame oil",
-          "detail": "Thai wraps · divided between chicken marinade and peanut sauce",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "toasted sesame oil"
-        },
-        {
-          "name": "2 Tbsp honey",
-          "detail": "Thai wraps · stirred into peanut sauce for sweetness",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta",
-          "amazon": "pure honey"
-        },
-        {
-          "name": "Neutral cooking oil (small bottle)",
-          "detail": "Sushi bowls · for toasting panko · fish tacos · for brushing and spritzing fish",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared",
-          "amazon": "vegetable oil"
-        },
-        {
-          "name": "Garlic salt, small shaker",
-          "detail": "Sushi bowls · pinch added to panko crunchies",
-          "tag": "Meal A",
-          "tagClass": "tag-chili",
-          "amazon": "garlic salt"
-        }
-      ]
-    },
-    {
-      "icon": "🌿",
-      "label": "Spices",
-      "note": "Check pantry before ordering — you likely have most of these.",
-      "items": [
-        {
-          "name": "Chili powder",
-          "detail": "Fish tacos · 1 tsp in spice rub",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Dried oregano",
-          "detail": "Fish tacos · ½ tsp in spice rub",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Garlic powder",
-          "detail": "Fish tacos · ½ tsp in spice rub",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Paprika",
-          "detail": "Fish tacos · ½ tsp in spice rub",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Onion powder",
-          "detail": "Fish tacos · ¼ tsp in spice rub",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Ground cumin",
-          "detail": "Fish tacos · ¼ tsp in spice rub",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Granulated sugar",
-          "detail": "Sushi bowls · 5 tsp for seasoned rice · fish tacos · ½ tsp optional in slaw",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "Salt & black pepper",
-          "detail": "Sushi bowls · rice seasoning · fish tacos · spice rub and slaw",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared"
-        }
-      ]
-    }
-  ]
+  "groceries": []
 }
