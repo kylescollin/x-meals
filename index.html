@@ -23,6 +23,9 @@
   .edit-toggle{flex-shrink:0;margin-top:18px;background:#fff;border:1px solid var(--border);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;border-radius:100px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,transform .12s;}
   .edit-toggle:hover{border-color:#bbb;}
   .edit-toggle:active{transform:scale(.95);}
+  .hd-actions{display:flex;gap:8px;flex-shrink:0;align-items:flex-start;}
+  .edit-toggle.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .edit-toggle.primary:hover{border-color:var(--accent);}
 
   /* Edit cards */
   .edit-cards{display:flex;flex-direction:column;gap:10px;}
@@ -102,7 +105,10 @@
       <p class="eyebrow">Fox &amp; Bear Kitchen</p>
       <h1>This Week</h1>
     </div>
-    <button class="edit-toggle" id="editBtn" style="display:none">Edit</button>
+    <div class="hd-actions">
+      <button class="edit-toggle primary" id="planBtn" style="display:none">Plan a week</button>
+      <button class="edit-toggle" id="editBtn" style="display:none">Edit</button>
+    </div>
   </div>
   <p class="subhead" id="subhead"></p>
   <div class="meal-cards" id="mealCards"></div>
@@ -185,18 +191,34 @@ function renderViewCards(meals){
 }
 document.getElementById('subhead').textContent=weekData.subhead||'';
 renderViewCards(weekData.meals);
+document.getElementById('planBtn').style.display='';
 document.getElementById('editBtn').style.display='';
 
 // ── Edit state ────────────────────────────────────────────────────────────
 var editMeals=[];
 var activeDayIdx=null;
 var allRecipes=null;
+var editMode='edit';   // 'edit' | 'plan'
+var planWeekOf=null;   // YYYY-MM-DD for the new week (plan mode only)
+var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 function idOf(r){ return r.id || (r.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-'); }
 
+// The week the active editing session targets: the new week in plan mode,
+// otherwise the current week. Used for day/date math.
+function activeWeekOf(){ return editMode==='plan' ? (planWeekOf||'') : (weekData.weekOf||''); }
+
+// Next Monday on/after today, as YYYY-MM-DD.
+function upcomingMonday(){
+  var d=new Date(); d.setHours(0,0,0,0);
+  var dow=d.getDay();              // 0 Sun … 6 Sat
+  d.setDate(d.getDate()+((1-dow+7)%7));  // Mon→+0, Thu→+4, Sun→+1
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
 function dateForDay(day){
   var idx=DAYS.indexOf(day); if(idx<0) idx=0;
-  var parts=(weekData.weekOf||'').split('-');
+  var parts=(activeWeekOf()).split('-');
   if(parts.length!==3) return '';
   var d=new Date(+parts[0], +parts[1]-1, +parts[2]);
   d.setDate(d.getDate()+idx);
@@ -229,10 +251,21 @@ function renderEditCards(){
   c.innerHTML='';
   editMeals.forEach(function(m,i){ c.appendChild(buildEditCard(m,i)); });
   var addBtn=document.getElementById('addMealBtn');
-  var atMax=editMeals.length>=MAX_MEALS;
+  var n=editMeals.length;
+  var atMax=n>=MAX_MEALS;
   addBtn.disabled=atMax;
   addBtn.textContent=atMax?'Maximum of 7 meals reached':'+ Add a meal';
-  document.getElementById('editCount').textContent=editMeals.length+' of 7 meals';
+  var count=document.getElementById('editCount');
+  var doneBtn=document.getElementById('doneBtn');
+  if(editMode==='plan'){
+    var p=(planWeekOf||'').split('-');
+    var lbl=(p.length===3)?(MONTHS[+p[1]-1]+' '+(+p[2])):'';
+    count.textContent='Week of '+lbl+' · '+n+' of 7';
+    doneBtn.disabled=(n===0);
+  }else{
+    count.textContent=n+' of 7 meals';
+    doneBtn.disabled=false;
+  }
 }
 
 function buildEditCard(meal, idx){
@@ -411,14 +444,28 @@ function toast(msg, opts){
   if(!opts.persist){ t._timer=setTimeout(function(){ t.className='toast'; }, opts.error?6500:4000); }
 }
 
-// ── Enter / exit edit mode ────────────────────────────────────────────────
-function enterEdit(){
-  editMeals=(weekData.meals||[]).map(function(m){ return Object.assign({}, m); });
+// ── Enter / exit edit & plan modes ────────────────────────────────────────
+function showEditUI(){
   document.getElementById('mealCards').style.display='none';
+  document.getElementById('planBtn').style.display='none';
   document.getElementById('editBtn').style.display='none';
   document.getElementById('editPane').style.display='';
   document.getElementById('editBar').style.display='';
   document.body.classList.add('editing');
+}
+function enterEdit(){
+  editMode='edit';
+  editMeals=(weekData.meals||[]).map(function(m){ return Object.assign({}, m); });
+  document.getElementById('doneBtn').textContent='Done';
+  showEditUI();
+  renderEditCards();
+}
+function enterPlan(){
+  editMode='plan';
+  planWeekOf=upcomingMonday();
+  editMeals=[];
+  document.getElementById('doneBtn').textContent='Publish';
+  showEditUI();
   renderEditCards();
 }
 function exitEdit(){
@@ -426,8 +473,11 @@ function exitEdit(){
   document.getElementById('editPane').style.display='none';
   document.getElementById('editBar').style.display='none';
   document.getElementById('mealCards').style.display='';
+  document.getElementById('planBtn').style.display='';
   document.getElementById('editBtn').style.display='';
   document.body.classList.remove('editing');
+  editMode='edit';
+  document.getElementById('doneBtn').textContent='Done';
 }
 
 // ── GitHub commit (triggers grocery regeneration) ─────────────────────────
@@ -464,6 +514,13 @@ async function writeCurrent(weekObj){
   if(!r.ok) throw new Error('firebase write failed');
 }
 
+// Archive a week into the Journal (Firebase /meals/history/{weekOf}).
+async function writeHistory(weekObj){
+  var tk=await getAuthToken();
+  var r=await fetch(FB_BASE+'/meals/history/'+weekObj.weekOf+'.json?auth='+tk, { method:'PUT', body:JSON.stringify(weekObj) });
+  if(!r.ok) throw new Error('archive failed');
+}
+
 function pollGroceries(){
   var tries=0, max=26; // ~3.5 min at 8s
   var iv=setInterval(async function(){
@@ -484,8 +541,10 @@ function pollGroceries(){
   }, 8000);
 }
 
-// ── Save (Done) ───────────────────────────────────────────────────────────
+// ── Save (Done / Publish) ─────────────────────────────────────────────────
 async function save(){
+  if(editMode==='plan'){ return publishWeek(); }
+
   var doneBtn=document.getElementById('doneBtn');
   doneBtn.disabled=true; doneBtn.textContent='Saving…';
 
@@ -521,7 +580,64 @@ async function save(){
   }
 }
 
+// Publish a brand-new week: archive the outgoing week to the Journal, make the
+// planned meals the new This Week, and trigger grocery regeneration.
+async function publishWeek(){
+  var doneBtn=document.getElementById('doneBtn');
+  if(editMeals.length===0) return;          // empty-state guard (Publish is disabled anyway)
+  doneBtn.disabled=true; doneBtn.textContent='Publishing…';
+
+  var meals=reletterAndDate(editMeals);     // dates use planWeekOf via activeWeekOf()
+  var n=meals.length;
+  var p=planWeekOf.split('-');
+  var title='Week of '+MONTHS[+p[1]-1]+' '+(+p[2]);
+  var subhead=n+(n===1?' dinner':' dinners')+' · Serves 4';
+  var newWeek={ weekOf:planWeekOf, title:title, subhead:subhead, meals:meals, groceries:[] };
+  var oldWeek=weekData;                      // capture BEFORE reassigning
+
+  // 1. Commit the new week.json (best-effort) — triggers grocery regeneration in CI.
+  var committed=false, commitErr=null;
+  try{ await commitWeekJson(newWeek); committed=true; }
+  catch(e){ commitErr=e; }
+
+  // 2. Write the new current week to Firebase (instant UI). Abort if this fails —
+  //    nothing has been archived yet, so there's no half-applied state.
+  try{ await writeCurrent(newWeek); }
+  catch(_){
+    doneBtn.disabled=false; doneBtn.textContent='Publish';
+    toast("Couldn't publish — check your connection and try again.", {error:true});
+    return;
+  }
+
+  // 3. Archive the outgoing week to the Journal — only after current is safely written,
+  //    and only when it's a genuinely different, non-empty week (avoids duplicate
+  //    Journal entries when re-planning the same Monday). Best-effort.
+  var archiveWarn=false;
+  if(oldWeek && oldWeek.weekOf && oldWeek.weekOf!==planWeekOf && (oldWeek.meals||[]).length){
+    try{ await writeHistory(oldWeek); }
+    catch(_){ archiveWarn=true; }
+  }
+
+  // 4. Swap in the new week and re-render.
+  weekData=newWeek;
+  exitEdit();
+  document.getElementById('subhead').textContent=weekData.subhead||'';
+  renderViewCards(weekData.meals); RecipeCard.applyBadges();
+  doneBtn.disabled=false; doneBtn.textContent='Done';
+
+  if(committed) pollGroceries();
+  if(archiveWarn){
+    toast("Week published, but couldn't move the previous week to the Journal.", {error:true});
+  }else if(committed){
+    toast('Week published · grocery list updating…', {persist:true});
+  }else{
+    var why = (commitErr && commitErr.code==='no-token') ? "grocery auto-update isn't set up yet" : "couldn't reach GitHub";
+    toast('Week published. Grocery list not built yet ('+why+').', {error:true});
+  }
+}
+
 // ── Wire up ───────────────────────────────────────────────────────────────
+document.getElementById('planBtn').addEventListener('click', enterPlan);
 document.getElementById('editBtn').addEventListener('click', enterEdit);
 document.getElementById('cancelBtn').addEventListener('click', exitEdit);
 document.getElementById('doneBtn').addEventListener('click', save);
