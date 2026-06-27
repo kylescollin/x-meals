@@ -45,6 +45,8 @@
   .add-meal-btn{width:100%;margin-top:12px;background:transparent;border:1.5px dashed var(--border);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:14px;border-radius:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s;}
   .add-meal-btn:hover:not(:disabled){border-color:var(--accent);background:#fff;}
   .add-meal-btn:disabled{color:var(--muted);cursor:default;opacity:.6;border-style:solid;}
+  .shuffle-btn{margin-top:0;border-style:solid;border-color:var(--accent);background:var(--accent);color:#fff;font-weight:600;}
+  .shuffle-btn:hover:not(:disabled){border-color:var(--accent);background:#b35525;}
 
   /* Bottom edit bar */
   .edit-bar{position:fixed;left:0;right:0;bottom:0;z-index:200;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-top:1px solid var(--border);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(0,0,0,.06);}
@@ -115,6 +117,7 @@
 
   <div id="editPane" style="display:none">
     <div class="edit-cards" id="editCards"></div>
+    <button class="add-meal-btn shuffle-btn" id="shuffleBtn" style="display:none">🎲 Shuffle 3 meals</button>
     <button class="add-meal-btn" id="addMealBtn">+ Add a meal</button>
   </div>
 </div>
@@ -408,8 +411,7 @@ function renderPickerList(q){
   emptyEl.style.display = (shown===0) ? 'block' : 'none';
 }
 
-function addMeal(r){
-  if(editMeals.length>=MAX_MEALS) return;
+function mealFromRecipe(r){
   var meal={
     id:idOf(r), icon:r.icon||'🍽', name:r.name, meta:r.meta||'',
     ings:(r.ings||r.ingredients||[]).slice(),
@@ -417,9 +419,37 @@ function addMeal(r){
     day:nextFreeDay()
   };
   if(r.note) meal.note=r.note;
-  editMeals.push(meal);
+  return meal;
+}
+
+function addMeal(r){
+  if(editMeals.length>=MAX_MEALS) return;
+  editMeals.push(mealFromRecipe(r));
   closeSheet('picker-overlay');
   renderEditCards();
+}
+
+function shuffleMeals(){
+  loadAllRecipes(function(list){
+    var pool=(list||[]).slice();
+    if(!pool.length){ toast('No recipes to shuffle yet.', {}); return; }
+    var n=Math.min(3, pool.length);
+    var prevIds=editMeals.map(function(m){return m.id;}).sort().join(',');
+    for(var attempt=0; attempt<8; attempt++){
+      // Fisher–Yates partial shuffle to pick n distinct recipes
+      var arr=pool.slice();
+      for(var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; }
+      var picks=arr.slice(0,n);
+      var pickIds=picks.map(idOf).sort().join(',');
+      // re-roll if identical to current set and there's room to differ
+      if(pickIds!==prevIds || pool.length<=n){
+        editMeals=[];                      // clear first so day assignment is Mon/Tue/Wed
+        picks.forEach(function(r){ editMeals.push(mealFromRecipe(r)); });
+        renderEditCards();
+        return;
+      }
+    }
+  });
 }
 
 // ── Sheet helpers ─────────────────────────────────────────────────────────
@@ -457,6 +487,7 @@ function enterEdit(){
   editMode='edit';
   editMeals=(weekData.meals||[]).map(function(m){ return Object.assign({}, m); });
   document.getElementById('doneBtn').textContent='Done';
+  document.getElementById('shuffleBtn').style.display='none';
   showEditUI();
   renderEditCards();
 }
@@ -465,11 +496,13 @@ function enterPlan(){
   planWeekOf=upcomingMonday();
   editMeals=[];
   document.getElementById('doneBtn').textContent='Publish';
+  document.getElementById('shuffleBtn').style.display='';
   showEditUI();
   renderEditCards();
 }
 function exitEdit(){
   closeSheet('picker-overlay'); closeSheet('day-overlay');
+  document.getElementById('shuffleBtn').style.display='none';
   document.getElementById('editPane').style.display='none';
   document.getElementById('editBar').style.display='none';
   document.getElementById('mealCards').style.display='';
@@ -641,6 +674,7 @@ document.getElementById('planBtn').addEventListener('click', enterPlan);
 document.getElementById('editBtn').addEventListener('click', enterEdit);
 document.getElementById('cancelBtn').addEventListener('click', exitEdit);
 document.getElementById('doneBtn').addEventListener('click', save);
+document.getElementById('shuffleBtn').addEventListener('click', shuffleMeals);
 document.getElementById('addMealBtn').addEventListener('click', function(){
   if(editMeals.length>=MAX_MEALS){ toast("You're at 7 meals — remove one first.", {}); return; }
   document.getElementById('picker-search').value='';
