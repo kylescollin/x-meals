@@ -35,17 +35,32 @@
   .ec-handle:active{cursor:grabbing;}
   .ec-icon{font-size:24px;flex-shrink:0;}
   .ec-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px;}
-  .ec-day{align-self:flex-start;background:var(--accent-light);color:var(--accent);border:none;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:99px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s;}
-  .ec-day:active{transform:scale(.93);}
   .ec-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;line-height:1.3;}
   .ec-remove{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--muted);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s,color .15s,border-color .15s;}
   .ec-remove:hover{background:#fdecea;color:#9b2a2a;border-color:#f1c4bd;}
   .ec-remove:active{transform:scale(.9);}
 
+  /* Day-slot grid (edit / plan) */
+  .day-grid-edit{display:flex;flex-direction:column;gap:8px;}
+  .day-slot{position:relative;border-radius:12px;will-change:transform;}
+  .day-slot.dragging{z-index:5;}
+  .day-slot.drop-target .ds-inner{border-color:var(--accent);background:var(--accent-light);}
+  .ds-label{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 4px 4px;}
+  .ds-inner{display:flex;align-items:center;gap:8px;border-radius:10px;padding:10px 10px;transition:border-color .15s,background .15s,box-shadow .15s;}
+  .day-slot.filled .ds-inner{background:#fff;border:1px solid var(--border);}
+  .day-slot.filled.dragging .ds-inner{box-shadow:0 8px 24px rgba(0,0,0,.16);border-color:#bbb;opacity:.97;}
+  .day-slot.empty .ds-inner{background:transparent;border:1.5px dashed var(--border);}
+  .ds-name{flex:1;min-width:0;font-family:'Playfair Display',serif;font-size:15px;font-weight:500;line-height:1.3;}
+  .ds-empty-actions{flex:1;display:flex;gap:8px;}
+  .ds-action{flex:1;background:transparent;border:none;color:var(--accent);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:8px 6px;border-radius:8px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s;}
+  .ds-action:hover{background:#fff;}
+  .ds-action.ds-shuffle:active{transform:scale(.95);}
+  .ds-action+.ds-action{border-left:1px solid var(--border);}
+
   .add-meal-btn{width:100%;margin-top:12px;background:transparent;border:1.5px dashed var(--border);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:14px;border-radius:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s;}
   .add-meal-btn:hover:not(:disabled){border-color:var(--accent);background:#fff;}
   .add-meal-btn:disabled{color:var(--muted);cursor:default;opacity:.6;border-style:solid;}
-  .shuffle-btn{margin-top:0;border-style:solid;border-color:var(--accent);background:var(--accent);color:#fff;font-weight:600;}
+  .shuffle-btn{margin-top:12px;border-style:solid;border-color:var(--accent);background:var(--accent);color:#fff;font-weight:600;}
   .shuffle-btn:hover:not(:disabled){border-color:var(--accent);background:#b35525;}
 
   /* Bottom edit bar */
@@ -86,12 +101,6 @@
   .picker-row.added .picker-add{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--check);}
   .picker-loading,.picker-empty{padding:30px 16px;text-align:center;color:var(--muted);font-size:13px;font-weight:300;}
 
-  /* Day picker */
-  .day-grid{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-  .day-opt{padding:14px;border:1px solid var(--border);border-radius:10px;background:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s;}
-  .day-opt:active{background:#faf6ef;}
-  .day-opt.sel{border-color:var(--accent);background:var(--accent-light);color:var(--accent);font-weight:600;}
-
   /* Toast */
   .toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));z-index:1300;background:var(--ink);color:var(--cream);font-size:13px;font-weight:500;padding:12px 18px;border-radius:100px;box-shadow:0 6px 24px rgba(0,0,0,.22);max-width:90vw;text-align:center;opacity:0;visibility:hidden;transition:opacity .25s,transform .25s;}
   .toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
@@ -116,9 +125,8 @@
   <div class="meal-cards" id="mealCards"></div>
 
   <div id="editPane" style="display:none">
-    <div class="edit-cards" id="editCards"></div>
-    <button class="add-meal-btn shuffle-btn" id="shuffleBtn" style="display:none">🎲 Shuffle 3 meals</button>
-    <button class="add-meal-btn" id="addMealBtn">+ Add a meal</button>
+    <div class="day-grid-edit" id="editCards"></div>
+    <button class="add-meal-btn shuffle-btn" id="shuffleWeekBtn">🎲 Shuffle week</button>
   </div>
 </div>
 
@@ -144,18 +152,6 @@
   </div>
 </div>
 
-<!-- Day picker sheet -->
-<div class="sheet-ov" id="day-overlay" aria-hidden="true">
-  <div class="sheet">
-    <div class="sheet-grab"></div>
-    <div class="sheet-head">
-      <span class="sheet-title">Which day?</span>
-      <button class="sheet-close" id="day-close" aria-label="Close">✕</button>
-    </div>
-    <div class="day-grid" id="day-grid"></div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script src="recipe-card.js"></script>
@@ -171,7 +167,6 @@ var REPO='kylescollin/x-meals';
 var DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 var DAY_ABBR={Monday:'Mon',Tuesday:'Tue',Wednesday:'Wed',Thursday:'Thu',Friday:'Fri',Saturday:'Sat',Sunday:'Sun'};
 var LETTERS='ABCDEFG';
-var MAX_MEALS=7;
 
 var token=await getAuthToken();
 var [recipesResp,weekData]=await Promise.all([
@@ -199,7 +194,7 @@ document.getElementById('editBtn').style.display='';
 
 // ── Edit state ────────────────────────────────────────────────────────────
 var editMeals=[];
-var activeDayIdx=null;
+var pickerTargetDay=null;   // which day the recipe picker is adding to
 var allRecipes=null;
 var editMode='edit';   // 'edit' | 'plan'
 var planWeekOf=null;   // YYYY-MM-DD for the new week (plan mode only)
@@ -228,10 +223,15 @@ function dateForDay(day){
   return (d.getMonth()+1)+'/'+d.getDate();
 }
 
-function nextFreeDay(){
-  var used={}; editMeals.forEach(function(m){used[m.day]=true;});
-  for(var i=0;i<DAYS.length;i++){ if(!used[DAYS[i]]) return DAYS[i]; }
-  return 'Monday';
+// The meal occupying a given day (at most one), or null.
+function mealForDay(day){
+  for(var i=0;i<editMeals.length;i++){ if(editMeals[i].day===day) return editMeals[i]; }
+  return null;
+}
+
+// Keep editMeals ordered by day so array order = week order (Meal A…G follow the days).
+function sortMealsByDay(){
+  editMeals.sort(function(a,b){ return DAYS.indexOf(a.day)-DAYS.indexOf(b.day); });
 }
 
 function reletterAndDate(meals){
@@ -248,126 +248,127 @@ function recomputeSubhead(sub, n){
   return label;
 }
 
-// ── Edit cards ────────────────────────────────────────────────────────────
+// ── Day-slot grid (edit / plan) ───────────────────────────────────────────
 function renderEditCards(){
   var c=document.getElementById('editCards');
   c.innerHTML='';
-  editMeals.forEach(function(m,i){ c.appendChild(buildEditCard(m,i)); });
-  var addBtn=document.getElementById('addMealBtn');
+  DAYS.forEach(function(day){ c.appendChild(buildDaySlot(day)); });
+
   var n=editMeals.length;
-  var atMax=n>=MAX_MEALS;
-  addBtn.disabled=atMax;
-  addBtn.textContent=atMax?'Maximum of 7 meals reached':'+ Add a meal';
   var count=document.getElementById('editCount');
   var doneBtn=document.getElementById('doneBtn');
   if(editMode==='plan'){
     var p=(planWeekOf||'').split('-');
     var lbl=(p.length===3)?(MONTHS[+p[1]-1]+' '+(+p[2])):'';
-    count.textContent='Week of '+lbl+' · '+n+' of 7';
+    count.textContent='Week of '+lbl+' · '+n+(n===1?' meal':' meals');
     doneBtn.disabled=(n===0);
   }else{
-    count.textContent=n+' of 7 meals';
+    count.textContent=n+(n===1?' meal':' meals');
     doneBtn.disabled=false;
   }
 }
 
-function buildEditCard(meal, idx){
-  var card=document.createElement('div');
-  card.className='edit-card'; card.dataset.idx=idx;
+function buildDaySlot(day){
+  var meal=mealForDay(day);
+  var slot=document.createElement('div');
+  slot.className='day-slot '+(meal?'filled':'empty');
+  slot.dataset.day=day;
 
-  var handle=document.createElement('div');
-  handle.className='ec-handle'; handle.textContent='⠿';
-  handle.setAttribute('aria-label','Drag to reorder');
+  var label=document.createElement('div');
+  label.className='ds-label';
+  label.textContent=(DAY_ABBR[day]||day)+' · '+dateForDay(day);
 
-  var icon=document.createElement('div');
-  icon.className='ec-icon'; icon.textContent=meal.icon||'🍽';
+  var inner=document.createElement('div'); inner.className='ds-inner';
 
-  var body=document.createElement('div'); body.className='ec-body';
-  var dayChip=document.createElement('button');
-  dayChip.className='ec-day';
-  dayChip.textContent=DAY_ABBR[meal.day]||meal.day||'Set day';
-  dayChip.addEventListener('click',function(){ openDayPicker(idx); });
-  var name=document.createElement('div'); name.className='ec-name'; name.textContent=meal.name;
-  body.appendChild(dayChip); body.appendChild(name);
+  if(meal){
+    var handle=document.createElement('div');
+    handle.className='ec-handle'; handle.textContent='⠿';
+    handle.setAttribute('aria-label','Drag to move to another day');
 
-  var rm=document.createElement('button');
-  rm.className='ec-remove'; rm.textContent='✕';
-  rm.setAttribute('aria-label','Remove '+meal.name);
-  rm.addEventListener('click',function(){ editMeals.splice(idx,1); renderEditCards(); });
+    var icon=document.createElement('div');
+    icon.className='ec-icon'; icon.textContent=meal.icon||'🍽';
 
-  card.appendChild(handle); card.appendChild(icon); card.appendChild(body); card.appendChild(rm);
-  setupDrag(card, handle);
-  return card;
+    var name=document.createElement('div');
+    name.className='ds-name'; name.textContent=meal.name;
+
+    var rm=document.createElement('button');
+    rm.className='ec-remove'; rm.textContent='✕';
+    rm.setAttribute('aria-label','Remove '+meal.name);
+    rm.addEventListener('click',function(){
+      editMeals=editMeals.filter(function(m){ return m.day!==day; });
+      renderEditCards();
+    });
+
+    inner.appendChild(handle); inner.appendChild(icon); inner.appendChild(name); inner.appendChild(rm);
+    slot.appendChild(label); slot.appendChild(inner);
+    setupDrag(slot, handle, day);
+  }else{
+    var actions=document.createElement('div'); actions.className='ds-empty-actions';
+    var addBtn=document.createElement('button');
+    addBtn.className='ds-action ds-add'; addBtn.textContent='+ Add';
+    addBtn.addEventListener('click',function(){ openPickerForDay(day); });
+    var shufBtn=document.createElement('button');
+    shufBtn.className='ds-action ds-shuffle'; shufBtn.textContent='🎲 Shuffle';
+    shufBtn.addEventListener('click',function(){ shuffleDay(day); });
+    actions.appendChild(addBtn); actions.appendChild(shufBtn);
+    inner.appendChild(actions);
+    slot.appendChild(label); slot.appendChild(inner);
+  }
+  return slot;
 }
 
-// ── Drag to reorder (Pointer Events) ──────────────────────────────────────
-function setupDrag(card, handle){
+// ── Drag a meal between days (Pointer Events) ─────────────────────────────
+// Lifts the dragged slot, highlights the day-row under the pointer, and on
+// release moves the meal to an empty day or swaps with an occupied one.
+function setupDrag(slot, handle, fromDay){
   handle.addEventListener('pointerdown', function(e){
     e.preventDefault();
     var container=document.getElementById('editCards');
-    var cards=Array.from(container.children);
-    var startIndex=cards.indexOf(card);
-    if(startIndex<0) return;
-    var rects=cards.map(function(c){ return c.getBoundingClientRect(); });
-    var step = cards.length>1 ? (rects[1].top - rects[0].top) : (rects[0].height + 10);
+    var slots=Array.from(container.children);
+    var rects=slots.map(function(s){ return s.getBoundingClientRect(); });
     var startY=e.clientY;
-    var curIndex=startIndex;
-    try{ card.setPointerCapture(e.pointerId); }catch(_){}
-    card.classList.add('dragging');
-    cards.forEach(function(c){ if(c!==card) c.style.transition='transform .18s ease'; });
+    var targetDay=fromDay;
+    try{ slot.setPointerCapture(e.pointerId); }catch(_){}
+    slot.classList.add('dragging');
 
+    function clearHighlight(){
+      slots.forEach(function(s){ s.classList.remove('drop-target'); });
+    }
     function move(ev){
       var dy=ev.clientY-startY;
-      card.style.transform='translateY('+dy+'px)';
-      var ni=startIndex+Math.round(dy/step);
-      ni=Math.max(0, Math.min(cards.length-1, ni));
-      if(ni!==curIndex){
-        curIndex=ni;
-        cards.forEach(function(c,i){
-          if(c===card) return;
-          var shift=0;
-          if(startIndex<curIndex && i>startIndex && i<=curIndex) shift=-step;
-          else if(startIndex>curIndex && i<startIndex && i>=curIndex) shift=step;
-          c.style.transform = shift ? 'translateY('+shift+'px)' : '';
-        });
+      slot.style.transform='translateY('+dy+'px)';
+      // Which day-row is the pointer centred over?
+      var y=ev.clientY, over=null;
+      for(var i=0;i<slots.length;i++){
+        if(y>=rects[i].top && y<=rects[i].bottom){ over=slots[i]; break; }
       }
+      clearHighlight();
+      targetDay=over?over.dataset.day:fromDay;
+      if(over && over!==slot) over.classList.add('drop-target');
     }
     function end(){
-      try{ card.releasePointerCapture(e.pointerId); }catch(_){}
-      card.removeEventListener('pointermove',move);
-      card.removeEventListener('pointerup',end);
-      card.removeEventListener('pointercancel',end);
-      card.classList.remove('dragging');
-      cards.forEach(function(c){ c.style.transform=''; c.style.transition=''; });
-      if(curIndex!==startIndex){
-        var moved=editMeals.splice(startIndex,1)[0];
-        editMeals.splice(curIndex,0,moved);
+      try{ slot.releasePointerCapture(e.pointerId); }catch(_){}
+      slot.removeEventListener('pointermove',move);
+      slot.removeEventListener('pointerup',end);
+      slot.removeEventListener('pointercancel',end);
+      slot.classList.remove('dragging');
+      slot.style.transform='';
+      clearHighlight();
+      if(targetDay && targetDay!==fromDay){
+        var dragged=mealForDay(fromDay);
+        var other=mealForDay(targetDay);
+        if(dragged){
+          dragged.day=targetDay;
+          if(other) other.day=fromDay;   // swap
+          sortMealsByDay();
+        }
       }
       renderEditCards();
     }
-    card.addEventListener('pointermove',move);
-    card.addEventListener('pointerup',end);
-    card.addEventListener('pointercancel',end);
+    slot.addEventListener('pointermove',move);
+    slot.addEventListener('pointerup',end);
+    slot.addEventListener('pointercancel',end);
   });
-}
-
-// ── Day picker ────────────────────────────────────────────────────────────
-function openDayPicker(idx){
-  activeDayIdx=idx;
-  var grid=document.getElementById('day-grid'); grid.innerHTML='';
-  var cur=editMeals[idx].day;
-  DAYS.forEach(function(day){
-    var b=document.createElement('button');
-    b.className='day-opt'+(day===cur?' sel':'');
-    b.textContent=day;
-    b.addEventListener('click',function(){
-      editMeals[idx].day=day;
-      closeSheet('day-overlay');
-      renderEditCards();
-    });
-    grid.appendChild(b);
-  });
-  openSheet('day-overlay');
 }
 
 // ── Recipe picker ─────────────────────────────────────────────────────────
@@ -388,7 +389,6 @@ function renderPickerList(q){
   var emptyEl=document.getElementById('picker-empty');
   listEl.innerHTML='';
   var inWeek={}; editMeals.forEach(function(m){ inWeek[m.id]=true; });
-  var atMax=editMeals.length>=MAX_MEALS;
   var shown=0;
   (allRecipes||[]).forEach(function(r){
     var hay=[r.name, r.meta, (r.ingredients||r.ings||[]).join(' ')].join(' ').toLowerCase();
@@ -397,7 +397,7 @@ function renderPickerList(q){
     var already=!!inWeek[id];
     var row=document.createElement('button');
     row.className='picker-row'+(already?' added':'');
-    row.disabled=already||atMax;
+    row.disabled=already;
     var ic=document.createElement('span'); ic.className='picker-icon'; ic.textContent=r.icon||'🍽';
     var info=document.createElement('span'); info.className='picker-info';
     var nm=document.createElement('span'); nm.className='picker-name'; nm.textContent=r.name;
@@ -405,31 +405,70 @@ function renderPickerList(q){
     info.appendChild(nm); info.appendChild(mt);
     var add=document.createElement('span'); add.className='picker-add'; add.textContent=already?'Added':'+';
     row.appendChild(ic); row.appendChild(info); row.appendChild(add);
-    if(!already && !atMax) row.addEventListener('click',function(){ addMeal(r); });
+    if(!already) row.addEventListener('click',function(){ addMeal(r); });
     listEl.appendChild(row); shown++;
   });
   emptyEl.style.display = (shown===0) ? 'block' : 'none';
 }
 
-function mealFromRecipe(r){
+function mealFromRecipe(r, day){
   var meal={
     id:idOf(r), icon:r.icon||'🍽', name:r.name, meta:r.meta||'',
     ings:(r.ings||r.ingredients||[]).slice(),
     steps:(r.steps||[]).slice(),
-    day:nextFreeDay()
+    day:day
   };
   if(r.note) meal.note=r.note;
   return meal;
 }
 
+// Open the recipe picker so the chosen recipe lands on a specific day.
+function openPickerForDay(day){
+  pickerTargetDay=day;
+  document.getElementById('picker-search').value='';
+  document.getElementById('picker-list').innerHTML='<div class="picker-loading">Loading recipes…</div>';
+  openSheet('picker-overlay');
+  loadAllRecipes(function(){ renderPickerList(''); });
+}
+
 function addMeal(r){
-  if(editMeals.length>=MAX_MEALS) return;
-  editMeals.push(mealFromRecipe(r));
+  var day=pickerTargetDay||nextEmptyDay();
+  if(!day){ closeSheet('picker-overlay'); return; }
+  editMeals=editMeals.filter(function(m){ return m.day!==day; });  // replace any meal on that day
+  editMeals.push(mealFromRecipe(r, day));
+  sortMealsByDay();
   closeSheet('picker-overlay');
   renderEditCards();
 }
 
-function shuffleMeals(){
+function nextEmptyDay(){
+  for(var i=0;i<DAYS.length;i++){ if(!mealForDay(DAYS[i])) return DAYS[i]; }
+  return null;
+}
+
+// Pick a random recipe for one day, avoiding any recipe already in the week and
+// the day's current meal — so tapping repeatedly always rolls something new.
+function shuffleDay(day){
+  loadAllRecipes(function(list){
+    var used={}; editMeals.forEach(function(m){ if(m.day!==day) used[m.id]=true; });
+    var curId=(mealForDay(day)||{}).id;
+    var pool=(list||[]).filter(function(r){ var id=idOf(r); return !used[id] && id!==curId; });
+    if(!pool.length){
+      // Everything else is already in the week; allow anything but the current meal.
+      pool=(list||[]).filter(function(r){ return idOf(r)!==curId; });
+    }
+    if(!pool.length){ toast('No other recipes to shuffle in yet.', {}); return; }
+    var pick=pool[Math.floor(Math.random()*pool.length)];
+    editMeals=editMeals.filter(function(m){ return m.day!==day; });
+    editMeals.push(mealFromRecipe(pick, day));
+    sortMealsByDay();
+    renderEditCards();
+  });
+}
+
+// Replace the whole week with a fresh set of 3 distinct random meals (Mon/Tue/Wed),
+// matching the "3 dinners" default. Re-tap to reshuffle.
+function shuffleWeek(){
   loadAllRecipes(function(list){
     var pool=(list||[]).slice();
     if(!pool.length){ toast('No recipes to shuffle yet.', {}); return; }
@@ -443,8 +482,9 @@ function shuffleMeals(){
       var pickIds=picks.map(idOf).sort().join(',');
       // re-roll if identical to current set and there's room to differ
       if(pickIds!==prevIds || pool.length<=n){
-        editMeals=[];                      // clear first so day assignment is Mon/Tue/Wed
-        picks.forEach(function(r){ editMeals.push(mealFromRecipe(r)); });
+        editMeals=[];
+        picks.forEach(function(r,k){ editMeals.push(mealFromRecipe(r, DAYS[k])); });
+        sortMealsByDay();
         renderEditCards();
         return;
       }
@@ -486,8 +526,8 @@ function showEditUI(){
 function enterEdit(){
   editMode='edit';
   editMeals=(weekData.meals||[]).map(function(m){ return Object.assign({}, m); });
+  sortMealsByDay();
   document.getElementById('doneBtn').textContent='Done';
-  document.getElementById('shuffleBtn').style.display='none';
   showEditUI();
   renderEditCards();
 }
@@ -496,13 +536,11 @@ function enterPlan(){
   planWeekOf=upcomingMonday();
   editMeals=[];
   document.getElementById('doneBtn').textContent='Publish';
-  document.getElementById('shuffleBtn').style.display='';
   showEditUI();
   renderEditCards();
 }
 function exitEdit(){
-  closeSheet('picker-overlay'); closeSheet('day-overlay');
-  document.getElementById('shuffleBtn').style.display='none';
+  closeSheet('picker-overlay');
   document.getElementById('editPane').style.display='none';
   document.getElementById('editBar').style.display='none';
   document.getElementById('mealCards').style.display='';
@@ -674,20 +712,10 @@ document.getElementById('planBtn').addEventListener('click', enterPlan);
 document.getElementById('editBtn').addEventListener('click', enterEdit);
 document.getElementById('cancelBtn').addEventListener('click', exitEdit);
 document.getElementById('doneBtn').addEventListener('click', save);
-document.getElementById('shuffleBtn').addEventListener('click', shuffleMeals);
-document.getElementById('addMealBtn').addEventListener('click', function(){
-  if(editMeals.length>=MAX_MEALS){ toast("You're at 7 meals — remove one first.", {}); return; }
-  document.getElementById('picker-search').value='';
-  document.getElementById('picker-list').innerHTML='<div class="picker-loading">Loading recipes…</div>';
-  openSheet('picker-overlay');
-  loadAllRecipes(function(){ renderPickerList(''); });
-});
+document.getElementById('shuffleWeekBtn').addEventListener('click', shuffleWeek);
 document.getElementById('picker-close').addEventListener('click', function(){ closeSheet('picker-overlay'); });
-document.getElementById('day-close').addEventListener('click', function(){ closeSheet('day-overlay'); });
 document.getElementById('picker-search').addEventListener('input', function(){ renderPickerList(this.value); });
-['picker-overlay','day-overlay'].forEach(function(id){
-  document.getElementById(id).addEventListener('click', function(e){ if(e.target===this) closeSheet(id); });
-});
+document.getElementById('picker-overlay').addEventListener('click', function(e){ if(e.target===this) closeSheet('picker-overlay'); });
 </script>
 </body>
 </html>
