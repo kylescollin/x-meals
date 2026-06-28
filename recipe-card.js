@@ -35,6 +35,12 @@
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
   }
 
+  // Canonical recipe id: explicit id, else a slug of the name. Shared so every
+  // page derives the same id (the site matches recipes by id for save state).
+  function idOf(r) {
+    return r.id || (r.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  }
+
   function authedFetch(url, options) {
     var getToken = window.getToken;
     if (!getToken) return fetch(url, options);
@@ -361,9 +367,9 @@
 
   function renderDetailBody(recipe) {
     document.getElementById('rc-rd-name').textContent = recipe.name;
-    document.getElementById('rc-rd-ings').innerHTML  = (recipe.ings || recipe.ingredients || []).map(function (i) { return '<li>' + i + '</li>'; }).join('');
+    document.getElementById('rc-rd-ings').innerHTML  = (recipe.ings || recipe.ingredients || []).map(function (i) { return '<li>' + escHtml(i) + '</li>'; }).join('');
     document.getElementById('rc-rd-steps').innerHTML = (recipe.steps || []).map(function (s, n) {
-      return '<li><span class="rc-rd-step-num">' + (n + 1) + '</span><span>' + s + '</span></li>';
+      return '<li><span class="rc-rd-step-num">' + (n + 1) + '</span><span>' + escHtml(s) + '</span></li>';
     }).join('');
     var noteEl = document.getElementById('rc-rd-note');
     if (recipe.note) { noteEl.textContent = recipe.note; noteEl.style.display = ''; }
@@ -371,7 +377,7 @@
   }
 
   function openDetail(r) {
-    var id     = r.id || r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    var id     = idOf(r);
     var edit   = recipeEdits[fbSafeKey(id)];
     curR = edit ? Object.assign({}, r, edit) : r;
 
@@ -454,7 +460,7 @@
 
   function saveRecipeEdit() {
     if (!curR) return;
-    var id = curR.id || curR.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    var id = idOf(curR);
 
     var nameVal  = document.getElementById('rc-rd-ef-name').value.trim();
     var metaVal  = document.getElementById('rc-rd-ef-meta').value.trim();
@@ -638,7 +644,7 @@
       titleEl.textContent = r.name;
       ingsList.innerHTML  = (r.ings || r.ingredients || []).map(function (i) {
         var p = parseIng(i);
-        return '<li class="rc-ck-ing-row"><span class="rc-ck-qty">' + p.qty + '</span><span class="rc-ck-item-name">' + p.name + '</span></li>';
+        return '<li class="rc-ck-ing-row"><span class="rc-ck-qty">' + escHtml(p.qty) + '</span><span class="rc-ck-item-name">' + escHtml(p.name) + '</span></li>';
       }).join('');
       ingScroll.scrollTop = 0;
     }
@@ -652,7 +658,7 @@
         sl.className = 'rc-ck-slide' + (i === 0 ? ' active' : '');
         sl.innerHTML = '<div class="rc-ck-step-big">' + String(i + 1).padStart(2, '0') + '</div>' +
                        '<div class="rc-ck-step-of">of ' + r.steps.length + '</div>' +
-                       '<div class="rc-ck-step-body">' + text + '</div>';
+                       '<div class="rc-ck-step-body">' + escHtml(text) + '</div>';
         stepVp.appendChild(sl);
         slides.push(sl);
         var d = document.createElement('div');
@@ -819,21 +825,21 @@
      * Returns a DOM element for a meal card. Click opens detail overlay.
      */
     makeCard: function (r, labelOverride) {
-      var id  = r.id || r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      var id  = idOf(r);
       var lbl = labelOverride !== undefined ? labelOverride : (r.label || '');
       var div = document.createElement('div');
       div.className = 'rc-card';
       div.setAttribute('data-recipe-id', id);
       div.innerHTML =
         '<div class="rc-card-inner">' +
-          '<div class="rc-card-icon">' + (r.icon || '🍽') + '</div>' +
+          '<div class="rc-card-icon">' + escHtml(r.icon || '🍽') + '</div>' +
           '<div class="rc-card-body">' +
-            '<div class="rc-card-label">' + lbl + '</div>' +
-            '<div class="rc-card-name">' + r.name + '</div>' +
-            '<div class="rc-card-meta">' + (r.meta || '') + '</div>' +
+            '<div class="rc-card-label">' + escHtml(lbl) + '</div>' +
+            '<div class="rc-card-name">' + escHtml(r.name) + '</div>' +
+            '<div class="rc-card-meta">' + escHtml(r.meta || '') + '</div>' +
           '</div>' +
           '<div class="rc-card-right">' +
-            '<span class="rc-saved-badge" data-id="' + id + '">' +
+            '<span class="rc-saved-badge" data-id="' + escAttr(id) + '">' +
               '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
               'Saved' +
             '</span>' +
@@ -866,6 +872,7 @@
 
     openDetail: openDetail,
     closeDetail: closeDetail,
+    idOf: idOf,
     isSaved: isSaved,
     isCore: isCore
   };

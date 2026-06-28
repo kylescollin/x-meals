@@ -6,9 +6,11 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Fox & Bear Kitchen">
 <title>Recipe Collection — Fox &amp; Bear Kitchen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="theme.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--cream:#faf7f2;--ink:#1a1a1a;--muted:#7a7264;--accent:#c8622a;--accent-light:#f5e8de;--border:#e4ded5;--ck-bg:#131311;--ck-dim:#252520;--ck-border:#2e2d28;--ck-text:#f0ebe0;--ck-muted:#6a6860;--ck-accent:#d4732e;--ck-done:#2d7a4f;}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;}
   .hd{max-width:680px;margin:0 auto 28px;border-bottom:1px solid var(--border);padding:28px 20px 24px;}
@@ -60,7 +62,7 @@ RECIPES.forEach(function(r) { CORE_IDS[r.id] = true; });
 // Search index: recipe id → searchable string
 var searchIndex = {};
 function indexRecipe(r) {
-  var id = r.id || r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  var id = RecipeCard.idOf(r);
   searchIndex[id] = [r.name, r.label, r.meta, (r.ingredients || []).join(' ')].join(' ').toLowerCase();
 }
 
@@ -99,8 +101,7 @@ RecipeCard.init({
       // Load recently saved recipes not yet promoted to core (data/recipes.json)
       RecipeCard.loadSavedRecipes(function(saved) {
         var newlySaved = saved.filter(function(r) {
-          var id = r.id || r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-          return !CORE_IDS[id];
+          return !CORE_IDS[RecipeCard.idOf(r)];
         });
         if (newlySaved.length > 0) {
           var divider = document.createElement('div');
@@ -112,7 +113,7 @@ RecipeCard.init({
             if (!displayR.label || /Meal [A-Z]/.test(displayR.label)) displayR.label = 'Saved from journal';
             indexRecipe(r);
             var card = RecipeCard.makeCard(displayR, displayR.label);
-            var id = r.id || r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            var id = RecipeCard.idOf(r);
             card.setAttribute('data-saved-id', id);
             list.appendChild(card);
           });

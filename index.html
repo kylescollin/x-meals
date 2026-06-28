@@ -6,9 +6,11 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Fox & Bear Kitchen">
 <title>Fox &amp; Bear Kitchen — This Week</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="theme.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{--cream:#faf7f2;--ink:#1a1a1a;--muted:#7a7264;--accent:#c8622a;--accent-light:#f5e8de;--border:#e4ded5;--check:#2d7a4f;--check-light:#e8f4ed;--ck-bg:#131311;--ck-dim:#252520;--ck-border:#2e2d28;--ck-text:#f0ebe0;--ck-muted:#6a6860;--ck-accent:#d4732e;--ck-done:#2d7a4f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
   body.editing{padding-bottom:96px;}
@@ -200,7 +202,7 @@ var editMode='edit';   // 'edit' | 'plan'
 var planWeekOf=null;   // YYYY-MM-DD for the new week (plan mode only)
 var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-function idOf(r){ return r.id || (r.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-'); }
+var idOf=RecipeCard.idOf;   // shared slug helper (see recipe-card.js)
 
 // The week the active editing session targets: the new week in plan mode,
 // otherwise the current week. Used for day/date math.
