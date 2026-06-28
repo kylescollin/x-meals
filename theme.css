@@ -1,0 +1,23 @@
+/* Fox & Bear Kitchen — shared color palette.
+   Single source of truth for the design tokens used across every page.
+   Edit a color here and it updates the whole site.
+   Light theme = page chrome; --ck-* tokens = dark cooking mode. */
+:root{
+  --cream:#faf7f2;
+  --ink:#1a1a1a;
+  --muted:#7a7264;
+  --accent:#c8622a;
+  --accent-light:#f5e8de;
+  --border:#e4ded5;
+  --check:#2d7a4f;
+  --check-light:#e8f4ed;
+  /* Cooking mode (dark) */
+  --ck-bg:#131311;
+  --ck-surface:#1c1c19;
+  --ck-dim:#252520;
+  --ck-border:#2e2d28;
+  --ck-text:#f0ebe0;
+  --ck-muted:#6a6860;
+  --ck-accent:#d4732e;
+  --ck-done:#2d7a4f;
+}
