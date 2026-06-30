@@ -1054,7 +1054,7 @@
     {
       "id": "chicken-tikka-masala-cauliflower",
       "icon": "🍗",
-      "label": "",
+      "label": "Curry · 45 min",
       "name": "Chicken Tikka Masala + Cauliflower",
       "meta": "~45 min (marinate tonight!) · Serves 4–6",
       "tags": [],
@@ -1088,7 +1088,7 @@
     {
       "id": "honey-mustard-chicken-sheet-pan",
       "icon": "🍯",
-      "label": "",
+      "label": "Sheet Pan · 45 min",
       "name": "Sheet Pan Honey Mustard Chicken with Potatoes & Green Beans",
       "meta": "~45 min · Sheet pan · Serves 4",
       "tags": [],
@@ -1121,7 +1121,7 @@
     {
       "id": "lemon-dill-salmon-roasted-broccoli",
       "icon": "🐟",
-      "label": "",
+      "label": "Seafood · 25 min",
       "name": "Lemon Dill Salmon with Roasted Broccoli & Brown Rice",
       "meta": "~25 min · Sheet pan · Serves 4",
       "tags": [],
@@ -1150,7 +1150,7 @@
     {
       "id": "sheet-pan-beef-broccoli",
       "icon": "🥩",
-      "label": "",
+      "label": "Sheet Pan · 30 min",
       "name": "Sheet Pan Beef & Broccoli",
       "meta": "~30 min · Sheet pan · Serves 4",
       "tags": [],
@@ -1181,7 +1181,7 @@
     {
       "id": "healthy-chicken-pot-pie",
       "icon": "🥧",
-      "label": "",
+      "label": "Dinner · 55 min",
       "name": "Healthy Chicken Pot Pie",
       "meta": "~55 min · Oven · Serves 6",
       "tags": [],
@@ -1218,7 +1218,7 @@
     {
       "id": "garlic-shrimp-scampi-linguine",
       "icon": "🍝",
-      "label": "",
+      "label": "Pasta · 30 min",
       "name": "Garlic Shrimp Scampi Linguine",
       "meta": "~30 min · Stovetop · Serves 4",
       "tags": [],
@@ -1251,7 +1251,7 @@
     {
       "id": "marry-me-chicken-gnocchi",
       "icon": "🍲",
-      "label": "",
+      "label": "Pasta · 30 min",
       "name": "Marry Me Chicken Gnocchi",
       "meta": "~30 min · One pan · Serves 4",
       "tags": [],

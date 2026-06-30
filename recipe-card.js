@@ -412,7 +412,9 @@
 
   // Build the recipe form markup. Shared by edit mode and add mode.
   // `includeIcon` adds an emoji field at the top (used only when adding).
-  function buildRecipeFormHTML(values, includeIcon) {
+  // `includeCategory` adds a category field that feeds the card eyebrow label
+  // (used only when adding — edits leave the existing label untouched).
+  function buildRecipeFormHTML(values, includeIcon, includeCategory) {
     var ings  = (values.ings || values.ingredients || []).join('\n');
     var steps = (values.steps || []).join('\n');
     var iconField = includeIcon ?
@@ -420,11 +422,17 @@
         '<label class="rc-rd-field-label">Emoji</label>' +
         '<input class="rc-rd-input" id="rc-rd-ef-icon" type="text" value="' + escAttr(values.icon || '') + '" placeholder="🍽️" maxlength="4">' +
       '</div>' : '';
+    var categoryField = includeCategory ?
+      '<div class="rc-rd-field">' +
+        '<label class="rc-rd-field-label">Category</label>' +
+        '<input class="rc-rd-input" id="rc-rd-ef-category" type="text" value="' + escAttr(values.category || '') + '" placeholder="Pasta, Soup, Tacos…">' +
+      '</div>' : '';
     return iconField +
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label">Recipe Name</label>' +
         '<input class="rc-rd-input" id="rc-rd-ef-name" type="text" value="' + escAttr(values.name || '') + '">' +
       '</div>' +
+      categoryField +
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label">Details</label>' +
         '<input class="rc-rd-input" id="rc-rd-ef-meta" type="text" value="' + escAttr(values.meta || '') + '" placeholder="30 min · One pan · Serves 4">' +
@@ -480,7 +488,7 @@
     var form = document.createElement('div');
     form.id = 'rc-rd-edit-form';
     form.className = 'rc-rd-edit-form';
-    form.innerHTML = buildRecipeFormHTML({}, true);
+    form.innerHTML = buildRecipeFormHTML({}, true, true);
 
     document.querySelector('.rc-rd-body').appendChild(form);
     document.querySelector('.rc-rd-body').scrollTop = 0;
@@ -551,6 +559,7 @@
   function saveNewRecipe() {
     var iconVal  = document.getElementById('rc-rd-ef-icon').value.trim() || '🍽️';
     var nameVal  = document.getElementById('rc-rd-ef-name').value.trim();
+    var catVal   = document.getElementById('rc-rd-ef-category').value.trim();
     var metaVal  = document.getElementById('rc-rd-ef-meta').value.trim();
     var ingsRaw  = document.getElementById('rc-rd-ef-ings').value;
     var stepsRaw = document.getElementById('rc-rd-ef-steps').value;
@@ -564,6 +573,12 @@
     var ings  = ingsRaw.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
     var steps = stepsRaw.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
 
+    // Card eyebrow label: "Category · time". Category defaults to "Dinner";
+    // time is the first segment of meta (e.g. "~30 min · One pan" → "30 min").
+    var category = catVal || 'Dinner';
+    var timePart = (metaVal.split('·')[0] || '').replace(/^~/, '').trim();
+    var labelVal = timePart ? (category + ' · ' + timePart) : category;
+
     // Unique id: slug of the name, with a numeric suffix on collision.
     var baseId = idOf({ name: nameVal });
     var id = baseId, n = 2;
@@ -572,7 +587,7 @@
     var recipe = {
       id:          id,
       icon:        iconVal,
-      label:       '',
+      label:       labelVal,
       name:        nameVal,
       meta:        metaVal,
       ingredients: ings,
