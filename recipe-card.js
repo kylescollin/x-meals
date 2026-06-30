@@ -9,6 +9,7 @@
 
   // ── Firebase ────────────────────────────────────────────────────────────
   var FB_BASE  = 'https://fox-bear-hub-default-rtdb.firebaseio.com';
+  var REPO     = 'kylescollin/x-meals';   // for committing new recipes to git
   var FB_FLAGS = FB_BASE + '/saved-recipes.json';
   var FB_DATA  = FB_BASE + '/saved-recipe-data.json';
   var FB_EDITS    = FB_BASE + '/recipe-edits';
@@ -500,6 +501,53 @@
     if (form) form.remove();
   }
 
+  // Commit a new recipe into data/recipes.json so it becomes a permanent
+  // recipe that Agent X can see and suggest. Reuses the same GitHub token +
+  // Contents API flow that in-app meal editing uses (index.html). Best-effort:
+  // the recipe is already saved to Firebase before this runs, so a failure
+  // here only means it isn't yet in the permanent collection.
+  function utf8ToBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
+  function base64ToUtf8(b64) { return decodeURIComponent(escape(atob(b64.replace(/\n/g, '')))); }
+
+  function getGhToken() {
+    var getToken = window.getToken;
+    if (!getToken) return Promise.resolve(null);
+    return getToken()
+      .then(function (tk) { return fetch(FB_BASE + '/config/githubToken.json?auth=' + tk); })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (v) { return (typeof v === 'string' && v) ? v : null; })
+      .catch(function () { return null; });
+  }
+
+  function commitRecipeToCore(coreRecipe) {
+    return getGhToken().then(function (gh) {
+      if (!gh) throw new Error('no token');
+      var url = 'https://api.github.com/repos/' + REPO + '/contents/data/recipes.json';
+      var headers = {
+        'Authorization': 'Bearer ' + gh,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
+      };
+      return fetch(url + '?ref=main', { headers: headers, cache: 'no-store' })
+        .then(function (getR) { if (!getR.ok) throw new Error('get failed'); return getR.json(); })
+        .then(function (meta) {
+          var json = JSON.parse(base64ToUtf8(meta.content));
+          json.recipes = json.recipes || [];
+          // Skip if this id somehow already exists (avoid duplicates)
+          if (json.recipes.some(function (r) { return r.id === coreRecipe.id; })) return true;
+          json.recipes.push(coreRecipe);
+          var content = utf8ToBase64(JSON.stringify(json, null, 2) + '\n');
+          return fetch(url, {
+            method: 'PUT', headers: headers,
+            body: JSON.stringify({
+              message: 'Add recipe: ' + coreRecipe.name + ' (in-app)',
+              content: content, sha: meta.sha, branch: 'main'
+            })
+          }).then(function (putR) { if (!putR.ok) throw new Error('put failed'); return true; });
+        });
+    });
+  }
+
   function saveNewRecipe() {
     var iconVal  = document.getElementById('rc-rd-ef-icon').value.trim() || '🍽️';
     var nameVal  = document.getElementById('rc-rd-ef-name').value.trim();
@@ -534,10 +582,30 @@
     if (noteVal) recipe.note = noteVal;
 
     // Persist to Firebase + insert the card via the existing save flow.
+    // (Instant, syncs between accounts, and is the safe fallback if the
+    // git commit below fails.)
     toggleSave(id, recipe);
 
     exitAddMode();
     closeDetail();
+
+    // Also commit into data/recipes.json so it becomes a permanent recipe
+    // that Agent X can see. Lands ~1 min later (after GitHub Pages rebuilds).
+    var coreRecipe = {
+      id:          recipe.id,
+      icon:        recipe.icon,
+      label:       recipe.label || '',
+      name:        recipe.name,
+      meta:        recipe.meta,
+      tags:        [],
+      ingredients: recipe.ingredients,
+      steps:       recipe.steps
+    };
+    if (recipe.note) coreRecipe.note = recipe.note;
+    commitRecipeToCore(coreRecipe).catch(function (err) {
+      console.warn('Recipe saved to Firebase but not committed to recipes.json:', err);
+      alert('"' + recipe.name + '" was saved and synced, but couldn’t be added to your permanent recipe list just now. It will still show up for you and Josephine. You can try adding it again later to make it permanent.');
+    });
   }
 
   function exitEditMode() {

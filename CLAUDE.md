@@ -80,6 +80,19 @@ same as all meal data); it is scoped to only this repo with Contents read/write.
 any committed file. If grocery regeneration ever stops working, check that the token is present and
 unexpired at `/config/githubToken`.
 
+### In-browser recipe adding (Add mode on recipes.html)
+
+`recipes.html` has a **"+ Add recipe"** button that opens a blank form (emoji, name, details,
+ingredients, steps, tip). On **Save** (`saveNewRecipe` in `recipe-card.js`) it does two things:
+1. Saves the recipe to Firebase via the existing `toggleSave` flow — instant, syncs between the two
+   accounts, and shows it immediately under the **"Your Recipes"** section.
+2. Commits the recipe into `data/recipes.json` via the same GitHub token + Contents API used by meal
+   editing (`commitRecipeToCore`), so it becomes a **permanent** recipe Agent X can see and suggest.
+   Lands ~1 min later. The Firebase copy is the safe fallback if this commit fails.
+
+New recipes get an `id` that is a slug of the name, with a numeric suffix on collision. This is the
+only place outside Agent X that writes `data/recipes.json`.
+
 ## data/week.json Schema
 
 Agent X must write `data/week.json` in this exact format each week:
