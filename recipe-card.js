@@ -346,6 +346,7 @@
   var curR      = null;
   var rdEl      = null;
   var inEditMode = false;
+  var inAddMode  = false;
 
   function refreshSaveUI(id) {
     var saveBtn      = document.getElementById('rc-rd-save');
@@ -401,34 +402,31 @@
 
   function closeDetail() {
     if (inEditMode) exitEditMode();
+    if (inAddMode) exitAddMode();
     rdEl.classList.remove('open');
     rdEl.setAttribute('aria-hidden', 'true');
     var ckEl = document.getElementById('rc-ck-overlay');
     if (!ckEl || !ckEl.classList.contains('open')) document.body.style.overflow = '';
   }
 
-  function enterEditMode() {
-    if (!curR) return;
-    inEditMode = true;
-
-    document.getElementById('rc-rd-view-bar').style.display = 'none';
-    document.getElementById('rc-rd-edit-bar').style.display = '';
-    document.getElementById('rc-rd-inner').style.display = 'none';
-
-    var ings  = (curR.ings || curR.ingredients || []).join('\n');
-    var steps = (curR.steps || []).join('\n');
-
-    var form = document.createElement('div');
-    form.id = 'rc-rd-edit-form';
-    form.className = 'rc-rd-edit-form';
-    form.innerHTML =
+  // Build the recipe form markup. Shared by edit mode and add mode.
+  // `includeIcon` adds an emoji field at the top (used only when adding).
+  function buildRecipeFormHTML(values, includeIcon) {
+    var ings  = (values.ings || values.ingredients || []).join('\n');
+    var steps = (values.steps || []).join('\n');
+    var iconField = includeIcon ?
+      '<div class="rc-rd-field">' +
+        '<label class="rc-rd-field-label">Emoji</label>' +
+        '<input class="rc-rd-input" id="rc-rd-ef-icon" type="text" value="' + escAttr(values.icon || '') + '" placeholder="🍽️" maxlength="4">' +
+      '</div>' : '';
+    return iconField +
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label">Recipe Name</label>' +
-        '<input class="rc-rd-input" id="rc-rd-ef-name" type="text" value="' + escAttr(curR.name || '') + '">' +
+        '<input class="rc-rd-input" id="rc-rd-ef-name" type="text" value="' + escAttr(values.name || '') + '">' +
       '</div>' +
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label">Details</label>' +
-        '<input class="rc-rd-input" id="rc-rd-ef-meta" type="text" value="' + escAttr(curR.meta || '') + '" placeholder="30 min · One pan · Serves 4">' +
+        '<input class="rc-rd-input" id="rc-rd-ef-meta" type="text" value="' + escAttr(values.meta || '') + '" placeholder="30 min · One pan · Serves 4">' +
       '</div>' +
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label">Ingredients &mdash; one per line</label>' +
@@ -440,11 +438,106 @@
       '</div>' +
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label">Tip (optional)</label>' +
-        '<input class="rc-rd-input" id="rc-rd-ef-note" type="text" value="' + escAttr(curR.note || '') + '" placeholder="💡 Optional tip for cooks">' +
+        '<input class="rc-rd-input" id="rc-rd-ef-note" type="text" value="' + escAttr(values.note || '') + '" placeholder="💡 Optional tip for cooks">' +
       '</div>';
+  }
+
+  function enterEditMode() {
+    if (!curR) return;
+    inEditMode = true;
+
+    var editBar = document.getElementById('rc-rd-edit-bar');
+    document.getElementById('rc-rd-view-bar').style.display = 'none';
+    editBar.style.display = '';
+    editBar.querySelector('.rc-rd-edit-bar-title').textContent = 'Editing';
+    document.getElementById('rc-rd-inner').style.display = 'none';
+
+    var form = document.createElement('div');
+    form.id = 'rc-rd-edit-form';
+    form.className = 'rc-rd-edit-form';
+    form.innerHTML = buildRecipeFormHTML(curR, false);
 
     document.querySelector('.rc-rd-body').appendChild(form);
     document.querySelector('.rc-rd-body').scrollTop = 0;
+  }
+
+  // ── Add new recipe ──────────────────────────────────────────────────────
+  function openAddForm() {
+    inAddMode = true;
+    curR = null;
+    currentRecipeId = null;
+
+    document.getElementById('rc-rd-view-bar').style.display = 'none';
+    document.getElementById('rc-rd-inner').style.display = 'none';
+    var editBar = document.getElementById('rc-rd-edit-bar');
+    editBar.style.display = '';
+    editBar.querySelector('.rc-rd-edit-bar-title').textContent = 'New Recipe';
+
+    var existing = document.getElementById('rc-rd-edit-form');
+    if (existing) existing.remove();
+
+    var form = document.createElement('div');
+    form.id = 'rc-rd-edit-form';
+    form.className = 'rc-rd-edit-form';
+    form.innerHTML = buildRecipeFormHTML({}, true);
+
+    document.querySelector('.rc-rd-body').appendChild(form);
+    document.querySelector('.rc-rd-body').scrollTop = 0;
+
+    rdEl.classList.add('open');
+    rdEl.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    var nameInput = document.getElementById('rc-rd-ef-name');
+    if (nameInput) nameInput.focus();
+  }
+
+  function exitAddMode() {
+    inAddMode = false;
+    document.getElementById('rc-rd-view-bar').style.display = '';
+    document.getElementById('rc-rd-inner').style.display = '';
+    document.getElementById('rc-rd-edit-bar').style.display = 'none';
+    var form = document.getElementById('rc-rd-edit-form');
+    if (form) form.remove();
+  }
+
+  function saveNewRecipe() {
+    var iconVal  = document.getElementById('rc-rd-ef-icon').value.trim() || '🍽️';
+    var nameVal  = document.getElementById('rc-rd-ef-name').value.trim();
+    var metaVal  = document.getElementById('rc-rd-ef-meta').value.trim();
+    var ingsRaw  = document.getElementById('rc-rd-ef-ings').value;
+    var stepsRaw = document.getElementById('rc-rd-ef-steps').value;
+    var noteVal  = document.getElementById('rc-rd-ef-note').value.trim();
+
+    if (!nameVal) {
+      document.getElementById('rc-rd-ef-name').focus();
+      return;
+    }
+
+    var ings  = ingsRaw.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    var steps = stepsRaw.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+
+    // Unique id: slug of the name, with a numeric suffix on collision.
+    var baseId = idOf({ name: nameVal });
+    var id = baseId, n = 2;
+    while (isCore(id) || isSaved(id)) { id = baseId + '-' + n; n++; }
+
+    var recipe = {
+      id:          id,
+      icon:        iconVal,
+      label:       '',
+      name:        nameVal,
+      meta:        metaVal,
+      ingredients: ings,
+      ings:        ings,
+      steps:       steps
+    };
+    if (noteVal) recipe.note = noteVal;
+
+    // Persist to Firebase + insert the card via the existing save flow.
+    toggleSave(id, recipe);
+
+    exitAddMode();
+    closeDetail();
   }
 
   function exitEditMode() {
@@ -793,8 +886,12 @@
       // Wire static buttons
       document.getElementById('rc-rd-back').addEventListener('click', closeDetail);
       document.getElementById('rc-rd-edit').addEventListener('click', enterEditMode);
-      document.getElementById('rc-rd-cancel').addEventListener('click', exitEditMode);
-      document.getElementById('rc-rd-save-edit').addEventListener('click', saveRecipeEdit);
+      document.getElementById('rc-rd-cancel').addEventListener('click', function () {
+        if (inAddMode) closeDetail(); else exitEditMode();
+      });
+      document.getElementById('rc-rd-save-edit').addEventListener('click', function () {
+        if (inAddMode) saveNewRecipe(); else saveRecipeEdit();
+      });
       document.getElementById('rc-cm-post').addEventListener('click', function () {
         if (currentRecipeId) submitComment(currentRecipeId);
       });
@@ -872,6 +969,7 @@
 
     openDetail: openDetail,
     closeDetail: closeDetail,
+    openAddForm: openAddForm,
     idOf: idOf,
     isSaved: isSaved,
     isCore: isCore

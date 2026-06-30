@@ -17,6 +17,9 @@
   .ey{font-weight:500;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
   h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;line-height:1.1;margin-bottom:8px;}
   .hm{font-size:13px;color:var(--muted);font-weight:300;}
+  .add-recipe-btn{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:var(--accent);color:#fff;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:9px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}
+  .add-recipe-btn:active{transform:scale(.95);background:#b3581f;}
+  .add-recipe-btn .plus{font-size:16px;line-height:1;margin-top:-1px;}
   .rl{max-width:680px;margin:0 auto 60px;padding:0 20px;display:flex;flex-direction:column;gap:10px;}
   .section-divider{display:flex;align-items:center;gap:14px;}
   .section-divider-line{flex:1;height:1px;background:var(--border);}
@@ -35,6 +38,7 @@
   <div class="ey">Fox &amp; Bear Kitchen</div>
   <h1>Recipe Collection</h1>
   <div class="hm" id="hm"></div>
+  <button class="add-recipe-btn" id="add-recipe"><span class="plus">+</span>Add recipe</button>
 </div>
 <div class="srch-wrap">
   <input type="search" id="srch" placeholder="Search recipes or ingredients…" autocomplete="off" autocorrect="off" spellcheck="false">
@@ -77,15 +81,17 @@ RecipeCard.init({
         if (!divider) {
           divider = document.createElement('div');
           divider.className = 'section-divider';
-          divider.innerHTML = '<div class="section-divider-line"></div><span class="section-divider-label">From Your Journal</span><div class="section-divider-line"></div>';
+          divider.innerHTML = '<div class="section-divider-line"></div><span class="section-divider-label">Your Recipes</span><div class="section-divider-line"></div>';
           list.appendChild(divider);
         }
         indexRecipe(recipeObj);
-        var card = RecipeCard.makeCard(recipeObj, 'Saved from journal');
+        var lbl = (recipeObj.label && !/Meal [A-Z]/.test(recipeObj.label)) ? recipeObj.label : '';
+        var card = RecipeCard.makeCard(recipeObj, lbl);
         card.setAttribute('data-saved-id', id);
         list.appendChild(card);
         runFilter();
         updateCount();
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else if (!saved && existing) {
         existing.remove();
         if (!list.querySelector('.rc-card[data-saved-id]')) {
@@ -106,11 +112,11 @@ RecipeCard.init({
         if (newlySaved.length > 0) {
           var divider = document.createElement('div');
           divider.className = 'section-divider';
-          divider.innerHTML = '<div class="section-divider-line"></div><span class="section-divider-label">From Your Journal</span><div class="section-divider-line"></div>';
+          divider.innerHTML = '<div class="section-divider-line"></div><span class="section-divider-label">Your Recipes</span><div class="section-divider-line"></div>';
           list.appendChild(divider);
           newlySaved.forEach(function(r) {
             var displayR = Object.assign({}, r);
-            if (!displayR.label || /Meal [A-Z]/.test(displayR.label)) displayR.label = 'Saved from journal';
+            if (!displayR.label || /Meal [A-Z]/.test(displayR.label)) displayR.label = '';
             indexRecipe(r);
             var card = RecipeCard.makeCard(displayR, displayR.label);
             var id = RecipeCard.idOf(r);
@@ -128,6 +134,11 @@ RecipeCard.init({
 // Render core recipes
 RECIPES.forEach(function(r) { indexRecipe(r); list.appendChild(RecipeCard.makeCard(r)); });
 updateCount(0);
+
+// Add recipe button → open the blank add form
+document.getElementById('add-recipe').addEventListener('click', function() {
+  RecipeCard.openAddForm();
+});
 
 function updateCount(savedCount) {
   var q = document.getElementById('srch').value.trim().toLowerCase();
