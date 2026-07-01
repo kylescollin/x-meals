@@ -17,6 +17,16 @@
 
   var AUTHOR_MAP = { 'kscollin@gmail.com': 'Kyle', 'missjosephinefox@gmail.com': 'Josephine' };
 
+  // Curated food emojis for the recipe emoji picker (shared by Add + Edit).
+  var FOOD_EMOJIS = [
+    '🍽️', '🌮', '🌯', '🍝', '🍕', '🥘', '🍲', '🥣', '🥗', '🍜',
+    '🍛', '🌶️', '🍗', '🍖', '🥩', '🥓', '🐟', '🍤', '🦐', '🦪',
+    '🥦', '🥕', '🌽', '🥔', '🍠', '🍅', '🥑', '🍆', '🍄', '🧄',
+    '🥚', '🍳', '🧀', '🥛', '🍚', '🍙', '🥙', '🥪', '🌭', '🍔',
+    '🥞', '🧇', '🍞', '🥖', '🥐', '🥯', '🫓', '🥟', '🍣', '🍱',
+    '🥧', '🍰', '🧁', '🍪', '🍩', '🍫', '🍎', '🍋', '🥭', '🍇'
+  ];
+
   var savedIds         = {};    // id → true/false
   var coreIds          = {};    // id → true (already in recipes.html RECIPES array)
   var recipeEdits      = {};    // safeId → edited recipe object
@@ -73,10 +83,14 @@
       if (!edit || !edit.id) return;
       var card = document.querySelector('.rc-card[data-recipe-id="' + edit.id + '"]');
       if (!card) return;
-      var nameEl = card.querySelector('.rc-card-name');
-      var metaEl = card.querySelector('.rc-card-meta');
-      if (nameEl && edit.name) nameEl.textContent = edit.name;
-      if (metaEl && edit.meta !== undefined) metaEl.textContent = edit.meta;
+      var nameEl  = card.querySelector('.rc-card-name');
+      var metaEl  = card.querySelector('.rc-card-meta');
+      var iconEl  = card.querySelector('.rc-card-icon');
+      var labelEl = card.querySelector('.rc-card-label');
+      if (nameEl  && edit.name)  nameEl.textContent  = edit.name;
+      if (metaEl  && edit.meta  !== undefined) metaEl.textContent  = edit.meta;
+      if (iconEl  && edit.icon)  iconEl.textContent  = edit.icon;
+      if (labelEl && edit.label !== undefined) labelEl.textContent = edit.label;
     });
   }
 
@@ -180,6 +194,10 @@
       '.rc-rd-input{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:300;color:var(--ink);background:white;-webkit-appearance:none;appearance:none;outline:none;transition:border-color .15s;}',
       '.rc-rd-input:focus{border-color:var(--accent);}',
       'textarea.rc-rd-input{resize:vertical;line-height:1.6;}',
+      '.rc-rd-emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:8px;}',
+      '.rc-rd-emoji-tile{font-size:22px;line-height:1;height:44px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;transition:border-color .12s,background .12s,transform .1s;}',
+      '.rc-rd-emoji-tile:active{transform:scale(.92);}',
+      '.rc-rd-emoji-tile.selected{border-color:var(--accent);background:var(--accent-light);}',
 
       // Comments
       '.rc-cm-section{margin-top:36px;border-top:1px solid var(--border);padding-top:24px;}',
@@ -417,10 +435,20 @@
   function buildRecipeFormHTML(values, includeIcon, includeCategory) {
     var ings  = (values.ings || values.ingredients || []).join('\n');
     var steps = (values.steps || []).join('\n');
+    var currentIcon = values.icon || '🍽️';
+    // Ensure the current icon is always offered as a tile, even if it's not in
+    // the curated list (e.g. an existing recipe with a one-off emoji).
+    var emojiList = FOOD_EMOJIS.indexOf(currentIcon) === -1 ?
+      [currentIcon].concat(FOOD_EMOJIS) : FOOD_EMOJIS;
+    var tiles = emojiList.map(function (e) {
+      var sel = e === currentIcon ? ' selected' : '';
+      return '<button type="button" class="rc-rd-emoji-tile' + sel + '" data-emoji="' + escAttr(e) + '">' + escHtml(e) + '</button>';
+    }).join('');
     var iconField = includeIcon ?
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label">Emoji</label>' +
-        '<input class="rc-rd-input" id="rc-rd-ef-icon" type="text" value="' + escAttr(values.icon || '') + '" placeholder="🍽️" maxlength="4">' +
+        '<input type="hidden" id="rc-rd-ef-icon" value="' + escAttr(currentIcon) + '">' +
+        '<div class="rc-rd-emoji-grid">' + tiles + '</div>' +
       '</div>' : '';
     var categoryField = includeCategory ?
       '<div class="rc-rd-field">' +
@@ -451,6 +479,69 @@
       '</div>';
   }
 
+  // Wire the emoji picker inside a just-injected form: tapping a tile updates
+  // the hidden #rc-rd-ef-icon input and moves the selected highlight.
+  function wireEmojiPicker(container) {
+    var grid = container.querySelector('.rc-rd-emoji-grid');
+    if (!grid) return;
+    var hidden = container.querySelector('#rc-rd-ef-icon');
+    grid.addEventListener('click', function (e) {
+      var tile = e.target.closest('.rc-rd-emoji-tile');
+      if (!tile) return;
+      if (hidden) hidden.value = tile.getAttribute('data-emoji');
+      grid.querySelectorAll('.rc-rd-emoji-tile.selected').forEach(function (t) {
+        t.classList.remove('selected');
+      });
+      tile.classList.add('selected');
+    });
+  }
+
+  // Build + inject the recipe form (with emoji + category) into the detail body
+  // and wire the emoji picker. Shared by Add and Edit.
+  function mountRecipeForm(values) {
+    var existing = document.getElementById('rc-rd-edit-form');
+    if (existing) existing.remove();
+
+    var form = document.createElement('div');
+    form.id = 'rc-rd-edit-form';
+    form.className = 'rc-rd-edit-form';
+    form.innerHTML = buildRecipeFormHTML(values, true, true);
+
+    var body = document.querySelector('.rc-rd-body');
+    body.appendChild(form);
+    body.scrollTop = 0;
+    wireEmojiPicker(form);
+    return form;
+  }
+
+  // Read all fields from the mounted recipe form.
+  function readRecipeForm() {
+    var iconEl = document.getElementById('rc-rd-ef-icon');
+    var catEl  = document.getElementById('rc-rd-ef-category');
+    return {
+      icon:     iconEl ? iconEl.value.trim() : '',
+      name:     document.getElementById('rc-rd-ef-name').value.trim(),
+      category: catEl ? catEl.value.trim() : '',
+      meta:     document.getElementById('rc-rd-ef-meta').value.trim(),
+      ings:     document.getElementById('rc-rd-ef-ings').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean),
+      steps:    document.getElementById('rc-rd-ef-steps').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean),
+      note:     document.getElementById('rc-rd-ef-note').value.trim()
+    };
+  }
+
+  // Card eyebrow label: "Category · time". Category defaults to "Dinner";
+  // time is the first segment of meta (e.g. "~30 min · One pan" → "30 min").
+  function computeLabel(category, meta) {
+    var cat = category || 'Dinner';
+    var timePart = ((meta || '').split('·')[0] || '').replace(/^~/, '').trim();
+    return timePart ? (cat + ' · ' + timePart) : cat;
+  }
+
+  // Reverse of computeLabel's category part: the text before the first "·".
+  function categoryFromLabel(label) {
+    return ((label || '').split('·')[0] || '').trim();
+  }
+
   function enterEditMode() {
     if (!curR) return;
     inEditMode = true;
@@ -461,13 +552,7 @@
     editBar.querySelector('.rc-rd-edit-bar-title').textContent = 'Editing';
     document.getElementById('rc-rd-inner').style.display = 'none';
 
-    var form = document.createElement('div');
-    form.id = 'rc-rd-edit-form';
-    form.className = 'rc-rd-edit-form';
-    form.innerHTML = buildRecipeFormHTML(curR, false);
-
-    document.querySelector('.rc-rd-body').appendChild(form);
-    document.querySelector('.rc-rd-body').scrollTop = 0;
+    mountRecipeForm(Object.assign({}, curR, { category: categoryFromLabel(curR.label) }));
   }
 
   // ── Add new recipe ──────────────────────────────────────────────────────
@@ -482,16 +567,7 @@
     editBar.style.display = '';
     editBar.querySelector('.rc-rd-edit-bar-title').textContent = 'New Recipe';
 
-    var existing = document.getElementById('rc-rd-edit-form');
-    if (existing) existing.remove();
-
-    var form = document.createElement('div');
-    form.id = 'rc-rd-edit-form';
-    form.className = 'rc-rd-edit-form';
-    form.innerHTML = buildRecipeFormHTML({}, true, true);
-
-    document.querySelector('.rc-rd-body').appendChild(form);
-    document.querySelector('.rc-rd-body').scrollTop = 0;
+    mountRecipeForm({});
 
     rdEl.classList.add('open');
     rdEl.setAttribute('aria-hidden', 'false');
@@ -541,14 +617,16 @@
         .then(function (meta) {
           var json = JSON.parse(base64ToUtf8(meta.content));
           json.recipes = json.recipes || [];
-          // Skip if this id somehow already exists (avoid duplicates)
-          if (json.recipes.some(function (r) { return r.id === coreRecipe.id; })) return true;
-          json.recipes.push(coreRecipe);
+          // Upsert by id: replace an existing recipe (edit) or append (add).
+          var idx = json.recipes.findIndex(function (r) { return r.id === coreRecipe.id; });
+          var verb;
+          if (idx === -1) { json.recipes.push(coreRecipe); verb = 'Add'; }
+          else            { json.recipes[idx] = coreRecipe; verb = 'Update'; }
           var content = utf8ToBase64(JSON.stringify(json, null, 2) + '\n');
           return fetch(url, {
             method: 'PUT', headers: headers,
             body: JSON.stringify({
-              message: 'Add recipe: ' + coreRecipe.name + ' (in-app)',
+              message: verb + ' recipe: ' + coreRecipe.name + ' (in-app)',
               content: content, sha: meta.sha, branch: 'main'
             })
           }).then(function (putR) { if (!putR.ok) throw new Error('put failed'); return true; });
@@ -556,45 +634,45 @@
     });
   }
 
-  function saveNewRecipe() {
-    var iconVal  = document.getElementById('rc-rd-ef-icon').value.trim() || '🍽️';
-    var nameVal  = document.getElementById('rc-rd-ef-name').value.trim();
-    var catVal   = document.getElementById('rc-rd-ef-category').value.trim();
-    var metaVal  = document.getElementById('rc-rd-ef-meta').value.trim();
-    var ingsRaw  = document.getElementById('rc-rd-ef-ings').value;
-    var stepsRaw = document.getElementById('rc-rd-ef-steps').value;
-    var noteVal  = document.getElementById('rc-rd-ef-note').value.trim();
+  // Shape a recipe object as a data/recipes.json entry.
+  function toCoreRecipe(r) {
+    var core = {
+      id:          r.id,
+      icon:        r.icon,
+      label:       r.label || '',
+      name:        r.name,
+      meta:        r.meta,
+      tags:        r.tags || [],
+      ingredients: r.ingredients || r.ings || [],
+      steps:       r.steps || []
+    };
+    if (r.note) core.note = r.note;
+    return core;
+  }
 
-    if (!nameVal) {
+  function saveNewRecipe() {
+    var f = readRecipeForm();
+    if (!f.name) {
       document.getElementById('rc-rd-ef-name').focus();
       return;
     }
 
-    var ings  = ingsRaw.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
-    var steps = stepsRaw.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
-
-    // Card eyebrow label: "Category · time". Category defaults to "Dinner";
-    // time is the first segment of meta (e.g. "~30 min · One pan" → "30 min").
-    var category = catVal || 'Dinner';
-    var timePart = (metaVal.split('·')[0] || '').replace(/^~/, '').trim();
-    var labelVal = timePart ? (category + ' · ' + timePart) : category;
-
     // Unique id: slug of the name, with a numeric suffix on collision.
-    var baseId = idOf({ name: nameVal });
+    var baseId = idOf({ name: f.name });
     var id = baseId, n = 2;
     while (isCore(id) || isSaved(id)) { id = baseId + '-' + n; n++; }
 
     var recipe = {
       id:          id,
-      icon:        iconVal,
-      label:       labelVal,
-      name:        nameVal,
-      meta:        metaVal,
-      ingredients: ings,
-      ings:        ings,
-      steps:       steps
+      icon:        f.icon || '🍽️',
+      label:       computeLabel(f.category, f.meta),
+      name:        f.name,
+      meta:        f.meta,
+      ingredients: f.ings,
+      ings:        f.ings,
+      steps:       f.steps
     };
-    if (noteVal) recipe.note = noteVal;
+    if (f.note) recipe.note = f.note;
 
     // Persist to Firebase + insert the card via the existing save flow.
     // (Instant, syncs between accounts, and is the safe fallback if the
@@ -606,18 +684,7 @@
 
     // Also commit into data/recipes.json so it becomes a permanent recipe
     // that Agent X can see. Lands ~1 min later (after GitHub Pages rebuilds).
-    var coreRecipe = {
-      id:          recipe.id,
-      icon:        recipe.icon,
-      label:       recipe.label || '',
-      name:        recipe.name,
-      meta:        recipe.meta,
-      tags:        [],
-      ingredients: recipe.ingredients,
-      steps:       recipe.steps
-    };
-    if (recipe.note) coreRecipe.note = recipe.note;
-    commitRecipeToCore(coreRecipe).catch(function (err) {
+    commitRecipeToCore(toCoreRecipe(recipe)).catch(function (err) {
       console.warn('Recipe saved to Firebase but not committed to recipes.json:', err);
       alert('"' + recipe.name + '" was saved and synced, but couldn’t be added to your permanent recipe list just now. It will still show up for you and Josephine. You can try adding it again later to make it permanent.');
     });
@@ -637,34 +704,37 @@
   function saveRecipeEdit() {
     if (!curR) return;
     var id = idOf(curR);
-
-    var nameVal  = document.getElementById('rc-rd-ef-name').value.trim();
-    var metaVal  = document.getElementById('rc-rd-ef-meta').value.trim();
-    var ingsRaw  = document.getElementById('rc-rd-ef-ings').value;
-    var stepsRaw = document.getElementById('rc-rd-ef-steps').value;
-    var noteVal  = document.getElementById('rc-rd-ef-note').value.trim();
-
-    var ings  = ingsRaw.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
-    var steps = stepsRaw.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    var f = readRecipeForm();
 
     var updated = Object.assign({}, curR, {
-      name:        nameVal  || curR.name,
-      meta:        metaVal,
-      ingredients: ings,
-      ings:        ings,
-      steps:       steps
+      icon:        f.icon || curR.icon || '🍽️',
+      name:        f.name || curR.name,
+      label:       computeLabel(f.category, f.meta),
+      meta:        f.meta,
+      ingredients: f.ings,
+      ings:        f.ings,
+      steps:       f.steps
     });
-    if (noteVal) { updated.note = noteVal; } else { delete updated.note; }
+    if (f.note) { updated.note = f.note; } else { delete updated.note; }
 
     // Update state
     curR = updated;
     recipeEdits[fbSafeKey(id)] = updated;
 
-    // Persist to Firebase
+    // Persist to Firebase overlay (instant, syncs between accounts).
     authedFetch(FB_EDITS + '/' + fbSafeKey(id) + '.json', {
       method: 'PUT',
       body: JSON.stringify(updated)
     }).catch(function () {});
+
+    // For permanent recipes, also commit the change into data/recipes.json so
+    // Agent X's copy stays in sync. Best-effort; the Firebase overlay above is
+    // the instant, always-applied source of truth for the site.
+    if (isCore(id)) {
+      commitRecipeToCore(toCoreRecipe(updated)).catch(function (err) {
+        console.warn('Edit saved to Firebase but not committed to recipes.json:', err);
+      });
+    }
 
     applyEditsToCards();
     exitEditMode();
