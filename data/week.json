@@ -1,420 +1,99 @@
 {
-  "weekOf": "2026-06-29",
-  "title": "Week of June 29",
+  "weekOf": "2026-07-06",
+  "title": "Week of July 6",
   "subhead": "3 dinners · Serves 4",
   "meals": [
     {
-      "id": "healthy-chicken-pot-pie",
-      "icon": "🥧",
-      "name": "Healthy Chicken Pot Pie",
-      "meta": "~55 min · Oven · Serves 6",
+      "id": "creamy-sausage-and-peppers-pasta",
+      "icon": "🍝",
+      "name": "Creamy Sausage and Peppers Pasta",
+      "meta": "40 min · Stovetop · Serves 4",
       "ings": [
-        "1 tbsp olive oil",
-        "8 oz cremini mushrooms, sliced",
-        "3 medium carrots, diced",
-        "3 stalks celery, diced",
-        "1 tsp garlic powder",
-        "1 tsp salt, ½ tsp black pepper",
-        "¼ cup all-purpose flour",
-        "1½ cups low-sodium chicken broth",
-        "1 cup unsweetened almond milk (or low-fat milk)",
-        "3 cups cooked shredded chicken (rotisserie works great)",
-        "1 cup frozen peas",
-        "½ cup frozen pearl onions (or ½ small onion, diced and sautéed)",
-        "1 tsp fresh thyme (or ½ tsp dried)",
-        "1 store-bought deep dish pie crust (Great Value works — use as top crust only)",
-        "1 egg, beaten (for egg wash)"
+        "8 oz uncooked pasta (bucatini recommended)",
+        "1 lb Italian sausage",
+        "1 Tbsp olive oil",
+        "½ medium onion, chopped",
+        "1 medium red bell pepper, chopped",
+        "1 medium yellow bell pepper, chopped",
+        "1 Tbsp butter",
+        "2–3 cloves garlic, minced",
+        "1 tsp flour",
+        "1 cup heavy cream",
+        "½ tsp Dijon mustard",
+        "2 cups fresh baby spinach",
+        "Salt, pepper, freshly grated Parmesan to taste"
       ],
       "steps": [
-        "Preheat oven to 425°F. Lightly grease a 9-inch pie dish or use a cast iron skillet.",
-        "Heat olive oil in a large Dutch oven or deep skillet over medium-high. Add mushrooms and cook 8 min until browned and sweated. Add carrots, celery, garlic powder, salt, and pepper. Cook 3 more min until carrots begin to soften.",
-        "Sprinkle flour over the vegetables and stir well. Cook 2 minutes so the flour loses its raw taste.",
-        "Pour in chicken broth slowly, stirring constantly to avoid lumps. Add almond milk. Cook over medium heat, stirring regularly, until sauce thickens — about 5–6 minutes. Do not boil hard.",
-        "Stir in shredded chicken, frozen peas, pearl onions, and thyme. Taste and adjust salt. Remove from heat.",
-        "Transfer filling to your prepared pie dish (or leave in cast iron if oven-safe).",
-        "Unroll the pie crust from the package. Lay it over the top of the dish, trimming to leave about ½ inch overhang. Press edges to seal and crimp with a fork. Cut 3–4 small slits to vent steam.",
-        "Brush crust all over with beaten egg wash.",
-        "Bake 20–25 minutes until crust is deeply golden and filling is bubbling at the edges. Let rest 5–10 minutes before serving — the filling will thicken as it sits."
+        "Boil salted pasta water and cook pasta al dente per package.",
+        "Brown sausage in skillet over medium-high, breaking it up, 8–10 min. Transfer to paper towel–lined plate.",
+        "Add oil, onion, and peppers to same skillet. Cook until onion is lightly browned, 7–8 min.",
+        "Reduce to medium. Add butter and garlic; once melted, sprinkle in flour and cook 1 min.",
+        "Stir in cream and Dijon — no lumps. Sauce thickens quickly; don't overcook.",
+        "Add sausage and spinach. Splash in pasta water, drain pasta, add to skillet. Toss until spinach wilts."
       ],
       "day": "Monday",
-      "note": "💡 Top-crust only keeps this lighter and the crust stays flaky (no soggy bottom). Rotisserie chicken is the easy shortcut here. The Great Value deep dish crust works perfectly as a top-only crust — just unroll it over the dish.",
       "label": "Meal A",
-      "date": "6/29"
+      "date": "7/6"
     },
     {
-      "id": "marry-me-chicken-gnocchi",
-      "icon": "🍲",
-      "name": "Marry Me Chicken Gnocchi",
-      "meta": "~30 min · One pan · Serves 4",
+      "id": "falafel-bowl-with-tahini-dressing",
+      "icon": "🧆",
+      "name": "Falafel Bowl with Tahini Dressing",
+      "meta": "~45 min · Oven or Air Fryer · Serves 4",
       "ings": [
-        "1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces",
-        "2 Tbsp olive oil (or oil from the sun-dried tomato jar)",
-        "Salt and black pepper",
-        "1 small shallot or ½ onion, diced",
-        "4 cloves garlic, minced",
-        "⅔ cup sun-dried tomatoes (oil-packed), drained and chopped",
-        "1 (16 oz) package shelf-stable potato gnocchi",
-        "1 cup low-sodium chicken broth",
-        "1 cup half-and-half (or ¾ cup heavy cream)",
-        "½ cup freshly grated Parmesan",
-        "2 cups fresh baby spinach",
-        "Fresh basil, torn, for serving",
-        "Red pepper flakes (optional, for adults only)"
+        "1 cup dried chickpeas, soaked overnight",
+        "½ cup fresh cilantro, ½ cup fresh parsley",
+        "3 garlic cloves, 1 small onion",
+        "1 tsp cumin, 1 tsp coriander, ½ tsp cayenne (optional)",
+        "½ tsp baking powder, 3–4 Tbsp chickpea flour",
+        "2 cups cooked quinoa or brown rice",
+        "2 cups mixed greens",
+        "1 cup diced cucumber, 1 cup cherry tomatoes",
+        "½ red onion sliced, 1 shredded carrot, ½ cup hummus",
+        "1 avocado, pickled radishes",
+        "Tahini dressing: ¼ cup tahini, lemon juice, olive oil, water, garlic, maple syrup"
       ],
       "steps": [
-        "Season chicken with salt and pepper. Heat 1 Tbsp oil in a large high-sided skillet over medium-high. Sear chicken in a single layer 3–4 min per side until golden (doesn't need to be cooked through). Remove and set aside.",
-        "Add remaining oil and shallot to the skillet; sauté 2–3 min. Add garlic and sun-dried tomatoes; cook 1 min until fragrant.",
-        "Add uncooked gnocchi, breaking apart any stuck pieces. Pour in chicken broth and half-and-half; season with salt and pepper. Cover and cook over medium 5 min until gnocchi are tender and fluffy.",
-        "Return chicken to the pan. Add spinach; cook uncovered 3–5 min until chicken is cooked through and spinach is wilted.",
-        "Stir in Parmesan until melted and the sauce is creamy. Top with torn basil. Serve with red pepper flakes on the side for adults."
+        "Drain soaked chickpeas. Pulse in food processor with cilantro, parsley, garlic, onion, spices, baking powder, and salt. Add chickpea flour until mixture holds together. Chill 30 min.",
+        "Shape into balls or patties. Fry 3–4 min per side, or bake 375°F for 25–30 min flipping halfway, or air fry 375°F for 15–18 min.",
+        "Cook grains per package. Season with olive oil and salt.",
+        "Whisk tahini dressing ingredients until pourable.",
+        "Assemble bowls: divide grains and greens, arrange toppings, add 3–4 falafels, spoon hummus, drizzle dressing. Garnish with cilantro."
       ],
       "day": "Tuesday",
-      "note": "💡 The base recipe is mild — keep the red pepper flakes off to the side so the kids can eat it. Gnocchi cooks right in the sauce, no boiling needed.",
       "label": "Meal B",
-      "date": "6/30"
+      "date": "7/7"
     },
     {
-      "id": "teriyaki-chicken-tacos-with-sesame-cucumber-slaw",
-      "icon": "🌮",
-      "name": "Teriyaki Chicken Tacos with Sesame Cucumber Slaw",
-      "meta": "30 min · Instant Pot · Serves 4",
+      "id": "lentil-soup-with-sausage-chard-and-garlic",
+      "icon": "🥣",
+      "name": "Lentil Soup with Sausage, Chard and Garlic",
+      "meta": "~1 hour · Stovetop · Serves 6",
       "ings": [
-        "2 lb boneless skinless chicken thighs",
-        "Salt and pepper",
-        "⅓ cup + ¼ cup teriyaki sauce",
-        "2 Tbsp sweet chili sauce",
-        "8 (6-inch) flour tortillas",
-        "1 avocado sliced, ¼ cup crushed peanuts, sesame seeds",
-        "Slaw: 1 large English cucumber, thinly sliced",
-        "¼ cup Greek yogurt, 1½ Tbsp mayo",
-        "2 Tbsp rice vinegar, 1 Tbsp sweet chili sauce",
-        "1 tsp sesame oil, fresh cilantro and green onions"
+        "¼ cup olive oil, divided",
+        "4 large links (1 lb) sweet Italian sausage",
+        "1 medium onion, diced",
+        "3 celery stalks, diced",
+        "3 medium carrots, peeled and diced",
+        "4 cloves garlic, sliced (reserve half)",
+        "Kosher salt and red pepper flakes",
+        "2 cups brown lentils, sorted and rinsed",
+        "2 bay leaves",
+        "1 (28 oz) can crushed tomatoes",
+        "6 cups chicken broth",
+        "3–4 cups shredded Swiss chard or kale",
+        "Grated Pecorino Romano to finish"
       ],
       "steps": [
-        "Season chicken with salt and pepper. Add to Instant Pot with ⅓ cup teriyaki sauce. Pressure cook 10 min.",
-        "Thinly slice cucumbers. Whisk dressing ingredients. Toss with cucumbers and herbs.",
-        "Release Instant Pot. Shred chicken. Spread on lined baking sheet, drizzle with remaining teriyaki and sweet chili sauce. Broil 3–6 min until caramelized.",
-        "Warm tortillas. Layer with chicken, cucumber slaw, avocado, crushed peanuts, sesame seeds."
+        "Heat 2 Tbsp olive oil in large pot over medium-high. Add sausage, brown 5 min. Add onion, celery, carrots, 2 garlic cloves, salt, optional pepper flakes; cook 5 min.",
+        "Add lentils, bay leaves, tomatoes, broth, salt and pepper. Simmer until lentils are tender, ~40 min.",
+        "Add chard, cook until tender, a few minutes. Discard bay leaves.",
+        "In small skillet, heat remaining garlic in remaining olive oil until softened. Drizzle over bowls with Romano."
       ],
       "day": "Wednesday",
-      "note": "💡 Crockpot: high 2.5–3.5 hrs or low 4–5 hrs. Oven: 400°F for 35 min. Always broil at the end for caramelized edges.",
       "label": "Meal C",
-      "date": "7/1"
+      "date": "7/8"
     }
   ],
-  "groceries": [
-    {
-      "icon": "🥦",
-      "label": "Produce",
-      "items": [
-        {
-          "name": "8 oz cremini mushrooms, sliced",
-          "detail": "Sautéed into the pot pie filling",
-          "tag": "Meal A",
-          "amazon": "cremini mushrooms",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "3 medium carrots, diced",
-          "detail": "Cooked into the pot pie filling",
-          "tag": "Meal A",
-          "amazon": "medium carrots",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "3 stalks celery, diced",
-          "detail": "Cooked into the pot pie filling",
-          "tag": "Meal A",
-          "amazon": "celery stalks",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 cup frozen peas",
-          "detail": "Stirred into the pot pie filling",
-          "tag": "Meal A",
-          "amazon": "frozen green peas",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "½ cup frozen pearl onions (or ½ small onion, diced)",
-          "detail": "Stirred into the pot pie filling",
-          "tag": "Meal A",
-          "amazon": "frozen pearl onions",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 small bunch fresh thyme",
-          "detail": "Stirred into pot pie filling (1 tsp needed)",
-          "tag": "Meal A",
-          "amazon": "fresh thyme",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 small shallot (or ½ onion), diced",
-          "detail": "Sautéed as the base for the gnocchi sauce",
-          "tag": "Meal B",
-          "amazon": "shallots",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "4 cloves garlic, minced",
-          "detail": "Cooked into the gnocchi sauce",
-          "tag": "Meal B",
-          "amazon": "garlic bulb",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "2 cups fresh baby spinach",
-          "detail": "Wilted into the marry me chicken gnocchi",
-          "tag": "Meal B",
-          "amazon": "fresh baby spinach",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 small bunch fresh basil",
-          "detail": "Torn and used as topping for the gnocchi dish",
-          "tag": "Meal B",
-          "amazon": "fresh basil",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 large English cucumber, thinly sliced",
-          "detail": "Sesame cucumber slaw for the teriyaki tacos",
-          "tag": "Meal C",
-          "amazon": "english cucumber",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 avocado, sliced",
-          "detail": "Taco topping for teriyaki chicken tacos",
-          "tag": "Meal C",
-          "amazon": "avocado",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 small bunch fresh cilantro",
-          "detail": "Tossed into the cucumber slaw",
-          "tag": "Meal C",
-          "amazon": "fresh cilantro",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 bunch green onions",
-          "detail": "Tossed into the cucumber slaw",
-          "tag": "Meal C",
-          "amazon": "green onions",
-          "tagClass": "tag-pasta"
-        }
-      ]
-    },
-    {
-      "icon": "🥩",
-      "label": "Protein",
-      "items": [
-        {
-          "name": "1 rotisserie chicken (yields ~3 cups shredded)",
-          "detail": "Shredded into the pot pie filling",
-          "tag": "Meal A",
-          "amazon": "rotisserie chicken",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces",
-          "detail": "Seared and simmered into the marry me chicken gnocchi",
-          "tag": "Meal B",
-          "amazon": "boneless skinless chicken thighs",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "2 lb boneless skinless chicken thighs",
-          "detail": "Pressure cooked and broiled for the teriyaki tacos",
-          "tag": "Meal C",
-          "amazon": "boneless skinless chicken thighs",
-          "tagClass": "tag-pasta"
-        }
-      ]
-    },
-    {
-      "icon": "🧈",
-      "label": "Dairy & Refrigerated",
-      "items": [
-        {
-          "name": "1 cup unsweetened almond milk (or low-fat milk)",
-          "detail": "Stirred into the pot pie sauce",
-          "tag": "Meal A",
-          "amazon": "unsweetened almond milk",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "2 eggs",
-          "detail": "1 beaten for pot pie egg wash",
-          "tag": "Meal A",
-          "amazon": "large eggs",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 cup half-and-half (or ¾ cup heavy cream)",
-          "detail": "Simmered into the creamy gnocchi sauce",
-          "tag": "Meal B",
-          "amazon": "half and half",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "½ cup Parmesan, freshly grated",
-          "detail": "Melted into the gnocchi sauce",
-          "tag": "Meal B",
-          "amazon": "parmesan cheese block",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "¼ cup Greek yogurt",
-          "detail": "Whisked into the cucumber slaw dressing",
-          "tag": "Meal C",
-          "amazon": "plain greek yogurt",
-          "tagClass": "tag-pasta"
-        }
-      ]
-    },
-    {
-      "icon": "🫙",
-      "label": "Pantry & Canned",
-      "items": [
-        {
-          "name": "2½ tbsp olive oil",
-          "detail": "1 tbsp for pot pie filling · 2 tbsp for gnocchi (can sub sun-dried tomato jar oil)",
-          "tag": "Meals A+B",
-          "amazon": "extra virgin olive oil",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "¼ cup all-purpose flour",
-          "detail": "Thickens the pot pie sauce",
-          "tag": "Meal A",
-          "amazon": "all purpose flour",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "2½ cups low-sodium chicken broth",
-          "detail": "1½ cups for pot pie sauce · 1 cup for gnocchi sauce",
-          "tag": "Meals A+B",
-          "amazon": "low sodium chicken broth",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "1 store-bought deep dish pie crust",
-          "detail": "Used as top crust only for the pot pie",
-          "tag": "Meal A",
-          "amazon": "deep dish pie crust",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "⅔ cup sun-dried tomatoes, oil-packed",
-          "detail": "Drained and chopped into the gnocchi sauce",
-          "tag": "Meal B",
-          "amazon": "sun dried tomatoes oil packed",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 (16 oz) package shelf-stable potato gnocchi",
-          "detail": "Cooked directly in the marry me chicken sauce",
-          "tag": "Meal B",
-          "amazon": "shelf stable potato gnocchi",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "⅔ cup teriyaki sauce (divided: ⅓ cup + ¼ cup)",
-          "detail": "Used to pressure cook and glaze the teriyaki chicken",
-          "tag": "Meal C",
-          "amazon": "teriyaki sauce",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "3 tbsp sweet chili sauce (divided)",
-          "detail": "2 tbsp for chicken glaze · 1 tbsp for slaw dressing",
-          "tag": "Meal C",
-          "amazon": "sweet chili sauce",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "8 (6-inch) flour tortillas",
-          "detail": "Warmed and used as taco shells",
-          "tag": "Meal C",
-          "amazon": "small flour tortillas",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "¼ cup crushed peanuts",
-          "detail": "Taco topping for teriyaki chicken tacos",
-          "tag": "Meal C",
-          "amazon": "crushed peanuts",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1½ tbsp mayonnaise",
-          "detail": "Whisked into the cucumber slaw dressing",
-          "tag": "Meal C",
-          "amazon": "mayonnaise",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "2 tbsp rice vinegar",
-          "detail": "Whisked into the cucumber slaw dressing",
-          "tag": "Meal C",
-          "amazon": "rice vinegar",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 tsp sesame oil",
-          "detail": "Whisked into the cucumber slaw dressing",
-          "tag": "Meal C",
-          "amazon": "toasted sesame oil",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "Sesame seeds",
-          "detail": "Sprinkled over the finished tacos",
-          "tag": "Meal C",
-          "amazon": "sesame seeds",
-          "tagClass": "tag-pasta"
-        }
-      ]
-    },
-    {
-      "icon": "🌿",
-      "label": "Spices",
-      "note": "Check pantry before ordering — you likely have most of these.",
-      "items": [
-        {
-          "name": "Garlic powder",
-          "detail": "Seasoning for the pot pie filling (1 tsp)",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "Salt",
-          "detail": "Used in all three meals",
-          "tag": "All meals",
-          "tagClass": "tag-all"
-        },
-        {
-          "name": "Black pepper",
-          "detail": "Used in all three meals",
-          "tag": "All meals",
-          "tagClass": "tag-all"
-        },
-        {
-          "name": "Dried thyme (½ tsp, if not using fresh)",
-          "detail": "Optional substitute for fresh thyme in the pot pie",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "Red pepper flakes (optional)",
-          "detail": "Served on the side for adults with the gnocchi",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        }
-      ]
-    }
-  ]
+  "groceries": []
 }
