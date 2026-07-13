@@ -96,5 +96,255 @@
       "date": "7/15"
     }
   ],
-  "groceries": []
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "1 pint cherry tomatoes",
+          "detail": "Meal A · tossed into pasta salad",
+          "tag": "Meal A",
+          "amazon": "cherry tomatoes pint",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1 avocado",
+          "detail": "Meal A · served with pasta salad",
+          "tag": "Meal A",
+          "amazon": "avocado",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1 lime (for juice)",
+          "detail": "Meal A · 1 Tbsp juice for dressing",
+          "tag": "Meal A",
+          "amazon": "fresh lime",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1 small bunch fresh cilantro",
+          "detail": "Meal A · chopped and folded into pasta salad",
+          "tag": "Meal A",
+          "amazon": "fresh cilantro",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "6 cloves garlic",
+          "detail": "4 cloves for Meal B chicken marinade · 4 cloves for Meal C sauce",
+          "tag": "Meals B+C",
+          "amazon": "garlic bulb",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "1 large cucumber",
+          "detail": "Meal B · diced for cucumber salad",
+          "tag": "Meal B",
+          "amazon": "large english cucumber",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "½ red onion",
+          "detail": "Meal B · thinly sliced for cucumber salad",
+          "tag": "Meal B",
+          "amazon": "red onion",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 small bunch fresh parsley",
+          "detail": "Meal B · chopped for cucumber salad",
+          "tag": "Meal B",
+          "amazon": "fresh parsley",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 lemon (for juice)",
+          "detail": "Meal B · 2 Tbsp juice for cucumber salad",
+          "tag": "Meal B",
+          "amazon": "fresh lemon",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 small shallot (or ½ onion)",
+          "detail": "Meal C · diced and sautéed as base of sauce",
+          "tag": "Meal C",
+          "amazon": "shallot",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "2 cups fresh baby spinach",
+          "detail": "Meal C · wilted into the gnocchi sauce",
+          "tag": "Meal C",
+          "amazon": "fresh baby spinach",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 small bunch fresh basil",
+          "detail": "Meal C · torn and served on top of gnocchi dish",
+          "tag": "Meal C",
+          "amazon": "fresh basil",
+          "tagClass": "tag-pasta"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "about 2½ lb boneless skinless chicken thighs",
+          "detail": "1 lb cubed for Meal B spicy garlic bowl · 1¼ lb cut into pieces for Meal C gnocchi",
+          "tag": "Meals B+C",
+          "amazon": "boneless skinless chicken thighs",
+          "tagClass": "tag-shared"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "1/3 cup sour cream",
+          "detail": "Meal A · mixed into pasta salad dressing",
+          "tag": "Meal A",
+          "amazon": "sour cream",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1/3 cup crumbled cotija cheese",
+          "detail": "Meal A · folded into pasta salad",
+          "tag": "Meal A",
+          "amazon": "cotija cheese crumbled",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "½ cup freshly grated Parmesan",
+          "detail": "Meal C · stirred into sauce until melted",
+          "tag": "Meal C",
+          "amazon": "parmesan cheese block",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 cup half-and-half (or ¾ cup heavy cream)",
+          "detail": "Meal C · base of the creamy gnocchi sauce",
+          "tag": "Meal C",
+          "amazon": "half and half",
+          "tagClass": "tag-pasta"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "3 cups dry rotini or penne pasta",
+          "detail": "Meal A · cooked and cooled as salad base",
+          "tag": "Meal A",
+          "amazon": "rotini pasta",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "2 cups corn (frozen or canned)",
+          "detail": "Meal A · mixed into pasta salad",
+          "tag": "Meal A",
+          "amazon": "frozen sweet corn",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1/3 cup mayonnaise",
+          "detail": "Meal A · mixed into pasta salad dressing",
+          "tag": "Meal A",
+          "amazon": "mayonnaise",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "1 cup hummus",
+          "detail": "Meal B · scooped into chicken bowls",
+          "tag": "Meal B",
+          "amazon": "hummus",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "rice or quinoa for serving (about 2 cups dry)",
+          "detail": "Meal B · base for spicy garlic chicken bowls",
+          "tag": "Meal B",
+          "amazon": "white rice",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "⅔ cup oil-packed sun-dried tomatoes",
+          "detail": "Meal C · chopped and cooked into sauce",
+          "tag": "Meal C",
+          "amazon": "sun dried tomatoes oil packed jar",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 (16 oz) package shelf-stable potato gnocchi",
+          "detail": "Meal C · cooked directly in the sauce",
+          "tag": "Meal C",
+          "amazon": "shelf stable potato gnocchi",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 cup low-sodium chicken broth",
+          "detail": "Meal C · simmered with gnocchi and cream",
+          "tag": "Meal C",
+          "amazon": "low sodium chicken broth",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "olive oil (about 4 Tbsp total)",
+          "detail": "2 Tbsp for Meal B chicken · 2 Tbsp for Meal C sear and sauté",
+          "tag": "Meals B+C",
+          "amazon": "olive oil",
+          "tagClass": "tag-shared"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these.",
+      "items": [
+        {
+          "name": "chili powder",
+          "detail": "Meal A · 1 tsp in pasta salad dressing",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "smoked paprika",
+          "detail": "Meal A · ½ tsp in pasta salad dressing · Meal B · 1 tsp in chicken marinade",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "garlic powder",
+          "detail": "Meal A · ¼ tsp in pasta salad dressing",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "salt and black pepper",
+          "detail": "Meal A dressing · Meal B chicken · Meal C chicken and sauce",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "cayenne pepper",
+          "detail": "Meal B · ½ tsp in chicken marinade",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "cumin",
+          "detail": "Meal B · 1 tsp in chicken marinade",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "red pepper flakes",
+          "detail": "Meal C · optional, served on the side for adults",
+          "tagClass": "tag-shared"
+        }
+      ]
+    }
+  ]
 }
