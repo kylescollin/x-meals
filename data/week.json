@@ -1,426 +1,100 @@
 {
-  "weekOf": "2026-07-06",
-  "title": "Week of July 6",
+  "weekOf": "2026-07-13",
+  "title": "Week of July 13",
   "subhead": "3 dinners · Serves 4",
   "meals": [
     {
-      "id": "creamy-sausage-and-peppers-pasta",
-      "icon": "🍝",
-      "name": "Creamy Sausage and Peppers Pasta",
-      "meta": "40 min · Stovetop · Serves 4",
+      "id": "mexican-street-corn-pasta-salad",
+      "icon": "🌮",
+      "name": "Mexican Street Corn Pasta Salad",
+      "meta": "",
       "ings": [
-        "8 oz uncooked pasta (bucatini recommended)",
-        "1 lb Italian sausage",
-        "1 Tbsp olive oil",
-        "½ medium onion, chopped",
-        "1 medium red bell pepper, chopped",
-        "1 medium yellow bell pepper, chopped",
-        "1 Tbsp butter",
-        "2–3 cloves garlic, minced",
-        "1 tsp flour",
-        "1 cup heavy cream",
-        "½ tsp Dijon mustard",
-        "2 cups fresh baby spinach",
-        "Salt, pepper, freshly grated Parmesan to taste"
+        "3 cups cooked rotini or penne pasta",
+        "2 cups corn (grilled, frozen, or canned)",
+        "1/3 cup mayonnaise",
+        "1/3 cup sour cream",
+        "1 tablespoon lime juice",
+        "1 teaspoon chili powder",
+        "1/2 teaspoon smoked paprika",
+        "1/4 teaspoon garlic powder",
+        "Salt and pepper to taste",
+        "1/4 cup chopped fresh cilantro",
+        "1/3 cup crumbled cotija cheese",
+        "1 pint cherry tomatoes",
+        "1 avocado"
       ],
       "steps": [
-        "Boil salted pasta water and cook pasta al dente per package.",
-        "Brown sausage in skillet over medium-high, breaking it up, 8–10 min. Transfer to paper towel–lined plate.",
-        "Add oil, onion, and peppers to same skillet. Cook until onion is lightly browned, 7–8 min.",
-        "Reduce to medium. Add butter and garlic; once melted, sprinkle in flour and cook 1 min.",
-        "Stir in cream and Dijon — no lumps. Sauce thickens quickly; don't overcook.",
-        "Add sausage and spinach. Splash in pasta water, drain pasta, add to skillet. Toss until spinach wilts."
+        "In a large bowl, combine the cooked and cooled pasta with corn.",
+        "In a separate bowl, whisk together mayonnaise, sour cream, lime juice, chili powder, paprika, garlic powder, salt, and pepper.",
+        "Pour the dressing over the pasta mixture and toss until fully coated.",
+        "Fold in chopped cilantro and cotija cheese.Salad dressing guide",
+        "Chill in the refrigerator for 30 minutes before serving."
       ],
       "day": "Monday",
+      "note": "Use grilled corn for the most flavor. Add diced jalapeños or hot sauce for extra heat. Great make-ahead dish for BBQs and potlucks.",
       "label": "Meal A",
-      "date": "7/6"
+      "date": "7/13"
     },
     {
-      "id": "falafel-bowl-with-tahini-dressing",
-      "icon": "🧆",
-      "name": "Falafel Bowl with Tahini Dressing",
-      "meta": "~45 min · Oven or Air Fryer · Serves 4",
+      "id": "spicy-garlic-chicken-bowl-with-hummus",
+      "icon": "🫕",
+      "name": "Spicy Garlic Chicken Bowl with Hummus",
+      "meta": "~20 min · Stovetop · Serves 4",
       "ings": [
-        "1 cup dried chickpeas, soaked overnight",
-        "½ cup fresh cilantro, ½ cup fresh parsley",
-        "3 garlic cloves, 1 small onion",
-        "1 tsp cumin, 1 tsp coriander, ½ tsp cayenne (optional)",
-        "½ tsp baking powder, 3–4 Tbsp chickpea flour",
-        "2 cups cooked quinoa or brown rice",
-        "2 cups mixed greens",
-        "1 cup diced cucumber, 1 cup cherry tomatoes",
-        "½ red onion sliced, 1 shredded carrot, ½ cup hummus",
-        "1 avocado, pickled radishes",
-        "Tahini dressing: ¼ cup tahini, lemon juice, olive oil, water, garlic, maple syrup"
+        "1 lb boneless skinless chicken thighs, cubed",
+        "2 Tbsp olive oil",
+        "4 cloves garlic, minced",
+        "1 tsp paprika, ½ tsp cayenne, 1 tsp cumin",
+        "Salt and black pepper",
+        "1 cup hummus",
+        "1 large cucumber, diced",
+        "½ red onion, thinly sliced",
+        "¼ cup fresh parsley, chopped",
+        "2 Tbsp lemon juice",
+        "Cooked rice or quinoa for serving"
       ],
       "steps": [
-        "Drain soaked chickpeas. Pulse in food processor with cilantro, parsley, garlic, onion, spices, baking powder, and salt. Add chickpea flour until mixture holds together. Chill 30 min.",
-        "Shape into balls or patties. Fry 3–4 min per side, or bake 375°F for 25–30 min flipping halfway, or air fry 375°F for 15–18 min.",
-        "Cook grains per package. Season with olive oil and salt.",
-        "Whisk tahini dressing ingredients until pourable.",
-        "Assemble bowls: divide grains and greens, arrange toppings, add 3–4 falafels, spoon hummus, drizzle dressing. Garnish with cilantro."
+        "Toss chicken with oil, garlic, paprika, cayenne, cumin, salt, and pepper.",
+        "Heat skillet over medium-high; cook chicken until browned and cooked through, 8–10 min.",
+        "Combine cucumber, red onion, parsley, and lemon juice for the salad.",
+        "Divide rice or quinoa among bowls. Top with chicken, a scoop of hummus, and the cucumber salad. Serve immediately."
       ],
       "day": "Tuesday",
       "label": "Meal B",
-      "date": "7/7"
+      "date": "7/14"
     },
     {
-      "id": "lentil-soup-with-sausage-chard-and-garlic",
-      "icon": "🥣",
-      "name": "Lentil Soup with Sausage, Chard and Garlic",
-      "meta": "~1 hour · Stovetop · Serves 6",
+      "id": "marry-me-chicken-gnocchi",
+      "icon": "🍲",
+      "name": "Marry Me Chicken Gnocchi",
+      "meta": "~30 min · One pan · Serves 4",
       "ings": [
-        "¼ cup olive oil, divided",
-        "4 large links (1 lb) sweet Italian sausage",
-        "1 medium onion, diced",
-        "3 celery stalks, diced",
-        "3 medium carrots, peeled and diced",
-        "4 cloves garlic, sliced (reserve half)",
-        "Kosher salt and red pepper flakes",
-        "2 cups brown lentils, sorted and rinsed",
-        "2 bay leaves",
-        "1 (28 oz) can crushed tomatoes",
-        "6 cups chicken broth",
-        "3–4 cups shredded Swiss chard or kale",
-        "Grated Pecorino Romano to finish"
+        "1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces",
+        "2 Tbsp olive oil (or oil from the sun-dried tomato jar)",
+        "Salt and black pepper",
+        "1 small shallot or ½ onion, diced",
+        "4 cloves garlic, minced",
+        "⅔ cup sun-dried tomatoes (oil-packed), drained and chopped",
+        "1 (16 oz) package shelf-stable potato gnocchi",
+        "1 cup low-sodium chicken broth",
+        "1 cup half-and-half (or ¾ cup heavy cream)",
+        "½ cup freshly grated Parmesan",
+        "2 cups fresh baby spinach",
+        "Fresh basil, torn, for serving",
+        "Red pepper flakes (optional, for adults only)"
       ],
       "steps": [
-        "Heat 2 Tbsp olive oil in large pot over medium-high. Add sausage, brown 5 min. Add onion, celery, carrots, 2 garlic cloves, salt, optional pepper flakes; cook 5 min.",
-        "Add lentils, bay leaves, tomatoes, broth, salt and pepper. Simmer until lentils are tender, ~40 min.",
-        "Add chard, cook until tender, a few minutes. Discard bay leaves.",
-        "In small skillet, heat remaining garlic in remaining olive oil until softened. Drizzle over bowls with Romano."
+        "Season chicken with salt and pepper. Heat 1 Tbsp oil in a large high-sided skillet over medium-high. Sear chicken in a single layer 3–4 min per side until golden (doesn't need to be cooked through). Remove and set aside.",
+        "Add remaining oil and shallot to the skillet; sauté 2–3 min. Add garlic and sun-dried tomatoes; cook 1 min until fragrant.",
+        "Add uncooked gnocchi, breaking apart any stuck pieces. Pour in chicken broth and half-and-half; season with salt and pepper. Cover and cook over medium 5 min until gnocchi are tender and fluffy.",
+        "Return chicken to the pan. Add spinach; cook uncovered 3–5 min until chicken is cooked through and spinach is wilted.",
+        "Stir in Parmesan until melted and the sauce is creamy. Top with torn basil. Serve with red pepper flakes on the side for adults."
       ],
       "day": "Wednesday",
+      "note": "💡 The base recipe is mild — keep the red pepper flakes off to the side so the kids can eat it. Gnocchi cooks right in the sauce, no boiling needed.",
       "label": "Meal C",
-      "date": "7/8"
+      "date": "7/15"
     }
   ],
-  "groceries": [
-    {
-      "icon": "🥦",
-      "label": "Produce",
-      "items": [
-        {
-          "name": "2 medium onions + 1 small onion",
-          "detail": "½ medium onion chopped for pasta sauce · 1 small onion for falafel mix · 1 medium onion diced for lentil soup",
-          "tag": "All meals",
-          "amazon": "yellow onion",
-          "tagClass": "tag-all"
-        },
-        {
-          "name": "½ red onion",
-          "detail": "Sliced for falafel bowl topping",
-          "tag": "Meal B",
-          "amazon": "red onion",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 medium red bell pepper",
-          "detail": "Chopped for pasta with sausage",
-          "tag": "Meal A",
-          "amazon": "red bell pepper",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 medium yellow bell pepper",
-          "detail": "Chopped for pasta with sausage",
-          "tag": "Meal A",
-          "amazon": "yellow bell pepper",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "2 cups fresh baby spinach",
-          "detail": "Wilted into creamy sausage pasta at the end",
-          "tag": "Meal A",
-          "amazon": "fresh baby spinach",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "9–11 cloves garlic",
-          "detail": "2–3 cloves for pasta · 3 cloves for falafel mix + dressing · 4 cloves sliced for lentil soup",
-          "tag": "All meals",
-          "amazon": "garlic bulb",
-          "tagClass": "tag-all"
-        },
-        {
-          "name": "1 cup fresh cilantro",
-          "detail": "½ cup blended into falafel mix · garnish for falafel bowls",
-          "tag": "Meal B",
-          "amazon": "fresh cilantro",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "½ cup fresh parsley",
-          "detail": "Blended into falafel mix",
-          "tag": "Meal B",
-          "amazon": "fresh parsley",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 cup diced cucumber",
-          "detail": "Topping for falafel bowls",
-          "tag": "Meal B",
-          "amazon": "english cucumber",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 cup cherry tomatoes",
-          "detail": "Topping for falafel bowls",
-          "tag": "Meal B",
-          "amazon": "cherry tomatoes",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 shredded carrot + 3 medium carrots",
-          "detail": "1 shredded for falafel bowl topping · 3 medium diced for lentil soup",
-          "tag": "Meals B+C",
-          "amazon": "carrots",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "1 avocado",
-          "detail": "Sliced for falafel bowl topping",
-          "tag": "Meal B",
-          "amazon": "avocado",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "2 cups mixed greens",
-          "detail": "Base for falafel bowls",
-          "tag": "Meal B",
-          "amazon": "mixed salad greens",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "3 cups shredded Swiss chard or kale",
-          "detail": "Stirred into lentil soup at the end",
-          "tag": "Meal C",
-          "amazon": "swiss chard",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "3 celery stalks",
-          "detail": "Diced for lentil soup base",
-          "tag": "Meal C",
-          "amazon": "celery",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 lemon",
-          "detail": "Juice for tahini dressing",
-          "tag": "Meal B",
-          "amazon": "lemon",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Pickled radishes",
-          "detail": "Topping for falafel bowls",
-          "tag": "Meal B",
-          "amazon": "pickled radishes",
-          "tagClass": "tag-cauliflower"
-        }
-      ]
-    },
-    {
-      "icon": "🥩",
-      "label": "Protein",
-      "items": [
-        {
-          "name": "2 lbs Italian sausage (about 6 large links)",
-          "detail": "1 lb loose/ground for creamy pasta · 1 lb links (4 large) for lentil soup",
-          "tag": "Meals A+C",
-          "amazon": "italian sausage",
-          "tagClass": "tag-shared"
-        }
-      ]
-    },
-    {
-      "icon": "🧈",
-      "label": "Dairy & Refrigerated",
-      "items": [
-        {
-          "name": "1 Tbsp butter",
-          "detail": "For the cream sauce in sausage pasta",
-          "tag": "Meal A",
-          "amazon": "unsalted butter",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 cup heavy cream",
-          "detail": "For the creamy pasta sauce",
-          "tag": "Meal A",
-          "amazon": "heavy cream",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "Parmesan cheese, freshly grated (to taste)",
-          "detail": "Finished over creamy sausage pasta",
-          "tag": "Meal A",
-          "amazon": "parmesan cheese block",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "Pecorino Romano cheese, grated (to taste)",
-          "detail": "Finished over lentil soup bowls",
-          "tag": "Meal C",
-          "amazon": "pecorino romano cheese",
-          "tagClass": "tag-pasta"
-        }
-      ]
-    },
-    {
-      "icon": "🫙",
-      "label": "Pantry & Canned",
-      "items": [
-        {
-          "name": "8 oz uncooked pasta (bucatini recommended)",
-          "detail": "Base for creamy sausage and peppers pasta",
-          "tag": "Meal A",
-          "amazon": "bucatini pasta",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 Tbsp olive oil + ¼ cup olive oil + extra",
-          "detail": "1 Tbsp for sausage pasta · olive oil for falafel grains and dressing · ¼ cup for lentil soup",
-          "tag": "All meals",
-          "amazon": "extra virgin olive oil",
-          "tagClass": "tag-all"
-        },
-        {
-          "name": "½ tsp Dijon mustard",
-          "detail": "Stirred into cream sauce for pasta",
-          "tag": "Meal A",
-          "amazon": "dijon mustard",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 cup dried chickpeas",
-          "detail": "Soaked overnight and used as falafel base — soak the night before!",
-          "tag": "Meal B",
-          "amazon": "dried chickpeas",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "3–4 Tbsp chickpea flour",
-          "detail": "Binder for falafel mixture",
-          "tag": "Meal B",
-          "amazon": "chickpea flour",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "2 cups quinoa or brown rice",
-          "detail": "Grain base for falafel bowls",
-          "tag": "Meal B",
-          "amazon": "quinoa",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "½ cup hummus",
-          "detail": "Spooned into falafel bowls",
-          "tag": "Meal B",
-          "amazon": "hummus",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "¼ cup tahini",
-          "detail": "Base of tahini dressing for falafel bowls",
-          "tag": "Meal B",
-          "amazon": "tahini",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 Tbsp maple syrup",
-          "detail": "Sweetener for tahini dressing",
-          "tag": "Meal B",
-          "amazon": "pure maple syrup",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "2 cups brown lentils",
-          "detail": "Main base of lentil soup",
-          "tag": "Meal C",
-          "amazon": "brown lentils dried",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 (28 oz) can crushed tomatoes",
-          "detail": "Added to lentil soup base",
-          "tag": "Meal C",
-          "amazon": "crushed tomatoes canned",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "6 cups chicken broth",
-          "detail": "Liquid base for lentil soup",
-          "tag": "Meal C",
-          "amazon": "chicken broth",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "2 bay leaves",
-          "detail": "Simmered in lentil soup, discarded before serving",
-          "tag": "Meal C",
-          "amazon": "bay leaves",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 tsp flour",
-          "detail": "Thickener for creamy pasta sauce",
-          "tag": "Meal A",
-          "amazon": "all purpose flour",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "½ tsp baking powder",
-          "detail": "Helps falafel bind and puff",
-          "tag": "Meal B",
-          "amazon": "baking powder",
-          "tagClass": "tag-cauliflower"
-        }
-      ]
-    },
-    {
-      "icon": "🌿",
-      "label": "Spices",
-      "note": "Check pantry before ordering — you likely have most of these.",
-      "items": [
-        {
-          "name": "Salt & black pepper",
-          "detail": "Seasoning throughout all three meals",
-          "tag": "All meals",
-          "tagClass": "tag-all"
-        },
-        {
-          "name": "1 tsp ground cumin",
-          "detail": "Spiced into falafel mixture",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 tsp ground coriander",
-          "detail": "Spiced into falafel mixture",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "½ tsp cayenne pepper",
-          "detail": "Optional heat in falafel mixture",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "Kosher salt",
-          "detail": "Seasoning for lentil soup base",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "Red pepper flakes",
-          "detail": "Optional heat in lentil soup",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
-        }
-      ]
-    }
-  ]
+  "groceries": []
 }
