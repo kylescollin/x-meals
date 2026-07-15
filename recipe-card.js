@@ -205,6 +205,25 @@
       '.rc-photo-remove{color:#c0392b;}',
       '.rc-photo-cancel{font-weight:600;margin-top:8px;border-radius:12px;}',
 
+      // Find a photo (Pexels search)
+      '.rc-find{position:fixed;inset:0;background:var(--cream);z-index:1200;display:none;flex-direction:column;}',
+      '.rc-find.open{display:flex;}',
+      '.rc-find-bar{display:flex;align-items:center;gap:8px;padding:calc(16px + env(safe-area-inset-top,0px)) 14px 12px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--cream);}',
+      '.rc-find-back{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:white;border:1px solid var(--border);color:var(--ink);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}',
+      '.rc-find-back:active{background:#eee;}',
+      '.rc-find-input{flex:1;min-width:0;border:1px solid var(--border);border-radius:100px;padding:10px 16px;font-family:"DM Sans",sans-serif;font-size:14px;color:var(--ink);background:white;-webkit-appearance:none;appearance:none;outline:none;transition:border-color .15s;}',
+      '.rc-find-input:focus{border-color:var(--accent);}',
+      '.rc-find-go{flex-shrink:0;background:var(--accent);color:#fff;border:none;border-radius:100px;padding:10px 16px;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}',
+      '.rc-find-go:active{transform:scale(.95);background:#b3581f;}',
+      '.rc-find-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px calc(16px + env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) calc(16px + env(safe-area-inset-left,0px));}',
+      '.rc-find-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}',
+      '@media(min-width:560px){.rc-find-grid{grid-template-columns:repeat(3,1fr);}}',
+      '.rc-find-thumb{position:relative;border-radius:10px;overflow:hidden;cursor:pointer;background:#eee;aspect-ratio:4/3;-webkit-tap-highlight-color:transparent;transition:transform .1s;}',
+      '.rc-find-thumb img{width:100%;height:100%;object-fit:cover;display:block;}',
+      '.rc-find-thumb:active{transform:scale(.97);}',
+      '.rc-find-thumb.saving{opacity:.45;pointer-events:none;}',
+      '.rc-find-status{padding:48px 20px;text-align:center;color:var(--muted);font-size:14px;line-height:1.5;}',
+
       // Edit mode
       '.rc-rd-edit-bar{display:flex;align-items:center;justify-content:space-between;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--cream);}',
       '.rc-rd-edit-bar-title{font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;color:var(--muted);}',
@@ -347,11 +366,22 @@
       '<input type="file" id="rc-photo-file" accept="image/*" style="display:none">',
       '<div id="rc-photo-menu" class="rc-photo-menu" aria-hidden="true">',
         '<div class="rc-photo-sheet">',
+          '<button class="rc-photo-opt" id="rc-photo-find">Find a photo</button>',
           '<button class="rc-photo-opt" id="rc-photo-upload">Upload a photo</button>',
           '<button class="rc-photo-opt" id="rc-photo-url">Paste image URL</button>',
           '<button class="rc-photo-opt rc-photo-remove" id="rc-photo-remove">Remove photo</button>',
           '<button class="rc-photo-opt rc-photo-cancel" id="rc-photo-cancel">Cancel</button>',
         '</div>',
+      '</div>',
+
+      // ── Find-a-photo overlay (Pexels search)
+      '<div id="rc-find" class="rc-find" aria-hidden="true">',
+        '<div class="rc-find-bar">',
+          '<button class="rc-find-back" id="rc-find-back">←</button>',
+          '<input class="rc-find-input" id="rc-find-input" placeholder="Search food photos…" enterkeyhint="search">',
+          '<button class="rc-find-go" id="rc-find-go">Search</button>',
+        '</div>',
+        '<div class="rc-find-body" id="rc-find-body"></div>',
       '</div>',
 
       // ── Cooking mode overlay
@@ -564,6 +594,89 @@
     menu.setAttribute('aria-hidden', 'true');
   }
 
+  // ── Find a photo (Pexels search) ────────────────────────────────────────
+  var _pexelsKey = null;   // cached after first fetch from /config/pexelsKey
+
+  function getPexelsKey() {
+    if (_pexelsKey) return Promise.resolve(_pexelsKey);
+    return authedFetch(FB_BASE + '/config/pexelsKey.json')
+      .then(function (r) { return r.json(); })
+      .then(function (k) { _pexelsKey = k; return k; });
+  }
+
+  // Turn a recipe name into a good search query (drop filler words).
+  function cleanQuery(name) {
+    var stop = { easy:1, weeknight:1, best:1, quick:1, simple:1, homemade:1, the:1, with:1, and:1 };
+    return String(name || '').toLowerCase().split(',')[0]
+      .replace(/[^a-z0-9 ]/g, ' ').split(/\s+/)
+      .filter(function (w) { return w.length > 2 && !stop[w]; }).join(' ');
+  }
+
+  function findStatus(msg) {
+    document.getElementById('rc-find-body').innerHTML =
+      '<div class="rc-find-status">' + escHtml(msg) + '</div>';
+  }
+
+  function runFind(query) {
+    query = (query || '').trim();
+    if (!query) return;
+    findStatus('Searching…');
+    getPexelsKey().then(function (key) {
+      if (!key) { findStatus('Photo search isn’t set up yet.'); return; }
+      return fetch('https://api.pexels.com/v1/search?query=' + encodeURIComponent(query) +
+                   '&per_page=24&orientation=landscape', { headers: { Authorization: key } })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          var photos = (j && j.photos) || [];
+          if (!photos.length) { findStatus('No photos found. Try different words.'); return; }
+          var grid = document.createElement('div');
+          grid.className = 'rc-find-grid';
+          photos.forEach(function (p) {
+            var t = document.createElement('div');
+            t.className = 'rc-find-thumb';
+            t.innerHTML = '<img src="' + escAttr(p.src.medium) + '" alt="" loading="lazy">';
+            t.addEventListener('click', function () { pickFound(p, t); });
+            grid.appendChild(t);
+          });
+          var body = document.getElementById('rc-find-body');
+          body.innerHTML = '';
+          body.appendChild(grid);
+        });
+    }).catch(function () { findStatus('Something went wrong. Please try again.'); });
+  }
+
+  // Save a chosen search result. Download + embed it (durable) so it can't
+  // break later; fall back to the remote URL if the download is blocked.
+  function pickFound(photo, tileEl) {
+    if (tileEl) tileEl.classList.add('saving');
+    fetch(photo.src.landscape)
+      .then(function (r) { return r.blob(); })
+      .then(function (blob) {
+        var reader = new FileReader();
+        reader.onload  = function (e) { savePhoto(e.target.result); closeFind(); };
+        reader.onerror = function ()  { savePhoto(photo.src.landscape); closeFind(); };
+        reader.readAsDataURL(blob);
+      })
+      .catch(function () { savePhoto(photo.src.landscape); closeFind(); });
+  }
+
+  function openFindPhoto() {
+    if (!currentRecipeId) return;
+    var input = document.getElementById('rc-find-input');
+    input.value = cleanQuery(curR && curR.name);
+    var el = document.getElementById('rc-find');
+    el.classList.add('open');
+    el.setAttribute('aria-hidden', 'false');
+    runFind(input.value);
+  }
+
+  function closeFind() {
+    var el = document.getElementById('rc-find');
+    if (!el) return;
+    el.classList.remove('open');
+    el.setAttribute('aria-hidden', 'true');
+  }
+
   // Wire the hero + action sheet once, at init.
   function initHeroPhoto() {
     var hero = document.getElementById('rc-rd-hero');
@@ -571,6 +684,18 @@
     if (!hero || !fileInput) return;
 
     hero.addEventListener('click', openPhotoMenu);
+
+    document.getElementById('rc-photo-find').addEventListener('click', function () {
+      closePhotoMenu();
+      openFindPhoto();
+    });
+    document.getElementById('rc-find-back').addEventListener('click', closeFind);
+    document.getElementById('rc-find-go').addEventListener('click', function () {
+      runFind(document.getElementById('rc-find-input').value);
+    });
+    document.getElementById('rc-find-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); runFind(this.value); this.blur(); }
+    });
 
     document.getElementById('rc-photo-upload').addEventListener('click', function () {
       closePhotoMenu();
@@ -1233,7 +1358,11 @@
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
           var ck = document.getElementById('rc-ck-overlay');
-          if (ck && ck.classList.contains('open')) { global.RecipeCard.closeMode && global.RecipeCard.closeMode(); }
+          var find = document.getElementById('rc-find');
+          var menu = document.getElementById('rc-photo-menu');
+          if (find && find.classList.contains('open')) { closeFind(); }
+          else if (menu && menu.classList.contains('open')) { closePhotoMenu(); }
+          else if (ck && ck.classList.contains('open')) { global.RecipeCard.closeMode && global.RecipeCard.closeMode(); }
           else if (inEditMode) { exitEditMode(); }
           else if (rdEl && rdEl.classList.contains('open')) { closeDetail(); }
         }
