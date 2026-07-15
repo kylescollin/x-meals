@@ -53,6 +53,60 @@
     return r.id || (r.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   }
 
+  // ── Photo thumbnails ────────────────────────────────────────────────────
+  // Cards show a small photo thumbnail (from /recipe-photos/<safeId>) with the
+  // recipe emoji as the fallback. Photos are fetched lazily as each thumb scrolls
+  // into view (they can be large data URLs) and cached in-memory per page load.
+  var photoCache = {};   // safeId → src (string) or null (checked, none)
+
+  var thumbObserver = (typeof IntersectionObserver !== 'undefined')
+    ? new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          obs.unobserve(e.target);
+          resolveThumb(e.target);
+        });
+      }, { rootMargin: '200px' })
+    : null;
+
+  function applyThumbPhoto(thumb, src) {
+    if (!src || thumb.classList.contains('has-photo')) return;
+    var img = document.createElement('img');
+    img.alt = '';
+    img.src = src;
+    thumb.appendChild(img);
+    thumb.classList.add('has-photo');
+  }
+
+  // Fetch (or reuse cached) photo for a thumb and swap it in.
+  function resolveThumb(thumb) {
+    var safeId = thumb.getAttribute('data-photo-id');
+    if (!safeId) return;
+    if (photoCache.hasOwnProperty(safeId)) { applyThumbPhoto(thumb, photoCache[safeId]); return; }
+    authedFetch(FB_PHOTOS + '/' + safeId + '.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var src = (data && data.src) ? data.src : null;
+        photoCache[safeId] = src;
+        applyThumbPhoto(thumb, src);
+      })
+      .catch(function () { /* leave emoji fallback */ });
+  }
+
+  // Build a thumbnail node: emoji fallback now, photo lazily when visible.
+  function makeThumb(recipe, sizeClass) {
+    var thumb = document.createElement('div');
+    thumb.className = 'rc-thumb' + (sizeClass ? ' ' + sizeClass : '');
+    thumb.setAttribute('data-photo-id', fbSafeKey(idOf(recipe)));
+    var emoji = document.createElement('span');
+    emoji.className = 'rc-thumb-emoji';
+    emoji.textContent = recipe.icon || '🍽';
+    thumb.appendChild(emoji);
+    if (thumbObserver) thumbObserver.observe(thumb);
+    else resolveThumb(thumb);   // no IO support: fetch immediately
+    return thumb;
+  }
+
   function authedFetch(url, options) {
     var getToken = window.getToken;
     if (!getToken) return fetch(url, options);
@@ -86,7 +140,7 @@
       if (!card) return;
       var nameEl  = card.querySelector('.rc-card-name');
       var metaEl  = card.querySelector('.rc-card-meta');
-      var iconEl  = card.querySelector('.rc-card-icon');
+      var iconEl  = card.querySelector('.rc-thumb-emoji');
       var labelEl = card.querySelector('.rc-card-label');
       if (nameEl  && edit.name)  nameEl.textContent  = edit.name;
       if (metaEl  && edit.meta  !== undefined) metaEl.textContent  = edit.meta;
@@ -138,7 +192,11 @@
       '.rc-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;}',
       '.rc-card:hover{border-color:#bbb;box-shadow:0 2px 8px rgba(0,0,0,.06);}',
       '.rc-card-inner{display:flex;align-items:center;gap:14px;padding:14px 16px;user-select:none;}',
-      '.rc-card-icon{font-size:26px;flex-shrink:0;}',
+      // Photo thumbnail (shared by cards + edit mode). Photo when set, else emoji fallback.
+      '.rc-thumb{position:relative;width:52px;height:52px;flex-shrink:0;border-radius:8px;overflow:hidden;background:#f0ece5;display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;}',
+      '.rc-thumb.rc-thumb-sm{width:40px;height:40px;border-radius:7px;font-size:20px;}',
+      '.rc-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}',
+      '.rc-thumb.has-photo .rc-thumb-emoji{display:none;}',
       '.rc-card-body{flex:1;min-width:0;}',
       '.rc-card-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:2px;}',
       '.rc-card-name{font-family:"Playfair Display",serif;font-size:15px;font-weight:500;line-height:1.3;}',
@@ -1431,7 +1489,6 @@
       div.setAttribute('data-recipe-id', id);
       div.innerHTML =
         '<div class="rc-card-inner">' +
-          '<div class="rc-card-icon">' + escHtml(r.icon || '🍽') + '</div>' +
           '<div class="rc-card-body">' +
             '<div class="rc-card-label">' + escHtml(lbl) + '</div>' +
             '<div class="rc-card-name">' + escHtml(r.name) + '</div>' +
@@ -1445,6 +1502,8 @@
             '<span class="rc-chevron">›</span>' +
           '</div>' +
         '</div>';
+      var inner = div.querySelector('.rc-card-inner');
+      inner.insertBefore(makeThumb(r), inner.firstChild);
       div.addEventListener('click', function () { openDetail(r); });
       return div;
     },
@@ -1473,6 +1532,7 @@
     closeDetail: closeDetail,
     openAddForm: openAddForm,
     idOf: idOf,
+    makeThumb: makeThumb,
     isSaved: isSaved,
     isCore: isCore
   };

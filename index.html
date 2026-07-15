@@ -35,7 +35,6 @@
   .edit-card.dragging{box-shadow:0 8px 24px rgba(0,0,0,.16);border-color:#bbb;z-index:5;opacity:.97;}
   .ec-handle{flex-shrink:0;width:30px;height:36px;display:flex;align-items:center;justify-content:center;color:#bdb6a8;font-size:18px;cursor:grab;touch-action:none;-webkit-tap-highlight-color:transparent;user-select:none;}
   .ec-handle:active{cursor:grabbing;}
-  .ec-icon{font-size:24px;flex-shrink:0;}
   .ec-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px;}
   .ec-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;line-height:1.3;}
   .ec-remove{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--muted);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s,color .15s,border-color .15s;}
@@ -95,7 +94,6 @@
   .picker-row:active:not(:disabled){background:#faf6ef;}
   .picker-row:disabled{opacity:.5;cursor:default;}
   .picker-row.added{opacity:.55;}
-  .picker-icon{font-size:22px;flex-shrink:0;}
   .picker-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
   .picker-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:500;color:var(--ink);line-height:1.3;}
   .picker-meta{font-size:11px;color:var(--muted);font-weight:300;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -287,8 +285,7 @@ function buildDaySlot(day){
     handle.className='ec-handle'; handle.textContent='⠿';
     handle.setAttribute('aria-label','Drag to move to another day');
 
-    var icon=document.createElement('div');
-    icon.className='ec-icon'; icon.textContent=meal.icon||'🍽';
+    var icon=RecipeCard.makeThumb(meal,'rc-thumb-sm');
 
     var name=document.createElement('div');
     name.className='ds-name'; name.textContent=meal.name;
@@ -400,7 +397,7 @@ function renderPickerList(q){
     var row=document.createElement('button');
     row.className='picker-row'+(already?' added':'');
     row.disabled=already;
-    var ic=document.createElement('span'); ic.className='picker-icon'; ic.textContent=r.icon||'🍽';
+    var ic=RecipeCard.makeThumb(r,'rc-thumb-sm');
     var info=document.createElement('span'); info.className='picker-info';
     var nm=document.createElement('span'); nm.className='picker-name'; nm.textContent=r.name;
     var mt=document.createElement('span'); mt.className='picker-meta'; mt.textContent=r.meta||'';
