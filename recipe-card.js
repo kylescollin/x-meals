@@ -14,6 +14,7 @@
   var FB_DATA  = FB_BASE + '/saved-recipe-data.json';
   var FB_EDITS    = FB_BASE + '/recipe-edits';
   var FB_COMMENTS = FB_BASE + '/recipe-comments';
+  var FB_PHOTOS   = FB_BASE + '/recipe-photos';
 
   var AUTHOR_MAP = { 'kscollin@gmail.com': 'Kyle', 'missjosephinefox@gmail.com': 'Josephine' };
 
@@ -181,6 +182,29 @@
       '.rc-rd-step-list li{font-size:13px;color:var(--ink);line-height:1.55;display:flex;gap:10px;}',
       '.rc-rd-step-num{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0;min-width:16px;padding-top:1px;}',
 
+      // Hero photo
+      '.rc-rd-hero{position:relative;margin:-28px -20px 24px;height:clamp(190px,44vw,260px);background:#efe9e0;cursor:pointer;overflow:hidden;-webkit-tap-highlight-color:transparent;}',
+      '.rc-rd-hero img{width:100%;height:100%;object-fit:cover;display:block;}',
+      '.rc-rd-hero.has-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 55%,rgba(0,0,0,.30));pointer-events:none;}',
+      '.rc-rd-hero.empty{display:flex;align-items:center;justify-content:center;background:var(--accent-light);border-bottom:1px solid var(--border);}',
+      '.rc-rd-hero-cta{display:flex;flex-direction:column;align-items:center;gap:9px;color:var(--accent);}',
+      '.rc-rd-hero-cta svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}',
+      '.rc-rd-hero-cta span{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;}',
+      '.rc-rd-hero-edit{position:absolute;right:12px;bottom:12px;z-index:2;display:none;align-items:center;gap:6px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;padding:8px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;}',
+      '.rc-rd-hero.has-photo .rc-rd-hero-edit{display:inline-flex;}',
+      '.rc-rd-hero-edit svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}',
+      '.rc-rd-hero-edit:active{transform:scale(.95);}',
+      '.rc-rd-hero.busy{opacity:.6;pointer-events:none;}',
+
+      // Photo action sheet
+      '.rc-photo-menu{position:fixed;inset:0;z-index:1100;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.4);padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));}',
+      '.rc-photo-menu.open{display:flex;}',
+      '.rc-photo-sheet{width:100%;max-width:420px;display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.25);}',
+      '.rc-photo-opt{background:white;border:none;padding:16px;font-family:"DM Sans",sans-serif;font-size:15px;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s;}',
+      '.rc-photo-opt:active{background:#f0ece5;}',
+      '.rc-photo-remove{color:#c0392b;}',
+      '.rc-photo-cancel{font-weight:600;margin-top:8px;border-radius:12px;}',
+
       // Edit mode
       '.rc-rd-edit-bar{display:flex;align-items:center;justify-content:space-between;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--cream);}',
       '.rc-rd-edit-bar-title{font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;color:var(--muted);}',
@@ -297,6 +321,7 @@
         '</div>',
         '<div class="rc-rd-body">',
           '<div class="rc-rd-inner" id="rc-rd-inner">',
+            '<div class="rc-rd-hero empty" id="rc-rd-hero"></div>',
             '<div class="rc-rd-note" id="rc-rd-note" style="display:none"></div>',
             '<div class="rc-rd-cols">',
               '<div><div class="rc-rd-section-title">Ingredients</div><ul class="rc-rd-ing-list" id="rc-rd-ings"></ul></div>',
@@ -315,6 +340,17 @@
               '</div>',
             '</div>',
           '</div>',
+        '</div>',
+      '</div>',
+
+      // ── Photo action sheet + hidden file input
+      '<input type="file" id="rc-photo-file" accept="image/*" style="display:none">',
+      '<div id="rc-photo-menu" class="rc-photo-menu" aria-hidden="true">',
+        '<div class="rc-photo-sheet">',
+          '<button class="rc-photo-opt" id="rc-photo-upload">Upload a photo</button>',
+          '<button class="rc-photo-opt" id="rc-photo-url">Paste image URL</button>',
+          '<button class="rc-photo-opt rc-photo-remove" id="rc-photo-remove">Remove photo</button>',
+          '<button class="rc-photo-opt rc-photo-cancel" id="rc-photo-cancel">Cancel</button>',
         '</div>',
       '</div>',
 
@@ -405,6 +441,7 @@
     document.querySelector('.rc-rd-body').scrollTop = 0;
 
     currentRecipeId = fbSafeKey(id);
+    loadPhoto(currentRecipeId);
     loadComments(currentRecipeId);
     var cmTa = document.getElementById('rc-cm-textarea');
     if (cmTa) cmTa.value = '';
@@ -426,6 +463,146 @@
     rdEl.setAttribute('aria-hidden', 'true');
     var ckEl = document.getElementById('rc-ck-overlay');
     if (!ckEl || !ckEl.classList.contains('open')) document.body.style.overflow = '';
+  }
+
+  // ── Hero photo ──────────────────────────────────────────────────────────
+  // Photos are stored per-recipe in Firebase at /recipe-photos/<safeId> as
+  // { src, by, at }. src is either a resized JPEG data URL (uploads) or a
+  // pasted image URL. Fetched lazily when a recipe opens; never bulk-loaded.
+  var CAMERA_ICON =
+    '<svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
+
+  // Draw the hero: an <img> when a photo exists, else the "Add a photo" prompt.
+  function renderHero(src) {
+    var hero = document.getElementById('rc-rd-hero');
+    if (!hero) return;
+    hero.classList.remove('busy');
+    if (src) {
+      hero.classList.remove('empty');
+      hero.classList.add('has-photo');
+      hero.innerHTML =
+        '<img src="' + escAttr(src) + '" alt="">' +
+        '<button class="rc-rd-hero-edit" type="button">' +
+          '<svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>' +
+          'Change photo' +
+        '</button>';
+    } else {
+      hero.classList.remove('has-photo');
+      hero.classList.add('empty');
+      hero.innerHTML =
+        '<div class="rc-rd-hero-cta">' + CAMERA_ICON + '<span>Add a photo</span></div>';
+    }
+  }
+
+  // Load the saved photo for a recipe. safeId is captured so a slow response
+  // for a previously-open recipe can't overwrite the current one.
+  function loadPhoto(safeId) {
+    renderHero(null);
+    authedFetch(FB_PHOTOS + '/' + safeId + '.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (safeId !== currentRecipeId) return;      // recipe changed meanwhile
+        renderHero(data && data.src ? data.src : null);
+      })
+      .catch(function () { /* leave empty state */ });
+  }
+
+  function savePhoto(src) {
+    var safeId = currentRecipeId;
+    if (!safeId || !src) return;
+    renderHero(src);                                  // optimistic
+    var body = JSON.stringify({ src: src, by: currentUserEmail || '', at: Date.now() });
+    authedFetch(FB_PHOTOS + '/' + safeId + '.json', { method: 'PUT', body: body })
+      .then(function (r) { if (!r.ok) throw new Error('save failed'); })
+      .catch(function () { alert('Could not save the photo. Please try again.'); });
+  }
+
+  function removePhoto() {
+    var safeId = currentRecipeId;
+    if (!safeId) return;
+    renderHero(null);
+    authedFetch(FB_PHOTOS + '/' + safeId + '.json', { method: 'DELETE' })
+      .catch(function () { /* it'll reconcile on next open */ });
+  }
+
+  // Downscale + JPEG-compress a chosen file to keep stored photos small.
+  function resizeImageFile(file, maxDim, quality, cb) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var img = new Image();
+      img.onload = function () {
+        var w = img.width, h = img.height;
+        var longest = Math.max(w, h);
+        if (longest > maxDim) { var s = maxDim / longest; w = Math.round(w * s); h = Math.round(h * s); }
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        try { cb(canvas.toDataURL('image/jpeg', quality)); }
+        catch (err) { cb(null); }
+      };
+      img.onerror = function () { cb(null); };
+      img.src = e.target.result;
+    };
+    reader.onerror = function () { cb(null); };
+    reader.readAsDataURL(file);
+  }
+
+  function openPhotoMenu() {
+    var menu = document.getElementById('rc-photo-menu');
+    var hero = document.getElementById('rc-rd-hero');
+    if (!menu || !currentRecipeId) return;
+    var hasPhoto = hero && hero.classList.contains('has-photo');
+    document.getElementById('rc-photo-remove').style.display = hasPhoto ? '' : 'none';
+    menu.classList.add('open');
+    menu.setAttribute('aria-hidden', 'false');
+  }
+
+  function closePhotoMenu() {
+    var menu = document.getElementById('rc-photo-menu');
+    if (!menu) return;
+    menu.classList.remove('open');
+    menu.setAttribute('aria-hidden', 'true');
+  }
+
+  // Wire the hero + action sheet once, at init.
+  function initHeroPhoto() {
+    var hero = document.getElementById('rc-rd-hero');
+    var fileInput = document.getElementById('rc-photo-file');
+    if (!hero || !fileInput) return;
+
+    hero.addEventListener('click', openPhotoMenu);
+
+    document.getElementById('rc-photo-upload').addEventListener('click', function () {
+      closePhotoMenu();
+      fileInput.value = '';        // allow re-picking the same file
+      fileInput.click();
+    });
+    document.getElementById('rc-photo-url').addEventListener('click', function () {
+      closePhotoMenu();
+      var url = prompt('Paste the image URL:');
+      if (!url) return;
+      url = url.trim();
+      if (!/^https?:\/\//i.test(url)) { alert('That doesn’t look like an image link. It should start with http:// or https://'); return; }
+      savePhoto(url);
+    });
+    document.getElementById('rc-photo-remove').addEventListener('click', function () {
+      closePhotoMenu();
+      removePhoto();
+    });
+    document.getElementById('rc-photo-cancel').addEventListener('click', closePhotoMenu);
+    document.getElementById('rc-photo-menu').addEventListener('click', function (e) {
+      if (e.target === this) closePhotoMenu();       // tap backdrop to dismiss
+    });
+
+    fileInput.addEventListener('change', function () {
+      var file = fileInput.files && fileInput.files[0];
+      if (!file) return;
+      hero.classList.add('busy');
+      resizeImageFile(file, 1200, 0.82, function (dataUrl) {
+        if (!dataUrl) { hero.classList.remove('busy'); alert('Sorry, that image couldn’t be processed.'); return; }
+        savePhoto(dataUrl);
+      });
+    });
   }
 
   // Build the recipe form markup. Shared by edit mode and add mode.
@@ -1063,6 +1240,7 @@
       });
 
       initCookingMode();
+      initHeroPhoto();
 
       var pending = 2;
       function onLoaded() { if (--pending === 0 && options.onReady) options.onReady(); }
