@@ -150,26 +150,27 @@
       '.rc-chevron{font-size:20px;color:var(--border);}',
 
       // Detail overlay
-      '#rc-rd-overlay{position:fixed;inset:0;background:var(--cream);z-index:1000;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;}',
+      '#rc-rd-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;opacity:0;pointer-events:none;transition:opacity .38s ease;}',
+      '#rc-rd-backdrop.open{opacity:1;pointer-events:auto;}',
+      '#rc-rd-overlay{position:fixed;left:0;right:0;bottom:0;top:calc(env(safe-area-inset-top,0px) + 12px);background:var(--cream);z-index:1000;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;border-radius:24px 24px 0 0;}',
       '#rc-rd-overlay.open{transform:translateY(0);}',
-      '.rc-rd-bar{display:flex;align-items:center;gap:10px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--cream);}',
-      '.rc-rd-back{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:white;border:1px solid var(--border);color:var(--ink);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s;}',
-      '.rc-rd-back:active{background:#eee;}',
-      '.rc-rd-name{flex:1;font-family:"Playfair Display",serif;font-size:17px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}',
-      '.rc-rd-save-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;background:white;color:var(--muted);border:1px solid var(--border);border-radius:100px;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;padding:8px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s;}',
-      '.rc-rd-save-btn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;transition:all .15s;}',
-      '.rc-rd-save-btn.saved{background:var(--accent-light);color:var(--accent);border-color:#e0bfad;}',
-      '.rc-rd-save-btn.saved svg{fill:var(--accent);stroke:var(--accent);}',
-      '.rc-rd-save-btn:active{transform:scale(.94);}',
-      '.rc-rd-in-recipes{flex-shrink:0;display:none;align-items:center;gap:5px;font-size:11px;font-weight:500;color:var(--muted);padding:8px 12px;}',
-      '.rc-rd-in-recipes.visible{display:inline-flex;}',
-      '.rc-rd-in-recipes svg{width:11px;height:11px;fill:var(--muted);flex-shrink:0;}',
-      '.rc-rd-edit-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:5px;background:white;color:var(--muted);border:1px solid var(--border);border-radius:100px;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;padding:8px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s;}',
-      '.rc-rd-edit-btn:active{transform:scale(.94);}',
-      '.rc-rd-cook-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--cream);border:none;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;padding:9px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}',
-      '.rc-rd-cook-btn:active{transform:scale(.94);background:#333;}',
-      '.rc-rd-cook-btn svg{width:11px;height:11px;fill:currentColor;}',
-      '.rc-rd-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:28px 20px calc(48px + env(safe-area-inset-bottom,0px));}',
+      // Floating top buttons (back + more), pinned over the scrolling body
+      '.rc-rd-topbtns{position:absolute;top:0;left:0;right:0;z-index:6;display:flex;justify-content:space-between;align-items:flex-start;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 0;pointer-events:none;}',
+      '.rc-rd-topbtns > *{pointer-events:auto;}',
+      '.rc-rd-iconbtn{width:38px;height:38px;border-radius:50%;background:rgba(20,19,17,.5);color:#fff;border:none;font-size:19px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .15s,transform .12s;}',
+      '.rc-rd-iconbtn:active{transform:scale(.92);background:rgba(20,19,17,.72);}',
+      '.rc-rd-more-wrap{position:relative;}',
+      '.rc-rd-more-menu{position:absolute;top:46px;right:0;min-width:196px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.22);overflow:hidden;display:none;flex-direction:column;}',
+      '.rc-rd-more-menu.open{display:flex;}',
+      '.rc-rd-more-opt{background:#fff;border:none;text-align:left;padding:13px 16px;font-family:"DM Sans",sans-serif;font-size:14px;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;gap:11px;transition:background .12s;}',
+      '.rc-rd-more-opt:not(:last-child){border-bottom:1px solid var(--border);}',
+      '.rc-rd-more-opt:active{background:#f0ece5;}',
+      '.rc-rd-more-opt svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}',
+      // Floating Cook pill
+      '.rc-rd-cook-fab{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:5;display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--cream);border:none;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:15px;font-weight:600;letter-spacing:.02em;padding:15px 34px;cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 8px 24px rgba(20,19,17,.35);transition:transform .12s,background .15s;}',
+      '.rc-rd-cook-fab:active{transform:translateX(-50%) scale(.96);background:#333;}',
+      '.rc-rd-cook-fab svg{width:14px;height:14px;fill:currentColor;}',
+      '.rc-rd-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 20px calc(104px + env(safe-area-inset-bottom,0px));}',
       '.rc-rd-inner{max-width:640px;margin:0 auto;}',
       '.rc-rd-note{margin-bottom:20px;padding:11px 14px;background:var(--accent-light);border-radius:8px;font-size:13px;color:#7a4520;line-height:1.5;}',
       '.rc-rd-cols{display:grid;grid-template-columns:1fr 1.4fr;gap:28px;}',
@@ -182,18 +183,23 @@
       '.rc-rd-step-list li{font-size:13px;color:var(--ink);line-height:1.55;display:flex;gap:10px;}',
       '.rc-rd-step-num{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0;min-width:16px;padding-top:1px;}',
 
-      // Hero photo
-      '.rc-rd-hero{position:relative;margin:-28px -20px 24px;height:clamp(190px,44vw,260px);background:#efe9e0;cursor:pointer;overflow:hidden;-webkit-tap-highlight-color:transparent;}',
-      '.rc-rd-hero img{width:100%;height:100%;object-fit:cover;display:block;}',
-      '.rc-rd-hero.has-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 55%,rgba(0,0,0,.30));pointer-events:none;}',
-      '.rc-rd-hero.empty{display:flex;align-items:center;justify-content:center;background:var(--accent-light);border-bottom:1px solid var(--border);}',
-      '.rc-rd-hero-cta{display:flex;flex-direction:column;align-items:center;gap:9px;color:var(--accent);}',
-      '.rc-rd-hero-cta svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}',
-      '.rc-rd-hero-cta span{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;}',
-      '.rc-rd-hero-edit{position:absolute;right:12px;bottom:12px;z-index:2;display:none;align-items:center;gap:6px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;padding:8px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;}',
-      '.rc-rd-hero.has-photo .rc-rd-hero-edit{display:inline-flex;}',
-      '.rc-rd-hero-edit svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}',
-      '.rc-rd-hero-edit:active{transform:scale(.95);}',
+      // Hero photo (headline overlaid on the image)
+      '.rc-rd-hero{position:relative;margin:0 -20px 24px;height:clamp(240px,52vw,340px);background:#efe9e0;cursor:pointer;overflow:hidden;-webkit-tap-highlight-color:transparent;}',
+      '.rc-rd-hero-media{position:absolute;inset:0;}',
+      '.rc-rd-hero-media img{width:100%;height:100%;object-fit:cover;display:block;}',
+      '.rc-rd-hero.empty .rc-rd-hero-media{background:linear-gradient(150deg,#c8622a 0%,#8a4a2a 55%,#3f2a1c 100%);}',
+      '.rc-rd-hero-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.74) 0%,rgba(0,0,0,.28) 34%,rgba(0,0,0,0) 62%);pointer-events:none;}',
+      '.rc-rd-hero-title{position:absolute;left:0;right:0;bottom:0;padding:20px 60px 20px 22px;z-index:2;pointer-events:none;}',
+      '.rc-rd-name{font-family:"Playfair Display",serif;font-size:clamp(26px,7vw,40px);font-weight:700;color:#fff;line-height:1.08;letter-spacing:-.01em;text-shadow:0 1px 12px rgba(0,0,0,.45);}',
+      '.rc-rd-meta{margin-top:7px;font-family:"DM Sans",sans-serif;font-size:12.5px;font-weight:400;color:rgba(255,255,255,.9);text-shadow:0 1px 8px rgba(0,0,0,.5);}',
+      '.rc-rd-hero-cta{position:absolute;top:0;left:0;right:0;bottom:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#fff;z-index:1;pointer-events:none;}',
+      '.rc-rd-hero.has-photo .rc-rd-hero-cta{display:none;}',
+      '.rc-rd-hero-cta svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.92;}',
+      '.rc-rd-hero-cta span{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;opacity:.92;}',
+      '.rc-rd-hero-edit{position:absolute;right:14px;bottom:16px;z-index:3;width:38px;height:38px;border-radius:50%;display:none;align-items:center;justify-content:center;background:rgba(20,19,17,.5);color:#fff;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:transform .12s;}',
+      '.rc-rd-hero.has-photo .rc-rd-hero-edit{display:flex;}',
+      '.rc-rd-hero-edit svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}',
+      '.rc-rd-hero-edit:active{transform:scale(.92);}',
       '.rc-rd-hero.busy{opacity:.6;pointer-events:none;}',
 
       // Photo action sheet
@@ -314,23 +320,18 @@
     var wrap = document.createElement('div');
     wrap.innerHTML = [
       // ── Detail overlay
+      '<div id="rc-rd-backdrop"></div>',
       '<div id="rc-rd-overlay" aria-hidden="true">',
-        // View mode header
-        '<div class="rc-rd-bar" id="rc-rd-view-bar">',
-          '<button class="rc-rd-back" id="rc-rd-back">←</button>',
-          '<span class="rc-rd-name" id="rc-rd-name"></span>',
-          '<button class="rc-rd-save-btn" id="rc-rd-save" aria-label="Save to recipes">',
-            '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',
-            '<span id="rc-rd-save-label">Save</span>',
-          '</button>',
-          '<span class="rc-rd-in-recipes" id="rc-rd-in-recipes">',
-            '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',
-            'In your recipes',
-          '</span>',
-          '<button class="rc-rd-edit-btn" id="rc-rd-edit">Edit</button>',
-          '<button class="rc-rd-cook-btn" id="rc-rd-cook">',
-            '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Cook',
-          '</button>',
+        // Floating top buttons (view mode) — back + more menu
+        '<div class="rc-rd-topbtns" id="rc-rd-topbtns">',
+          '<button class="rc-rd-iconbtn rc-rd-back" id="rc-rd-back" aria-label="Close">←</button>',
+          '<div class="rc-rd-more-wrap">',
+            '<button class="rc-rd-iconbtn" id="rc-rd-more" aria-label="More options">⋯</button>',
+            '<div class="rc-rd-more-menu" id="rc-rd-more-menu">',
+              '<button class="rc-rd-more-opt" id="rc-rd-menu-edit"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Edit recipe</button>',
+              '<button class="rc-rd-more-opt" id="rc-rd-menu-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span id="rc-rd-menu-save-label">Save to recipes</span></button>',
+            '</div>',
+          '</div>',
         '</div>',
         // Edit mode header
         '<div class="rc-rd-edit-bar" id="rc-rd-edit-bar" style="display:none">',
@@ -340,7 +341,21 @@
         '</div>',
         '<div class="rc-rd-body">',
           '<div class="rc-rd-inner" id="rc-rd-inner">',
-            '<div class="rc-rd-hero empty" id="rc-rd-hero"></div>',
+            '<div class="rc-rd-hero empty" id="rc-rd-hero">',
+              '<div class="rc-rd-hero-media" id="rc-rd-hero-media"></div>',
+              '<div class="rc-rd-hero-scrim"></div>',
+              '<div class="rc-rd-hero-cta">',
+                '<svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+                '<span>Add a photo</span>',
+              '</div>',
+              '<button class="rc-rd-hero-edit" id="rc-rd-hero-edit" type="button" aria-label="Change photo">',
+                '<svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+              '</button>',
+              '<div class="rc-rd-hero-title">',
+                '<div class="rc-rd-name" id="rc-rd-name"></div>',
+                '<div class="rc-rd-meta" id="rc-rd-meta"></div>',
+              '</div>',
+            '</div>',
             '<div class="rc-rd-note" id="rc-rd-note" style="display:none"></div>',
             '<div class="rc-rd-cols">',
               '<div><div class="rc-rd-section-title">Ingredients</div><ul class="rc-rd-ing-list" id="rc-rd-ings"></ul></div>',
@@ -360,6 +375,7 @@
             '</div>',
           '</div>',
         '</div>',
+        '<button class="rc-rd-cook-fab" id="rc-rd-cook"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Cook</button>',
       '</div>',
 
       // ── Photo action sheet + hidden file input
@@ -434,25 +450,36 @@
   var inAddMode  = false;
 
   function refreshSaveUI(id) {
-    var saveBtn      = document.getElementById('rc-rd-save');
-    var inRecipesEl  = document.getElementById('rc-rd-in-recipes');
-    var labelEl      = document.getElementById('rc-rd-save-label');
-    if (!saveBtn || !inRecipesEl || !labelEl) return;
+    // Save/Remove now lives in the ⋯ menu. Core recipes are already in the
+    // collection, so the item is hidden for them.
+    var saveOpt = document.getElementById('rc-rd-menu-save');
+    var labelEl = document.getElementById('rc-rd-menu-save-label');
+    if (!saveOpt || !labelEl) return;
     if (isCore(id)) {
-      saveBtn.style.display = 'none';
-      inRecipesEl.classList.add('visible');
+      saveOpt.style.display = 'none';
     } else {
-      saveBtn.style.display = '';
-      inRecipesEl.classList.remove('visible');
-      var saved = isSaved(id);
-      saveBtn.classList.toggle('saved', saved);
-      labelEl.textContent = saved ? 'Saved' : 'Save';
-      saveBtn.setAttribute('aria-label', saved ? 'Remove from recipes' : 'Save to recipes');
+      saveOpt.style.display = '';
+      labelEl.textContent = isSaved(id) ? 'Remove from recipes' : 'Save to recipes';
     }
   }
 
+  // Show/hide the view-mode chrome (top buttons + Cook pill); also closes the
+  // ⋯ menu. Called when entering/leaving edit & add modes.
+  function setViewChrome(visible) {
+    var tb  = document.getElementById('rc-rd-topbtns');
+    var fab = document.getElementById('rc-rd-cook');
+    if (tb)  tb.style.display  = visible ? '' : 'none';
+    if (fab) fab.style.display = visible ? '' : 'none';
+    if (!visible) closeMoreMenu();
+  }
+
+  function openMoreMenu()  { var m = document.getElementById('rc-rd-more-menu'); if (m) m.classList.add('open'); }
+  function closeMoreMenu() { var m = document.getElementById('rc-rd-more-menu'); if (m) m.classList.remove('open'); }
+
   function renderDetailBody(recipe) {
     document.getElementById('rc-rd-name').textContent = recipe.name;
+    var metaEl = document.getElementById('rc-rd-meta');
+    if (metaEl) { metaEl.textContent = recipe.meta || ''; metaEl.style.display = recipe.meta ? '' : 'none'; }
     document.getElementById('rc-rd-ings').innerHTML  = (recipe.ings || recipe.ingredients || []).map(function (i) { return '<li>' + escHtml(i) + '</li>'; }).join('');
     document.getElementById('rc-rd-steps').innerHTML = (recipe.steps || []).map(function (s, n) {
       return '<li><span class="rc-rd-step-num">' + (n + 1) + '</span><span>' + escHtml(s) + '</span></li>';
@@ -476,11 +503,14 @@
     var cmTa = document.getElementById('rc-cm-textarea');
     if (cmTa) cmTa.value = '';
 
-    // Wire save button to this recipe
-    var saveBtn = document.getElementById('rc-rd-save');
-    saveBtn.onclick = function () { toggleSave(id, curR); };
+    // Wire the ⋯-menu Save item to this recipe
+    var saveOpt = document.getElementById('rc-rd-menu-save');
+    if (saveOpt) saveOpt.onclick = function () { toggleSave(id, curR); closeMoreMenu(); };
     refreshSaveUI(id);
 
+    setViewChrome(true);
+    closeMoreMenu();
+    document.getElementById('rc-rd-backdrop').classList.add('open');
     rdEl.classList.add('open');
     rdEl.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -489,6 +519,8 @@
   function closeDetail() {
     if (inEditMode) exitEditMode();
     if (inAddMode) exitAddMode();
+    closeMoreMenu();
+    document.getElementById('rc-rd-backdrop').classList.remove('open');
     rdEl.classList.remove('open');
     rdEl.setAttribute('aria-hidden', 'true');
     var ckEl = document.getElementById('rc-ck-overlay');
@@ -502,25 +534,21 @@
   var CAMERA_ICON =
     '<svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
 
-  // Draw the hero: an <img> when a photo exists, else the "Add a photo" prompt.
+  // Swap only the hero's background media; the title / scrim / CTA / change
+  // button are persistent siblings and must survive photo changes.
   function renderHero(src) {
-    var hero = document.getElementById('rc-rd-hero');
-    if (!hero) return;
+    var hero  = document.getElementById('rc-rd-hero');
+    var media = document.getElementById('rc-rd-hero-media');
+    if (!hero || !media) return;
     hero.classList.remove('busy');
     if (src) {
       hero.classList.remove('empty');
       hero.classList.add('has-photo');
-      hero.innerHTML =
-        '<img src="' + escAttr(src) + '" alt="">' +
-        '<button class="rc-rd-hero-edit" type="button">' +
-          '<svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>' +
-          'Change photo' +
-        '</button>';
+      media.innerHTML = '<img src="' + escAttr(src) + '" alt="">';
     } else {
       hero.classList.remove('has-photo');
       hero.classList.add('empty');
-      hero.innerHTML =
-        '<div class="rc-rd-hero-cta">' + CAMERA_ICON + '<span>Add a photo</span></div>';
+      media.innerHTML = '';
     }
   }
 
@@ -849,7 +877,7 @@
     inEditMode = true;
 
     var editBar = document.getElementById('rc-rd-edit-bar');
-    document.getElementById('rc-rd-view-bar').style.display = 'none';
+    setViewChrome(false);
     editBar.style.display = '';
     editBar.querySelector('.rc-rd-edit-bar-title').textContent = 'Editing';
     document.getElementById('rc-rd-inner').style.display = 'none';
@@ -863,7 +891,7 @@
     curR = null;
     currentRecipeId = null;
 
-    document.getElementById('rc-rd-view-bar').style.display = 'none';
+    setViewChrome(false);
     document.getElementById('rc-rd-inner').style.display = 'none';
     var editBar = document.getElementById('rc-rd-edit-bar');
     editBar.style.display = '';
@@ -871,6 +899,7 @@
 
     mountRecipeForm({});
 
+    document.getElementById('rc-rd-backdrop').classList.add('open');
     rdEl.classList.add('open');
     rdEl.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -880,7 +909,7 @@
 
   function exitAddMode() {
     inAddMode = false;
-    document.getElementById('rc-rd-view-bar').style.display = '';
+    setViewChrome(true);
     document.getElementById('rc-rd-inner').style.display = '';
     document.getElementById('rc-rd-edit-bar').style.display = 'none';
     var form = document.getElementById('rc-rd-edit-form');
@@ -995,7 +1024,7 @@
   function exitEditMode() {
     inEditMode = false;
 
-    document.getElementById('rc-rd-view-bar').style.display = '';
+    setViewChrome(true);
     document.getElementById('rc-rd-edit-bar').style.display = 'none';
     document.getElementById('rc-rd-inner').style.display = '';
 
@@ -1340,7 +1369,20 @@
 
       // Wire static buttons
       document.getElementById('rc-rd-back').addEventListener('click', closeDetail);
-      document.getElementById('rc-rd-edit').addEventListener('click', enterEditMode);
+      document.getElementById('rc-rd-backdrop').addEventListener('click', closeDetail);
+      document.getElementById('rc-rd-more').addEventListener('click', function (e) {
+        e.stopPropagation();
+        var m = document.getElementById('rc-rd-more-menu');
+        if (m.classList.contains('open')) closeMoreMenu(); else openMoreMenu();
+      });
+      document.getElementById('rc-rd-menu-edit').addEventListener('click', function () {
+        closeMoreMenu(); enterEditMode();
+      });
+      // Tap anywhere else closes the ⋯ menu
+      document.addEventListener('click', function (e) {
+        var menu = document.getElementById('rc-rd-more-menu');
+        if (menu && menu.classList.contains('open') && !e.target.closest('.rc-rd-more-wrap')) closeMoreMenu();
+      });
       document.getElementById('rc-rd-cancel').addEventListener('click', function () {
         if (inAddMode) closeDetail(); else exitEditMode();
       });
