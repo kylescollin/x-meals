@@ -810,7 +810,7 @@
     {
       "id": "spicy-garlic-chicken-bowl-with-hummus",
       "icon": "🫕",
-      "label": "Bowl · 20 min",
+      "label": "Meal B · 20 min",
       "name": "Spicy Garlic Chicken Bowl with Hummus",
       "meta": "~20 min · Stovetop · Serves 4",
       "tags": [],
@@ -818,10 +818,13 @@
         "1 lb boneless skinless chicken thighs, cubed",
         "2 Tbsp olive oil",
         "4 cloves garlic, minced",
-        "1 tsp paprika, ½ tsp cayenne, 1 tsp cumin",
+        "1 tsp paprika",
+        "½ tsp cayenne",
+        "1 tsp cumin",
         "Salt and black pepper",
         "1 cup hummus",
         "1 large cucumber, diced",
+        "1 pint of cherry tomatoes",
         "½ red onion, thinly sliced",
         "¼ cup fresh parsley, chopped",
         "2 Tbsp lemon juice",
@@ -832,8 +835,7 @@
         "Heat skillet over medium-high; cook chicken until browned and cooked through, 8–10 min.",
         "Combine cucumber, red onion, parsley, and lemon juice for the salad.",
         "Divide rice or quinoa among bowls. Top with chicken, a scoop of hummus, and the cucumber salad. Serve immediately."
-      ],
-      "note": ""
+      ]
     },
     {
       "id": "lemon-chili-grilled-chicken-bowls-with-hummus",
