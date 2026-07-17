@@ -1284,7 +1284,7 @@
     {
       "id": "mexican-street-corn-pasta-salad",
       "icon": "🌮",
-      "label": "Pasta",
+      "label": "Meal A",
       "name": "Mexican Street Corn Pasta Salad",
       "meta": "",
       "tags": [],
@@ -1293,7 +1293,7 @@
         "2 cups corn (grilled, frozen, or canned)",
         "1/3 cup mayonnaise",
         "1/3 cup sour cream",
-        "1 tablespoon lime juice",
+        "2 limes (1.5 tbsp juice)",
         "1 teaspoon chili powder",
         "1/2 teaspoon smoked paprika",
         "1/4 teaspoon garlic powder",
@@ -1301,7 +1301,7 @@
         "1/4 cup chopped fresh cilantro",
         "1/3 cup crumbled cotija cheese",
         "1 pint cherry tomatoes",
-        "1 avocado"
+        "2 avocados"
       ],
       "steps": [
         "In a large bowl, combine the cooked and cooled pasta with corn.",
