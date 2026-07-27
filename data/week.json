@@ -1,350 +1,39 @@
 {
-  "weekOf": "2026-07-13",
-  "title": "Week of July 13",
-  "subhead": "3 dinners · Serves 4",
+  "weekOf": "2026-07-27",
+  "title": "Week of July 27",
+  "subhead": "1 dinner · Serves 4",
   "meals": [
     {
-      "id": "mexican-street-corn-pasta-salad",
-      "icon": "🌮",
-      "name": "Mexican Street Corn Pasta Salad",
-      "meta": "",
+      "id": "seared-salmon-with-lemon-orzo",
+      "icon": "🐟",
+      "name": "Seared Salmon with Lemon Orzo",
+      "meta": "30 min · Stovetop · Serves 4",
       "ings": [
-        "3 cups cooked rotini or penne pasta",
-        "2 cups corn (grilled, frozen, or canned)",
-        "1/3 cup mayonnaise",
-        "1/3 cup sour cream",
-        "1 tablespoon lime juice",
-        "1 teaspoon chili powder",
-        "1/2 teaspoon smoked paprika",
-        "1/4 teaspoon garlic powder",
-        "Salt and pepper to taste",
-        "1/4 cup chopped fresh cilantro",
-        "1/3 cup crumbled cotija cheese",
-        "1 pint cherry tomatoes",
-        "1 avocado"
+        "4 salmon fillets, ~6 oz each, skinless",
+        "2 Tbsp olive oil, salt, pepper, 1 tsp garlic powder",
+        "2 Tbsp butter",
+        "3 cloves garlic, minced",
+        "1 small shallot, finely chopped",
+        "¼ cup white wine",
+        "2½ cups chicken broth",
+        "1½ cups orzo pasta",
+        "½ cup heavy cream",
+        "½ cup grated Parmesan",
+        "1 Tbsp fresh lemon juice",
+        "2 cups fresh baby spinach",
+        "Lemon zest and fresh parsley for garnish"
       ],
       "steps": [
-        "In a large bowl, combine the cooked and cooled pasta with corn.",
-        "In a separate bowl, whisk together mayonnaise, sour cream, lime juice, chili powder, paprika, garlic powder, salt, and pepper.",
-        "Pour the dressing over the pasta mixture and toss until fully coated.",
-        "Fold in chopped cilantro and cotija cheese.Salad dressing guide",
-        "Chill in the refrigerator for 30 minutes before serving."
+        "Season salmon with salt, pepper, and garlic powder. Heat skillet over medium-high with oil. Sear salmon 2 min per side. Remove and set aside.",
+        "Melt butter in same skillet. Add garlic and shallots; cook 1–2 min. Add wine to deglaze, scraping up any bits.",
+        "Add broth; bring to simmer. Stir in orzo; cook 10 min, stirring occasionally, until tender and broth is absorbed.",
+        "Stir in cream, Parmesan, and lemon juice.",
+        "Return salmon to skillet. Add spinach; cook 2–3 min. Garnish with parsley and lemon zest."
       ],
       "day": "Monday",
-      "note": "Use grilled corn for the most flavor. Add diced jalapeños or hot sauce for extra heat. Great make-ahead dish for BBQs and potlucks.",
       "label": "Meal A",
-      "date": "7/13"
-    },
-    {
-      "id": "spicy-garlic-chicken-bowl-with-hummus",
-      "icon": "🫕",
-      "name": "Spicy Garlic Chicken Bowl with Hummus",
-      "meta": "~20 min · Stovetop · Serves 4",
-      "ings": [
-        "1 lb boneless skinless chicken thighs, cubed",
-        "2 Tbsp olive oil",
-        "4 cloves garlic, minced",
-        "1 tsp paprika, ½ tsp cayenne, 1 tsp cumin",
-        "Salt and black pepper",
-        "1 cup hummus",
-        "1 large cucumber, diced",
-        "½ red onion, thinly sliced",
-        "¼ cup fresh parsley, chopped",
-        "2 Tbsp lemon juice",
-        "Cooked rice or quinoa for serving"
-      ],
-      "steps": [
-        "Toss chicken with oil, garlic, paprika, cayenne, cumin, salt, and pepper.",
-        "Heat skillet over medium-high; cook chicken until browned and cooked through, 8–10 min.",
-        "Combine cucumber, red onion, parsley, and lemon juice for the salad.",
-        "Divide rice or quinoa among bowls. Top with chicken, a scoop of hummus, and the cucumber salad. Serve immediately."
-      ],
-      "day": "Tuesday",
-      "label": "Meal B",
-      "date": "7/14"
-    },
-    {
-      "id": "marry-me-chicken-gnocchi",
-      "icon": "🍲",
-      "name": "Marry Me Chicken Gnocchi",
-      "meta": "~30 min · One pan · Serves 4",
-      "ings": [
-        "1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces",
-        "2 Tbsp olive oil (or oil from the sun-dried tomato jar)",
-        "Salt and black pepper",
-        "1 small shallot or ½ onion, diced",
-        "4 cloves garlic, minced",
-        "⅔ cup sun-dried tomatoes (oil-packed), drained and chopped",
-        "1 (16 oz) package shelf-stable potato gnocchi",
-        "1 cup low-sodium chicken broth",
-        "1 cup half-and-half (or ¾ cup heavy cream)",
-        "½ cup freshly grated Parmesan",
-        "2 cups fresh baby spinach",
-        "Fresh basil, torn, for serving",
-        "Red pepper flakes (optional, for adults only)"
-      ],
-      "steps": [
-        "Season chicken with salt and pepper. Heat 1 Tbsp oil in a large high-sided skillet over medium-high. Sear chicken in a single layer 3–4 min per side until golden (doesn't need to be cooked through). Remove and set aside.",
-        "Add remaining oil and shallot to the skillet; sauté 2–3 min. Add garlic and sun-dried tomatoes; cook 1 min until fragrant.",
-        "Add uncooked gnocchi, breaking apart any stuck pieces. Pour in chicken broth and half-and-half; season with salt and pepper. Cover and cook over medium 5 min until gnocchi are tender and fluffy.",
-        "Return chicken to the pan. Add spinach; cook uncovered 3–5 min until chicken is cooked through and spinach is wilted.",
-        "Stir in Parmesan until melted and the sauce is creamy. Top with torn basil. Serve with red pepper flakes on the side for adults."
-      ],
-      "day": "Wednesday",
-      "note": "💡 The base recipe is mild — keep the red pepper flakes off to the side so the kids can eat it. Gnocchi cooks right in the sauce, no boiling needed.",
-      "label": "Meal C",
-      "date": "7/15"
+      "date": "7/27"
     }
   ],
-  "groceries": [
-    {
-      "icon": "🥦",
-      "label": "Produce",
-      "items": [
-        {
-          "name": "1 pint cherry tomatoes",
-          "detail": "Meal A · tossed into pasta salad",
-          "tag": "Meal A",
-          "amazon": "cherry tomatoes pint",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 avocado",
-          "detail": "Meal A · served with pasta salad",
-          "tag": "Meal A",
-          "amazon": "avocado",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 lime (for juice)",
-          "detail": "Meal A · 1 Tbsp juice for dressing",
-          "tag": "Meal A",
-          "amazon": "fresh lime",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 small bunch fresh cilantro",
-          "detail": "Meal A · chopped and folded into pasta salad",
-          "tag": "Meal A",
-          "amazon": "fresh cilantro",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "6 cloves garlic",
-          "detail": "4 cloves for Meal B chicken marinade · 4 cloves for Meal C sauce",
-          "tag": "Meals B+C",
-          "amazon": "garlic bulb",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "1 large cucumber",
-          "detail": "Meal B · diced for cucumber salad",
-          "tag": "Meal B",
-          "amazon": "large english cucumber",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "½ red onion",
-          "detail": "Meal B · thinly sliced for cucumber salad",
-          "tag": "Meal B",
-          "amazon": "red onion",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 small bunch fresh parsley",
-          "detail": "Meal B · chopped for cucumber salad",
-          "tag": "Meal B",
-          "amazon": "fresh parsley",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 lemon (for juice)",
-          "detail": "Meal B · 2 Tbsp juice for cucumber salad",
-          "tag": "Meal B",
-          "amazon": "fresh lemon",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "1 small shallot (or ½ onion)",
-          "detail": "Meal C · diced and sautéed as base of sauce",
-          "tag": "Meal C",
-          "amazon": "shallot",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "2 cups fresh baby spinach",
-          "detail": "Meal C · wilted into the gnocchi sauce",
-          "tag": "Meal C",
-          "amazon": "fresh baby spinach",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 small bunch fresh basil",
-          "detail": "Meal C · torn and served on top of gnocchi dish",
-          "tag": "Meal C",
-          "amazon": "fresh basil",
-          "tagClass": "tag-pasta"
-        }
-      ]
-    },
-    {
-      "icon": "🥩",
-      "label": "Protein",
-      "items": [
-        {
-          "name": "about 2½ lb boneless skinless chicken thighs",
-          "detail": "1 lb cubed for Meal B spicy garlic bowl · 1¼ lb cut into pieces for Meal C gnocchi",
-          "tag": "Meals B+C",
-          "amazon": "boneless skinless chicken thighs",
-          "tagClass": "tag-shared"
-        }
-      ]
-    },
-    {
-      "icon": "🧈",
-      "label": "Dairy & Refrigerated",
-      "items": [
-        {
-          "name": "1/3 cup sour cream",
-          "detail": "Meal A · mixed into pasta salad dressing",
-          "tag": "Meal A",
-          "amazon": "sour cream",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1/3 cup crumbled cotija cheese",
-          "detail": "Meal A · folded into pasta salad",
-          "tag": "Meal A",
-          "amazon": "cotija cheese crumbled",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "½ cup freshly grated Parmesan",
-          "detail": "Meal C · stirred into sauce until melted",
-          "tag": "Meal C",
-          "amazon": "parmesan cheese block",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 cup half-and-half (or ¾ cup heavy cream)",
-          "detail": "Meal C · base of the creamy gnocchi sauce",
-          "tag": "Meal C",
-          "amazon": "half and half",
-          "tagClass": "tag-pasta"
-        }
-      ]
-    },
-    {
-      "icon": "🫙",
-      "label": "Pantry & Canned",
-      "items": [
-        {
-          "name": "3 cups dry rotini or penne pasta",
-          "detail": "Meal A · cooked and cooled as salad base",
-          "tag": "Meal A",
-          "amazon": "rotini pasta",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "2 cups corn (frozen or canned)",
-          "detail": "Meal A · mixed into pasta salad",
-          "tag": "Meal A",
-          "amazon": "frozen sweet corn",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1/3 cup mayonnaise",
-          "detail": "Meal A · mixed into pasta salad dressing",
-          "tag": "Meal A",
-          "amazon": "mayonnaise",
-          "tagClass": "tag-chili"
-        },
-        {
-          "name": "1 cup hummus",
-          "detail": "Meal B · scooped into chicken bowls",
-          "tag": "Meal B",
-          "amazon": "hummus",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "rice or quinoa for serving (about 2 cups dry)",
-          "detail": "Meal B · base for spicy garlic chicken bowls",
-          "tag": "Meal B",
-          "amazon": "white rice",
-          "tagClass": "tag-cauliflower"
-        },
-        {
-          "name": "⅔ cup oil-packed sun-dried tomatoes",
-          "detail": "Meal C · chopped and cooked into sauce",
-          "tag": "Meal C",
-          "amazon": "sun dried tomatoes oil packed jar",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 (16 oz) package shelf-stable potato gnocchi",
-          "detail": "Meal C · cooked directly in the sauce",
-          "tag": "Meal C",
-          "amazon": "shelf stable potato gnocchi",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "1 cup low-sodium chicken broth",
-          "detail": "Meal C · simmered with gnocchi and cream",
-          "tag": "Meal C",
-          "amazon": "low sodium chicken broth",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "name": "olive oil (about 4 Tbsp total)",
-          "detail": "2 Tbsp for Meal B chicken · 2 Tbsp for Meal C sear and sauté",
-          "tag": "Meals B+C",
-          "amazon": "olive oil",
-          "tagClass": "tag-shared"
-        }
-      ]
-    },
-    {
-      "icon": "🌿",
-      "label": "Spices",
-      "note": "Check pantry before ordering — you likely have most of these.",
-      "items": [
-        {
-          "name": "chili powder",
-          "detail": "Meal A · 1 tsp in pasta salad dressing",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "smoked paprika",
-          "detail": "Meal A · ½ tsp in pasta salad dressing · Meal B · 1 tsp in chicken marinade",
-          "tag": "Meals A+B",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "garlic powder",
-          "detail": "Meal A · ¼ tsp in pasta salad dressing",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "salt and black pepper",
-          "detail": "Meal A dressing · Meal B chicken · Meal C chicken and sauce",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "cayenne pepper",
-          "detail": "Meal B · ½ tsp in chicken marinade",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "cumin",
-          "detail": "Meal B · 1 tsp in chicken marinade",
-          "tagClass": "tag-shared"
-        },
-        {
-          "name": "red pepper flakes",
-          "detail": "Meal C · optional, served on the side for adults",
-          "tagClass": "tag-shared"
-        }
-      ]
-    }
-  ]
+  "groceries": []
 }
