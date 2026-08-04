@@ -16,10 +16,9 @@ function convertToRecipeFormat(meal) {
   const recipe = {
     id: meal.id,
     icon: meal.icon || '🍽️',
-    label: '',
     name: meal.name,
     meta: meal.meta || '',
-    tags: [],
+    tags: meal.tags || [],
     ingredients: meal.ingredients || meal.ings || [],
     steps: meal.steps || [],
   };
@@ -31,6 +30,7 @@ function toMarkdown(recipe) {
   const lines = [
     '## ' + recipe.name,
     '',
+    '**Tags:** ' + ((recipe.tags || []).join(' · ') || '—'),
     '**Meta:** ' + recipe.meta,
     '',
     '### Ingredients',

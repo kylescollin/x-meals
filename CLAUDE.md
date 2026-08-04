@@ -42,7 +42,8 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 
 **Data:**
 - `data/week.json` — Current week's full data. Agent X writes this each week. See schema below.
-- `data/recipes.json` — All saved recipes (~37). Agent X can update this as new recipes are added.
+- `data/recipes.json` — All saved recipes (~45). Agent X can update this as new recipes are added.
+  Each carries a `tags` array — see **Recipe Tags** below.
 - `data/history.json` — Array of all past weeks, newest first. Agent X prepends to this each week before writing a new `week.json`. Used as backfill source for Firebase history.
 - `data/history/YYYY-MM-DD.json` — Individual per-week archive files (backup copies).
 - `recipes.md` — Human-readable master recipe list. Source of truth for Agent X when suggesting meals.
@@ -82,7 +83,7 @@ unexpired at `/config/githubToken`.
 
 ### In-browser recipe adding (Add mode on recipes.html)
 
-`recipes.html` has a **"+ Add recipe"** button that opens a blank form (emoji, name, details,
+`recipes.html` has a **"+ Add recipe"** button that opens a blank form (emoji, name, tags, details,
 ingredients, steps, tip). On **Save** (`saveNewRecipe` in `recipe-card.js`) it does two things:
 1. Saves the recipe to Firebase via the existing `toggleSave` flow — instant, syncs between the two
    accounts, and shows it immediately under the **"Your Recipes"** section.
@@ -92,6 +93,31 @@ ingredients, steps, tip). On **Save** (`saveNewRecipe` in `recipe-card.js`) it d
 
 New recipes get an `id` that is a slug of the name, with a numeric suffix on collision. This is the
 only place outside Agent X that writes `data/recipes.json`.
+
+## Recipe Tags
+
+Every recipe in `data/recipes.json` is categorised by an **ordered `tags` array** — one dish type,
+then one cuisine. There is no `label` or `category` field; the vocabulary lives in `TAG_FAMILIES`
+at the top of `recipe-card.js` and drives the card eyebrow, the recipe detail view, and the filter
+panel on `recipes.html`.
+
+**Type of dish** — Pasta, Noodles, Soup, Chili, Stew, Curry, Tacos, Handheld, Bowl, Rice, Salad,
+Stir Fry, Bake, Roast Dinner, Skillet Dinner, Sandwich, Sauce, Eggs
+
+**Cuisine** — Italian, Mexican, American, Asian, Indian, Mediterranean, Middle Eastern, Cajun, French
+
+```json
+"tags": ["Pasta", "Italian"]
+```
+
+Rules for Agent X when adding a recipe:
+- Always set `tags` with exactly one dish type followed by one cuisine, both from the lists above.
+  Don't invent new values — a new tag fragments the filter panel. If nothing fits, say so rather
+  than guessing.
+- Cook time is **not** a tag. It stays as the first segment of `meta`
+  (`"30 min · Stovetop · Serves 4"`), which is also what the time and equipment filters parse.
+- `week.json` meals don't need tags — the site looks them up by recipe `id` from `data/recipes.json`.
+  The `"label": "Meal A"` on a weekly meal is only used for grocery tag colors, never as a category.
 
 ## data/week.json Schema
 

@@ -3,10 +3,12 @@
     {
       "id": "slow-cooker-chili",
       "icon": "🌶️",
-      "label": "Soup · 6 hrs",
       "name": "Slow Cooker Chili",
       "meta": "6 hrs 15 min · Slow Cooker · Serves 8",
-      "tags": [],
+      "tags": [
+        "Chili",
+        "American"
+      ],
       "ingredients": [
         "1 Tbsp olive oil",
         "2 lbs lean ground beef",
@@ -38,10 +40,12 @@
     {
       "id": "creamy-sausage-and-peppers-pasta",
       "icon": "🍝",
-      "label": "Pasta · 40 min",
       "name": "Creamy Sausage and Peppers Pasta",
       "meta": "40 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
       "ingredients": [
         "8 oz uncooked pasta (bucatini recommended)",
         "1 lb Italian sausage",
@@ -70,10 +74,12 @@
     {
       "id": "zucchini-tomato-italian-sausage-soup",
       "icon": "🥣",
-      "label": "Soup · 35 min",
       "name": "Zucchini Tomato Italian Sausage Soup",
       "meta": "~35 min · Stovetop",
-      "tags": [],
+      "tags": [
+        "Soup",
+        "Italian"
+      ],
       "ingredients": [
         "Italian sausage",
         "Zucchini",
@@ -88,10 +94,12 @@
     {
       "id": "vegetarian-quesadillas",
       "icon": "🫓",
-      "label": "Veggie · 25 min",
       "name": "Vegetarian Quesadillas",
       "meta": "25 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Handheld",
+        "Mexican"
+      ],
       "ingredients": [
         "4 medium flour tortillas",
         "1 large sweet potato",
@@ -118,10 +126,12 @@
     {
       "id": "creamy-chorizo-gnocchi",
       "icon": "🍝",
-      "label": "Pasta · 20 min",
       "name": "Creamy Chorizo Gnocchi",
       "meta": "20 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
       "ingredients": [
         "500 g gnocchi",
         "1 Tbsp olive oil",
@@ -150,10 +160,12 @@
     {
       "id": "easy-weeknight-salmon-sushi-bowls",
       "icon": "🍣",
-      "label": "Bowl · 20 min",
       "name": "Easy Weeknight Salmon Sushi Bowls",
       "meta": "~20 min · Bowl · Serves 4",
-      "tags": [],
+      "tags": [
+        "Bowl",
+        "Asian"
+      ],
       "ingredients": [
         "2½ cups sushi or jasmine rice",
         "¼ cup rice vinegar",
@@ -178,10 +190,12 @@
     {
       "id": "butternut-squash-ravioli-with-brown-butter-sage",
       "icon": "🧈",
-      "label": "Pasta · 8 min",
       "name": "Butternut Squash Ravioli with Brown Butter Sage",
       "meta": "8 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
       "ingredients": [
         "8–10 oz butternut squash ravioli",
         "½ cup unsalted butter, cubed",
@@ -202,10 +216,12 @@
     {
       "id": "creamy-chicken-tortilla-soup",
       "icon": "🍲",
-      "label": "Soup · 30 min",
       "name": "Creamy Chicken Tortilla Soup",
       "meta": "30 min · Stovetop · Serves 6",
-      "tags": [],
+      "tags": [
+        "Soup",
+        "Mexican"
+      ],
       "ingredients": [
         "1 Tbsp olive oil",
         "½ medium onion, chopped",
@@ -232,10 +248,12 @@
     {
       "id": "lentil-soup-with-sausage-chard-and-garlic",
       "icon": "🥣",
-      "label": "Soup · 1 hr",
       "name": "Lentil Soup with Sausage, Chard and Garlic",
       "meta": "~1 hour · Stovetop · Serves 6",
-      "tags": [],
+      "tags": [
+        "Soup",
+        "Italian"
+      ],
       "ingredients": [
         "¼ cup olive oil, divided",
         "4 large links (1 lb) sweet Italian sausage",
@@ -262,10 +280,12 @@
     {
       "id": "best-lasagna",
       "icon": "🫕",
-      "label": "Pasta · 1 hr 55 min",
       "name": "Best Lasagna",
       "meta": "1 hr 55 min · Oven · Serves 12",
-      "tags": [],
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
       "ingredients": [
         "1 lb dried lasagna noodles",
         "1 lb ground beef (or turkey, or ½ beef ½ mild sausage)",
@@ -293,10 +313,12 @@
     {
       "id": "italian-meat-sauce",
       "icon": "🍅",
-      "label": "Sauce · 75 min",
       "name": "Italian Meat Sauce",
       "meta": "75 min · Stovetop · Serves 12",
-      "tags": [],
+      "tags": [
+        "Sauce",
+        "Italian"
+      ],
       "ingredients": [
         "¼ cup extra virgin olive oil",
         "1 large sweet onion, diced",
@@ -322,10 +344,12 @@
     {
       "id": "vegetarian-grain-bowl-meal-prep",
       "icon": "🥗",
-      "label": "Bowl · 40 min",
       "name": "Vegetarian Grain Bowl Meal Prep",
       "meta": "40 min · Oven · Serves 4",
-      "tags": [],
+      "tags": [
+        "Bowl",
+        "Mediterranean"
+      ],
       "ingredients": [
         "1 sweet potato, peeled and chopped",
         "½ lb brussels sprouts, halved",
@@ -352,10 +376,12 @@
     {
       "id": "air-fryer-fish-tacos-with-cilantro-lime-slaw",
       "icon": "🌮",
-      "label": "Tacos · 20 min",
       "name": "Air Fryer Fish Tacos with Cilantro Lime Slaw",
       "meta": "20 min · Air Fryer · Serves 4",
-      "tags": [],
+      "tags": [
+        "Tacos",
+        "Mexican"
+      ],
       "ingredients": [
         "1½ lb tilapia or white fish",
         "1 tsp chili powder, ½ tsp oregano, ½ tsp garlic powder",
@@ -379,10 +405,12 @@
     {
       "id": "creamy-tomato-gnocchi-with-burrata",
       "icon": "🍝",
-      "label": "Pasta · 30 min",
       "name": "Creamy Tomato Gnocchi with Burrata",
       "meta": "30 min · Stovetop · Serves 6",
-      "tags": [],
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
       "ingredients": [
         "¼ cup extra-virgin olive oil",
         "6–8 garlic cloves, peeled and lightly crushed",
@@ -406,10 +434,12 @@
     {
       "id": "white-chicken-chili",
       "icon": "🫕",
-      "label": "Soup · 45 min",
       "name": "White Chicken Chili",
       "meta": "45 min · Stovetop · Serves 5",
-      "tags": [],
+      "tags": [
+        "Chili",
+        "Mexican"
+      ],
       "ingredients": [
         "1 Tbsp olive oil",
         "1 small yellow onion, chopped",
@@ -436,10 +466,12 @@
     {
       "id": "teriyaki-chicken-tacos-with-sesame-cucumber-slaw",
       "icon": "🌮",
-      "label": "Tacos · 30 min",
       "name": "Teriyaki Chicken Tacos with Sesame Cucumber Slaw",
       "meta": "30 min · Instant Pot · Serves 4",
-      "tags": [],
+      "tags": [
+        "Tacos",
+        "Asian"
+      ],
       "ingredients": [
         "2 lb boneless skinless chicken thighs",
         "Salt and pepper",
@@ -463,10 +495,12 @@
     {
       "id": "sausage-white-bean-soup",
       "icon": "🥣",
-      "label": "Soup · 30 min",
       "name": "Sausage White Bean Soup",
       "meta": "~30 min · Stovetop",
-      "tags": [],
+      "tags": [
+        "Soup",
+        "Italian"
+      ],
       "ingredients": [
         "1 lb Italian sausage, crumbled",
         "1 Tbsp olive oil",
@@ -490,10 +524,12 @@
     {
       "id": "slow-cooker-chicken-pot-pie",
       "icon": "🥧",
-      "label": "Slow Cooker · 3+ hrs",
       "name": "Slow Cooker Chicken Pot Pie",
       "meta": "3–8 hrs · Slow Cooker · Serves 6",
-      "tags": [],
+      "tags": [
+        "Stew",
+        "American"
+      ],
       "ingredients": [
         "1½ lbs boneless skinless chicken breasts",
         "½ cup low-sodium chicken broth",
@@ -517,10 +553,12 @@
     {
       "id": "creamy-parmesan-sausage-ditalini-soup",
       "icon": "🍲",
-      "label": "Soup · 30 min",
       "name": "Creamy Parmesan Sausage Ditalini Soup",
       "meta": "~30 min · Stovetop",
-      "tags": [],
+      "tags": [
+        "Soup",
+        "Italian"
+      ],
       "ingredients": [
         "1 lb Italian sausage",
         "1 Tbsp olive oil",
@@ -547,10 +585,12 @@
     {
       "id": "seared-salmon-with-lemon-orzo",
       "icon": "🐟",
-      "label": "Seafood · 30 min",
       "name": "Seared Salmon with Lemon Orzo",
       "meta": "30 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Skillet Dinner",
+        "Mediterranean"
+      ],
       "ingredients": [
         "4 salmon fillets, ~6 oz each, skinless",
         "2 Tbsp olive oil, salt, pepper, 1 tsp garlic powder",
@@ -578,10 +618,12 @@
     {
       "id": "falafel-bowl-with-tahini-dressing",
       "icon": "🧆",
-      "label": "Bowl · 45 min",
       "name": "Falafel Bowl with Tahini Dressing",
       "meta": "~45 min · Oven or Air Fryer · Serves 4",
-      "tags": [],
+      "tags": [
+        "Bowl",
+        "Middle Eastern"
+      ],
       "ingredients": [
         "1 cup dried chickpeas, soaked overnight",
         "½ cup fresh cilantro, ½ cup fresh parsley",
@@ -607,10 +649,12 @@
     {
       "id": "one-pan-coconut-curry-salmon",
       "icon": "🥥",
-      "label": "Seafood · 30 min",
       "name": "One-Pan Coconut Curry Salmon",
       "meta": "30 min · One Pan · Serves 4",
-      "tags": [],
+      "tags": [
+        "Curry",
+        "Asian"
+      ],
       "ingredients": [
         "4 salmon fillets, 1 tsp salt, ½ tsp pepper, ½ tsp paprika",
         "1 Tbsp olive oil",
@@ -635,10 +679,12 @@
     {
       "id": "ground-turkey-teriyaki-stir-fry",
       "icon": "🥦",
-      "label": "Stir Fry · 30 min",
       "name": "Ground Turkey Teriyaki Stir Fry",
       "meta": "30 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Stir Fry",
+        "Asian"
+      ],
       "ingredients": [
         "1 lb ground turkey",
         "2 tsp sesame oil",
@@ -663,10 +709,12 @@
     {
       "id": "corn-chowder",
       "icon": "🌽",
-      "label": "Soup · 45 min",
       "name": "Corn Chowder",
       "meta": "45 min · Stovetop · Serves 6",
-      "tags": [],
+      "tags": [
+        "Soup",
+        "American"
+      ],
       "ingredients": [
         "4 slices thick-cut bacon, diced",
         "2 Tbsp butter",
@@ -695,10 +743,12 @@
     {
       "id": "pesto-chicken-tortellini-and-veggies",
       "icon": "🌿",
-      "label": "Pasta · 40 min",
       "name": "Pesto Chicken Tortellini and Veggies",
       "meta": "40 min · One Pan · Serves 4",
-      "tags": [],
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
       "ingredients": [
         "2 Tbsp olive oil",
         "1 lb boneless skinless chicken thighs, sliced into strips",
@@ -721,10 +771,12 @@
     {
       "id": "butter-cauliflower",
       "icon": "🌸",
-      "label": "Veggie · 1 hr 5 min",
       "name": "Butter Cauliflower",
       "meta": "1 hr 5 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Curry",
+        "Indian"
+      ],
       "ingredients": [
         "2 Tbsp fresh lemon juice",
         "2 tsp cornstarch",
@@ -751,10 +803,12 @@
     {
       "id": "vegan-mushroom-bourguignon",
       "icon": "🍄",
-      "label": "Veggie · 50 min",
       "name": "Vegan Mushroom Bourguignon",
       "meta": "50 min · Stovetop · Serves 3",
-      "tags": [],
+      "tags": [
+        "Stew",
+        "French"
+      ],
       "ingredients": [
         "1 oz dried mushrooms (or 10 oz fresh)",
         "1 Tbsp oil, ½ large onion diced",
@@ -780,10 +834,12 @@
     {
       "id": "louisiana-red-beans-and-rice",
       "icon": "🫘",
-      "label": "Rice · 2–3 hrs",
       "name": "Louisiana Red Beans and Rice",
       "meta": "2–3 hrs · Stovetop · Serves 6",
-      "tags": [],
+      "tags": [
+        "Rice",
+        "Cajun"
+      ],
       "ingredients": [
         "1 lb dried red kidney beans, soaked overnight",
         "1 lb smoked sausage, sliced",
@@ -810,10 +866,12 @@
     {
       "id": "spicy-garlic-chicken-bowl-with-hummus",
       "icon": "🫕",
-      "label": "Bowl · 20 min",
       "name": "Spicy Garlic Chicken Bowl with Hummus",
       "meta": "~20 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Bowl",
+        "Mediterranean"
+      ],
       "ingredients": [
         "1 lb boneless skinless chicken thighs, cubed",
         "2 Tbsp olive oil",
@@ -840,10 +898,12 @@
     {
       "id": "lemon-chili-grilled-chicken-bowls-with-hummus",
       "icon": "🍋",
-      "label": "Bowl · 35 min",
       "name": "Lemon Chili Grilled Chicken Bowls with Hummus",
       "meta": "35 min · Grill · Serves 2",
-      "tags": [],
+      "tags": [
+        "Bowl",
+        "Mediterranean"
+      ],
       "ingredients": [
         "2 chicken breasts, diced",
         "1 Tbsp olive oil, 2 garlic cloves minced",
@@ -866,10 +926,12 @@
     {
       "id": "creamy-parmesan-sausage-ditalini-soup-v2",
       "icon": "🍲",
-      "label": "Soup · 40 min",
       "name": "Creamy Parmesan Sausage Ditalini Soup (v2)",
       "meta": "40 min · Stovetop · Serves 6",
-      "tags": [],
+      "tags": [
+        "Soup",
+        "Italian"
+      ],
       "ingredients": [
         "1 lb Italian sausage",
         "1 small onion, chopped",
@@ -893,10 +955,12 @@
     {
       "id": "homemade-crunchwrap-supreme",
       "icon": "🌯",
-      "label": "Tacos · 25 min",
       "name": "Homemade Crunchwrap Supreme",
       "meta": "25 min · Stovetop · Serves 6",
-      "tags": [],
+      "tags": [
+        "Handheld",
+        "Mexican"
+      ],
       "ingredients": [
         "1 lb ground meat",
         "1 packet taco seasoning",
@@ -920,10 +984,12 @@
     {
       "id": "chicken-pineapple-fried-rice",
       "icon": "🍍",
-      "label": "Rice · 30 min",
       "name": "Chicken Pineapple Fried Rice",
       "meta": "30 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Rice",
+        "Asian"
+      ],
       "ingredients": [
         "3 cups cooked jasmine rice, cold",
         "½ lb skinless boneless chicken thighs",
@@ -948,10 +1014,12 @@
     {
       "id": "easy-shrimp-alfredo",
       "icon": "🍤",
-      "label": "Pasta · 30 min",
       "name": "Easy Shrimp Alfredo",
       "meta": "30 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
       "ingredients": [
         "1 lb uncooked shrimp, thawed and peeled",
         "8 oz uncooked fettuccine",
@@ -975,10 +1043,12 @@
     {
       "id": "creamy-spinach-and-mushroom-tortellini",
       "icon": "🍄",
-      "label": "Pasta · 50 min",
       "name": "Creamy Spinach and Mushroom Tortellini",
       "meta": "50 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
       "ingredients": [
         "2 Tbsp olive oil",
         "2 large yellow onions, thinly sliced",
@@ -1000,10 +1070,12 @@
     {
       "id": "garlic-sesame-noodles",
       "icon": "🍜",
-      "label": "Pasta · 15 min",
       "name": "Garlic Sesame Noodles",
       "meta": "15 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Noodles",
+        "Asian"
+      ],
       "ingredients": [
         "12 oz brown rice noodles",
         "1 Tbsp oil (avocado, olive, or coconut)",
@@ -1029,10 +1101,12 @@
     {
       "id": "shakshuka",
       "icon": "🍳",
-      "label": "Dinner · 30 min",
       "name": "Shakshuka",
       "meta": "30 min · Stovetop · Serves 6",
-      "tags": [],
+      "tags": [
+        "Eggs",
+        "Middle Eastern"
+      ],
       "ingredients": [
         "2 Tbsp olive oil",
         "1 medium onion, diced",
@@ -1056,10 +1130,12 @@
     {
       "id": "chicken-tikka-masala-cauliflower",
       "icon": "🍗",
-      "label": "Curry · 45 min",
       "name": "Chicken Tikka Masala + Cauliflower",
       "meta": "~45 min (marinate tonight!) · Serves 4–6",
-      "tags": [],
+      "tags": [
+        "Curry",
+        "Indian"
+      ],
       "ingredients": [
         "1 cup full-fat Greek yogurt",
         "2 tbsp fresh lemon juice",
@@ -1090,10 +1166,12 @@
     {
       "id": "honey-mustard-chicken-sheet-pan",
       "icon": "🍯",
-      "label": "Sheet Pan · 45 min",
       "name": "Sheet Pan Honey Mustard Chicken with Potatoes & Green Beans",
       "meta": "~45 min · Sheet pan · Serves 4",
-      "tags": [],
+      "tags": [
+        "Roast Dinner",
+        "American"
+      ],
       "ingredients": [
         "4 bone-in, skin-on chicken thighs",
         "1 lb baby red potatoes, halved",
@@ -1123,10 +1201,12 @@
     {
       "id": "lemon-dill-salmon-roasted-broccoli",
       "icon": "🐟",
-      "label": "Seafood · 25 min",
       "name": "Lemon Dill Salmon with Roasted Broccoli & Brown Rice",
       "meta": "~25 min · Sheet pan · Serves 4",
-      "tags": [],
+      "tags": [
+        "Roast Dinner",
+        "Mediterranean"
+      ],
       "ingredients": [
         "4 salmon fillets (5–6 oz each)",
         "1 lemon, half sliced thin, half for juice",
@@ -1152,10 +1232,12 @@
     {
       "id": "sheet-pan-beef-broccoli",
       "icon": "🥩",
-      "label": "Sheet Pan · 30 min",
       "name": "Sheet Pan Beef & Broccoli",
       "meta": "~30 min · Sheet pan · Serves 4",
-      "tags": [],
+      "tags": [
+        "Stir Fry",
+        "Asian"
+      ],
       "ingredients": [
         "1½ lb flank steak or sirloin, sliced thin against the grain",
         "4 cups broccoli florets",
@@ -1183,10 +1265,12 @@
     {
       "id": "healthy-chicken-pot-pie",
       "icon": "🥧",
-      "label": "Dinner · 55 min",
       "name": "Healthy Chicken Pot Pie",
       "meta": "~55 min · Oven · Serves 6",
-      "tags": [],
+      "tags": [
+        "Bake",
+        "American"
+      ],
       "ingredients": [
         "1 tbsp olive oil",
         "8 oz cremini mushrooms, sliced",
@@ -1220,10 +1304,12 @@
     {
       "id": "garlic-shrimp-scampi-linguine",
       "icon": "🍝",
-      "label": "Pasta · 30 min",
       "name": "Garlic Shrimp Scampi Linguine",
       "meta": "~30 min · Stovetop · Serves 4",
-      "tags": [],
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
       "ingredients": [
         "1 lb large shrimp, peeled and deveined",
         "8 oz linguine",
@@ -1253,10 +1339,12 @@
     {
       "id": "marry-me-chicken-gnocchi",
       "icon": "🍲",
-      "label": "Pasta · 30 min",
       "name": "Marry Me Chicken Gnocchi",
       "meta": "~30 min · One pan · Serves 4",
-      "tags": [],
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
       "ingredients": [
         "1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces",
         "2 Tbsp olive oil (or oil from the sun-dried tomato jar)",
@@ -1284,10 +1372,12 @@
     {
       "id": "mexican-street-corn-pasta-salad",
       "icon": "🌮",
-      "label": "Pasta · 20 min",
       "name": "Mexican Street Corn Pasta Salad",
       "meta": "20 min · Stovetop · Serves 6",
-      "tags": [],
+      "tags": [
+        "Salad",
+        "Mexican"
+      ],
       "ingredients": [
         "3 cups cooked rotini or penne pasta",
         "2 cups corn (grilled, frozen, or canned)",

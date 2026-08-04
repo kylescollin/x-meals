@@ -129,6 +129,8 @@ var recipesData = await fetch('data/recipes.json').then(function(r) { return r.j
 var RECIPES = recipesData.recipes || [];
 var CORE_IDS = {};
 RECIPES.forEach(function(r) { CORE_IDS[r.id] = true; });
+// So journal-saved copies of a recipe pick up that recipe's tags.
+RecipeCard.setTagIndex(RECIPES);
 
 // Search index: recipe id → searchable string
 var searchIndex = {};
@@ -138,19 +140,27 @@ var facets = {};
 function indexRecipe(r) {
   var id = RecipeCard.idOf(r);
   var ings = r.ings || r.ingredients || [];
-  searchIndex[id] = [r.name, r.label, r.meta, ings.join(' ')].join(' ').toLowerCase();
+  var tags = RecipeCard.tagsFor(r);
+  searchIndex[id] = [r.name, tags.join(' '), r.meta, ings.join(' ')].join(' ').toLowerCase();
   facets[id] = {
-    genre:    parseGenre(r.label),
-    minutes:  parseMinutes(r.meta) !== null ? parseMinutes(r.meta) : parseMinutes(r.label),
+    tags:     tags,
+    minutes:  parseMinutes(r.meta),
     methods:  parseMethods(r.meta),
     proteins: parseProteins(r.name, ings)
   };
 }
 
+// Tags of one family — dish, cuisine, or anything custom Kyle typed in.
+function tagsInFamily(facet, family) {
+  return (facet.tags || []).filter(function(t) { return RecipeCard.familyOf(t) === family; });
+}
+
 /* ---- Facet parsing -------------------------------------------------------
-   Recipes store genre/time/equipment as free text ("Pasta · 40 min",
-   "40 min · Stovetop · Serves 4"), so the filters are derived from those
-   strings at load time. Anything unparseable just drops out of that group. */
+   Dish type and cuisine come from each recipe's `tags` array. Time and
+   equipment are still free text ("40 min · Stovetop · Serves 4"), so those
+   filters are derived from that string at load time, and the protein from the
+   ingredients — no second place to maintain. Anything unparseable just drops
+   out of that group. */
 
 function segments(str) {
   return (str || '').split('·').map(function(s) { return s.trim(); }).filter(Boolean);
@@ -187,11 +197,6 @@ function parseMethods(meta) {
     var key = part.trim().toLowerCase();
     return METHOD_NAMES[key] || part.trim();
   }).filter(Boolean);
-}
-
-function parseGenre(label) {
-  var g = segments(label)[0] || '';
-  return (!g || /^Meal [A-Z]$/.test(g)) ? '' : g;
 }
 
 // Broth and sauces would otherwise make every soup read as chicken or fish.
@@ -232,8 +237,12 @@ var TIME_BUCKETS = [
 ];
 
 var FILTER_GROUPS = [
-  { key:'genre',   title:'Type of dish',
-    values:function(f) { return f.genre ? [f.genre] : []; } },
+  { key:'dish',    title:'Type of dish',
+    values:function(f) { return tagsInFamily(f, 'dish'); } },
+  { key:'cuisine', title:'Cuisine',
+    values:function(f) { return tagsInFamily(f, 'cuisine'); } },
+  { key:'custom',  title:'Your tags',
+    values:function(f) { return tagsInFamily(f, 'custom'); } },
   { key:'time',    title:'Total time', fixed:TIME_BUCKETS.map(function(b) { return b.label; }),
     values:function(f) {
       if (f.minutes === null || f.minutes === undefined) return [];
@@ -244,7 +253,8 @@ var FILTER_GROUPS = [
   { key:'protein', title:'Main protein', values:function(f) { return f.proteins; } }
 ];
 
-var selected  = { genre:{}, time:{}, method:{}, protein:{} };
+var selected  = {};
+FILTER_GROUPS.forEach(function(g) { selected[g.key] = {}; });
 var savedOnly = false;
 
 RecipeCard.init({
@@ -262,8 +272,7 @@ RecipeCard.init({
           list.appendChild(divider);
         }
         indexRecipe(recipeObj);
-        var lbl = (recipeObj.label && !/Meal [A-Z]/.test(recipeObj.label)) ? recipeObj.label : '';
-        var card = RecipeCard.makeCard(recipeObj, lbl);
+        var card = RecipeCard.makeCard(recipeObj);
         card.setAttribute('data-saved-id', id);
         list.appendChild(card);
         buildFilterPanel();
@@ -294,10 +303,8 @@ RecipeCard.init({
           divider.innerHTML = '<div class="section-divider-line"></div><span class="section-divider-label">Your Recipes</span><div class="section-divider-line"></div>';
           list.appendChild(divider);
           newlySaved.forEach(function(r) {
-            var displayR = Object.assign({}, r);
-            if (!displayR.label || /Meal [A-Z]/.test(displayR.label)) displayR.label = '';
             indexRecipe(r);
-            var card = RecipeCard.makeCard(displayR, displayR.label);
+            var card = RecipeCard.makeCard(r);
             var id = RecipeCard.idOf(r);
             card.setAttribute('data-saved-id', id);
             list.appendChild(card);

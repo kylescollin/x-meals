@@ -28,6 +28,59 @@
     '🥧', '🍰', '🧁', '🍪', '🍩', '🍫', '🍎', '🍋', '🥭', '🍇'
   ];
 
+  // ── Recipe tags ─────────────────────────────────────────────────────────
+  // Recipes are categorised by an ordered `tags` array: dish type first, then
+  // cuisine, then any custom tags. Cards show the first two ("PASTA · ITALIAN").
+  // Cook time is not a tag — it stays in `meta`, at the bottom of the card.
+  var TAG_FAMILIES = [
+    { key: 'dish', title: 'Type of dish', tags: [
+      'Pasta', 'Noodles', 'Soup', 'Chili', 'Stew', 'Curry', 'Tacos', 'Handheld',
+      'Bowl', 'Rice', 'Salad', 'Stir Fry', 'Bake', 'Roast Dinner',
+      'Skillet Dinner', 'Sandwich', 'Sauce', 'Eggs'
+    ] },
+    { key: 'cuisine', title: 'Cuisine', tags: [
+      'Italian', 'Mexican', 'American', 'Asian', 'Indian', 'Mediterranean',
+      'Middle Eastern', 'Cajun', 'French'
+    ] }
+  ];
+
+  // tag → family key, for anything in the vocabulary; 'custom' otherwise.
+  var TAG_FAMILY = {};
+  TAG_FAMILIES.forEach(function (fam) {
+    fam.tags.forEach(function (t) { TAG_FAMILY[t] = fam.key; });
+  });
+  function familyOf(tag) { return TAG_FAMILY[tag] || 'custom'; }
+
+  // Sort into dish → cuisine → custom, each family in vocabulary order, so the
+  // two tags a card shows are always the two most useful ones.
+  function sortTags(tags) {
+    var rank = {};
+    var n = 0;
+    TAG_FAMILIES.forEach(function (fam) {
+      fam.tags.forEach(function (t) { rank[t] = n++; });
+    });
+    return (tags || []).slice().sort(function (a, b) {
+      var ra = rank.hasOwnProperty(a) ? rank[a] : Infinity;
+      var rb = rank.hasOwnProperty(b) ? rank[b] : Infinity;
+      if (ra !== rb) return ra - rb;
+      return String(a).localeCompare(String(b));
+    });
+  }
+
+  var tagIndex = {};   // id → tags, from data/recipes.json (for weekly meals)
+
+  // A recipe's tags: its own, else the core recipe's by id, else a single tag
+  // recovered from a legacy "Category · time" label — which is also what keeps
+  // weekly "Meal A" labels from ever reading as a category again.
+  function tagsFor(recipe) {
+    if (!recipe) return [];
+    if (recipe.tags && recipe.tags.length) return sortTags(recipe.tags);
+    var byId = tagIndex[idOf(recipe)];
+    if (byId && byId.length) return byId;
+    var legacy = ((recipe.label || '').split('·')[0] || '').trim();
+    return TAG_FAMILY[legacy] ? [legacy] : [];
+  }
+
   var savedIds         = {};    // id → true/false
   var coreIds          = {};    // id → true (already in recipes.html RECIPES array)
   var recipeEdits      = {};    // safeId → edited recipe object
@@ -142,10 +195,17 @@
       var metaEl  = card.querySelector('.rc-card-meta');
       var iconEl  = card.querySelector('.rc-thumb-emoji');
       var labelEl = card.querySelector('.rc-card-label');
-      if (nameEl  && edit.name)  nameEl.textContent  = edit.name;
-      if (metaEl  && edit.meta  !== undefined) metaEl.textContent  = edit.meta;
-      if (iconEl  && edit.icon)  iconEl.textContent  = edit.icon;
-      if (labelEl && edit.label !== undefined) labelEl.textContent = edit.label;
+      if (nameEl && edit.name) nameEl.textContent = edit.name;
+      if (metaEl && edit.meta !== undefined) {
+        // Week/journal cards prefix the meta with the day — keep it.
+        var prefix = card.getAttribute('data-meta-prefix') || '';
+        metaEl.textContent = prefix + edit.meta;
+      }
+      if (iconEl && edit.icon) iconEl.textContent = edit.icon;
+      // Only cards showing tags (not a "Meal A · Tuesday" override) repaint here.
+      if (labelEl && edit.tags && !card.hasAttribute('data-label-fixed')) {
+        labelEl.textContent = sortTags(edit.tags).slice(0, 2).join(' · ');
+      }
     });
   }
 
@@ -240,6 +300,10 @@
       '.rc-rd-step-list{list-style:none;display:flex;flex-direction:column;gap:10px;}',
       '.rc-rd-step-list li{font-size:13px;color:var(--ink);line-height:1.55;display:flex;gap:10px;}',
       '.rc-rd-step-num{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0;min-width:16px;padding-top:1px;}',
+      // Tag pills, between Directions and Notes
+      '.rc-rd-tags{margin-top:30px;}',
+      '.rc-rd-tag-row{display:flex;flex-wrap:wrap;gap:8px;}',
+      '.rc-rd-tag{background:var(--accent-light);color:var(--accent);border-radius:100px;padding:5px 13px;font-size:12px;font-weight:500;letter-spacing:.02em;}',
 
       // Hero photo (headline overlaid on the image)
       '.rc-rd-hero{position:relative;margin:0 -20px 24px;height:clamp(240px,52vw,340px);background:#efe9e0;cursor:pointer;overflow:hidden;-webkit-tap-highlight-color:transparent;}',
@@ -306,6 +370,13 @@
       '.rc-rd-emoji-tile{font-size:22px;line-height:1;height:44px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;transition:border-color .12s,background .12s,transform .1s;}',
       '.rc-rd-emoji-tile:active{transform:scale(.92);}',
       '.rc-rd-emoji-tile.selected{border-color:var(--accent);background:var(--accent-light);}',
+      // Tag picker (add + edit forms)
+      '.rc-rd-tagpick{display:flex;flex-direction:column;gap:14px;}',
+      '.rc-rd-tagfam-label{font-size:11px;color:var(--muted);font-weight:400;margin-bottom:7px;}',
+      '.rc-rd-tagchips{display:flex;flex-wrap:wrap;gap:7px;}',
+      '.rc-rd-tagchip{background:#fff;border:1.5px solid var(--border);border-radius:100px;color:var(--ink);font-family:"DM Sans",sans-serif;font-size:13px;font-weight:400;padding:7px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s,transform .12s;}',
+      '.rc-rd-tagchip:active{transform:scale(.95);}',
+      '.rc-rd-tagchip.selected{border-color:var(--accent);background:var(--accent-light);font-weight:500;}',
 
       // Comments
       '.rc-cm-section{margin-top:36px;border-top:1px solid var(--border);padding-top:24px;}',
@@ -419,6 +490,10 @@
             '<div class="rc-rd-cols">',
               '<div><div class="rc-rd-section-title">Ingredients</div><ul class="rc-rd-ing-list" id="rc-rd-ings"></ul></div>',
               '<div><div class="rc-rd-section-title">Directions</div><ol class="rc-rd-step-list" id="rc-rd-steps"></ol></div>',
+            '</div>',
+            '<div class="rc-rd-tags" id="rc-rd-tags" style="display:none">',
+              '<div class="rc-rd-section-title">Tags</div>',
+              '<div class="rc-rd-tag-row" id="rc-rd-tag-row"></div>',
             '</div>',
             '<div class="rc-cm-section">',
               '<div class="rc-cm-heading">Notes</div>',
@@ -542,6 +617,11 @@
     document.getElementById('rc-rd-ings').innerHTML  = (recipe.ings || recipe.ingredients || []).map(function (i) { return '<li>' + escHtml(i) + '</li>'; }).join('');
     document.getElementById('rc-rd-steps').innerHTML = (recipe.steps || []).map(function (s, n) {
       return '<li><span class="rc-rd-step-num">' + (n + 1) + '</span><span>' + escHtml(s) + '</span></li>';
+    }).join('');
+    var tags = tagsFor(recipe);
+    document.getElementById('rc-rd-tags').style.display = tags.length ? '' : 'none';
+    document.getElementById('rc-rd-tag-row').innerHTML = tags.map(function (t) {
+      return '<span class="rc-rd-tag">' + escHtml(t) + '</span>';
     }).join('');
     var noteEl = document.getElementById('rc-rd-note');
     if (recipe.note) { noteEl.textContent = recipe.note; noteEl.style.display = ''; }
@@ -817,11 +897,40 @@
     });
   }
 
+  // Tag picker: a row of tappable chips per family, plus a box for tags that
+  // aren't in the vocabulary. Chips are toggles — a recipe can carry more than
+  // one from a family, and the first two (dish, then cuisine) show on its card.
+  function buildTagPickerHTML(tags) {
+    var on = {};
+    (tags || []).forEach(function (t) { on[t] = true; });
+    var families = TAG_FAMILIES.map(function (fam) {
+      var chips = fam.tags.map(function (t) {
+        return '<button type="button" class="rc-rd-tagchip' + (on[t] ? ' selected' : '') +
+               '" data-tag="' + escAttr(t) + '">' + escHtml(t) + '</button>';
+      }).join('');
+      return '<div class="rc-rd-tagfam">' +
+               '<div class="rc-rd-tagfam-label">' + escHtml(fam.title) + '</div>' +
+               '<div class="rc-rd-tagchips">' + chips + '</div>' +
+             '</div>';
+    }).join('');
+    var custom = (tags || []).filter(function (t) { return familyOf(t) === 'custom'; });
+    return '<div class="rc-rd-field">' +
+             '<label class="rc-rd-field-label">Tags</label>' +
+             '<div class="rc-rd-tagpick" id="rc-rd-ef-tags">' +
+               families +
+               '<div class="rc-rd-tagfam">' +
+                 '<div class="rc-rd-tagfam-label">＋ Add your own</div>' +
+                 '<input class="rc-rd-input" id="rc-rd-ef-customtags" type="text" value="' +
+                   escAttr(custom.join(', ')) + '" placeholder="Separate with commas">' +
+               '</div>' +
+             '</div>' +
+           '</div>';
+  }
+
   // Build the recipe form markup. Shared by edit mode and add mode.
   // `includeIcon` adds an emoji field at the top (used only when adding).
-  // `includeCategory` adds a category field that feeds the card eyebrow label
-  // (used only when adding — edits leave the existing label untouched).
-  function buildRecipeFormHTML(values, includeIcon, includeCategory) {
+  // `includeTags` adds the tag picker that feeds the card eyebrow.
+  function buildRecipeFormHTML(values, includeIcon, includeTags) {
     var ings  = (values.ings || values.ingredients || []).join('\n');
     var steps = (values.steps || []).join('\n');
     var currentIcon = values.icon || '🍽️';
@@ -839,17 +948,13 @@
         '<input type="hidden" id="rc-rd-ef-icon" value="' + escAttr(currentIcon) + '">' +
         '<div class="rc-rd-emoji-grid">' + tiles + '</div>' +
       '</div>' : '';
-    var categoryField = includeCategory ?
-      '<div class="rc-rd-field">' +
-        '<label class="rc-rd-field-label">Category</label>' +
-        '<input class="rc-rd-input" id="rc-rd-ef-category" type="text" value="' + escAttr(values.category || '') + '" placeholder="Pasta, Soup, Tacos…">' +
-      '</div>' : '';
+    var tagsField = includeTags ? buildTagPickerHTML(values.tags || []) : '';
     return iconField +
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label">Recipe Name</label>' +
         '<input class="rc-rd-input" id="rc-rd-ef-name" type="text" value="' + escAttr(values.name || '') + '">' +
       '</div>' +
-      categoryField +
+      tagsField +
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label">Details</label>' +
         '<input class="rc-rd-input" id="rc-rd-ef-meta" type="text" value="' + escAttr(values.meta || '') + '" placeholder="30 min · One pan · Serves 4">' +
@@ -885,8 +990,19 @@
     });
   }
 
-  // Build + inject the recipe form (with emoji + category) into the detail body
-  // and wire the emoji picker. Shared by Add and Edit.
+  // Tapping a tag chip toggles it on or off.
+  function wireTagPicker(container) {
+    var pick = container.querySelector('.rc-rd-tagpick');
+    if (!pick) return;
+    pick.addEventListener('click', function (e) {
+      var chip = e.target.closest('.rc-rd-tagchip');
+      if (!chip) return;
+      chip.classList.toggle('selected');
+    });
+  }
+
+  // Build + inject the recipe form (with emoji + tags) into the detail body
+  // and wire the emoji + tag pickers. Shared by Add and Edit.
   function mountRecipeForm(values) {
     var existing = document.getElementById('rc-rd-edit-form');
     if (existing) existing.remove();
@@ -900,35 +1016,40 @@
     body.appendChild(form);
     body.scrollTop = 0;
     wireEmojiPicker(form);
+    wireTagPicker(form);
     return form;
+  }
+
+  // Selected chips plus anything typed in the custom box, in card order.
+  function readTagPicker() {
+    var pick = document.getElementById('rc-rd-ef-tags');
+    if (!pick) return [];
+    var tags = Array.prototype.map.call(
+      pick.querySelectorAll('.rc-rd-tagchip.selected'),
+      function (chip) { return chip.getAttribute('data-tag'); }
+    );
+    var customEl = document.getElementById('rc-rd-ef-customtags');
+    if (customEl) {
+      customEl.value.split(',').forEach(function (t) {
+        t = t.trim();
+        if (t && tags.indexOf(t) === -1) tags.push(t);
+      });
+    }
+    return sortTags(tags);
   }
 
   // Read all fields from the mounted recipe form.
   function readRecipeForm() {
     var iconEl = document.getElementById('rc-rd-ef-icon');
-    var catEl  = document.getElementById('rc-rd-ef-category');
     return {
       icon:     iconEl ? iconEl.value.trim() : '',
       name:     document.getElementById('rc-rd-ef-name').value.trim(),
-      category: catEl ? catEl.value.trim() : '',
+      tags:     readTagPicker(),
       meta:     document.getElementById('rc-rd-ef-meta').value.trim(),
       ings:     document.getElementById('rc-rd-ef-ings').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean),
       steps:    document.getElementById('rc-rd-ef-steps').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean),
       note:     document.getElementById('rc-rd-ef-note').value.trim()
     };
-  }
-
-  // Card eyebrow label: "Category · time". Category defaults to "Dinner";
-  // time is the first segment of meta (e.g. "~30 min · One pan" → "30 min").
-  function computeLabel(category, meta) {
-    var cat = category || 'Dinner';
-    var timePart = ((meta || '').split('·')[0] || '').replace(/^~/, '').trim();
-    return timePart ? (cat + ' · ' + timePart) : cat;
-  }
-
-  // Reverse of computeLabel's category part: the text before the first "·".
-  function categoryFromLabel(label) {
-    return ((label || '').split('·')[0] || '').trim();
   }
 
   function enterEditMode() {
@@ -941,7 +1062,7 @@
     editBar.querySelector('.rc-rd-edit-bar-title').textContent = 'Editing';
     document.getElementById('rc-rd-inner').style.display = 'none';
 
-    mountRecipeForm(Object.assign({}, curR, { category: categoryFromLabel(curR.label) }));
+    mountRecipeForm(Object.assign({}, curR, { tags: tagsFor(curR) }));
   }
 
   // ── Add new recipe ──────────────────────────────────────────────────────
@@ -1029,7 +1150,6 @@
     var core = {
       id:          r.id,
       icon:        r.icon,
-      label:       r.label || '',
       name:        r.name,
       meta:        r.meta,
       tags:        r.tags || [],
@@ -1055,9 +1175,9 @@
     var recipe = {
       id:          id,
       icon:        f.icon || '🍽️',
-      label:       computeLabel(f.category, f.meta),
       name:        f.name,
       meta:        f.meta,
+      tags:        f.tags,
       ingredients: f.ings,
       ings:        f.ings,
       steps:       f.steps
@@ -1099,7 +1219,7 @@
     var updated = Object.assign({}, curR, {
       icon:        f.icon || curR.icon || '🍽️',
       name:        f.name || curR.name,
-      label:       computeLabel(f.category, f.meta),
+      tags:        f.tags,
       meta:        f.meta,
       ingredients: f.ings,
       ings:        f.ings,
@@ -1479,21 +1599,26 @@
     },
 
     /**
-     * makeCard(recipe, labelOverride)
+     * makeCard(recipe, labelOverride, metaOverride)
      * Returns a DOM element for a meal card. Click opens detail overlay.
+     * The eyebrow shows the recipe's first two tags unless `labelOverride` is
+     * given. `metaOverride` replaces the bottom line (used to prefix the day).
      */
-    makeCard: function (r, labelOverride) {
-      var id  = idOf(r);
-      var lbl = labelOverride !== undefined ? labelOverride : (r.label || '');
+    makeCard: function (r, labelOverride, metaOverride) {
+      var id    = idOf(r);
+      var fixed = labelOverride !== undefined && labelOverride !== null;
+      var lbl   = fixed ? labelOverride : tagsFor(r).slice(0, 2).join(' · ');
+      var meta  = metaOverride !== undefined && metaOverride !== null ? metaOverride : (r.meta || '');
       var div = document.createElement('div');
       div.className = 'rc-card';
       div.setAttribute('data-recipe-id', id);
+      if (fixed) div.setAttribute('data-label-fixed', '');
       div.innerHTML =
         '<div class="rc-card-inner">' +
           '<div class="rc-card-body">' +
             '<div class="rc-card-label">' + escHtml(lbl) + '</div>' +
             '<div class="rc-card-name">' + escHtml(r.name) + '</div>' +
-            '<div class="rc-card-meta">' + escHtml(r.meta || '') + '</div>' +
+            '<div class="rc-card-meta">' + escHtml(meta) + '</div>' +
           '</div>' +
           '<div class="rc-card-right">' +
             '<span class="rc-saved-badge" data-id="' + escAttr(id) + '">' +
@@ -1529,13 +1654,27 @@
         .catch(function () { callback([]); });
     },
 
+    /**
+     * Register the core recipes so weekly meals (which carry no tags of their
+     * own) can resolve theirs by recipe id. Call before rendering cards.
+     */
+    setTagIndex: function (recipes) {
+      (recipes || []).forEach(function (r) {
+        if (r && r.tags && r.tags.length) tagIndex[idOf(r)] = sortTags(r.tags);
+      });
+    },
+
     openDetail: openDetail,
     closeDetail: closeDetail,
     openAddForm: openAddForm,
     idOf: idOf,
     makeThumb: makeThumb,
     isSaved: isSaved,
-    isCore: isCore
+    isCore: isCore,
+    tagsFor: tagsFor,
+    sortTags: sortTags,
+    familyOf: familyOf,
+    TAG_FAMILIES: TAG_FAMILIES
   };
 
 })(window);

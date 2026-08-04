@@ -184,14 +184,21 @@ weekData=weekData||{meals:[],groceries:[]};
 
 var CORE_IDS={};
 (recipesResp.recipes||[]).forEach(function(r){CORE_IDS[r.id]=true;});
+// Weekly meals carry no tags of their own — resolve them from the collection.
+RecipeCard.setTagIndex(recipesResp.recipes||[]);
 RecipeCard.init({coreIds:CORE_IDS,userEmail:user.email,onReady:function(){RecipeCard.applyBadges();}});
 
 // ── View rendering ────────────────────────────────────────────────────────
 var mealCards=document.getElementById('mealCards');
 function renderViewCards(meals){
   mealCards.innerHTML='';
+  // Eyebrow shows the recipe's tags; the day moves to the meta line so you can
+  // still see which night a meal lands on.
   (meals||[]).forEach(function(m){
-    mealCards.appendChild(RecipeCard.makeCard(m, m.label + (m.day ? ' · ' + m.day + ' ' + (m.date||'') : '')));
+    var day=m.day ? (DAY_ABBR[m.day]||m.day) + ' ' + (m.date||'') : '';
+    var card=RecipeCard.makeCard(m, null, (day ? day + ' · ' : '') + (m.meta||''));
+    if(day) card.setAttribute('data-meta-prefix', day + ' · ');
+    mealCards.appendChild(card);
   });
 }
 document.getElementById('subhead').textContent=weekData.subhead||'';
