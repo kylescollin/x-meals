@@ -30,13 +30,51 @@
   .section-divider{display:flex;align-items:center;gap:14px;}
   .section-divider-line{flex:1;height:1px;background:var(--border);}
   .section-divider-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
-  .srch-wrap{max-width:680px;margin:0 auto;padding:0 20px 18px;position:relative;}
+  .srch-wrap{max-width:680px;margin:0 auto;padding:0 20px 18px;display:flex;align-items:center;gap:10px;}
+  .srch-field{position:relative;flex:1;min-width:0;}
   /* 16px minimum — anything smaller makes iOS zoom the page in on focus. */
   #srch{width:100%;padding:12px 40px 12px 16px;border:1.5px solid var(--border);border-radius:10px;background:#fff;font-family:'DM Sans',sans-serif;font-size:16px;color:var(--ink);outline:none;-webkit-appearance:none;}
   #srch:focus{border-color:var(--accent);}
   #srch::placeholder{color:var(--muted);}
-  .srch-x{display:none;position:absolute;right:32px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 6px;line-height:1;}
+  .srch-x{display:none;position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 8px;line-height:1;-webkit-tap-highlight-color:transparent;}
   .srch-empty{display:none;max-width:680px;margin:-8px auto 20px;padding:0 20px;font-size:13px;color:var(--muted);font-weight:300;}
+
+  /* Filter button */
+  .filt-btn{position:relative;flex-shrink:0;width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:#fff;border:1.5px solid var(--border);border-radius:10px;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s,transform .12s;}
+  .filt-btn:hover{border-color:#bbb;}
+  .filt-btn:active{transform:scale(.94);}
+  .filt-btn svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.9;fill:none;stroke-linecap:round;}
+  .filt-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .filt-count{position:absolute;top:-6px;right:-6px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:var(--accent);color:#fff;font-size:11px;font-weight:600;line-height:19px;text-align:center;border:2px solid var(--cream);}
+  .filt-btn:not(.active) .filt-count{display:none;}
+  .filt-btn.active .filt-count{background:var(--ink);}
+
+  /* Filter sheet (mirrors the bottom sheets on index.html) */
+  .sheet-ov{position:fixed;inset:0;z-index:1200;background:rgba(20,18,15,.4);opacity:0;visibility:hidden;transition:opacity .25s;}
+  .sheet-ov.open{opacity:1;visibility:visible;}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--cream);border-radius:18px 18px 0 0;max-height:85vh;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);padding-bottom:env(safe-area-inset-bottom,0px);}
+  .sheet-ov.open .sheet{transform:translateY(0);}
+  .sheet-grab{width:38px;height:4px;border-radius:2px;background:var(--border);margin:10px auto 4px;}
+  .sheet-head{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 12px;border-bottom:1px solid var(--border);}
+  .sheet-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;}
+  .sheet-close{width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--ink);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
+  .sheet-close:active{background:#eee;}
+  .filt-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 18px 22px;}
+  .filt-group{margin-bottom:22px;}
+  .filt-group:last-child{margin-bottom:0;}
+  .filt-group-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+  .filt-chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .filt-chip{background:#fff;border:1.5px solid var(--border);border-radius:100px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;padding:8px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s,transform .12s;}
+  .filt-chip:active{transform:scale(.95);}
+  .filt-chip .filt-n{color:var(--muted);font-size:11px;margin-left:5px;}
+  .filt-chip.selected{border-color:var(--accent);background:var(--accent-light);font-weight:500;}
+  .filt-chip.selected .filt-n{color:var(--accent);}
+  .filt-chip.empty{opacity:.4;}
+  .filt-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;border-top:1px solid var(--border);background:var(--cream);}
+  .filt-clear{background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;padding:8px 4px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .filt-clear:active{color:var(--ink);}
+  .filt-apply{background:var(--accent);color:#fff;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:11px 22px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}
+  .filt-apply:active{transform:scale(.96);background:#b3581f;}
 </style>
 </head>
 <body>
@@ -48,11 +86,33 @@
   <button class="add-recipe-btn" id="add-recipe"><span class="plus">+</span>Add recipe</button>
 </div>
 <div class="srch-wrap">
-  <input type="search" id="srch" placeholder="Search recipes or ingredients…" autocomplete="off" autocorrect="off" spellcheck="false">
-  <button class="srch-x" id="srch-x" aria-label="Clear">✕</button>
+  <div class="srch-field">
+    <input type="search" id="srch" placeholder="Search recipes or ingredients…" autocomplete="off" autocorrect="off" spellcheck="false">
+    <button class="srch-x" id="srch-x" aria-label="Clear">✕</button>
+  </div>
+  <button class="filt-btn" id="filt-btn" aria-label="Filter recipes">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+    <span class="filt-count" id="filt-count">0</span>
+  </button>
 </div>
-<div class="srch-empty" id="srch-empty">No recipes match "<span id="srch-q"></span>"</div>
+<div class="srch-empty" id="srch-empty"></div>
 <div class="rl" id="list"></div>
+
+<!-- Filter sheet -->
+<div class="sheet-ov" id="filt-ov">
+  <div class="sheet">
+    <div class="sheet-grab"></div>
+    <div class="sheet-head">
+      <div class="sheet-title">Filter recipes</div>
+      <button class="sheet-close" id="filt-close" aria-label="Close">✕</button>
+    </div>
+    <div class="filt-body" id="filt-body"></div>
+    <div class="filt-foot">
+      <button class="filt-clear" id="filt-clear">Clear all</button>
+      <button class="filt-apply" id="filt-apply">Show recipes</button>
+    </div>
+  </div>
+</div>
 
 <script src="recipe-card.js"></script>
 <script type="module">
@@ -72,10 +132,120 @@ RECIPES.forEach(function(r) { CORE_IDS[r.id] = true; });
 
 // Search index: recipe id → searchable string
 var searchIndex = {};
+// Filter facets: recipe id → { genre, minutes, methods[], proteins[] }
+var facets = {};
+
 function indexRecipe(r) {
   var id = RecipeCard.idOf(r);
-  searchIndex[id] = [r.name, r.label, r.meta, (r.ingredients || []).join(' ')].join(' ').toLowerCase();
+  var ings = r.ings || r.ingredients || [];
+  searchIndex[id] = [r.name, r.label, r.meta, ings.join(' ')].join(' ').toLowerCase();
+  facets[id] = {
+    genre:    parseGenre(r.label),
+    minutes:  parseMinutes(r.meta) !== null ? parseMinutes(r.meta) : parseMinutes(r.label),
+    methods:  parseMethods(r.meta),
+    proteins: parseProteins(r.name, ings)
+  };
 }
+
+/* ---- Facet parsing -------------------------------------------------------
+   Recipes store genre/time/equipment as free text ("Pasta · 40 min",
+   "40 min · Stovetop · Serves 4"), so the filters are derived from those
+   strings at load time. Anything unparseable just drops out of that group. */
+
+function segments(str) {
+  return (str || '').split('·').map(function(s) { return s.trim(); }).filter(Boolean);
+}
+
+// "6 hrs 15 min" → 375 · "~1 hour" → 60 · "2–3 hrs" → 180 (upper bound, so
+// "Under 30 min" never over-promises) · "~45 min (marinate tonight!)" → 45
+function parseMinutes(str) {
+  var s = segments(str)[0] || '';
+  s = s.replace(/\(.*?\)/g, '').replace(/~/g, '').trim().toLowerCase();
+  if (!s) return null;
+  var range = s.match(/(\d+)\s*[–—-]\s*(\d+)\s*(hrs?|hours?|min)/);
+  if (range) {
+    var n = parseInt(range[2], 10);
+    return range[3].indexOf('h') === 0 ? n * 60 : n;
+  }
+  var total = 0, found = false;
+  var h = s.match(/(\d+)\s*(hrs?|hours?)/);
+  if (h) { total += parseInt(h[1], 10) * 60; found = true; }
+  var m = s.match(/(\d+)\s*min/);
+  if (m) { total += parseInt(m[1], 10); found = true; }
+  return found ? total : null;
+}
+
+var METHOD_NAMES = {
+  'stovetop':'Stovetop', 'oven':'Oven', 'sheet pan':'Sheet pan', 'one pan':'One pan',
+  'slow cooker':'Slow cooker', 'air fryer':'Air fryer', 'instant pot':'Instant Pot', 'grill':'Grill'
+};
+function parseMethods(meta) {
+  var seg = segments(meta)[1];
+  if (!seg || /^serves/i.test(seg)) return [];
+  // "Oven or Air Fryer" counts as both
+  return seg.split(/\s+or\s+/i).map(function(part) {
+    var key = part.trim().toLowerCase();
+    return METHOD_NAMES[key] || part.trim();
+  }).filter(Boolean);
+}
+
+function parseGenre(label) {
+  var g = segments(label)[0] || '';
+  return (!g || /^Meal [A-Z]$/.test(g)) ? '' : g;
+}
+
+// Broth and sauces would otherwise make every soup read as chicken or fish.
+var PROTEIN_NOISE = /broth|stock|bouillon|fish sauce|worcestershire|better than/i;
+var PROTEIN_RULES = [
+  ['Chicken',        /chicken|rotisserie/],
+  ['Beef',           /\bbeef|steak|sirloin|ground chuck|chuck roast/],
+  ['Pork & sausage', /\bpork|bacon|sausage|chorizo|prosciutto|pancetta|\bham\b/],
+  ['Seafood',        /shrimp|salmon|\bcod\b|tuna|scallop|tilapia|halibut|crab|\bfish\b/],
+  ['Turkey',         /turkey/]
+];
+function parseProteins(name, ings) {
+  var text = ings.filter(function(line) { return !PROTEIN_NOISE.test(line); })
+                 .concat([name || '']).join(' ').toLowerCase();
+  var found = PROTEIN_RULES.filter(function(rule) { return rule[1].test(text); })
+                           .map(function(rule) { return rule[0]; });
+  if (found.length) return found;
+  // A generic "1 lb ground meat" line means we don't know — but it isn't meatless.
+  return /\bmeat\b|\bmeatballs?\b/.test(text) ? [] : ['Meatless'];
+}
+
+/* ---- Filter state --------------------------------------------------------
+   Selections within a group are OR, across groups AND, and everything is
+   AND-ed with the search box. Not persisted — a filter that silently survives
+   a reload is confusing on a phone. Declared before RecipeCard.init so the
+   async onReady callback can safely call runFilter/buildFilterPanel. */
+
+var srchInput = document.getElementById('srch');
+var srchX     = document.getElementById('srch-x');
+var srchEmpty = document.getElementById('srch-empty');
+
+// 30 min is by far the most common time in the collection, so it anchors the
+// first bucket rather than splitting it.
+var TIME_BUCKETS = [
+  { label:'30 min or less', test:function(m) { return m <= 30; } },
+  { label:'30–60 min',      test:function(m) { return m > 30 && m <= 60; } },
+  { label:'Over 1 hour',    test:function(m) { return m > 60; } }
+];
+
+var FILTER_GROUPS = [
+  { key:'genre',   title:'Type of dish',
+    values:function(f) { return f.genre ? [f.genre] : []; } },
+  { key:'time',    title:'Total time', fixed:TIME_BUCKETS.map(function(b) { return b.label; }),
+    values:function(f) {
+      if (f.minutes === null || f.minutes === undefined) return [];
+      return TIME_BUCKETS.filter(function(b) { return b.test(f.minutes); })
+                         .map(function(b) { return b.label; });
+    } },
+  { key:'method',  title:'How it cooks', values:function(f) { return f.methods; } },
+  { key:'protein', title:'Main protein', values:function(f) { return f.proteins; } }
+];
+
+var selected  = { genre:{}, time:{}, method:{}, protein:{} };
+var savedOnly = false;
 
 RecipeCard.init({
     coreIds: CORE_IDS,
@@ -96,6 +266,7 @@ RecipeCard.init({
         var card = RecipeCard.makeCard(recipeObj, lbl);
         card.setAttribute('data-saved-id', id);
         list.appendChild(card);
+        buildFilterPanel();
         runFilter();
         updateCount();
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -105,6 +276,7 @@ RecipeCard.init({
           var div = list.querySelector('.section-divider');
           if (div) div.remove();
         }
+        buildFilterPanel();
         runFilter();
         updateCount();
       }
@@ -133,6 +305,7 @@ RecipeCard.init({
           updateCount(newlySaved.length);
         }
         RecipeCard.applyBadges();
+        buildFilterPanel();
         runFilter();
       });
     }
@@ -140,7 +313,6 @@ RecipeCard.init({
 
 // Render core recipes
 RECIPES.forEach(function(r) { indexRecipe(r); list.appendChild(RecipeCard.makeCard(r)); });
-updateCount(0);
 
 // Add recipe button → open the blank add form
 document.getElementById('add-recipe').addEventListener('click', function() {
@@ -148,38 +320,58 @@ document.getElementById('add-recipe').addEventListener('click', function() {
 });
 
 function updateCount(savedCount) {
-  var q = document.getElementById('srch').value.trim().toLowerCase();
-  if (q) return; // subtitle is managed by runFilter when search is active
+  if (document.getElementById('srch').value.trim() || activeFilterCount()) return;
   var sc = savedCount !== undefined ? savedCount : list.querySelectorAll('.rc-card[data-saved-id]').length;
   document.getElementById('hm').textContent = (RECIPES.length + sc) + ' recipes · tap any recipe to view & cook';
 }
 
-// Search
-var srchInput = document.getElementById('srch');
-var srchX     = document.getElementById('srch-x');
-var srchEmpty = document.getElementById('srch-empty');
+function activeFilterCount() {
+  var n = savedOnly ? 1 : 0;
+  FILTER_GROUPS.forEach(function(g) { n += Object.keys(selected[g.key]).length; });
+  return n;
+}
 
-srchInput.addEventListener('input', runFilter);
-srchX.addEventListener('click', function() {
-  srchInput.value = '';
-  runFilter();
-  srchInput.focus();
-});
+// Does this recipe pass the filters? `skipGroup` lets the chip counts show
+// what each option would yield without counting its own group twice.
+function facetMatch(id, skipGroup) {
+  var f = facets[id];
+  if (savedOnly && !RecipeCard.isSaved(id)) return false;
+  if (!f) return activeFilterCount() === (savedOnly ? 1 : 0);
+  return FILTER_GROUPS.every(function(g) {
+    if (g.key === skipGroup) return true;
+    var picks = Object.keys(selected[g.key]);
+    if (!picks.length) return true;
+    var vals = g.values(f);
+    return picks.some(function(p) { return vals.indexOf(p) !== -1; });
+  });
+}
+
+function textMatch(id) {
+  var q = srchInput.value.trim().toLowerCase();
+  return !q || (searchIndex[id] || '').includes(q);
+}
+
+function allCardIds() {
+  return Array.from(list.querySelectorAll('.rc-card')).map(function(c) {
+    return c.getAttribute('data-recipe-id');
+  });
+}
 
 function runFilter() {
   var q = srchInput.value.trim().toLowerCase();
+  var nFilters = activeFilterCount();
   srchX.style.display = q ? 'block' : 'none';
 
   var cards = list.querySelectorAll('.rc-card');
   var visible = 0;
   cards.forEach(function(card) {
     var id = card.getAttribute('data-recipe-id');
-    var match = !q || (searchIndex[id] || '').includes(q);
+    var match = textMatch(id) && facetMatch(id);
     card.style.display = match ? '' : 'none';
     if (match) visible++;
   });
 
-  // Hide the "From Your Journal" divider if all journal cards are filtered
+  // Hide the "Your Recipes" divider if all journal cards are filtered
   var divider = list.querySelector('.section-divider');
   if (divider) {
     var anyJournal = Array.from(list.querySelectorAll('.rc-card[data-saved-id]'))
@@ -188,15 +380,143 @@ function runFilter() {
   }
 
   // Empty state
-  document.getElementById('srch-q').textContent = srchInput.value.trim();
-  srchEmpty.style.display = (visible === 0 && q) ? 'block' : 'none';
+  srchEmpty.textContent = q
+    ? 'No recipes match "' + srchInput.value.trim() + '"'
+    : 'No recipes match these filters';
+  srchEmpty.style.display = (visible === 0 && (q || nFilters)) ? 'block' : 'none';
 
-  // Update subtitle
+  // Filter button state
+  var btn = document.getElementById('filt-btn');
+  btn.classList.toggle('active', nFilters > 0);
+  document.getElementById('filt-count').textContent = nFilters;
+  document.getElementById('filt-apply').textContent =
+    visible === 1 ? 'Show 1 recipe' : 'Show ' + visible + ' recipes';
+
+  // Subtitle
   var total = RECIPES.length + list.querySelectorAll('.rc-card[data-saved-id]').length;
-  document.getElementById('hm').textContent = q
+  document.getElementById('hm').textContent = (q || nFilters)
     ? visible + ' of ' + total + ' recipes match'
     : total + ' recipes · tap any recipe to view & cook';
 }
+
+// Build the sheet from whatever recipes are loaded, so new ones show up on
+// their own without a code change.
+function buildFilterPanel() {
+  var body = document.getElementById('filt-body');
+  var ids = allCardIds();
+  body.innerHTML = '';
+
+  FILTER_GROUPS.forEach(function(g) {
+    var opts = g.fixed ? g.fixed.slice() : [];
+    if (!g.fixed) {
+      ids.forEach(function(id) {
+        if (!facets[id]) return;
+        g.values(facets[id]).forEach(function(v) {
+          if (v && opts.indexOf(v) === -1) opts.push(v);
+        });
+      });
+      opts.sort();
+    }
+    // Drop stale picks for options that no longer exist
+    Object.keys(selected[g.key]).forEach(function(p) {
+      if (opts.indexOf(p) === -1) delete selected[g.key][p];
+    });
+    if (!opts.length) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'filt-group';
+    wrap.innerHTML = '<div class="filt-group-label"></div><div class="filt-chips"></div>';
+    wrap.querySelector('.filt-group-label').textContent = g.title;
+    var chips = wrap.querySelector('.filt-chips');
+
+    opts.forEach(function(opt) {
+      var chip = document.createElement('button');
+      chip.className = 'filt-chip';
+      chip.setAttribute('data-group', g.key);
+      chip.setAttribute('data-value', opt);
+      chip.innerHTML = '<span class="filt-chip-t"></span><span class="filt-n"></span>';
+      chip.querySelector('.filt-chip-t').textContent = opt;
+      chip.addEventListener('click', function() {
+        if (selected[g.key][opt]) delete selected[g.key][opt];
+        else selected[g.key][opt] = true;
+        refreshChips();
+        runFilter();
+      });
+      chips.appendChild(chip);
+    });
+    body.appendChild(wrap);
+  });
+
+  // Saved-only toggle
+  var savedWrap = document.createElement('div');
+  savedWrap.className = 'filt-group';
+  savedWrap.innerHTML = '<div class="filt-group-label">Collection</div><div class="filt-chips"></div>';
+  var savedChip = document.createElement('button');
+  savedChip.className = 'filt-chip';
+  savedChip.id = 'filt-saved';
+  savedChip.textContent = '⭐ Saved by us';
+  savedChip.addEventListener('click', function() {
+    savedOnly = !savedOnly;
+    refreshChips();
+    runFilter();
+  });
+  savedWrap.querySelector('.filt-chips').appendChild(savedChip);
+  body.appendChild(savedWrap);
+
+  refreshChips();
+}
+
+// Update selected states and the "how many would this give me" counts.
+function refreshChips() {
+  var ids = allCardIds();
+  document.querySelectorAll('#filt-body .filt-chip[data-group]').forEach(function(chip) {
+    var group = chip.getAttribute('data-group');
+    var value = chip.getAttribute('data-value');
+    var isOn  = !!selected[group][value];
+    var g     = FILTER_GROUPS.filter(function(x) { return x.key === group; })[0];
+
+    var n = ids.filter(function(id) {
+      return facets[id] && textMatch(id) && facetMatch(id, group)
+             && g.values(facets[id]).indexOf(value) !== -1;
+    }).length;
+
+    chip.classList.toggle('selected', isOn);
+    chip.classList.toggle('empty', n === 0 && !isOn);
+    chip.querySelector('.filt-n').textContent = n;
+  });
+
+  var savedChip = document.getElementById('filt-saved');
+  if (savedChip) savedChip.classList.toggle('selected', savedOnly);
+}
+
+// Search box
+srchInput.addEventListener('input', runFilter);
+srchX.addEventListener('click', function() {
+  srchInput.value = '';
+  runFilter();
+  srchInput.focus();
+});
+
+// Sheet open/close
+var filtOv = document.getElementById('filt-ov');
+document.getElementById('filt-btn').addEventListener('click', function() {
+  refreshChips();
+  filtOv.classList.add('open');
+});
+function closeFilters() { filtOv.classList.remove('open'); }
+document.getElementById('filt-close').addEventListener('click', closeFilters);
+document.getElementById('filt-apply').addEventListener('click', closeFilters);
+filtOv.addEventListener('click', function(e) { if (e.target === filtOv) closeFilters(); });
+document.getElementById('filt-clear').addEventListener('click', function() {
+  FILTER_GROUPS.forEach(function(g) { selected[g.key] = {}; });
+  savedOnly = false;
+  refreshChips();
+  runFilter();
+});
+
+// Initial paint — runs last so the filter definitions above are in place.
+updateCount(0);
+buildFilterPanel();
 </script>
 </body>
 </html>

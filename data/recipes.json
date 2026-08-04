@@ -810,7 +810,7 @@
     {
       "id": "spicy-garlic-chicken-bowl-with-hummus",
       "icon": "🫕",
-      "label": "Meal B · 20 min",
+      "label": "Bowl · 20 min",
       "name": "Spicy Garlic Chicken Bowl with Hummus",
       "meta": "~20 min · Stovetop · Serves 4",
       "tags": [],
@@ -1284,9 +1284,9 @@
     {
       "id": "mexican-street-corn-pasta-salad",
       "icon": "🌮",
-      "label": "Pasta",
+      "label": "Pasta · 20 min",
       "name": "Mexican Street Corn Pasta Salad",
-      "meta": "",
+      "meta": "20 min · Stovetop · Serves 6",
       "tags": [],
       "ingredients": [
         "3 cups cooked rotini or penne pasta",
