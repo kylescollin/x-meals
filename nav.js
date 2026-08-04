@@ -20,8 +20,10 @@
     '.nav-menu-signout:hover{color:var(--accent)}',
     // Mobile: bottom tab bar
     '@media(max-width:560px){',
-    'body{padding-bottom:62px}',
-    '.site-nav{position:fixed;bottom:0;left:0;right:0;max-width:none;margin:0;padding:0;background:var(--cream);border-bottom:none;border-top:1px solid var(--border);justify-content:space-around;z-index:150}',
+    // env(safe-area-inset-*) is 0 everywhere except a notched/home-indicator
+    // iPhone, so these calc()s are no-ops in a desktop browser.
+    'body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0px))}',
+    '.site-nav{position:fixed;bottom:0;left:0;right:0;max-width:none;margin:0;padding:0 env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);background:var(--cream);border-bottom:none;border-top:1px solid var(--border);justify-content:space-around;z-index:150}',
     '.nav-link{flex:1;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 7px;font-size:9px;letter-spacing:.02em;border-bottom:none;margin-bottom:0;text-align:center}',
     '.nav-link.active{border-bottom:none}',
     '.nav-ico{font-size:20px}',

@@ -21,3 +21,46 @@
   --ck-accent:#d4732e;
   --ck-done:#2d7a4f;
 }
+
+/* ── Standalone / iOS app polish ───────────────────────────────────────────
+   Everything below is additive and evaluates to a no-op in a normal desktop
+   browser tab: env(safe-area-inset-*) is 0px anywhere there's no notch or
+   home indicator, and the rest are touch-only behaviours.
+
+   Scrolling is deliberately untouched — the body still scrolls normally on
+   every page. */
+
+/* Pushes page content clear of the status bar when running as a home-screen
+   app with a translucent status bar. One rule here rather than per-page, so
+   the top inset can never get applied twice on the same page. */
+body{
+  padding-top:env(safe-area-inset-top,0px);
+}
+
+/* No grey flash box when tapping links and buttons. Inherited, so setting it
+   once on the root covers the whole page. */
+html{
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* Chrome and controls shouldn't be text-selectable — long-pressing a nav tab
+   or a button should feel like a native control, not a web page.
+   Deliberately NOT applied to recipe text, ingredients, steps or notes, which
+   stay fully selectable and copyable. */
+.site-nav,
+.site-nav *,
+button{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+
+/* Guard: form fields must stay selectable and editable even though some sit
+   inside chrome. */
+input,
+textarea,
+select{
+  -webkit-user-select:text;
+  user-select:text;
+  -webkit-touch-callout:default;
+}
