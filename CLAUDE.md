@@ -94,6 +94,56 @@ ingredients, steps, tip). On **Save** (`saveNewRecipe` in `recipe-card.js`) it d
 New recipes get an `id` that is a slug of the name, with a numeric suffix on collision. This is the
 only place outside Agent X that writes `data/recipes.json`.
 
+## Photos & the Cook Log
+
+Every recipe has **one cover photo** plus a **gallery** of photos taken while cooking. All of it is
+stored as compressed base64 JPEGs in Realtime Database — there is no Firebase Storage and no billing
+dependency.
+
+```
+/recipe-photos/<safeId>/src                  cover photo (data URL or remote URL)
+/recipe-photos/<safeId>/by, /at              who set the cover, when
+/recipe-photos/<safeId>/gallery/<photoKey>   { thumb, full, by, author, at, weekOf, commentKey }
+/recipe-comments/<safeId>/<key>              { text, author, email, ts, weekOf?, photos? }
+```
+
+`safeId` is `fbSafeKey(idOf(recipe))`. `photoKey` and note `key` are both `<ms timestamp>-<4 random
+chars>` — the random suffix stops two simultaneous posts from overwriting each other.
+
+**The gallery lives under `/recipe-photos` on purpose.** That node's security rule already covers all
+descendants, so no rules deploy was needed. The consequence: **never `GET /recipe-photos/<safeId>.json`
+whole** — it now contains megabytes of gallery photos. Always read a child (`/src.json`,
+`/gallery/<key>/thumb.json`), and use `PATCH` rather than `PUT` when writing the cover so the gallery
+isn't wiped.
+
+Each photo is stored twice: `thumb` (~360px, ~20 KB) for every list, `full` (~1600px, ~350 KB) fetched
+only when the gallery viewer displays it. Both come from a single decode in `prepareCookPhoto`.
+
+**A note is the unit of activity.** Photos always hang off a note (whose text may be empty), so
+`/recipe-comments` is the one small feed the Journal reads — a single `GET /recipe-comments.json`
+returns every note on the site without any image bytes.
+
+### Week stamping
+
+`weekOf` is what lets the Journal show notes and photos under the right week:
+
+- `RecipeCard.init({weekOf})` sets a page default — `index.html` passes the current week,
+  `recipes.html` passes nothing.
+- `makeCard(r, labelOverride, metaOverride, weekOf)` writes `data-week-of` on the card;
+  `journal.html` passes each week's own value, so adding a note to a past week's card files it under
+  **that** week. This is how a meal gets logged days after it was cooked.
+- A note with no `weekOf` (added from the Recipes page) shows on the recipe but never in the Journal.
+
+### Behaviour worth preserving
+
+- **The cover is sticky.** Taking cook-log photos never changes it. The only ways to change it are the
+  camera button on the hero (Find / Upload / Paste URL) and "Use as cover photo" in the gallery menu.
+  If no cover was ever set, the hero and card thumbnail fall back to the newest gallery photo.
+- **Tapping the hero opens the gallery** when photos exist, and the add-photo sheet when none do.
+- The composer's file input has **no `capture` attribute** — that's what makes iOS offer
+  "Take Photo / Photo Library / Choose File" instead of jumping straight to the camera.
+- Deleting a note deletes its photos (with a confirm); deleting a photo drops its key from the note.
+
 ## Recipe Tags
 
 Every recipe in `data/recipes.json` is categorised by an **ordered `tags` array** — one dish type,

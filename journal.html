@@ -29,6 +29,10 @@
   .week-label{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--accent);flex-shrink:0;}
   .week-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:500;flex:1;}
   .week-count{font-size:12px;color:var(--muted);font-weight:300;flex-shrink:0;}
+  /* A journal entry is the normal card on top, with that week's photos and
+     notes hanging beneath it. The activity block styles live in recipe-card.js
+     alongside everything else it renders. */
+  .jr-entry{display:flex;flex-direction:column;gap:10px;}
 </style>
 </head>
 <body>
@@ -51,9 +55,16 @@ if (window.setNavUser) window.setNavUser(user);
 function renderWeek(week,isCurrent){var entry=document.createElement('div');entry.className='week-entry';var mealCount=week.meals?week.meals.length:0;var labelText=isCurrent?'This Week':'Week of';var header=document.createElement('div');header.className='week-header';header.innerHTML='<span class="week-label">'+labelText+'</span><span class="week-title">'+(week.title||week.weekOf)+'</span><span class="week-count">'+mealCount+' meal'+(mealCount!==1?'s':'')+'</span>';entry.appendChild(header);(week.meals||[]).forEach(function(meal){
   // Eyebrow shows the recipe's tags; the day moves to the meta line.
   var day=meal.day?meal.day+(meal.date?' '+meal.date:''):'';
-  var card=RecipeCard.makeCard(meal,null,(day?day+' · ':'')+(meal.meta||''));
+  var weekOf=week.weekOf||'';
+  // Passing weekOf means a note added from this card files under THIS week —
+  // which is how a meal can be logged days after it was cooked.
+  var card=RecipeCard.makeCard(meal,null,(day?day+' · ':'')+(meal.meta||''),weekOf);
   if(day) card.setAttribute('data-meta-prefix',day+' · ');
-  entry.appendChild(card);
+  var wrap=document.createElement('div');
+  wrap.className='jr-entry';
+  wrap.appendChild(card);
+  wrap.appendChild(RecipeCard.makeActivity(meal,weekOf));
+  entry.appendChild(wrap);
 });return entry;}
 
 var FB_BASE='https://fox-bear-hub-default-rtdb.firebaseio.com';

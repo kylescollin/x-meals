@@ -186,7 +186,7 @@ var CORE_IDS={};
 (recipesResp.recipes||[]).forEach(function(r){CORE_IDS[r.id]=true;});
 // Weekly meals carry no tags of their own — resolve them from the collection.
 RecipeCard.setTagIndex(recipesResp.recipes||[]);
-RecipeCard.init({coreIds:CORE_IDS,userEmail:user.email,onReady:function(){RecipeCard.applyBadges();}});
+RecipeCard.init({coreIds:CORE_IDS,userEmail:user.email,weekOf:(weekData&&weekData.weekOf)||'',onReady:function(){RecipeCard.applyBadges();}});
 
 // ── View rendering ────────────────────────────────────────────────────────
 var mealCards=document.getElementById('mealCards');
@@ -196,7 +196,9 @@ function renderViewCards(meals){
   // still see which night a meal lands on.
   (meals||[]).forEach(function(m){
     var day=m.day ? (DAY_ABBR[m.day]||m.day) + ' ' + (m.date||'') : '';
-    var card=RecipeCard.makeCard(m, null, (day ? day + ' · ' : '') + (m.meta||''));
+    // Pass weekOf on every render so notes stamp against the week currently
+    // shown, even after publishing a new one from Plan mode.
+    var card=RecipeCard.makeCard(m, null, (day ? day + ' · ' : '') + (m.meta||''), weekData.weekOf||'');
     if(day) card.setAttribute('data-meta-prefix', day + ' · ');
     mealCards.appendChild(card);
   });
