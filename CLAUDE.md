@@ -217,6 +217,27 @@ Agent X must write `data/week.json` in this exact format each week:
 
 **Grocery sections:** Use these five sections in this order: Produce (🥦), Protein (🥩), Dairy & Refrigerated (🧈), Pantry & Canned (🫙), Spices (🌿). The Spices section always includes `"note": "Check pantry before ordering — you likely have most of these."`
 
+### Placeholder meals
+
+A night that isn't a recipe — eating out, leftovers, a friend's place, cooking something off-plan —
+is a **placeholder meal**: a name and nothing else. Kyle adds these from the top row of the recipe
+picker in Edit mode. They look like this in `meals[]`:
+
+```json
+{ "id": "custom-pizza-night-m9x2k1", "custom": true, "icon": "🍽",
+  "name": "Pizza night", "meta": "", "ings": [], "steps": [], "day": "Tuesday" }
+```
+
+- `id` is `custom-<slug of the name>-<base36 timestamp + random chars>` — unique per placeholder, so each one gets
+  its own photo/note bucket and the same name can appear on two nights.
+- `custom: true` is what the site keys off. The card renders with a "One-off" eyebrow, no chevron,
+  and **no click handler** — there's no recipe to open. It still takes photos and notes in the Journal.
+- `scripts/generate-groceries.js` filters these out before calling the API, so they contribute
+  nothing to the grocery list. They still take a `label` letter like any other meal.
+
+Agent X should use a placeholder when a night genuinely isn't a recipe, rather than inventing a
+recipe entry for it. Never give a placeholder ingredients or steps.
+
 ## Agent X Publish Workflow
 
 Each week when publishing a new meal plan:

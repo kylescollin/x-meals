@@ -106,6 +106,11 @@
   .picker-meta{font-size:11px;color:var(--muted);font-weight:300;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .picker-add{flex-shrink:0;font-size:18px;font-weight:600;color:var(--accent);min-width:24px;text-align:center;}
   .picker-row.added .picker-add{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--check);}
+  /* Pinned first row: add whatever's typed as a one-off (eating out, leftovers). */
+  .picker-row.picker-custom{background:transparent;border-style:dashed;border-color:var(--accent);}
+  .picker-row.picker-custom:hover{border-color:var(--accent);background:#fff;}
+  .picker-row.picker-custom .picker-name{font-family:'DM Sans',sans-serif;font-weight:600;color:var(--accent);}
+  .picker-custom-icon{width:40px;height:40px;flex-shrink:0;border-radius:7px;background:#f0ece5;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1;}
   .picker-loading,.picker-empty{padding:30px 16px;text-align:center;color:var(--muted);font-size:13px;font-weight:300;}
 
   /* Toast */
@@ -196,10 +201,13 @@ function renderViewCards(meals){
   // still see which night a meal lands on.
   (meals||[]).forEach(function(m){
     var day=m.day ? (DAY_ABBR[m.day]||m.day) + ' ' + (m.date||'') : '';
+    // Placeholder meals have no meta, so only join with " · " when there's
+    // something to join to — otherwise the line ends in a dangling separator.
+    var meta=[day, m.meta||''].filter(Boolean).join(' · ');
     // Pass weekOf on every render so notes stamp against the week currently
     // shown, even after publishing a new one from Plan mode.
-    var card=RecipeCard.makeCard(m, null, (day ? day + ' · ' : '') + (m.meta||''), weekData.weekOf||'');
-    if(day) card.setAttribute('data-meta-prefix', day + ' · ');
+    var card=RecipeCard.makeCard(m, null, meta, weekData.weekOf||'');
+    if(day && m.meta) card.setAttribute('data-meta-prefix', day + ' · ');
     mealCards.appendChild(card);
   });
 }
@@ -217,6 +225,10 @@ var planWeekOf=null;   // YYYY-MM-DD for the new week (plan mode only)
 var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 var idOf=RecipeCard.idOf;   // shared slug helper (see recipe-card.js)
+var isCustom=RecipeCard.isCustom;   // placeholder meal? (see recipe-card.js)
+
+// Does the week contain anything the grocery generator can actually shop for?
+function hasCookable(meals){ return (meals||[]).some(function(m){ return !isCustom(m); }); }
 
 // The week the active editing session targets: the new week in plan mode,
 // otherwise the current week. Used for day/date math.
@@ -398,11 +410,40 @@ function loadAllRecipes(cb){
   });
 }
 
+// The pinned first row of the picker: turns whatever's in the search box into a
+// one-off placeholder meal (eating out, leftovers, cooking something off-plan).
+// With the box empty it's a prompt that focuses the box instead.
+function buildCustomRow(){
+  var searchEl=document.getElementById('picker-search');
+  var raw=(searchEl.value||'').trim();
+  var row=document.createElement('button');
+  row.className='picker-row picker-custom';
+  var ic=document.createElement('span'); ic.className='picker-custom-icon'; ic.textContent='✏️';
+  var info=document.createElement('span'); info.className='picker-info';
+  var nm=document.createElement('span'); nm.className='picker-name';
+  var mt=document.createElement('span'); mt.className='picker-meta';
+  if(raw){
+    nm.textContent='Add "'+raw+'"';
+    mt.textContent='One-off · no groceries';
+  }else{
+    nm.textContent='Something else…';
+    mt.textContent='Eating out, leftovers, off-plan';
+  }
+  info.appendChild(nm); info.appendChild(mt);
+  var add=document.createElement('span'); add.className='picker-add'; add.textContent='+';
+  row.appendChild(ic); row.appendChild(info); row.appendChild(add);
+  row.addEventListener('click',function(){
+    if(raw) addCustomMeal(raw); else searchEl.focus();
+  });
+  return row;
+}
+
 function renderPickerList(q){
   q=(q||'').trim().toLowerCase();
   var listEl=document.getElementById('picker-list');
   var emptyEl=document.getElementById('picker-empty');
   listEl.innerHTML='';
+  listEl.appendChild(buildCustomRow());   // always first, whatever the search says
   var inWeek={}; editMeals.forEach(function(m){ inWeek[m.id]=true; });
   var shown=0;
   (allRecipes||[]).forEach(function(r){
@@ -437,6 +478,24 @@ function mealFromRecipe(r, day){
   return meal;
 }
 
+// A placeholder meal — a name and nothing else. Carries no ingredients, is never
+// clickable, and is skipped by grocery generation. The id gets a timestamp plus
+// random chars (same convention as photo keys) so each one has its own photo/note
+// bucket — two "Takeout" nights in the same week stay separate.
+function mealFromCustom(name, day){
+  var clean=(name||'').trim();
+  var slug=clean.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'meal';
+  return {
+    id:'custom-'+slug+'-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+    custom:true,
+    icon:'🍽',
+    name:clean.charAt(0).toUpperCase()+clean.slice(1),
+    meta:'',
+    ings:[], steps:[],
+    day:day
+  };
+}
+
 // Open the recipe picker so the chosen recipe lands on a specific day.
 function openPickerForDay(day){
   pickerTargetDay=day;
@@ -451,6 +510,17 @@ function addMeal(r){
   if(!day){ closeSheet('picker-overlay'); return; }
   editMeals=editMeals.filter(function(m){ return m.day!==day; });  // replace any meal on that day
   editMeals.push(mealFromRecipe(r, day));
+  sortMealsByDay();
+  closeSheet('picker-overlay');
+  renderEditCards();
+}
+
+function addCustomMeal(name){
+  if(!(name||'').trim()) return;
+  var day=pickerTargetDay||nextEmptyDay();
+  if(!day){ closeSheet('picker-overlay'); return; }
+  editMeals=editMeals.filter(function(m){ return m.day!==day; });  // replace any meal on that day
+  editMeals.push(mealFromCustom(name, day));
   sortMealsByDay();
   closeSheet('picker-overlay');
   renderEditCards();
@@ -657,7 +727,10 @@ async function save(){
   renderViewCards(weekData.meals); RecipeCard.applyBadges();
   doneBtn.disabled=false; doneBtn.textContent='Done';
 
-  if(committed){
+  if(committed && !hasCookable(meals)){
+    // Nothing but placeholders — CI won't generate a list, so don't sit and wait.
+    toast('Meals saved.', {success:true});
+  }else if(committed){
     toast('Meals saved · grocery list updating…', {persist:true});
     pollGroceries();
   }else{
@@ -711,11 +784,14 @@ async function publishWeek(){
   renderViewCards(weekData.meals); RecipeCard.applyBadges();
   doneBtn.disabled=false; doneBtn.textContent='Done';
 
-  if(committed) pollGroceries();
+  var willGenerate=committed && hasCookable(meals);
+  if(willGenerate) pollGroceries();
   if(archiveWarn){
     toast("Week published, but couldn't move the previous week to the Journal.", {error:true});
-  }else if(committed){
+  }else if(willGenerate){
     toast('Week published · grocery list updating…', {persist:true});
+  }else if(committed){
+    toast('Week published.', {success:true});
   }else{
     var why = (commitErr && commitErr.code==='no-token') ? "grocery auto-update isn't set up yet" : "couldn't reach GitHub";
     toast('Week published. Grocery list not built yet ('+why+').', {error:true});

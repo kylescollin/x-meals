@@ -119,6 +119,14 @@
     return r.id || (r.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   }
 
+  // A placeholder meal — eating out, leftovers, something cooked off-plan. It's
+  // just a name on the week, so its card is inert: no detail view, no cooking
+  // mode, no groceries. The id prefix is a fallback for anything written before
+  // the flag existed.
+  function isCustom(r) {
+    return !!(r && (r.custom === true || /^custom-/.test(r.id || '')));
+  }
+
   // ── Photo thumbnails ────────────────────────────────────────────────────
   // Cards show a small photo thumbnail (the cover, from /recipe-photos/<safeId>/src)
   // with the recipe emoji as the fallback. Fetched lazily as each thumb scrolls
@@ -462,6 +470,9 @@
       // Meal cards
       '.rc-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;}',
       '.rc-card:hover{border-color:#bbb;box-shadow:0 2px 8px rgba(0,0,0,.06);}',
+      // Placeholder meal: nothing to open, so nothing should invite a tap.
+      '.rc-card-plain{cursor:default;}',
+      '.rc-card-plain:hover{border-color:var(--border);box-shadow:none;}',
       '.rc-card-inner{display:flex;align-items:center;gap:14px;padding:14px 16px;user-select:none;}',
       // Photo thumbnail (shared by cards + edit mode). Photo when set, else emoji fallback.
       '.rc-thumb{position:relative;width:52px;height:52px;flex-shrink:0;border-radius:8px;overflow:hidden;background:#f0ece5;display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;}',
@@ -2666,15 +2677,17 @@
      * `weekOf` stamps notes added from this card to a specific week — the
      * Journal passes each week's own value so a note added months later still
      * files under the right week. Omit it to use the page default.
+     * A placeholder meal (see isCustom) renders inert: no chevron, no click.
      */
     makeCard: function (r, labelOverride, metaOverride, weekOf) {
       var id     = idOf(r);
       var safeId = fbSafeKey(id);
+      var plain  = isCustom(r);
       var fixed  = labelOverride !== undefined && labelOverride !== null;
-      var lbl    = fixed ? labelOverride : tagsFor(r).slice(0, 2).join(' · ');
+      var lbl    = fixed ? labelOverride : (plain ? 'One-off' : tagsFor(r).slice(0, 2).join(' · '));
       var meta   = metaOverride !== undefined && metaOverride !== null ? metaOverride : (r.meta || '');
       var div = document.createElement('div');
-      div.className = 'rc-card';
+      div.className = 'rc-card' + (plain ? ' rc-card-plain' : '');
       div.setAttribute('data-recipe-id', id);
       if (fixed) div.setAttribute('data-label-fixed', '');
       if (weekOf) div.setAttribute('data-week-of', weekOf);
@@ -2687,17 +2700,19 @@
           '</div>' +
           '<div class="rc-card-right">' +
             '<span class="rc-act" data-act-id="' + escAttr(safeId) + '"></span>' +
-            '<span class="rc-saved-badge" data-id="' + escAttr(id) + '">' +
-              '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
-              'Saved' +
-            '</span>' +
-            '<span class="rc-chevron">›</span>' +
+            (plain ? '' :
+              '<span class="rc-saved-badge" data-id="' + escAttr(id) + '">' +
+                '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
+                'Saved' +
+              '</span>' +
+              '<span class="rc-chevron">›</span>') +
           '</div>' +
         '</div>';
       var inner = div.querySelector('.rc-card-inner');
       inner.insertBefore(makeThumb(r), inner.firstChild);
       paintActivityBadge(div.querySelector('.rc-act'), safeId);
-      div.addEventListener('click', function () { openDetail(r, weekOf); });
+      // There's nothing to open on a placeholder — leave it unclickable.
+      if (!plain) div.addEventListener('click', function () { openDetail(r, weekOf); });
       return div;
     },
 
@@ -2745,6 +2760,7 @@
     closeDetail: closeDetail,
     openAddForm: openAddForm,
     idOf: idOf,
+    isCustom: isCustom,
     makeThumb: makeThumb,
     isSaved: isSaved,
     isCore: isCore,

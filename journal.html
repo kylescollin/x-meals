@@ -56,10 +56,13 @@ function renderWeek(week,isCurrent){var entry=document.createElement('div');entr
   // Eyebrow shows the recipe's tags; the day moves to the meta line.
   var day=meal.day?meal.day+(meal.date?' '+meal.date:''):'';
   var weekOf=week.weekOf||'';
+  // Placeholder meals carry no meta — only join with " · " when there's
+  // something to join to, or the line ends in a dangling separator.
+  var meta=[day,meal.meta||''].filter(Boolean).join(' · ');
   // Passing weekOf means a note added from this card files under THIS week —
   // which is how a meal can be logged days after it was cooked.
-  var card=RecipeCard.makeCard(meal,null,(day?day+' · ':'')+(meal.meta||''),weekOf);
-  if(day) card.setAttribute('data-meta-prefix',day+' · ');
+  var card=RecipeCard.makeCard(meal,null,meta,weekOf);
+  if(day&&meal.meta) card.setAttribute('data-meta-prefix',day+' · ');
   var wrap=document.createElement('div');
   wrap.className='jr-entry';
   wrap.appendChild(card);

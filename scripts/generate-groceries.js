@@ -110,9 +110,19 @@ async function main() {
     process.exit(0);
   }
 
+  // Placeholder meals (eating out, leftovers, off-plan) are just a name — keep
+  // them out of the prompt entirely so the model can't invent ingredients for them.
+  const cookable = (weekData.meals || []).filter(
+    m => m && !(m.custom === true || /^custom-/.test(m.id || ''))
+  );
+  if (cookable.length === 0) {
+    console.log('No cookable meals this week — skipping grocery generation.');
+    process.exit(0);
+  }
+
   console.log(`Generating groceries for week of ${weekData.weekOf}...`);
 
-  const groceries = await generateGroceries(weekData.meals);
+  const groceries = await generateGroceries(cookable);
 
   for (const section of groceries) {
     for (const item of section.items) {
