@@ -106,11 +106,25 @@
   .picker-meta{font-size:11px;color:var(--muted);font-weight:300;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .picker-add{flex-shrink:0;font-size:18px;font-weight:600;color:var(--accent);min-width:24px;text-align:center;}
   .picker-row.added .picker-add{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--check);}
-  /* Pinned first row: add whatever's typed as a one-off (eating out, leftovers). */
+  /* Pinned first row: name a one-off instead of picking a recipe. Outlined when
+     it's an option, filled while it's the mode you're in. */
   .picker-row.picker-custom{background:transparent;border-style:dashed;border-color:var(--accent);}
   .picker-row.picker-custom:hover{border-color:var(--accent);background:#fff;}
   .picker-row.picker-custom .picker-name{font-family:'DM Sans',sans-serif;font-weight:600;color:var(--accent);}
   .picker-custom-icon{width:40px;height:40px;flex-shrink:0;border-radius:7px;background:#f0ece5;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1;}
+  .picker-row.picker-custom.selected{background:var(--accent);border-style:solid;border-color:var(--accent);}
+  .picker-row.picker-custom.selected:hover{background:var(--accent);}
+  .picker-row.picker-custom.selected:active{background:#b3581f;}
+  .picker-row.picker-custom.selected .picker-name{color:#fff;}
+  .picker-row.picker-custom.selected .picker-meta{color:rgba(255,255,255,.72);}
+  .picker-row.picker-custom.selected .picker-add{color:#fff;font-size:15px;}
+  .picker-row.picker-custom.selected .picker-custom-icon{background:rgba(255,255,255,.22);}
+
+  /* Commit bar — only present while naming a one-off. */
+  .picker-confirm-wrap{padding:12px 16px;border-top:1px solid var(--border);}
+  .picker-confirm{width:100%;background:var(--accent);color:#fff;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}
+  .picker-confirm:active:not(:disabled){transform:scale(.98);background:#b3581f;}
+  .picker-confirm:disabled{opacity:.45;cursor:default;}
   .picker-loading,.picker-empty{padding:30px 16px;text-align:center;color:var(--muted);font-size:13px;font-weight:300;}
 
   /* Toast */
@@ -161,6 +175,9 @@
     </div>
     <div class="picker-list" id="picker-list"></div>
     <div class="picker-empty" id="picker-empty" style="display:none">No recipes match your search.</div>
+    <div class="picker-confirm-wrap" id="picker-confirm-wrap" style="display:none">
+      <button class="picker-confirm" id="picker-confirm" disabled>Add</button>
+    </div>
   </div>
 </div>
 
@@ -219,6 +236,7 @@ document.getElementById('editBtn').style.display='';
 // ── Edit state ────────────────────────────────────────────────────────────
 var editMeals=[];
 var pickerTargetDay=null;   // which day the recipe picker is adding to
+var pickerCustomMode=false; // picker is naming a one-off meal, not searching recipes
 var allRecipes=null;
 var editMode='edit';   // 'edit' | 'plan'
 var planWeekOf=null;   // YYYY-MM-DD for the new week (plan mode only)
@@ -410,32 +428,47 @@ function loadAllRecipes(cb){
   });
 }
 
-// The pinned first row of the picker: turns whatever's in the search box into a
-// one-off placeholder meal (eating out, leftovers, cooking something off-plan).
-// With the box empty it's a prompt that focuses the box instead.
+// The pinned first row of the picker. Tapping it selects a mode: the row fills
+// in, the recipe list disappears, and the search box becomes the name field for
+// a one-off meal (eating out, leftovers, cooking something off-plan). Tapping it
+// again backs out to searching. It's one <button>, so the ✕ is an affordance
+// rather than its own control — anywhere on the row toggles.
 function buildCustomRow(){
-  var searchEl=document.getElementById('picker-search');
-  var raw=(searchEl.value||'').trim();
   var row=document.createElement('button');
-  row.className='picker-row picker-custom';
+  row.className='picker-row picker-custom'+(pickerCustomMode?' selected':'');
   var ic=document.createElement('span'); ic.className='picker-custom-icon'; ic.textContent='✏️';
   var info=document.createElement('span'); info.className='picker-info';
   var nm=document.createElement('span'); nm.className='picker-name';
   var mt=document.createElement('span'); mt.className='picker-meta';
-  if(raw){
-    nm.textContent='Add "'+raw+'"';
-    mt.textContent='One-off · no groceries';
-  }else{
-    nm.textContent='Something else…';
-    mt.textContent='Eating out, leftovers, off-plan';
-  }
+  nm.textContent='Something else…';
+  mt.textContent=pickerCustomMode ? 'One-off · no groceries' : 'Eating out, leftovers, off-plan';
   info.appendChild(nm); info.appendChild(mt);
-  var add=document.createElement('span'); add.className='picker-add'; add.textContent='+';
+  var add=document.createElement('span'); add.className='picker-add'; add.textContent=pickerCustomMode?'✕':'+';
   row.appendChild(ic); row.appendChild(info); row.appendChild(add);
-  row.addEventListener('click',function(){
-    if(raw) addCustomMeal(raw); else searchEl.focus();
-  });
+  row.addEventListener('click',function(){ setCustomMode(!pickerCustomMode); });
   return row;
+}
+
+// Enter or leave name-a-one-off mode. The typed text is deliberately kept in
+// both directions — a half-typed search is a fine start for a name, and vice versa.
+function setCustomMode(on, opts){
+  opts=opts||{};
+  pickerCustomMode=!!on;
+  var searchEl=document.getElementById('picker-search');
+  searchEl.placeholder = on ? 'What are you eating?' : 'Search recipes or ingredients…';
+  searchEl.setAttribute('enterkeyhint', on ? 'done' : 'search');
+  if(on && !opts.noFocus) searchEl.focus();
+  renderPickerList(searchEl.value);
+}
+
+// The bottom bar only exists in custom mode, and only commits once there's a name.
+function syncConfirmBar(){
+  var wrap=document.getElementById('picker-confirm-wrap');
+  var btn=document.getElementById('picker-confirm');
+  wrap.style.display = pickerCustomMode ? '' : 'none';
+  if(!pickerCustomMode) return;
+  btn.textContent = pickerTargetDay ? ('Add to '+pickerTargetDay) : 'Add meal';
+  btn.disabled = !(document.getElementById('picker-search').value||'').trim();
 }
 
 function renderPickerList(q){
@@ -444,6 +477,12 @@ function renderPickerList(q){
   var emptyEl=document.getElementById('picker-empty');
   listEl.innerHTML='';
   listEl.appendChild(buildCustomRow());   // always first, whatever the search says
+  syncConfirmBar();
+  if(pickerCustomMode){
+    // Naming a one-off — the search box isn't searching, so there's nothing to list.
+    emptyEl.style.display='none';
+    return;
+  }
   var inWeek={}; editMeals.forEach(function(m){ inWeek[m.id]=true; });
   var shown=0;
   (allRecipes||[]).forEach(function(r){
@@ -499,6 +538,9 @@ function mealFromCustom(name, day){
 // Open the recipe picker so the chosen recipe lands on a specific day.
 function openPickerForDay(day){
   pickerTargetDay=day;
+  // Always open on the recipe list. noFocus: the keyboard shouldn't fight the
+  // sheet animation, and the render below is replaced by the loading placeholder.
+  setCustomMode(false, {noFocus:true});
   document.getElementById('picker-search').value='';
   document.getElementById('picker-list').innerHTML='<div class="picker-loading">Loading recipes…</div>';
   openSheet('picker-overlay');
@@ -522,6 +564,7 @@ function addCustomMeal(name){
   editMeals=editMeals.filter(function(m){ return m.day!==day; });  // replace any meal on that day
   editMeals.push(mealFromCustom(name, day));
   sortMealsByDay();
+  pickerCustomMode=false;   // next open starts on the recipe list
   closeSheet('picker-overlay');
   renderEditCards();
 }
@@ -806,6 +849,14 @@ document.getElementById('doneBtn').addEventListener('click', save);
 document.getElementById('shuffleWeekBtn').addEventListener('click', shuffleWeek);
 document.getElementById('picker-close').addEventListener('click', function(){ closeSheet('picker-overlay'); });
 document.getElementById('picker-search').addEventListener('input', function(){ renderPickerList(this.value); });
+document.getElementById('picker-search').addEventListener('keydown', function(e){
+  if(e.key!=='Enter' || !pickerCustomMode) return;
+  e.preventDefault();
+  if((this.value||'').trim()) addCustomMeal(this.value);
+});
+document.getElementById('picker-confirm').addEventListener('click', function(){
+  addCustomMeal(document.getElementById('picker-search').value);
+});
 document.getElementById('picker-overlay').addEventListener('click', function(e){ if(e.target===this) closeSheet('picker-overlay'); });
 </script>
 </body>
