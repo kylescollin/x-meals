@@ -34,8 +34,10 @@ jobs:
       - name: Check week data
         run: node scripts/check-weeks.js
 
-      - name: Test grocery merge
-        run: node scripts/test-week-merge.js
+      - name: Run tests
+        run: |
+          node scripts/test-week-merge.js
+          node scripts/test-week-store.js
 
       # Skipped entirely for weeks whose list already accounts for their meals,
       # which is what stops this from looping or burning API calls.

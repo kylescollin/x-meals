@@ -36,22 +36,38 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 ## File Structure
 
 **Pages:**
-- `index.html` — This week's grocery list and meal plan. Fetches from Firebase `/meals/current` on load. Includes recipe detail overlay and full cooking mode.
+- `index.html` — The week view. Navigate between weeks with the chevrons, or flip to the
+  timeline view for every week in one scroll. Includes the grocery card, recipe detail overlay
+  and full cooking mode. Reads Firebase `/meals/weeks/{weekOf}`.
+- `groceries.html` — One week's grocery list. Takes `?week=` (a Sunday or a stored `weekOf`).
 - `recipes.html` — Browsable recipe collection. Fetches `data/recipes.json` on load.
-- `journal.html` — Chronological meal history. Fetches from Firebase `/meals/current` (current week) + `/meals/history` (past weeks) on load.
+- `journal.html` — Superseded by the timeline view on `index.html`.
 
 **Data:**
-- `data/week.json` — Current week's full data. Agent X writes this each week. See schema below.
+- `data/weeks/YYYY-MM-DD.json` — **One file per week. This is what Agent X writes.** Past,
+  present and future all live here in the same shape. See schema below.
 - `data/recipes.json` — All saved recipes (~45). Agent X can update this as new recipes are added.
   Each carries a `tags` array — see **Recipe Tags** below.
-- `data/history.json` — Array of all past weeks, newest first. Agent X prepends to this each week before writing a new `week.json`. Used as backfill source for Firebase history.
-- `data/history/YYYY-MM-DD.json` — Individual per-week archive files (backup copies).
 - `recipes.md` — Human-readable master recipe list. Source of truth for Agent X when suggesting meals.
+- `data/week.json`, `data/history.json`, `data/history/*.json` — **Frozen legacy.** Kept so
+  nothing is lost. Nothing reads them. Do not write them.
+
+**Shared scripts:**
+- `week-utils.js` — All week math (`window.Week`, and `require`-able from `scripts/`). Weeks run
+  **Sunday → Saturday**.
+- `week-store.js` — Reading and writing weeks from the browser (`window.WeekStore`).
 
 **Scripts & Automation:**
-- `scripts/sync-firebase.js` — Syncs `data/week.json` and `data/history.json` to Firebase. Archives the old week automatically when a new one is published.
-- `scripts/package.json` — `firebase-admin` dependency for the sync script.
-- `.github/workflows/sync-to-firebase.yml` — GitHub Actions workflow. Triggers automatically on push when `data/week.json` or `data/history.json` changes.
+- `scripts/sync-firebase.js` — Syncs `data/weeks/*.json` → `/meals/weeks/*`, and mirrors the
+  current week to `/meals/current` for anything still reading it.
+- `scripts/generate-groceries.js` — Brings each week's grocery list in line with its meals.
+  Merges rather than overwrites; see **Grocery Lists** below.
+- `scripts/lib/week-merge.js` — The grocery reconcile algorithm.
+- `scripts/check-weeks.js`, `scripts/test-week-merge.js`, `scripts/test-week-store.js` — the
+  repo's test suite. All three run in CI before anything is written.
+- `scripts/fold-legacy-week.js` — Safety net: folds a stray `data/week.json` into `data/weeks/`.
+- `scripts/migrate-weeks.js` — The one-time migration. Already run; kept for reference.
+- `.github/workflows/sync-to-firebase.yml` — Triggers on push to `data/weeks/**`.
 
 **Other:**
 - `cooking-demo.html` — Standalone prototype page. Not part of the main nav.
@@ -62,7 +78,28 @@ The HTML pages are render-only shells — they contain no embedded meal or recip
 
 **Firebase Realtime Database** (`fox-bear-hub` project) has two purposes:
 1. **Grocery checkbox sync** — When Kyle or Josephine checks an item, the other person's screen updates instantly. Stored at `groceries/{weekOf}/{itemName}`.
-2. **Meal data** — Current week and history are stored at `/meals/current` and `/meals/history/{weekOf}`. `index.html` and `journal.html` read from these nodes. The sync script keeps them up to date automatically.
+2. **Meal data** — Every week lives at `/meals/weeks/{weekOf}`. `/meals/current` is a mirror of
+   the week containing today, kept only for backward compatibility. `/meals/history` is frozen and
+   never written again.
+
+### Two meanings of "week" — don't conflate them
+
+| | |
+|---|---|
+| **key** | The stored `weekOf`. Keys `/meals/weeks/{key}`, `/groceries/{key}`, `data/weeks/{key}.json`, and every note and photo stamp. **Immutable.** |
+| **start** | The canonical **Sunday** for that key. Drives every label and all day→date math. |
+
+The keys we inherited don't all land on Sundays — there are Mondays, a Tuesday and a Thursday in
+there, because `weekOf` used to be whatever day the plan was written. Rather than re-key everything
+(which would orphan every grocery checkbox and note), the client keeps a `start → key` index.
+
+Two rules that must not be broken:
+- **Day→date math computes from `Week.startOf(weekOf)`, never the raw key.**
+- **Never mint a key without checking the index first** — `WeekStore.keyOrMint()` returns the
+  existing key when a week already exists under a non-Sunday name. Minting blind would create a
+  second document for a week that already exists.
+
+`scripts/check-weeks.js` asserts both in CI.
 
 Agent X does not interact with Firebase directly — it writes JSON files to git, and the GitHub Action handles the Firebase sync.
 
@@ -166,12 +203,18 @@ Rules for Agent X when adding a recipe:
   than guessing.
 - Cook time is **not** a tag. It stays as the first segment of `meta`
   (`"30 min · Stovetop · Serves 4"`), which is also what the time and equipment filters parse.
-- `week.json` meals don't need tags — the site looks them up by recipe `id` from `data/recipes.json`.
+- Weekly meals don't need tags — the site looks them up by recipe `id` from `data/recipes.json`.
   The `"label": "Meal A"` on a weekly meal is only used for grocery tag colors, never as a category.
 
-## data/week.json Schema
+## Week File Schema
 
-Agent X must write `data/week.json` in this exact format each week:
+Agent X writes `data/weeks/YYYY-MM-DD.json`, in this exact format. The filename must equal the
+`weekOf` field — CI fails otherwise.
+
+`weekOf` should be the **Sunday** the week starts on. (Older files use other weekdays; that's
+historical and handled, but don't add to it.)
+
+`title` and `subhead` are stored but no longer displayed — the header is built from the dates.
 
 ```json
 {
@@ -203,7 +246,8 @@ Agent X must write `data/week.json` in this exact format each week:
           "detail": "Which meal(s) it's for",
           "tag": "Meal A",
           "tagClass": "tag-chili",
-          "amazon": "search term for Amazon Fresh"
+          "amazon": "search term for Amazon Fresh",
+          "from": ["recipe-slug"]
         }
       ]
     }
@@ -240,22 +284,38 @@ recipe entry for it. Never give a placeholder ingredients or steps.
 
 ## Agent X Publish Workflow
 
-Each week when publishing a new meal plan:
+Publishing a week is now a single file write. There is no archiving step, and no week displaces
+another — planning three weeks ahead is just three files.
 
-1. Prepend the current `data/week.json` content to `data/history.json` (keeps history current)
-2. Write the new `data/week.json` with the meals array fully populated and `"groceries": []` (empty — the GitHub Action generates groceries automatically)
-3. Commit and push to `main`
+1. Write `data/weeks/{weekOf}.json` with the meals array fully populated and `"groceries": []`.
+2. Commit and push to `main`.
+
+That's it. Don't touch `data/week.json` or `data/history.json` — they are frozen legacy.
 
 **Important — meal IDs:** When a meal comes from the saved recipe collection (`data/recipes.json`), use the **exact `id` value** from that file. The site uses these IDs to detect whether a recipe is already saved, so a mismatch (e.g. `"teriyaki-chicken-tacos"` instead of `"teriyaki-chicken-tacos-with-sesame-cucumber-slaw"`) causes a Save button to incorrectly appear. Always look up the canonical ID in `data/recipes.json` rather than generating one from the name.
 
-The GitHub Action runs automatically and:
-- Detects the empty `groceries` array and calls the Claude API to generate the complete grocery list
-- Commits the updated `week.json` (with groceries) back to the repo
-- Archives the old week from Firebase `/meals/current` → `/meals/history/{weekOf}`
-- Writes the new week (meals + groceries) to `/meals/current`
-- Backfills any history entries not yet in Firebase
+The GitHub Action then runs `check-weeks` and the tests, updates the grocery lists, and syncs
+every week to Firebase.
 
-**Note:** X does not generate the groceries array. That is handled automatically by `scripts/generate-groceries.js` in the GitHub Action using `ANTHROPIC_API_KEY`. If groceries are already present in `week.json`, the generation step is skipped.
+## Grocery Lists
+
+X does not write the `groceries` array — `scripts/generate-groceries.js` does, in CI.
+
+It **merges rather than overwrites**, which matters because grocery check state is keyed by the
+item's rendered *name*: renaming "3 medium yellow onions" to "2 yellow onions" would silently
+un-tick an item somebody had already put in the trolley.
+
+- A week whose list already accounts for all its meals is skipped entirely — no API call, no
+  write, no commit. That's what makes the step safe to re-run.
+- When a week has changed, the whole list is regenerated (so ingredients still consolidate across
+  meals) and then reconciled against the existing list. **Anything currently ticked off keeps its
+  exact name.** It still picks up a corrected `tag`, `detail` and `from`.
+- Hand-added items (no `from`) always survive. Items whose meals have all left the week are dropped.
+- Lists written before `from` existed have no provenance at all, so they're treated as entirely
+  hand-added and never pruned.
+
+Never commit `"groceries": []` to force a rebuild — that was the old mechanism and it threw away
+the check state along with the list.
 
 ## Design Conventions
 

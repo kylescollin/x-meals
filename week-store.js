@@ -95,8 +95,9 @@
    * ings/steps, so opening one used to show a blank sheet. Fill them from the
    * recipe collection at render time.
    *
-   * Only ever fills gaps, never overwrites, and never writes back to Firebase —
-   * the stored week keeps whatever it always had.
+   * Only ever fills gaps, never overwrites. Nothing is written back on its own;
+   * if you later edit that week, the filled-in recipe is saved with it, which
+   * is an improvement on the empty arrays it had before.
    */
   function hydrate(week) {
     if (!week || !week.meals) return week;
