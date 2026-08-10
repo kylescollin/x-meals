@@ -208,16 +208,26 @@ async function main() {
   // base64 image data.
   const comments = (await db.ref('/recipe-comments').once('value')).val() || {};
   const notedWeeks = new Set();
+  let noteCount = 0, unstamped = 0, photoRefs = 0;
   Object.values(comments).forEach(byKey => {
     Object.values(byKey || {}).forEach(note => {
-      if (note && note.weekOf) notedWeeks.add(note.weekOf);
+      if (!note) return;
+      noteCount++;
+      photoRefs += (note.photos || []).length;
+      if (note.weekOf) notedWeeks.add(note.weekOf); else unstamped++;
     });
   });
   const orphanNotes = [...notedWeeks].filter(k => !merged.has(k));
   if (orphanNotes.length) {
     console.log(`  Note: notes stamped ${orphanNotes.join(', ')} have no matching week.`);
   }
-  console.log(`  ${notedWeeks.size} weeks carry notes or photos; ${orphanNotes.length} orphaned.`);
+  console.log(
+    `  ${noteCount} notes on ${Object.keys(comments).length} recipes, ${photoRefs} photos, ` +
+    `${unstamped} with no week stamp; ${notedWeeks.size} weeks referenced, ${orphanNotes.length} orphaned.`
+  );
+  // Deliberately no read of /recipe-photos. The Admin SDK has no shallow
+  // query, so any read of that node would pull down every base64 JPEG on the
+  // site. Photos hang off notes, so the sweep above already accounts for them.
 
   if (problems.length) {
     console.error(`\n✗ ${problems.length} problem(s) — writing nothing:\n`);
