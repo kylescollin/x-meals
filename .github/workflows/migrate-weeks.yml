@@ -1,0 +1,51 @@
+name: Migrate weeks to per-week documents
+
+# One-time migration, run by hand. Defaults to a dry run: it reads every
+# source, prints exactly what it would write, and stops. Read that output
+# before running it for real.
+#
+# It only ever adds. /meals/history and /meals/current are read and never
+# written, so rolling back means ignoring /meals/weeks.
+
+on:
+  workflow_dispatch:
+    inputs:
+      write:
+        description: 'Actually write (otherwise dry run)'
+        type: boolean
+        default: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: cd scripts && npm install
+
+      - name: Migrate
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: node scripts/migrate-weeks.js ${{ inputs.write && '--write' || '' }}
+
+      - name: Check migrated data
+        if: inputs.write
+        run: node scripts/check-weeks.js
+
+      - name: Commit per-week files
+        if: inputs.write
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/weeks
+          if ! git diff --cached --quiet; then
+            git commit -m "Migrate every week into data/weeks/"
+            git push
+          fi
