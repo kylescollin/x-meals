@@ -64,12 +64,6 @@
   .ds-action.ds-shuffle:active{transform:scale(.95);}
   .ds-action+.ds-action{border-left:1px solid var(--border);}
 
-  .add-meal-btn{width:100%;margin-top:12px;background:transparent;border:1.5px dashed var(--border);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:14px;border-radius:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s;}
-  .add-meal-btn:hover:not(:disabled){border-color:var(--accent);background:#fff;}
-  .add-meal-btn:disabled{color:var(--muted);cursor:default;opacity:.6;border-style:solid;}
-  .shuffle-btn{margin-top:12px;border-style:solid;border-color:var(--accent);background:var(--accent);color:#fff;font-weight:600;}
-  .shuffle-btn:hover:not(:disabled){border-color:var(--accent);background:#b35525;}
-
   /* Bottom edit bar */
   .edit-bar{position:fixed;left:0;right:0;bottom:0;z-index:200;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-top:1px solid var(--border);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(0,0,0,.06);}
   .edit-bar .eb-count{font-size:12px;color:var(--muted);font-weight:500;}
@@ -145,6 +139,7 @@
     <div class="hd-actions">
       <button class="edit-toggle primary" id="planBtn" style="display:none">Plan a week</button>
       <button class="edit-toggle" id="editBtn" style="display:none">Edit</button>
+      <button class="edit-toggle primary" id="shuffleWeekBtn" style="display:none">🎲 Shuffle</button>
     </div>
   </div>
   <p class="subhead" id="subhead"></p>
@@ -152,7 +147,6 @@
 
   <div id="editPane" style="display:none">
     <div class="day-grid-edit" id="editCards"></div>
-    <button class="add-meal-btn shuffle-btn" id="shuffleWeekBtn">🎲 Shuffle week</button>
   </div>
 </div>
 
@@ -597,6 +591,11 @@ function shuffleDay(day){
 // Replace the whole week with a fresh set of 3 distinct random meals (Mon/Tue/Wed),
 // matching the "3 dinners" default. Re-tap to reshuffle.
 function shuffleWeek(){
+  // In edit mode this throws away a week that already has meals on it — confirm first.
+  // In plan mode you're starting from empty, so just shuffle.
+  if(editMode==='edit' && editMeals.length){
+    if(!confirm('Replace all '+editMeals.length+' meal'+(editMeals.length===1?'':'s')+' with a random week?')) return;
+  }
   loadAllRecipes(function(list){
     var pool=(list||[]).slice();
     if(!pool.length){ toast('No recipes to shuffle yet.', {}); return; }
@@ -647,6 +646,7 @@ function showEditUI(){
   document.getElementById('mealCards').style.display='none';
   document.getElementById('planBtn').style.display='none';
   document.getElementById('editBtn').style.display='none';
+  document.getElementById('shuffleWeekBtn').style.display='';
   document.getElementById('editPane').style.display='';
   document.getElementById('editBar').style.display='';
   document.body.classList.add('editing');
@@ -671,6 +671,7 @@ function exitEdit(){
   closeSheet('picker-overlay');
   document.getElementById('editPane').style.display='none';
   document.getElementById('editBar').style.display='none';
+  document.getElementById('shuffleWeekBtn').style.display='none';
   document.getElementById('mealCards').style.display='';
   document.getElementById('planBtn').style.display='';
   document.getElementById('editBtn').style.display='';
