@@ -1,6 +1,20 @@
+/* Fox & Bear Kitchen — grocery list generation.
+ *
+ * Walks every current-and-upcoming week in data/weeks/ and brings its grocery
+ * list up to date with its meals.
+ *
+ * This does NOT overwrite. A week whose list already accounts for all its
+ * meals is skipped entirely — no API call, no write, no commit — which is what
+ * makes re-running this safe. When a week HAS changed, the whole list is
+ * regenerated (so the model can still consolidate one onion line across three
+ * meals) and then reconciled against the existing list, preserving the exact
+ * name of anything already ticked off. See scripts/lib/week-merge.js.
+ */
 const fs = require('fs');
 const path = require('path');
 const Anthropic = require('@anthropic-ai/sdk');
+const Week = require('../week-utils.js');
+const { isCovered, mergeGroceries } = require('./lib/week-merge.js');
 
 const client = new Anthropic();
 
@@ -44,11 +58,16 @@ Only the Spices category gets a "note" field.
   "name": "quantity + item, e.g. '3 medium yellow onions'",
   "detail": "which meal(s) and how it's used, e.g. '1 for chili · 1 for cauliflower · 1 for pasta sauce'",
   "tag": "Meal A" | "Meal B" | ... | "Meals A+C" | "Meals B+D+E" | "All meals",
-  "amazon": "lowercase amazon fresh search term"
+  "amazon": "lowercase amazon fresh search term",
+  "from": ["<meal id>", ...]
 }
 
 Spices items: omit the "amazon" field entirely.
 Do NOT output a "tagClass" field — it is computed automatically from "tag".
+
+"from" lists the "id" of every meal the item is needed for. It must agree with
+"tag": the meal labelled "Meal A" contributes its id, and so on. Include it on
+every item.
 
 ## Tag Rules (strict)
 There may be anywhere from 1 to 7 meals in a week. Each meal has a "label" like
@@ -75,9 +94,17 @@ There may be anywhere from 1 to 7 meals in a week. Each meal has a "label" like
 - Lowercase, no punctuation, space-separated
 - Specific enough to find the right product
 - Good examples: "yellow onion", "lean ground beef", "basmati rice", "diced tomatoes green chilies mild", "heavy cream"
-- Omit "amazon" for every Spices item`;
+- Omit "amazon" for every Spices item
 
-async function generateGroceries(meals) {
+## Existing List Context
+The user message may include an "already on the list" section. Those items are on
+a live shopping list that people may have already ticked off, so reuse an existing
+item's EXACT "name" string whenever your output covers the same ingredient. Only
+write a different name when the quantity genuinely changed.
+
+Always return the COMPLETE list for every meal you were given — never a diff.`;
+
+async function generateGroceries(meals, existingNames) {
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 4000,
@@ -91,7 +118,10 @@ async function generateGroceries(meals) {
     messages: [
       {
         role: 'user',
-        content: `Generate the groceries array for this week's meals:\n\n${JSON.stringify(meals, null, 2)}`
+        content:
+          `Generate the complete groceries array for this week's meals:\n\n${JSON.stringify(meals, null, 2)}` +
+          `\n\nAlready on the list — reuse these exact name strings wherever your output covers the same ingredient:\n\n` +
+          ((existingNames || []).length ? JSON.stringify(existingNames, null, 2) : '(nothing yet)')
       }
     ]
   });
@@ -101,44 +131,110 @@ async function generateGroceries(meals) {
   return JSON.parse(json);
 }
 
-async function main() {
-  const weekJsonPath = path.join(__dirname, '..', 'data', 'week.json');
-  const weekData = JSON.parse(fs.readFileSync(weekJsonPath, 'utf8'));
-
-  if (weekData.groceries && weekData.groceries.length > 0) {
-    console.log('Groceries already present — skipping generation.');
-    process.exit(0);
-  }
-
-  // Placeholder meals (eating out, leftovers, off-plan) are just a name — keep
-  // them out of the prompt entirely so the model can't invent ingredients for them.
-  const cookable = (weekData.meals || []).filter(
+// Placeholder meals (eating out, leftovers, off-plan) are just a name — keep
+// them out of the prompt entirely so the model can't invent ingredients for them.
+function cookableMeals(week) {
+  return (week.meals || []).filter(
     m => m && !(m.custom === true || /^custom-/.test(m.id || ''))
   );
-  if (cookable.length === 0) {
-    console.log('No cookable meals this week — skipping grocery generation.');
-    process.exit(0);
+}
+
+// Which items are currently ticked off, so the merge knows whose names are
+// frozen. Best-effort: without credentials we simply preserve fewer names.
+async function checkedKeysFor(weekOf) {
+  if (!process.env.FIREBASE_SERVICE_ACCOUNT) return new Set();
+  try {
+    const admin = require('firebase-admin');
+    if (!admin.apps.length) {
+      admin.initializeApp({
+        credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)),
+        databaseURL: 'https://fox-bear-hub-default-rtdb.firebaseio.com'
+      });
+    }
+    const snap = await admin.database().ref('/groceries/' + weekOf).once('value');
+    const flags = snap.val() || {};
+    return new Set(Object.keys(flags).filter(k => k !== '_custom' && flags[k] === true));
+  } catch (e) {
+    console.log(`  (couldn't read check state: ${e.message})`);
+    return new Set();
   }
+}
 
-  console.log(`Generating groceries for week of ${weekData.weekOf}...`);
+async function processWeek(filePath) {
+  const week = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  const cookable = cookableMeals(week);
+  const mealIds = cookable.map(m => m.id);
 
-  const groceries = await generateGroceries(cookable);
+  if (!cookable.length) return null;                      // nothing to shop for
+  if (isCovered(week.groceries, mealIds)) return null;    // already accounted for
 
-  for (const section of groceries) {
+  const existing = (week.groceries || []).flatMap(s => (s.items || []).map(i => i.name));
+  console.log(`Generating groceries for week of ${week.weekOf} (${cookable.length} meals, ${existing.length} existing items)...`);
+
+  const fresh = await generateGroceries(cookable, existing);
+
+  // Never trust the model with the merge key. Drop ids it invented, and
+  // reconstruct `from` from `tag` when it forgot.
+  const byLabel = {};
+  cookable.forEach(m => { if (m.label) byLabel[m.label] = m.id; });
+  for (const section of fresh) {
     for (const item of section.items) {
       item.tagClass = getTagClass(item.tag);
+      let from = (item.from || []).filter(id => mealIds.includes(id));
+      if (!from.length) from = fromTag(item.tag, byLabel, mealIds);
+      item.from = from;
     }
   }
 
-  weekData.groceries = groceries;
-  // Trailing newline to match what the in-app commit writes (index.html
-  // commitWeekJson). Without it every CI write differs from every in-app write
-  // by one byte, so `git diff --quiet` is always dirty and can never be used to
-  // tell "nothing changed" from "something changed".
-  fs.writeFileSync(weekJsonPath, JSON.stringify(weekData, null, 2) + '\n');
+  const checked = await checkedKeysFor(week.weekOf);
+  week.groceries = mergeGroceries(week.groceries, fresh, mealIds, checked);
+  week.groceriesAt = new Date().toISOString();
 
-  const totalItems = groceries.reduce((n, s) => n + s.items.length, 0);
-  console.log(`Done. ${totalItems} grocery items written across ${groceries.length} sections.`);
+  // Trailing newline to match what the in-app commit writes. Without it every
+  // CI write differs from every in-app write by one byte, so `git diff --quiet`
+  // can never tell "nothing changed" from "something changed".
+  fs.writeFileSync(filePath, JSON.stringify(week, null, 2) + '\n');
+
+  const total = week.groceries.reduce((n, s) => n + s.items.length, 0);
+  const kept = checked.size;
+  console.log(`  ${total} items across ${week.groceries.length} sections (${kept} ticked-off names preserved).`);
+  return week.weekOf;
+}
+
+// "Meals A+C" → the ids of the meals labelled Meal A and Meal C.
+function fromTag(tag, byLabel, mealIds) {
+  if (tag === 'All meals') return mealIds.slice();
+  const letters = String(tag || '').match(/[A-G]/g) || [];
+  const ids = letters.map(l => byLabel['Meal ' + l]).filter(Boolean);
+  return ids.length ? ids : mealIds.slice();
+}
+
+async function main() {
+  const weeksDir = path.join(__dirname, '..', 'data', 'weeks');
+  if (!fs.existsSync(weeksDir)) {
+    console.log('No data/weeks/ yet — nothing to do.');
+    process.exit(0);
+  }
+
+  // Only the current week and anything ahead of it. Regenerating a list for a
+  // week that has already been cooked and shopped for helps nobody.
+  const thisWeek = Week.todayStart();
+  const files = fs.readdirSync(weeksDir)
+    .filter(f => f.endsWith('.json'))
+    .filter(f => Week.startOf(f.replace(/\.json$/, '')) >= thisWeek)
+    .sort();
+
+  const done = [];
+  for (const f of files) {
+    const weekOf = await processWeek(path.join(weeksDir, f));
+    if (weekOf) done.push(weekOf);
+  }
+
+  if (!done.length) {
+    console.log('Every current and upcoming week is already covered — nothing to generate.');
+  } else {
+    console.log(`Done. Updated ${done.join(', ')}.`);
+  }
 }
 
 main().catch(err => {

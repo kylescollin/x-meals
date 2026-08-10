@@ -4,8 +4,9 @@ on:
   push:
     branches: [main]
     paths:
+      - 'data/weeks/**'
+      # Safety net: something may still write the old single-week file.
       - 'data/week.json'
-      - 'data/history.json'
   workflow_dispatch:
 
 jobs:
@@ -23,24 +24,34 @@ jobs:
       - name: Install dependencies
         run: cd scripts && npm install
 
+      # Anything still writing data/week.json gets folded into data/weeks/
+      # before the rest of the pipeline looks at the week data.
+      - name: Fold legacy week.json
+        run: node scripts/fold-legacy-week.js
+
       # Guards the week data before anything writes to it: day/date agreement,
       # one document per week, filenames matching their own weekOf.
       - name: Check week data
         run: node scripts/check-weeks.js
 
-      - name: Generate groceries if missing
+      - name: Test grocery merge
+        run: node scripts/test-week-merge.js
+
+      # Skipped entirely for weeks whose list already accounts for their meals,
+      # which is what stops this from looping or burning API calls.
+      - name: Update grocery lists
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: node scripts/generate-groceries.js
 
-      - name: Commit generated groceries
+      - name: Commit updated weeks
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet data/week.json; then
-            WEEK_OF=$(node -e "console.log(require('./data/week.json').weekOf)")
-            git add data/week.json
-            git commit -m "Auto-generate grocery list for week of $WEEK_OF"
+          git add data/weeks
+          if ! git diff --cached --quiet; then
+            git commit -m "Update grocery lists"
             git push
           fi
 
