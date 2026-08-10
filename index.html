@@ -27,7 +27,6 @@
      justify-content:space-between, so the buttons stay pinned right on the
      weeks where the Today button isn't there. */
   .hd-row{display:flex;align-items:center;gap:12px;min-height:36px;}
-  .hd-actions{margin-left:auto;}
   .eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
   h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1.15;margin-bottom:6px;}
   .meal-cards{display:flex;flex-direction:column;gap:10px;}
@@ -80,7 +79,6 @@
   .wk-empty-t{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;margin-bottom:6px;}
   .wk-empty-s{font-size:13px;color:var(--muted);margin-bottom:20px;}
   .wk-empty-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-  .wk-empty-actions .edit-toggle{margin-top:0;}
 
   /* Timeline — the Journal, folded in. Same cards and same activity blocks,
      just every week in one scroll instead of one week at a time. */
@@ -103,10 +101,10 @@
   .wp-meta{font-size:11px;color:var(--muted);flex-shrink:0;}
 
   /* Edit toggle */
-  .edit-toggle{flex-shrink:0;margin-top:18px;background:#fff;border:1px solid var(--border);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;border-radius:100px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,transform .12s;}
+  .edit-toggle{flex-shrink:0;background:#fff;border:1px solid var(--border);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;border-radius:100px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,transform .12s;}
   .edit-toggle:hover{border-color:#bbb;}
   .edit-toggle:active{transform:scale(.95);}
-  .hd-actions{display:flex;gap:8px;flex-shrink:0;align-items:flex-start;}
+  .hd-actions{display:flex;gap:8px;flex-shrink:0;align-items:center;margin-left:auto;}
   .edit-toggle.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
   .edit-toggle.primary:hover{border-color:var(--accent);}
 
