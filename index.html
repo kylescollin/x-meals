@@ -21,11 +21,67 @@
   body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
   body.editing{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));}
   .container{max-width:680px;margin:0 auto;padding:28px 16px 40px;}
-  .hd-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
-  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  .hd-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:32px;}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
   h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1.15;margin-bottom:6px;}
-  .subhead{color:var(--muted);font-size:14px;margin-bottom:20px;}
   .meal-cards{display:flex;flex-direction:column;gap:10px;}
+
+  /* Week switcher. The date range IS the title — there is no static
+     "This Week" any more, because you can be looking at any week. The
+     relative label ("THIS WEEK", "IN 3 WEEKS") sits in the eyebrow above. */
+  .wk-title-row{display:flex;align-items:center;gap:2px;margin:6px -8px 20px;}
+  .wk-nav{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:transparent;border:none;color:var(--muted);font-size:24px;line-height:1;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color .15s,background .15s;}
+  .wk-nav:hover:not(:disabled){color:var(--accent);background:var(--accent-light);}
+  .wk-nav:active:not(:disabled){transform:scale(.88);}
+  .wk-nav:disabled{opacity:.22;cursor:default;}
+  .wk-title{flex:1;min-width:0;background:none;border:none;padding:2px 0;font-family:'Playfair Display',serif;font-size:29px;font-weight:700;line-height:1.15;color:var(--ink);text-align:center;white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .wk-title:active{opacity:.55;}
+
+  /* Week ⇄ timeline. Two icons rather than words: it sits next to Edit and
+     the header is already carrying the date. */
+  .wk-view{display:flex;background:#fff;border:1px solid var(--border);border-radius:100px;padding:2px;}
+  .wk-view button{width:36px;height:26px;border:none;background:transparent;border-radius:100px;color:var(--muted);font-size:13px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s,color .15s;}
+  .wk-view button.on{background:var(--accent-light);color:var(--accent);}
+
+  /* Grocery list, as an object that belongs to this week */
+  .gro-card{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-top:14px;text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent;transition:border-color .15s;}
+  .gro-card:hover{border-color:#bbb;}
+  .gro-card:active{transform:scale(.995);}
+  .gro-ico{font-size:21px;line-height:1;flex-shrink:0;}
+  .gro-body{flex:1;min-width:0;}
+  .gro-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;margin-bottom:7px;}
+  .gro-bar{height:6px;border-radius:99px;background:var(--border);overflow:hidden;}
+  .gro-fill{height:100%;background:var(--check);border-radius:99px;width:0;transition:width .3s ease;}
+  .gro-count{font-size:12px;color:var(--muted);margin-top:6px;}
+  .gro-chev{color:#c9c1b4;font-size:17px;flex-shrink:0;}
+  .gro-card.waiting .gro-title{color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;margin:0;}
+
+  /* A week nobody has planned yet */
+  .wk-empty{text-align:center;padding:42px 20px 38px;border:1.5px dashed var(--border);border-radius:14px;}
+  .wk-empty-t{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;margin-bottom:6px;}
+  .wk-empty-s{font-size:13px;color:var(--muted);margin-bottom:20px;}
+  .wk-empty-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .wk-empty-actions .edit-toggle{margin-top:0;}
+
+  /* Timeline — the Journal, folded in. Same cards and same activity blocks,
+     just every week in one scroll instead of one week at a time. */
+  .timeline{display:flex;flex-direction:column;gap:34px;}
+  .tl-week{display:flex;flex-direction:column;gap:12px;}
+  .tl-head{display:flex;align-items:baseline;gap:10px;width:100%;padding:0 0 10px;border:none;border-bottom:1px solid var(--border);background:none;text-align:left;font-family:'DM Sans',sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .tl-head:active{opacity:.6;}
+  .tl-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);flex-shrink:0;}
+  .tl-range{font-family:'Playfair Display',serif;font-size:18px;font-weight:500;color:var(--ink);flex:1;}
+  .tl-count{font-size:12px;color:var(--muted);font-weight:300;flex-shrink:0;}
+  .tl-entry{display:flex;flex-direction:column;gap:10px;}
+  .tl-loading{font-size:13px;color:var(--muted);font-weight:300;padding:4px 0;}
+
+  /* Week picker sheet */
+  .wp-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 12px 20px;display:flex;flex-direction:column;gap:6px;}
+  .wp-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent;transition:border-color .15s;}
+  .wp-row:hover{border-color:#bbb;}
+  .wp-row.now{border-color:var(--accent);background:var(--accent-light);}
+  .wp-range{flex:1;min-width:0;font-family:'Playfair Display',serif;font-size:15px;font-weight:500;color:var(--ink);}
+  .wp-meta{font-size:11px;color:var(--muted);flex-shrink:0;}
 
   /* Edit toggle */
   .edit-toggle{flex-shrink:0;margin-top:18px;background:#fff;border:1px solid var(--border);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;border-radius:100px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,transform .12s;}
@@ -132,18 +188,29 @@
 <script src="nav.js"></script>
 <div class="container">
   <div class="hd-row">
-    <div>
-      <p class="eyebrow">Fox &amp; Bear Kitchen</p>
-      <h1>This Week</h1>
-    </div>
+    <p class="eyebrow" id="relLabel">Fox &amp; Bear Kitchen</p>
     <div class="hd-actions">
-      <button class="edit-toggle primary" id="planBtn" style="display:none">Plan a week</button>
+      <div class="wk-view" id="viewToggle" style="display:none">
+        <button type="button" id="viewWeekBtn" class="on" aria-label="One week at a time">▦</button>
+        <button type="button" id="viewTimeBtn" aria-label="Every week">▤</button>
+      </div>
       <button class="edit-toggle" id="editBtn" style="display:none">Edit</button>
       <button class="edit-toggle primary" id="shuffleWeekBtn" style="display:none">🎲 Shuffle</button>
     </div>
   </div>
-  <p class="subhead" id="subhead"></p>
-  <div class="meal-cards" id="mealCards"></div>
+
+  <div class="wk-title-row" id="wkTitleRow">
+    <button type="button" class="wk-nav" id="prevWk" aria-label="Previous week">‹</button>
+    <button type="button" class="wk-title" id="wkTitle" aria-label="Jump to a week">…</button>
+    <button type="button" class="wk-nav" id="nextWk" aria-label="Next week">›</button>
+  </div>
+
+  <div id="weekPane">
+    <div class="meal-cards" id="mealCards"></div>
+    <div id="groceryMount"></div>
+  </div>
+
+  <div class="timeline" id="timeline" style="display:none"></div>
 
   <div id="editPane" style="display:none">
     <div class="day-grid-edit" id="editCards"></div>
@@ -175,8 +242,22 @@
   </div>
 </div>
 
+<!-- Week picker sheet -->
+<div class="sheet-ov" id="weekpick-overlay" aria-hidden="true">
+  <div class="sheet">
+    <div class="sheet-grab"></div>
+    <div class="sheet-head">
+      <span class="sheet-title">Jump to a week</span>
+      <button class="sheet-close" id="weekpick-close" aria-label="Close">✕</button>
+    </div>
+    <div class="wp-list" id="weekpick-list"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
+<script src="week-utils.js"></script>
+<script src="week-store.js"></script>
 <script src="recipe-card.js"></script>
 <script type="module">
 import { requireAuth, getAuthToken, signOut } from './auth.js';
@@ -187,54 +268,167 @@ if (window.setNavUser) window.setNavUser(user);
 
 var FB_BASE='https://fox-bear-hub-default-rtdb.firebaseio.com';
 var REPO='kylescollin/x-meals';
-var DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-var DAY_ABBR={Monday:'Mon',Tuesday:'Tue',Wednesday:'Wed',Thursday:'Thu',Friday:'Fri',Saturday:'Sat',Sunday:'Sun'};
+// Sunday first, to match the week the site now runs on.
+var DAYS=Week.DAYS;
+var DAY_ABBR=Week.ABBR;
 var LETTERS='ABCDEFG';
 
-var token=await getAuthToken();
-var [recipesResp,weekData]=await Promise.all([
-  fetch('data/recipes.json').then(function(r){return r.json();}),
-  fetch(FB_BASE+'/meals/current.json?auth='+token).then(function(r){return r.json();})
-]);
-weekData=weekData||{meals:[],groceries:[]};
-
+var recipesResp=await fetch('data/recipes.json').then(function(r){return r.json();});
 var CORE_IDS={};
 (recipesResp.recipes||[]).forEach(function(r){CORE_IDS[r.id]=true;});
 // Weekly meals carry no tags of their own — resolve them from the collection.
 RecipeCard.setTagIndex(recipesResp.recipes||[]);
-RecipeCard.init({coreIds:CORE_IDS,userEmail:user.email,weekOf:(weekData&&weekData.weekOf)||'',onReady:function(){RecipeCard.applyBadges();}});
+// …and old archived weeks carry no ingredients, so fill those in too.
+WeekStore.setRecipes(recipesResp.recipes||[]);
+
+// ── Which week are we looking at? ─────────────────────────────────────────
+// viewStart is the canonical Sunday; weekKey is the stored weekOf that Firebase,
+// the grocery list and every note stamp are keyed by. They are usually but NOT
+// always the same string — see week-store.js.
+await WeekStore.loadIndex();
+var params=new URLSearchParams(location.search);
+var viewStart=Week.startOf(params.get('week')||'')||Week.todayStart();
+var weekKey=WeekStore.keyOrMint(viewStart);
+var weekData=(await WeekStore.get(weekKey))||WeekStore.blank(weekKey);
+var loadedAt=weekData.updatedAt||0;
+
+RecipeCard.init({coreIds:CORE_IDS,userEmail:user.email,weekOf:weekKey,onReady:function(){RecipeCard.applyBadges();}});
 
 // ── View rendering ────────────────────────────────────────────────────────
 var mealCards=document.getElementById('mealCards');
+
+// Shared by the week view and the timeline so a meal looks the same in both.
+function mealCard(m, key){
+  var day=m.day ? (DAY_ABBR[m.day]||m.day) + ' ' + (m.date||'') : '';
+  // Placeholder meals have no meta, so only join with " · " when there's
+  // something to join to — otherwise the line ends in a dangling separator.
+  var meta=[day, m.meta||''].filter(Boolean).join(' · ');
+  var card=RecipeCard.makeCard(m, null, meta, key);
+  if(day && m.meta) card.setAttribute('data-meta-prefix', day + ' · ');
+  return card;
+}
+
 function renderViewCards(meals){
   mealCards.innerHTML='';
-  // Eyebrow shows the recipe's tags; the day moves to the meta line so you can
-  // still see which night a meal lands on.
-  (meals||[]).forEach(function(m){
-    var day=m.day ? (DAY_ABBR[m.day]||m.day) + ' ' + (m.date||'') : '';
-    // Placeholder meals have no meta, so only join with " · " when there's
-    // something to join to — otherwise the line ends in a dangling separator.
-    var meta=[day, m.meta||''].filter(Boolean).join(' · ');
-    // Pass weekOf on every render so notes stamp against the week currently
-    // shown, even after publishing a new one from Plan mode.
-    var card=RecipeCard.makeCard(m, null, meta, weekData.weekOf||'');
-    if(day && m.meta) card.setAttribute('data-meta-prefix', day + ' · ');
-    mealCards.appendChild(card);
+  if(!(meals||[]).length){ mealCards.appendChild(buildEmptyState()); return; }
+  meals.forEach(function(m){ mealCards.appendChild(mealCard(m, weekKey)); });
+}
+
+function buildEmptyState(){
+  var wrap=document.createElement('div');
+  wrap.className='wk-empty';
+  var past=viewStart<Week.todayStart();
+  wrap.innerHTML='<div class="wk-empty-t">'+(past?'Nothing was planned':'Nothing planned yet')+'</div>'+
+    '<div class="wk-empty-s">'+Week.rangeLabel(viewStart)+'</div>';
+  var actions=document.createElement('div');
+  actions.className='wk-empty-actions';
+  var plan=document.createElement('button');
+  plan.className='edit-toggle primary';
+  plan.textContent=past?'Add meals':'Plan this week';
+  plan.addEventListener('click',enterEdit);
+  var shuf=document.createElement('button');
+  shuf.className='edit-toggle';
+  shuf.textContent='🎲 Shuffle a week';
+  shuf.addEventListener('click',function(){ enterEdit(); shuffleWeek(); });
+  actions.appendChild(plan); actions.appendChild(shuf);
+  wrap.appendChild(actions);
+  return wrap;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────
+function renderHeader(){
+  var today=Week.todayStart();
+  document.getElementById('relLabel').textContent=Week.relativeLabel(viewStart, today);
+  document.getElementById('wkTitle').textContent=Week.rangeLabel(viewStart);
+  var b=WeekStore.bounds();
+  document.getElementById('prevWk').disabled = viewStart<=b.earliest;
+  document.getElementById('nextWk').disabled = viewStart>=b.latest;
+}
+
+// ── Grocery card ──────────────────────────────────────────────────────────
+// The list belongs to the week you're looking at, so it lives inside the week
+// rather than being a separate destination you have to keep in sync by hand.
+var groceryMount=document.getElementById('groceryMount');
+
+function renderGroceryCard(){
+  groceryMount.innerHTML='';
+  var meals=weekData.meals||[];
+  if(!meals.length) return;
+
+  var sections=weekData.groceries||[];
+  if(!sections.length){
+    // Only worth waiting on for a week that's still ahead of us, and only when
+    // there's something the generator can actually shop for.
+    var cookable=meals.some(function(m){ return !RecipeCard.isCustom(m); });
+    if(!cookable || viewStart<Week.todayStart()) return;
+    var wait=document.createElement('div');
+    wait.className='gro-card waiting';
+    wait.innerHTML='<span class="gro-ico">🛒</span><div class="gro-body"><div class="gro-title">Building your grocery list…</div></div>';
+    groceryMount.appendChild(wait);
+    return;
+  }
+
+  var a=document.createElement('a');
+  a.className='gro-card';
+  a.href='groceries.html?week='+encodeURIComponent(weekKey);
+  a.innerHTML='<span class="gro-ico">🛒</span>'+
+    '<div class="gro-body"><div class="gro-title">Grocery List</div>'+
+    '<div class="gro-bar"><div class="gro-fill"></div></div>'+
+    '<div class="gro-count">…</div></div><span class="gro-chev">›</span>';
+  groceryMount.appendChild(a);
+
+  var forKey=weekKey;
+  WeekStore.flags(forKey).then(function(flagMap){
+    if(forKey!==weekKey) return;           // navigated away while loading
+    var p=WeekStore.progress(sections, flagMap);
+    a.querySelector('.gro-fill').style.width=p.total?(p.checked/p.total*100)+'%':'0%';
+    a.querySelector('.gro-count').textContent=p.checked+' of '+p.total+' items checked';
   });
 }
-document.getElementById('subhead').textContent=weekData.subhead||'';
+
+// ── Navigating between weeks ──────────────────────────────────────────────
+async function goToWeek(startISO){
+  if(editMode!=='off') return;
+  var b=WeekStore.bounds();
+  if(startISO<b.earliest||startISO>b.latest) return;
+  viewStart=startISO;
+  weekKey=WeekStore.keyOrMint(viewStart);
+  renderHeader();
+  mealCards.innerHTML='';
+  groceryMount.innerHTML='';
+  weekData=(await WeekStore.get(weekKey))||WeekStore.blank(weekKey);
+  loadedAt=weekData.updatedAt||0;
+  // Notes added from the detail sheet stamp against the week on screen.
+  RecipeCard.setWeekOf(weekKey);
+  renderViewCards(weekData.meals);
+  renderGroceryCard();
+  RecipeCard.refresh();
+  var q=(viewStart===Week.todayStart())?'':'?week='+viewStart;
+  history.replaceState(null,'',location.pathname+q);
+  prefetchNeighbours();
+}
+
+function prefetchNeighbours(){
+  [Week.add(viewStart,-1),Week.add(viewStart,1)].forEach(function(s){
+    var k=WeekStore.keyFor(s);
+    if(k) WeekStore.get(k);
+  });
+}
+
+renderHeader();
 renderViewCards(weekData.meals);
-document.getElementById('planBtn').style.display='';
+renderGroceryCard();
+prefetchNeighbours();
 document.getElementById('editBtn').style.display='';
+document.getElementById('viewToggle').style.display='';
 
 // ── Edit state ────────────────────────────────────────────────────────────
 var editMeals=[];
 var pickerTargetDay=null;   // which day the recipe picker is adding to
 var pickerCustomMode=false; // picker is naming a one-off meal, not searching recipes
 var allRecipes=null;
-var editMode='edit';   // 'edit' | 'plan'
-var planWeekOf=null;   // YYYY-MM-DD for the new week (plan mode only)
-var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var editMode='off';         // 'off' | 'edit' — there is no separate "plan" mode
+                            // any more: planning next week is editing next week.
 
 var idOf=RecipeCard.idOf;   // shared slug helper (see recipe-card.js)
 var isCustom=RecipeCard.isCustom;   // placeholder meal? (see recipe-card.js)
@@ -242,26 +436,10 @@ var isCustom=RecipeCard.isCustom;   // placeholder meal? (see recipe-card.js)
 // Does the week contain anything the grocery generator can actually shop for?
 function hasCookable(meals){ return (meals||[]).some(function(m){ return !isCustom(m); }); }
 
-// The week the active editing session targets: the new week in plan mode,
-// otherwise the current week. Used for day/date math.
-function activeWeekOf(){ return editMode==='plan' ? (planWeekOf||'') : (weekData.weekOf||''); }
-
-// Next Monday on/after today, as YYYY-MM-DD.
-function upcomingMonday(){
-  var d=new Date(); d.setHours(0,0,0,0);
-  var dow=d.getDay();              // 0 Sun … 6 Sat
-  d.setDate(d.getDate()+((1-dow+7)%7));  // Mon→+0, Thu→+4, Sun→+1
-  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-}
-
-function dateForDay(day){
-  var idx=DAYS.indexOf(day); if(idx<0) idx=0;
-  var parts=(activeWeekOf()).split('-');
-  if(parts.length!==3) return '';
-  var d=new Date(+parts[0], +parts[1]-1, +parts[2]);
-  d.setDate(d.getDate()+idx);
-  return (d.getMonth()+1)+'/'+d.getDate();
-}
+// Dates come off the canonical Sunday, NOT off the stored weekOf — the keys we
+// inherited land on Mondays, a Tuesday and a Thursday, so offsetting from the
+// raw key with a Sunday-first day list would put every meal on the wrong date.
+function dateForDay(day){ return Week.dateForDay(viewStart, day); }
 
 // The meal occupying a given day (at most one), or null.
 function mealForDay(day){
@@ -281,6 +459,8 @@ function reletterAndDate(meals){
   });
 }
 
+// Kept in the stored week even though the page no longer shows it — the field
+// is part of the documented schema and Agent X still writes it.
 function recomputeSubhead(sub, n){
   sub=sub||'';
   var label=n+' '+(n===1?'dinner':'dinners');
@@ -288,24 +468,16 @@ function recomputeSubhead(sub, n){
   return label;
 }
 
-// ── Day-slot grid (edit / plan) ───────────────────────────────────────────
+// ── Day-slot grid ─────────────────────────────────────────────────────────
 function renderEditCards(){
   var c=document.getElementById('editCards');
   c.innerHTML='';
   DAYS.forEach(function(day){ c.appendChild(buildDaySlot(day)); });
 
   var n=editMeals.length;
-  var count=document.getElementById('editCount');
-  var doneBtn=document.getElementById('doneBtn');
-  if(editMode==='plan'){
-    var p=(planWeekOf||'').split('-');
-    var lbl=(p.length===3)?(MONTHS[+p[1]-1]+' '+(+p[2])):'';
-    count.textContent='Week of '+lbl+' · '+n+(n===1?' meal':' meals');
-    doneBtn.disabled=(n===0);
-  }else{
-    count.textContent=n+(n===1?' meal':' meals');
-    doneBtn.disabled=false;
-  }
+  document.getElementById('editCount').textContent=
+    Week.rangeLabel(viewStart)+' · '+n+(n===1?' meal':' meals');
+  document.getElementById('doneBtn').disabled=false;
 }
 
 function buildDaySlot(day){
@@ -590,10 +762,11 @@ function shuffleDay(day){
 
 // Replace the whole week with a fresh set of 3 distinct random meals (Mon/Tue/Wed),
 // matching the "3 dinners" default. Re-tap to reshuffle.
+var SHUFFLE_DAYS=['Monday','Tuesday','Wednesday'];
 function shuffleWeek(){
-  // In edit mode this throws away a week that already has meals on it — confirm first.
-  // In plan mode you're starting from empty, so just shuffle.
-  if(editMode==='edit' && editMeals.length){
+  // Throws away whatever is already on the week — confirm first, unless the
+  // week is empty (in which case there's nothing to lose).
+  if(editMeals.length){
     if(!confirm('Replace all '+editMeals.length+' meal'+(editMeals.length===1?'':'s')+' with a random week?')) return;
   }
   loadAllRecipes(function(list){
@@ -610,7 +783,7 @@ function shuffleWeek(){
       // re-roll if identical to current set and there's room to differ
       if(pickIds!==prevIds || pool.length<=n){
         editMeals=[];
-        picks.forEach(function(r,k){ editMeals.push(mealFromRecipe(r, DAYS[k])); });
+        picks.forEach(function(r,k){ editMeals.push(mealFromRecipe(r, SHUFFLE_DAYS[k]||DAYS[k])); });
         sortMealsByDay();
         renderEditCards();
         return;
@@ -641,43 +814,37 @@ function toast(msg, opts){
   if(!opts.persist){ t._timer=setTimeout(function(){ t.className='toast'; }, opts.error?6500:4000); }
 }
 
-// ── Enter / exit edit & plan modes ────────────────────────────────────────
-function showEditUI(){
-  document.getElementById('mealCards').style.display='none';
-  document.getElementById('planBtn').style.display='none';
-  document.getElementById('editBtn').style.display='none';
-  document.getElementById('shuffleWeekBtn').style.display='';
-  document.getElementById('editPane').style.display='';
-  document.getElementById('editBar').style.display='';
-  document.body.classList.add('editing');
-}
+// ── Enter / exit edit mode ────────────────────────────────────────────────
+// Editing always targets the week on screen. Planning next week is stepping
+// forward a week and editing it — there is no separate publish step, and no
+// archiving, because no week is special any more.
 function enterEdit(){
   editMode='edit';
   editMeals=(weekData.meals||[]).map(function(m){ return Object.assign({}, m); });
   sortMealsByDay();
   document.getElementById('doneBtn').textContent='Done';
-  showEditUI();
-  renderEditCards();
-}
-function enterPlan(){
-  editMode='plan';
-  planWeekOf=upcomingMonday();
-  editMeals=[];
-  document.getElementById('doneBtn').textContent='Publish';
-  showEditUI();
+  document.getElementById('weekPane').style.display='none';
+  document.getElementById('editBtn').style.display='none';
+  document.getElementById('viewToggle').style.display='none';
+  document.getElementById('shuffleWeekBtn').style.display='';
+  document.getElementById('editPane').style.display='';
+  document.getElementById('editBar').style.display='';
+  document.getElementById('prevWk').disabled=true;
+  document.getElementById('nextWk').disabled=true;
+  document.body.classList.add('editing');
   renderEditCards();
 }
 function exitEdit(){
   closeSheet('picker-overlay');
+  editMode='off';
   document.getElementById('editPane').style.display='none';
   document.getElementById('editBar').style.display='none';
   document.getElementById('shuffleWeekBtn').style.display='none';
-  document.getElementById('mealCards').style.display='';
-  document.getElementById('planBtn').style.display='';
+  document.getElementById('weekPane').style.display='';
   document.getElementById('editBtn').style.display='';
-  document.body.classList.remove('editing');
-  editMode='edit';
+  document.getElementById('viewToggle').style.display='';
   document.getElementById('doneBtn').textContent='Done';
+  renderHeader();
 }
 
 // ── GitHub commit (triggers grocery regeneration) ─────────────────────────
@@ -691,159 +858,265 @@ async function getGhToken(){
   return (typeof v==='string' && v) ? v : null;
 }
 
-async function commitWeekJson(weekObj){
+// Commit one week file. A week you've never planned before has no file yet, so
+// a 404 on the read is normal — that's a create, not an error. A 409 on the
+// write means someone else committed in the last few seconds; re-read the sha
+// and try once more.
+async function commitWeekFile(weekObj){
   var gh=await getGhToken();
   if(!gh){ var e=new Error('no token'); e.code='no-token'; throw e; }
-  var url='https://api.github.com/repos/'+REPO+'/contents/data/week.json';
+  var url='https://api.github.com/repos/'+REPO+'/contents/data/weeks/'+weekObj.weekOf+'.json';
   var headers={ 'Authorization':'Bearer '+gh, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' };
-  var getR=await fetch(url+'?ref=main', { headers:headers, cache:'no-store' });
-  if(!getR.ok){ var e2=new Error('get failed'); e2.code='get'; throw e2; }
-  var meta=await getR.json();
   var content=utf8ToBase64(JSON.stringify(weekObj, null, 2)+'\n');
-  var putR=await fetch(url, {
-    method:'PUT', headers:headers,
-    body:JSON.stringify({ message:'Edit week '+weekObj.weekOf+' meal plan (in-app)', content:content, sha:meta.sha, branch:'main' })
-  });
-  if(!putR.ok){ var e3=new Error('put failed'); e3.code='put'; throw e3; }
+
+  async function shaOf(){
+    var r=await fetch(url+'?ref=main', { headers:headers, cache:'no-store' });
+    if(r.status===404) return null;                     // new week
+    if(!r.ok){ var e2=new Error('get failed'); e2.code='get'; throw e2; }
+    return (await r.json()).sha;
+  }
+  async function put(sha){
+    var body={ message:'Edit week '+weekObj.weekOf+' meal plan (in-app)', content:content, branch:'main' };
+    if(sha) body.sha=sha;
+    return fetch(url, { method:'PUT', headers:headers, body:JSON.stringify(body) });
+  }
+
+  var r=await put(await shaOf());
+  if(r.status===409 || r.status===422) r=await put(await shaOf());
+  if(!r.ok){ var e3=new Error('put failed'); e3.code='put'; throw e3; }
   return true;
 }
 
-async function writeCurrent(weekObj){
-  var tk=await getAuthToken();
-  var r=await fetch(FB_BASE+'/meals/current.json?auth='+tk, { method:'PUT', body:JSON.stringify(weekObj) });
-  if(!r.ok) throw new Error('firebase write failed');
-}
-
-// Archive a week into the Journal (Firebase /meals/history/{weekOf}).
-async function writeHistory(weekObj){
-  var tk=await getAuthToken();
-  var r=await fetch(FB_BASE+'/meals/history/'+weekObj.weekOf+'.json?auth='+tk, { method:'PUT', body:JSON.stringify(weekObj) });
-  if(!r.ok) throw new Error('archive failed');
-}
-
-function pollGroceries(){
-  var tries=0, max=26; // ~3.5 min at 8s
+// Wait for CI to bring the grocery list in line with the meals we just saved.
+// The old check ("are there any groceries yet?") no longer works now that the
+// list is merged rather than rebuilt from empty — an unchanged non-empty list
+// looks identical. CI stamps groceriesAt, so watch that instead.
+function pollGroceries(sinceStamp){
+  var forKey=weekKey, tries=0, max=26;   // ~3.5 min at 8s
   var iv=setInterval(async function(){
     tries++;
+    if(forKey!==weekKey){ clearInterval(iv); return; }
     try{
-      var tk=await getAuthToken();
-      var d=await fetch(FB_BASE+'/meals/current.json?auth='+tk+'&t='+Date.now(), {cache:'no-store'}).then(function(r){return r.json();});
-      if(d && d.groceries && d.groceries.length>0){
+      var d=await WeekStore.get(forKey, true);
+      if(d && (d.groceriesAt||'')!==(sinceStamp||'')){
         clearInterval(iv);
-        weekData=d;
-        document.getElementById('subhead').textContent=weekData.subhead||'';
-        renderViewCards(weekData.meals); RecipeCard.applyBadges();
+        weekData=d; loadedAt=d.updatedAt||0;
+        renderViewCards(weekData.meals); renderGroceryCard(); RecipeCard.refresh();
         toast('Grocery list updated ✓', {success:true});
         return;
       }
     }catch(_){}
-    if(tries>=max){ clearInterval(iv); toast('Still updating — check the Groceries tab in a minute.', {}); }
+    if(tries>=max){ clearInterval(iv); toast('Still updating — check the grocery list in a minute.', {}); }
   }, 8000);
 }
 
-// ── Save (Done / Publish) ─────────────────────────────────────────────────
+// ── Save ──────────────────────────────────────────────────────────────────
+// One path for every week. Nothing gets archived or displaced, because the
+// week you are editing is just a document like all the others.
 async function save(){
-  if(editMode==='plan'){ return publishWeek(); }
-
   var doneBtn=document.getElementById('doneBtn');
   doneBtn.disabled=true; doneBtn.textContent='Saving…';
 
   var meals=reletterAndDate(editMeals);
-  var subhead=recomputeSubhead(weekData.subhead, meals.length);
-  var base=Object.assign({}, weekData, { meals:meals, subhead:subhead });
+  var week=Object.assign({}, weekData, {
+    weekOf:weekKey,
+    title:weekData.title||Week.titleFor(viewStart),
+    subhead:recomputeSubhead(weekData.subhead, meals.length),
+    meals:meals,
+    // Groceries are left exactly as they are. CI reconciles them against the
+    // new meals and preserves anything already ticked off — the list is never
+    // thrown away to force a rebuild.
+    groceries:weekData.groceries||[]
+  });
+  var sinceStamp=weekData.groceriesAt||'';
 
-  // Commit to git first — only wipe groceries if regeneration will run.
-  var committed=false, commitErr=null;
-  try{ await commitWeekJson(Object.assign({}, base, { groceries:[] })); committed=true; }
-  catch(e){ commitErr=e; }
-
-  var forFb=Object.assign({}, base, { groceries: committed ? [] : (weekData.groceries||[]) });
-  try{ await writeCurrent(forFb); }
-  catch(_){
+  try{
+    await WeekStore.put(weekKey, week, loadedAt);
+  }catch(e){
     doneBtn.disabled=false; doneBtn.textContent='Done';
-    toast("Couldn't save — check your connection and try again.", {error:true});
+    if(e && e.code==='conflict'){
+      toast('This week changed on another device. Reload to see it before editing.', {error:true});
+    }else{
+      toast("Couldn't save — check your connection and try again.", {error:true});
+    }
     return;
   }
 
-  weekData=forFb;
+  var committed=false, commitErr=null;
+  try{ await commitWeekFile(week); committed=true; }
+  catch(e){ commitErr=e; }
+
+  weekData=week; loadedAt=week.updatedAt||0;
   exitEdit();
-  document.getElementById('subhead').textContent=weekData.subhead||'';
-  renderViewCards(weekData.meals); RecipeCard.applyBadges();
+  renderViewCards(weekData.meals);
+  renderGroceryCard();
+  RecipeCard.refresh();
   doneBtn.disabled=false; doneBtn.textContent='Done';
 
   if(committed && !hasCookable(meals)){
-    // Nothing but placeholders — CI won't generate a list, so don't sit and wait.
+    // Nothing but placeholders — CI has nothing to shop for, so don't sit and wait.
     toast('Meals saved.', {success:true});
   }else if(committed){
     toast('Meals saved · grocery list updating…', {persist:true});
-    pollGroceries();
+    pollGroceries(sinceStamp);
   }else{
     var why = (commitErr && commitErr.code==='no-token') ? "grocery auto-update isn't set up yet" : "couldn't reach GitHub";
     toast('Meals saved. Grocery list not refreshed ('+why+').', {error:true});
   }
 }
 
-// Publish a brand-new week: archive the outgoing week to the Journal, make the
-// planned meals the new This Week, and trigger grocery regeneration.
-async function publishWeek(){
-  var doneBtn=document.getElementById('doneBtn');
-  if(editMeals.length===0) return;          // empty-state guard (Publish is disabled anyway)
-  doneBtn.disabled=true; doneBtn.textContent='Publishing…';
+// ── Timeline ──────────────────────────────────────────────────────────────
+// The Journal, folded into this page. Same cards, same activity blocks — but
+// week headers render straight from the index and each week's contents load
+// only when you scroll to it, instead of fetching every week ever on open.
+var timelineEl=document.getElementById('timeline');
+var timelineBuilt=false;
+var tlObserver=null;
 
-  var meals=reletterAndDate(editMeals);     // dates use planWeekOf via activeWeekOf()
-  var n=meals.length;
-  var p=planWeekOf.split('-');
-  var title='Week of '+MONTHS[+p[1]-1]+' '+(+p[2]);
-  var subhead=n+(n===1?' dinner':' dinners')+' · Serves 4';
-  var newWeek={ weekOf:planWeekOf, title:title, subhead:subhead, meals:meals, groceries:[] };
-  var oldWeek=weekData;                      // capture BEFORE reassigning
+function buildTimeline(){
+  if(timelineBuilt) return;
+  timelineBuilt=true;
+  var today=Week.todayStart();
+  var all=WeekStore.starts().slice().reverse();   // newest first
 
-  // 1. Commit the new week.json (best-effort) — triggers grocery regeneration in CI.
-  var committed=false, commitErr=null;
-  try{ await commitWeekJson(newWeek); committed=true; }
-  catch(e){ commitErr=e; }
+  tlObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      tlObserver.unobserve(en.target);
+      fillTimelineWeek(en.target);
+    });
+  }, {rootMargin:'600px 0px'});
 
-  // 2. Write the new current week to Firebase (instant UI). Abort if this fails —
-  //    nothing has been archived yet, so there's no half-applied state.
-  try{ await writeCurrent(newWeek); }
-  catch(_){
-    doneBtn.disabled=false; doneBtn.textContent='Publish';
-    toast("Couldn't publish — check your connection and try again.", {error:true});
-    return;
-  }
+  all.forEach(function(start){
+    var key=WeekStore.keyFor(start);
+    var sec=document.createElement('section');
+    sec.className='tl-week';
+    sec.dataset.key=key;
+    sec.dataset.start=start;
+    // Reserve height so lazily-arriving content doesn't shove the scroll
+    // position around under your thumb.
+    sec.style.minHeight='210px';
 
-  // 3. Archive the outgoing week to the Journal — only after current is safely written,
-  //    and only when it's a genuinely different, non-empty week (avoids duplicate
-  //    Journal entries when re-planning the same Monday). Best-effort.
-  var archiveWarn=false;
-  if(oldWeek && oldWeek.weekOf && oldWeek.weekOf!==planWeekOf && (oldWeek.meals||[]).length){
-    try{ await writeHistory(oldWeek); }
-    catch(_){ archiveWarn=true; }
-  }
+    var head=document.createElement('button');
+    head.type='button';
+    head.className='tl-head';
+    var rel=Week.relativeLabel(start, today);
+    head.innerHTML='<span class="tl-label">'+(/^\w+ \d{4}$/.test(rel)?'':rel)+'</span>'+
+      '<span class="tl-range">'+Week.rangeLabel(start, {year:true})+'</span>'+
+      '<span class="tl-count"></span>';
+    head.addEventListener('click',function(){ setView('week'); goToWeek(start); });
+    sec.appendChild(head);
 
-  // 4. Swap in the new week and re-render.
-  weekData=newWeek;
-  exitEdit();
-  document.getElementById('subhead').textContent=weekData.subhead||'';
-  renderViewCards(weekData.meals); RecipeCard.applyBadges();
-  doneBtn.disabled=false; doneBtn.textContent='Done';
+    var body=document.createElement('div');
+    body.className='tl-body';
+    body.innerHTML='<div class="tl-loading">Loading…</div>';
+    sec.appendChild(body);
 
-  var willGenerate=committed && hasCookable(meals);
-  if(willGenerate) pollGroceries();
-  if(archiveWarn){
-    toast("Week published, but couldn't move the previous week to the Journal.", {error:true});
-  }else if(willGenerate){
-    toast('Week published · grocery list updating…', {persist:true});
-  }else if(committed){
-    toast('Week published.', {success:true});
+    timelineEl.appendChild(sec);
+    tlObserver.observe(sec);
+  });
+
+  // Fill the first couple eagerly so switching views never shows a blank page.
+  Array.prototype.slice.call(timelineEl.children,0,2).forEach(function(sec){
+    tlObserver.unobserve(sec); fillTimelineWeek(sec);
+  });
+}
+
+async function fillTimelineWeek(sec){
+  var key=sec.dataset.key;
+  var week=await WeekStore.get(key);
+  var body=sec.querySelector('.tl-body');
+  body.innerHTML='';
+  var meals=(week&&week.meals)||[];
+  sec.querySelector('.tl-count').textContent=meals.length+(meals.length===1?' meal':' meals');
+  if(!meals.length){
+    body.innerHTML='<div class="tl-loading">Nothing planned.</div>';
   }else{
-    var why = (commitErr && commitErr.code==='no-token') ? "grocery auto-update isn't set up yet" : "couldn't reach GitHub";
-    toast('Week published. Grocery list not built yet ('+why+').', {error:true});
+    meals.forEach(function(m){
+      var wrap=document.createElement('div');
+      wrap.className='tl-entry';
+      wrap.appendChild(mealCard(m, key));
+      wrap.appendChild(RecipeCard.makeActivity(m, key));
+      body.appendChild(wrap);
+    });
   }
+  sec.style.minHeight='';
+  // These cards weren't in the DOM when the shared data loaded, so they have
+  // no badges, edits or activity counts until we ask for them.
+  RecipeCard.refresh();
+}
+
+function setView(mode){
+  var timeline=(mode==='timeline');
+  document.getElementById('viewWeekBtn').classList.toggle('on',!timeline);
+  document.getElementById('viewTimeBtn').classList.toggle('on',timeline);
+  document.getElementById('weekPane').style.display=timeline?'none':'';
+  document.getElementById('wkTitleRow').style.display=timeline?'none':'';
+  document.getElementById('editBtn').style.display=timeline?'none':'';
+  timelineEl.style.display=timeline?'':'none';
+  if(timeline){
+    document.getElementById('relLabel').textContent='Every week';
+    buildTimeline();
+  }else{
+    renderHeader();
+  }
+  var q=[];
+  if(timeline) q.push('view=timeline');
+  else if(viewStart!==Week.todayStart()) q.push('week='+viewStart);
+  history.replaceState(null,'',location.pathname+(q.length?'?'+q.join('&'):''));
+}
+
+// ── Week picker ───────────────────────────────────────────────────────────
+function openWeekPicker(){
+  var list=document.getElementById('weekpick-list');
+  list.innerHTML='';
+  var today=Week.todayStart();
+  var all=WeekStore.starts().slice();
+  if(all.indexOf(today)===-1) all.push(today);
+  all.sort().reverse();
+  all.forEach(function(start){
+    var key=WeekStore.keyFor(start);
+    var cached=key?WeekStore.peek(key):null;
+    var row=document.createElement('button');
+    row.type='button';
+    row.className='wp-row'+(start===viewStart?' now':'');
+    var rel=Week.relativeLabel(start, today);
+    row.innerHTML='<span class="wp-range">'+Week.rangeLabel(start,{year:true})+'</span>'+
+      '<span class="wp-meta">'+(cached?((cached.meals||[]).length+' meals'):rel)+'</span>';
+    row.addEventListener('click',function(){ closeSheet('weekpick-overlay'); goToWeek(start); });
+    list.appendChild(row);
+  });
+  openSheet('weekpick-overlay');
 }
 
 // ── Wire up ───────────────────────────────────────────────────────────────
-document.getElementById('planBtn').addEventListener('click', enterPlan);
+document.getElementById('prevWk').addEventListener('click', function(){ goToWeek(Week.add(viewStart,-1)); });
+document.getElementById('nextWk').addEventListener('click', function(){ goToWeek(Week.add(viewStart, 1)); });
+document.getElementById('wkTitle').addEventListener('click', openWeekPicker);
+document.getElementById('weekpick-close').addEventListener('click', function(){ closeSheet('weekpick-overlay'); });
+document.getElementById('weekpick-overlay').addEventListener('click', function(e){ if(e.target===this) closeSheet('weekpick-overlay'); });
+document.getElementById('viewWeekBtn').addEventListener('click', function(){ setView('week'); });
+document.getElementById('viewTimeBtn').addEventListener('click', function(){ setView('timeline'); });
+if(params.get('view')==='timeline') setView('timeline');
+
+// Swipe left/right to change week. Only when a horizontal intent is clear, so
+// it can't fight the vertical scroll, and never while editing (the day rows
+// have their own drag).
+(function(){
+  var pane=document.getElementById('weekPane'), x0=0, y0=0, tracking=false;
+  pane.addEventListener('touchstart', function(e){
+    if(editMode!=='off' || e.touches.length!==1){ tracking=false; return; }
+    tracking=true; x0=e.touches[0].clientX; y0=e.touches[0].clientY;
+  }, {passive:true});
+  pane.addEventListener('touchend', function(e){
+    if(!tracking) return;
+    tracking=false;
+    var t=e.changedTouches[0], dx=t.clientX-x0, dy=t.clientY-y0;
+    if(Math.abs(dx)<60 || Math.abs(dx)<Math.abs(dy)*1.8) return;
+    goToWeek(Week.add(viewStart, dx<0?1:-1));
+  }, {passive:true});
+})();
+
 document.getElementById('editBtn').addEventListener('click', enterEdit);
 document.getElementById('cancelBtn').addEventListener('click', exitEdit);
 document.getElementById('doneBtn').addEventListener('click', save);

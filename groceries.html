@@ -23,6 +23,18 @@
   .eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
   h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1.15;margin-bottom:6px;}
   .subhead{color:var(--muted);font-size:14px;margin-bottom:20px;}
+
+  /* Week switcher — same shape as the week page, so the list always tells you
+     which week's shopping you're looking at. */
+  .wk-title-row{display:flex;align-items:center;gap:2px;margin:4px -8px 6px;}
+  .wk-nav{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:transparent;border:none;color:var(--muted);font-size:24px;line-height:1;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color .15s,background .15s;}
+  .wk-nav:hover:not(:disabled){color:var(--accent);background:var(--accent-light);}
+  .wk-nav:active:not(:disabled){transform:scale(.88);}
+  .wk-nav:disabled{opacity:.22;cursor:default;}
+  .wk-title{flex:1;min-width:0;font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.15;text-align:center;white-space:nowrap;}
+  .back-link{display:inline-block;font-size:12px;font-weight:500;color:var(--muted);text-decoration:none;margin-bottom:18px;}
+  .back-link:hover{color:var(--accent);}
+  .empty-note{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;border:1.5px dashed var(--border);border-radius:14px;}
   .progress-wrap{background:var(--border);border-radius:99px;height:6px;margin-bottom:6px;overflow:hidden;}
   .progress-bar{height:100%;background:var(--check);border-radius:99px;width:0%;transition:width .3s ease;}
   .progress-label{font-size:12px;color:var(--muted);margin-bottom:24px;}
@@ -82,9 +94,13 @@
 <body class="has-summary">
 <script src="nav.js"></script>
 <div class="container">
-  <p class="eyebrow">Fox &amp; Bear Kitchen</p>
-  <h1>Grocery List</h1>
-  <p class="subhead" id="subhead"></p>
+  <p class="eyebrow" id="relLabel">Grocery List</p>
+  <div class="wk-title-row">
+    <button type="button" class="wk-nav" id="prevWk" aria-label="Previous week">‹</button>
+    <div class="wk-title" id="wkTitle">…</div>
+    <button type="button" class="wk-nav" id="nextWk" aria-label="Next week">›</button>
+  </div>
+  <a class="back-link" id="backLink" href="index.html">← Back to the week</a>
   <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
   <p class="progress-label" id="progressLabel">0 of 0 items checked</p>
   <div class="add-bar">
@@ -92,11 +108,14 @@
     <button class="add-btn" onclick="addCustom()">Add</button>
   </div>
   <div id="grocerySections"></div>
+  <div class="empty-note" id="emptyNote" style="display:none"></div>
 </div>
 <div class="summary-bar">
   <div><div class="summary-count" id="summaryCount">0 / 0</div><div class="summary-label">items checked</div></div>
   <button class="reset-btn" onclick="resetAll()">Reset all</button>
 </div>
+<script src="week-utils.js"></script>
+<script src="week-store.js"></script>
 <script type="module">
 import { requireAuth, getAuthToken, signOut } from './auth.js';
 window.getToken   = getAuthToken;
@@ -111,7 +130,9 @@ var lastKnownState={};
 
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-function fbKey(el){return el.querySelector('.item-name').textContent.trim().replace(/[^a-z0-9]/gi,'_').substring(0,60);}
+// Shared with the week page so the two can never disagree about which stored
+// flag belongs to which item.
+function fbKey(el){return WeekStore.groceryKey(el.querySelector('.item-name').textContent);}
 async function syncToFB(k,v){var token=await getAuthToken();fetch(FB_URL+'/'+k+'.json?auth='+token,{method:'PUT',body:JSON.stringify(v)}).catch(function(){});}
 function applyState(d){if(!d)return;document.querySelectorAll('.item').forEach(function(el){var k=fbKey(el),s=d[k]===true,c=el.classList.contains('checked');if(s&&!c)el.classList.add('checked');else if(!s&&c)el.classList.remove('checked');});updateProgress();}
 async function pollFB(){var token=await getAuthToken();fetch(FB_URL+'.json?auth='+token).then(function(r){return r.json();}).then(function(d){if(!d)return;var s=JSON.stringify(d);if(s!==JSON.stringify(lastKnownState)){lastKnownState=d;renderCustom(d._custom||{});}}).catch(function(){});}
@@ -241,7 +262,7 @@ function addCustom(){
 function removeCustom(id){
   var it=lastKnownState._custom&&lastKnownState._custom[id];
   if(it){
-    var k=it.name.trim().replace(/[^a-z0-9]/gi,'_').substring(0,60);
+    var k=WeekStore.groceryKey(it.name);
     delete lastKnownState._custom[id];
     delete lastKnownState[k];
     syncToFB('_custom/'+id,null);
@@ -250,14 +271,46 @@ function removeCustom(id){
   renderCustom(lastKnownState._custom||{});
 }
 
-var token=await getAuthToken();
-var weekData=await fetch(FB_BASE+'/meals/current.json?auth='+token).then(function(r){return r.json();});
-FB_URL=FB_BASE+'/groceries/'+weekData.weekOf;
+// ── Which week's list is this? ────────────────────────────────────────────
+// ?week= accepts either the canonical Sunday or the stored weekOf, so links
+// from the week page and hand-typed URLs both work. Check state stays keyed by
+// the STORED key, which is why nothing had to be re-keyed to get here.
+await WeekStore.loadIndex();
+var params=new URLSearchParams(location.search);
+var viewStart=Week.startOf(params.get('week')||'')||Week.todayStart();
+var weekKey=WeekStore.keyOrMint(viewStart);
+var weekData=(await WeekStore.get(weekKey))||{weekOf:weekKey,meals:[],groceries:[]};
 
-document.getElementById('subhead').textContent=weekData.subhead||'';
+FB_URL=FB_BASE+'/groceries/'+weekKey;
+
+function renderHeader(){
+  var today=Week.todayStart();
+  document.getElementById('relLabel').textContent=Week.relativeLabel(viewStart, today)+' · Groceries';
+  document.getElementById('wkTitle').textContent=Week.rangeLabel(viewStart);
+  document.getElementById('backLink').href='index.html'+(viewStart===today?'':'?week='+viewStart);
+  var b=WeekStore.bounds();
+  document.getElementById('prevWk').disabled=viewStart<=b.earliest;
+  document.getElementById('nextWk').disabled=viewStart>=b.latest;
+}
+function goToWeek(start){
+  var b=WeekStore.bounds();
+  if(start<b.earliest||start>b.latest)return;
+  location.href='groceries.html?week='+start;
+}
+document.getElementById('prevWk').addEventListener('click',function(){goToWeek(Week.add(viewStart,-1));});
+document.getElementById('nextWk').addEventListener('click',function(){goToWeek(Week.add(viewStart, 1));});
+renderHeader();
 
 var grocerySections=document.getElementById('grocerySections');
 (weekData.groceries||[]).forEach(function(sec){grocerySections.innerHTML+=renderSection(sec);});
+
+if(!(weekData.groceries||[]).length){
+  var note=document.getElementById('emptyNote');
+  note.style.display='';
+  note.textContent=(weekData.meals||[]).length
+    ? 'No list for this week yet — it builds itself a minute or so after the meals are saved.'
+    : 'Nothing planned for this week yet.';
+}
 
 updateProgress();loadFromFB();setInterval(pollFB,POLL_INTERVAL);
 </script>

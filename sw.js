@@ -22,7 +22,7 @@
    already picks up changes immediately.
 */
 
-const CACHE_VERSION = 'fbk-v1';
+const CACHE_VERSION = 'fbk-v2';
 const CACHE_NAME = 'fox-bear-kitchen-' + CACHE_VERSION;
 
 // The app shell: everything needed to render a page with no network.
@@ -35,6 +35,8 @@ const SHELL = [
   './login.html',
   './theme.css',
   './nav.js',
+  './week-utils.js',
+  './week-store.js',
   './recipe-card.js',
   './auth.js',
   './pwa.js',
@@ -76,16 +78,27 @@ self.addEventListener('message', (event) => {
   if (event.data === 'SKIP_WAITING') self.skipWaiting();
 });
 
+// Pages are now reached with a ?week= or ?view= query string, but the HTML is
+// identical whichever week you asked for — the week is fetched at runtime. So
+// cache navigations under the bare path, or every week you visit would store
+// its own copy of the same document.
+function cacheKeyFor(request) {
+  if (request.mode !== 'navigate') return request;
+  const url = new URL(request.url);
+  return new Request(url.origin + url.pathname, { method: 'GET' });
+}
+
 async function networkFirst(request) {
   const cache = await caches.open(CACHE_NAME);
+  const key = cacheKeyFor(request);
   try {
     const response = await fetch(request);
     if (response && response.status === 200 && response.type === 'basic') {
-      cache.put(request, response.clone());
+      cache.put(key, response.clone());
     }
     return response;
   } catch (err) {
-    const cached = await cache.match(request);
+    const cached = await cache.match(key);
     if (cached) return cached;
     // Offline and never seen this page: fall back to the shell entry point.
     if (request.mode === 'navigate') {
