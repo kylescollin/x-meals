@@ -403,28 +403,30 @@
       .catch(function () { if (callback) callback(); });
   }
 
-  // Update any rendered card names/meta to reflect saved edits
+  // Update any rendered card names/meta to reflect saved edits.
+  // querySelectorAll, not querySelector: the same recipe can be on screen once
+  // per week it was cooked, and every one of those cards needs the edit.
   function applyEditsToCards() {
     Object.keys(recipeEdits).forEach(function (safeId) {
       var edit = recipeEdits[safeId];
       if (!edit || !edit.id) return;
-      var card = document.querySelector('.rc-card[data-recipe-id="' + edit.id + '"]');
-      if (!card) return;
-      var nameEl  = card.querySelector('.rc-card-name');
-      var metaEl  = card.querySelector('.rc-card-meta');
-      var iconEl  = card.querySelector('.rc-thumb-emoji');
-      var labelEl = card.querySelector('.rc-card-label');
-      if (nameEl && edit.name) nameEl.textContent = edit.name;
-      if (metaEl && edit.meta !== undefined) {
-        // Week/journal cards prefix the meta with the day — keep it.
-        var prefix = card.getAttribute('data-meta-prefix') || '';
-        metaEl.textContent = prefix + edit.meta;
-      }
-      if (iconEl && edit.icon) iconEl.textContent = edit.icon;
-      // Only cards showing tags (not a "Meal A · Tuesday" override) repaint here.
-      if (labelEl && edit.tags && !card.hasAttribute('data-label-fixed')) {
-        labelEl.textContent = sortTags(edit.tags).slice(0, 2).join(' · ');
-      }
+      document.querySelectorAll('.rc-card[data-recipe-id="' + escAttr(edit.id) + '"]').forEach(function (card) {
+        var nameEl  = card.querySelector('.rc-card-name');
+        var metaEl  = card.querySelector('.rc-card-meta');
+        var iconEl  = card.querySelector('.rc-thumb-emoji');
+        var labelEl = card.querySelector('.rc-card-label');
+        if (nameEl && edit.name) nameEl.textContent = edit.name;
+        if (metaEl && edit.meta !== undefined) {
+          // Week/journal cards prefix the meta with the day — keep it.
+          var prefix = card.getAttribute('data-meta-prefix') || '';
+          metaEl.textContent = prefix + edit.meta;
+        }
+        if (iconEl && edit.icon) iconEl.textContent = edit.icon;
+        // Only cards showing tags (not a "Meal A · Tuesday" override) repaint here.
+        if (labelEl && edit.tags && !card.hasAttribute('data-label-fixed')) {
+          labelEl.textContent = sortTags(edit.tags).slice(0, 2).join(' · ');
+        }
+      });
     });
   }
 
@@ -2755,6 +2757,33 @@
         if (r && r.tags && r.tags.length) tagIndex[idOf(r)] = sortTags(r.tags);
       });
     },
+
+    /**
+     * Retarget the week that notes and photos get stamped with when the detail
+     * sheet is opened without an explicit weekOf. init() sets this once, but a
+     * page that navigates between weeks has to move it.
+     * Pass the STORED week key, never the canonical Sunday.
+     */
+    setWeekOf: function (weekOf) { defaultWeekOf = weekOf || ''; },
+
+    /**
+     * Repaint everything that init() otherwise only paints once: saved badges,
+     * recipe edits, activity counts and activity blocks. Call after appending
+     * cards that weren't in the DOM when the shared data loaded — which is
+     * every lazily-loaded week in the timeline.
+     */
+    refresh: function () {
+      document.querySelectorAll('.rc-saved-badge').forEach(function (b) {
+        var id = b.dataset.id;
+        b.classList.toggle('visible', !isCore(id) && isSaved(id));
+      });
+      applyEditsToCards();
+      refreshAllActivityCounts();
+      refreshAllActivityBlocks();
+    },
+
+    /** Notes for a recipe, optionally narrowed to one week. Read-only. */
+    notesFor: notesFor,
 
     openDetail: openDetail,
     closeDetail: closeDetail,

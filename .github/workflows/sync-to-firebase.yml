@@ -23,6 +23,11 @@ jobs:
       - name: Install dependencies
         run: cd scripts && npm install
 
+      # Guards the week data before anything writes to it: day/date agreement,
+      # one document per week, filenames matching their own weekOf.
+      - name: Check week data
+        run: node scripts/check-weeks.js
+
       - name: Generate groceries if missing
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

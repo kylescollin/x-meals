@@ -131,7 +131,11 @@ async function main() {
   }
 
   weekData.groceries = groceries;
-  fs.writeFileSync(weekJsonPath, JSON.stringify(weekData, null, 2));
+  // Trailing newline to match what the in-app commit writes (index.html
+  // commitWeekJson). Without it every CI write differs from every in-app write
+  // by one byte, so `git diff --quiet` is always dirty and can never be used to
+  // tell "nothing changed" from "something changed".
+  fs.writeFileSync(weekJsonPath, JSON.stringify(weekData, null, 2) + '\n');
 
   const totalItems = groceries.reduce((n, s) => n + s.items.length, 0);
   console.log(`Done. ${totalItems} grocery items written across ${groceries.length} sections.`);
