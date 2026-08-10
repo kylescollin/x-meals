@@ -98,5 +98,272 @@
       "date": "8/12"
     }
   ],
-  "groceries": []
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "2½ cups coleslaw mix",
+          "detail": "Meal A · slaw base for fish tacos",
+          "tag": "Meal A",
+          "amazon": "coleslaw mix bag",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "⅓ cup fresh cilantro",
+          "detail": "Meal A · chopped into slaw",
+          "tag": "Meal A",
+          "amazon": "fresh cilantro",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "2 limes (for juice)",
+          "detail": "Meal A · lime juice for slaw dressing and serving",
+          "tag": "Meal A",
+          "amazon": "fresh limes",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "8 oz cremini mushrooms, sliced",
+          "detail": "Meal B · sautéed into pot pie filling",
+          "tag": "Meal B",
+          "amazon": "cremini mushrooms",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "3 medium carrots, diced",
+          "detail": "Meal B · cooked into pot pie filling",
+          "tag": "Meal B",
+          "amazon": "carrots",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "3 stalks celery, diced",
+          "detail": "Meal B · cooked into pot pie filling",
+          "tag": "Meal B",
+          "amazon": "celery stalks",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 small onion (or ½ cup frozen pearl onions)",
+          "detail": "Meal B · stirred into pot pie filling",
+          "tag": "Meal B",
+          "amazon": "frozen pearl onions",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 tsp fresh thyme",
+          "detail": "Meal B · stirred into pot pie filling",
+          "tag": "Meal B",
+          "amazon": "fresh thyme",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "6–8 garlic cloves",
+          "detail": "Meal A · 1 clove minced for slaw · Meal C · 6–8 cloves crushed for tomato sauce",
+          "tag": "Meals A+C",
+          "amazon": "garlic bulb",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "2 pints cherry tomatoes",
+          "detail": "Meal C · cooked down into jammy tomato cream sauce",
+          "tag": "Meal C",
+          "amazon": "cherry tomatoes",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "½ cup fresh basil leaves",
+          "detail": "Meal C · stirred into sauce and used as garnish",
+          "tag": "Meal C",
+          "amazon": "fresh basil",
+          "tagClass": "tag-pasta"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "1½ lb tilapia or white fish",
+          "detail": "Meal A · air fried and served in tacos",
+          "tag": "Meal A",
+          "amazon": "tilapia fillets",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "3 cups cooked shredded chicken (rotisserie recommended)",
+          "detail": "Meal B · main protein in pot pie filling",
+          "tag": "Meal B",
+          "amazon": "rotisserie chicken",
+          "tagClass": "tag-cauliflower"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "1 egg",
+          "detail": "Meal B · beaten for egg wash on pie crust",
+          "tag": "Meal B",
+          "amazon": "large eggs",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 cup unsweetened almond milk (or low-fat milk)",
+          "detail": "Meal B · added to pot pie sauce",
+          "tag": "Meal B",
+          "amazon": "unsweetened almond milk",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "½ cup heavy cream",
+          "detail": "Meal C · stirred into tomato sauce for gnocchi",
+          "tag": "Meal C",
+          "amazon": "heavy cream",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "2 (4 oz) balls fresh burrata",
+          "detail": "Meal C · broken over finished gnocchi dish",
+          "tag": "Meal C",
+          "amazon": "fresh burrata cheese",
+          "tagClass": "tag-pasta"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "3 Tbsp mayonnaise",
+          "detail": "Meal A · base of slaw dressing",
+          "tag": "Meal A",
+          "amazon": "mayonnaise",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "Flour tortillas (for serving 4)",
+          "detail": "Meal A · taco shells for fish tacos",
+          "tag": "Meal A",
+          "amazon": "flour tortillas",
+          "tagClass": "tag-chili"
+        },
+        {
+          "name": "¼ cup all-purpose flour",
+          "detail": "Meal B · thickens pot pie filling sauce",
+          "tag": "Meal B",
+          "amazon": "all purpose flour",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1½ cups low-sodium chicken broth",
+          "detail": "Meal B · base of pot pie sauce",
+          "tag": "Meal B",
+          "amazon": "low sodium chicken broth",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 cup frozen peas",
+          "detail": "Meal B · stirred into pot pie filling",
+          "tag": "Meal B",
+          "amazon": "frozen green peas",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "1 store-bought deep dish pie crust",
+          "detail": "Meal B · used as top crust only for pot pie",
+          "tag": "Meal B",
+          "amazon": "deep dish pie crust",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "Extra-virgin olive oil",
+          "detail": "Meal A · brushed on fish · Meal B · sautéing vegetables · Meal C · base of tomato sauce",
+          "tag": "All meals",
+          "amazon": "extra virgin olive oil",
+          "tagClass": "tag-all"
+        },
+        {
+          "name": "2 (16 oz) packages potato gnocchi",
+          "detail": "Meal C · main pasta component",
+          "tag": "Meal C",
+          "amazon": "potato gnocchi",
+          "tagClass": "tag-pasta"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these.",
+      "items": [
+        {
+          "name": "Chili powder",
+          "detail": "Meal A · 1 tsp in fish spice rub",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Dried oregano",
+          "detail": "Meal A · ½ tsp in fish spice rub",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Garlic powder",
+          "detail": "Meal A · ½ tsp in fish spice rub · Meal B · 1 tsp in pot pie filling",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Paprika",
+          "detail": "Meal A · ½ tsp in fish spice rub",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Cayenne pepper",
+          "detail": "Meal A · ¼ tsp in fish spice rub",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Onion powder",
+          "detail": "Meal A · ¼ tsp in fish spice rub",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Ground cumin",
+          "detail": "Meal A · ¼ tsp in fish spice rub",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Sea salt",
+          "detail": "Meal A · ½ tsp in spice rub · Meal B · 1 tsp in filling · Meal C · 1 tsp kosher salt in sauce",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Black pepper",
+          "detail": "Meal A · ½ tsp cracked · Meal B · ½ tsp in filling · Meal C · ½ tsp in sauce",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Red pepper flakes",
+          "detail": "Meal C · ½ tsp in tomato sauce (optional)",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Sugar",
+          "detail": "Meal A · ½ tsp optional in slaw dressing",
+          "tagClass": "tag-shared"
+        },
+        {
+          "name": "Dried thyme",
+          "detail": "Meal B · ½ tsp (substitute if fresh thyme not available)",
+          "tagClass": "tag-shared"
+        }
+      ]
+    }
+  ]
 }
