@@ -10,6 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Fox & Bear Kitchen">
+<script src="icons.js"></script>
 <script src="pwa.js" defer></script>
 <title>Fox &amp; Bear Kitchen — Grocery List</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +28,8 @@
   /* Week switcher — same shape as the week page, so the list always tells you
      which week's shopping you're looking at. */
   .wk-title-row{display:flex;align-items:center;gap:2px;margin:4px -8px 6px;}
-  .wk-nav{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:transparent;border:none;color:var(--muted);font-size:24px;line-height:1;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color .15s,background .15s;}
+  .wk-nav{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:transparent;border:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color .15s,background .15s;}
+  .wk-nav svg{width:22px;height:22px;}
   .wk-nav:hover:not(:disabled){color:var(--accent);background:var(--accent-light);}
   .wk-nav:active:not(:disabled){transform:scale(.88);}
   .wk-nav:disabled{opacity:.22;cursor:default;}
@@ -96,9 +98,9 @@
 <div class="container">
   <p class="eyebrow" id="relLabel">Grocery List</p>
   <div class="wk-title-row">
-    <button type="button" class="wk-nav" id="prevWk" aria-label="Previous week">‹</button>
+    <button type="button" class="wk-nav" id="prevWk" aria-label="Previous week"></button>
     <div class="wk-title" id="wkTitle">…</div>
-    <button type="button" class="wk-nav" id="nextWk" aria-label="Next week">›</button>
+    <button type="button" class="wk-nav" id="nextWk" aria-label="Next week"></button>
   </div>
   <a class="back-link" id="backLink" href="index.html">← Back to the week</a>
   <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
@@ -282,6 +284,9 @@ var weekKey=WeekStore.keyOrMint(viewStart);
 var weekData=(await WeekStore.get(weekKey))||{weekOf:weekKey,meals:[],groceries:[]};
 
 FB_URL=FB_BASE+'/groceries/'+weekKey;
+
+document.getElementById('prevWk').innerHTML=Icon.svg('chevron-left');
+document.getElementById('nextWk').innerHTML=Icon.svg('chevron-right');
 
 function renderHeader(){
   var today=Week.todayStart();

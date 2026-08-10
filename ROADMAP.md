@@ -2,28 +2,45 @@
 
 ## What's Been Built
 
-- **JSON data layer** — Recipe and meal data moved out of HTML into `data/week.json`, `data/recipes.json`, and `data/history.json`. HTML pages are now render-only shells. Agent X writes clean JSON instead of editing HTML.
-- **Real-time grocery sync** — Firebase Realtime Database syncs checkbox state across devices instantly. Kyle and Josephine see the same checked items live.
-- **Meal history & Journal page** — Every week is automatically archived to `data/history.json` when Agent X publishes a new plan. The Journal page shows all past weeks with full recipe detail and cooking mode.
+- **JSON data layer** — Recipes and meals live in JSON under `data/`, not in HTML. The pages are
+  render-only shells.
+- **Google Sign-In** — Firebase Auth with a two-email allowlist. Everything on the site is behind it.
+- **Real-time grocery sync** — Checkbox state syncs between Kyle and Josephine instantly, per week.
+- **Recipe management from the site** — Add a recipe, edit one, save one from the week. No Agent X
+  round trip needed.
+- **Photos and the cook log** — A cover photo per recipe plus a gallery of photos and notes taken
+  while cooking, stored as compressed base64 in Realtime Database. No Storage bucket, no billing.
+- **Week navigation** — Every week, past present and future, is a document at
+  `/meals/weeks/{weekOf}`. Chevrons walk between them, a jump-to-week sheet skips further, and
+  swiping works on a phone. Planning ahead is just walking forward and hitting Edit; there is no
+  publish step and nothing gets displaced.
+- **Per-week grocery lists** — Each week owns its list, reachable from a progress card inside the
+  week or from the Groceries tab. Last week's list is still there when you need it.
+- **Grocery lists that merge** — Adding a meal no longer rebuilds the list from scratch. Anything
+  already ticked off keeps its exact name, so it stays ticked.
+- **Timeline view** — The old Journal, folded into the week page as a second view. Same cards and
+  cook-log blocks, loading each week as you scroll to it.
+- **Line icons** — A local Lucide subset (`icons.js`) drives the week header and the nav tabs.
 
 ---
 
 ## What's Next
 
-### Recipe Management UI
-Allow Kyle to manage recipes directly from the site without involving Agent X.
-- **"Add to My Recipes"** — save a meal from the current week permanently to the recipe collection
-- **Edit mode** — tap to edit a recipe's name, ingredients, or steps from the overlay
-- *Requires Google Sign-In first (see below) to safely allow writes from the browser*
+### Finish the icon pass
+The header and nav now use line icons; the rest of the site is still emoji. Remaining:
+- Grocery section headers (🥦 🥩 🧈 🫙 🌿) — worth thinking about first. The colour and food-ness
+  scan fast in a shop, and flat line icons may genuinely be a downgrade there.
+- Scattered controls: 🎲 Shuffle, 🛒 on the grocery card, ✕ close buttons, ⠿ drag handles.
+- The 🛒 on the week page's grocery card sits right under a line-icon Groceries tab, so that one is
+  the most visible mismatch.
 
-### Google Sign-In
-Add Firebase Authentication so only authorized users can trigger write operations from the UI. Kyle and Josephine sign in once with their Google accounts. The site remains openly readable — sign-in is only required for write actions (editing recipes, etc.). Agent X bypasses auth via its service account.
+Recipe icons (🌶️ 🥘 🍜) should stay emoji — they're content, not chrome.
 
-### Recipe Photos
-Photos tied to each recipe, shown on recipe cards.
-- Agent X generates a photo via an image API and stores the URL in `recipes.json`
-- Or Kyle uploads a photo via an "Add Photo" button in the recipe overlay
-- Photos stored in Firebase Storage
+### Shared CSS
+Every page carries its own copy of the reset, the body rules, the header block and the bottom-sheet
+styles. `theme.css` holds only the colour tokens. Pulling the shared components out would make
+changes like the header rework a one-file edit instead of a four-file one.
 
 ### Family Hub Expansion
-New pages beyond meal planning, all using the same Firebase backend — home projects, trip planning, shared lists. Each feature is a new page + new Firebase data collection, no re-architecting needed.
+More pages on the same Firebase backend — home projects, trip planning, shared lists. Each is a new
+page plus a new collection; the auth, nav, sync and icon layers are already there.

@@ -6,7 +6,9 @@
     '.nav-link{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:14px 14px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}',
     '.nav-link:hover{color:var(--ink)}',
     '.nav-link.active{color:var(--accent);border-bottom-color:var(--accent)}',
-    '.nav-ico{font-size:15px;line-height:1}',
+    '.nav-ico{display:flex;align-items:center;justify-content:center}',
+    // Icons stroke with currentColor, so .nav-link.active already tints them.
+    '.nav-ico svg{width:17px;height:17px;display:block}',
     // Profile / avatar
     '.nav-prof{margin-left:auto;position:relative;display:flex;align-items:center}',
     '.nav-avatar{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--accent-light,#f5e8de);padding:0;cursor:pointer;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:border-color .15s}',
@@ -26,7 +28,7 @@
     '.site-nav{position:fixed;bottom:0;left:0;right:0;max-width:none;margin:0;padding:0 env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);background:var(--cream);border-bottom:none;border-top:1px solid var(--border);justify-content:space-around;z-index:150}',
     '.nav-link{flex:1;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 7px;font-size:9px;letter-spacing:.02em;border-bottom:none;margin-bottom:0;text-align:center}',
     '.nav-link.active{border-bottom:none}',
-    '.nav-ico{font-size:20px}',
+    '.nav-ico svg{width:21px;height:21px}',
     '.nav-prof{flex:1;margin-left:0;flex-direction:column;justify-content:center;align-items:center;padding:7px 2px}',
     '.nav-avatar{width:26px;height:26px}',
     '.nav-menu{top:auto;bottom:calc(100% + 10px);right:8px}',
@@ -35,11 +37,12 @@
   document.head.appendChild(style);
 
   var page = location.pathname.split('/').pop() || 'index.html';
+  // The Journal is gone — the week page's timeline view shows the same weeks,
+  // the same cards and the same photos and notes.
   var links = [
-    {href:'index.html',     label:'This Week', icon:'📅'},
-    {href:'groceries.html', label:'Groceries', icon:'🛒'},
-    {href:'recipes.html',   label:'Recipes',   icon:'📖'},
-    {href:'journal.html',   label:'Journal',   icon:'📔'}
+    {href:'index.html',     label:'Weeks',     icon:'calendar-days',  emoji:'\uD83D\uDCC5'},
+    {href:'groceries.html', label:'Groceries', icon:'shopping-cart',  emoji:'\uD83D\uDED2'},
+    {href:'recipes.html',   label:'Recipes',   icon:'book-open',      emoji:'\uD83D\uDCD6'}
   ];
   var nav = document.createElement('nav');
   nav.className = 'site-nav';
@@ -47,7 +50,10 @@
     var a = document.createElement('a');
     a.href = l.href;
     a.className = 'nav-link' + (page === l.href ? ' active' : '');
-    a.innerHTML = '<span class="nav-ico">' + l.icon + '</span><span class="nav-lbl">' + l.label + '</span>';
+    // Fall back to the emoji if icons.js somehow didn't load — a nav with
+    // three blank tabs would be much worse than a slightly dated one.
+    var glyph = (window.Icon && window.Icon.has(l.icon)) ? window.Icon.svg(l.icon) : l.emoji;
+    a.innerHTML = '<span class="nav-ico">' + glyph + '</span><span class="nav-lbl">' + l.label + '</span>';
     nav.appendChild(a);
   });
 

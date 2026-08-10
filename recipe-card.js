@@ -1,7 +1,7 @@
 /**
  * Fox & Bear Kitchen — Shared Recipe Card Component
  * Provides: meal card rendering, recipe detail overlay, cooking mode, save/unsave, edit
- * Used by: index.html, recipes.html, journal.html
+ * Used by: index.html (week view and timeline view), recipes.html
  */
 
 (function (global) {

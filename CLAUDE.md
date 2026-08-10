@@ -41,7 +41,8 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   and full cooking mode. Reads Firebase `/meals/weeks/{weekOf}`.
 - `groceries.html` — One week's grocery list. Takes `?week=` (a Sunday or a stored `weekOf`).
 - `recipes.html` — Browsable recipe collection. Fetches `data/recipes.json` on load.
-- `journal.html` — Superseded by the timeline view on `index.html`.
+- `journal.html` — Retired. A redirect to `index.html?view=timeline`; kept because it's in the
+  service worker shell and may be bookmarked.
 
 **Data:**
 - `data/weeks/YYYY-MM-DD.json` — **One file per week. This is what Agent X writes.** Past,
@@ -53,6 +54,9 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   nothing is lost. Nothing reads them. Do not write them.
 
 **Shared scripts:**
+- `icons.js` — the site's line icons: a hand-copied subset of Lucide (ISC), exposed as
+  `window.Icon`. Copied rather than loaded from a CDN so the icons survive offline. Must load
+  before `nav.js`. Chrome uses these; recipe and grocery-section emoji are still emoji.
 - `week-utils.js` — All week math (`window.Week`, and `require`-able from `scripts/`). Weeks run
   **Sunday → Saturday**.
 - `week-store.js` — Reading and writing weeks from the browser (`window.WeekStore`).
@@ -162,14 +166,17 @@ returns every note on the site without any image bytes.
 
 ### Week stamping
 
-`weekOf` is what lets the Journal show notes and photos under the right week:
+`weekOf` is what files notes and photos under the right week. It is always the **stored key**,
+never the canonical Sunday.
 
-- `RecipeCard.init({weekOf})` sets a page default — `index.html` passes the current week,
-  `recipes.html` passes nothing.
-- `makeCard(r, labelOverride, metaOverride, weekOf)` writes `data-week-of` on the card;
-  `journal.html` passes each week's own value, so adding a note to a past week's card files it under
-  **that** week. This is how a meal gets logged days after it was cooked.
-- A note with no `weekOf` (added from the Recipes page) shows on the recipe but never in the Journal.
+- `RecipeCard.init({weekOf})` sets a page default; `RecipeCard.setWeekOf(key)` moves it when the
+  week page navigates. `recipes.html` sets neither.
+- `makeCard(r, labelOverride, metaOverride, weekOf)` writes `data-week-of` on the card. The timeline
+  view passes each week's own key, so adding a note to a past week's card files it under **that**
+  week. This is how a meal gets logged days after it was cooked.
+- A note with no `weekOf` (added from the Recipes page) shows on the recipe but never in a week.
+- Cards appended after the shared data has loaded — every lazily-loaded timeline week — need
+  `RecipeCard.refresh()` or they render with no badges and no activity.
 
 ### Behaviour worth preserving
 

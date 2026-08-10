@@ -10,6 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Fox & Bear Kitchen">
+<script src="icons.js"></script>
 <script src="pwa.js" defer></script>
 <title>Fox &amp; Bear Kitchen — This Week</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,26 +22,44 @@
   body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
   body.editing{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));}
   .container{max-width:680px;margin:0 auto;padding:28px 16px 40px;}
-  .hd-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:32px;}
+  /* Actions live alone on this row now — the relative label moved down to sit
+     with the dates it describes. margin-left:auto rather than
+     justify-content:space-between, so the buttons stay pinned right on the
+     weeks where the Today button isn't there. */
+  .hd-row{display:flex;align-items:center;gap:12px;min-height:36px;}
+  .hd-actions{margin-left:auto;}
   .eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
   h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1.15;margin-bottom:6px;}
   .meal-cards{display:flex;flex-direction:column;gap:10px;}
 
   /* Week switcher. The date range IS the title — there is no static
-     "This Week" any more, because you can be looking at any week. The
-     relative label ("THIS WEEK", "IN 3 WEEKS") sits in the eyebrow above. */
-  .wk-title-row{display:flex;align-items:center;gap:2px;margin:6px -8px 20px;}
-  .wk-nav{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:transparent;border:none;color:var(--muted);font-size:24px;line-height:1;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color .15s,background .15s;}
+     "This Week" any more, because you can be looking at any week. The relative
+     label sits directly above it, centred, so the two read as one unit. */
+  .wk-rel{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);text-align:center;margin-top:10px;}
+  /* In timeline view the date row below is hidden, so the label has to carry
+     its own bottom spacing or it sits flush against the first week. */
+  body.timeline .wk-rel{margin-bottom:24px;}
+  .wk-title-row{display:flex;align-items:center;gap:2px;margin:1px -8px 20px;}
+  .wk-nav{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:transparent;border:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color .15s,background .15s;}
+  .wk-nav svg{width:22px;height:22px;}
   .wk-nav:hover:not(:disabled){color:var(--accent);background:var(--accent-light);}
   .wk-nav:active:not(:disabled){transform:scale(.88);}
   .wk-nav:disabled{opacity:.22;cursor:default;}
   .wk-title{flex:1;min-width:0;background:none;border:none;padding:2px 0;font-family:'Playfair Display',serif;font-size:29px;font-weight:700;line-height:1.15;color:var(--ink);text-align:center;white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent;}
   .wk-title:active{opacity:.55;}
 
-  /* Week ⇄ timeline. Two icons rather than words: it sits next to Edit and
-     the header is already carrying the date. */
+  /* Go to this week. Only rendered when you've wandered off it, so it's never
+     a dead control — and its appearing is itself the signal that you have. */
+  .wk-today{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:transparent;border:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color .15s,background .15s;}
+  .wk-today svg{width:21px;height:21px;}
+  .wk-today:hover{color:var(--accent);background:var(--accent-light);}
+  .wk-today:active{transform:scale(.88);}
+
+  /* Week ⇄ timeline: a calendar grid ("one week, laid out") against a list
+     ("everything"). Sits to the right of Edit. */
   .wk-view{display:flex;background:#fff;border:1px solid var(--border);border-radius:100px;padding:2px;}
-  .wk-view button{width:36px;height:26px;border:none;background:transparent;border-radius:100px;color:var(--muted);font-size:13px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s,color .15s;}
+  .wk-view button{width:38px;height:28px;border:none;background:transparent;border-radius:100px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s,color .15s;}
+  .wk-view button svg{width:16px;height:16px;}
   .wk-view button.on{background:var(--accent-light);color:var(--accent);}
 
   /* Grocery list, as an object that belongs to this week */
@@ -188,21 +207,22 @@
 <script src="nav.js"></script>
 <div class="container">
   <div class="hd-row">
-    <p class="eyebrow" id="relLabel">Fox &amp; Bear Kitchen</p>
+    <button type="button" class="wk-today" id="todayBtn" hidden aria-label="Go to this week"></button>
     <div class="hd-actions">
-      <div class="wk-view" id="viewToggle" style="display:none">
-        <button type="button" id="viewWeekBtn" class="on" aria-label="One week at a time">▦</button>
-        <button type="button" id="viewTimeBtn" aria-label="Every week">▤</button>
-      </div>
       <button class="edit-toggle" id="editBtn" style="display:none">Edit</button>
       <button class="edit-toggle primary" id="shuffleWeekBtn" style="display:none">🎲 Shuffle</button>
+      <div class="wk-view" id="viewToggle" style="display:none">
+        <button type="button" id="viewWeekBtn" class="on" aria-label="One week at a time"></button>
+        <button type="button" id="viewTimeBtn" aria-label="Every week"></button>
+      </div>
     </div>
   </div>
 
+  <p class="wk-rel" id="relLabel"></p>
   <div class="wk-title-row" id="wkTitleRow">
-    <button type="button" class="wk-nav" id="prevWk" aria-label="Previous week">‹</button>
+    <button type="button" class="wk-nav" id="prevWk" aria-label="Previous week"></button>
     <button type="button" class="wk-title" id="wkTitle" aria-label="Jump to a week">…</button>
-    <button type="button" class="wk-nav" id="nextWk" aria-label="Next week">›</button>
+    <button type="button" class="wk-nav" id="nextWk" aria-label="Next week"></button>
   </div>
 
   <div id="weekPane">
@@ -336,6 +356,11 @@ function buildEmptyState(){
 }
 
 // ── Header ────────────────────────────────────────────────────────────────
+document.getElementById('prevWk').innerHTML=Icon.svg('chevron-left');
+document.getElementById('nextWk').innerHTML=Icon.svg('chevron-right');
+document.getElementById('viewWeekBtn').innerHTML=Icon.svg('calendar-days');
+document.getElementById('viewTimeBtn').innerHTML=Icon.svg('list');
+
 function renderHeader(){
   var today=Week.todayStart();
   document.getElementById('relLabel').textContent=Week.relativeLabel(viewStart, today);
@@ -343,6 +368,11 @@ function renderHeader(){
   var b=WeekStore.bounds();
   document.getElementById('prevWk').disabled = viewStart<=b.earliest;
   document.getElementById('nextWk').disabled = viewStart>=b.latest;
+  // Redrawn each time rather than once at startup, so the numeral is still
+  // right on a phone that's had the page open since before midnight.
+  var todayBtn=document.getElementById('todayBtn');
+  todayBtn.hidden=(viewStart===today);
+  if(!todayBtn.hidden) todayBtn.innerHTML=Icon.svg('calendar-today');
 }
 
 // ── Grocery card ──────────────────────────────────────────────────────────
@@ -831,6 +861,7 @@ function enterEdit(){
   document.getElementById('editBar').style.display='';
   document.getElementById('prevWk').disabled=true;
   document.getElementById('nextWk').disabled=true;
+  document.getElementById('todayBtn').hidden=true;
   document.body.classList.add('editing');
   renderEditCards();
 }
@@ -1054,7 +1085,10 @@ function setView(mode){
   document.getElementById('wkTitleRow').style.display=timeline?'none':'';
   document.getElementById('editBtn').style.display=timeline?'none':'';
   timelineEl.style.display=timeline?'':'none';
+  document.body.classList.toggle('timeline',timeline);
   if(timeline){
+    // No single week on screen, so nothing for Today or the chevrons to act on.
+    document.getElementById('todayBtn').hidden=true;
     document.getElementById('relLabel').textContent='Every week';
     buildTimeline();
   }else{
@@ -1093,6 +1127,7 @@ function openWeekPicker(){
 document.getElementById('prevWk').addEventListener('click', function(){ goToWeek(Week.add(viewStart,-1)); });
 document.getElementById('nextWk').addEventListener('click', function(){ goToWeek(Week.add(viewStart, 1)); });
 document.getElementById('wkTitle').addEventListener('click', openWeekPicker);
+document.getElementById('todayBtn').addEventListener('click', function(){ goToWeek(Week.todayStart()); });
 document.getElementById('weekpick-close').addEventListener('click', function(){ closeSheet('weekpick-overlay'); });
 document.getElementById('weekpick-overlay').addEventListener('click', function(e){ if(e.target===this) closeSheet('weekpick-overlay'); });
 document.getElementById('viewWeekBtn').addEventListener('click', function(){ setView('week'); });
