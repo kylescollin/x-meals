@@ -1,0 +1,387 @@
+{
+  "groceries": [
+    {
+      "icon": "🥦",
+      "items": [
+        {
+          "amazon": "persian cucumbers",
+          "detail": "Sushi bowls · sliced and layered in bowl",
+          "name": "1 cup sliced Persian cucumbers (~2–3 small)",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "large carrots",
+          "detail": "1 cup shredded for sushi bowls · 2 large julienned for Thai wraps",
+          "name": "4 large carrots",
+          "tag": "Meals A+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "ripe avocados",
+          "detail": "Sushi bowls · thinly sliced and layered in bowl",
+          "name": "2 small ripe avocados",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "fresh limes",
+          "detail": "Fish tacos · 1 Tbsp juice for slaw · Thai wraps · 2 Tbsp juice for peanut sauce",
+          "name": "1 lime",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "fresh cilantro",
+          "detail": "⅓ cup chopped for fish taco slaw · ¼ cup chopped for Thai wrap filling",
+          "name": "⅔ cup fresh cilantro, loosely packed",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "coleslaw mix shredded cabbage",
+          "detail": "Fish tacos · base of cilantro lime slaw",
+          "name": "2½ cups coleslaw mix",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "purple cabbage",
+          "detail": "Thai wraps · layered in wrap with chicken and veggies",
+          "name": "1 cup purple cabbage, shredded",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "romaine lettuce",
+          "detail": "Thai wraps · layered inside wrap",
+          "name": "2 cups fresh lettuce leaves",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "fresh garlic",
+          "detail": "1 clove minced for fish taco slaw · 2 cloves minced for Thai peanut sauce",
+          "name": "3 cloves garlic",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "fresh ginger root",
+          "detail": "Thai wraps · stirred into peanut sauce",
+          "name": "1 tsp fresh ginger, grated (small knob)",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "roasted seaweed nori sheets",
+          "detail": "Sushi bowls · crumbled or cut over finished bowls",
+          "name": "1 nori sheet",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "pickled ginger sushi",
+          "detail": "Sushi bowls · served in bowl as topping",
+          "name": "Pickled ginger, small jar",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        }
+      ],
+      "label": "Produce"
+    },
+    {
+      "icon": "🥩",
+      "items": [
+        {
+          "amazon": "cooked salmon fillets",
+          "detail": "Sushi bowls · flaked over rice",
+          "name": "4 (4 oz) cooked salmon filets",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "tilapia fillets fresh",
+          "detail": "Fish tacos · air fried with spice rub",
+          "name": "1½ lb tilapia or white fish fillets",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "boneless skinless chicken breast",
+          "detail": "Thai wraps · sliced into strips and pan seared",
+          "name": "1 lb boneless chicken breast",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        }
+      ],
+      "label": "Protein"
+    },
+    {
+      "icon": "🧈",
+      "items": [
+        {
+          "amazon": "mayonnaise",
+          "detail": "½ cup for sushi bowl sriracha mayo · 3 Tbsp for fish taco slaw",
+          "name": "½ cup + 3 Tbsp mayo",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        }
+      ],
+      "label": "Dairy & Refrigerated"
+    },
+    {
+      "icon": "🫙",
+      "items": [
+        {
+          "amazon": "jasmine rice",
+          "detail": "Sushi bowls · seasoned with vinegar and sugar as base",
+          "name": "2½ cups sushi or jasmine rice",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "rice vinegar",
+          "detail": "Sushi bowls · mixed with sugar and salt to season rice",
+          "name": "¼ cup rice vinegar",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "panko breadcrumbs",
+          "detail": "Sushi bowls · toasted in oil for crunchy topping",
+          "name": "⅓ cup panko breadcrumbs",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "sriracha hot sauce",
+          "detail": "Sushi bowls · mixed with mayo for sriracha mayo drizzle",
+          "name": "Sriracha, small bottle",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "toasted sesame seeds",
+          "detail": "Sushi bowls · sprinkled over finished bowl",
+          "name": "Toasted sesame seeds",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "flour tortillas large",
+          "detail": "Fish tacos · 2 per serving for tacos · Thai wraps · 4 large for wraps",
+          "name": "6 large flour tortillas",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "creamy peanut butter",
+          "detail": "Thai wraps · base of peanut sauce",
+          "name": "⅓ cup creamy peanut butter",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "low sodium soy sauce",
+          "detail": "1 tsp for sushi bowl sriracha mayo · 3 Tbsp divided for Thai wrap marinade and sauce",
+          "name": "4 Tbsp soy sauce (low sodium recommended)",
+          "tag": "Meals A+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "toasted sesame oil",
+          "detail": "Thai wraps · divided between chicken marinade and peanut sauce",
+          "name": "2 Tbsp sesame oil",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "pure honey",
+          "detail": "Thai wraps · stirred into peanut sauce for sweetness",
+          "name": "2 Tbsp honey",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "vegetable oil",
+          "detail": "Sushi bowls · for toasting panko · fish tacos · for brushing and spritzing fish",
+          "name": "Neutral cooking oil (small bottle)",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "garlic salt",
+          "detail": "Sushi bowls · pinch added to panko crunchies",
+          "name": "Garlic salt, small shaker",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        }
+      ],
+      "label": "Pantry & Canned"
+    },
+    {
+      "icon": "🌿",
+      "items": [
+        {
+          "detail": "Fish tacos · 1 tsp in spice rub",
+          "name": "Chili powder",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "Fish tacos · ½ tsp in spice rub",
+          "name": "Dried oregano",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "Fish tacos · ½ tsp in spice rub",
+          "name": "Garlic powder",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "Fish tacos · ½ tsp in spice rub",
+          "name": "Paprika",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "Fish tacos · ¼ tsp in spice rub",
+          "name": "Onion powder",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "Fish tacos · ¼ tsp in spice rub",
+          "name": "Ground cumin",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "Sushi bowls · 5 tsp for seasoned rice · fish tacos · ½ tsp optional in slaw",
+          "name": "Granulated sugar",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "detail": "Sushi bowls · rice seasoning · fish tacos · spice rub and slaw",
+          "name": "Salt & black pepper",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        }
+      ],
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
+  "meals": [
+    {
+      "date": "6/15",
+      "day": "Monday",
+      "icon": "🍣",
+      "id": "easy-weeknight-salmon-sushi-bowls",
+      "ings": [
+        "2½ cups sushi or jasmine rice",
+        "¼ cup rice vinegar",
+        "5 tsp granulated sugar",
+        "4 (4 oz) cooked salmon filets",
+        "1 cup sliced Persian cucumbers",
+        "1 cup shredded carrots",
+        "2 small ripe avocados, thinly sliced",
+        "1 Tbsp oil",
+        "⅓ cup panko breadcrumbs",
+        "Pinch of garlic salt",
+        "Sriracha mayo, toasted sesame seeds, 1 nori sheet, pickled ginger"
+      ],
+      "label": "Meal A",
+      "meta": "~20 min · Bowl · Serves 4",
+      "name": "Easy Weeknight Salmon Sushi Bowls",
+      "note": "💡 Serve sriracha mayo on the side for adults only — kids can have it plain with extra soy on the rice. Pre-cooked salmon makes this a true 20-minute meal.",
+      "steps": [
+        "Cook rice in rice cooker. Combine vinegar, sugar, ½ tsp salt; microwave 20 sec, stir until dissolved. Pour over rice. Let sit.",
+        "Panko crunchies: heat oil in small skillet, toast panko ~2 min until golden.",
+        "Build bowls: ¾ cup rice, flaked salmon, ¼ cup each cucumbers and carrots, ½ avocado, ginger, panko. Top with nori and sesame seeds. Drizzle sriracha mayo.",
+        "Sriracha mayo: mix ½ cup mayo, 1 Tbsp sriracha, 1 tsp sugar, 1 tsp low-sodium soy sauce."
+      ]
+    },
+    {
+      "date": "6/16",
+      "day": "Tuesday",
+      "icon": "🌮",
+      "id": "air-fryer-fish-tacos-with-cilantro-lime-slaw",
+      "ings": [
+        "1½ lb tilapia or white fish",
+        "1 tsp chili powder",
+        "½ tsp oregano",
+        "½ tsp garlic powder",
+        "½ tsp paprika",
+        "¼ tsp onion powder",
+        "¼ tsp cumin",
+        "½ tsp sea salt",
+        "½ tsp cracked pepper",
+        "Tortillas for serving",
+        "2½ cups coleslaw mix",
+        "3 Tbsp mayo",
+        "1 Tbsp lime juice",
+        "1 garlic clove, minced",
+        "⅓ cup cilantro, chopped",
+        "½ tsp sugar (optional)",
+        "Extra salt and pepper to taste"
+      ],
+      "label": "Meal B",
+      "meta": "20 min · Air Fryer · Serves 4",
+      "name": "Air Fryer Fish Tacos with Cilantro Lime Slaw",
+      "note": "💡 Cayenne omitted from this version to keep it kid-friendly — still flavorful from chili powder, paprika, and cumin. No air fryer? Bake at 400°F for ~15 min.",
+      "steps": [
+        "Spray air fryer basket with oil. Mix all spices in a small bowl.",
+        "Pat fish dry, lay in basket. Brush with olive oil, coat with spice rub, press gently to adhere. Spritz with oil.",
+        "Preheat air fryer to 400°F. Cook fish 8–10 min until opaque and flakes at 145°F. Do not flip.",
+        "While fish cooks, toss together all slaw ingredients. Adjust lime and salt to taste.",
+        "Cut fish into pieces. Serve in tortillas topped with slaw and extra lime."
+      ]
+    },
+    {
+      "date": "6/17",
+      "day": "Wednesday",
+      "icon": "🥜",
+      "id": "thai-peanut-chicken-wraps",
+      "ings": [
+        "1 lb boneless chicken breast, cut into strips",
+        "4 large flour tortillas",
+        "⅓ cup creamy peanut butter",
+        "3 Tbsp soy sauce, divided",
+        "2 Tbsp sesame oil, divided",
+        "2 cups fresh lettuce leaves",
+        "1 cup purple cabbage, shredded",
+        "2 large carrots, julienned",
+        "¼ cup fresh cilantro, chopped",
+        "2 Tbsp lime juice",
+        "2 cloves garlic, minced",
+        "1 tsp fresh ginger, grated",
+        "2 Tbsp honey"
+      ],
+      "label": "Meal C",
+      "meta": "~27 min · Skillet · Serves 4",
+      "name": "Thai Peanut Chicken Wraps",
+      "note": "💡 Peanut sauce keeps a week in the fridge — make a double batch. Pat veggies dry so wraps don't get soggy. For kids: assemble with less sauce or serve as a deconstructed bowl over rice if they're wary of wraps.",
+      "steps": [
+        "Whisk peanut butter, 2 Tbsp soy sauce, 1 Tbsp sesame oil, lime juice, garlic, ginger, and honey in a medium bowl until smooth. Set aside.",
+        "Cut chicken into thin strips and toss with remaining 1 Tbsp soy sauce and 1 Tbsp sesame oil. Marinate 10 min while you prep vegetables.",
+        "Wash and dry lettuce, finely shred cabbage, julienne carrots, chop cilantro. Set out in separate bowls for easy assembly.",
+        "Heat large skillet over medium-high. Cook chicken strips 6–8 min, stirring occasionally, until golden brown and cooked through. Let cool slightly.",
+        "Warm tortillas 30 sec per side in dry skillet, or wrap in damp paper towel and microwave 20 sec until pliable.",
+        "Spread 2 Tbsp peanut sauce down center of each tortilla. Layer with lettuce, cabbage, carrots, chicken, and cilantro. Drizzle with more sauce.",
+        "Fold in sides and roll tightly from the bottom. Cut in half diagonally. Serve with extra peanut sauce on the side for dipping."
+      ]
+    }
+  ],
+  "subhead": "3 dinners · Serves 4",
+  "title": "Week of June 15",
+  "weekOf": "2026-06-15",
+  "updatedAt": 1786340948892,
+  "migratedFrom": [
+    "firebase-history"
+  ]
+}

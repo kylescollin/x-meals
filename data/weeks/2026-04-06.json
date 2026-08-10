@@ -1,0 +1,118 @@
+{
+  "meals": [
+    {
+      "date": "4/5",
+      "day": "Sunday",
+      "icon": "🍝",
+      "id": "creamy-sausage-and-peppers-pasta",
+      "ings": [
+        "8 oz uncooked pasta (bucatini)",
+        "1 lb Italian sausage",
+        "1 tbsp olive oil",
+        "½ medium onion, chopped",
+        "1 red bell pepper, 1 yellow bell pepper (chopped)",
+        "1 tbsp butter",
+        "2–3 cloves garlic, minced",
+        "1 tsp flour",
+        "1 cup heavy cream",
+        "½ tsp Dijon mustard",
+        "2 cups fresh baby spinach",
+        "Salt, pepper, Parmesan"
+      ],
+      "label": "Meal D",
+      "meta": "~40 min · One pan · Serves 4",
+      "name": "Creamy Sausage and Peppers Pasta",
+      "note": "Use ground sausage or remove meat from casings.",
+      "steps": [
+        "Boil pasta al dente per package directions.",
+        "Brown sausage in a skillet, breaking it up. Transfer to plate.",
+        "Cook onion and peppers in oil until softened, 7–8 minutes.",
+        "Reduce heat. Add butter and garlic; sprinkle in flour and cook 1 minute.",
+        "Stir in cream and Dijon. Thickens quickly.",
+        "Add sausage and spinach. Splash pasta water in, drain pasta, add to skillet. Toss and serve with Parmesan."
+      ]
+    },
+    {
+      "date": "4/6",
+      "day": "Monday",
+      "icon": "🍲",
+      "id": "sausage-white-bean-soup",
+      "ings": [
+        "1 lb mild Italian sausage",
+        "1 tbsp olive oil",
+        "1 medium onion, diced",
+        "3 cloves garlic, minced",
+        "2 carrots, sliced",
+        "2 stalks celery, chopped",
+        "1 can (15 oz) white beans, drained",
+        "4 cups chicken broth",
+        "1 tsp thyme, 1 tsp rosemary",
+        "Salt, pepper, fresh parsley"
+      ],
+      "label": "Meal A",
+      "meta": "~35 min · One pot · Serves 4–6",
+      "name": "Sausage White Bean Soup",
+      "note": "Mash some beans before adding for creamier texture.",
+      "steps": [
+        "Brown sausage, remove and set aside.",
+        "Cook onion, garlic, carrots, celery until softened.",
+        "Return sausage. Add white beans, broth, herbs, salt, pepper. Simmer.",
+        "Cover and simmer 20–25 minutes. Garnish with parsley."
+      ]
+    },
+    {
+      "date": "4/7",
+      "day": "Tuesday",
+      "icon": "🌮",
+      "id": "air-fryer-fish-tacos",
+      "ings": [
+        "1½ lb tilapia or white fish",
+        "Fish rub: chili powder, oregano, garlic powder, paprika, cayenne, cumin, salt, pepper",
+        "Cilantro lime slaw: coleslaw mix, mayo, lime juice, garlic, cilantro",
+        "Tortillas for serving"
+      ],
+      "label": "Meal B",
+      "meta": "~20 min · Air fryer · Serves 4",
+      "name": "Air Fryer Fish Tacos with Cilantro Lime Slaw",
+      "note": "No air fryer? Bake at 400°F for about 15 minutes.",
+      "steps": [
+        "Spray air fryer basket with oil. Mix spices.",
+        "Pat fish dry, brush with olive oil, coat with spice rub, spritz with oil.",
+        "Air fry at 400°F for 8–10 minutes.",
+        "Toss together cilantro lime slaw.",
+        "Cut fish into pieces and serve in tortillas with slaw."
+      ]
+    },
+    {
+      "date": "4/8",
+      "day": "Wednesday",
+      "icon": "🐟",
+      "id": "miso-glazed-salmon-bowls",
+      "ings": [
+        "4 salmon fillets (~6 oz each)",
+        "3 tbsp white miso paste",
+        "2 tbsp soy sauce, 2 tbsp honey, 1 tbsp rice vinegar, 1 tsp sesame oil",
+        "Fresh ginger, garlic",
+        "Jasmine rice, cucumber, carrots, edamame, sesame seeds, green onions"
+      ],
+      "label": "Meal C",
+      "meta": "~30 min · Sheet pan + rice · Serves 4",
+      "name": "Miso Glazed Salmon Bowls",
+      "note": "Store components separately and assemble fresh.",
+      "steps": [
+        "Cook rice. Whisk together miso glaze.",
+        "Spoon glaze over salmon on a foil-lined sheet.",
+        "Broil at 400°F for 12–15 minutes, basting halfway.",
+        "Assemble bowls with rice, salmon, veggies. Drizzle with remaining glaze."
+      ]
+    }
+  ],
+  "title": "Week of April 6",
+  "weekOf": "2026-04-06",
+  "groceries": [],
+  "updatedAt": 1786340948890,
+  "migratedFrom": [
+    "firebase-history",
+    "data/history.json"
+  ]
+}

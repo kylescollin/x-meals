@@ -1,0 +1,113 @@
+{
+  "meals": [
+    {
+      "date": "4/14",
+      "day": "Tuesday",
+      "icon": "🥩",
+      "id": "sheet-pan-beef-broccoli",
+      "ings": [
+        "1½ lb flank steak or sirloin, sliced thin against the grain",
+        "4 cups broccoli florets",
+        "3 cloves garlic, minced",
+        "¼ cup low-sodium soy sauce",
+        "2 tbsp oyster sauce",
+        "1 tbsp sesame oil",
+        "1 tbsp honey",
+        "½ tsp ground ginger",
+        "2 tbsp cornstarch",
+        "2 tbsp vegetable oil",
+        "1½ cups jasmine rice",
+        "Sesame seeds + sliced green onions for garnish"
+      ],
+      "label": "Meal A",
+      "meta": "~30 min · Sheet pan · Serves 4",
+      "name": "Sheet Pan Beef & Broccoli",
+      "note": "💡 Slice the beef as thin as possible. The marinade does double duty as the finishing sauce.",
+      "steps": [
+        "Preheat oven to 425°F. Start rice on stovetop: 1½ cups rice + 3 cups water, bring to boil, reduce to low, cover, 18 min.",
+        "Slice beef very thin against the grain. Whisk together soy sauce, oyster sauce, sesame oil, honey, ginger, garlic, and cornstarch into a marinade. Toss beef in half the marinade and set aside 10 minutes.",
+        "Toss broccoli florets with vegetable oil, salt, and pepper on a large sheet pan. Roast 8 minutes.",
+        "Push broccoli to the sides. Spread marinated beef in a single layer in the center. Roast everything 8–10 more minutes until beef is cooked through and broccoli is lightly charred.",
+        "Warm remaining marinade in a small saucepan over medium heat, adding a splash of water to thin slightly, until it simmers and thickens into a glossy sauce.",
+        "Serve beef and broccoli over rice. Drizzle with extra sauce. Garnish with sesame seeds and green onions."
+      ]
+    },
+    {
+      "date": "4/15",
+      "day": "Wednesday",
+      "icon": "🫘",
+      "id": "black-bean-sweet-potato-enchiladas",
+      "ings": [
+        "2 large sweet potatoes, peeled and diced small",
+        "1 can (15 oz) black beans, drained and rinsed",
+        "½ cup frozen corn",
+        "1 small onion, diced",
+        "3 cloves garlic, minced",
+        "1 tsp cumin, 1 tsp chili powder, ½ tsp smoked paprika, ½ tsp garlic powder",
+        "Salt and pepper to taste",
+        "8 small corn tortillas",
+        "1 can (10 oz) mild red enchilada sauce",
+        "2 cups shredded Mexican cheese blend",
+        "Olive oil, sour cream and cilantro for serving"
+      ],
+      "label": "Meal B",
+      "meta": "~40 min · Baked · Vegetarian · Serves 4",
+      "name": "Black Bean & Sweet Potato Enchiladas",
+      "note": "💡 Warming the tortillas is the key step — cold corn tortillas crack when rolled.",
+      "steps": [
+        "Preheat oven to 400°F. Toss diced sweet potato with olive oil and spices. Roast 20 minutes until tender and caramelized.",
+        "Sauté onion and garlic in olive oil until soft. Stir in black beans and corn; warm through.",
+        "Combine roasted sweet potato with the bean mixture.",
+        "Warm tortillas in a dry skillet so they roll without cracking. Spoon filling into each tortilla, roll tightly, place seam-side down in a greased 9x13 dish.",
+        "Pour enchilada sauce over top. Sprinkle cheese all over.",
+        "Bake 20 minutes until cheese is melted and bubbling. Serve with sour cream and cilantro."
+      ]
+    },
+    {
+      "date": "4/16",
+      "day": "Thursday",
+      "icon": "🍋",
+      "id": "lemon-herb-chicken-meatballs-orzo",
+      "ings": [
+        "1 lb ground chicken",
+        "¼ cup breadcrumbs",
+        "1 egg",
+        "¼ cup grated Parmesan",
+        "2 tbsp fresh parsley, chopped",
+        "1 tsp dried oregano",
+        "Zest of 1 lemon",
+        "3 cloves garlic, minced (divided)",
+        "Salt and black pepper",
+        "2 tbsp olive oil",
+        "1 small onion, finely diced",
+        "¼ cup white wine or chicken broth",
+        "2½ cups chicken broth",
+        "1½ cups orzo",
+        "Juice of 1 lemon",
+        "½ cup heavy cream",
+        "2 cups fresh baby spinach",
+        "Extra Parmesan to finish"
+      ],
+      "label": "Meal C",
+      "meta": "~35 min · One pan · Serves 4",
+      "name": "Lemon Herb Chicken Meatballs with Orzo",
+      "note": "💡 Stir the orzo frequently so it doesn't stick. Kids love the little meatballs.",
+      "steps": [
+        "Mix ground chicken, breadcrumbs, egg, Parmesan, parsley, oregano, lemon zest, half the garlic, salt, and pepper. Roll into 16–18 small meatballs.",
+        "Heat olive oil in a large deep skillet over medium-high. Sear meatballs in batches, browning on 2–3 sides, about 4–5 minutes. Remove and set aside.",
+        "Sauté onion until soft, 3–4 minutes. Add remaining garlic and cook 30 seconds. Deglaze with white wine.",
+        "Pour in chicken broth and bring to a simmer. Stir in orzo and cook 7–8 minutes, stirring often.",
+        "Stir in lemon juice and heavy cream. Nestle meatballs back in. Cook 4–5 more minutes until meatballs are cooked through.",
+        "Add spinach and stir until wilted. Finish with extra Parmesan and more lemon."
+      ]
+    }
+  ],
+  "title": "Week of April 13",
+  "weekOf": "2026-04-13",
+  "groceries": [],
+  "updatedAt": 1786340948890,
+  "migratedFrom": [
+    "firebase-history",
+    "data/history.json"
+  ]
+}

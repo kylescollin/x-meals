@@ -1,0 +1,448 @@
+{
+  "groceries": [
+    {
+      "icon": "🥦",
+      "items": [
+        {
+          "amazon": "yellow onion",
+          "detail": "1 for chili · 1 for cauliflower · 1 for pasta sauce",
+          "name": "3 medium yellow onions",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "amazon": "garlic head",
+          "detail": "All three meals — plenty to work with",
+          "name": "2 heads garlic",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "amazon": "cauliflower head",
+          "detail": "Cut into florets, seared then simmered in sauce",
+          "name": "1 medium head cauliflower",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "zucchini",
+          "detail": "Diced into turkey bolognese",
+          "name": "1 medium zucchini",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "cremini mushrooms",
+          "detail": "Sliced into turkey bolognese sauce",
+          "name": "8 oz cremini mushrooms",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "fresh ginger root",
+          "detail": "2 tsp grated for butter cauliflower sauce",
+          "name": "Fresh ginger (small knob)",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "lemons",
+          "detail": "2 tbsp juice for cauliflower coating",
+          "name": "1 lemon",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "fresh cilantro",
+          "detail": "Garnish for butter cauliflower",
+          "name": "Fresh cilantro (small bunch)",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "fresh basil",
+          "detail": "Stirred into pasta sauce; dried works fine too",
+          "name": "Fresh basil (small bunch) — optional",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "green onions",
+          "detail": "Chili topping",
+          "name": "Green onions (for serving)",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        }
+      ],
+      "label": "Produce"
+    },
+    {
+      "icon": "🥩",
+      "items": [
+        {
+          "amazon": "lean ground beef",
+          "detail": "Slow cooker chili — makes 8 servings, freeze half",
+          "name": "2 lbs lean ground beef",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "ground turkey 93 lean",
+          "detail": "Turkey veggie bolognese",
+          "name": "1½ lbs ground turkey (93% lean)",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        }
+      ],
+      "label": "Protein"
+    },
+    {
+      "icon": "🧈",
+      "items": [
+        {
+          "amazon": "shredded cheddar cheese",
+          "detail": "Topping for chili",
+          "name": "Shredded cheddar cheese",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "sour cream",
+          "detail": "Chili topping",
+          "name": "Sour cream",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "unsalted butter",
+          "detail": "Butter cauliflower sauce base",
+          "name": "3 tbsp unsalted butter",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "heavy cream",
+          "detail": "Stirs into cauliflower sauce at the end",
+          "name": "½ cup heavy cream",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "plain greek yogurt",
+          "detail": "Garnish for butter cauliflower",
+          "name": "Plain Greek yogurt",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "parmesan cheese",
+          "detail": "Finish the turkey bolognese generously",
+          "name": "Parmesan (block or pre-grated)",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        }
+      ],
+      "label": "Dairy & Refrigerated"
+    },
+    {
+      "icon": "🫙",
+      "items": [
+        {
+          "amazon": "diced tomatoes green chilies mild",
+          "detail": "Chili base — look for \"mild\" on the label",
+          "name": "2 cans (14.5 oz) diced tomatoes with mild green chilies",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "tomato sauce 8oz can",
+          "detail": "Chili liquid base",
+          "name": "3 cans (8 oz) tomato sauce",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "tomato sauce 8oz can",
+          "detail": "Butter cauliflower sauce",
+          "name": "1 can (8 oz) plain tomato sauce",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "beef broth carton",
+          "detail": "Chili — adds depth",
+          "name": "½ cup beef broth",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "dark red kidney beans canned",
+          "detail": "Stirred into chili at the end",
+          "name": "1 can (15 oz) dark red kidney beans",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "light red kidney beans canned",
+          "detail": "Stirred into chili at the end",
+          "name": "1 can (15 oz) light red kidney beans",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "vegetable broth carton",
+          "detail": "Butter cauliflower sauce",
+          "name": "2 cups vegetable broth",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "basmati rice",
+          "detail": "Served alongside butter cauliflower",
+          "name": "Basmati rice",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "crushed tomatoes 28oz",
+          "detail": "Base for turkey bolognese",
+          "name": "1 can (28 oz) crushed tomatoes",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "tomato puree can",
+          "detail": "Body and depth for turkey bolognese",
+          "name": "1 can (14 oz) tomato puree",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "tomato paste",
+          "detail": "2 tbsp for cauliflower + 3 tbsp for pasta sauce",
+          "name": "Tomato paste (small can or tube)",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "casarecce pasta",
+          "detail": "Twisted ridges grab every bit of chunky sauce — or try mafaldine",
+          "name": "12 oz casarecce pasta",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "unsweetened cocoa powder",
+          "detail": "Secret depth ingredient in the chili — check pantry first",
+          "name": "2 tsp unsweetened cocoa powder",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "cornstarch",
+          "detail": "Cauliflower coating for char & texture",
+          "name": "2 tsp cornstarch",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "olive oil",
+          "detail": "All three meals",
+          "name": "Olive oil",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        }
+      ],
+      "label": "Pantry & Canned"
+    },
+    {
+      "icon": "🌿",
+      "items": [
+        {
+          "detail": "Slow cooker chili",
+          "name": "Chili powder (2 tbsp)",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "detail": "2½ tsp chili + ½ tsp cauliflower",
+          "name": "Ground cumin (3 tsp total)",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "detail": "2 tsp chili + 1 tsp cauliflower",
+          "name": "Paprika (3 tsp total)",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "detail": "Slow cooker chili",
+          "name": "Ground coriander (½ tsp)",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "detail": "Butter cauliflower — the key spice",
+          "name": "Garam masala (3 tsp)",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "Butter cauliflower",
+          "name": "Ground turmeric (1 tsp)",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "Butter cauliflower — small amount, big effect",
+          "name": "Ground cinnamon (¼ tsp)",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "Turkey bolognese seasoning",
+          "name": "Granulated garlic (1 tsp)",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "detail": "Turkey bolognese",
+          "name": "Dried basil (1 tsp) — if not using fresh",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "detail": "All meals",
+          "name": "Salt & black pepper",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        }
+      ],
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
+  "meals": [
+    {
+      "date": "4/21",
+      "day": "Tuesday",
+      "icon": "🌶️",
+      "id": "slow-cooker-chili",
+      "ings": [
+        "1 Tbsp olive oil",
+        "2 lbs lean ground beef",
+        "1 large yellow onion, finely chopped",
+        "3 cloves garlic, finely minced",
+        "2 (14.5 oz) cans diced tomatoes with mild green chilies",
+        "3 (8 oz) cans tomato sauce",
+        "½ cup beef broth",
+        "2 Tbsp chili powder",
+        "2½ tsp ground cumin",
+        "2 tsp paprika",
+        "2 tsp unsweetened cocoa powder",
+        "1 tsp granulated sugar",
+        "½ tsp ground coriander",
+        "Salt and freshly ground black pepper",
+        "1 (15 oz) can dark red kidney beans, drained",
+        "1 (15 oz) can light red kidney beans, drained",
+        "Toppings: shredded cheddar, sour cream, sliced green onions"
+      ],
+      "label": "Meal A",
+      "meta": "~15 min prep · 6 hrs slow cooker · Serves 8",
+      "name": "Slow Cooker Chili",
+      "note": "💡 Set up Monday morning — dinner is hands-off by Tuesday. Makes 8 servings; freeze half.",
+      "steps": [
+        "Set up Monday morning. Sauté onion 3 min in olive oil, add garlic 30 sec. Transfer to slow cooker.",
+        "Brown ground beef in same skillet. Drain fat. Add to slow cooker.",
+        "Stir in all remaining ingredients. Season with salt and pepper.",
+        "Cover and cook on LOW 5–6 hours (or HIGH 3 hours).",
+        "Stir in kidney beans. Heat through 2 min.",
+        "Serve with cheddar, sour cream, and green onions."
+      ]
+    },
+    {
+      "date": "4/22",
+      "day": "Wednesday",
+      "icon": "🧈",
+      "id": "butter-cauliflower",
+      "ings": [
+        "1 medium head cauliflower, cut into florets",
+        "2 Tbsp olive oil (divided)",
+        "2 tsp fresh lemon juice",
+        "2 tsp cornstarch",
+        "½ tsp ground cumin",
+        "1 tsp ground turmeric (divided)",
+        "3 tsp garam masala (divided)",
+        "1½ tsp salt (divided)",
+        "3 Tbsp unsalted butter",
+        "1 yellow onion, finely chopped",
+        "3 garlic cloves, minced",
+        "2 tsp fresh ginger, grated",
+        "2 Tbsp tomato paste",
+        "1 tsp paprika",
+        "¼ tsp ground cinnamon",
+        "1 (8 oz) can plain tomato sauce",
+        "2 cups vegetable broth",
+        "½ cup heavy cream",
+        "Basmati rice for serving",
+        "Fresh cilantro + plain Greek yogurt to garnish"
+      ],
+      "label": "Meal B",
+      "meta": "~65 min · One pan · Vegetarian · Serves 4",
+      "name": "Butter Cauliflower",
+      "note": "💡 The double-cook on the cauliflower is what makes this dish. Skip cayenne for the kids.",
+      "steps": [
+        "Mix lemon juice, cornstarch, ½ tsp cumin, ½ tsp turmeric, 1 tsp garam masala, ½ tsp salt in a bowl.",
+        "Sear cauliflower in 1 tbsp oil 7–8 min. Toss in cornstarch mixture, return to skillet, cook 7–8 more min. Remove to bowl.",
+        "Add remaining oil and butter. Sauté onion 8 min. Add garlic, ginger, tomato paste; cook 2 min. Add spices; toast 1 min.",
+        "Add tomato sauce and broth. Simmer. Stir in cream, return cauliflower. Simmer 15 min.",
+        "Serve over basmati rice with cilantro and Greek yogurt."
+      ]
+    },
+    {
+      "date": "4/23",
+      "day": "Thursday",
+      "icon": "🍝",
+      "id": "turkey-veggie-bolognese-casarecce",
+      "ings": [
+        "12 oz casarecce pasta (or mafaldine)",
+        "3 Tbsp extra virgin olive oil",
+        "1 medium onion, diced",
+        "4 cloves garlic, minced",
+        "1½ lbs ground turkey (93% lean)",
+        "1 medium zucchini, diced",
+        "8 oz cremini mushrooms, sliced",
+        "1 tsp granulated garlic",
+        "Salt and freshly ground black pepper",
+        "3 Tbsp tomato paste",
+        "1 (28 oz) can crushed tomatoes",
+        "1 (14 oz) can tomato puree",
+        "1 tbsp fresh basil, chopped (or 1 tsp dried)",
+        "1 tsp sugar",
+        "Parmesan, for serving"
+      ],
+      "label": "Meal C",
+      "meta": "~50 min · One pot · Serves 4–6",
+      "name": "Turkey & Veggie Bolognese over Casarecce",
+      "note": "💡 Can't find casarecce? Rigatoni or mafaldine work great. Sauce freezes well — make a full batch and stash half.",
+      "steps": [
+        "Sauté onion 5–7 min in olive oil. Add garlic, cook 30 sec.",
+        "Add turkey, brown 7–8 min. Season with granulated garlic, salt, pepper.",
+        "Add zucchini and mushrooms. Cook 4–5 min until softened.",
+        "Stir in tomato paste, cook 2 min.",
+        "Add crushed tomatoes, puree, sugar, basil. Simmer uncovered 30–35 min until thick.",
+        "Cook casarecce al dente. Reserve 1 cup pasta water. Toss pasta with sauce.",
+        "Serve with generous Parmesan."
+      ]
+    }
+  ],
+  "subhead": "3 dinners · Serves 4–8",
+  "title": "Week of April 21",
+  "weekOf": "2026-04-21",
+  "updatedAt": 1786340948891,
+  "migratedFrom": [
+    "firebase-history",
+    "data/history.json"
+  ]
+}

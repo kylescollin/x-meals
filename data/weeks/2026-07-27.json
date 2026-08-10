@@ -1,0 +1,43 @@
+{
+  "meals": [
+    {
+      "date": "7/27",
+      "day": "Monday",
+      "icon": "🐟",
+      "id": "seared-salmon-with-lemon-orzo",
+      "ings": [
+        "4 salmon fillets, ~6 oz each, skinless",
+        "2 Tbsp olive oil, salt, pepper, 1 tsp garlic powder",
+        "2 Tbsp butter",
+        "3 cloves garlic, minced",
+        "1 small shallot, finely chopped",
+        "¼ cup white wine",
+        "2½ cups chicken broth",
+        "1½ cups orzo pasta",
+        "½ cup heavy cream",
+        "½ cup grated Parmesan",
+        "1 Tbsp fresh lemon juice",
+        "2 cups fresh baby spinach",
+        "Lemon zest and fresh parsley for garnish"
+      ],
+      "label": "Meal A",
+      "meta": "30 min · Stovetop · Serves 4",
+      "name": "Seared Salmon with Lemon Orzo",
+      "steps": [
+        "Season salmon with salt, pepper, and garlic powder. Heat skillet over medium-high with oil. Sear salmon 2 min per side. Remove and set aside.",
+        "Melt butter in same skillet. Add garlic and shallots; cook 1–2 min. Add wine to deglaze, scraping up any bits.",
+        "Add broth; bring to simmer. Stir in orzo; cook 10 min, stirring occasionally, until tender and broth is absorbed.",
+        "Stir in cream, Parmesan, and lemon juice.",
+        "Return salmon to skillet. Add spinach; cook 2–3 min. Garnish with parsley and lemon zest."
+      ]
+    }
+  ],
+  "subhead": "1 dinner · Serves 4",
+  "title": "Week of July 27",
+  "weekOf": "2026-07-27",
+  "groceries": [],
+  "updatedAt": 1786340948893,
+  "migratedFrom": [
+    "firebase-history"
+  ]
+}

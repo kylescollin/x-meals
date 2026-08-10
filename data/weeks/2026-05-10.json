@@ -1,0 +1,241 @@
+{
+  "groceries": [
+    {
+      "icon": "🥦",
+      "items": [
+        {
+          "amazon": "garlic bulb",
+          "detail": "6 cloves minced for scampi sauce · 3 cloves minced for orzo base",
+          "name": "9 cloves garlic",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "fresh lemon",
+          "detail": "Juice of 1 lemon for scampi sauce · 1 Tbsp lemon juice + zest for garnish in orzo",
+          "name": "1 lemon",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "fresh flat leaf parsley",
+          "detail": "Chopped and stirred into scampi · Garnish for orzo",
+          "name": "¼ cup fresh flat-leaf parsley",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "fresh shallots",
+          "detail": "Finely chopped for orzo base",
+          "name": "1 small shallot",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "fresh baby spinach",
+          "detail": "Wilted into orzo at the end",
+          "name": "2 cups fresh baby spinach",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ],
+      "label": "Produce"
+    },
+    {
+      "icon": "🥩",
+      "items": [
+        {
+          "amazon": "large shrimp peeled deveined",
+          "detail": "Seared and tossed in scampi sauce",
+          "name": "1 lb large shrimp, peeled and deveined",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "skinless salmon fillets",
+          "detail": "Seared and returned to orzo skillet",
+          "name": "4 salmon fillets (~6 oz each, skinless)",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ],
+      "label": "Protein"
+    },
+    {
+      "icon": "🧈",
+      "items": [
+        {
+          "amazon": "unsalted butter",
+          "detail": "4 Tbsp for scampi sauce · 2 Tbsp for orzo base",
+          "name": "6 Tbsp unsalted butter",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "grated parmesan cheese",
+          "detail": "Served alongside scampi · ½ cup stirred into orzo",
+          "name": "1 cup grated Parmesan",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "heavy cream",
+          "detail": "Stirred into orzo for creamy sauce",
+          "name": "½ cup heavy cream",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ],
+      "label": "Dairy & Refrigerated"
+    },
+    {
+      "icon": "🫙",
+      "items": [
+        {
+          "amazon": "olive oil",
+          "detail": "2 Tbsp for scampi skillet · 2 Tbsp for searing salmon",
+          "name": "4 Tbsp olive oil",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "dry white wine cooking",
+          "detail": "½ cup for scampi sauce · ¼ cup to deglaze orzo pan",
+          "name": "¾ cup dry white wine",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "linguine pasta",
+          "detail": "Boiled and tossed in scampi sauce",
+          "name": "8 oz linguine",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "orzo pasta",
+          "detail": "Simmered in broth for the salmon dish",
+          "name": "1½ cups orzo pasta",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "chicken broth low sodium",
+          "detail": "Cooking liquid for orzo",
+          "name": "2½ cups chicken broth",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ],
+      "label": "Pantry & Canned"
+    },
+    {
+      "icon": "🌿",
+      "items": [
+        {
+          "detail": "Pasta water · seasoning shrimp · seasoning salmon",
+          "name": "Salt",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "detail": "Seasoning shrimp · seasoning salmon",
+          "name": "Black pepper",
+          "tag": "Meals A+B",
+          "tagClass": "tag-shared"
+        },
+        {
+          "detail": "Optional — served on the side for adults with scampi",
+          "name": "Red pepper flakes",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "detail": "Seasoning rub for salmon fillets",
+          "name": "1 tsp garlic powder",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ],
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
+  "meals": [
+    {
+      "date": "5/12",
+      "day": "Tuesday",
+      "icon": "🍝",
+      "id": "garlic-shrimp-scampi-linguine",
+      "ings": [
+        "1 lb large shrimp, peeled and deveined",
+        "8 oz linguine",
+        "4 Tbsp unsalted butter",
+        "2 Tbsp olive oil",
+        "6 cloves garlic, minced",
+        "½ cup dry white wine",
+        "Juice of 1 lemon",
+        "¼ cup reserved pasta water",
+        "¼ cup fresh parsley, chopped",
+        "Salt and black pepper",
+        "Red pepper flakes (optional, on the side for adults)",
+        "Grated Parmesan for serving"
+      ],
+      "label": "Meal A",
+      "meta": "~30 min · Stovetop · Serves 4",
+      "name": "Garlic Shrimp Scampi Linguine",
+      "note": "💡 The key is not overcooking the shrimp — pull them the moment they turn pink. They'll finish in the sauce.",
+      "steps": [
+        "Bring a large pot of salted water to boil. Cook linguine al dente per package. Reserve ¼ cup pasta water before draining.",
+        "Pat shrimp dry. Season with salt and pepper.",
+        "Heat 1 Tbsp butter and olive oil in a large skillet over medium-high. Add shrimp in a single layer — don't crowd. Cook 1–2 min per side until just pink. Remove and set aside.",
+        "Lower heat to medium. Add remaining butter and garlic. Cook 1 min until fragrant — don't let it brown.",
+        "Add white wine and lemon juice. Let simmer 2–3 min, scraping up any bits, until slightly reduced.",
+        "Add pasta and reserved pasta water. Toss to coat — the starchy water helps emulsify the sauce.",
+        "Return shrimp to the pan. Toss everything together. Add parsley, taste, adjust salt.",
+        "Serve immediately with Parmesan and red pepper flakes on the side for adults."
+      ]
+    },
+    {
+      "date": "5/13",
+      "day": "Wednesday",
+      "icon": "🐟",
+      "id": "seared-salmon-with-lemon-orzo",
+      "ings": [
+        "4 salmon fillets, ~6 oz each, skinless",
+        "2 Tbsp olive oil",
+        "Salt, pepper, 1 tsp garlic powder",
+        "2 Tbsp butter",
+        "3 cloves garlic, minced",
+        "1 small shallot, finely chopped",
+        "¼ cup white wine",
+        "2½ cups chicken broth",
+        "1½ cups orzo pasta",
+        "½ cup heavy cream",
+        "½ cup grated Parmesan",
+        "1 Tbsp fresh lemon juice",
+        "2 cups fresh baby spinach",
+        "Lemon zest and fresh parsley for garnish"
+      ],
+      "label": "Meal B",
+      "meta": "30 min · Stovetop · Serves 4",
+      "name": "Seared Salmon with Lemon Orzo",
+      "note": "💡 Stir the orzo regularly while it cooks — it sticks to the pan if you leave it alone.",
+      "steps": [
+        "Season salmon with salt, pepper, and garlic powder. Heat skillet over medium-high with oil. Sear salmon 2 min per side. Remove and set aside.",
+        "Melt butter in same skillet. Add garlic and shallots; cook 1–2 min. Add wine to deglaze, scraping up any bits.",
+        "Add broth; bring to simmer. Stir in orzo; cook 10 min, stirring occasionally, until tender and broth is absorbed.",
+        "Stir in cream, Parmesan, and lemon juice.",
+        "Return salmon to skillet. Add spinach; cook 2–3 min until wilted. Garnish with parsley and lemon zest."
+      ]
+    }
+  ],
+  "subhead": "2 dinners · Serves 4",
+  "title": "Week of May 10",
+  "weekOf": "2026-05-10",
+  "updatedAt": 1786340948891,
+  "migratedFrom": [
+    "firebase-history",
+    "data/history.json"
+  ]
+}

@@ -1,0 +1,349 @@
+{
+  "groceries": [
+    {
+      "icon": "🥦",
+      "items": [
+        {
+          "amazon": "english cucumber",
+          "detail": "Meal A · thinly sliced for creamy sesame cucumbers",
+          "name": "1 large English cucumber (or 3–4 Persian cucumbers)",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "ripe avocado",
+          "detail": "Meal A · sliced for taco topping",
+          "name": "1 avocado",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "fresh cilantro",
+          "detail": "Meal A · mixed into creamy sesame cucumbers and used as taco garnish",
+          "name": "1 cup fresh herbs (cilantro, green onions, and/or mint)",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "fresh lemons",
+          "detail": "Meal B · 1 lemon sliced thin for roasting on salmon, 1 lemon for juice to finish",
+          "name": "2 lemons",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "broccoli florets",
+          "detail": "Meal B · tossed in olive oil and roasted on sheet pan",
+          "name": "4 cups broccoli florets",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "baby red potatoes",
+          "detail": "Meal C · halved and roasted with olive oil and spices",
+          "name": "1 lb baby red potatoes",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "fresh green beans trimmed",
+          "detail": "Meal C · added to sheet pan in final roasting stage",
+          "name": "8 oz green beans, trimmed",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        }
+      ],
+      "label": "Produce"
+    },
+    {
+      "icon": "🥩",
+      "items": [
+        {
+          "amazon": "boneless skinless chicken thighs",
+          "detail": "Meal A · pressure cooked, shredded, and broiled with teriyaki sauce",
+          "name": "2 lb boneless skinless chicken thighs",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "fresh salmon fillets",
+          "detail": "Meal B · rubbed with olive oil and spices, roasted on sheet pan",
+          "name": "4 salmon fillets (5–6 oz each)",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "bone in skin on chicken thighs",
+          "detail": "Meal C · seasoned and roasted with honey mustard sauce",
+          "name": "4 bone-in skin-on chicken thighs",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        }
+      ],
+      "label": "Protein"
+    },
+    {
+      "icon": "🧈",
+      "items": [
+        {
+          "amazon": "plain greek yogurt",
+          "detail": "Meal A · whisked into creamy sesame cucumber dressing",
+          "name": "¼ cup plain Greek yogurt",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        }
+      ],
+      "label": "Dairy & Refrigerated"
+    },
+    {
+      "icon": "🫙",
+      "items": [
+        {
+          "amazon": "teriyaki sauce",
+          "detail": "Meal A · ⅓ cup for Instant Pot cooking · ¼ cup drizzled before broiling",
+          "name": "⅓ cup + ¼ cup teriyaki sauce (about ¾ cup total)",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "sweet chili sauce",
+          "detail": "Meal A · 2 tbsp tossed with chicken before broiling · 1 tbsp whisked into cucumber dressing",
+          "name": "3 tbsp sweet chili sauce",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "6 inch flour tortillas",
+          "detail": "Meal A · warmed and used as taco shells",
+          "name": "8 (6-inch) flour tortillas",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "crushed peanuts",
+          "detail": "Meal A · sprinkled over tacos as topping",
+          "name": "¼ cup crushed peanuts",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "mayonnaise",
+          "detail": "Meal A · whisked into creamy sesame cucumber dressing",
+          "name": "1½ tbsp mayonnaise",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "rice vinegar",
+          "detail": "Meal A · part of creamy sesame cucumber dressing",
+          "name": "2 tbsp rice vinegar",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "toasted sesame oil",
+          "detail": "Meal A · adds flavor to creamy sesame cucumber dressing",
+          "name": "1 tsp toasted sesame oil",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "sesame seeds",
+          "detail": "Meal A · sprinkled over finished tacos as garnish",
+          "name": "Sesame seeds",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "olive oil",
+          "detail": "Meal B · 1 tbsp for salmon rub · 1 tbsp for tossing broccoli · 1 tbsp for Meal C potatoes and sauce",
+          "name": "3 tbsp olive oil (divided)",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "microwaveable brown rice pouches",
+          "detail": "Meal B · microwaved and served alongside salmon and broccoli",
+          "name": "2 pouches microwaveable brown rice (8.5 oz each)",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "honey",
+          "detail": "Meal C · base of honey mustard sauce",
+          "name": "3 tbsp honey",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "dijon mustard",
+          "detail": "Meal C · part of honey mustard sauce",
+          "name": "2 tbsp Dijon mustard",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "whole grain mustard",
+          "detail": "Meal C · part of honey mustard sauce (can substitute extra Dijon)",
+          "name": "1 tbsp whole grain mustard",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "apple cider vinegar",
+          "detail": "Meal C · added to honey mustard sauce for brightness",
+          "name": "1 tsp apple cider vinegar",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        }
+      ],
+      "label": "Pantry & Canned"
+    },
+    {
+      "icon": "🌿",
+      "items": [
+        {
+          "detail": "All meals · general seasoning throughout",
+          "name": "Salt",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "detail": "All meals · general seasoning throughout",
+          "name": "Black pepper",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "detail": "Meals B+C · Meal B for salmon rub · Meal C for potatoes and honey mustard sauce",
+          "name": "Garlic powder",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "detail": "Meal C · used in potato seasoning and honey mustard sauce",
+          "name": "Paprika",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "detail": "Meal B · rubbed onto salmon before roasting (or substitute 1 tbsp fresh dill)",
+          "name": "Dried dill",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ],
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
+  "meals": [
+    {
+      "date": "4/28",
+      "day": "Tuesday",
+      "icon": "🌮",
+      "id": "teriyaki-chicken-tacos-with-sesame-cucumber-slaw",
+      "ings": [
+        "2 lb boneless skinless chicken thighs",
+        "Salt and pepper",
+        "⅓ cup + ¼ cup teriyaki sauce (divided)",
+        "2 tbsp sweet chili sauce",
+        "8 (6-inch) flour tortillas",
+        "1 avocado, sliced",
+        "¼ cup crushed peanuts",
+        "Sesame seeds for garnish",
+        "Creamy Sesame Cucumbers: 1 large English cucumber (or 3–4 Persian), thinly sliced",
+        "¼ cup plain Greek yogurt",
+        "1½ tbsp mayo",
+        "2 tbsp rice vinegar",
+        "1 tbsp sweet chili sauce",
+        "1 tsp toasted sesame oil",
+        "¼ tsp salt",
+        "1 cup fresh herbs (cilantro, green onions, and/or mint)"
+      ],
+      "label": "Meal A",
+      "meta": "~30 min · Instant Pot + broil · Serves 4",
+      "name": "Teriyaki Chicken Tacos with Creamy Sesame Cucumbers",
+      "note": "💡 No Instant Pot? Crockpot on high 2.5–3.5 hrs or low 4–5 hrs, then shred and broil. The broil step is key — don't skip it.",
+      "steps": [
+        "Season chicken thighs with salt and pepper. Place in Instant Pot and add ⅓ cup teriyaki sauce. Toss to coat. Pressure cook on HIGH for 10 minutes.",
+        "While chicken cooks, thinly slice cucumbers. Whisk together yogurt, mayo, rice vinegar, sweet chili sauce, sesame oil, and salt. Toss with cucumbers and fresh herbs. Set aside.",
+        "Natural or quick release the Instant Pot. Remove chicken and shred. Spread on a foil-lined baking sheet. Drizzle with remaining ¼ cup teriyaki sauce and 2 tbsp sweet chili sauce, toss to coat.",
+        "Broil 3–6 minutes until chicken is caramelized and slightly crispy at the edges.",
+        "Warm tortillas. Layer each with crispy teriyaki chicken, creamy sesame cucumbers, sliced avocado, and a drizzle of extra dressing. Top with crushed peanuts and sesame seeds."
+      ]
+    },
+    {
+      "date": "4/29",
+      "day": "Wednesday",
+      "icon": "🐟",
+      "id": "lemon-dill-salmon-roasted-broccoli",
+      "ings": [
+        "4 salmon fillets (5–6 oz each)",
+        "1 lemon, half sliced thin, half for juice",
+        "1 tbsp olive oil",
+        "1 tsp garlic powder",
+        "1 tsp dried dill (or 1 tbsp fresh)",
+        "Salt and black pepper",
+        "4 cups broccoli florets",
+        "1 tbsp olive oil (for broccoli)",
+        "2 pouches microwaveable brown rice (8.5 oz each)",
+        "Optional: lemon zest, fresh dill, flaky salt to finish"
+      ],
+      "label": "Meal B",
+      "meta": "~25 min · Sheet pan · Serves 4",
+      "name": "Lemon Dill Salmon with Roasted Broccoli & Brown Rice",
+      "note": "💡 The lemon slices on top perfume the fish as it roasts. If fillets are thick (over 1 inch), add 2 minutes. Broccoli should be in a single layer for good char — use two pans if needed.",
+      "steps": [
+        "Preheat oven to 400°F. Line a large sheet pan with foil.",
+        "Toss broccoli florets with olive oil, salt, and pepper. Spread on the sheet pan. Roast 10 minutes.",
+        "Pat salmon dry. Rub with olive oil, garlic powder, dill, salt, and pepper. Place on the sheet pan alongside the broccoli. Lay lemon slices on top of each fillet.",
+        "Roast 12–14 minutes until salmon flakes easily and broccoli edges are lightly charred.",
+        "Microwave brown rice pouches per package directions (about 90 seconds). Fluff and serve.",
+        "Squeeze fresh lemon over everything before serving. Finish with a pinch of flaky salt if you have it."
+      ]
+    },
+    {
+      "date": "4/30",
+      "day": "Thursday",
+      "icon": "🍯",
+      "id": "honey-mustard-chicken-sheet-pan",
+      "ings": [
+        "4 bone-in, skin-on chicken thighs",
+        "1 lb baby red potatoes, halved",
+        "8 oz green beans, trimmed",
+        "2 tbsp olive oil",
+        "Salt, pepper, garlic powder, paprika",
+        "Honey Mustard Sauce:",
+        "3 tbsp honey",
+        "2 tbsp Dijon mustard",
+        "1 tbsp whole grain mustard (or extra Dijon)",
+        "1 tbsp olive oil",
+        "1 tsp apple cider vinegar",
+        "½ tsp garlic powder",
+        "½ tsp paprika",
+        "Salt and pepper to taste"
+      ],
+      "label": "Meal C",
+      "meta": "~45 min · Sheet pan · Serves 4",
+      "name": "Sheet Pan Honey Mustard Chicken with Potatoes & Green Beans",
+      "note": "💡 The staggered timing — potatoes first, then chicken, then green beans — is the key to everything cooking perfectly together. Don't crowd the pan.",
+      "steps": [
+        "Preheat oven to 425°F. Whisk together all honey mustard sauce ingredients in a bowl. Set aside.",
+        "Toss halved baby potatoes with olive oil, salt, pepper, garlic powder, and paprika. Spread on a large sheet pan in a single layer. Roast 15 minutes.",
+        "Season chicken thighs all over with salt, pepper, garlic powder, and paprika. Remove pan from oven. Push potatoes to the sides and add chicken thighs skin-side up in the center. Brush generously with honey mustard sauce.",
+        "Return to oven and roast 15 more minutes.",
+        "Add green beans to the pan, tossing with any remaining sauce and pan juices. Roast 12–15 more minutes until chicken reaches 165°F and skin is golden and caramelized.",
+        "Rest chicken 5 minutes. Drizzle pan juices over everything before serving."
+      ]
+    }
+  ],
+  "subhead": "3 dinners · Serves 4",
+  "title": "Week of April 27",
+  "weekOf": "2026-04-27",
+  "updatedAt": 1786340948891,
+  "migratedFrom": [
+    "firebase-history",
+    "data/history.json"
+  ]
+}

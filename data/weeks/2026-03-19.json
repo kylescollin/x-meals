@@ -1,0 +1,92 @@
+{
+  "weekOf": "2026-03-19",
+  "title": "Week of March 16",
+  "meals": [
+    {
+      "id": "sheet-pan-lemon-herb-salmon",
+      "name": "Sheet Pan Lemon Herb Salmon & Veggies",
+      "day": "Tuesday",
+      "date": "3/17",
+      "label": "Meal A",
+      "icon": "🐟",
+      "meta": "~35 min · One pan · Serves 4–6",
+      "ings": [
+        "4–6 salmon fillets (~6 oz each), skinless",
+        "2 tbsp olive oil",
+        "4 tbsp fresh lemon juice, divided",
+        "1 tsp garlic powder",
+        "1 tsp dried dill or parsley",
+        "1 tsp salt, ¾ tsp black pepper",
+        "2 cups broccoli florets",
+        "1 pint cherry tomatoes",
+        "2 medium zucchini, sliced",
+        "Lemon wedges to serve"
+      ],
+      "steps": [
+        "Preheat oven to 425°F. Line a large rimmed baking sheet with parchment paper.",
+        "Toss broccoli, cherry tomatoes, and zucchini with olive oil and ½ tsp salt. Spread in a single layer. Roast 12 minutes.",
+        "Whisk together olive oil, 2 tbsp lemon juice, garlic powder, dill, salt, and pepper.",
+        "Push veggies to sides. Nestle salmon in center. Brush with herb mixture. Squeeze remaining lemon over top.",
+        "Bake 12–15 minutes until salmon flakes easily. Internal temp 145°F.",
+        "Serve with extra lemon wedges."
+      ],
+      "note": "💡 The tomatoes get jammy and sweet at high heat — kids love them."
+    },
+    {
+      "id": "chicken-tikka-masala-cauliflower",
+      "name": "Chicken Tikka Masala + Cauliflower",
+      "day": "Wednesday",
+      "date": "3/18",
+      "label": "Meal B",
+      "icon": "🍗",
+      "meta": "~45 min · Serves 4–6",
+      "ings": [
+        "1 cup full-fat Greek yogurt",
+        "2 tbsp fresh lemon juice",
+        "1.5 lbs chicken breast",
+        "1 head cauliflower",
+        "1½ cups heavy cream",
+        "2 cans (8 oz each) tomato sauce",
+        "Basmati rice, naan, cilantro"
+      ],
+      "steps": [
+        "Marinate chicken in yogurt, lemon, spices overnight.",
+        "Roast cauliflower at 425°F for 20–25 min.",
+        "Sear chicken, build sauce, simmer with cream.",
+        "Serve over rice with naan."
+      ],
+      "note": "🧠 1½ cups cream + 2 cans tomato sauce for proper consistency."
+    },
+    {
+      "id": "pesto-chicken-tortellini-veggies",
+      "name": "Pesto Chicken Tortellini & Veggies",
+      "day": "Thursday",
+      "date": "3/19",
+      "label": "Meal C",
+      "icon": "🌿",
+      "meta": "~40 min · One pan · Serves 4",
+      "ings": [
+        "1 lb chicken thighs",
+        "½ cup sun-dried tomatoes",
+        "1 lb asparagus",
+        "¼ cup basil pesto",
+        "1 cup cherry tomatoes",
+        "1 cup refrigerated tortellini"
+      ],
+      "steps": [
+        "Cook chicken with sun-dried tomatoes, remove.",
+        "Cook asparagus, remove.",
+        "Cook tortellini, drain.",
+        "Combine chicken with pesto, add tortellini and cherry tomatoes."
+      ],
+      "note": "💡 Fast, colorful, kids love tortellini."
+    }
+  ],
+  "groceries": [],
+  "updatedAt": 1786340948890,
+  "migratedFrom": [
+    "data/history/*.json",
+    "firebase-history",
+    "data/history.json"
+  ]
+}
