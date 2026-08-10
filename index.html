@@ -49,9 +49,12 @@
 
   /* Go to this week. Only rendered when you've wandered off it, so it's never
      a dead control — and its appearing is itself the signal that you have. */
-  .wk-today{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:transparent;border:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color .15s,background .15s;}
+  .wk-today{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color .15s,background .15s,border-color .15s;}
+  /* display:flex beats the `hidden` attribute, and an empty white circle is a
+     lot more visible than an empty transparent one used to be. */
+  .wk-today[hidden]{display:none;}
   .wk-today svg{width:21px;height:21px;}
-  .wk-today:hover{color:var(--accent);background:var(--accent-light);}
+  .wk-today:hover{color:var(--accent);background:var(--accent-light);border-color:var(--accent-light);}
   .wk-today:active{transform:scale(.88);}
 
   /* Week ⇄ timeline: a calendar grid ("one week, laid out") against a list
@@ -61,23 +64,33 @@
   .wk-view button svg{width:16px;height:16px;}
   .wk-view button.on{background:var(--accent-light);color:var(--accent);}
 
-  /* Grocery list, as an object that belongs to this week */
-  .gro-card{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-top:14px;text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent;transition:border-color .15s;}
-  .gro-card:hover{border-color:#bbb;}
-  .gro-card:active{transform:scale(.995);}
-  .gro-ico{font-size:21px;line-height:1;flex-shrink:0;}
-  .gro-body{flex:1;min-width:0;}
-  .gro-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;margin-bottom:7px;}
-  .gro-bar{height:6px;border-radius:99px;background:var(--border);overflow:hidden;}
-  .gro-fill{height:100%;background:var(--check);border-radius:99px;width:0;transition:width .3s ease;}
-  .gro-count{font-size:12px;color:var(--muted);margin-top:6px;}
-  .gro-chev{color:#c9c1b4;font-size:17px;flex-shrink:0;}
-  .gro-card.waiting .gro-title{color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;margin:0;}
+  /* Grocery dock — the list, always within thumb reach.
+     It belongs to the week on screen but doesn't scroll with it: this is the
+     thing you reach for standing in a shop, so it floats just above the tab
+     bar rather than making you hunt for it below the meals. Dark so it reads
+     as chrome, not as another card in the stack. */
+  .gro-dock{position:fixed;left:16px;right:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:120;max-width:648px;margin:0 auto;background:var(--ink);color:#fff;border:none;border-radius:14px;padding:12px 16px 13px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:7px 11px;box-shadow:0 6px 22px rgba(0,0,0,.22);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;-webkit-tap-highlight-color:transparent;transition:transform .12s;}
+  .gro-dock:active{transform:scale(.99);}
+  .gro-dock[hidden]{display:none;}
+  .gd-ico{display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:.85;}
+  .gd-ico svg{width:18px;height:18px;display:block;}
+  .gd-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .gd-count{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;line-height:1;justify-self:end;flex-shrink:0;}
+  .gd-track{grid-column:1/-1;height:5px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden;}
+  .gd-fill{display:block;height:100%;width:0;background:var(--check);border-radius:99px;transition:width .3s ease;}
+  /* Waiting on CI, or nothing to shop for yet — no numbers to show. */
+  .gro-dock.quiet .gd-title{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,.72);}
+  .gro-dock.quiet .gd-count{font-family:'DM Sans',sans-serif;font-size:19px;font-weight:400;color:rgba(255,255,255,.72);}
+  @media(max-width:560px){
+    /* nav.js's tab bar is 62px tall and already absorbs the home-indicator
+       inset, so the dock clears it via `bottom` rather than its own padding. */
+    .gro-dock{bottom:calc(72px + env(safe-area-inset-bottom,0px));}
+  }
+  body.has-dock .container{padding-bottom:118px;}
 
   /* A week nobody has planned yet */
   .wk-empty{text-align:center;padding:42px 20px 38px;border:1.5px dashed var(--border);border-radius:14px;}
-  .wk-empty-t{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;margin-bottom:6px;}
-  .wk-empty-s{font-size:13px;color:var(--muted);margin-bottom:20px;}
+  .wk-empty-t{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;margin-bottom:20px;}
   .wk-empty-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 
   /* Timeline — the Journal, folded in. Same cards and same activity blocks,
@@ -225,7 +238,6 @@
 
   <div id="weekPane">
     <div class="meal-cards" id="mealCards"></div>
-    <div id="groceryMount"></div>
   </div>
 
   <div class="timeline" id="timeline" style="display:none"></div>
@@ -234,6 +246,13 @@
     <div class="day-grid-edit" id="editCards"></div>
   </div>
 </div>
+
+<button type="button" class="gro-dock" id="groceryDock" hidden>
+  <span class="gd-ico"></span>
+  <span class="gd-title">Grocery List</span>
+  <span class="gd-count"></span>
+  <span class="gd-track"><span class="gd-fill"></span></span>
+</button>
 
 <div class="edit-bar" id="editBar" style="display:none">
   <button class="eb-cancel" id="cancelBtn">Cancel</button>
@@ -277,6 +296,7 @@
 <script src="week-utils.js"></script>
 <script src="week-store.js"></script>
 <script src="recipe-card.js"></script>
+<script src="grocery-sheet.js"></script>
 <script type="module">
 import { requireAuth, getAuthToken, signOut } from './auth.js';
 window.getToken   = getAuthToken;
@@ -336,8 +356,8 @@ function buildEmptyState(){
   var wrap=document.createElement('div');
   wrap.className='wk-empty';
   var past=viewStart<Week.todayStart();
-  wrap.innerHTML='<div class="wk-empty-t">'+(past?'Nothing was planned':'Nothing planned yet')+'</div>'+
-    '<div class="wk-empty-s">'+Week.rangeLabel(viewStart)+'</div>';
+  // No dates here — the header directly above already says which week this is.
+  wrap.innerHTML='<div class="wk-empty-t">'+(past?'Nothing was planned':'Nothing planned yet')+'</div>';
   var actions=document.createElement('div');
   actions.className='wk-empty-actions';
   var plan=document.createElement('button');
@@ -346,7 +366,7 @@ function buildEmptyState(){
   plan.addEventListener('click',enterEdit);
   var shuf=document.createElement('button');
   shuf.className='edit-toggle';
-  shuf.textContent='🎲 Shuffle a week';
+  shuf.textContent='🎲 Shuffle meals';
   shuf.addEventListener('click',function(){ enterEdit(); shuffleWeek(); });
   actions.appendChild(plan); actions.appendChild(shuf);
   wrap.appendChild(actions);
@@ -373,45 +393,49 @@ function renderHeader(){
   if(!todayBtn.hidden) todayBtn.innerHTML=Icon.svg('calendar-today');
 }
 
-// ── Grocery card ──────────────────────────────────────────────────────────
+// ── Grocery dock ──────────────────────────────────────────────────────────
 // The list belongs to the week you're looking at, so it lives inside the week
 // rather than being a separate destination you have to keep in sync by hand.
-var groceryMount=document.getElementById('groceryMount');
+// The dock is the handle; grocery-sheet.js owns the list itself and reports
+// its counts back here, so the two can never disagree.
+var dock=document.getElementById('groceryDock');
+dock.querySelector('.gd-ico').innerHTML=Icon.svg('shopping-cart');
 
-function renderGroceryCard(){
-  groceryMount.innerHTML='';
-  var meals=weekData.meals||[];
-  if(!meals.length) return;
+function showDock(on){
+  dock.hidden=!on;
+  document.body.classList.toggle('has-dock', on);
+}
 
-  var sections=weekData.groceries||[];
-  if(!sections.length){
-    // Only worth waiting on for a week that's still ahead of us, and only when
-    // there's something the generator can actually shop for.
-    var cookable=meals.some(function(m){ return !RecipeCard.isCustom(m); });
-    if(!cookable || viewStart<Week.todayStart()) return;
-    var wait=document.createElement('div');
-    wait.className='gro-card waiting';
-    wait.innerHTML='<span class="gro-ico">🛒</span><div class="gro-body"><div class="gro-title">Building your grocery list…</div></div>';
-    groceryMount.appendChild(wait);
+// Driven entirely by the sheet's own item counts — including hand-added items,
+// which is what lets an unplanned week still have a list.
+function paintDock(p){
+  var titleEl=dock.querySelector('.gd-title');
+  var countEl=dock.querySelector('.gd-count');
+  var trackEl=dock.querySelector('.gd-track');
+  if(p && p.total){
+    dock.classList.remove('quiet');
+    titleEl.textContent='Grocery List';
+    countEl.textContent=p.checked+'/'+p.total;
+    trackEl.style.display='';
+    dock.querySelector('.gd-fill').style.width=(p.checked/p.total*100)+'%';
     return;
   }
+  // Nothing to count yet. Either CI is still working, or this week is waiting
+  // on you to start it.
+  dock.classList.add('quiet');
+  trackEl.style.display='none';
+  var meals=weekData.meals||[];
+  var waiting=meals.length && !(weekData.groceries||[]).length &&
+              meals.some(function(m){ return !RecipeCard.isCustom(m); }) &&
+              viewStart>=Week.todayStart();
+  titleEl.textContent=waiting?'Building your grocery list…':'Add groceries';
+  countEl.textContent=waiting?'':'+';
+}
 
-  var a=document.createElement('a');
-  a.className='gro-card';
-  a.href='groceries.html?week='+encodeURIComponent(weekKey);
-  a.innerHTML='<span class="gro-ico">🛒</span>'+
-    '<div class="gro-body"><div class="gro-title">Grocery List</div>'+
-    '<div class="gro-bar"><div class="gro-fill"></div></div>'+
-    '<div class="gro-count">…</div></div><span class="gro-chev">›</span>';
-  groceryMount.appendChild(a);
+GrocerySheet.onProgress(paintDock);
 
-  var forKey=weekKey;
-  WeekStore.flags(forKey).then(function(flagMap){
-    if(forKey!==weekKey) return;           // navigated away while loading
-    var p=WeekStore.progress(sections, flagMap);
-    a.querySelector('.gro-fill').style.width=p.total?(p.checked/p.total*100)+'%':'0%';
-    a.querySelector('.gro-count').textContent=p.checked+' of '+p.total+' items checked';
-  });
+function renderDock(){
+  GrocerySheet.setWeek(weekKey, weekData);   // fires paintDock via onProgress
 }
 
 // ── Navigating between weeks ──────────────────────────────────────────────
@@ -423,13 +447,12 @@ async function goToWeek(startISO){
   weekKey=WeekStore.keyOrMint(viewStart);
   renderHeader();
   mealCards.innerHTML='';
-  groceryMount.innerHTML='';
   weekData=(await WeekStore.get(weekKey))||WeekStore.blank(weekKey);
   loadedAt=weekData.updatedAt||0;
   // Notes added from the detail sheet stamp against the week on screen.
   RecipeCard.setWeekOf(weekKey);
   renderViewCards(weekData.meals);
-  renderGroceryCard();
+  renderDock();
   RecipeCard.refresh();
   var q=(viewStart===Week.todayStart())?'':'?week='+viewStart;
   history.replaceState(null,'',location.pathname+q);
@@ -445,10 +468,18 @@ function prefetchNeighbours(){
 
 renderHeader();
 renderViewCards(weekData.meals);
-renderGroceryCard();
+renderDock();
+showDock(true);
 prefetchNeighbours();
 document.getElementById('editBtn').style.display='';
 document.getElementById('viewToggle').style.display='';
+
+dock.addEventListener('click', function(){ GrocerySheet.open(); });
+// Deep link from the retired groceries.html, or a bookmark of it.
+if(params.get('groceries')==='1'){
+  GrocerySheet.open();
+  history.replaceState(null,'',location.pathname+(viewStart===Week.todayStart()?'':'?week='+viewStart));
+}
 
 // ── Edit state ────────────────────────────────────────────────────────────
 var editMeals=[];
@@ -860,6 +891,7 @@ function enterEdit(){
   document.getElementById('prevWk').disabled=true;
   document.getElementById('nextWk').disabled=true;
   document.getElementById('todayBtn').hidden=true;
+  showDock(false);                 // the edit bar owns the bottom of the screen
   document.body.classList.add('editing');
   renderEditCards();
 }
@@ -873,6 +905,8 @@ function exitEdit(){
   document.getElementById('editBtn').style.display='';
   document.getElementById('viewToggle').style.display='';
   document.getElementById('doneBtn').textContent='Done';
+  document.body.classList.remove('editing');
+  showDock(true);
   renderHeader();
 }
 
@@ -930,7 +964,7 @@ function pollGroceries(sinceStamp){
       if(d && (d.groceriesAt||'')!==(sinceStamp||'')){
         clearInterval(iv);
         weekData=d; loadedAt=d.updatedAt||0;
-        renderViewCards(weekData.meals); renderGroceryCard(); RecipeCard.refresh();
+        renderViewCards(weekData.meals); renderDock(); RecipeCard.refresh();
         toast('Grocery list updated ✓', {success:true});
         return;
       }
@@ -978,7 +1012,7 @@ async function save(){
   weekData=week; loadedAt=week.updatedAt||0;
   exitEdit();
   renderViewCards(weekData.meals);
-  renderGroceryCard();
+  renderDock();
   RecipeCard.refresh();
   doneBtn.disabled=false; doneBtn.textContent='Done';
 
@@ -1085,11 +1119,14 @@ function setView(mode){
   timelineEl.style.display=timeline?'':'none';
   document.body.classList.toggle('timeline',timeline);
   if(timeline){
-    // No single week on screen, so nothing for Today or the chevrons to act on.
+    // No single week on screen, so nothing for Today, the chevrons or the
+    // grocery dock to act on.
     document.getElementById('todayBtn').hidden=true;
     document.getElementById('relLabel').textContent='Every week';
+    showDock(false);
     buildTimeline();
   }else{
+    showDock(true);
     renderHeader();
   }
   var q=[];

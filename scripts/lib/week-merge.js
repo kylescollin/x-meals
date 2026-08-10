@@ -3,7 +3,7 @@
  *
  * The problem this solves is narrower and sharper than "don't overwrite the
  * list". Grocery check state is stored per item under a key derived from the
- * item's RENDERED NAME (see groceryKey below, and groceries.html). So if a
+ * item's RENDERED NAME (see groceryKey below, and grocery-sheet.js). So if a
  * regeneration renames "3 medium yellow onions" to "2 yellow onions", the key
  * changes and an item you already ticked off comes back unchecked — while you
  * are standing in the shop.
@@ -19,8 +19,9 @@
  */
 'use strict';
 
-// MUST stay byte-identical to groceries.html's fbKey(). If these two ever
-// disagree, every checkbox on the site silently detaches from its item.
+// MUST stay byte-identical to groceryKey() in week-store.js, which is what the
+// browser writes checkboxes with. If these two ever disagree, every checkbox on
+// the site silently detaches from its item.
 function groceryKey(name) {
   return String(name || '').trim().replace(/[^a-z0-9]/gi, '_').substring(0, 60);
 }

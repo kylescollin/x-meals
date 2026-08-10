@@ -173,8 +173,11 @@
 
   // ── Groceries ────────────────────────────────────────────────────────────
 
-  // Byte-identical to fbKey() in groceries.html. If these two ever disagree,
-  // every checkbox detaches from its item.
+  // The browser's copy of the grocery check-state key. Must stay byte-identical
+  // to groceryKey() in scripts/lib/week-merge.js, which CI uses to decide which
+  // item names it's allowed to change. If these two ever disagree, every
+  // checkbox detaches from its item. grocery-sheet.js calls this one rather
+  // than keeping a third copy.
   function groceryKey(name) {
     return String(name || '').trim().replace(/[^a-z0-9]/gi, '_').substring(0, 60);
   }

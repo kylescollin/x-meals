@@ -37,11 +37,12 @@
   document.head.appendChild(style);
 
   var page = location.pathname.split('/').pop() || 'index.html';
-  // The Journal is gone — the week page's timeline view shows the same weeks,
-  // the same cards and the same photos and notes.
+  // Two tabs, because two things are destinations. The Journal is gone — the
+  // week page's timeline view shows the same weeks, cards, photos and notes —
+  // and so are Groceries: a week's list is now a card that slides up over the
+  // week itself, reached from the dock at the bottom of the week page.
   var links = [
     {href:'index.html',     label:'Weeks',     icon:'calendar-days',  emoji:'\uD83D\uDCC5'},
-    {href:'groceries.html', label:'Groceries', icon:'shopping-cart',  emoji:'\uD83D\uDED2'},
     {href:'recipes.html',   label:'Recipes',   icon:'book-open',      emoji:'\uD83D\uDCD6'}
   ];
   var nav = document.createElement('nav');
@@ -51,7 +52,7 @@
     a.href = l.href;
     a.className = 'nav-link' + (page === l.href ? ' active' : '');
     // Fall back to the emoji if icons.js somehow didn't load — a nav with
-    // three blank tabs would be much worse than a slightly dated one.
+    // blank tabs would be much worse than a slightly dated one.
     var glyph = (window.Icon && window.Icon.has(l.icon)) ? window.Icon.svg(l.icon) : l.emoji;
     a.innerHTML = '<span class="nav-ico">' + glyph + '</span><span class="nav-lbl">' + l.label + '</span>';
     nav.appendChild(a);

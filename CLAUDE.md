@@ -36,11 +36,13 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 ## File Structure
 
 **Pages:**
-- `index.html` — The week view. Navigate between weeks with the chevrons, or flip to the
-  timeline view for every week in one scroll. Includes the grocery card, recipe detail overlay
-  and full cooking mode. Reads Firebase `/meals/weeks/{weekOf}`.
-- `groceries.html` — One week's grocery list. Takes `?week=` (a Sunday or a stored `weekOf`).
+- `index.html` — The week view, and now effectively the whole app. Navigate between weeks with
+  the chevrons, or flip to the timeline view for every week in one scroll. Includes the grocery
+  dock and grocery sheet, the recipe detail overlay and full cooking mode. Reads Firebase
+  `/meals/weeks/{weekOf}`. Takes `?week=`, `?view=timeline` and `?groceries=1`.
 - `recipes.html` — Browsable recipe collection. Fetches `data/recipes.json` on load.
+- `groceries.html` — Retired. A redirect to `index.html?week=…&groceries=1` (the `?week=` param
+  is forwarded); kept because it's in the service worker shell and may be bookmarked.
 - `journal.html` — Retired. A redirect to `index.html?view=timeline`; kept because it's in the
   service worker shell and may be bookmarked.
 
@@ -59,7 +61,12 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   before `nav.js`. Chrome uses these; recipe and grocery-section emoji are still emoji.
 - `week-utils.js` — All week math (`window.Week`, and `require`-able from `scripts/`). Weeks run
   **Sunday → Saturday**.
-- `week-store.js` — Reading and writing weeks from the browser (`window.WeekStore`).
+- `week-store.js` — Reading and writing weeks from the browser (`window.WeekStore`). Owns
+  `groceryKey()`, the name→checkbox key everything else defers to.
+- `grocery-sheet.js` — One week's grocery list, as a card that slides up over the week page
+  (`window.GrocerySheet`). Self-contained like `recipe-card.js`: it injects its own styles and
+  markup. This is the whole engine that used to be `groceries.html` — sections, checkbox sync,
+  hand-added items, Amazon Fresh buttons. See **Grocery Lists** below.
 
 **Scripts & Automation:**
 - `scripts/sync-firebase.js` — Syncs `data/weeks/*.json` → `/meals/weeks/*`, and mirrors the
@@ -305,6 +312,23 @@ The GitHub Action then runs `check-weeks` and the tests, updates the grocery lis
 every week to Firebase.
 
 ## Grocery Lists
+
+### Where the list lives on screen
+
+There is no grocery page any more. Each week page carries a **dock** — a black bar pinned just
+above the bottom nav, showing `checked/total` for the week you're looking at. Tapping it slides
+the list up as a card (`grocery-sheet.js`), the same gesture as opening a recipe. The dock is
+hidden in timeline view and while editing meals.
+
+- The dock's counts come straight from the sheet's own item count via `GrocerySheet.onProgress`,
+  so the two can never disagree.
+- A week with no list yet reads **"Building your grocery list…"** while CI works; any other week
+  with nothing to count reads **"Add groceries"**. Both still open the sheet.
+- **An unplanned week can have a grocery list.** Hand-added items live at
+  `/groceries/{weekOf}/_custom/{id}` in Firebase, which doesn't require the week document to
+  exist. This is how you start a shopping list before picking any meals.
+
+### How the list gets built
 
 X does not write the `groceries` array — `scripts/generate-groceries.js` does, in CI.
 

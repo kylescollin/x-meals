@@ -125,7 +125,7 @@ function check(label, actual, expected) {
     WeekStore.progress(sections, flags), { checked: 1, total: 3 });
   check('progress on an empty list', WeekStore.progress([], {}), { checked: 0, total: 0 });
 
-  // The grocery key must match groceries.html byte for byte.
+  // The grocery key must match week-merge.js's copy byte for byte.
   const inline = (name) => String(name || '').trim().replace(/[^a-z0-9]/gi, '_').substring(0, 60);
   const samples = ['2 yellow onions', 'Crème fraîche (1 tbsp)', 'a'.repeat(80), '½ cup rice'];
   check('groceryKey matches the inline implementation',
