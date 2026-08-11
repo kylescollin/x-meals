@@ -101,270 +101,404 @@
   "groceries": [
     {
       "icon": "🥦",
+      "label": "Produce",
       "items": [
         {
-          "amazon": "coleslaw mix bag",
-          "detail": "Meal A · slaw base for fish tacos",
           "name": "2½ cups coleslaw mix",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
+          "detail": "Fish tacos · slaw base",
+          "amazon": "coleslaw mix bag",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "amazon": "fresh cilantro",
-          "detail": "Meal A · chopped into slaw",
           "name": "⅓ cup fresh cilantro",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
+          "detail": "Fish tacos · stirred into slaw",
+          "amazon": "fresh cilantro bunch",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "amazon": "fresh limes",
-          "detail": "Meal A · lime juice for slaw dressing and serving",
           "name": "2 limes (for juice)",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
+          "detail": "Fish tacos · 1 Tbsp juice for slaw, extra wedges for serving",
+          "amazon": "fresh limes",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "amazon": "cremini mushrooms",
-          "detail": "Meal B · sautéed into pot pie filling",
           "name": "8 oz cremini mushrooms, sliced",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · sautéed into filling",
+          "amazon": "cremini mushrooms sliced",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "carrots",
-          "detail": "Meal B · cooked into pot pie filling",
           "name": "3 medium carrots, diced",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · cooked into filling",
+          "amazon": "carrots",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "celery stalks",
-          "detail": "Meal B · cooked into pot pie filling",
           "name": "3 stalks celery, diced",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · cooked into filling",
+          "amazon": "celery stalks",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "frozen pearl onions",
-          "detail": "Meal B · stirred into pot pie filling",
           "name": "1 small onion (or ½ cup frozen pearl onions)",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · stirred into filling",
+          "amazon": "frozen pearl onions",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "fresh thyme",
-          "detail": "Meal B · stirred into pot pie filling",
           "name": "1 tsp fresh thyme",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · stirred into filling",
+          "amazon": "fresh thyme",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "garlic bulb",
-          "detail": "Meal A · 1 clove minced for slaw · Meal C · 6–8 cloves crushed for tomato sauce",
           "name": "6–8 garlic cloves",
-          "tag": "Meals A+C",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · 1 clove minced for slaw · Creamy tomato gnocchi · 6–8 cloves crushed for sauce",
+          "amazon": "garlic bulb",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw",
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+C"
         },
         {
-          "amazon": "cherry tomatoes",
-          "detail": "Meal C · cooked down into jammy tomato cream sauce",
           "name": "2 pints cherry tomatoes",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
+          "detail": "Creamy tomato gnocchi · cooked down into jammy sauce",
+          "amazon": "cherry tomatoes pint",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
         },
         {
-          "amazon": "fresh basil",
-          "detail": "Meal C · stirred into sauce and used as garnish",
           "name": "½ cup fresh basil leaves",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
+          "detail": "Creamy tomato gnocchi · stirred into sauce and used as garnish",
+          "amazon": "fresh basil",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
         }
-      ],
-      "label": "Produce"
+      ]
     },
     {
       "icon": "🥩",
+      "label": "Protein",
       "items": [
         {
-          "amazon": "tilapia fillets",
-          "detail": "Meal A · air fried and served in tacos",
           "name": "1½ lb tilapia or white fish",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
+          "detail": "Fish tacos · air fried and served in tortillas",
+          "amazon": "tilapia fillets",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "amazon": "rotisserie chicken",
-          "detail": "Meal B · main protein in pot pie filling",
           "name": "3 cups cooked shredded chicken (rotisserie recommended)",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · stirred into filling",
+          "amazon": "rotisserie chicken",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         }
-      ],
-      "label": "Protein"
+      ]
     },
     {
       "icon": "🧈",
+      "label": "Dairy & Refrigerated",
       "items": [
         {
-          "amazon": "large eggs",
-          "detail": "Meal B · beaten for egg wash on pie crust",
           "name": "1 egg",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · beaten for egg wash on crust",
+          "amazon": "large eggs",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "unsweetened almond milk",
-          "detail": "Meal B · added to pot pie sauce",
           "name": "1 cup unsweetened almond milk (or low-fat milk)",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · added to filling sauce",
+          "amazon": "unsweetened almond milk",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "heavy cream",
-          "detail": "Meal C · stirred into tomato sauce for gnocchi",
           "name": "½ cup heavy cream",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
+          "detail": "Creamy tomato gnocchi · stirred into tomato sauce",
+          "amazon": "heavy whipping cream",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
         },
         {
-          "amazon": "fresh burrata cheese",
-          "detail": "Meal C · broken over finished gnocchi dish",
           "name": "2 (4 oz) balls fresh burrata",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
+          "detail": "Creamy tomato gnocchi · broken over finished pasta off heat",
+          "amazon": "fresh burrata cheese",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
         }
-      ],
-      "label": "Dairy & Refrigerated"
+      ]
     },
     {
       "icon": "🫙",
+      "label": "Pantry & Canned",
       "items": [
         {
-          "amazon": "mayonnaise",
-          "detail": "Meal A · base of slaw dressing",
           "name": "3 Tbsp mayonnaise",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
+          "detail": "Fish tacos · base of cilantro lime slaw dressing",
+          "amazon": "mayonnaise",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "amazon": "flour tortillas",
-          "detail": "Meal A · taco shells for fish tacos",
           "name": "Flour tortillas (for serving 4)",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
+          "detail": "Fish tacos · for serving",
+          "amazon": "flour tortillas small",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "amazon": "all purpose flour",
-          "detail": "Meal B · thickens pot pie filling sauce",
           "name": "¼ cup all-purpose flour",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · thickens the filling sauce",
+          "amazon": "all purpose flour",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "low sodium chicken broth",
-          "detail": "Meal B · base of pot pie sauce",
           "name": "1½ cups low-sodium chicken broth",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · base of filling sauce",
+          "amazon": "low sodium chicken broth",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "frozen green peas",
-          "detail": "Meal B · stirred into pot pie filling",
           "name": "1 cup frozen peas",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · stirred into filling",
+          "amazon": "frozen green peas",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "deep dish pie crust",
-          "detail": "Meal B · used as top crust only for pot pie",
           "name": "1 store-bought deep dish pie crust",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "detail": "Chicken pot pie · used as top crust only",
+          "amazon": "deep dish pie crust refrigerated",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         },
         {
-          "amazon": "extra virgin olive oil",
-          "detail": "Meal A · brushed on fish · Meal B · sautéing vegetables · Meal C · base of tomato sauce",
           "name": "Extra-virgin olive oil",
-          "tag": "All meals",
-          "tagClass": "tag-all"
+          "detail": "Fish tacos · brushed on fish · Chicken pot pie · sautés vegetables · Creamy tomato gnocchi · base of tomato sauce",
+          "amazon": "extra virgin olive oil",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw",
+            "healthy-chicken-pot-pie",
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
         },
         {
-          "amazon": "potato gnocchi",
-          "detail": "Meal C · main pasta component",
           "name": "2 (16 oz) packages potato gnocchi",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
+          "detail": "Creamy tomato gnocchi · boiled and tossed in sauce",
+          "amazon": "potato gnocchi shelf stable",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
         }
-      ],
-      "label": "Pantry & Canned"
+      ]
     },
     {
       "icon": "🌿",
+      "label": "Spices",
       "items": [
         {
-          "detail": "Meal A · 1 tsp in fish spice rub",
           "name": "Chili powder",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · part of spice rub",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "detail": "Meal A · ½ tsp in fish spice rub",
           "name": "Dried oregano",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · part of spice rub",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "detail": "Meal A · ½ tsp in fish spice rub · Meal B · 1 tsp in pot pie filling",
           "name": "Garlic powder",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · spice rub · Chicken pot pie · seasoning for filling",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw",
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
         },
         {
-          "detail": "Meal A · ½ tsp in fish spice rub",
           "name": "Paprika",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · part of spice rub",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "detail": "Meal A · ¼ tsp in fish spice rub",
           "name": "Cayenne pepper",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · part of spice rub",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "detail": "Meal A · ¼ tsp in fish spice rub",
           "name": "Onion powder",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · part of spice rub",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "detail": "Meal A · ¼ tsp in fish spice rub",
           "name": "Ground cumin",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · part of spice rub",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "detail": "Meal A · ½ tsp in spice rub · Meal B · 1 tsp in filling · Meal C · 1 tsp kosher salt in sauce",
           "name": "Sea salt",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · spice rub and slaw seasoning",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "detail": "Meal A · ½ tsp cracked · Meal B · ½ tsp in filling · Meal C · ½ tsp in sauce",
           "name": "Black pepper",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · spice rub and slaw · Chicken pot pie · filling seasoning",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw",
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
         },
         {
-          "detail": "Meal C · ½ tsp in tomato sauce (optional)",
           "name": "Red pepper flakes",
-          "tagClass": "tag-shared"
+          "detail": "Creamy tomato gnocchi · optional heat in sauce",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
         },
         {
-          "detail": "Meal A · ½ tsp optional in slaw dressing",
           "name": "Sugar",
-          "tagClass": "tag-shared"
+          "detail": "Fish tacos · optional pinch in slaw dressing",
+          "from": [
+            "air-fryer-fish-tacos-with-cilantro-lime-slaw"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
         },
         {
-          "detail": "Meal B · ½ tsp (substitute if fresh thyme not available)",
           "name": "Dried thyme",
-          "tagClass": "tag-shared"
+          "detail": "Chicken pot pie · substitute if fresh thyme unavailable",
+          "from": [
+            "healthy-chicken-pot-pie"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
         }
       ],
-      "label": "Spices",
       "note": "Check pantry before ordering — you likely have most of these."
     }
   ],
-  "updatedAt": 1786412805230
+  "updatedAt": 1786412805230,
+  "groceriesFor": [
+    "air-fryer-fish-tacos-with-cilantro-lime-slaw",
+    "healthy-chicken-pot-pie",
+    "creamy-tomato-gnocchi-with-burrata"
+  ],
+  "groceriesAt": "2026-08-11T03:01:48.777Z"
 }
