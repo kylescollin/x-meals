@@ -105,7 +105,7 @@
       "items": [
         {
           "name": "2½ cups coleslaw mix",
-          "detail": "Fish tacos · slaw base",
+          "detail": "slaw base",
           "amazon": "coleslaw mix bag",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
@@ -115,7 +115,7 @@
         },
         {
           "name": "⅓ cup fresh cilantro",
-          "detail": "Fish tacos · stirred into slaw",
+          "detail": "stirred into slaw",
           "amazon": "fresh cilantro bunch",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
@@ -125,7 +125,7 @@
         },
         {
           "name": "2 limes (for juice)",
-          "detail": "Fish tacos · 1 Tbsp juice for slaw, extra wedges for serving",
+          "detail": "1 Tbsp juice for slaw, extra wedges for serving",
           "amazon": "fresh limes",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
@@ -135,7 +135,7 @@
         },
         {
           "name": "8 oz cremini mushrooms, sliced",
-          "detail": "Chicken pot pie · sautéed into filling",
+          "detail": "sautéed into filling",
           "amazon": "cremini mushrooms sliced",
           "from": [
             "healthy-chicken-pot-pie"
@@ -145,7 +145,7 @@
         },
         {
           "name": "3 medium carrots, diced",
-          "detail": "Chicken pot pie · cooked into filling",
+          "detail": "cooked into filling",
           "amazon": "carrots",
           "from": [
             "healthy-chicken-pot-pie"
@@ -155,7 +155,7 @@
         },
         {
           "name": "3 stalks celery, diced",
-          "detail": "Chicken pot pie · cooked into filling",
+          "detail": "cooked into filling",
           "amazon": "celery stalks",
           "from": [
             "healthy-chicken-pot-pie"
@@ -165,7 +165,7 @@
         },
         {
           "name": "1 small onion (or ½ cup frozen pearl onions)",
-          "detail": "Chicken pot pie · stirred into filling",
+          "detail": "stirred into filling",
           "amazon": "frozen pearl onions",
           "from": [
             "healthy-chicken-pot-pie"
@@ -175,7 +175,7 @@
         },
         {
           "name": "1 tsp fresh thyme",
-          "detail": "Chicken pot pie · stirred into filling",
+          "detail": "stirred into filling",
           "amazon": "fresh thyme",
           "from": [
             "healthy-chicken-pot-pie"
@@ -185,7 +185,7 @@
         },
         {
           "name": "6–8 garlic cloves",
-          "detail": "Fish tacos · 1 clove minced for slaw · Creamy tomato gnocchi · 6–8 cloves crushed for sauce",
+          "detail": "1 clove minced for slaw · 6–8 cloves crushed for sauce",
           "amazon": "garlic bulb",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw",
@@ -196,7 +196,7 @@
         },
         {
           "name": "2 pints cherry tomatoes",
-          "detail": "Creamy tomato gnocchi · cooked down into jammy sauce",
+          "detail": "cooked down into jammy sauce",
           "amazon": "cherry tomatoes pint",
           "from": [
             "creamy-tomato-gnocchi-with-burrata"
@@ -206,7 +206,7 @@
         },
         {
           "name": "½ cup fresh basil leaves",
-          "detail": "Creamy tomato gnocchi · stirred into sauce and used as garnish",
+          "detail": "stirred into sauce and used as garnish",
           "amazon": "fresh basil",
           "from": [
             "creamy-tomato-gnocchi-with-burrata"
@@ -222,7 +222,7 @@
       "items": [
         {
           "name": "1½ lb tilapia or white fish",
-          "detail": "Fish tacos · air fried and served in tortillas",
+          "detail": "air fried and served in tortillas",
           "amazon": "tilapia fillets",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
@@ -232,7 +232,7 @@
         },
         {
           "name": "3 cups cooked shredded chicken (rotisserie recommended)",
-          "detail": "Chicken pot pie · stirred into filling",
+          "detail": "stirred into filling",
           "amazon": "rotisserie chicken",
           "from": [
             "healthy-chicken-pot-pie"
@@ -248,7 +248,7 @@
       "items": [
         {
           "name": "1 egg",
-          "detail": "Chicken pot pie · beaten for egg wash on crust",
+          "detail": "beaten for egg wash on crust",
           "amazon": "large eggs",
           "from": [
             "healthy-chicken-pot-pie"
@@ -258,7 +258,7 @@
         },
         {
           "name": "1 cup unsweetened almond milk (or low-fat milk)",
-          "detail": "Chicken pot pie · added to filling sauce",
+          "detail": "added to filling sauce",
           "amazon": "unsweetened almond milk",
           "from": [
             "healthy-chicken-pot-pie"
@@ -268,7 +268,7 @@
         },
         {
           "name": "½ cup heavy cream",
-          "detail": "Creamy tomato gnocchi · stirred into tomato sauce",
+          "detail": "stirred into tomato sauce",
           "amazon": "heavy whipping cream",
           "from": [
             "creamy-tomato-gnocchi-with-burrata"
@@ -278,7 +278,7 @@
         },
         {
           "name": "2 (4 oz) balls fresh burrata",
-          "detail": "Creamy tomato gnocchi · broken over finished pasta off heat",
+          "detail": "broken over finished pasta off heat",
           "amazon": "fresh burrata cheese",
           "from": [
             "creamy-tomato-gnocchi-with-burrata"
@@ -294,7 +294,7 @@
       "items": [
         {
           "name": "3 Tbsp mayonnaise",
-          "detail": "Fish tacos · base of cilantro lime slaw dressing",
+          "detail": "base of cilantro lime slaw dressing",
           "amazon": "mayonnaise",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
@@ -304,7 +304,7 @@
         },
         {
           "name": "Flour tortillas (for serving 4)",
-          "detail": "Fish tacos · for serving",
+          "detail": "for serving",
           "amazon": "flour tortillas small",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
@@ -314,7 +314,7 @@
         },
         {
           "name": "¼ cup all-purpose flour",
-          "detail": "Chicken pot pie · thickens the filling sauce",
+          "detail": "thickens the filling sauce",
           "amazon": "all purpose flour",
           "from": [
             "healthy-chicken-pot-pie"
@@ -324,7 +324,7 @@
         },
         {
           "name": "1½ cups low-sodium chicken broth",
-          "detail": "Chicken pot pie · base of filling sauce",
+          "detail": "base of filling sauce",
           "amazon": "low sodium chicken broth",
           "from": [
             "healthy-chicken-pot-pie"
@@ -334,7 +334,7 @@
         },
         {
           "name": "1 cup frozen peas",
-          "detail": "Chicken pot pie · stirred into filling",
+          "detail": "stirred into filling",
           "amazon": "frozen green peas",
           "from": [
             "healthy-chicken-pot-pie"
@@ -344,7 +344,7 @@
         },
         {
           "name": "1 store-bought deep dish pie crust",
-          "detail": "Chicken pot pie · used as top crust only",
+          "detail": "used as top crust only",
           "amazon": "deep dish pie crust refrigerated",
           "from": [
             "healthy-chicken-pot-pie"
@@ -354,7 +354,7 @@
         },
         {
           "name": "Extra-virgin olive oil",
-          "detail": "Fish tacos · brushed on fish · Chicken pot pie · sautés vegetables · Creamy tomato gnocchi · base of tomato sauce",
+          "detail": "brushed on fish · sautés vegetables · base of tomato sauce",
           "amazon": "extra virgin olive oil",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw",
@@ -366,7 +366,7 @@
         },
         {
           "name": "2 (16 oz) packages potato gnocchi",
-          "detail": "Creamy tomato gnocchi · boiled and tossed in sauce",
+          "detail": "boiled and tossed in sauce",
           "amazon": "potato gnocchi shelf stable",
           "from": [
             "creamy-tomato-gnocchi-with-burrata"
@@ -382,7 +382,7 @@
       "items": [
         {
           "name": "Chili powder",
-          "detail": "Fish tacos · part of spice rub",
+          "detail": "part of spice rub",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
           ],
@@ -391,7 +391,7 @@
         },
         {
           "name": "Dried oregano",
-          "detail": "Fish tacos · part of spice rub",
+          "detail": "part of spice rub",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
           ],
@@ -400,7 +400,7 @@
         },
         {
           "name": "Garlic powder",
-          "detail": "Fish tacos · spice rub · Chicken pot pie · seasoning for filling",
+          "detail": "spice rub · seasoning for filling",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw",
             "healthy-chicken-pot-pie"
@@ -410,7 +410,7 @@
         },
         {
           "name": "Paprika",
-          "detail": "Fish tacos · part of spice rub",
+          "detail": "part of spice rub",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
           ],
@@ -419,7 +419,7 @@
         },
         {
           "name": "Cayenne pepper",
-          "detail": "Fish tacos · part of spice rub",
+          "detail": "part of spice rub",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
           ],
@@ -428,7 +428,7 @@
         },
         {
           "name": "Onion powder",
-          "detail": "Fish tacos · part of spice rub",
+          "detail": "part of spice rub",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
           ],
@@ -437,7 +437,7 @@
         },
         {
           "name": "Ground cumin",
-          "detail": "Fish tacos · part of spice rub",
+          "detail": "part of spice rub",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
           ],
@@ -446,7 +446,7 @@
         },
         {
           "name": "Sea salt",
-          "detail": "Fish tacos · spice rub and slaw seasoning",
+          "detail": "spice rub and slaw seasoning",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
           ],
@@ -455,7 +455,7 @@
         },
         {
           "name": "Black pepper",
-          "detail": "Fish tacos · spice rub and slaw · Chicken pot pie · filling seasoning",
+          "detail": "spice rub and slaw · filling seasoning",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw",
             "healthy-chicken-pot-pie"
@@ -465,7 +465,7 @@
         },
         {
           "name": "Red pepper flakes",
-          "detail": "Creamy tomato gnocchi · optional heat in sauce",
+          "detail": "optional heat in sauce",
           "from": [
             "creamy-tomato-gnocchi-with-burrata"
           ],
@@ -474,7 +474,7 @@
         },
         {
           "name": "Sugar",
-          "detail": "Fish tacos · optional pinch in slaw dressing",
+          "detail": "optional pinch in slaw dressing",
           "from": [
             "air-fryer-fish-tacos-with-cilantro-lime-slaw"
           ],
@@ -483,7 +483,7 @@
         },
         {
           "name": "Dried thyme",
-          "detail": "Chicken pot pie · substitute if fresh thyme unavailable",
+          "detail": "substitute if fresh thyme unavailable",
           "from": [
             "healthy-chicken-pot-pie"
           ],
@@ -500,5 +500,5 @@
     "healthy-chicken-pot-pie",
     "creamy-tomato-gnocchi-with-burrata"
   ],
-  "groceriesAt": "2026-08-11T03:01:48.777Z"
+  "groceriesAt": "2026-08-11T14:42:29.691Z"
 }

@@ -6,7 +6,7 @@
  */
 const {
   mergeGroceries, groceryKey, norm,
-  weekDelta, pruneRemoved, applyRevisions, relabelGroceries
+  weekDelta, pruneRemoved, applyRevisions, relabelGroceries, stripMealNames
 } = require('./lib/week-merge.js');
 
 let failed = 0;
@@ -224,6 +224,42 @@ const MEALS = [
     JSON.stringify(relabelGroceries(settled, MEALS)), JSON.stringify(settled));
   check('...and applying no revisions changes nothing',
     JSON.stringify(applyRevisions(settled, [], MEALS, [])), JSON.stringify(settled));
+}
+
+// ── 13. Subtitles don't repeat what the tag pill already says ────────────
+{
+  const NAMED = [
+    { id: 'tacos', label: 'Meal A', name: 'Air Fryer Fish Tacos with Cilantro Lime Slaw' },
+    { id: 'pie',   label: 'Meal B', name: 'Healthy Chicken Pot Pie' },
+    { id: 'gnoc',  label: 'Meal C', name: 'Creamy Tomato Gnocchi with Burrata' }
+  ];
+  const strip = (d) => stripMealNames(d, NAMED);
+
+  check('the meal name comes off the front', strip('Fish tacos · slaw base'), 'slaw base');
+  check('and off both halves of a shared item',
+    strip('Fish tacos · spice rub · Chicken pot pie · seasoning for filling'),
+    'spice rub · seasoning for filling');
+  check('a one-word use that happens to appear in the meal name survives',
+    strip('Creamy tomato gnocchi · burrata'), 'burrata');
+  check('a detail that is ONLY the meal name is left alone rather than emptied',
+    strip('Chicken pot pie'), 'Chicken pot pie');
+  check('a detail that never named a meal is untouched',
+    strip('sautéed into filling'), 'sautéed into filling');
+  check('stripping twice changes nothing',
+    strip(strip('Fish tacos · slaw base')), 'slaw base');
+
+  const list = produce([
+    Object.assign(item('2 limes', ['tacos'], 'Meal A'), { detail: 'Fish tacos · juice for the slaw' }),
+    { name: 'birthday candles', detail: 'Fish tacos · not really' }
+  ]);
+  const out = relabelGroceries(list, NAMED);
+  check('relabelling strips the subtitle', out[0].items[0].detail, 'juice for the slaw');
+  check('...and leaves the name alone — that name IS the checkbox key',
+    out[0].items[0].name, '2 limes');
+  check('...and still never touches a hand-added item',
+    out[0].items[1], { name: 'birthday candles', detail: 'Fish tacos · not really' });
+  check('...and a second relabel is a no-op',
+    JSON.stringify(relabelGroceries(out, NAMED)), JSON.stringify(out));
 }
 
 console.log(failed ? `\n✗ ${failed} failing\n` : '\n✓ all passing\n');

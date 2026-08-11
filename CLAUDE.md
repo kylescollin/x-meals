@@ -265,7 +265,7 @@ historical and handled, but don't add to it.)
       "items": [
         {
           "name": "Item name",
-          "detail": "Which meal(s) it's for",
+          "detail": "How it's used — never names the meal; the tag pill says that",
           "tag": "Meal A",
           "tagClass": "tag-chili",
           "amazon": "search term for Amazon Fresh",
@@ -281,7 +281,9 @@ historical and handled, but don't add to it.)
 
 **CI-owned fields.** `groceries`, `groceriesFor` (the meal ids the list covers) and `groceriesAt` are written only by CI. X should leave all three alone — set `"groceries": []` on a brand-new week and omit the other two.
 
-**Amazon button:** Only include `"amazon"` for produce, protein, dairy, and pantry items. Omit it for spices — those don't get an Amazon button.
+**Amazon button:** Only include `"amazon"` for produce, protein, dairy, and pantry items. Omit it for spices — the sheet falls back to searching the item's own name, so they still get a Fresh button.
+
+**Item subtitles (`detail`):** the tag pill next to every item already says which meal it's for, so `detail` describes only *how* the item is used ("stirred into the slaw"). `relabelGroceries` in `scripts/lib/week-merge.js` strips any meal name that slips through — it's display-only text, never the name a checkbox is keyed by.
 
 **Grocery sections:** Use these five sections in this order: Produce (🥦), Protein (🥩), Dairy & Refrigerated (🧈), Pantry & Canned (🫙), Spices (🌿). The Spices section always includes `"note": "Check pantry before ordering — you likely have most of these."`
 

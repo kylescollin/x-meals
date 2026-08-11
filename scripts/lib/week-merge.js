@@ -138,6 +138,50 @@ function retag(item, meals) {
   return item;
 }
 
+// ── Subtitles ─────────────────────────────────────────────────────────────
+// The tag pill already says which meal a line is for, so the subtitle has no
+// business saying it again. Older lists read "Fish tacos · slaw base"; this
+// leaves just "slaw base".
+const DETAIL_STOP = new Set(['with', 'and', 'the', 'a', 'in', 'of', 'for', 'on']);
+
+function words(str) {
+  return String(str || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter(w => w && !DETAIL_STOP.has(w));
+}
+
+/**
+ * Drop any "·"-separated segment of a detail that is just a meal's name.
+ *
+ * Deliberately cautious — this rewrites text people are reading off a phone in
+ * a shop. A segment goes only if EVERY word in it appears in some meal's name
+ * AND it has two or more words: that floor is what stops a real usage note like
+ * "burrata" being eaten by a meal called "Creamy Tomato Gnocchi with Burrata".
+ * If nothing would survive, the detail is left exactly as it was.
+ *
+ * Idempotent: once the meal-name segments are gone, a second pass matches
+ * nothing. That's what keeps CI from looping on its own commit.
+ */
+function stripMealNames(detail, meals) {
+  const text = String(detail || '');
+  if (!text) return text;
+
+  const names = (meals || []).map(m => new Set(words(m && m.name)));
+  if (!names.length) return text;
+
+  const segments = text.split('·').map(s => s.trim());
+  const kept = segments.filter(seg => {
+    const w = words(seg);
+    if (w.length < 2) return true;
+    return !names.some(name => name.size && w.every(x => name.has(x)));
+  });
+
+  if (!kept.length || kept.length === segments.length) return text;
+  return kept.join(' · ');
+}
+
 // "Meals A+C" → the ids of the meals labelled Meal A and Meal C. Only used to
 // repair a generated item whose `from` the model left out or invented.
 function fromTag(tag, meals) {
@@ -305,12 +349,18 @@ function applyRevisions(sections, revisions, meals, checkedKeys, fallbackFrom) {
  * makes it "Meal C" instead of "Meal A", so every tag pill pointing at it is
  * showing the wrong letter and the wrong colour. Free to fix — the ids never
  * moved.
+ *
+ * Every path ends here, so it's also where subtitles get their meal names
+ * stripped — display-only text, safe to rewrite, and never the name a checkbox
+ * is keyed by.
  */
 function relabelGroceries(sections, meals) {
   return (sections || []).map(sec => Object.assign({}, sec, {
     items: (sec.items || []).map(item => {
       if (!Array.isArray(item.from) || !item.from.length) return item;   // hand-added
-      return retag(Object.assign({}, item), meals);
+      const next = retag(Object.assign({}, item), meals);
+      if (next.detail) next.detail = stripMealNames(next.detail, meals);
+      return next;
     })
   }));
 }
@@ -402,5 +452,5 @@ function mergeGroceries(oldSections, newSections, mealIds, checkedKeys) {
 module.exports = {
   groceryKey, norm, sectionKey, mergeGroceries,
   weekDelta, pruneRemoved, applyRevisions, relabelGroceries,
-  tagFor, getTagClass, fromTag, retag, orderSections, SECTION
+  tagFor, getTagClass, fromTag, retag, stripMealNames, orderSections, SECTION
 };

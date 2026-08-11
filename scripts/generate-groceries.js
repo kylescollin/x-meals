@@ -49,7 +49,9 @@ Produce, Protein, Dairy & Refrigerated, Pantry & Canned, Spices
 
 ## Fields
 - "name": quantity + item, e.g. "3 medium yellow onions"
-- "detail": which meal(s) it's for and how it's used, e.g. "1 for chili · 1 for pasta sauce"
+- "detail": how the item is used — nothing else. Never name the meal or the recipe:
+  the tag pill next to it already says which meal it's for, so naming it reads as a
+  stutter. Write "diced into the sauce", not "Beef chili · diced into the sauce".
 - "amazon": lowercase Amazon Fresh search term, no punctuation, specific enough to
   find the right product ("lean ground beef", "diced tomatoes green chilies mild").
   OMIT this field entirely for Spices items.
@@ -79,7 +81,8 @@ ${SHARED_RULES}
 ## Consolidation Rules
 - Merge the same ingredient appearing in multiple meals into one item
 - Sum or describe the combined quantity in "name"
-- Explain the per-meal breakdown in "detail" using the · separator
+- List each use in "detail", separated by · , in the same order as "from" — still
+  without naming any meal, e.g. "1 clove minced for the slaw · 6 crushed for the sauce"
 
 ## Existing List Context
 The user message may include an "already on the list" section. Those items are on
@@ -113,7 +116,7 @@ ${SHARED_RULES}
 **For each meal that JOINED the week** — work through its ingredients:
 - Not on the list at all → "add" it, with "from" set to that meal's id.
 - Already on the list and NOT ticked → "update" that item: raise the quantity in
-  "name" to cover both uses, extend "detail" with the new meal, and set "from" to
+  "name" to cover both uses, append the new use to "detail", and set "from" to
   every meal that now needs it.
 - Already on the list and TICKED (marked "ticked": true) → do NOT update it.
   Someone is holding that item; changing its name loses their tick. Instead "add"
@@ -122,8 +125,8 @@ ${SHARED_RULES}
 
 **For each item listed under "needs its quantity revised"** — a meal that used it
 has left the week:
-- Not ticked → "update" it with the reduced quantity and a "detail" that no longer
-  mentions the departed meal. Keep "from" as given.
+- Not ticked → "update" it with the reduced quantity and a "detail" that drops the
+  departed meal's use of it. Keep "from" as given.
 - Ticked → leave it alone entirely. Emit nothing for it.
 
 **Everything else on the list stays exactly as it is.** Do not restate it, do not

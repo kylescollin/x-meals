@@ -189,6 +189,9 @@
   }
 
   // ── Rendering the generated list ──────────────────────────────────────────
+  // Spices carry no "amazon" term — the generator omits it on purpose. Falling
+  // back to the item's own name gives them a Fresh button anyway, the same way
+  // hand-added items have always worked, and it lights up every past week too.
   function amzBtn(term) {
     return '<a class="amz-btn" href="https://www.amazon.com/s?k=' +
       encodeURIComponent(term).replace(/%20/g, '+') +
@@ -200,7 +203,7 @@
       '<div class="item-body"><div class="item-name">' + esc(item.name) + '</div>' +
       (item.detail ? '<div class="item-detail">' + esc(item.detail) + '</div>' : '') + '</div>' +
       '<div class="item-right"><span class="tag ' + esc(item.tagClass) + '">' + esc(item.tag) + '</span>' +
-      (item.amazon ? amzBtn(item.amazon) : '') + '</div></div>';
+      amzBtn(item.amazon || item.name) + '</div></div>';
   }
 
   function renderSection(sec) {
