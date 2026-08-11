@@ -8,6 +8,11 @@ on:
       # Safety net: something may still write the old single-week file.
       - 'data/week.json'
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Rebuild every current/upcoming grocery list from scratch'
+        type: boolean
+        default: false
 
 jobs:
   sync:
@@ -39,13 +44,14 @@ jobs:
           node scripts/test-week-merge.js
           node scripts/test-week-store.js
 
-      # Skipped entirely for weeks whose list already accounts for their meals,
-      # which is what stops this from looping or burning API calls.
+      # Does the least work each week needs: nothing at all for a rearranged
+      # week, one scoped call for a meal added or removed. That's what stops
+      # this from looping or burning API calls.
       - name: Update grocery lists
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        run: node scripts/generate-groceries.js
+        run: node scripts/generate-groceries.js ${{ inputs.force && '--force' || '' }}
 
       - name: Commit updated weeks
         run: |

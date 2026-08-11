@@ -494,6 +494,12 @@ var isCustom=RecipeCard.isCustom;   // placeholder meal? (see recipe-card.js)
 
 // Does the week contain anything the grocery generator can actually shop for?
 function hasCookable(meals){ return (meals||[]).some(function(m){ return !isCustom(m); }); }
+// The recipes a week shops for, ignoring order, day and placeholders.
+function cookableIds(meals){
+  return (meals||[]).filter(function(m){ return !isCustom(m); })
+                    .map(function(m){ return m.id; }).sort();
+}
+function sameRecipeSet(a,b){ return cookableIds(a).join(' ')===cookableIds(b).join(' '); }
 
 // Dates come off the canonical Sunday, NOT off the stored weekOf — the keys we
 // inherited land on Mondays, a Tuesday and a Thursday, so offsetting from the
@@ -981,6 +987,9 @@ async function save(){
   doneBtn.disabled=true; doneBtn.textContent='Saving…';
 
   var meals=reletterAndDate(editMeals);
+  // Same question CI asks: did the set of *recipes* change? Moving a meal to
+  // another night, or adding "Pizza night", leaves the shopping identical.
+  var shoppingChanged=!sameRecipeSet(weekData.meals, meals);
   var week=Object.assign({}, weekData, {
     weekOf:weekKey,
     title:weekData.title||Week.titleFor(viewStart),
@@ -1016,8 +1025,10 @@ async function save(){
   RecipeCard.refresh();
   doneBtn.disabled=false; doneBtn.textContent='Done';
 
-  if(committed && !hasCookable(meals)){
-    // Nothing but placeholders — CI has nothing to shop for, so don't sit and wait.
+  if(committed && (!shoppingChanged || !hasCookable(meals))){
+    // Nothing to buy has changed — you moved a night, or added a placeholder —
+    // or there are no recipes left to shop for. Either way CI won't touch the
+    // list, so don't sit here watching for a change that isn't coming.
     toast('Meals saved.', {success:true});
   }else if(committed){
     toast('Meals saved · grocery list updating…', {persist:true});

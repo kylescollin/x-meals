@@ -1,5 +1,17 @@
-/* Fox & Bear Kitchen — reconciling a regenerated grocery list with the one
- * already on the fridge.
+/* Fox & Bear Kitchen — keeping a week's grocery list in step with its meals.
+ *
+ * Two jobs live here.
+ *
+ * The first is the DELTA: what actually changed about a week. Rearranging the
+ * nights, or dropping in a "Pizza night" placeholder, changes nothing about
+ * what you have to buy, so it must cost nothing — no model call, no rewrite of
+ * lines somebody may already have ticked off. Adding one recipe should add one
+ * recipe's worth of items; removing one should remove one's. weekDelta,
+ * pruneRemoved, applyRevisions and relabelGroceries are that machinery, and
+ * all of them are pure.
+ *
+ * The second is the MERGE, which is only used now for a list being built from
+ * scratch:
  *
  * The problem this solves is narrower and sharper than "don't overwrite the
  * list". Grocery check state is stored per item under a key derived from the
@@ -60,33 +72,247 @@ function eachItem(sections) {
   return out;
 }
 
+// The five sections, in shopping order. A list always comes back in this
+// order with empty sections dropped, however it was assembled.
+const SECTION = {
+  produce: { icon: '🥦', label: 'Produce' },
+  protein: { icon: '🥩', label: 'Protein' },
+  dairy:   { icon: '🧈', label: 'Dairy & Refrigerated' },
+  pantry:  { icon: '🫙', label: 'Pantry & Canned' },
+  spices:  { icon: '🌿', label: 'Spices', note: 'Check pantry before ordering — you likely have most of these.' }
+};
+
+const ORDER = ['produce', 'protein', 'dairy', 'pantry', 'spices'];
+
+function orderSections(sections) {
+  return ORDER
+    .map(k => (sections || []).find(s => sectionKey(s.label) === k))
+    .filter(s => s && s.items && s.items.length);
+}
+
+// ── Tags ──────────────────────────────────────────────────────────────────
+// A tag ("Meal A", "Meals A+C", "All meals") is display only — it is derived
+// from `from` plus whatever letters the meals currently carry, never trusted
+// from the model and never stored as the source of truth. That's what lets a
+// reorder be fixed for free: the ids didn't move, only the letters did.
+
+// A/B/C keep their original names for backward-compat with existing data and
+// history; D–G are newer.
+const LETTER_CLASS = {
+  A: 'tag-chili', B: 'tag-cauliflower', C: 'tag-pasta',
+  D: 'tag-d', E: 'tag-e', F: 'tag-f', G: 'tag-g'
+};
+
+function getTagClass(tag) {
+  if (tag === 'All meals') return 'tag-all';
+  const single = /^Meal ([A-G])$/.exec(tag);
+  if (single) return LETTER_CLASS[single[1]] || 'tag-shared';
+  return 'tag-shared';                                   // "Meals A+C"
+}
+
+// meals → { id: 'A' }, from each meal's current label.
+function letterMap(meals) {
+  const out = {};
+  (meals || []).forEach(m => {
+    const l = /^Meal ([A-G])$/.exec(m && m.label || '');
+    if (l) out[m.id] = l[1];
+  });
+  return out;
+}
+
+// The ids an item is for → the tag to print for it.
+function tagFor(from, meals) {
+  const letters = letterMap(meals);
+  const mine = (from || []).map(id => letters[id]).filter(Boolean).sort();
+  const total = Object.keys(letters).length;
+  if (!mine.length) return 'Meal A';
+  if (total > 1 && mine.length === total) return 'All meals';
+  if (mine.length === 1) return 'Meal ' + mine[0];
+  return 'Meals ' + mine.join('+');
+}
+
+// Stamp tag + tagClass on an item from its `from`. Mutates and returns it.
+function retag(item, meals) {
+  item.tag = tagFor(item.from, meals);
+  item.tagClass = getTagClass(item.tag);
+  return item;
+}
+
+// "Meals A+C" → the ids of the meals labelled Meal A and Meal C. Only used to
+// repair a generated item whose `from` the model left out or invented.
+function fromTag(tag, meals) {
+  const ids = (meals || []).map(m => m.id);
+  if (tag === 'All meals') return ids;
+  const letters = String(tag || '').match(/[A-G]/g) || [];
+  const picked = letters
+    .map(l => (meals || []).find(m => m.label === 'Meal ' + l))
+    .filter(Boolean).map(m => m.id);
+  return picked.length ? picked : ids;
+}
+
+// ── What changed about this week ──────────────────────────────────────────
 /**
- * Is regeneration needed at all?
+ * The one question the pipeline asks before doing anything: which meals joined
+ * this week's list, and which left?
  *
- * This is what makes the CI step idempotent: a second run over an unchanged
- * tree does nothing, writes nothing, and produces no commit. That guarantee
- * doesn't depend on GitHub's push-trigger rules.
+ * `week.groceriesFor` — the cookable ids the list was last built for — is the
+ * authority. Deriving the answer from item `from` alone isn't safe: a meal
+ * whose every ingredient consolidated into another meal's line would look
+ * uncovered forever, and since CI re-fires on its own commit, that loops.
+ * groceriesFor makes the second run provably a no-op.
  *
- * A week is covered when every cookable meal already has items attributed to
- * it and no item still points at a meal that has left the week.
+ * Weeks written before groceriesFor existed fall back to the union of `from`,
+ * and weeks with neither are `legacy` — we can't tell what covers what, so we
+ * leave them alone unless explicitly asked to rebuild.
+ *
+ * @returns {{added: string[], removed: string[], legacy: boolean}}
  */
-function isCovered(sections, mealIds) {
-  const items = eachItem(sections).map(e => e.item);
-  if (!items.length) return false;
+function weekDelta(week, mealIds) {
+  const ids = mealIds || [];
+  const items = eachItem((week || {}).groceries).map(e => e.item);
 
-  // A list with no provenance anywhere is a legacy list. We can't tell what
-  // covers what, so treat it as covered — an old list is never touched until
-  // something actually changes about the week.
-  const withFrom = items.filter(i => Array.isArray(i.from) && i.from.length);
-  if (!withFrom.length) return true;
+  let covers = null;
+  if (Array.isArray(week && week.groceriesFor)) {
+    covers = week.groceriesFor;
+  } else if (items.length) {
+    const union = new Set();
+    items.forEach(i => (Array.isArray(i.from) ? i.from : []).forEach(id => union.add(id)));
+    if (union.size) covers = [...union];
+  } else {
+    covers = [];                       // no list at all — everything is new
+  }
 
-  const covered = new Set();
-  let stale = false;
-  withFrom.forEach(i => i.from.forEach(id => {
-    if (mealIds.includes(id)) covered.add(id); else stale = true;
+  if (!covers) return { added: [], removed: [], legacy: true };
+
+  const have = new Set(covers);
+  const want = new Set(ids);
+  return {
+    added: ids.filter(id => !have.has(id)),
+    removed: covers.filter(id => !want.has(id)),
+    legacy: false
+  };
+}
+
+// ── Removing a meal ───────────────────────────────────────────────────────
+/**
+ * Take the departed meals out of the list, with no model involved.
+ *
+ * An item only that meal needed goes. An item shared with a meal that's still
+ * on the plan stays, with the departed id stripped and its tag corrected — but
+ * its quantity is now too high, so it comes back in `shared` for the caller to
+ * have the model shrink. Hand-added items (no `from`) are never touched.
+ *
+ * @returns {{sections: Array, shared: Array}}
+ */
+function pruneRemoved(sections, removedIds, meals) {
+  const gone = new Set(removedIds || []);
+  const shared = [];
+
+  const kept = (sections || []).map(sec => {
+    const items = [];
+    (sec.items || []).forEach(item => {
+      const from = Array.isArray(item.from) ? item.from : null;
+      if (!from || !from.length) { items.push(item); return; }   // hand-added / legacy
+      const survivors = from.filter(id => !gone.has(id));
+      if (!survivors.length) return;                             // nothing left needs it
+      if (survivors.length === from.length) { items.push(item); return; }
+      const next = retag(Object.assign({}, item, { from: survivors }), meals);
+      items.push(next);
+      shared.push(next);                                         // quantity is now too high
+    });
+    return Object.assign({}, sec, { items });
+  }).filter(sec => sec.items.length);
+
+  return { sections: orderSections(kept), shared };
+}
+
+// ── Applying the model's revisions ────────────────────────────────────────
+/**
+ * Apply a scoped set of operations to the list. The model proposes; every
+ * decision that could detach a checkbox is made here.
+ *
+ *   { op: 'add',    section, name, detail, amazon, from }
+ *   { op: 'update', match: '<exact existing name>', name, detail, from }
+ *
+ * Guards, all deterministic:
+ *  - an `update` whose `match` isn't on the list is ignored
+ *  - an `update` on a TICKED item keeps the old name (its checkbox key) and
+ *    takes only detail/from — the same rule mergeGroceries has always applied
+ *  - `from` is filtered to real meal ids; an `add` that ends up with none falls
+ *    back to `fallbackFrom` (the meals that joined) rather than being dropped —
+ *    an item with no provenance would be unprunable forever, and a lost
+ *    ingredient is worse than a mislabelled one
+ *  - tag and tagClass are always recomputed here, never taken from the model
+ */
+function applyRevisions(sections, revisions, meals, checkedKeys, fallbackFrom) {
+  const checked = checkedKeys instanceof Set ? checkedKeys : new Set(checkedKeys || []);
+  const ids = new Set((meals || []).map(m => m.id));
+
+  const out = (sections || []).map(sec => Object.assign({}, sec, { items: (sec.items || []).slice() }));
+  const byName = new Map();
+  eachItem(out).forEach(e => { if (!byName.has(e.item.name)) byName.set(e.item.name, e); });
+
+  function bucketFor(label) {
+    const k = sectionKey(label);
+    let sec = out.find(s => sectionKey(s.label) === k);
+    if (!sec) { sec = Object.assign({}, SECTION[k], { items: [] }); out.push(sec); }
+    return sec;
+  }
+
+  for (const rev of revisions || []) {
+    if (!rev || !rev.name) continue;
+
+    if (rev.op === 'update') {
+      const entry = byName.get(rev.match);
+      if (!entry) continue;                              // unknown line — ignore
+      const item = entry.item;
+      const from = (rev.from || item.from || []).filter(id => ids.has(id));
+      const next = Object.assign({}, item, {
+        detail: rev.detail || item.detail,
+        from: from.length ? from : (item.from || [])
+      });
+      // Ticked off means somebody is holding it. The name is its key; freeze it.
+      if (!checked.has(groceryKey(item.name))) next.name = rev.name;
+      retag(next, meals);
+      entry.sec.items[entry.sec.items.indexOf(item)] = next;
+      // Both names now resolve to the live item, so a later op naming either
+      // one edits what's actually on the list rather than an orphan.
+      const live = { item: next, sec: entry.sec };
+      byName.set(item.name, live);
+      byName.set(next.name, live);
+      continue;
+    }
+
+    if (rev.op !== 'add') continue;
+    if (byName.has(rev.name)) continue;                  // already on the list
+    let from = (rev.from || []).filter(id => ids.has(id));
+    if (!from.length) from = (fallbackFrom || []).filter(id => ids.has(id));
+    if (!from.length) continue;                          // can't place it — skip
+    const item = { name: rev.name, detail: rev.detail || '', from };
+    if (rev.amazon && sectionKey(rev.section) !== 'spices') item.amazon = rev.amazon;
+    retag(item, meals);
+    const sec = bucketFor(rev.section);
+    sec.items.push(item);
+    byName.set(item.name, { item, sec });
+  }
+
+  return orderSections(out);
+}
+
+// ── Reordering the week ───────────────────────────────────────────────────
+/**
+ * Nothing to buy changed; the letters did. Moving Tuesday's dinner to Thursday
+ * makes it "Meal C" instead of "Meal A", so every tag pill pointing at it is
+ * showing the wrong letter and the wrong colour. Free to fix — the ids never
+ * moved.
+ */
+function relabelGroceries(sections, meals) {
+  return (sections || []).map(sec => Object.assign({}, sec, {
+    items: (sec.items || []).map(item => {
+      if (!Array.isArray(item.from) || !item.from.length) return item;   // hand-added
+      return retag(Object.assign({}, item), meals);
+    })
   }));
-
-  return !stale && mealIds.every(id => covered.has(id));
 }
 
 /**
@@ -163,7 +389,6 @@ function mergeGroceries(oldSections, newSections, mealIds, checkedKeys) {
     }
   }
 
-  const ORDER = ['produce', 'protein', 'dairy', 'pantry', 'spices'];
   return ORDER
     .filter(k => merged.has(k) && merged.get(k).items.length)
     .map(k => {
@@ -174,4 +399,8 @@ function mergeGroceries(oldSections, newSections, mealIds, checkedKeys) {
     });
 }
 
-module.exports = { groceryKey, norm, sectionKey, isCovered, mergeGroceries };
+module.exports = {
+  groceryKey, norm, sectionKey, mergeGroceries,
+  weekDelta, pruneRemoved, applyRevisions, relabelGroceries,
+  tagFor, getTagClass, fromTag, retag, orderSections, SECTION
+};

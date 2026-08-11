@@ -55,6 +55,9 @@ async function main() {
       // win; only hand over the groceries, which only CI writes.
       await db.ref('/meals/weeks/' + key + '/groceries').set(week.groceries || []);
       if (week.groceriesAt) await db.ref('/meals/weeks/' + key + '/groceriesAt').set(week.groceriesAt);
+      // Which meals the list covers is CI's bookkeeping too — without it the
+      // next run works out the wrong delta.
+      if (week.groceriesFor) await db.ref('/meals/weeks/' + key + '/groceriesFor').set(week.groceriesFor);
       console.log(`~ ${key} (Firebase is newer — synced groceries only)`);
     } else if (!same(remote, week)) {
       await db.ref('/meals/weeks/' + key).set(week);

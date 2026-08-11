@@ -71,9 +71,11 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 **Scripts & Automation:**
 - `scripts/sync-firebase.js` — Syncs `data/weeks/*.json` → `/meals/weeks/*`, and mirrors the
   current week to `/meals/current` for anything still reading it.
-- `scripts/generate-groceries.js` — Brings each week's grocery list in line with its meals.
-  Merges rather than overwrites; see **Grocery Lists** below.
-- `scripts/lib/week-merge.js` — The grocery reconcile algorithm.
+- `scripts/generate-groceries.js` — Brings each week's grocery list in line with its meals, doing
+  the least work the change needs. Takes `--force` to rebuild from scratch. See **Grocery Lists**.
+- `scripts/lib/week-merge.js` — What actually changed about a week (`weekDelta`) and how to apply
+  it (`pruneRemoved`, `applyRevisions`, `relabelGroceries`), plus the whole-week reconcile
+  (`mergeGroceries`). All pure, all unit-tested.
 - `scripts/check-weeks.js`, `scripts/test-week-merge.js`, `scripts/test-week-store.js` — the
   repo's test suite. All three run in CI before anything is written.
 - `scripts/fold-legacy-week.js` — Safety net: folds a stray `data/week.json` into `data/weeks/`.
@@ -119,10 +121,16 @@ Agent X does not interact with Firebase directly — it writes JSON files to git
 `index.html` has an **Edit mode** that lets Kyle adjust the current week from the phone: remove
 meals, add meals from the recipe collection, drag to reorder, set each meal's day, up to **7 meals**.
 On **Done** it:
-1. Writes the updated week to Firebase `/meals/current` (meals update instantly) with `groceries: []`.
-2. Fetches a fine-grained GitHub token from Firebase `/config/githubToken` and commits the updated
-   `data/week.json` (meals + empty groceries) via the GitHub Contents API — this triggers the
-   **existing** grocery-generation + sync Action, so the grocery list refreshes ~1 min later.
+1. Writes the updated week to Firebase via `WeekStore.put` → `/meals/weeks/{weekOf}` (meals update
+   instantly), carrying the existing `groceries` array through untouched.
+2. Fetches a fine-grained GitHub token from Firebase `/config/githubToken` and commits the same
+   object to `data/weeks/{weekOf}.json` via the GitHub Contents API — which triggers the sync
+   Action, so the grocery list catches up ~1 min later.
+
+**It never empties `groceries` to force a rebuild.** CI works out what changed and touches only
+that. If the set of *recipes* is unchanged — you moved a night, dragged two meals around, added a
+placeholder — `save()` knows nothing will change and doesn't sit waiting for it, so you get
+"Meals saved." straight away instead of the "grocery list updating…" toast.
 
 The token lives in Firebase under `/config` (read/write restricted to the two allow-listed emails,
 same as all meal data); it is scoped to only this repo with Contents read/write. It is **not** in
@@ -269,7 +277,9 @@ historical and handled, but don't add to it.)
 }
 ```
 
-**Tag classes:** A week can have 1–7 meals (labels `Meal A` … `Meal G`). Single-meal colors: `tag-chili` (A), `tag-cauliflower` (B), `tag-pasta` (C), `tag-d` (D), `tag-e` (E), `tag-f` (F), `tag-g` (G). Shared across multiple meals: `tag-shared`. All meals: `tag-all`. These control the color of the tag pill. `tagClass` is computed automatically from `tag` by `scripts/generate-groceries.js` — you only need to set `tag` correctly.
+**Tag classes:** A week can have 1–7 meals (labels `Meal A` … `Meal G`). Single-meal colors: `tag-chili` (A), `tag-cauliflower` (B), `tag-pasta` (C), `tag-d` (D), `tag-e` (E), `tag-f` (F), `tag-g` (G). Shared across multiple meals: `tag-shared`. All meals: `tag-all`. These control the color of the tag pill. Both `tag` and `tagClass` are computed automatically from each item's `from` by `scripts/lib/week-merge.js` — X doesn't need to set either.
+
+**CI-owned fields.** `groceries`, `groceriesFor` (the meal ids the list covers) and `groceriesAt` are written only by CI. X should leave all three alone — set `"groceries": []` on a brand-new week and omit the other two.
 
 **Amazon button:** Only include `"amazon"` for produce, protein, dairy, and pantry items. Omit it for spices — those don't get an Amazon button.
 
@@ -332,21 +342,33 @@ hidden in timeline view and while editing meals.
 
 X does not write the `groceries` array — `scripts/generate-groceries.js` does, in CI.
 
-It **merges rather than overwrites**, which matters because grocery check state is keyed by the
-item's rendered *name*: renaming "3 medium yellow onions" to "2 yellow onions" would silently
-un-tick an item somebody had already put in the trolley.
+It does **the least work the change needs**, never a fresh start. That matters because grocery
+check state is keyed by the item's rendered *name*: renaming "3 medium yellow onions" to "2 yellow
+onions" silently un-ticks something somebody has already put in the trolley. A line nobody had a
+reason to touch is never touched.
 
-- A week whose list already accounts for all its meals is skipped entirely — no API call, no
-  write, no commit. That's what makes the step safe to re-run.
-- When a week has changed, the whole list is regenerated (so ingredients still consolidate across
-  meals) and then reconciled against the existing list. **Anything currently ticked off keeps its
-  exact name.** It still picks up a corrected `tag`, `detail` and `from`.
-- Hand-added items (no `from`) always survive. Items whose meals have all left the week are dropped.
-- Lists written before `from` existed have no provenance at all, so they're treated as entirely
-  hand-added and never pruned.
+Every list records `groceriesFor` — the meal ids it was built for. Comparing that to the week's
+current meals gives the delta, and the delta picks one of four paths:
+
+| what changed | what happens |
+|---|---|
+| **Nothing** — nights swapped, a placeholder added, a meal renamed | No API call. Only the `Meal A…G` letters moved, so `tag` and `tagClass` are recomputed locally from each item's `from`. |
+| **A meal left** | Its exclusive items are dropped locally. An item shared with a surviving meal stays, keeps the surviving ids, and only its *quantity* goes to the model. |
+| **A meal joined** | Only that meal's ingredients are considered. Something already on the list gets its quantity raised — unless it's ticked off, in which case that line is left alone and a separate line appears for the extra. |
+| **No list yet** (a week X just published, or `--force`) | The one case that still generates all five sections at once, so ingredients consolidate across meals. |
+
+- **Anything currently ticked off keeps its exact name**, on every path. It still picks up a
+  corrected `detail`, `from` and `tag`.
+- Hand-added items (no `from`) are never renamed or dropped.
+- `tag` and `tagClass` are display only, always derived from `from` and never trusted from the
+  model. That's also what makes the second CI pass provably a no-op — CI re-fires on its own
+  commit, so anything less than provable is an infinite loop.
+- Lists written before `from` existed can't be diffed, so they're left alone. `--force` rebuilds
+  them once; after that they're on the delta path like everything else.
 
 Never commit `"groceries": []` to force a rebuild — that was the old mechanism and it threw away
-the check state along with the list.
+the check state along with the list. To rebuild deliberately, run the sync workflow from the
+Actions tab with **force** ticked.
 
 ## Design Conventions
 
