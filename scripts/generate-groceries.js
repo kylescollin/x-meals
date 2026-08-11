@@ -342,7 +342,13 @@ async function main() {
   }
 }
 
-main().catch(err => {
+main().then(() => {
+  // Reading the check state opens a Realtime Database connection, and
+  // firebase-admin holds the event loop open on it for as long as it lives. So
+  // say when we're done, the way sync-firebase.js does — otherwise the CI step
+  // just sits there until GitHub times the job out.
+  process.exit(0);
+}).catch(err => {
   console.error('Error generating groceries:', err);
   process.exit(1);
 });
