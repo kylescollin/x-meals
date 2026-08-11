@@ -115,6 +115,7 @@
   </div>
 </div>
 
+<script src="recipe-import.js"></script>
 <script src="recipe-card.js"></script>
 <script type="module">
 import { requireAuth, getAuthToken, signOut } from './auth.js';
@@ -326,6 +327,23 @@ RECIPES.forEach(function(r) { indexRecipe(r); list.appendChild(RecipeCard.makeCa
 document.getElementById('add-recipe').addEventListener('click', function() {
   RecipeCard.openAddForm();
 });
+
+/* A recipe link shared into the app opens the add form with the import already
+   running. Two ways in, both landing here:
+     ?import=<url>   — the iOS Shortcut, and anything that links in directly
+     ?url=… / ?text= — the PWA share target (Android/Chrome; iOS ignores it)
+   The share sheet often hands over a title and a URL in one blob, so the URL
+   is picked out of whatever text arrives rather than assumed to be all of it. */
+(function() {
+  var q = new URLSearchParams(location.search);
+  var shared = q.get('import') || q.get('url') || q.get('text') || '';
+  if (!shared) return;
+  var found = shared.match(/https?:\/\/[^\s"'<>]+/);
+  if (!found) return;
+  RecipeCard.openAddForm(found[0]);
+  // Drop the parameter so a refresh doesn't re-import the same page.
+  history.replaceState(null, '', location.pathname);
+})();
 
 function updateCount(savedCount) {
   if (document.getElementById('srch').value.trim() || activeFilterCount()) return;

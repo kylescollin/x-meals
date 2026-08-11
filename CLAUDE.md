@@ -56,6 +56,9 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   nothing is lost. Nothing reads them. Do not write them.
 
 **Shared scripts:**
+- `recipe-import.js` — turns a recipe URL (or pasted text) into form fields (`window.RecipeImport`).
+  No AI and no API credits: it reads the schema.org `Recipe` block sites publish for Google.
+  See **Importing a recipe from a link** below. Must load before `recipe-card.js`.
 - `icons.js` — the site's line icons: a hand-copied subset of Lucide (ISC), exposed as
   `window.Icon`. Copied rather than loaded from a CDN so the icons survive offline. Must load
   before `nav.js`. Chrome uses these; recipe and grocery-section emoji are still emoji.
@@ -76,8 +79,12 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 - `scripts/lib/week-merge.js` — What actually changed about a week (`weekDelta`) and how to apply
   it (`pruneRemoved`, `applyRevisions`, `relabelGroceries`), plus the whole-week reconcile
   (`mergeGroceries`). All pure, all unit-tested.
-- `scripts/check-weeks.js`, `scripts/test-week-merge.js`, `scripts/test-week-store.js` — the
-  repo's test suite. All three run in CI before anything is written.
+- `scripts/check-weeks.js`, `scripts/test-week-merge.js`, `scripts/test-week-store.js`,
+  `scripts/test-recipe-import.js` — the repo's test suite. All four run in CI before anything is
+  written. `test-recipe-import.js` covers the guessing rules; the ones that matter most are the
+  tag cases, because recipe method text is full of words that mean something else in a title.
+- `recipe-fetcher/` — a separate one-function Vercel deployment that fetches a recipe page so the
+  browser can read it. Not part of the site; see its README and **Importing a recipe** below.
 - `scripts/fold-legacy-week.js` — Safety net: folds a stray `data/week.json` into `data/weeks/`.
 - `scripts/migrate-weeks.js` — The one-time migration. Already run; kept for reference.
 - `.github/workflows/sync-to-firebase.yml` — Triggers on push to `data/weeks/**`.
@@ -149,6 +156,50 @@ ingredients, steps, tip). On **Save** (`saveNewRecipe` in `recipe-card.js`) it d
 
 New recipes get an `id` that is a slug of the name, with a numeric suffix on collision. This is the
 only place outside Agent X that writes `data/recipes.json`.
+
+### Importing a recipe from a link
+
+The add form carries a **paste-a-link bar** at the top. Paste a recipe URL, tap Import, and the
+fields below fill in — name, ingredients, steps, time, servings, a guessed emoji and tags, and the
+page's photo as the cover. **It only ever prefills the form.** Nothing is written until Kyle taps
+Save, so a scrape that comes back slightly wrong is something to tidy, not something to undo.
+
+There is no AI involved and it costs nothing per import. Recipe sites publish a machine-readable
+`schema.org/Recipe` block so Google can show them as a rich result, and that block is precisely the
+ingredients, steps, time, servings and photo we want. `recipe-import.js` has four readers, tried in
+order: **JSON-LD** (what most sites publish), **microdata**, **WP Recipe Maker** and **Tasty
+Recipes** (the two WordPress plugins behind a huge slice of food blogs).
+
+**Why there's a Vercel deployment.** The Kitchen is static, so a browser can't fetch another site's
+HTML directly, and the free public CORS relays are refused by most recipe sites. `recipe-fetcher/`
+is a single serverless function that fetches the page like a browser and hands the HTML back. It
+knows nothing about recipes — all parsing stays in `recipe-import.js`, so there is only one parser.
+Its URL is the `ENDPOINT` constant at the top of `recipe-import.js`.
+
+If it's ever down the import still works, just less often: `recipe-import.js` falls through to
+public relays and then offers a **paste-the-recipe-text** box, which parses ingredients and steps
+out of whatever Kyle copies. That box is also the answer for sites that block us — the Dotdash
+Meredith family (**Allrecipes, Serious Eats, Simply Recipes**) and **Food Network** refuse
+datacenter traffic outright and can't be imported by link.
+
+Imported recipes keep a `source` field — the page they came from — shown as a small link under the
+tags. `toCoreRecipe` carries it into `data/recipes.json`.
+
+**Guessing rules worth knowing** (in `recipe-import.js`, tested in `scripts/test-recipe-import.js`):
+- Tags are guessed from the **name** first, then a deliberately narrow pass over ingredients and
+  method. Ingredients are good evidence of *cuisine* (soy sauce, kalamata) and bad evidence of
+  *dish* — "soy sauce" is not a Sauce, "2 eggs" is not Eggs, "chili powder" is not Chili. Only
+  Pasta and Noodles are read from an ingredient list.
+- Equipment is weight-of-evidence, not first-match, so a bolognese that bakes once still reads
+  Stovetop. Appliances (slow cooker, Instant Pot, air fryer) are decisive on a single mention.
+- Where nothing fits, a tag is left off rather than guessed — a wrong tag fragments the filter panel.
+
+**Sharing a link into the app.** `recipes.html` opens straight into an import when given
+`?import=<url>` (it also accepts the `?url=`/`?text=` a share sheet sends). The manifest declares a
+`share_target`, which works on Android and desktop Chrome — **iOS Safari does not implement Web
+Share Target** ([WebKit #194593](https://bugs.webkit.org/show_bug.cgi?id=194593)), so on Kyle's
+iPhone the share sheet route is an iOS Shortcut that opens
+`https://kylescollin.github.io/x-meals/recipes.html?import=<shared url>`.
 
 ## Photos & the Cook Log
 

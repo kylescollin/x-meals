@@ -1,0 +1,7 @@
+{
+  "name": "fox-bear-recipe-fetcher",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Fetches a recipe page's HTML for Fox & Bear Kitchen's recipe import."
+}

@@ -618,6 +618,22 @@
       '.rc-rd-input{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:"DM Sans",sans-serif;font-size:16px;font-weight:300;color:var(--ink);background:white;-webkit-appearance:none;appearance:none;outline:none;transition:border-color .15s;}',
       '.rc-rd-input:focus{border-color:var(--accent);}',
       'textarea.rc-rd-input{resize:vertical;line-height:1.6;}',
+      // Import-from-a-link panel (add form only)
+      '.rc-rd-import{display:flex;flex-direction:column;gap:9px;padding:14px;border:1px solid var(--border);border-radius:10px;background:#fff;}',
+      '.rc-rd-import-row{display:flex;gap:8px;align-items:stretch;}',
+      '.rc-rd-import-row .rc-rd-input{flex:1 1 auto;min-width:0;}',
+      '.rc-rd-import-go{flex:none;border:none;border-radius:8px;background:var(--accent);color:#fff;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;padding:0 18px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .15s,transform .1s;}',
+      '.rc-rd-import-go:active{transform:scale(.96);}',
+      '.rc-rd-import-go[disabled]{opacity:.45;}',
+      '.rc-rd-import-status{font-size:13px;line-height:1.5;color:var(--muted);}',
+      '.rc-rd-import-status.is-error{color:#a8401c;}',
+      '.rc-rd-import-status.is-ok{color:#3f7350;}',
+      '.rc-rd-import-link{align-self:flex-start;background:none;border:none;padding:0;color:var(--accent);font-family:"DM Sans",sans-serif;font-size:13px;text-decoration:underline;cursor:pointer;-webkit-tap-highlight-color:transparent;}',
+      '.rc-rd-import-thumb{width:100%;height:130px;object-fit:cover;border-radius:8px;display:block;}',
+      '.rc-rd-import-or{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;}',
+      '.rc-rd-import-or::before,.rc-rd-import-or::after{content:"";flex:1 1 auto;height:1px;background:var(--border);}',
+      '.rc-rd-source{margin-top:18px;font-size:12px;color:var(--muted);}',
+      '.rc-rd-source a{color:var(--accent);}',
       '.rc-rd-emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:8px;}',
       '.rc-rd-emoji-tile{font-size:22px;line-height:1;height:44px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;transition:border-color .12s,background .12s,transform .1s;}',
       '.rc-rd-emoji-tile:active{transform:scale(.92);}',
@@ -794,6 +810,7 @@
               '<div class="rc-rd-section-title">Tags</div>',
               '<div class="rc-rd-tag-row" id="rc-rd-tag-row"></div>',
             '</div>',
+            '<div class="rc-rd-source" id="rc-rd-source" style="display:none"></div>',
             '<div class="rc-cm-section">',
               '<div class="rc-cm-heading">Notes</div>',
               '<div class="rc-cm-list" id="rc-cm-list">',
@@ -955,6 +972,25 @@
     var noteEl = document.getElementById('rc-rd-note');
     if (recipe.note) { noteEl.textContent = recipe.note; noteEl.style.display = ''; }
     else             { noteEl.style.display = 'none'; }
+
+    // Imported recipes keep a link back to where they came from — useful when
+    // the scrape missed a detail and you want to see the original.
+    var srcEl = document.getElementById('rc-rd-source');
+    if (srcEl) {
+      var url = /^https?:\/\//i.test(recipe.source || '') ? recipe.source : '';
+      if (url) {
+        srcEl.innerHTML = 'From <a href="' + escAttr(url) + '" target="_blank" rel="noopener noreferrer">' +
+                          escHtml(sourceHost(url)) + '</a>';
+        srcEl.style.display = '';
+      } else {
+        srcEl.style.display = 'none';
+      }
+    }
+  }
+
+  function sourceHost(url) {
+    try { return new URL(url).hostname.replace(/^www\./, ''); }
+    catch (e) { return 'the original recipe'; }
   }
 
   function openDetail(r, weekOf) {
@@ -1694,22 +1730,155 @@
     });
   }
 
+  // ── Import from a link ──────────────────────────────────────────────────
+  // Only ever fills the form in. Nothing is saved until Kyle taps Save, so a
+  // scrape that comes back a bit wrong is a thing to tidy up, not a thing to
+  // undo. See recipe-import.js for the parsing.
+
+  var pendingCover  = '';   // photo scraped from the page, applied on save
+  var pendingSource = '';   // the page it came from, kept on the recipe
+
+  function importPanelHTML(prefill) {
+    return '<div class="rc-rd-import" id="rc-rd-import">' +
+        '<label class="rc-rd-field-label" for="rc-rd-import-url">Import from a link</label>' +
+        '<div class="rc-rd-import-row">' +
+          '<input class="rc-rd-input" id="rc-rd-import-url" type="url" inputmode="url" ' +
+            'autocapitalize="off" autocorrect="off" spellcheck="false" ' +
+            'placeholder="https://…" value="' + escAttr(prefill || '') + '">' +
+          '<button type="button" class="rc-rd-import-go" id="rc-rd-import-go">Import</button>' +
+        '</div>' +
+        '<div class="rc-rd-import-status" id="rc-rd-import-status"></div>' +
+      '</div>' +
+      '<div class="rc-rd-import-or"><span>or fill it in below</span></div>';
+  }
+
+  function importStatus(message, kind, extraHTML) {
+    var el = document.getElementById('rc-rd-import-status');
+    if (!el) return;
+    el.className = 'rc-rd-import-status' + (kind ? ' is-' + kind : '');
+    el.innerHTML = escHtml(message) + (extraHTML || '');
+  }
+
+  function importBusy(busy) {
+    var btn = document.getElementById('rc-rd-import-go');
+    var input = document.getElementById('rc-rd-import-url');
+    if (btn)   { btn.disabled = busy; btn.textContent = busy ? 'Reading…' : 'Import'; }
+    if (input) input.disabled = busy;
+  }
+
+  // Swap the fields out from under the import panel, leaving the panel itself
+  // (and whatever it's saying) in place.
+  function refillFormFields(values) {
+    var fields = document.getElementById('rc-rd-form-fields');
+    if (!fields) return;
+    fields.innerHTML = buildRecipeFormHTML(values, true, true);
+    wireEmojiPicker(fields);
+    wireTagPicker(fields);
+  }
+
+  function hostOf(url) {
+    try { return new URL(url).hostname.replace(/^www\./, ''); }
+    catch (e) { return 'that page'; }
+  }
+
+  function applyImported(recipe, url) {
+    refillFormFields(recipe);
+    pendingCover  = recipe.image || '';
+    pendingSource = recipe.source || url || '';
+
+    var thumb = pendingCover
+      ? '<img class="rc-rd-import-thumb" alt="" style="margin-top:9px" src="' + escAttr(pendingCover) + '" ' +
+        'onerror="this.remove()">'
+      : '';
+    importStatus('Filled in from ' + hostOf(url) + '. Check it over, then tap Save.', 'ok', thumb);
+  }
+
+  // The fallback when a page can't be read: paste the recipe in as text.
+  function showPasteFallback() {
+    var panel = document.getElementById('rc-rd-import');
+    if (!panel || document.getElementById('rc-rd-import-text')) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'rc-rd-field';
+    wrap.innerHTML =
+      '<label class="rc-rd-field-label" for="rc-rd-import-text">Paste the recipe text</label>' +
+      '<textarea class="rc-rd-input" id="rc-rd-import-text" rows="8" ' +
+        'placeholder="Copy the whole recipe from the page and paste it here — ingredients and steps together is fine."></textarea>' +
+      '<button type="button" class="rc-rd-import-go" id="rc-rd-import-text-go" style="margin-top:9px;height:40px">Use this text</button>';
+    panel.appendChild(wrap);
+    document.getElementById('rc-rd-import-text').focus();
+
+    document.getElementById('rc-rd-import-text-go').addEventListener('click', function () {
+      var text = document.getElementById('rc-rd-import-text').value;
+      var result = window.RecipeImport.fromText(text);
+      if (!result.ok) { importStatus(result.reason + '. Try including the ingredient list.', 'error'); return; }
+      wrap.remove();
+      refillFormFields(result.recipe);
+      pendingCover = '';
+      pendingSource = document.getElementById('rc-rd-import-url').value.trim();
+      importStatus('Filled in from what you pasted. Check it over, then tap Save.', 'ok');
+    });
+  }
+
+  function runImport() {
+    var input = document.getElementById('rc-rd-import-url');
+    if (!input) return;
+    var url = input.value.trim();
+    if (!url) { input.focus(); return; }
+    if (!window.RecipeImport) { importStatus('Import isn’t available right now.', 'error'); return; }
+
+    importBusy(true);
+    importStatus('Reading the page…');
+
+    window.RecipeImport.fromUrl(url).then(function (result) {
+      importBusy(false);
+      if (result.ok) { applyImported(result.recipe, url); return; }
+      importStatus('Couldn’t read that page — ' + result.reason + '.', 'error',
+        '<br><button type="button" class="rc-rd-import-link" id="rc-rd-import-paste">' +
+        'Paste the recipe text instead</button>');
+      var paste = document.getElementById('rc-rd-import-paste');
+      if (paste) paste.addEventListener('click', showPasteFallback);
+    }).catch(function () {
+      importBusy(false);
+      importStatus('Something went wrong reading that page.', 'error',
+        '<br><button type="button" class="rc-rd-import-link" id="rc-rd-import-paste">' +
+        'Paste the recipe text instead</button>');
+      var paste2 = document.getElementById('rc-rd-import-paste');
+      if (paste2) paste2.addEventListener('click', showPasteFallback);
+    });
+  }
+
+  function wireImportPanel(form) {
+    var btn = form.querySelector('#rc-rd-import-go');
+    if (btn) btn.addEventListener('click', runImport);
+    var input = form.querySelector('#rc-rd-import-url');
+    if (input) input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); this.blur(); runImport(); }
+    });
+  }
+
   // Build + inject the recipe form (with emoji + tags) into the detail body
-  // and wire the emoji + tag pickers. Shared by Add and Edit.
-  function mountRecipeForm(values) {
+  // and wire the emoji + tag pickers. Shared by Add and Edit — `importUrl` is
+  // add-only (pass a string, even an empty one, to get the import panel).
+  function mountRecipeForm(values, importUrl) {
     var existing = document.getElementById('rc-rd-edit-form');
     if (existing) existing.remove();
 
     var form = document.createElement('div');
     form.id = 'rc-rd-edit-form';
     form.className = 'rc-rd-edit-form';
-    form.innerHTML = buildRecipeFormHTML(values, true, true);
+    form.innerHTML =
+      (typeof importUrl === 'string' ? importPanelHTML(importUrl) : '') +
+      '<div id="rc-rd-form-fields" class="rc-rd-edit-form" style="padding:0;gap:20px">' +
+        buildRecipeFormHTML(values, true, true) +
+      '</div>';
 
     var body = document.querySelector('.rc-rd-body');
     body.appendChild(form);
     body.scrollTop = 0;
     wireEmojiPicker(form);
     wireTagPicker(form);
+    if (typeof importUrl === 'string') wireImportPanel(form);
     return form;
   }
 
@@ -1759,10 +1928,14 @@
   }
 
   // ── Add new recipe ──────────────────────────────────────────────────────
-  function openAddForm() {
+  // `prefillUrl` comes from a shared link (see recipes.html): the URL is filled
+  // in and imported straight away, so a share lands on a finished form.
+  function openAddForm(prefillUrl) {
     inAddMode = true;
     curR = null;
     currentRecipeId = null;
+    pendingCover = '';
+    pendingSource = '';
 
     setViewChrome(false);
     document.getElementById('rc-rd-inner').style.display = 'none';
@@ -1770,18 +1943,25 @@
     editBar.style.display = '';
     editBar.querySelector('.rc-rd-edit-bar-title').textContent = 'New Recipe';
 
-    mountRecipeForm({});
+    mountRecipeForm({}, prefillUrl || '');
 
     document.getElementById('rc-rd-backdrop').classList.add('open');
     rdEl.classList.add('open');
     rdEl.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-    var nameInput = document.getElementById('rc-rd-ef-name');
-    if (nameInput) nameInput.focus();
+
+    if (prefillUrl) {
+      runImport();
+    } else {
+      var nameInput = document.getElementById('rc-rd-ef-name');
+      if (nameInput) nameInput.focus();
+    }
   }
 
   function exitAddMode() {
     inAddMode = false;
+    pendingCover = '';
+    pendingSource = '';
     setViewChrome(true);
     document.getElementById('rc-rd-inner').style.display = '';
     document.getElementById('rc-rd-edit-bar').style.display = 'none';
@@ -1850,6 +2030,7 @@
       steps:       r.steps || []
     };
     if (r.note) core.note = r.note;
+    if (r.source) core.source = r.source;   // the page an imported recipe came from
     return core;
   }
 
@@ -1876,11 +2057,17 @@
       steps:       f.steps
     };
     if (f.note) recipe.note = f.note;
+    if (pendingSource) recipe.source = pendingSource;
 
     // Persist to Firebase + insert the card via the existing save flow.
     // (Instant, syncs between accounts, and is the safe fallback if the
     // git commit below fails.)
     toggleSave(id, recipe);
+
+    // The photo scraped from the imported page becomes the cover, through the
+    // same path as pasting an image URL by hand. Best-effort — a recipe with no
+    // cover is just a recipe waiting for its first cook-log photo.
+    if (pendingCover) savePhoto(pendingCover, fbSafeKey(id));
 
     exitAddMode();
     closeDetail();
