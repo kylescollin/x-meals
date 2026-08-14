@@ -88,6 +88,17 @@
   var currentUserEmail = null;  // set in init() via options.userEmail
   var currentRecipeId  = null;  // safe key of the open recipe, for comment ops
 
+  // You can only delete what you wrote. Notes and photos both stamp who made
+  // them — a note as `email`, a photo as `by`. Anything written before those
+  // fields existed carries only the display name, so fall back to matching that.
+  function isMine(entry) {
+    if (!entry) return false;
+    var email = entry.email || entry.by || '';
+    if (email) return !!currentUserEmail && email === currentUserEmail;
+    var me = AUTHOR_MAP[currentUserEmail || ''] || '';
+    return !!me && !!entry.author && entry.author === me;
+  }
+
   // ── Week context ────────────────────────────────────────────────────────
   // A note or photo is stamped with the week it was logged against, which is how
   // the Journal knows what to show under each week. Pages set a default via
@@ -680,10 +691,13 @@
       '.rc-cm-tray-item img{width:100%;height:100%;object-fit:cover;display:block;}',
       '.rc-cm-tray-x{position:absolute;top:3px;right:3px;width:19px;height:19px;border-radius:50%;border:none;background:rgba(20,19,17,.62);color:#fff;font-size:12px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;padding:0;}',
       '.rc-cm-tray-item.busy{opacity:.5;}',
-      // Photos attached to a posted note
-      '.rc-cm-photos{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;}',
-      '.rc-cm-photo{width:64px;height:64px;border-radius:8px;overflow:hidden;background:#efe9e0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s;}',
-      '.rc-cm-photo:active{transform:scale(.95);}',
+      // Photos attached to a posted note. A lone photo fills the width of the
+      // card as a landscape crop; two or more sit two-per-row as squares.
+      '.rc-cm-photos{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;}',
+      '.rc-cm-photos.one{grid-template-columns:1fr;}',
+      '.rc-cm-photo{aspect-ratio:1/1;border-radius:8px;overflow:hidden;background:#efe9e0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s;}',
+      '.rc-cm-photos.one .rc-cm-photo{aspect-ratio:3/2;}',
+      '.rc-cm-photo:active{transform:scale(.98);}',
       '.rc-cm-photo img{width:100%;height:100%;object-fit:cover;display:block;}',
 
       // Activity counts on cards
@@ -692,24 +706,14 @@
       '.rc-act-bit{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--muted);font-weight:400;}',
       '.rc-act-bit svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}',
 
-      // Journal: the expanded half of a card — that week\'s photos and notes
+      // Journal: the expanded half of a card — that week\'s notes, each with its
+      // own photos. Read-only; notes are written from the recipe detail view.
       '.rc-act-block{margin:-4px 0 4px;padding:0 4px 0 16px;border-left:2px solid var(--border);display:flex;flex-direction:column;gap:10px;}',
-      '.rc-act-body{display:none;flex-direction:column;gap:10px;}',
+      '.rc-act-body{display:none;flex-direction:column;gap:14px;}',
       '.rc-act-body.on{display:flex;}',
-      '.rc-act-photos{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px;scrollbar-width:none;}',
-      '.rc-act-photos::-webkit-scrollbar{display:none;}',
-      '.rc-act-photo{flex:0 0 auto;width:92px;height:92px;border-radius:10px;overflow:hidden;background:#efe9e0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s;}',
-      '.rc-act-photo:active{transform:scale(.96);}',
-      '.rc-act-photo img{width:100%;height:100%;object-fit:cover;display:block;}',
+      '.rc-act-note{display:flex;flex-direction:column;}',
       '.rc-act-note-who{font-size:11px;color:var(--muted);margin-bottom:3px;}',
       '.rc-act-note-text{font-size:13px;color:var(--ink);line-height:1.55;white-space:pre-wrap;font-weight:300;}',
-      '.rc-act-add{display:flex;align-items:center;gap:7px;background:none;border:none;padding:2px 0;font-family:"DM Sans",sans-serif;font-size:12px;color:var(--muted);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .15s;align-self:flex-start;}',
-      '.rc-act-add:hover{color:var(--accent);}',
-      '.rc-act-add svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}',
-      '.rc-act-block.composing .rc-act-add{display:none;}',
-      '.rc-act-composer{display:none;flex-direction:column;gap:8px;}',
-      '.rc-act-block.composing .rc-act-composer{display:flex;}',
-      '.rc-act-cancel{background:none;border:none;font-family:"DM Sans",sans-serif;font-size:13px;color:var(--muted);cursor:pointer;-webkit-tap-highlight-color:transparent;padding:9px 4px;}',
 
       // Cooking mode
       '#rc-ck-overlay{position:fixed;inset:0;background:var(--ck-bg);z-index:9999;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;padding-bottom:env(safe-area-inset-bottom,0px);}',
@@ -1449,6 +1453,13 @@
   function openGalMenu() {
     var m = document.getElementById('rc-gal-menu');
     if (!m || !galKeys.length) return;
+    // Only the person who took a photo can delete it. Ownership comes from the
+    // note the photo hangs off — the same in-memory lookup the caption uses, so
+    // this costs no fetch. A photo with no note left (orphaned by a failed write)
+    // stays deletable, otherwise nobody could ever clear it.
+    var owner = noteForPhoto(galSafeId, galKeys[galIdx]);
+    var delBtn = document.getElementById('rc-gal-delete');
+    if (delBtn) delBtn.style.display = (owner && !isMine(owner)) ? 'none' : '';
     m.classList.add('open');
     m.setAttribute('aria-hidden', 'false');
   }
@@ -1477,6 +1488,8 @@
   function deleteGalPhoto() {
     var key = galKeys[galIdx];
     if (!key || !galSafeId) return;
+    var owner = noteForPhoto(galSafeId, key);
+    if (owner && !isMine(owner)) return;   // not yours to delete
     closeGalMenu();
     if (!confirm('Delete this photo? This can’t be undone.')) return;
     var safeId = galSafeId;
@@ -2147,22 +2160,32 @@
     return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   }
 
-  // A row of photo thumbnails belonging to one note. Thumbs load lazily and tap
-  // through to the gallery viewer, positioned on the photo that was tapped.
-  function renderNotePhotos(safeId, note, recipe) {
+  // The photos belonging to one note. A lone photo fills the width; two or more
+  // sit two-per-row. Tapping one opens the gallery viewer on that photo.
+  // opts.weekOf scopes the gallery to a week (the Journal passes each week's own
+  // key); opts.lazy defers the thumb fetch until the cell scrolls into view,
+  // which is what keeps a long Journal from fetching every photo at once.
+  function renderNotePhotos(safeId, note, recipe, opts) {
     if (!note.photos.length) return null;
+    opts = opts || {};
     var row = document.createElement('div');
-    row.className = 'rc-cm-photos';
+    row.className = 'rc-cm-photos' + (note.photos.length === 1 ? ' one' : '');
     note.photos.forEach(function (photoKey) {
       var cell = document.createElement('div');
       cell.className = 'rc-cm-photo';
       row.appendChild(cell);
-      loadGalleryThumb(safeId, photoKey).then(function (src) {
-        if (src) cell.innerHTML = '<img src="' + escAttr(src) + '" alt="">';
-      });
+      if (opts.lazy) {
+        lazyGalleryCell(cell, safeId, photoKey);
+      } else {
+        loadGalleryThumb(safeId, photoKey).then(function (src) {
+          if (src) cell.innerHTML = '<img src="' + escAttr(src) + '" alt="">';
+        });
+      }
       cell.addEventListener('click', function (e) {
         e.stopPropagation();
-        openGallery(recipe || curR, { safeId: safeId, startKey: photoKey });
+        openGallery(recipe || curR, {
+          safeId: safeId, startKey: photoKey, weekOf: opts.weekOf
+        });
       });
     });
     return row;
@@ -2173,18 +2196,22 @@
     item.className = 'rc-cm-item';
     item.dataset.key = note.key;
     var trashSvg = '<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>';
+    // Only the person who wrote a note gets the trash icon on it.
+    var mine = isMine(note);
     item.innerHTML =
       '<div class="rc-cm-item-header">' +
         '<span class="rc-cm-author">' + escHtml(note.author || 'Unknown') + '</span>' +
         '<span class="rc-cm-ts">' + relativeTime(note.ts) + '</span>' +
-        '<button class="rc-cm-del" aria-label="Delete note">' + trashSvg + '</button>' +
+        (mine ? '<button class="rc-cm-del" aria-label="Delete note">' + trashSvg + '</button>' : '') +
       '</div>' +
       (note.text ? '<div class="rc-cm-text">' + escHtml(note.text) + '</div>' : '');
     var photos = renderNotePhotos(safeId, note, recipe);
     if (photos) item.appendChild(photos);
-    item.querySelector('.rc-cm-del').addEventListener('click', function () {
-      deleteComment(safeId, note.key, item);
-    });
+    if (mine) {
+      item.querySelector('.rc-cm-del').addEventListener('click', function () {
+        deleteComment(safeId, note.key, item);
+      });
+    }
     return item;
   }
 
@@ -2294,6 +2321,7 @@
   // Deleting a note takes its photos with it — they only exist as part of it.
   function deleteComment(safeId, key, itemEl) {
     var note = findNote(safeId, key);
+    if (note && !isMine(note)) return;   // not yours to delete
     var photoCount = note ? note.photos.length : 0;
     if (photoCount && !confirm(
       'Delete this note and its ' + photoCount + ' photo' + (photoCount === 1 ? '' : 's') + '?')) return;
@@ -2404,10 +2432,15 @@
     el.classList.toggle('on', html !== '');
   }
 
-  // Repaint every rendered card for a recipe after a note is added or removed.
+  // Called whenever a recipe's notes or photos change. Repaints the card badges
+  // and any Journal block for the same recipe — the Journal has no composer of
+  // its own any more, so a note posted from the detail view on top of it has to
+  // land in the block underneath.
   function refreshActivityCounts(safeId) {
     document.querySelectorAll('.rc-act[data-act-id="' + escAttr(safeId) + '"]')
       .forEach(function (el) { paintActivityBadge(el, safeId); });
+    document.querySelectorAll('.rc-act-block[data-act-block-id="' + escAttr(safeId) + '"]')
+      .forEach(function (el) { if (typeof el._repaint === 'function') el._repaint(); });
   }
 
   function refreshAllActivityCounts() {
@@ -2426,8 +2459,9 @@
   }
 
   // ── Journal activity block ──────────────────────────────────────────────
-  // The expanded half of a Journal card: that week's photos and notes for one
-  // meal, plus a composer so a meal can still be logged days after cooking it.
+  // The expanded half of a Journal card: that week's notes for one meal, each
+  // with its own photos. Read-only — notes are written from the recipe detail
+  // view, which stamps them with this card's week.
   function makeActivity(recipe, weekOf) {
     var safeId = fbSafeKey(idOf(recipe));
     var wrap = document.createElement('div');
@@ -2439,157 +2473,31 @@
     body.className = 'rc-act-body';
     wrap.appendChild(body);
 
-    var addRow = document.createElement('button');
-    addRow.className = 'rc-act-add';
-    addRow.type = 'button';
-    addRow.innerHTML = CAMERA_ICON + '<span>Add a note or photo</span>';
-    wrap.appendChild(addRow);
-
-    var composer = document.createElement('div');
-    composer.className = 'rc-act-composer';
-    composer.innerHTML =
-      '<textarea class="rc-cm-textarea rc-act-text" placeholder="How did it turn out?" rows="2"></textarea>' +
-      '<div class="rc-cm-tray rc-act-tray"></div>' +
-      '<div class="rc-cm-compose-footer">' +
-        '<button class="rc-cm-camera rc-act-cam" type="button" aria-label="Add a photo">' + CAMERA_ICON + '</button>' +
-        '<span class="rc-cm-status rc-act-status"></span>' +
-        '<button class="rc-act-cancel" type="button">Cancel</button>' +
-        '<button class="rc-cm-post-btn rc-act-post" type="button" disabled>Post</button>' +
-      '</div>';
-    wrap.appendChild(composer);
-
-    // Each block owns its own file input and staged-photo list, so two open
-    // composers in the Journal can't clobber each other.
-    var fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = 'image/*';
-    fileInput.multiple = true;
-    fileInput.style.display = 'none';
-    wrap.appendChild(fileInput);
-
-    var staged = [];
-    var textEl   = composer.querySelector('.rc-act-text');
-    var trayEl   = composer.querySelector('.rc-act-tray');
-    var statusEl = composer.querySelector('.rc-act-status');
-    var postBtn  = composer.querySelector('.rc-act-post');
-    var camBtn   = composer.querySelector('.rc-act-cam');
-
-    function syncPost() {
-      postBtn.disabled = !textEl.value.trim() && !staged.length;
-    }
-
-    function paintTray() {
-      trayEl.innerHTML = '';
-      trayEl.classList.toggle('on', staged.length > 0);
-      staged.forEach(function (p, i) {
-        var cell = document.createElement('div');
-        cell.className = 'rc-cm-tray-item';
-        cell.innerHTML = '<img src="' + escAttr(p.thumb) + '" alt="">' +
-                         '<button class="rc-cm-tray-x" type="button" aria-label="Remove photo">✕</button>';
-        cell.querySelector('.rc-cm-tray-x').addEventListener('click', function () {
-          staged.splice(i, 1);
-          paintTray();
-          syncPost();
-        });
-        trayEl.appendChild(cell);
-      });
-      syncPost();
-    }
-
     function paintBody() {
       var notes = notesFor(safeId, weekOf);
       body.innerHTML = '';
       body.classList.toggle('on', notes.length > 0);
+      // The block is nothing but a left border when it's empty, so hide it
+      // whole rather than leaving a stray rule beside a meal nobody logged.
+      wrap.style.display = notes.length ? '' : 'none';
       if (!notes.length) return;
 
-      // Photos first as a scrollable strip, then the written notes beneath.
-      var allPhotos = [];
+      // Each note reads as who and when, what they wrote, then their photos.
       notes.forEach(function (n) {
-        n.photos.forEach(function (p) { allPhotos.push(p); });
-      });
-      if (allPhotos.length) {
-        var strip = document.createElement('div');
-        strip.className = 'rc-act-photos';
-        allPhotos.forEach(function (photoKey) {
-          var cell = document.createElement('div');
-          cell.className = 'rc-act-photo';
-          strip.appendChild(cell);
-          lazyGalleryCell(cell, safeId, photoKey);
-          cell.addEventListener('click', function () {
-            openGallery(recipe, { safeId: safeId, startKey: photoKey, weekOf: weekOf });
-          });
-        });
-        body.appendChild(strip);
-      }
-
-      notes.filter(function (n) { return n.text; }).forEach(function (n) {
         var row = document.createElement('div');
         row.className = 'rc-act-note';
         row.innerHTML =
           '<div class="rc-act-note-who">' + escHtml(n.author) + ' · ' +
             escHtml(new Date(n.ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })) + '</div>' +
-          '<div class="rc-act-note-text">' + escHtml(n.text) + '</div>';
+          (n.text ? '<div class="rc-act-note-text">' + escHtml(n.text) + '</div>' : '');
+        var photos = renderNotePhotos(safeId, n, recipe, { weekOf: weekOf, lazy: true });
+        if (photos) row.appendChild(photos);
         body.appendChild(row);
       });
     }
 
-    addRow.addEventListener('click', function () {
-      wrap.classList.add('composing');
-      textEl.focus();
-    });
-    composer.querySelector('.rc-act-cancel').addEventListener('click', function () {
-      wrap.classList.remove('composing');
-      textEl.value = '';
-      staged = [];
-      paintTray();
-      statusEl.textContent = '';
-    });
-    camBtn.addEventListener('click', function () {
-      fileInput.value = '';
-      fileInput.click();
-    });
-    fileInput.addEventListener('change', function () {
-      var list = Array.prototype.slice.call(fileInput.files || []);
-      if (!list.length) return;
-      statusEl.textContent = 'Preparing ' + list.length + ' photo' + (list.length === 1 ? '' : 's') + '…';
-      list.reduce(function (chain, file) {
-        return chain.then(function () {
-          return prepareCookPhoto(file).then(function (photo) {
-            if (photo) staged.push(photo);
-          });
-        });
-      }, Promise.resolve()).then(function () {
-        statusEl.textContent = '';
-        paintTray();
-      });
-    });
-    textEl.addEventListener('input', syncPost);
-    postBtn.addEventListener('click', function () {
-      if (postBtn.disabled) return;
-      postBtn.disabled = true;
-      camBtn.disabled = true;
-      statusEl.textContent = staged.length ? 'Saving photos…' : 'Posting…';
-      postNote(safeId, { text: textEl.value, photos: staged, weekOf: weekOf })
-        .then(function () {
-          textEl.value = '';
-          staged = [];
-          paintTray();
-          statusEl.textContent = '';
-          wrap.classList.remove('composing');
-          paintBody();
-        })
-        .catch(function () {
-          statusEl.textContent = 'Couldn’t save — try again';
-        })
-        .finally(function () {
-          camBtn.disabled = false;
-          syncPost();
-        });
-    });
-
     wrap._repaint = paintBody;
     paintBody();
-    paintTray();
     return wrap;
   }
 
@@ -2907,8 +2815,9 @@
 
     /**
      * makeActivity(recipe, weekOf)
-     * The Journal's expanded card half: that week's photos and notes for one
-     * meal, plus an inline composer. Returns a DOM element.
+     * The Journal's expanded card half: that week's notes for one meal, each
+     * with its own photos. Read-only, and hidden entirely when there are no
+     * notes. Returns a DOM element.
      */
     makeActivity: makeActivity,
 
