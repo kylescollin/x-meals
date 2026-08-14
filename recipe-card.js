@@ -51,6 +51,48 @@
   });
   function familyOf(tag) { return TAG_FAMILY[tag] || 'custom'; }
 
+  // A tag typed into either dropdown in the edit form joins the vocabulary.
+  // Which family it belongs to is the one thing the tag itself can't tell us,
+  // so it's kept at /config/tagVocab/<family> — a map rather than a list, so
+  // adding one is a single-key PATCH. Merged in at init, which is what puts a
+  // new tag in the right dropdown next time and under the right heading in the
+  // Recipes filter panel instead of in "Your tags".
+  function mergeTagVocab(famKey, tags) {
+    var fam = TAG_FAMILIES.filter(function (f) { return f.key === famKey; })[0];
+    if (!fam) return;
+    tags.forEach(function (t) {
+      if (!t || fam.tags.indexOf(t) !== -1) return;
+      fam.tags.push(t);
+      TAG_FAMILY[t] = famKey;
+    });
+  }
+
+  function loadTagVocab(done) {
+    authedFetch(FB_BASE + '/config/tagVocab.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data || typeof data !== 'object' || data.error) return;
+        Object.keys(data).forEach(function (famKey) {
+          var m = data[famKey];
+          if (!m || typeof m !== 'object') return;
+          mergeTagVocab(famKey, Object.keys(m).map(function (k) { return m[k]; }));
+        });
+      })
+      .catch(function () { /* the built-in vocabulary still works */ })
+      .then(function () { if (done) done(); });
+  }
+
+  // Failing to record a new tag costs nothing that matters: it still saves on
+  // the recipe, it just isn't offered next time. So this never interrupts.
+  function rememberTag(famKey, tag) {
+    mergeTagVocab(famKey, [tag]);
+    var body = {};
+    body[tag.replace(/[.#$/[\]]/g, '_')] = tag;
+    authedFetch(FB_BASE + '/config/tagVocab/' + famKey + '.json', {
+      method: 'PATCH', body: JSON.stringify(body)
+    }).catch(function () { /* ignore */ });
+  }
+
   // Sort into dish → cuisine → custom, each family in vocabulary order, so the
   // two tags a card shows are always the two most useful ones.
   function sortTags(tags) {
@@ -202,6 +244,54 @@
   var galleryKeys   = {};   // safeId → [photoKey], newest first
   var galleryThumbs = {};   // safeId + '/' + photoKey → thumb data URL
 
+  // The cover photo lives at /recipe-photos/<safeId>/src — a *sibling* of
+  // `gallery`, not a member of it. The viewer still shows it, always as the
+  // first slide, under this sentinel key. `coverKey` records the gallery photo
+  // a cover was promoted from, so a promoted photo moves to the front instead
+  // of appearing twice.
+  var COVER_KEY  = '__cover';
+  var coverCache = {};      // safeId → cover src or null (absent = not read yet)
+  var coverKeys  = {};      // safeId → the gallery key it was promoted from, or null
+  var coverPend  = {};      // in-flight reads, so the hero and the count pill share one
+
+  // The cover is the biggest single value we read, so never fetch it twice.
+  // loadPhoto drops the cache entry when a recipe opens, which is the one place
+  // it needs to be re-read from Firebase.
+  function loadCover(safeId) {
+    if (coverCache.hasOwnProperty(safeId)) return Promise.resolve(coverCache[safeId]);
+    if (coverPend[safeId]) return coverPend[safeId];
+    coverPend[safeId] = authedFetch(FB_PHOTOS + '/' + safeId + '/src.json')
+      .then(function (r) { return r.json(); })
+      .then(function (src) { coverCache[safeId] = src || null; return coverCache[safeId]; })
+      .catch(function () { return null; })
+      .then(function (src) { delete coverPend[safeId]; return src; });
+    return coverPend[safeId];
+  }
+
+  function loadCoverKey(safeId) {
+    if (coverKeys.hasOwnProperty(safeId)) return Promise.resolve(coverKeys[safeId]);
+    return authedFetch(FB_PHOTOS + '/' + safeId + '/coverKey.json')
+      .then(function (r) { return r.json(); })
+      .then(function (k) { coverKeys[safeId] = k || null; return coverKeys[safeId]; })
+      .catch(function () { return null; });
+  }
+
+  // The gallery as the viewer sees it: the cover first, then every cook-log
+  // photo newest first. `force` re-reads the cook-log keys only — the cover is
+  // refreshed when the recipe opens, and photos coming and going don't touch it.
+  function galleryKeysWithCover(safeId, force) {
+    return Promise.all([
+      loadGalleryKeys(safeId, force), loadCover(safeId), loadCoverKey(safeId)
+    ]).then(function (v) {
+      var keys = v[0].slice(), src = v[1], promoted = v[2];
+      if (!src) return keys;
+      var at = promoted ? keys.indexOf(promoted) : -1;
+      if (at > 0) { keys.splice(at, 1); keys.unshift(promoted); }
+      else if (at === -1) keys.unshift(COVER_KEY);
+      return keys;
+    });
+  }
+
   function galleryUrl(safeId, photoKey, child) {
     return FB_PHOTOS + '/' + safeId + '/gallery' +
            (photoKey ? '/' + photoKey : '') +
@@ -251,7 +341,11 @@
     else fillGalleryCell(cell);
   }
 
+  // The three readers below all answer for COVER_KEY too, so the viewer can
+  // treat the cover as just another slide. There is only one stored copy of the
+  // cover, so its thumb and its full size are the same image.
   function loadGalleryThumb(safeId, photoKey) {
+    if (photoKey === COVER_KEY) return loadCover(safeId);
     var ck = safeId + '/' + photoKey;
     if (galleryThumbs.hasOwnProperty(ck)) return Promise.resolve(galleryThumbs[ck]);
     return authedFetch(galleryUrl(safeId, photoKey, 'thumb'))
@@ -261,6 +355,7 @@
   }
 
   function loadGalleryFull(safeId, photoKey) {
+    if (photoKey === COVER_KEY) return loadCover(safeId);
     return authedFetch(galleryUrl(safeId, photoKey, 'full'))
       .then(function (r) { return r.json(); })
       .then(function (src) { return src || null; })
@@ -269,6 +364,14 @@
 
   // Metadata for one photo, without the two image blobs.
   function loadGalleryMeta(safeId, photoKey) {
+    if (photoKey === COVER_KEY) {
+      return Promise.all([
+        authedFetch(FB_PHOTOS + '/' + safeId + '/by.json').then(function (r) { return r.json(); }),
+        authedFetch(FB_PHOTOS + '/' + safeId + '/at.json').then(function (r) { return r.json(); })
+      ]).then(function (v) {
+        return { author: AUTHOR_MAP[v[0] || ''] || '', at: v[1] || 0, weekOf: '' };
+      }).catch(function () { return { author: '', at: 0, weekOf: '' }; });
+    }
     return Promise.all([
       authedFetch(galleryUrl(safeId, photoKey, 'author')).then(function (r) { return r.json(); }),
       authedFetch(galleryUrl(safeId, photoKey, 'at')).then(function (r) { return r.json(); }),
@@ -508,7 +611,8 @@
       '#rc-rd-overlay{position:fixed;left:0;right:0;bottom:0;top:calc(env(safe-area-inset-top,0px) + 12px);background:var(--cream);z-index:1000;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;border-radius:24px 24px 0 0;}',
       '#rc-rd-overlay.open{transform:translateY(0);}',
       // Floating top buttons (back + more), pinned over the scrolling body
-      '.rc-rd-topbtns{position:absolute;top:0;left:0;right:0;z-index:6;display:flex;justify-content:space-between;align-items:flex-start;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 0;pointer-events:none;}',
+      // No safe-area inset here: #rc-rd-overlay above already sits below it.
+      '.rc-rd-topbtns{position:absolute;top:0;left:0;right:0;z-index:6;display:flex;justify-content:space-between;align-items:flex-start;padding:12px 14px 0;pointer-events:none;}',
       '.rc-rd-topbtns > *{pointer-events:auto;}',
       '.rc-rd-iconbtn{width:38px;height:38px;border-radius:50%;background:rgba(20,19,17,.5);color:#fff;border:none;font-size:19px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .15s,transform .12s;}',
       '.rc-rd-iconbtn:active{transform:scale(.92);background:rgba(20,19,17,.72);}',
@@ -617,7 +721,8 @@
       '.rc-gal-menu.open{display:flex;}',
 
       // Edit mode
-      '.rc-rd-edit-bar{display:flex;align-items:center;justify-content:space-between;padding:calc(16px + env(safe-area-inset-top,0px)) 16px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--cream);}',
+      // Inside #rc-rd-overlay, which is already offset by the safe-area inset.
+      '.rc-rd-edit-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--cream);}',
       '.rc-rd-edit-bar-title{font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;color:var(--muted);}',
       '.rc-rd-cancel-btn{background:none;border:none;color:var(--muted);font-family:"DM Sans",sans-serif;font-size:14px;font-weight:400;padding:8px 4px;cursor:pointer;-webkit-tap-highlight-color:transparent;}',
       '.rc-rd-cancel-btn:active{opacity:.6;}',
@@ -645,17 +750,26 @@
       '.rc-rd-import-or::before,.rc-rd-import-or::after{content:"";flex:1 1 auto;height:1px;background:var(--border);}',
       '.rc-rd-source{margin-top:18px;font-size:12px;color:var(--muted);}',
       '.rc-rd-source a{color:var(--accent);}',
+      // Emoji: a square button on the end of the name row, opening a popover.
+      // Anchored right:0 so it can't spill past the scrolling body's edge.
+      '.rc-rd-namerow{display:flex;gap:8px;align-items:stretch;}',
+      '.rc-rd-namerow .rc-rd-input{flex:1 1 auto;min-width:0;}',
+      '.rc-rd-emoji-wrap{position:relative;flex:none;}',
+      '.rc-rd-emoji-btn{width:46px;height:100%;min-height:44px;border:1px solid var(--border);border-radius:8px;background:#fff;font-size:22px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;transition:border-color .15s,transform .1s;}',
+      '.rc-rd-emoji-btn:active{transform:scale(.94);}',
+      '.rc-rd-emoji-pop{position:absolute;top:calc(100% + 6px);right:0;z-index:8;width:min(300px,calc(100vw - 72px));max-height:230px;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.22);padding:10px;display:none;}',
+      '.rc-rd-emoji-pop.open{display:block;}',
       '.rc-rd-emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:8px;}',
       '.rc-rd-emoji-tile{font-size:22px;line-height:1;height:44px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;transition:border-color .12s,background .12s,transform .1s;}',
       '.rc-rd-emoji-tile:active{transform:scale(.92);}',
       '.rc-rd-emoji-tile.selected{border-color:var(--accent);background:var(--accent-light);}',
-      // Tag picker (add + edit forms)
-      '.rc-rd-tagpick{display:flex;flex-direction:column;gap:14px;}',
-      '.rc-rd-tagfam-label{font-size:11px;color:var(--muted);font-weight:400;margin-bottom:7px;}',
-      '.rc-rd-tagchips{display:flex;flex-wrap:wrap;gap:7px;}',
-      '.rc-rd-tagchip{background:#fff;border:1.5px solid var(--border);border-radius:100px;color:var(--ink);font-family:"DM Sans",sans-serif;font-size:13px;font-weight:400;padding:7px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s,transform .12s;}',
-      '.rc-rd-tagchip:active{transform:scale(.95);}',
-      '.rc-rd-tagchip.selected{border-color:var(--accent);background:var(--accent-light);font-weight:500;}',
+      // Tag picker (add + edit forms): one dropdown per family, side by side.
+      '.rc-rd-tagrow{display:flex;gap:10px;align-items:flex-start;}',
+      '.rc-rd-tagcol{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:6px;}',
+      '.rc-rd-tagfam-label{font-size:11px;color:var(--muted);font-weight:400;}',
+      // .rc-rd-input clears the native appearance, so bring our own chevron.
+      '.rc-rd-select{padding-right:30px;cursor:pointer;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%238a8378\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpath d=\'M6 9l6 6 6-6\'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;background-size:15px 15px;}',
+      '.rc-rd-tagnew[hidden]{display:none;}',
 
       // Comments
       '.rc-cm-section{margin-top:36px;border-top:1px solid var(--border);padding-top:24px;}',
@@ -699,12 +813,6 @@
       '.rc-cm-photos.one .rc-cm-photo{aspect-ratio:3/2;}',
       '.rc-cm-photo:active{transform:scale(.98);}',
       '.rc-cm-photo img{width:100%;height:100%;object-fit:cover;display:block;}',
-
-      // Activity counts on cards
-      '.rc-act{display:none;align-items:center;gap:8px;}',
-      '.rc-act.on{display:flex;}',
-      '.rc-act-bit{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--muted);font-weight:400;}',
-      '.rc-act-bit svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}',
 
       // Journal: the expanded half of a card — that week\'s notes, each with its
       // own photos. Read-only; notes are written from the recipe detail view.
@@ -1074,8 +1182,11 @@
   // cook-log photo stands in so the hero isn't a bare gradient.
   function loadPhoto(safeId) {
     renderHero(null);
-    authedFetch(FB_PHOTOS + '/' + safeId + '/src.json')
-      .then(function (r) { return r.json(); })
+    // Opening a recipe is also when the gallery's cover slide gets its facts
+    // straight, in case the other person changed the cover since page load.
+    delete coverCache[safeId];
+    delete coverKeys[safeId];
+    loadCover(safeId)
       .then(function (src) {
         if (safeId !== currentRecipeId) return;      // recipe changed meanwhile
         if (src) { renderHero(src); return null; }
@@ -1089,26 +1200,45 @@
 
   // PATCH, not PUT: /recipe-photos/<safeId> also holds `gallery`, and a PUT of
   // {src, by, at} would delete every cook-log photo for the recipe.
-  function savePhoto(src, safeIdOverride) {
+  // `fromGalleryKey` is set only when the cover was promoted from a cook-log
+  // photo, so the viewer can move that photo to the front rather than show the
+  // same image twice. Passing nothing clears it (null deletes the child).
+  function savePhoto(src, safeIdOverride, fromGalleryKey) {
     var safeId = safeIdOverride || currentRecipeId;
     if (!safeId || !src) return Promise.resolve();
     if (safeId === currentRecipeId) renderHero(src);   // optimistic
     photoCache[safeId] = src;
+    coverCache[safeId] = src;
+    coverKeys[safeId]  = fromGalleryKey || null;
     applyCoverToCards(safeId, src);
-    var body = JSON.stringify({ src: src, by: currentUserEmail || '', at: Date.now() });
+    var body = JSON.stringify({
+      src: src, by: currentUserEmail || '', at: Date.now(),
+      coverKey: fromGalleryKey || null
+    });
+    refreshHeroCount(safeId);   // the cover is a slide now, so it's in the count
     return authedFetch(FB_PHOTOS + '/' + safeId + '.json', { method: 'PATCH', body: body })
       .then(function (r) { if (!r.ok) throw new Error('save failed'); })
       .catch(function () { alert('Could not save the photo. Please try again.'); });
   }
 
   // Clear only the cover — the cook-log gallery is a separate child and stays.
+  // PATCH with nulls rather than DELETE so `coverKey` goes with it.
   function removePhoto() {
     var safeId = currentRecipeId;
     if (!safeId) return;
     delete photoCache[safeId];
-    authedFetch(FB_PHOTOS + '/' + safeId + '/src.json', { method: 'DELETE' })
+    coverCache[safeId] = null;
+    coverKeys[safeId]  = null;
+    authedFetch(FB_PHOTOS + '/' + safeId + '.json', {
+      method: 'PATCH',
+      body: JSON.stringify({ src: null, coverKey: null })
+    })
       .catch(function () { /* it'll reconcile on next open */ })
-      .then(function () { if (safeId === currentRecipeId) loadPhoto(safeId); });
+      .then(function () {
+        if (safeId !== currentRecipeId) return;
+        loadPhoto(safeId);
+        refreshHeroCount(safeId);
+      });
   }
 
   // Repaint any already-rendered card thumbnails after the cover changes.
@@ -1310,6 +1440,24 @@
     var note = key ? noteForPhoto(galSafeId, key) : null;
     if (posEl) posEl.textContent = galKeys.length ? (galIdx + 1) + ' of ' + galKeys.length : '';
 
+    // The cover isn't a cook-log photo, so there's nothing the ⋯ menu can do to
+    // it — changing the cover is the camera button on the hero.
+    var moreBtn = document.getElementById('rc-gal-more');
+    if (moreBtn) moreBtn.style.visibility = (key === COVER_KEY) ? 'hidden' : '';
+
+    if (key === COVER_KEY) {
+      textEl.textContent = 'Cover photo';
+      whoEl.textContent  = '';
+      loadGalleryMeta(galSafeId, key).then(function (meta) {
+        if (galKeys[galIdx] !== key) return;
+        var who = [];
+        if (meta.author) who.push('Set by ' + meta.author);
+        if (meta.at) who.push(new Date(meta.at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+        whoEl.textContent = who.join(' · ');
+      });
+      return;
+    }
+
     if (note) {
       var bits = [note.author, new Date(note.ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })];
       var wk = weekLabel(note.weekOf);
@@ -1417,7 +1565,7 @@
     el.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    loadGalleryKeys(galSafeId).then(function (keys) {
+    galleryKeysWithCover(galSafeId).then(function (keys) {
       galKeys = keys.slice();
       if (opts.weekOf) {
         var wanted = {};
@@ -1453,6 +1601,7 @@
   function openGalMenu() {
     var m = document.getElementById('rc-gal-menu');
     if (!m || !galKeys.length) return;
+    if (galKeys[galIdx] === COVER_KEY) return;   // nothing here applies to the cover
     // Only the person who took a photo can delete it. Ownership comes from the
     // note the photo hangs off — the same in-memory lookup the caption uses, so
     // this costs no fetch. A photo with no note left (orphaned by a failed write)
@@ -1475,19 +1624,20 @@
   // cook-log photo ever becomes the cover — taking photos never does it.
   function useGalPhotoAsCover() {
     var key = galKeys[galIdx];
-    if (!key || !galSafeId) return;
+    if (!key || key === COVER_KEY || !galSafeId) return;
     closeGalMenu();
     loadGalleryFull(galSafeId, key).then(function (src) {
       if (!src) return loadGalleryThumb(galSafeId, key);
       return src;
     }).then(function (src) {
-      if (src) savePhoto(src, galSafeId);
+      // Passing the key stops the promoted photo showing twice in the viewer.
+      if (src) savePhoto(src, galSafeId, key);
     });
   }
 
   function deleteGalPhoto() {
     var key = galKeys[galIdx];
-    if (!key || !galSafeId) return;
+    if (!key || key === COVER_KEY || !galSafeId) return;
     var owner = noteForPhoto(galSafeId, key);
     if (owner && !isMine(owner)) return;   // not yours to delete
     closeGalMenu();
@@ -1567,7 +1717,9 @@
     var nEl  = document.getElementById('rc-rd-hero-count-n');
     if (!pill || !nEl) return;
     if (safeId && safeId !== currentRecipeId) return;
-    loadGalleryKeys(currentRecipeId, true).then(function (keys) {
+    // Counts what the viewer will actually show, cover included, so the pill
+    // and the "3 of 5" in the gallery bar can never disagree.
+    galleryKeysWithCover(currentRecipeId, true).then(function (keys) {
       if (!currentRecipeId) return;
       nEl.textContent = keys.length;
       pill.classList.toggle('on', keys.length > 0);
@@ -1584,7 +1736,7 @@
     // camera button. With no photos yet, the whole hero is the "add" target.
     hero.addEventListener('click', function (e) {
       if (e.target.closest('#rc-rd-hero-edit')) return;   // handled below
-      loadGalleryKeys(currentRecipeId).then(function (keys) {
+      galleryKeysWithCover(currentRecipeId).then(function (keys) {
         if (keys.length) openGallery(curR, { safeId: currentRecipeId });
         else openPhotoMenu();
       });
@@ -1639,38 +1791,58 @@
     });
   }
 
-  // Tag picker: a row of tappable chips per family, plus a box for tags that
-  // aren't in the vocabulary. Chips are toggles — a recipe can carry more than
-  // one from a family, and the first two (dish, then cuisine) show on its card.
+  // Tag picker: one dropdown per family, side by side. A recipe carries one
+  // dish type and one cuisine, and those two are what its card shows.
+  // The sentinel option below opens a box for a tag that isn't in the list yet.
+  // Underscored so it can never collide with something Kyle would actually type.
+  var TAG_NEW = '__new__';
+
+  // Split a recipe's tags into one per family. A tag in neither family — which
+  // nothing in data/recipes.json currently has — fills the first empty slot so
+  // editing a recipe can never silently drop it.
+  function tagsByFamily(tags) {
+    var picked = {}, spare = [];
+    (tags || []).forEach(function (t) {
+      var fam = familyOf(t);
+      if (fam === 'custom') { spare.push(t); return; }
+      if (!picked[fam]) picked[fam] = t;
+    });
+    TAG_FAMILIES.forEach(function (fam) {
+      if (!picked[fam.key] && spare.length) picked[fam.key] = spare.shift();
+    });
+    return picked;
+  }
+
   function buildTagPickerHTML(tags) {
-    var on = {};
-    (tags || []).forEach(function (t) { on[t] = true; });
-    var families = TAG_FAMILIES.map(function (fam) {
-      var chips = fam.tags.map(function (t) {
-        return '<button type="button" class="rc-rd-tagchip' + (on[t] ? ' selected' : '') +
-               '" data-tag="' + escAttr(t) + '">' + escHtml(t) + '</button>';
-      }).join('');
-      return '<div class="rc-rd-tagfam">' +
+    var picked = tagsByFamily(tags);
+    var cols = TAG_FAMILIES.map(function (fam) {
+      var cur = picked[fam.key] || '';
+      // A tag already on this recipe but not in the vocabulary still needs an
+      // option to sit in, or the dropdown would quietly reset it to nothing.
+      var list = (cur && fam.tags.indexOf(cur) === -1) ? [cur].concat(fam.tags) : fam.tags;
+      var opts = '<option value="">—</option>' + list.map(function (t) {
+        return '<option value="' + escAttr(t) + '"' + (t === cur ? ' selected' : '') + '>' +
+               escHtml(t) + '</option>';
+      }).join('') +
+      '<option value="' + escAttr(TAG_NEW) + '">＋ Add new…</option>';
+      return '<div class="rc-rd-tagcol">' +
                '<div class="rc-rd-tagfam-label">' + escHtml(fam.title) + '</div>' +
-               '<div class="rc-rd-tagchips">' + chips + '</div>' +
+               '<select class="rc-rd-input rc-rd-select" data-fam="' + escAttr(fam.key) + '">' +
+                 opts +
+               '</select>' +
+               '<input class="rc-rd-input rc-rd-tagnew" type="text" hidden ' +
+                 'data-newfor="' + escAttr(fam.key) + '" placeholder="New ' +
+                 escAttr(fam.title.toLowerCase()) + '">' +
              '</div>';
     }).join('');
-    var custom = (tags || []).filter(function (t) { return familyOf(t) === 'custom'; });
     return '<div class="rc-rd-field">' +
              '<label class="rc-rd-field-label">Tags</label>' +
-             '<div class="rc-rd-tagpick" id="rc-rd-ef-tags">' +
-               families +
-               '<div class="rc-rd-tagfam">' +
-                 '<div class="rc-rd-tagfam-label">＋ Add your own</div>' +
-                 '<input class="rc-rd-input" id="rc-rd-ef-customtags" type="text" value="' +
-                   escAttr(custom.join(', ')) + '" placeholder="Separate with commas">' +
-               '</div>' +
-             '</div>' +
+             '<div class="rc-rd-tagrow" id="rc-rd-ef-tags">' + cols + '</div>' +
            '</div>';
   }
 
   // Build the recipe form markup. Shared by edit mode and add mode.
-  // `includeIcon` adds an emoji field at the top (used only when adding).
+  // `includeIcon` puts the emoji button on the end of the Recipe Name row.
   // `includeTags` adds the tag picker that feeds the card eyebrow.
   function buildRecipeFormHTML(values, includeIcon, includeTags) {
     var ings  = (values.ings || values.ingredients || []).join('\n');
@@ -1684,17 +1856,24 @@
       var sel = e === currentIcon ? ' selected' : '';
       return '<button type="button" class="rc-rd-emoji-tile' + sel + '" data-emoji="' + escAttr(e) + '">' + escHtml(e) + '</button>';
     }).join('');
+    // A square button beside the name rather than a 60-tile grid above it —
+    // the grid pushed every field that matters off the bottom of the phone.
     var iconField = includeIcon ?
-      '<div class="rc-rd-field">' +
-        '<label class="rc-rd-field-label">Emoji</label>' +
-        '<input type="hidden" id="rc-rd-ef-icon" value="' + escAttr(currentIcon) + '">' +
-        '<div class="rc-rd-emoji-grid">' + tiles + '</div>' +
+      '<input type="hidden" id="rc-rd-ef-icon" value="' + escAttr(currentIcon) + '">' +
+      '<div class="rc-rd-emoji-wrap">' +
+        '<button type="button" class="rc-rd-emoji-btn" id="rc-rd-ef-emoji-btn" ' +
+          'aria-label="Choose an emoji">' + escHtml(currentIcon) + '</button>' +
+        '<div class="rc-rd-emoji-pop" id="rc-rd-ef-emoji-pop">' +
+          '<div class="rc-rd-emoji-grid">' + tiles + '</div>' +
+        '</div>' +
       '</div>' : '';
     var tagsField = includeTags ? buildTagPickerHTML(values.tags || []) : '';
-    return iconField +
-      '<div class="rc-rd-field">' +
+    return '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label">Recipe Name</label>' +
-        '<input class="rc-rd-input" id="rc-rd-ef-name" type="text" value="' + escAttr(values.name || '') + '">' +
+        '<div class="rc-rd-namerow">' +
+          '<input class="rc-rd-input" id="rc-rd-ef-name" type="text" value="' + escAttr(values.name || '') + '">' +
+          iconField +
+        '</div>' +
       '</div>' +
       tagsField +
       '<div class="rc-rd-field">' +
@@ -1715,31 +1894,92 @@
       '</div>';
   }
 
-  // Wire the emoji picker inside a just-injected form: tapping a tile updates
-  // the hidden #rc-rd-ef-icon input and moves the selected highlight.
+  // Wire the emoji picker inside a just-injected form: the square button opens
+  // a popover of tiles, and picking one updates the button face and the hidden
+  // #rc-rd-ef-icon input that readRecipeForm reads.
   function wireEmojiPicker(container) {
     var grid = container.querySelector('.rc-rd-emoji-grid');
-    if (!grid) return;
+    var btn  = container.querySelector('#rc-rd-ef-emoji-btn');
+    var pop  = container.querySelector('#rc-rd-ef-emoji-pop');
+    if (!grid || !btn || !pop) return;
     var hidden = container.querySelector('#rc-rd-ef-icon');
+
+    function close() { pop.classList.remove('open'); }
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      pop.classList.toggle('open');
+      var sel = grid.querySelector('.rc-rd-emoji-tile.selected');
+      if (sel && pop.classList.contains('open')) pop.scrollTop = Math.max(0, sel.offsetTop - 60);
+    });
     grid.addEventListener('click', function (e) {
       var tile = e.target.closest('.rc-rd-emoji-tile');
       if (!tile) return;
-      if (hidden) hidden.value = tile.getAttribute('data-emoji');
+      var emoji = tile.getAttribute('data-emoji');
+      if (hidden) hidden.value = emoji;
+      btn.textContent = emoji;
       grid.querySelectorAll('.rc-rd-emoji-tile.selected').forEach(function (t) {
         t.classList.remove('selected');
       });
       tile.classList.add('selected');
+      close();
     });
+    // The form is torn down and rebuilt each time it's opened, so both
+    // document-level listeners retire themselves once their popover is gone.
+    function onDocClick(e) {
+      if (!document.body.contains(pop)) { document.removeEventListener('click', onDocClick); return; }
+      if (!pop.classList.contains('open')) return;
+      if (!e.target.closest('.rc-rd-emoji-wrap')) close();
+    }
+    document.addEventListener('click', onDocClick);
+    // Capture, so Escape closes the popover without also leaving edit mode.
+    function onDocKey(e) {
+      if (!document.body.contains(pop)) { document.removeEventListener('keydown', onDocKey, true); return; }
+      if (e.key === 'Escape' && pop.classList.contains('open')) { e.stopPropagation(); close(); }
+    }
+    document.addEventListener('keydown', onDocKey, true);
   }
 
-  // Tapping a tag chip toggles it on or off.
+  // One dropdown per family. Choosing "＋ Add new…" swaps in a text box; what
+  // gets typed there becomes a real option, selected, and is remembered for
+  // next time (see rememberTag).
   function wireTagPicker(container) {
-    var pick = container.querySelector('.rc-rd-tagpick');
-    if (!pick) return;
-    pick.addEventListener('click', function (e) {
-      var chip = e.target.closest('.rc-rd-tagchip');
-      if (!chip) return;
-      chip.classList.toggle('selected');
+    var row = container.querySelector('.rc-rd-tagrow');
+    if (!row) return;
+
+    row.querySelectorAll('select[data-fam]').forEach(function (sel) {
+      var fam  = sel.getAttribute('data-fam');
+      var box  = row.querySelector('.rc-rd-tagnew[data-newfor="' + fam + '"]');
+      var last = sel.value;
+
+      function hideBox() { box.hidden = true; box.value = ''; }
+
+      // Turn what's in the box into a selected option, or fall back to whatever
+      // was chosen before "Add new…" was picked.
+      function commit() {
+        var tag = box.value.trim();
+        hideBox();
+        if (!tag) { sel.value = last; return; }
+        var existing = Array.prototype.filter.call(sel.options, function (o) {
+          return o.value.toLowerCase() === tag.toLowerCase();
+        })[0];
+        if (existing) { sel.value = existing.value; last = sel.value; return; }
+        var opt = new Option(tag, tag, false, true);
+        sel.add(opt, sel.options[sel.options.length - 1]);   // above "＋ Add new…"
+        last = tag;
+        rememberTag(fam, tag);
+      }
+
+      sel.addEventListener('change', function () {
+        if (sel.value !== TAG_NEW) { last = sel.value; hideBox(); return; }
+        box.hidden = false;
+        box.focus();
+      });
+      box.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter')  { e.preventDefault(); commit(); }
+        if (e.key === 'Escape') { e.stopPropagation(); box.value = ''; commit(); }
+      });
+      box.addEventListener('blur', commit);
     });
   }
 
@@ -1895,21 +2135,22 @@
     return form;
   }
 
-  // Selected chips plus anything typed in the custom box, in card order.
+  // One tag per dropdown, in card order. A new tag still sitting in its text
+  // box (Save tapped without leaving the field first) counts too.
   function readTagPicker() {
     var pick = document.getElementById('rc-rd-ef-tags');
     if (!pick) return [];
-    var tags = Array.prototype.map.call(
-      pick.querySelectorAll('.rc-rd-tagchip.selected'),
-      function (chip) { return chip.getAttribute('data-tag'); }
-    );
-    var customEl = document.getElementById('rc-rd-ef-customtags');
-    if (customEl) {
-      customEl.value.split(',').forEach(function (t) {
-        t = t.trim();
-        if (t && tags.indexOf(t) === -1) tags.push(t);
-      });
-    }
+    var tags = [];
+    pick.querySelectorAll('select[data-fam]').forEach(function (sel) {
+      var fam = sel.getAttribute('data-fam');
+      var t   = sel.value;
+      if (t === TAG_NEW) {
+        var box = pick.querySelector('.rc-rd-tagnew[data-newfor="' + fam + '"]');
+        t = box ? box.value.trim() : '';
+        if (t) rememberTag(fam, t);
+      }
+      if (t && tags.indexOf(t) === -1) tags.push(t);
+    });
     return sortTags(tags);
   }
 
@@ -2409,44 +2650,18 @@
     });
   }
 
-  // ── Activity counts on cards ────────────────────────────────────────────
-  var CAMERA_MINI = '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
-  var NOTE_MINI   = '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 20.5l1.5-4.4A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg>';
+  // ── Activity on cards ───────────────────────────────────────────────────
+  // Cards themselves carry no photo/note counters — the row is narrow and the
+  // recipe name needs the room. The counts still show where there's space for
+  // them: inside the recipe, and in the timeline's activity block below a card.
 
-  function activityCounts(safeId) {
-    var notes = activityIndex[safeId] || [];
-    var photos = 0, texts = 0;
-    notes.forEach(function (n) {
-      photos += n.photos.length;
-      if (n.text) texts++;
-    });
-    return { photos: photos, notes: texts };
-  }
-
-  function paintActivityBadge(el, safeId) {
-    var c = activityCounts(safeId);
-    var html = '';
-    if (c.photos) html += '<span class="rc-act-bit">' + CAMERA_MINI + c.photos + '</span>';
-    if (c.notes)  html += '<span class="rc-act-bit">' + NOTE_MINI   + c.notes  + '</span>';
-    el.innerHTML = html;
-    el.classList.toggle('on', html !== '');
-  }
-
-  // Called whenever a recipe's notes or photos change. Repaints the card badges
-  // and any Journal block for the same recipe — the Journal has no composer of
-  // its own any more, so a note posted from the detail view on top of it has to
-  // land in the block underneath.
+  // Called whenever a recipe's notes or photos change, so any Journal block for
+  // the same recipe repaints — the Journal has no composer of its own any more,
+  // so a note posted from the detail view on top of it has to land in the block
+  // underneath.
   function refreshActivityCounts(safeId) {
-    document.querySelectorAll('.rc-act[data-act-id="' + escAttr(safeId) + '"]')
-      .forEach(function (el) { paintActivityBadge(el, safeId); });
     document.querySelectorAll('.rc-act-block[data-act-block-id="' + escAttr(safeId) + '"]')
       .forEach(function (el) { if (typeof el._repaint === 'function') el._repaint(); });
-  }
-
-  function refreshAllActivityCounts() {
-    document.querySelectorAll('.rc-act[data-act-id]').forEach(function (el) {
-      paintActivityBadge(el, el.getAttribute('data-act-id'));
-    });
   }
 
   // Cards are rendered synchronously right after init(), but the activity index
@@ -2753,14 +2968,16 @@
       initGallery();
       syncPostButton();
 
-      var pending = 3;
+      var pending = 4;
       function onLoaded() { if (--pending === 0 && options.onReady) options.onReady(); }
       loadSavedState(onLoaded);
       loadRecipeEdits(onLoaded);
+      // Any tag Kyle added by hand, so it lands in the right family everywhere
+      // before onReady builds the Recipes filter panel.
+      loadTagVocab(onLoaded);
       // One request for every note on the site: cheap, because the image bytes
       // live under /recipe-photos, not here.
       loadActivityIndex(function () {
-        refreshAllActivityCounts();
         refreshAllActivityBlocks();
         onLoaded();
       });
@@ -2796,7 +3013,6 @@
             '<div class="rc-card-meta">' + escHtml(meta) + '</div>' +
           '</div>' +
           '<div class="rc-card-right">' +
-            '<span class="rc-act" data-act-id="' + escAttr(safeId) + '"></span>' +
             (plain ? '' :
               '<span class="rc-saved-badge" data-id="' + escAttr(id) + '">' +
                 '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
@@ -2807,7 +3023,6 @@
         '</div>';
       var inner = div.querySelector('.rc-card-inner');
       inner.insertBefore(makeThumb(r), inner.firstChild);
-      paintActivityBadge(div.querySelector('.rc-act'), safeId);
       // There's nothing to open on a placeholder — leave it unclickable.
       if (!plain) div.addEventListener('click', function () { openDetail(r, weekOf); });
       return div;
@@ -2874,7 +3089,6 @@
         b.classList.toggle('visible', !isCore(id) && isSaved(id));
       });
       applyEditsToCards();
-      refreshAllActivityCounts();
       refreshAllActivityBlocks();
     },
 

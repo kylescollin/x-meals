@@ -1101,7 +1101,12 @@ async function fillTimelineWeek(sec){
   var week=await WeekStore.get(key);
   var body=sec.querySelector('.tl-body');
   body.innerHTML='';
-  var meals=(week&&week.meals)||[];
+  // Latest night first, so scrolling down through the timeline always moves
+  // back in time — within a week as well as between them. Sort a copy: this
+  // array is the one WeekStore caches and the week view and editor share.
+  var meals=((week&&week.meals)||[]).slice().sort(function(a,b){
+    return DAYS.indexOf(b.day)-DAYS.indexOf(a.day);
+  });
   sec.querySelector('.tl-count').textContent=meals.length+(meals.length===1?' meal':' meals');
   if(!meals.length){
     body.innerHTML='<div class="tl-loading">Nothing planned.</div>';
