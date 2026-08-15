@@ -1830,7 +1830,7 @@
                '<select class="rc-rd-input rc-rd-select" data-fam="' + escAttr(fam.key) + '">' +
                  opts +
                '</select>' +
-               '<input class="rc-rd-input rc-rd-tagnew" type="text" hidden ' +
+               '<input class="rc-rd-input rc-rd-tagnew" type="text" hidden autocomplete="off" ' +
                  'data-newfor="' + escAttr(fam.key) + '" placeholder="New ' +
                  escAttr(fam.title.toLowerCase()) + '">' +
              '</div>';
@@ -1868,29 +1868,33 @@
         '</div>' +
       '</div>' : '';
     var tagsField = includeTags ? buildTagPickerHTML(values.tags || []) : '';
+    // Every field says autocomplete="off", and the title field is "title" rather
+    // than "name" all the way down — id, label and all. Left to guess, iOS reads
+    // a bare text field labelled "Name" as a person and offers to autofill Kyle.
     return '<div class="rc-rd-field">' +
-        '<label class="rc-rd-field-label">Recipe Name</label>' +
+        '<label class="rc-rd-field-label" for="rc-rd-ef-title">Recipe Title</label>' +
         '<div class="rc-rd-namerow">' +
-          '<input class="rc-rd-input" id="rc-rd-ef-name" type="text" value="' + escAttr(values.name || '') + '">' +
+          '<input class="rc-rd-input" id="rc-rd-ef-title" type="text" autocomplete="off" ' +
+            'autocapitalize="words" value="' + escAttr(values.name || '') + '">' +
           iconField +
         '</div>' +
       '</div>' +
       tagsField +
       '<div class="rc-rd-field">' +
-        '<label class="rc-rd-field-label">Details</label>' +
-        '<input class="rc-rd-input" id="rc-rd-ef-meta" type="text" value="' + escAttr(values.meta || '') + '" placeholder="30 min · One pan · Serves 4">' +
+        '<label class="rc-rd-field-label" for="rc-rd-ef-meta">Details</label>' +
+        '<input class="rc-rd-input" id="rc-rd-ef-meta" type="text" autocomplete="off" value="' + escAttr(values.meta || '') + '" placeholder="30 min · One pan · Serves 4">' +
       '</div>' +
       '<div class="rc-rd-field">' +
-        '<label class="rc-rd-field-label">Ingredients &mdash; one per line</label>' +
-        '<textarea class="rc-rd-input" id="rc-rd-ef-ings" rows="8" placeholder="1 cup flour&#10;2 eggs&#10;...">' + escHtml(ings) + '</textarea>' +
+        '<label class="rc-rd-field-label" for="rc-rd-ef-ings">Ingredients &mdash; one per line</label>' +
+        '<textarea class="rc-rd-input" id="rc-rd-ef-ings" rows="8" autocomplete="off" placeholder="1 cup flour&#10;2 eggs&#10;...">' + escHtml(ings) + '</textarea>' +
       '</div>' +
       '<div class="rc-rd-field">' +
-        '<label class="rc-rd-field-label">Steps &mdash; one per line</label>' +
-        '<textarea class="rc-rd-input" id="rc-rd-ef-steps" rows="10" placeholder="Preheat oven to 375°F.&#10;Mix dry ingredients.&#10;...">' + escHtml(steps) + '</textarea>' +
+        '<label class="rc-rd-field-label" for="rc-rd-ef-steps">Steps &mdash; one per line</label>' +
+        '<textarea class="rc-rd-input" id="rc-rd-ef-steps" rows="10" autocomplete="off" placeholder="Preheat oven to 375°F.&#10;Mix dry ingredients.&#10;...">' + escHtml(steps) + '</textarea>' +
       '</div>' +
       '<div class="rc-rd-field">' +
-        '<label class="rc-rd-field-label">Tip (optional)</label>' +
-        '<input class="rc-rd-input" id="rc-rd-ef-note" type="text" value="' + escAttr(values.note || '') + '" placeholder="💡 Optional tip for cooks">' +
+        '<label class="rc-rd-field-label" for="rc-rd-ef-note">Tip (optional)</label>' +
+        '<input class="rc-rd-input" id="rc-rd-ef-note" type="text" autocomplete="off" value="' + escAttr(values.note || '') + '" placeholder="💡 Optional tip for cooks">' +
       '</div>';
   }
 
@@ -1996,7 +2000,7 @@
         '<label class="rc-rd-field-label" for="rc-rd-import-url">Import from a link</label>' +
         '<div class="rc-rd-import-row">' +
           '<input class="rc-rd-input" id="rc-rd-import-url" type="url" inputmode="url" ' +
-            'autocapitalize="off" autocorrect="off" spellcheck="false" ' +
+            'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
             'placeholder="https://…" value="' + escAttr(prefill || '') + '">' +
           '<button type="button" class="rc-rd-import-go" id="rc-rd-import-go">Import</button>' +
         '</div>' +
@@ -2055,7 +2059,7 @@
     wrap.className = 'rc-rd-field';
     wrap.innerHTML =
       '<label class="rc-rd-field-label" for="rc-rd-import-text">Paste the recipe text</label>' +
-      '<textarea class="rc-rd-input" id="rc-rd-import-text" rows="8" ' +
+      '<textarea class="rc-rd-input" id="rc-rd-import-text" rows="8" autocomplete="off" ' +
         'placeholder="Copy the whole recipe from the page and paste it here — ingredients and steps together is fine."></textarea>' +
       '<button type="button" class="rc-rd-import-go" id="rc-rd-import-text-go" style="margin-top:9px;height:40px">Use this text</button>';
     panel.appendChild(wrap);
@@ -2159,7 +2163,7 @@
     var iconEl = document.getElementById('rc-rd-ef-icon');
     return {
       icon:     iconEl ? iconEl.value.trim() : '',
-      name:     document.getElementById('rc-rd-ef-name').value.trim(),
+      name:     document.getElementById('rc-rd-ef-title').value.trim(),
       tags:     readTagPicker(),
       meta:     document.getElementById('rc-rd-ef-meta').value.trim(),
       ings:     document.getElementById('rc-rd-ef-ings').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean),
@@ -2204,12 +2208,11 @@
     rdEl.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    if (prefillUrl) {
-      runImport();
-    } else {
-      var nameInput = document.getElementById('rc-rd-ef-name');
-      if (nameInput) nameInput.focus();
-    }
+    // Nothing gets focused here. Focusing a field in the same tick as .open
+    // asks the browser to scroll to an element that is still translated a whole
+    // screen below the viewport, and it obliges — the sheet arrived already
+    // scrolled halfway down the form. Kyle taps the field he wants.
+    if (prefillUrl) runImport();
   }
 
   function exitAddMode() {
@@ -2291,7 +2294,11 @@
   function saveNewRecipe() {
     var f = readRecipeForm();
     if (!f.name) {
-      document.getElementById('rc-rd-ef-name').focus();
+      // Bring the field into view before focusing it — the sheet is settled by
+      // now, so this scroll is the honest one, not the browser guessing.
+      var titleEl = document.getElementById('rc-rd-ef-title');
+      titleEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      titleEl.focus({ preventScroll: true });
       return;
     }
 
