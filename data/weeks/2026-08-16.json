@@ -143,7 +143,434 @@
       "date": "8/20"
     }
   ],
-  "groceries": [],
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "2 pints cherry tomatoes",
+          "detail": "cooked down into the jammy tomato sauce",
+          "amazon": "cherry tomatoes pint",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 cups cherry tomatoes, halved",
+          "detail": "stirred into the skillet with the zucchini and sausage",
+          "amazon": "cherry tomatoes",
+          "from": [
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-d",
+          "tag": "Meal D"
+        },
+        {
+          "name": "½ cup fresh basil leaves",
+          "detail": "stirred into the sauce and used as garnish · garnish over the finished pasta",
+          "amazon": "fresh basil",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata",
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+D"
+        },
+        {
+          "name": "1 cup chopped broccoli",
+          "detail": "cooked into the turkey and vegetable mixture",
+          "amazon": "broccoli florets",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 cup chopped carrots",
+          "detail": "cooked into the turkey and vegetable mixture",
+          "amazon": "carrots",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 cup chopped red bell pepper",
+          "detail": "cooked into the turkey and vegetable mixture",
+          "amazon": "red bell pepper",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 green onions, sliced",
+          "detail": "garnish over the finished bowls",
+          "amazon": "green onions scallions",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 medium zucchinis, sliced into half-moons",
+          "detail": "sautéed with the sausage and garlic",
+          "amazon": "zucchini",
+          "from": [
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-d",
+          "tag": "Meal D"
+        },
+        {
+          "name": "1 small yellow onion",
+          "detail": "finely chopped into the burger patty mixture",
+          "amazon": "yellow onion",
+          "from": [
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 head romaine or green leaf lettuce",
+          "detail": "leaves used as burger topping",
+          "amazon": "green leaf lettuce",
+          "from": [
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 small red onion",
+          "detail": "sliced for burger topping",
+          "amazon": "red onion",
+          "from": [
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "7–9 garlic cloves",
+          "detail": "6–8 lightly crushed and slow-cooked in the tomato sauce · 1 clove minced into the burger patty mixture · 2 cloves minced into the skillet with sausage",
+          "amazon": "garlic bulb",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata",
+            "turkey-burgers",
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+C+D"
+        },
+        {
+          "name": "1 lime",
+          "detail": "juiced into the bang bang sauce",
+          "amazon": "fresh lime",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "2 lbs ground turkey",
+          "detail": "cooked and sauced for the rice bowls · mixed into burger patties",
+          "amazon": "lean ground turkey",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls",
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals B+C"
+        },
+        {
+          "name": "4 chicken sausages",
+          "detail": "sliced and browned in the skillet with zucchini and tomatoes",
+          "amazon": "chicken sausage links",
+          "from": [
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-d",
+          "tag": "Meal D"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "½ cup heavy cream",
+          "detail": "stirred into the tomato sauce to make it creamy",
+          "amazon": "heavy whipping cream",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 (4 oz) balls fresh burrata",
+          "detail": "torn and placed over the finished pasta off the heat",
+          "amazon": "fresh burrata cheese",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "¼ cup grated Parmesan cheese",
+          "detail": "tossed through the finished pasta",
+          "amazon": "grated parmesan cheese",
+          "from": [
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-d",
+          "tag": "Meal D"
+        },
+        {
+          "name": "1 large egg",
+          "detail": "bound into the burger patty mixture",
+          "amazon": "large eggs",
+          "from": [
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "¼ cup + 3 tablespoons olive oil",
+          "detail": "base for the tomato sauce · cooked with the turkey and vegetables · used to cook the sausage and vegetables",
+          "amazon": "extra virgin olive oil",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata",
+            "bang-bang-ground-turkey-rice-bowls",
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B+D"
+        },
+        {
+          "name": "2 (16 oz) packages potato gnocchi",
+          "detail": "boiled and tossed in the tomato cream sauce",
+          "amazon": "potato gnocchi shelf stable",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 cups jasmine rice",
+          "detail": "cooked and used as the base for the bowls",
+          "amazon": "jasmine rice",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "½ cup mayonnaise",
+          "detail": "base of the bang bang sauce · condiment option for burgers",
+          "amazon": "mayonnaise",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls",
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals B+C"
+        },
+        {
+          "name": "¼ cup sweet chili sauce",
+          "detail": "mixed into the bang bang sauce",
+          "amazon": "sweet chili sauce",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 tablespoon sriracha sauce",
+          "detail": "stirred into the bang bang sauce for heat",
+          "amazon": "sriracha hot sauce",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 tablespoons soy sauce",
+          "detail": "seasoned into the cooked turkey",
+          "amazon": "soy sauce",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 tablespoon sesame seeds",
+          "detail": "garnish over the finished bowls",
+          "amazon": "sesame seeds",
+          "from": [
+            "bang-bang-ground-turkey-rice-bowls"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "¼ cup breadcrumbs",
+          "detail": "mixed into the burger patty for texture",
+          "amazon": "plain breadcrumbs",
+          "from": [
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 teaspoon Worcestershire sauce",
+          "detail": "mixed into the burger patty for depth of flavor",
+          "amazon": "worcestershire sauce",
+          "from": [
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "4 sesame seed burger buns",
+          "detail": "toasted and used to serve the burgers",
+          "amazon": "sesame seed hamburger buns",
+          "from": [
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "Sliced pickles",
+          "detail": "topping for the burgers",
+          "amazon": "dill pickle slices",
+          "from": [
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "Ketchup and mustard",
+          "detail": "condiment options for the burgers",
+          "amazon": "ketchup mustard condiment set",
+          "from": [
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "8 oz penne or fusilli pasta",
+          "detail": "boiled and folded into the sausage and vegetable skillet",
+          "amazon": "penne pasta",
+          "from": [
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-d",
+          "tag": "Meal D"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "Red pepper flakes",
+          "detail": "optional pinch into the tomato sauce",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Kosher salt",
+          "detail": "seasoning for the tomato sauce · seasoning for the turkey · mixed into the burger patties · seasoning throughout",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata",
+            "bang-bang-ground-turkey-rice-bowls",
+            "turkey-burgers",
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "Black pepper",
+          "detail": "seasoning for the tomato sauce · seasoning for the turkey · mixed into the burger patties · seasoning throughout",
+          "from": [
+            "creamy-tomato-gnocchi-with-burrata",
+            "bang-bang-ground-turkey-rice-bowls",
+            "turkey-burgers",
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "Paprika",
+          "detail": "optional addition to the burger patty mixture",
+          "from": [
+            "turkey-burgers"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "Dried Italian seasoning",
+          "detail": "sprinkled into the tomato and zucchini skillet",
+          "from": [
+            "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+          ],
+          "tagClass": "tag-d",
+          "tag": "Meal D"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
   "subhead": "4 dinners",
-  "updatedAt": 1786901979092
+  "updatedAt": 1786901979092,
+  "groceriesFor": [
+    "creamy-tomato-gnocchi-with-burrata",
+    "bang-bang-ground-turkey-rice-bowls",
+    "turkey-burgers",
+    "chicken-sausages-with-zucchini-tomatoes-and-pasta"
+  ],
+  "groceriesAt": "2026-08-16T17:40:36.686Z"
 }
