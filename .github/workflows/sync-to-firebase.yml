@@ -14,13 +14,24 @@ on:
         type: boolean
         default: false
 
+# Two saves a minute apart used to start two runs that raced each other to the
+# same branch. They queue now instead. cancel-in-progress is off on purpose —
+# a cancelled run is a grocery list nobody ever built.
+concurrency:
+  group: sync-meals
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
+      # Full history: the commit step rebases before pushing, and a shallow
+      # clone has no common ancestor to rebase onto.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -54,17 +65,43 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: node scripts/generate-groceries.js ${{ inputs.force && '--force' || '' }}
 
+      # A rejected push used to fail this step, and the Firebase sync below runs
+      # after it — so the list this run had just built reached nobody. Rebase
+      # and retry so that's rare, and continue-on-error so that even when it
+      # does happen the site still gets the list.
       - name: Commit updated weeks
+        id: commit
+        continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/weeks
-          if ! git diff --cached --quiet; then
-            git commit -m "Update grocery lists"
-            git push
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
           fi
+          git commit -m "Update grocery lists"
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected — rebasing onto origin/main and retrying."
+            git pull --rebase --autostash origin main
+          done
+          echo "Could not push after 3 attempts."
+          exit 1
 
       - name: Sync to Firebase
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: node scripts/sync-firebase.js
+
+      # The list reached the site above even when git wouldn't take it, but a
+      # commit that never landed still has to be visible rather than silently
+      # green — git is the source of truth the next run reads from.
+      - name: Fail if the commit never landed
+        if: steps.commit.outcome == 'failure'
+        run: |
+          echo "::error::Grocery lists synced to Firebase but could not be pushed to git."
+          exit 1

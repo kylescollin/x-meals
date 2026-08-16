@@ -128,16 +128,25 @@ Agent X does not interact with Firebase directly — it writes JSON files to git
 `index.html` has an **Edit mode** that lets Kyle adjust the current week from the phone: remove
 meals, add meals from the recipe collection, drag to reorder, set each meal's day, up to **7 meals**.
 On **Done** it:
-1. Writes the updated week to Firebase via `WeekStore.put` → `/meals/weeks/{weekOf}` (meals update
-   instantly), carrying the existing `groceries` array through untouched.
-2. Fetches a fine-grained GitHub token from Firebase `/config/githubToken` and commits the same
+1. Re-reads the week from Firebase, so the `groceries` it carries through is the current one.
+   **CI writes groceries without touching `updatedAt`**, so the conflict check can't see a list that
+   landed while the page sat open — and writing a stale copy back would wipe the list and every tick
+   on it. That re-read also catches a genuine conflict (someone editing on the other phone) earlier
+   than `WeekStore.put` would.
+2. Writes the updated week to Firebase via `WeekStore.put` → `/meals/weeks/{weekOf}` (meals update
+   instantly), carrying that `groceries` array through untouched.
+3. Fetches a fine-grained GitHub token from Firebase `/config/githubToken` and commits the same
    object to `data/weeks/{weekOf}.json` via the GitHub Contents API — which triggers the sync
    Action, so the grocery list catches up ~1 min later.
 
-**It never empties `groceries` to force a rebuild.** CI works out what changed and touches only
-that. If the set of *recipes* is unchanged — you moved a night, dragged two meals around, added a
-placeholder — `save()` knows nothing will change and doesn't sit waiting for it, so you get
-"Meals saved." straight away instead of the "grocery list updating…" toast.
+**It never empties `groceries` to force a rebuild.** CI works out what changed and touches only that.
+
+**Only mark the week as waiting when a list is genuinely coming.** `save()` asks the same four
+questions CI does, and stays quiet unless all four hold: the commit landed, the set of *recipes*
+changed (moving a night or adding a placeholder changes no shopping), something cookable is left,
+and **the week is not in the past** — `generate-groceries.js` skips past weeks outright, so
+promising an update there is a promise nothing will ever keep. Both sides use the identical
+`viewStart < Week.todayStart()` test so they cannot disagree.
 
 The token lives in Firebase under `/config` (read/write restricted to the two allow-listed emails,
 same as all meal data); it is scoped to only this repo with Contents read/write. It is **not** in
@@ -391,6 +400,33 @@ hidden in timeline view and while editing meals.
   `/groceries/{weekOf}/_custom/{id}` in Firebase, which doesn't require the week document to
   exist. This is how you start a shopping list before picking any meals.
 
+### Waiting for CI belongs to the week, not to the app
+
+The list catches up about a minute after the meals are saved, and the dock is what says so. Saving
+puts the week in a `pending` map (mirrored to `sessionStorage`, so a reload doesn't lose it), and a
+**single watcher** — not one timer per save — re-reads each pending week until its `groceriesAt`
+stamp moves. That stamp is the signal: a merged list that didn't change looks identical to one that
+never ran.
+
+The rule this encodes: **a message about a week has to live on that week.** The floating "grocery
+list updating…" pill this replaced was owned by the app, so it outlived its own poll — change week
+and the timer died without ever clearing the pill.
+
+Three things follow, and all three are load-bearing:
+
+- **`GrocerySheet` and `WeekStore` never refresh themselves.** The sheet renders from the in-memory
+  `weekData` it was handed, and its own 8s poll reads only `/groceries/{key}` — the ticks and
+  hand-added items, never the week document. `WeekStore.get` caches per key for the whole session.
+  So a CI-written list reaches the screen **only** via `WeekStore.get(key, true)`.
+- **That forced re-read runs at every moment the list could have landed while we weren't looking:**
+  `visibilitychange` (the big one — iOS suspends timers the moment the app is backgrounded, which is
+  exactly the minute CI needs), tapping the dock, and navigating to a week that is pending.
+- **Giving up is a retry, not a dead end.** After ~4 minutes the entry goes *stale* rather than being
+  dropped; the dock reads "tap to check" and tapping re-arms it. Any later refresh still resolves it,
+  so the dock can't be left claiming to wait for something that already arrived.
+
+`toast()` has no `persist` option, deliberately. Every toast clears itself.
+
 ### How the list gets built
 
 X does not write the `groceries` array — `scripts/generate-groceries.js` does, in CI.
@@ -418,10 +454,23 @@ current meals gives the delta, and the delta picks one of four paths:
   commit, so anything less than provable is an infinite loop.
 - Lists written before `from` existed can't be diffed, so they're left alone. `--force` rebuilds
   them once; after that they're on the delta path like everything else.
+- **Only the current week and the ones ahead of it are ever touched.** Rebuilding the list for a week
+  that has already been shopped for and cooked helps nobody. Anything in the UI that implies a past
+  week's list is about to update is a bug — see the four questions `save()` asks.
 
 Never commit `"groceries": []` to force a rebuild — that was the old mechanism and it threw away
 the check state along with the list. To rebuild deliberately, run the sync workflow from the
 Actions tab with **force** ticked.
+
+### The Action runs one at a time
+
+`sync-to-firebase.yml` has a `concurrency: sync-meals` group with `cancel-in-progress: false`, so two
+saves a minute apart queue instead of racing. It matters because of the step order: **the Firebase
+sync runs after the commit**, so a rejected `git push` used to fail the job and take that run's
+freshly built list with it. Three defences now, in order — the queue makes the collision rare, the
+commit step rebases and retries, and it is `continue-on-error` so the site gets the list even when
+git won't take it. A final step then fails the run loudly, because git is the source of truth the
+next run reads from and a commit that never landed must not look green.
 
 ## Design Conventions
 

@@ -329,6 +329,8 @@ var viewStart=Week.startOf(params.get('week')||'')||Week.todayStart();
 var weekKey=WeekStore.keyOrMint(viewStart);
 var weekData=(await WeekStore.get(weekKey))||WeekStore.blank(weekKey);
 var loadedAt=weekData.updatedAt||0;
+var editMode='off';         // 'off' | 'edit' — there is no separate "plan" mode
+                            // any more: planning next week is editing next week.
 
 RecipeCard.init({coreIds:CORE_IDS,userEmail:user.email,weekOf:weekKey,onReady:function(){RecipeCard.applyBadges();}});
 
@@ -412,9 +414,16 @@ function paintDock(p){
   var titleEl=dock.querySelector('.gd-title');
   var countEl=dock.querySelector('.gd-count');
   var trackEl=dock.querySelector('.gd-track');
+  var pend=pending[weekKey];
+  var busy=pend && !pend.stale;
+
   if(p && p.total){
+    // A week that already has a list keeps its count while CI works — the
+    // number of items shouldn't vanish out from under someone mid-shop just
+    // because a meal changed.
     dock.classList.remove('quiet');
-    titleEl.textContent='Grocery List';
+    titleEl.textContent=busy ? 'Updating your list…'
+                       : (pend ? 'Update didn’t arrive — tap to check' : 'Grocery List');
     countEl.textContent=p.checked+'/'+p.total;
     trackEl.style.display='';
     dock.querySelector('.gd-fill').style.width=(p.checked/p.total*100)+'%';
@@ -424,10 +433,17 @@ function paintDock(p){
   // on you to start it.
   dock.classList.add('quiet');
   trackEl.style.display='none';
+  if(pend && pend.stale){
+    titleEl.textContent='List didn’t arrive — tap to check';
+    countEl.textContent='↻';
+    return;
+  }
   var meals=weekData.meals||[];
-  var waiting=meals.length && !(weekData.groceries||[]).length &&
+  // `busy` is a week we saved ourselves. The rest covers a cold reload landing
+  // mid-build, where there's no pending entry but the shape is unmistakable.
+  var waiting=busy || (meals.length && !(weekData.groceries||[]).length &&
               meals.some(function(m){ return !RecipeCard.isCustom(m); }) &&
-              viewStart>=Week.todayStart();
+              viewStart>=Week.todayStart());
   titleEl.textContent=waiting?'Building your grocery list…':'Add groceries';
   countEl.textContent=waiting?'':'+';
 }
@@ -438,6 +454,129 @@ function renderDock(){
   GrocerySheet.setWeek(weekKey, weekData);   // fires paintDock via onProgress
 }
 
+// ── Weeks waiting on CI ───────────────────────────────────────────────────
+// Saving meals is instant; the grocery list catches up a minute or so later,
+// when the Action has finished with it. That wait belongs to the WEEK, not to
+// the app — so it lives in a map keyed by week, shows on that week's dock, and
+// survives navigating away, locking the phone, or reloading the page.
+//
+// What this replaces was a floating "grocery list updating…" pill driven by a
+// per-save setInterval. The timer died whenever you changed week and never
+// cleared the pill, and iOS suspends timers the moment the app is backgrounded
+// — which is exactly the minute CI needs.
+var PENDING_KEY='fbk.pendingGroceries';
+var WATCH_EVERY=8000, GIVE_UP_AFTER=4*60*1000;
+var watchTimer=null;
+var pending=readPending();
+
+function readPending(){
+  try{ return JSON.parse(sessionStorage.getItem(PENDING_KEY))||{}; }catch(_){ return {}; }
+}
+function writePending(){
+  try{ sessionStorage.setItem(PENDING_KEY, JSON.stringify(pending)); }catch(_){}
+}
+function markPending(key, since){
+  pending[key]={since:since||'', at:Date.now(), stale:false};
+  writePending();
+  startWatching();
+}
+function clearPending(key){
+  if(!pending[key]) return;
+  delete pending[key];
+  writePending();
+}
+function livePending(){
+  return Object.keys(pending).filter(function(k){ return !pending[k].stale; });
+}
+
+// CI stamps groceriesAt every time it writes a list, so a changed stamp is the
+// signal — an unchanged non-empty list looks identical to one that never moved.
+// Every fresh read of a week goes through here, including the ones that came
+// from tapping the dock, so a list can never land while the dock still claims
+// it's waiting for one.
+function resolvePending(key, fresh){
+  var entry=pending[key];
+  if(!entry || !fresh) return false;
+  if((fresh.groceriesAt||'')===(entry.since||'')) return false;
+  clearPending(key);
+  return true;
+}
+
+// One timer for every pending week rather than one per save, so saving a
+// second week while the first is still going just adds a key.
+function startWatching(){
+  if(watchTimer || !livePending().length) return;
+  watchTimer=setInterval(checkPending, WATCH_EVERY);
+  checkPending();
+}
+function stopWatching(){
+  if(watchTimer) clearInterval(watchTimer);
+  watchTimer=null;
+}
+
+var checking=false;
+async function checkPending(){
+  if(checking) return;                  // a slow read must not stack up ticks
+  var keys=livePending();
+  if(!keys.length){ stopWatching(); return; }
+  checking=true;
+  try{
+    for(var i=0;i<keys.length;i++){
+      var key=keys[i], entry=pending[key];
+      if(!entry) continue;
+      var fresh=null;
+      try{ fresh=await WeekStore.get(key, true); }catch(_){}
+      if(resolvePending(key, fresh)){
+        adoptWeek(key, fresh);
+        toast('Grocery list updated ✓', {success:true});
+      }else if(Date.now()-entry.at>GIVE_UP_AFTER){
+        // Kept rather than dropped: the dock turns into a retry you can tap,
+        // instead of a message that gives up and leaves you nowhere.
+        entry.stale=true;
+        writePending();
+        if(key===weekKey) renderDock();
+      }
+    }
+  }finally{ checking=false; }
+  if(!livePending().length) stopWatching();
+}
+
+// Fold a freshly-read week into the page, if it's still the one on screen and
+// there's no editor open to trample.
+function adoptWeek(key, fresh){
+  if(key!==weekKey || editMode!=='off') return;
+  weekData=fresh;
+  loadedAt=fresh.updatedAt||0;
+  renderViewCards(weekData.meals);
+  renderDock();
+  RecipeCard.refresh();
+}
+
+// Re-read the week on screen in case anything wrote to it while we weren't
+// looking. This is the one thing that makes a finished list appear without a
+// reload, so it runs at every moment where that could have happened.
+var refreshing=false;
+async function refreshCurrentWeek(){
+  if(refreshing || editMode!=='off') return;
+  refreshing=true;
+  var key=weekKey;
+  try{
+    var fresh=await WeekStore.get(key, true);
+    if(fresh){
+      var landed=resolvePending(key, fresh);
+      adoptWeek(key, fresh);
+      if(landed) toast('Grocery list updated ✓', {success:true});
+    }
+  }catch(_){}
+  refreshing=false;
+}
+
+document.addEventListener('visibilitychange', function(){
+  if(document.hidden) return;
+  refreshCurrentWeek();
+  startWatching();     // the interval didn't tick while we were away
+});
+
 // ── Navigating between weeks ──────────────────────────────────────────────
 async function goToWeek(startISO){
   if(editMode!=='off') return;
@@ -447,7 +586,10 @@ async function goToWeek(startISO){
   weekKey=WeekStore.keyOrMint(viewStart);
   renderHeader();
   mealCards.innerHTML='';
-  weekData=(await WeekStore.get(weekKey))||WeekStore.blank(weekKey);
+  // Cached is right for an ordinary week — that's what keeps stepping between
+  // weeks instant. A week still waiting on CI is the one case where the cached
+  // copy is knowably out of date.
+  weekData=(await WeekStore.get(weekKey, !!pending[weekKey]))||WeekStore.blank(weekKey);
   loadedAt=weekData.updatedAt||0;
   // Notes added from the detail sheet stamp against the week on screen.
   RecipeCard.setWeekOf(weekKey);
@@ -471,10 +613,23 @@ renderViewCards(weekData.meals);
 renderDock();
 showDock(true);
 prefetchNeighbours();
+startWatching();     // a save from before a reload is still owed its list
 document.getElementById('editBtn').style.display='';
 document.getElementById('viewToggle').style.display='';
 
-dock.addEventListener('click', function(){ GrocerySheet.open(); });
+dock.addEventListener('click', function(){
+  // "tap to check" is a real retry, not just a label — it puts the week back on
+  // the watch list rather than leaving you at a dead end.
+  var pend=pending[weekKey];
+  if(pend && pend.stale){
+    pend.stale=false; pend.at=Date.now(); writePending();
+    renderDock(); startWatching();
+  }
+  // Open now and re-read in parallel — the sheet re-renders in place when the
+  // week lands, so it never sits there waiting on the network.
+  GrocerySheet.open();
+  refreshCurrentWeek();
+});
 // Deep link from the retired groceries.html, or a bookmark of it.
 if(params.get('groceries')==='1'){
   GrocerySheet.open();
@@ -486,8 +641,9 @@ var editMeals=[];
 var pickerTargetDay=null;   // which day the recipe picker is adding to
 var pickerCustomMode=false; // picker is naming a one-off meal, not searching recipes
 var allRecipes=null;
-var editMode='off';         // 'off' | 'edit' — there is no separate "plan" mode
-                            // any more: planning next week is editing next week.
+// editMode itself is declared up with the week state — the background refreshes
+// have to know not to redraw the page while the editor is open, and they can
+// start before this section is reached.
 
 var idOf=RecipeCard.idOf;   // shared slug helper (see recipe-card.js)
 var isCustom=RecipeCard.isCustom;   // placeholder meal? (see recipe-card.js)
@@ -870,13 +1026,18 @@ function closeSheet(id){
 }
 
 // ── Toast ─────────────────────────────────────────────────────────────────
+// Always self-clearing. There used to be a `persist` option for the "grocery
+// list updating…" pill, and it could outlive the poll that was meant to dismiss
+// it — a message with no owner sitting on screen indefinitely. Anything that
+// needs to say "still working" now says it on the dock, where it belongs to a
+// week rather than to the app.
 function toast(msg, opts){
   opts=opts||{};
   var t=document.getElementById('toast');
   t.textContent=msg;
   t.className='toast show'+(opts.error?' error':'')+(opts.success?' success':'');
   if(t._timer) clearTimeout(t._timer);
-  if(!opts.persist){ t._timer=setTimeout(function(){ t.className='toast'; }, opts.error?6500:4000); }
+  t._timer=setTimeout(function(){ t.className='toast'; }, opts.error?6500:4000);
 }
 
 // ── Enter / exit edit mode ────────────────────────────────────────────────
@@ -956,29 +1117,6 @@ async function commitWeekFile(weekObj){
   return true;
 }
 
-// Wait for CI to bring the grocery list in line with the meals we just saved.
-// The old check ("are there any groceries yet?") no longer works now that the
-// list is merged rather than rebuilt from empty — an unchanged non-empty list
-// looks identical. CI stamps groceriesAt, so watch that instead.
-function pollGroceries(sinceStamp){
-  var forKey=weekKey, tries=0, max=26;   // ~3.5 min at 8s
-  var iv=setInterval(async function(){
-    tries++;
-    if(forKey!==weekKey){ clearInterval(iv); return; }
-    try{
-      var d=await WeekStore.get(forKey, true);
-      if(d && (d.groceriesAt||'')!==(sinceStamp||'')){
-        clearInterval(iv);
-        weekData=d; loadedAt=d.updatedAt||0;
-        renderViewCards(weekData.meals); renderDock(); RecipeCard.refresh();
-        toast('Grocery list updated ✓', {success:true});
-        return;
-      }
-    }catch(_){}
-    if(tries>=max){ clearInterval(iv); toast('Still updating — check the grocery list in a minute.', {}); }
-  }, 8000);
-}
-
 // ── Save ──────────────────────────────────────────────────────────────────
 // One path for every week. Nothing gets archived or displaced, because the
 // week you are editing is just a document like all the others.
@@ -990,6 +1128,23 @@ async function save(){
   // Same question CI asks: did the set of *recipes* change? Moving a meal to
   // another night, or adding "Pizza night", leaves the shopping identical.
   var shoppingChanged=!sameRecipeSet(weekData.meals, meals);
+  // CI skips past weeks outright (see generate-groceries.js) — same comparison,
+  // so the two can't disagree about whether a list is coming.
+  var isPast=viewStart<Week.todayStart();
+
+  // The list we're about to carry through has to be the CURRENT one. CI writes
+  // groceries straight into Firebase without touching updatedAt, so the
+  // conflict check below can't see a list that landed while this page sat open
+  // — and writing back a stale copy would wipe it, ticks and all.
+  var latest=null;
+  try{ latest=await WeekStore.get(weekKey, true); }catch(_){}
+  if(latest && (latest.updatedAt||0)>(loadedAt||0)){
+    doneBtn.disabled=false; doneBtn.textContent='Done';
+    toast('This week changed on another device. Reload to see it before editing.', {error:true});
+    return;
+  }
+  var base=latest||weekData;
+
   var week=Object.assign({}, weekData, {
     weekOf:weekKey,
     title:weekData.title||Week.titleFor(viewStart),
@@ -998,9 +1153,11 @@ async function save(){
     // Groceries are left exactly as they are. CI reconciles them against the
     // new meals and preserves anything already ticked off — the list is never
     // thrown away to force a rebuild.
-    groceries:weekData.groceries||[]
+    groceries:base.groceries||[]
   });
-  var sinceStamp=weekData.groceriesAt||'';
+  if(base.groceriesFor) week.groceriesFor=base.groceriesFor;
+  if(base.groceriesAt) week.groceriesAt=base.groceriesAt;
+  var sinceStamp=base.groceriesAt||'';
 
   try{
     await WeekStore.put(weekKey, week, loadedAt);
@@ -1019,23 +1176,28 @@ async function save(){
   catch(e){ commitErr=e; }
 
   weekData=week; loadedAt=week.updatedAt||0;
+
+  // A list is only coming if CI is going to build one: the commit has to have
+  // landed, the shopping has to have actually changed, there has to be a recipe
+  // left to shop for, and the week can't be in the past. Marked before the
+  // render below, so the dock comes back already saying so.
+  var listComing=committed && shoppingChanged && hasCookable(meals) && !isPast;
+  if(listComing) markPending(weekKey, sinceStamp); else clearPending(weekKey);
+
   exitEdit();
   renderViewCards(weekData.meals);
   renderDock();
   RecipeCard.refresh();
   doneBtn.disabled=false; doneBtn.textContent='Done';
 
-  if(committed && (!shoppingChanged || !hasCookable(meals))){
-    // Nothing to buy has changed — you moved a night, or added a placeholder —
-    // or there are no recipes left to shop for. Either way CI won't touch the
-    // list, so don't sit here watching for a change that isn't coming.
-    toast('Meals saved.', {success:true});
-  }else if(committed){
-    toast('Meals saved · grocery list updating…', {persist:true});
-    pollGroceries(sinceStamp);
-  }else{
+  if(!committed){
     var why = (commitErr && commitErr.code==='no-token') ? "grocery auto-update isn't set up yet" : "couldn't reach GitHub";
     toast('Meals saved. Grocery list not refreshed ('+why+').', {error:true});
+  }else{
+    // Either way this is a plain, self-clearing confirmation. The waiting, when
+    // there is any, is the dock's job — it belongs to the week, and it can't
+    // outlive the thing it's describing the way the old sticky pill could.
+    toast('Meals saved.', {success:true});
   }
 }
 
