@@ -1445,6 +1445,47 @@
         "Serve the dish warm, garnished with fresh basil leaves for added flavor and a pop of color."
       ],
       "source": "https://danielrecipes.com/recipe/chicken-sausages-with-zucchini-tomatoes-and-pasta/"
+    },
+    {
+      "id": "bang-bang-ground-turkey-rice-bowls",
+      "icon": "🍗",
+      "name": "Bang Bang Ground Turkey Rice Bowls",
+      "meta": "35 min · Stovetop",
+      "tags": [
+        "Rice",
+        "Asian"
+      ],
+      "ingredients": [
+        "1 lb ground turkey",
+        "2 cups cooked jasmine rice",
+        "1/2 cup mayonnaise",
+        "1/4 cup sweet chili sauce",
+        "1 tablespoon sriracha sauce",
+        "2 tablespoons soy sauce",
+        "1 tablespoon lime juice",
+        "1 cup chopped red bell pepper",
+        "1 cup chopped carrots",
+        "1 cup chopped broccoli",
+        "1 tablespoon olive oil",
+        "Salt and pepper to taste",
+        "2 green onions, sliced",
+        "1 tablespoon sesame seeds"
+      ],
+      "steps": [
+        "Begin by cooking jasmine rice according to package instructions, so it is ready and warm when needed.",
+        "In a small bowl, mix together the mayonnaise, sweet chili sauce, sriracha sauce, and lime juice to create the bang bang sauce. Set it aside.",
+        "Heat a large skillet over medium-high heat and add the olive oil.",
+        "Add the ground turkey to the skillet, breaking it apart with a spoon, and cook until browned.",
+        "Once the turkey is cooked through, add the soy sauce, salt, and pepper. Stir well to combine.",
+        "Add the chopped red bell pepper, carrots, and broccoli to the skillet, cooking for another 5-7 minutes until the vegetables are tender-crisp.",
+        "Remove the skillet from the heat and mix in half of the bang bang sauce, ensuring everything is well coated.",
+        "To serve, place a mound of cooked jasmine rice into individual bowls.",
+        "Top the rice with the turkey and vegetable mixture.",
+        "Drizzle the remaining bang bang sauce over each bowl.",
+        "Garnish with sliced green onions and sesame seeds for added flavor and texture.",
+        "Serve immediately and enjoy!"
+      ],
+      "source": "https://dishesrecipe.com/recipe/bang-bang-ground-turkey-rice-bowls/"
     }
   ]
 }
