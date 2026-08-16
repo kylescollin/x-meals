@@ -1,4 +1,103 @@
 {
+  "weekOf": "2026-08-10",
+  "title": "Week of August 10",
+  "subhead": "3 dinners · Serves 4",
+  "meals": [
+    {
+      "id": "air-fryer-fish-tacos-with-cilantro-lime-slaw",
+      "icon": "🌮",
+      "name": "Air Fryer Fish Tacos with Cilantro Lime Slaw",
+      "meta": "20 min · Air Fryer · Serves 4",
+      "ings": [
+        "1½ lb tilapia or white fish",
+        "1 tsp chili powder, ½ tsp oregano, ½ tsp garlic powder",
+        "½ tsp paprika, ¼ tsp cayenne, ¼ tsp onion powder",
+        "¼ tsp cumin, ½ tsp sea salt, ½ tsp cracked pepper",
+        "Tortillas for serving",
+        "Slaw: 2½ cups coleslaw mix",
+        "3 Tbsp mayo, 1 Tbsp lime juice",
+        "1 garlic clove minced, ⅓ cup cilantro",
+        "½ tsp sugar (optional), salt and pepper"
+      ],
+      "steps": [
+        "Spray air fryer basket with oil. Mix all spices.",
+        "Pat fish dry, lay in basket. Brush with olive oil, coat with spice rub, press gently. Spritz with oil.",
+        "Preheat air fryer to 400°F. Cook fish 8–10 min until opaque and flakes at 145°F. Do not flip.",
+        "While fish cooks, toss together all slaw ingredients. Adjust lime and salt to taste.",
+        "Cut fish into pieces. Serve in tortillas topped with slaw and extra lime."
+      ],
+      "day": "Monday",
+      "note": "💡 No air fryer? Bake at 400°F for ~15 min instead.",
+      "label": "Meal A",
+      "date": "8/10"
+    },
+    {
+      "id": "healthy-chicken-pot-pie",
+      "icon": "🥧",
+      "name": "Healthy Chicken Pot Pie",
+      "meta": "~55 min · Oven · Serves 6",
+      "ings": [
+        "1 tbsp olive oil",
+        "8 oz cremini mushrooms, sliced",
+        "3 medium carrots, diced",
+        "3 stalks celery, diced",
+        "1 tsp garlic powder",
+        "1 tsp salt, ½ tsp black pepper",
+        "¼ cup all-purpose flour",
+        "1½ cups low-sodium chicken broth",
+        "1 cup unsweetened almond milk (or low-fat milk)",
+        "3 cups cooked shredded chicken (rotisserie works great)",
+        "1 cup frozen peas",
+        "½ cup frozen pearl onions (or ½ small onion, diced and sautéed)",
+        "1 tsp fresh thyme (or ½ tsp dried)",
+        "1 store-bought deep dish pie crust (Great Value works — use as top crust only)",
+        "1 egg, beaten (for egg wash)"
+      ],
+      "steps": [
+        "Preheat oven to 425°F. Lightly grease a 9-inch pie dish or use a cast iron skillet.",
+        "Heat olive oil in a large Dutch oven or deep skillet over medium-high. Add mushrooms and cook 8 min until browned and sweated. Add carrots, celery, garlic powder, salt, and pepper. Cook 3 more min until carrots begin to soften.",
+        "Sprinkle flour over the vegetables and stir well. Cook 2 minutes so the flour loses its raw taste.",
+        "Pour in chicken broth slowly, stirring constantly to avoid lumps. Add almond milk. Cook over medium heat, stirring regularly, until sauce thickens — about 5–6 minutes. Do not boil hard.",
+        "Stir in shredded chicken, frozen peas, pearl onions, and thyme. Taste and adjust salt. Remove from heat.",
+        "Transfer filling to your prepared pie dish (or leave in cast iron if oven-safe).",
+        "Unroll the pie crust from the package. Lay it over the top of the dish, trimming to leave about ½ inch overhang. Press edges to seal and crimp with a fork. Cut 3–4 small slits to vent steam.",
+        "Brush crust all over with beaten egg wash.",
+        "Bake 20–25 minutes until crust is deeply golden and filling is bubbling at the edges. Let rest 5–10 minutes before serving — the filling will thicken as it sits."
+      ],
+      "day": "Tuesday",
+      "note": "💡 Top-crust only keeps this lighter and the crust stays flaky (no soggy bottom). Rotisserie chicken is the easy shortcut here. The Great Value deep dish crust works perfectly as a top-only crust — just unroll it over the dish.",
+      "label": "Meal B",
+      "date": "8/11"
+    },
+    {
+      "id": "creamy-tomato-gnocchi-with-burrata",
+      "icon": "🍝",
+      "name": "Creamy Tomato Gnocchi with Burrata",
+      "meta": "30 min · Stovetop · Serves 6",
+      "ings": [
+        "¼ cup extra-virgin olive oil",
+        "6–8 garlic cloves, peeled and lightly crushed",
+        "2 pints cherry tomatoes",
+        "½ tsp red pepper flakes (optional)",
+        "1 tsp kosher salt, ½ tsp black pepper",
+        "½ cup heavy cream",
+        "2 (16 oz) packages potato gnocchi",
+        "2 (4 oz) balls fresh burrata",
+        "½ cup fresh basil leaves"
+      ],
+      "steps": [
+        "Bring large pot of salted water to boil. Heat olive oil in skillet over medium-low. Cook garlic until fragrant, ~2 min.",
+        "Increase to medium; add tomatoes. Cook until most break down and become jammy, 10–12 min. Season. Reduce and stir in cream.",
+        "Cook gnocchi per package. Reserve ½ cup pasta water, drain the rest.",
+        "Add gnocchi and pasta water to sauce. Toss until thick and glossy, ~2 min. Stir in basil.",
+        "Break burrata over pasta. Remove from heat. Garnish with reserved basil."
+      ],
+      "day": "Wednesday",
+      "note": "💡 Add burrata after removing from heat — don't cook it or it loses its creamy texture.",
+      "label": "Meal C",
+      "date": "8/12"
+    }
+  ],
   "groceries": [
     {
       "icon": "🥦",
@@ -396,81 +495,5 @@
     }
   ],
   "groceriesAt": "2026-08-11T14:42:29.691Z",
-  "groceriesFor": [
-    "air-fryer-fish-tacos-with-cilantro-lime-slaw",
-    "healthy-chicken-pot-pie",
-    "creamy-tomato-gnocchi-with-burrata"
-  ],
-  "meals": [
-    {
-      "date": "8/10",
-      "day": "Monday",
-      "icon": "🌮",
-      "id": "air-fryer-fish-tacos-with-cilantro-lime-slaw",
-      "ings": [
-        "1½ lb tilapia or white fish",
-        "1 tsp chili powder, ½ tsp oregano, ½ tsp garlic powder",
-        "½ tsp paprika, ¼ tsp cayenne, ¼ tsp onion powder",
-        "¼ tsp cumin, ½ tsp sea salt, ½ tsp cracked pepper",
-        "Tortillas for serving",
-        "Slaw: 2½ cups coleslaw mix",
-        "3 Tbsp mayo, 1 Tbsp lime juice",
-        "1 garlic clove minced, ⅓ cup cilantro",
-        "½ tsp sugar (optional), salt and pepper"
-      ],
-      "label": "Meal A",
-      "meta": "20 min · Air Fryer · Serves 4",
-      "name": "Air Fryer Fish Tacos with Cilantro Lime Slaw",
-      "note": "💡 No air fryer? Bake at 400°F for ~15 min instead.",
-      "steps": [
-        "Spray air fryer basket with oil. Mix all spices.",
-        "Pat fish dry, lay in basket. Brush with olive oil, coat with spice rub, press gently. Spritz with oil.",
-        "Preheat air fryer to 400°F. Cook fish 8–10 min until opaque and flakes at 145°F. Do not flip.",
-        "While fish cooks, toss together all slaw ingredients. Adjust lime and salt to taste.",
-        "Cut fish into pieces. Serve in tortillas topped with slaw and extra lime."
-      ]
-    },
-    {
-      "date": "8/11",
-      "day": "Tuesday",
-      "icon": "🥧",
-      "id": "healthy-chicken-pot-pie",
-      "ings": [
-        "1 tbsp olive oil",
-        "8 oz cremini mushrooms, sliced",
-        "3 medium carrots, diced",
-        "3 stalks celery, diced",
-        "1 tsp garlic powder",
-        "1 tsp salt, ½ tsp black pepper",
-        "¼ cup all-purpose flour",
-        "1½ cups low-sodium chicken broth",
-        "1 cup unsweetened almond milk (or low-fat milk)",
-        "3 cups cooked shredded chicken (rotisserie works great)",
-        "1 cup frozen peas",
-        "½ cup frozen pearl onions (or ½ small onion, diced and sautéed)",
-        "1 tsp fresh thyme (or ½ tsp dried)",
-        "1 store-bought deep dish pie crust (Great Value works — use as top crust only)",
-        "1 egg, beaten (for egg wash)"
-      ],
-      "label": "Meal B",
-      "meta": "~55 min · Oven · Serves 6",
-      "name": "Healthy Chicken Pot Pie",
-      "note": "💡 Top-crust only keeps this lighter and the crust stays flaky (no soggy bottom). Rotisserie chicken is the easy shortcut here. The Great Value deep dish crust works perfectly as a top-only crust — just unroll it over the dish.",
-      "steps": [
-        "Preheat oven to 425°F. Lightly grease a 9-inch pie dish or use a cast iron skillet.",
-        "Heat olive oil in a large Dutch oven or deep skillet over medium-high. Add mushrooms and cook 8 min until browned and sweated. Add carrots, celery, garlic powder, salt, and pepper. Cook 3 more min until carrots begin to soften.",
-        "Sprinkle flour over the vegetables and stir well. Cook 2 minutes so the flour loses its raw taste.",
-        "Pour in chicken broth slowly, stirring constantly to avoid lumps. Add almond milk. Cook over medium heat, stirring regularly, until sauce thickens — about 5–6 minutes. Do not boil hard.",
-        "Stir in shredded chicken, frozen peas, pearl onions, and thyme. Taste and adjust salt. Remove from heat.",
-        "Transfer filling to your prepared pie dish (or leave in cast iron if oven-safe).",
-        "Unroll the pie crust from the package. Lay it over the top of the dish, trimming to leave about ½ inch overhang. Press edges to seal and crimp with a fork. Cut 3–4 small slits to vent steam.",
-        "Brush crust all over with beaten egg wash.",
-        "Bake 20–25 minutes until crust is deeply golden and filling is bubbling at the edges. Let rest 5–10 minutes before serving — the filling will thicken as it sits."
-      ]
-    }
-  ],
-  "subhead": "2 dinners · Serves 4",
-  "title": "Week of August 10",
-  "updatedAt": 1786901795289,
-  "weekOf": "2026-08-10"
+  "updatedAt": 1786901816488
 }
