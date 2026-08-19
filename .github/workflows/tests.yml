@@ -1,0 +1,40 @@
+name: Tests
+
+# The sync workflow runs these too, but only when a week's data changes. Real
+# parsing logic now lives in the browser files — ingredient-format.js decides
+# what counts as a section header and what the grocery generator is allowed to
+# see — so a push that touches only .js used to reach the live site untested.
+#
+# This workflow writes nothing. It just runs the suite and goes red.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.js'
+      - '.github/workflows/tests.yml'
+  pull_request:
+    paths:
+      - '**.js'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: cd scripts && npm install
+
+      - name: Run tests
+        run: |
+          node scripts/check-weeks.js
+          node scripts/test-week-merge.js
+          node scripts/test-week-store.js
+          node scripts/test-recipe-import.js
+          node scripts/test-ingredient-format.js

@@ -293,6 +293,7 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="ingredient-format.js"></script>
 <script src="week-utils.js"></script>
 <script src="week-store.js"></script>
 <script src="recipe-card.js"></script>
@@ -873,7 +874,7 @@ function renderPickerList(q){
   var inWeek={}; editMeals.forEach(function(m){ inWeek[m.id]=true; });
   var shown=0;
   (allRecipes||[]).forEach(function(r){
-    var hay=[r.name, r.meta, (r.ingredients||r.ings||[]).join(' ')].join(' ').toLowerCase();
+    var hay=[r.name, r.meta, IngFormat.stripSections(r.ingredients||r.ings||[]).join(' ')].join(' ').toLowerCase();
     if(q && hay.indexOf(q)<0) return;
     var id=idOf(r);
     var already=!!inWeek[id];

@@ -127,6 +127,27 @@ console.log('pasted text');
   check('headings do not become content',
     r.recipe.ings.concat(r.recipe.steps).some(l => /^(ingredients|instructions)$/i.test(l)), false);
 }
+
+// Imported recipes get the same fraction glyphs as hand-typed ones, so a
+// collection assembled from a dozen websites still reads consistently.
+{
+  const r = RI.fromText([
+    'Simple Rice',
+    '',
+    'Ingredients',
+    '1 1/2 cups jasmine rice',
+    '3/4 tsp salt',
+    '1/16 tsp saffron',
+    '',
+    'Instructions',
+    'Simmer covered for 1/4 hour, then rest off the heat.'
+  ].join('\n'));
+  check('fractions become glyphs on import', r.recipe.ings[0], '1 ½ cups jasmine rice');
+  check('and at the start of a line', r.recipe.ings[1], '¾ tsp salt');
+  check('an unmapped fraction is left as typed', r.recipe.ings[2], '1/16 tsp saffron');
+  check('steps get them too', r.recipe.steps[0],
+    'Simmer covered for ¼ hour, then rest off the heat.');
+}
 {
   // No headings at all — measured lines are ingredients, prose is steps.
   const r = RI.fromText([

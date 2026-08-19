@@ -1,6 +1,7 @@
 const admin = require('firebase-admin');
 const fs = require('fs');
 const path = require('path');
+const { isSection, sectionTitle } = require('../ingredient-format.js');
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
@@ -35,7 +36,9 @@ function toMarkdown(recipe) {
     '',
     '### Ingredients',
     '',
-    ...(recipe.ingredients || []),
+    // A "# For the slaw" line is a section header, not an ingredient. Left as
+    // typed it would read as a markdown H1 and swallow the rest of the file.
+    ...(recipe.ingredients || []).map(l => isSection(l) ? '**' + sectionTitle(l) + '**' : l),
     '',
     '### Instructions',
     '',

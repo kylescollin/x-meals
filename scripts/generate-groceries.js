@@ -30,6 +30,7 @@ const fs = require('fs');
 const path = require('path');
 const Anthropic = require('@anthropic-ai/sdk');
 const Week = require('../week-utils.js');
+const { stripSections } = require('../ingredient-format.js');
 const { same } = require('./lib/stable.js');
 const {
   mergeGroceries, weekDelta, pruneRemoved, applyRevisions, relabelGroceries,
@@ -170,12 +171,22 @@ function reviseGroceries({ addedMeals, removedMeals, needsRevising, currentList 
   return ask(REVISE_PROMPT, parts.join('\n\n'), 3000);
 }
 
-// Placeholder meals (eating out, leftovers, off-plan) are just a name — keep
-// them out of the prompt entirely so the model can't invent ingredients for them.
+// What the model is allowed to see. Two things get filtered out first:
+//
+//   Placeholder meals (eating out, leftovers, off-plan) are just a name, so
+//   they're dropped entirely and the model can't invent ingredients for them.
+//
+//   "# For the slaw" lines are labels, not shopping. Leaving them in meant
+//   trusting the model to notice — and a header that slips through becomes a
+//   real line item, with a tag pill, an Amazon Fresh button searching "slaw:",
+//   and a Firebase tick key that makes it stick. Cheaper to be certain here.
+//
+// Returns copies: the week object is written back to disk afterwards and must
+// keep its ingredients exactly as Kyle typed them.
 function cookableMeals(week) {
-  return (week.meals || []).filter(
-    m => m && !(m.custom === true || /^custom-/.test(m.id || ''))
-  );
+  return (week.meals || [])
+    .filter(m => m && !(m.custom === true || /^custom-/.test(m.id || '')))
+    .map(m => Object.assign({}, m, { ings: stripSections(m.ings || []) }));
 }
 
 // Which items are currently ticked off, so nothing renames them out from under

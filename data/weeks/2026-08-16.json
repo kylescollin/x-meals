@@ -75,7 +75,7 @@
       "name": "Turkey Burgers",
       "meta": "",
       "ings": [
-        "For the Turkey Burgers:",
+        "# For the Turkey Burgers",
         "1 lb ground turkey",
         "1/4 cup breadcrumbs",
         "1/4 cup finely chopped onion",
@@ -86,7 +86,7 @@
         "1/2 teaspoon black pepper",
         "1/2 teaspoon paprika (optional)",
         "4 sesame seed burger buns",
-        "For Toppings:",
+        "# For Toppings",
         "Lettuce leaves",
         "Sliced pickles",
         "Sliced red onion",

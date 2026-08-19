@@ -7,6 +7,10 @@
 (function (global) {
   'use strict';
 
+  // The ingredient markup parser — '#' headers, trailing (notes), fractions.
+  // ingredient-format.js must load before this file.
+  var IngFormat = global.IngFormat;
+
   // ── Firebase ────────────────────────────────────────────────────────────
   var FB_BASE  = 'https://fox-bear-hub-default-rtdb.firebaseio.com';
   var REPO     = 'kylescollin/x-meals';   // for committing new recipes to git
@@ -572,10 +576,38 @@
     if (_onSaveChange) _onSaveChange(id, nowSaving, recipeObj);
   }
 
-  // ── Ingredient parser (shared) ──────────────────────────────────────────
-  function parseIng(s) {
-    var m = s.match(/^((?:[\d½⅓⅔¼¾\s\/]+)\s*(?:cup|cups|tbsp|tsp|lb|lbs|oz|g|kg|ml|l|clove|cloves|medium|large|small|head|can|bunch|pinch|dash)?s?\.?)\s+([\s\S]+)/i);
-    return m ? { qty: m[1].trim(), name: m[2].trim() } : { qty: '—', name: s };
+  // ── Ingredient rendering ────────────────────────────────────────────────
+  // The parsing lives in ingredient-format.js; these two turn its output into
+  // the markup each surface wants. A '#' line becomes a header rather than a
+  // bulleted ingredient, and a trailing (note) becomes quiet italic text.
+
+  // The recipe detail overlay: bulleted list, bold quantity, grey italic note.
+  function ingListHTML(ings) {
+    return (ings || []).map(function (line) {
+      var p = IngFormat.parseIngredient(line);
+      if (p.type === 'section') {
+        return '<li class="rc-rd-ing-head">' + escHtml(p.text) + '</li>';
+      }
+      // '—' means no measurement was found — render the line as plain text
+      // rather than bolding a dash nobody typed.
+      var html = p.qty === '—' ? escHtml(p.name) :
+        '<strong class="rc-rd-ing-qty">' + escHtml(p.qty) + '</strong> ' + escHtml(p.name);
+      if (p.note) html += ' <em class="rc-rd-ing-detail">' + escHtml(p.note) + '</em>';
+      return '<li>' + html + '</li>';
+    }).join('');
+  }
+
+  // Cooking mode: right-aligned quantity column, big item name, dark theme.
+  function ingRowsHTML(ings) {
+    return (ings || []).map(function (line) {
+      var p = IngFormat.parseIngredient(line);
+      if (p.type === 'section') {
+        return '<li class="rc-ck-ing-head">' + escHtml(p.text) + '</li>';
+      }
+      var note = p.note ? ' <em class="rc-ck-ing-detail">' + escHtml(p.note) + '</em>' : '';
+      return '<li class="rc-ck-ing-row"><span class="rc-ck-qty">' + escHtml(p.qty) + '</span>' +
+             '<span class="rc-ck-item-name">' + escHtml(p.name) + note + '</span></li>';
+    }).join('');
   }
 
   // ── Inject shared HTML + CSS ────────────────────────────────────────────
@@ -636,6 +668,13 @@
       '.rc-rd-ing-list{list-style:none;display:flex;flex-direction:column;gap:5px;}',
       '.rc-rd-ing-list li{font-size:13px;color:var(--ink);line-height:1.45;padding-left:12px;position:relative;}',
       '.rc-rd-ing-list li::before{content:"·";position:absolute;left:0;color:var(--muted);}',
+      // A '#' line: a label for the group below it, so it drops the bullet and
+      // the indent the ingredients keep.
+      '.rc-rd-ing-list li.rc-rd-ing-head{padding-left:0;font-weight:600;margin-top:14px;}',
+      '.rc-rd-ing-list li.rc-rd-ing-head::before{content:none;}',
+      '.rc-rd-ing-list li.rc-rd-ing-head:first-child{margin-top:0;}',
+      '.rc-rd-ing-qty{font-weight:600;}',
+      '.rc-rd-ing-detail{color:var(--muted);font-style:italic;}',
       '.rc-rd-step-list{list-style:none;display:flex;flex-direction:column;gap:10px;}',
       '.rc-rd-step-list li{font-size:13px;color:var(--ink);line-height:1.55;display:flex;gap:10px;}',
       '.rc-rd-step-num{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0;min-width:16px;padding-top:1px;}',
@@ -733,6 +772,8 @@
       '.rc-rd-field-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:500;color:var(--accent);}',
       '.rc-rd-input{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:"DM Sans",sans-serif;font-size:16px;font-weight:300;color:var(--ink);background:white;-webkit-appearance:none;appearance:none;outline:none;transition:border-color .15s;}',
       '.rc-rd-input:focus{border-color:var(--accent);}',
+      '.rc-rd-field-hint{font-size:11px;color:var(--muted);line-height:1.5;}',
+      '.rc-rd-field-hint b{font-weight:600;color:var(--ink);}',
       'textarea.rc-rd-input{resize:vertical;line-height:1.6;}',
       // Import-from-a-link panel (add form only)
       '.rc-rd-import{display:flex;flex-direction:column;gap:9px;padding:14px;border:1px solid var(--border);border-radius:10px;background:#fff;}',
@@ -845,6 +886,11 @@
       '.rc-ck-ing-row:last-child{border-bottom:none;}',
       '.rc-ck-qty{font-family:"Playfair Display",serif;font-size:16px;font-weight:600;color:var(--ck-accent);min-width:54px;text-align:right;flex-shrink:0;}',
       '.rc-ck-item-name{font-size:clamp(16px,4vw,20px);color:var(--ck-text);font-weight:300;line-height:1.35;}',
+      '.rc-ck-ing-detail{color:var(--ck-muted);font-style:italic;font-size:.85em;}',
+      // Section header: spans the whole row, no quantity column, no rule under
+      // it — the gap above is what separates one group from the last.
+      '.rc-ck-ing-head{padding:26px 0 6px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ck-accent);}',
+      '.rc-ck-ings li.rc-ck-ing-head:first-child{padding-top:0;}',
       '.rc-ck-swipe-hint-ing{position:absolute;bottom:24px;left:0;right:50%;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--ck-muted);font-size:12px;pointer-events:none;transition:opacity .5s;}',
       '.rc-ck-swipe-hint-ing.gone{opacity:0;}',
       '.rc-ck-step-vp{flex:1;position:relative;overflow:hidden;touch-action:none;}',
@@ -1072,7 +1118,7 @@
     document.getElementById('rc-rd-name').textContent = recipe.name;
     var metaEl = document.getElementById('rc-rd-meta');
     if (metaEl) { metaEl.textContent = recipe.meta || ''; metaEl.style.display = recipe.meta ? '' : 'none'; }
-    document.getElementById('rc-rd-ings').innerHTML  = (recipe.ings || recipe.ingredients || []).map(function (i) { return '<li>' + escHtml(i) + '</li>'; }).join('');
+    document.getElementById('rc-rd-ings').innerHTML  = ingListHTML(recipe.ings || recipe.ingredients || []);
     document.getElementById('rc-rd-steps').innerHTML = (recipe.steps || []).map(function (s, n) {
       return '<li><span class="rc-rd-step-num">' + (n + 1) + '</span><span>' + escHtml(s) + '</span></li>';
     }).join('');
@@ -1886,7 +1932,8 @@
       '</div>' +
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label" for="rc-rd-ef-ings">Ingredients &mdash; one per line</label>' +
-        '<textarea class="rc-rd-input" id="rc-rd-ef-ings" rows="8" autocomplete="off" placeholder="1 cup flour&#10;2 eggs&#10;...">' + escHtml(ings) + '</textarea>' +
+        '<textarea class="rc-rd-input" id="rc-rd-ef-ings" rows="8" autocomplete="off" placeholder="# For the fish&#10;1 1/2 lb tilapia&#10;1 tsp cayenne (or more)">' + escHtml(ings) + '</textarea>' +
+        '<div class="rc-rd-field-hint">Start a line with <b>#</b> for a section heading. Put an aside in <b>(parentheses)</b> and it turns grey. <b>1/2</b> becomes &frac12;.</div>' +
       '</div>' +
       '<div class="rc-rd-field">' +
         '<label class="rc-rd-field-label" for="rc-rd-ef-steps">Steps &mdash; one per line</label>' +
@@ -2105,6 +2152,41 @@
     });
   }
 
+  // Turn "1/2" into "½" the moment the second digit lands, the way Mela does.
+  // Bound once to the form rather than to the textareas, because importing a
+  // recipe rebuilds every field underneath it (see refillFormFields) — `input`
+  // bubbles, so one delegated listener survives that.
+  var FRACTION_FIELDS = { 'rc-rd-ef-ings': 1, 'rc-rd-ef-steps': 1 };
+
+  function autoFraction(e) {
+    var el = e.target;
+    if (!el || !FRACTION_FIELDS[el.id]) return;
+    // Mid-word in a dictation or IME composition, nothing is settled yet.
+    if (e.isComposing) return;
+    if (e.inputType && e.inputType.indexOf('delete') === 0) return;
+
+    var pos = el.selectionStart;
+    if (pos == null || pos !== el.selectionEnd) return;      // a selection, not a cursor
+    var after = el.value.charAt(pos);
+    if (/[\d/.]/.test(after)) return;                        // typing inside a longer number
+
+    var m = /(^|[^\d/.])(\d)\/(\d)$/.exec(el.value.slice(0, pos));
+    if (!m) return;
+    var glyph = IngFormat.FRACTIONS[m[2] + '/' + m[3]];
+    if (!glyph) return;
+
+    // execCommand is the only replacement iOS Safari keeps on the undo stack,
+    // so an unwanted ½ is always one ⌘Z away. setRangeText is the fallback.
+    var start = pos - 3;
+    el.setSelectionRange(start, pos);
+    var done = false;
+    try { done = document.execCommand('insertText', false, glyph); } catch (err) { done = false; }
+    if (!done) {
+      el.setRangeText(glyph, start, pos, 'end');
+      el.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+
   function wireImportPanel(form) {
     var btn = form.querySelector('#rc-rd-import-go');
     if (btn) btn.addEventListener('click', runImport);
@@ -2135,6 +2217,7 @@
     body.scrollTop = 0;
     wireEmojiPicker(form);
     wireTagPicker(form);
+    form.addEventListener('input', autoFraction);
     if (typeof importUrl === 'string') wireImportPanel(form);
     return form;
   }
@@ -2760,10 +2843,7 @@
     function buildIngs(r) {
       ingHead.textContent = r.name;
       titleEl.textContent = r.name;
-      ingsList.innerHTML  = (r.ings || r.ingredients || []).map(function (i) {
-        var p = parseIng(i);
-        return '<li class="rc-ck-ing-row"><span class="rc-ck-qty">' + escHtml(p.qty) + '</span><span class="rc-ck-item-name">' + escHtml(p.name) + '</span></li>';
-      }).join('');
+      ingsList.innerHTML  = ingRowsHTML(r.ings || r.ingredients || []);
       ingScroll.scrollTop = 0;
     }
 

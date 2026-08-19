@@ -115,6 +115,7 @@
   </div>
 </div>
 
+<script src="ingredient-format.js"></script>
 <script src="recipe-import.js"></script>
 <script src="recipe-card.js"></script>
 <script type="module">
@@ -141,7 +142,9 @@ var facets = {};
 
 function indexRecipe(r) {
   var id = RecipeCard.idOf(r);
-  var ings = r.ings || r.ingredients || [];
+  // Section headers are labels, not ingredients — they shouldn't match a
+  // search or count as evidence of a protein.
+  var ings = IngFormat.stripSections(r.ings || r.ingredients || []);
   var tags = RecipeCard.tagsFor(r);
   searchIndex[id] = [r.name, tags.join(' '), r.meta, ings.join(' ')].join(' ').toLowerCase();
   facets[id] = {

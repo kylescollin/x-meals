@@ -55,6 +55,7 @@ jobs:
           node scripts/test-week-merge.js
           node scripts/test-week-store.js
           node scripts/test-recipe-import.js
+          node scripts/test-ingredient-format.js
 
       # Does the least work each week needs: nothing at all for a rearranged
       # week, one scoped call for a meal added or removed. That's what stops

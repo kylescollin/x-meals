@@ -23,6 +23,11 @@
 (function () {
   'use strict';
 
+  // ingredient-format.js owns the fraction glyphs; the browser loads it before
+  // this file, Node requires it. Same split as the exports at the bottom.
+  var IngFormat = (typeof window !== 'undefined' && window.IngFormat) ||
+    (typeof require !== 'undefined' ? require('./ingredient-format.js') : null);
+
   // Our own fetcher (see recipe-fetcher/). Public relays follow as fallbacks —
   // they're blocked by many of the bigger recipe sites, but they cost nothing
   // and occasionally save an import when the first choice is down.
@@ -85,7 +90,10 @@
   function tidyList(arr, cap) {
     var seen = {}, out = [];
     (arr || []).forEach(function (raw) {
-      var line = cleanText(raw);
+      // Fractions become glyphs here rather than at render time, so an imported
+      // recipe reads the same as one Kyle typed — and so "1/2 cup" and "½ cup"
+      // collapse into one line in the dedupe below.
+      var line = IngFormat.prettyFractions(cleanText(raw));
       if (!usable(line)) return;
       var key = line.toLowerCase();
       if (seen[key]) return;              // sites often print the list twice

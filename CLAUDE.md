@@ -62,6 +62,10 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 - `icons.js` — the site's line icons: a hand-copied subset of Lucide (ISC), exposed as
   `window.Icon`. Copied rather than loaded from a CDN so the icons survive offline. Must load
   before `nav.js`. Chrome uses these; recipe and grocery-section emoji are still emoji.
+- `ingredient-format.js` — The little markup language an ingredient line speaks: `#` headers,
+  trailing `(notes)`, fraction glyphs (`window.IngFormat`, and `require`-able from `scripts/`).
+  Pure, no DOM. Must load before `recipe-import.js` and `recipe-card.js`. See **Ingredient
+  Lines** below.
 - `week-utils.js` — All week math (`window.Week`, and `require`-able from `scripts/`). Weeks run
   **Sunday → Saturday**.
 - `week-store.js` — Reading and writing weeks from the browser (`window.WeekStore`). Owns
@@ -80,14 +84,20 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   it (`pruneRemoved`, `applyRevisions`, `relabelGroceries`), plus the whole-week reconcile
   (`mergeGroceries`). All pure, all unit-tested.
 - `scripts/check-weeks.js`, `scripts/test-week-merge.js`, `scripts/test-week-store.js`,
-  `scripts/test-recipe-import.js` — the repo's test suite. All four run in CI before anything is
-  written. `test-recipe-import.js` covers the guessing rules; the ones that matter most are the
-  tag cases, because recipe method text is full of words that mean something else in a title.
+  `scripts/test-recipe-import.js`, `scripts/test-ingredient-format.js` — the repo's test suite.
+  All five run in CI before anything is written. `test-recipe-import.js` covers the guessing
+  rules; the ones that matter most are the tag cases, because recipe method text is full of
+  words that mean something else in a title. `test-ingredient-format.js` leans the other way —
+  most of its cases assert the parser does *nothing*, because "2 (14.5 oz) cans" and "1/16 tsp"
+  have to come out exactly as they went in.
 - `recipe-fetcher/` — a separate one-function Vercel deployment that fetches a recipe page so the
   browser can read it. Not part of the site; see its README and **Importing a recipe** below.
 - `scripts/fold-legacy-week.js` — Safety net: folds a stray `data/week.json` into `data/weeks/`.
 - `scripts/migrate-weeks.js` — The one-time migration. Already run; kept for reference.
 - `.github/workflows/sync-to-firebase.yml` — Triggers on push to `data/weeks/**`.
+- `.github/workflows/tests.yml` — Runs the suite on any push touching `**.js`. Writes nothing.
+  The sync workflow only fires on week data, so without this a change to a parser reached the
+  live site untested.
 
 **Other:**
 - `cooking-demo.html` — Standalone prototype page. Not part of the main nav.
@@ -287,6 +297,32 @@ Rules for Agent X when adding a recipe:
   (`"30 min · Stovetop · Serves 4"`), which is also what the time and equipment filters parse.
 - Weekly meals don't need tags — the site looks them up by recipe `id` from `data/recipes.json`.
   The `"label": "Meal A"` on a weekly meal is only used for grocery tag colors, never as a category.
+
+## Ingredient Lines
+
+An ingredient list is still a flat array of strings — that never changed, and it's what keeps
+every line round-tripping through the plain textarea in the add/edit form. Three conventions
+give it structure. `ingredient-format.js` is the only parser, shared by the browser and the CI
+scripts, and `scripts/test-ingredient-format.js` covers it.
+
+| Written as | Renders as |
+|---|---|
+| `"# For the fish"` | A **section header** — bold, no bullet, in both the recipe view and cooking mode. |
+| `"1 tsp cayenne (or more)"` | *or more* in grey italic. The parentheses are **dropped**. |
+| `"2 eggs ((room temp))"` | *(room temp)* in grey italic, with one set of parens kept. |
+| `"2 (14.5 oz) cans tomatoes"` | Unchanged. **Only a trailing parenthetical is a note** — mid-line parens are left exactly as written, because dozens of real lines use them for can sizes. |
+| `"1 ½ lb tilapia"` | Fractions are stored as glyphs (`½ ⅓ ⅔ ¼ ¾ ⅛ ⅜ ⅝ ⅞`). The editor converts `1/2` as you type and imports are converted on the way in — write the glyph directly. |
+
+Rules for Agent X:
+- Use `#` for a group ("# For the sauce") instead of a bare `"Sauce:"` line. A bare label is
+  indistinguishable from a quantity-less ingredient like `"Salt and pepper"`, so it renders as
+  a bulleted ingredient and reads as one everywhere else.
+- **`#` lines never reach the grocery generator.** `cookableMeals` in
+  `scripts/generate-groceries.js` strips them before the meals are serialised into the prompt,
+  the same way it already drops placeholder meals. They're also kept out of the recipe search
+  index and the meal-picker haystack.
+- The quantity goes at the front of the line as always — the renderer bolds it by pulling the
+  leading measurement off. A line with no measurement (`"Salt and pepper"`) renders plain.
 
 ## Week File Schema
 
