@@ -37,7 +37,161 @@
       "date": "8/24"
     }
   ],
-  "groceries": [],
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "6 cloves garlic, minced",
+          "detail": "cooked in butter to build the scampi sauce",
+          "amazon": "fresh garlic bulb",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 lemon",
+          "detail": "juiced into the sauce",
+          "amazon": "fresh lemon",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "¼ cup fresh parsley",
+          "detail": "chopped and tossed in at the end",
+          "amazon": "fresh flat leaf parsley",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "1 lb large shrimp, peeled and deveined",
+          "detail": "seared and tossed with the pasta and sauce",
+          "amazon": "large shrimp peeled deveined",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "4 Tbsp unsalted butter",
+          "detail": "used in two stages — to sear the shrimp and to build the garlic sauce",
+          "amazon": "unsalted butter",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Grated Parmesan, for serving",
+          "detail": "passed at the table",
+          "amazon": "grated parmesan cheese",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "8 oz linguine",
+          "detail": "cooked al dente as the base of the dish",
+          "amazon": "linguine pasta",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 Tbsp olive oil",
+          "detail": "used with butter to sear the shrimp",
+          "amazon": "olive oil",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "½ cup dry white wine",
+          "detail": "deglazed into the pan to form the base of the sauce",
+          "amazon": "dry white wine cooking wine",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Red pepper flakes",
+          "detail": "served on the side for adults",
+          "amazon": "red pepper flakes",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "Salt",
+          "detail": "used to salt the pasta water and season the shrimp",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Black pepper",
+          "detail": "seasoned onto the shrimp before searing",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
   "subhead": "1 dinner",
-  "updatedAt": 1787191587826
+  "updatedAt": 1787191587826,
+  "groceriesFor": [
+    "garlic-shrimp-scampi-linguine"
+  ],
+  "groceriesAt": "2026-08-20T02:07:02.220Z"
 }
