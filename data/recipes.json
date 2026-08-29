@@ -1524,6 +1524,50 @@
         "Assembling the Burgers: Once your turkey patties are cooked, it’s time to assemble your burgers! Place a cooked patty on the bottom half of a bun. Top it with a lovely layer of lettuce, some pickles, and a few slices of red onion—whatever you like best! Don’t forget your favorite condiments, then place the top half of the bun over everything.",
         "Serve and Enjoy! Serve your turkey burgers immediately while they’re hot and juicy. Enjoy them with your favorite sides or just on their own. Yum!"
       ]
+    },
+    {
+      "id": "chicken-enchiladas",
+      "icon": "🍗",
+      "name": "Chicken Enchiladas",
+      "meta": "1 hr · Oven · Serves 8",
+      "tags": [
+        "Sauce",
+        "Mexican"
+      ],
+      "ingredients": [
+        "½ teaspoon EACH: onion powder, garlic powder, cumin, paprika, dried oregano, chili powder",
+        "1-2 tablespoons avocado oil (can sub olive oil)",
+        "½ yellow onion (diced)",
+        "15 oz. red enchilada sauce (I highly recommend my homemade version)",
+        "2 ¾ cups shredded chicken (see notes)",
+        "Salt (to taste)",
+        "3 cloves garlic (minced)",
+        "1 (15 oz.) can black beans (drained and rinsed)",
+        "1 (4 oz.) can diced green chiles (undrained)",
+        "2 tablespoons lime juice",
+        "1 teaspoon hot sauce",
+        "1 teaspoon honey",
+        "2 tablespoons finely chopped cilantro (plus more to garnish)",
+        "8 (8-inch) flour tortillas",
+        "3 cups shredded Mexican cheese (divided)",
+        "Sour cream (for serving)"
+      ],
+      "steps": [
+        "Preheat oven to 350° F.",
+        "Combine the seasonings and set aside. Measure out remaining ingredients before beginning.",
+        "Heat olive oil in a large skillet over medium heat. Add the diced onions and soften for 5 minutes.",
+        "Reduce heat to medium-low. Add ⅓ cup of enchilada sauce to the skillet along with the garlic.",
+        "Add the cooked chicken and season with salt to taste if not already salted. Rotisserie chicken likely won’t require additional salt.",
+        "Sprinkle the chicken with the combined seasonings (from step 2) and toss to coat. Stir in the black beans, green chiles, lime juice, hot sauce, honey, and cilantro and heat through for 1 to 2 minutes. Remove and set aside.",
+        "Lightly grease a 9 x 13-inch casserole dish. Spread ¼ cup of enchilada sauce on the bottom, the layer will be thin.",
+        "Optional: Microwave 4 tortillas at a time for 30 seconds to make them more pliable.",
+        "Spoon the filling on the bottom third of each tortilla and top with a heaping tablespoon of cheese. Roll tightly and place seam-side-down in the casserole dish.",
+        "Pour/spread enchilada sauce over the top of the rolled tortillas. (I use up to ¾ cup, you don't have to use all remaining sauce, it may be too heavy.) Sprinkle with an even layer of the remaining cheese.",
+        "Cover and bake for 10 minutes. (If topping with foil, spray the bottom with nonstick cooking spray to prevent the cheese from sticking to it.)",
+        "Remove cover and bake for 13 more minutes. Broil on low (450) for 1-2 minutes to brown the top slightly if desired. Watch it closely during this time.",
+        "Garnish with cilantro and desired toppings (see notes for suggestions) and serve with sour cream!"
+      ],
+      "source": "https://thecozycook.com/chicken-enchiladas/"
     }
   ]
 }
