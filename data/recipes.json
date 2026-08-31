@@ -1568,6 +1568,42 @@
         "Garnish with cilantro and desired toppings (see notes for suggestions) and serve with sour cream!"
       ],
       "source": "https://thecozycook.com/chicken-enchiladas/"
+    },
+    {
+      "id": "chicken-ramen-stir-fry",
+      "icon": "🍜",
+      "name": "Chicken Ramen Stir Fry",
+      "meta": "22 min · Stovetop · Serves 4",
+      "tags": [
+        "Stir Fry",
+        "Asian"
+      ],
+      "ingredients": [
+        "9 ounces dry ramen noodles (flavor packets discarded (3 packets))",
+        "⅓ cup chicken broth",
+        "3 tablespoons hoisin sauce",
+        "2 tablespoons soy sauce",
+        "1 ½ teaspoons rice wine vinegar",
+        "1 teaspoon sesame oil",
+        "2 boneless (skinless chicken breasts, cut into bite-sized pieces)",
+        "¼ teaspoon salt",
+        "1 ½ tablespoons canola oil",
+        "2 cups broccoli florets",
+        "1 red bell pepper (thinly sliced)",
+        "1 medium carrot (cut into matchsticks)",
+        "3 green onions (sliced)",
+        "3 cloves garlic (minced)"
+      ],
+      "steps": [
+        "Cook the ramen according to package directions, then drain and set aside.",
+        "In a small bowl, whisk together broth, hoisin sauce, soy sauce, vinegar, and sesame oil, then set aside.",
+        "Season chicken with salt and pepper. Heat oil in a large skillet or wok over medium-high heat. Cook chicken for 2-3 minutes on each side, browning it but not fully cooking.",
+        "Add broccoli, bell pepper, and carrot, and cook for 4-5 minutes until vegetables soften and chicken is cooked through.",
+        "Add garlic and green onion, and cook for 30 seconds to 1 minute until fragrant.",
+        "Add cooked ramen and stir-fry sauce to the pan and toss well to combine. Cook for another minute until the noodles are heated through and the sauce thickens.",
+        "Serve hot, garnished with sesame seeds and more sliced green onions."
+      ],
+      "source": "https://myheavenlyrecipes.com/chicken-ramen-stir-fry-recipe/#recipe"
     }
   ]
 }
