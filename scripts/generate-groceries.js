@@ -184,12 +184,16 @@ async function ask(system, user, maxTokens) {
   throw new Error('model returned unusable JSON after 3 attempts: ' + lastErr.message);
 }
 
+// The token budgets are deliberately roomy. The model likes to "work through"
+// the meals in prose before the JSON no matter what the prompt says, and a
+// budget it can hit truncates the array mid-item — which is exactly the
+// failure that stranded a week's list. Tokens are cheap; a lost list isn't.
 function generateGroceries(meals, existingNames) {
   return ask(SYSTEM_PROMPT,
     `Generate the complete groceries array for this week's meals:\n\n${JSON.stringify(meals, null, 2)}` +
     `\n\nAlready on the list — reuse these exact name strings wherever your output covers the same ingredient:\n\n` +
     ((existingNames || []).length ? JSON.stringify(existingNames, null, 2) : '(nothing yet)'),
-    4000);
+    10000);
 }
 
 function reviseGroceries({ addedMeals, removedMeals, changedMeals, needsRevising, currentList }) {
@@ -210,7 +214,7 @@ function reviseGroceries({ addedMeals, removedMeals, changedMeals, needsRevising
       JSON.stringify(needsRevising, null, 2));
   }
   parts.push(`The current list, as it stands right now:\n\n${JSON.stringify(currentList, null, 2)}`);
-  return ask(REVISE_PROMPT, parts.join('\n\n'), 3000);
+  return ask(REVISE_PROMPT, parts.join('\n\n'), 8000);
 }
 
 // What the model is allowed to see. Two things get filtered out first:
