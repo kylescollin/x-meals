@@ -150,26 +150,23 @@ tidy it, do not rename it. Items the meals never mentioned are hand-added by the
 family — never touch those.`;
 
 // One reply that began "I'll work through the meals..." instead of with JSON
-// took down a whole sync run. Three defences now: the assistant turn is
-// prefilled with "[" so the reply can't open with prose, extractJson tolerates
-// fences and prose anyway, and a reply that still won't parse is retried —
-// sampling variance usually fixes it — before giving up loudly.
+// took down a whole sync run. Two defences now: extractJson tolerates fences
+// and prose around the JSON, and a reply that still won't parse (or an API
+// call that fails outright) is retried — sampling variance usually fixes it —
+// before giving up loudly. (An assistant "[" prefill would rule the preamble
+// out at the source, but this model rejects prefill with a 400.)
 async function ask(system, user, maxTokens) {
   let lastErr;
   for (let attempt = 1; attempt <= 3; attempt++) {
-    const response = await client.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: maxTokens,
-      system: [{ type: 'text', text: system, cache_control: { type: 'ephemeral' } }],
-      messages: [
-        { role: 'user', content: user },
-        // Both prompts return a JSON array. Starting the answer for the model
-        // rules out a prose preamble entirely.
-        { role: 'assistant', content: '[' }
-      ]
-    });
-    const text = '[' + (((response.content || [])[0] || {}).text || '');
+    let text = '';
     try {
+      const response = await client.messages.create({
+        model: 'claude-sonnet-4-6',
+        max_tokens: maxTokens,
+        system: [{ type: 'text', text: system, cache_control: { type: 'ephemeral' } }],
+        messages: [{ role: 'user', content: user }]
+      });
+      text = (((response.content || [])[0] || {}).text || '');
       // Checked before parsing: a truncated array can still parse as smaller
       // valid JSON, which would silently drop items.
       if (response.stop_reason === 'max_tokens') {
@@ -180,7 +177,8 @@ async function ask(system, user, maxTokens) {
       return parsed;
     } catch (e) {
       lastErr = e;
-      console.log(`  (attempt ${attempt} of 3 failed: ${e.message} — response began ${JSON.stringify(text.slice(0, 120))})`);
+      const began = text ? ` — response began ${JSON.stringify(text.slice(0, 120))}` : '';
+      console.log(`  (attempt ${attempt} of 3 failed: ${e.message}${began})`);
     }
   }
   throw new Error('model returned unusable JSON after 3 attempts: ' + lastErr.message);
