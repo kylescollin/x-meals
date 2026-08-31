@@ -1,12 +1,526 @@
 {
-  "weekOf": "2026-08-30",
-  "title": "Week of August 30",
+  "groceries": [
+    {
+      "icon": "🥦",
+      "items": [
+        {
+          "amazon": "fresh lemon",
+          "detail": "juiced into the sauce",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "name": "1 lemon",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "fresh flat leaf parsley",
+          "detail": "chopped and tossed in at the end · blended into the falafel mixture",
+          "from": [
+            "garlic-shrimp-scampi-linguine",
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "1 small bunch fresh parsley",
+          "tag": "Meals A+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "fresh garlic bulb",
+          "detail": "6 minced into the scampi sauce · 3 minced into the filling · 1 clove whisked into the tahini dressing",
+          "from": [
+            "garlic-shrimp-scampi-linguine",
+            "chicken-enchiladas",
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "9 cloves garlic",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "amazon": "yellow onion",
+          "detail": "softened as the base of the filling",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "½ yellow onion, diced",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "fresh limes",
+          "detail": "juiced into the filling",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "2 limes",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "fresh cilantro",
+          "detail": "chopped into the filling and used to garnish · blended into the falafel mixture and used to garnish bowls",
+          "from": [
+            "chicken-enchiladas",
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "1 small bunch fresh cilantro",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "small yellow onion",
+          "detail": "blended into the falafel mixture",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "1 small onion",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "mixed salad greens",
+          "detail": "base of the falafel bowls",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "2 cups mixed greens",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "cherry tomatoes",
+          "detail": "arranged as a topping in the bowls",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "1 cup cherry tomatoes",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "english cucumber",
+          "detail": "diced as a topping in the bowls",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "1 medium cucumber",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "red onion",
+          "detail": "layered into the bowls as a topping",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "½ red onion, sliced",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "carrots",
+          "detail": "shredded as a topping in the bowls",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "1 medium carrot",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "ripe avocado",
+          "detail": "sliced over the bowls",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "1 avocado",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "radishes",
+          "detail": "pickled and used as a topping in the bowls",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "1 bunch radishes",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        }
+      ],
+      "label": "Produce"
+    },
+    {
+      "icon": "🥩",
+      "items": [
+        {
+          "amazon": "large shrimp peeled deveined",
+          "detail": "seared and tossed into the pasta",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "name": "1 lb large shrimp, peeled and deveined",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "rotisserie chicken",
+          "detail": "seasoned and rolled into the enchiladas — rotisserie works great",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "2¾ cups shredded cooked chicken",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ],
+      "label": "Protein"
+    },
+    {
+      "icon": "🧈",
+      "items": [
+        {
+          "amazon": "unsalted butter",
+          "detail": "used in two additions to build the scampi sauce",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "name": "4 Tbsp unsalted butter",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "grated parmesan cheese",
+          "detail": "grated at the table",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "name": "Parmesan cheese, for serving",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "shredded mexican cheese blend",
+          "detail": "mixed into the filling and layered over the top before baking",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "3 cups shredded Mexican cheese blend",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "sour cream",
+          "detail": "served alongside at the table",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "Sour cream, for serving",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        }
+      ],
+      "label": "Dairy & Refrigerated"
+    },
+    {
+      "icon": "🫙",
+      "items": [
+        {
+          "amazon": "linguine pasta",
+          "detail": "cooked al dente as the pasta base",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "name": "8 oz linguine",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "extra virgin olive oil",
+          "detail": "used with butter to sear the shrimp · drizzled to season cooked grains",
+          "from": [
+            "garlic-shrimp-scampi-linguine",
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "3 Tbsp olive oil",
+          "tag": "Meals A+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "amazon": "dry white wine cooking",
+          "detail": "deglazed into the sauce and simmered down",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "name": "½ cup dry white wine",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "amazon": "avocado oil",
+          "detail": "used to sauté the onions",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "1–2 Tbsp avocado oil",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "red enchilada sauce",
+          "detail": "spread on the bottom of the dish and poured over the rolled tortillas",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "15 oz red enchilada sauce",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "canned black beans",
+          "detail": "stirred into the filling",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "1 (15 oz) can black beans, drained and rinsed",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "diced green chiles canned mild",
+          "detail": "stirred into the filling undrained",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "1 (4 oz) can diced green chiles",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "hot sauce",
+          "detail": "stirred into the filling",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "1 tsp hot sauce",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "honey",
+          "detail": "stirred into the filling",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "1 tsp honey",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "8 inch flour tortillas",
+          "detail": "warmed and rolled around the filling",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "8 (8-inch) flour tortillas",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "amazon": "dried chickpeas",
+          "detail": "soaked overnight then blended as the falafel base",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "1 cup dried chickpeas",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "chickpea flour",
+          "detail": "added to the falafel mixture to help it hold together",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "3–4 Tbsp chickpea flour",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "baking powder",
+          "detail": "blended into the falafel mixture for lift",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "½ tsp baking powder",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "quinoa",
+          "detail": "cooked and used as the base of the bowls",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "2 cups quinoa or brown rice",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "hummus",
+          "detail": "spooned into the assembled bowls",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "½ cup hummus",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "tahini",
+          "detail": "whisked into the dressing and drizzled over the bowls",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "¼ cup tahini",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "amazon": "pure maple syrup",
+          "detail": "whisked into the tahini dressing",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "1 Tbsp maple syrup",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        }
+      ],
+      "label": "Pantry & Canned"
+    },
+    {
+      "icon": "🌿",
+      "items": [
+        {
+          "detail": "seasoning throughout",
+          "from": [
+            "garlic-shrimp-scampi-linguine",
+            "chicken-enchiladas",
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "Salt",
+          "tag": "All meals",
+          "tagClass": "tag-all"
+        },
+        {
+          "detail": "seasoning the shrimp and sauce",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "name": "Black pepper",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "detail": "served on the side for adults",
+          "from": [
+            "garlic-shrimp-scampi-linguine"
+          ],
+          "name": "Red pepper flakes",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
+        },
+        {
+          "detail": "part of the enchilada seasoning blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "Onion powder",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "part of the enchilada seasoning blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "Garlic powder",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "part of the enchilada seasoning blend · blended into the falafel mixture",
+          "from": [
+            "chicken-enchiladas",
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "Ground cumin",
+          "tag": "Meals B+C",
+          "tagClass": "tag-shared"
+        },
+        {
+          "detail": "part of the enchilada seasoning blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "Paprika",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "part of the enchilada seasoning blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "Dried oregano",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "part of the enchilada seasoning blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "name": "Chili powder",
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
+        },
+        {
+          "detail": "blended into the falafel mixture",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "Ground coriander",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "detail": "optional — blended into the falafel mixture for heat",
+          "from": [
+            "falafel-bowl-with-tahini-dressing"
+          ],
+          "name": "Cayenne pepper",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        }
+      ],
+      "label": "Spices",
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
+  "groceriesAt": "2026-08-29T14:34:50.908Z",
+  "groceriesFor": [
+    "garlic-shrimp-scampi-linguine",
+    "chicken-enchiladas",
+    "falafel-bowl-with-tahini-dressing"
+  ],
   "meals": [
     {
-      "id": "garlic-shrimp-scampi-linguine",
+      "date": "8/31",
+      "day": "Monday",
       "icon": "🍝",
-      "name": "Garlic Shrimp Scampi Linguine",
-      "meta": "~30 min · Stovetop · Serves 4",
+      "id": "garlic-shrimp-scampi-linguine",
       "ings": [
         "1 lb large shrimp, peeled and deveined",
         "8 oz linguine",
@@ -21,6 +535,10 @@
         "Red pepper flakes (optional, on the side for adults)",
         "Grated Parmesan for serving"
       ],
+      "label": "Meal A",
+      "meta": "~30 min · Stovetop · Serves 4",
+      "name": "Garlic Shrimp Scampi Linguine",
+      "note": "💡 The key is not overcooking the shrimp — pull them the moment they turn pink. They'll finish in the sauce.",
       "steps": [
         "Bring a large pot of salted water to boil. Cook linguine al dente per package. Reserve ¼ cup pasta water before draining.",
         "Pat shrimp dry. Season with salt and pepper.",
@@ -30,17 +548,13 @@
         "Add pasta and reserved pasta water. Toss to coat — the starchy water helps emulsify the sauce.",
         "Return shrimp to the pan. Toss everything together. Add parsley, taste, adjust salt.",
         "Serve immediately with Parmesan and red pepper flakes on the side for adults."
-      ],
-      "day": "Monday",
-      "note": "💡 The key is not overcooking the shrimp — pull them the moment they turn pink. They'll finish in the sauce.",
-      "label": "Meal A",
-      "date": "8/31"
+      ]
     },
     {
-      "id": "chicken-enchiladas",
+      "date": "9/1",
+      "day": "Tuesday",
       "icon": "🍗",
-      "name": "Chicken Enchiladas",
-      "meta": "1 hr · Oven · Serves 8",
+      "id": "chicken-enchiladas",
       "ings": [
         "½ teaspoon EACH: onion powder, garlic powder, cumin, paprika, dried oregano, chili powder",
         "1-2 tablespoons avocado oil (can sub olive oil)",
@@ -59,6 +573,9 @@
         "3 cups shredded Mexican cheese (divided)",
         "Sour cream (for serving)"
       ],
+      "label": "Meal B",
+      "meta": "1 hr · Oven · Serves 8",
+      "name": "Chicken Enchiladas",
       "steps": [
         "Preheat oven to 350° F.",
         "Combine the seasonings and set aside. Measure out remaining ingredients before beginning.",
@@ -73,557 +590,76 @@
         "Cover and bake for 10 minutes. (If topping with foil, spray the bottom with nonstick cooking spray to prevent the cheese from sticking to it.)",
         "Remove cover and bake for 13 more minutes. Broil on low (450) for 1-2 minutes to brown the top slightly if desired. Watch it closely during this time.",
         "Garnish with cilantro and desired toppings (see notes for suggestions) and serve with sour cream!"
-      ],
-      "day": "Tuesday",
-      "label": "Meal B",
-      "date": "9/1"
+      ]
     },
     {
-      "id": "falafel-bowl-with-tahini-dressing",
-      "icon": "🧆",
-      "name": "Falafel Bowl with Tahini Dressing",
-      "meta": "~45 min · Oven or Air Fryer · Serves 4",
+      "id": "chicken-ramen-stir-fry",
+      "icon": "🍜",
+      "name": "Chicken Ramen Stir Fry",
+      "meta": "22 min · Stovetop · Serves 4",
       "ings": [
-        "1 cup dried chickpeas, soaked overnight",
-        "½ cup fresh cilantro, ½ cup fresh parsley",
-        "3 garlic cloves, 1 small onion",
-        "1 tsp cumin, 1 tsp coriander, ½ tsp cayenne (optional)",
-        "½ tsp baking powder, 3–4 Tbsp chickpea flour",
-        "2 cups cooked quinoa or brown rice",
-        "2 cups mixed greens",
-        "1 cup diced cucumber, 1 cup cherry tomatoes",
-        "½ red onion sliced, 1 shredded carrot, ½ cup hummus",
-        "1 avocado, pickled radishes",
-        "Tahini dressing: ¼ cup tahini, lemon juice, olive oil, water, garlic, maple syrup"
+        "9 ounces dry ramen noodles (flavor packets discarded (3 packets))",
+        "⅓ cup chicken broth",
+        "3 tablespoons hoisin sauce",
+        "2 tablespoons soy sauce",
+        "1 ½ teaspoons rice wine vinegar",
+        "1 teaspoon sesame oil",
+        "2 boneless (skinless chicken breasts, cut into bite-sized pieces)",
+        "¼ teaspoon salt",
+        "1 ½ tablespoons canola oil",
+        "2 cups broccoli florets",
+        "1 red bell pepper (thinly sliced)",
+        "1 medium carrot (cut into matchsticks)",
+        "3 green onions (sliced)",
+        "3 cloves garlic (minced)"
       ],
       "steps": [
-        "Drain soaked chickpeas. Pulse in food processor with cilantro, parsley, garlic, onion, spices, baking powder, and salt. Add chickpea flour until mixture holds together. Chill 30 min.",
-        "Shape into balls or patties. Fry 3–4 min per side, or bake 375°F for 25–30 min flipping halfway, or air fry 375°F for 15–18 min.",
-        "Cook grains per package. Season with olive oil and salt.",
-        "Whisk tahini dressing ingredients until pourable.",
-        "Assemble bowls: divide grains and greens, arrange toppings, add 3–4 falafels, spoon hummus, drizzle dressing. Garnish with cilantro."
+        "Cook the ramen according to package directions, then drain and set aside.",
+        "In a small bowl, whisk together broth, hoisin sauce, soy sauce, vinegar, and sesame oil, then set aside.",
+        "Season chicken with salt and pepper. Heat oil in a large skillet or wok over medium-high heat. Cook chicken for 2-3 minutes on each side, browning it but not fully cooking.",
+        "Add broccoli, bell pepper, and carrot, and cook for 4-5 minutes until vegetables soften and chicken is cooked through.",
+        "Add garlic and green onion, and cook for 30 seconds to 1 minute until fragrant.",
+        "Add cooked ramen and stir-fry sauce to the pan and toss well to combine. Cook for another minute until the noodles are heated through and the sauce thickens.",
+        "Serve hot, garnished with sesame seeds and more sliced green onions."
       ],
       "day": "Wednesday",
       "label": "Meal C",
       "date": "9/2"
-    }
-  ],
-  "groceries": [
-    {
-      "icon": "🥦",
-      "label": "Produce",
-      "items": [
-        {
-          "name": "1 lemon",
-          "detail": "juiced into the sauce",
-          "amazon": "fresh lemon",
-          "from": [
-            "garlic-shrimp-scampi-linguine"
-          ],
-          "tagClass": "tag-chili",
-          "tag": "Meal A"
-        },
-        {
-          "name": "1 small bunch fresh parsley",
-          "detail": "chopped and tossed in at the end · blended into the falafel mixture",
-          "amazon": "fresh flat leaf parsley",
-          "from": [
-            "garlic-shrimp-scampi-linguine",
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-shared",
-          "tag": "Meals A+C"
-        },
-        {
-          "name": "9 cloves garlic",
-          "detail": "6 minced into the scampi sauce · 3 minced into the filling · 1 clove whisked into the tahini dressing",
-          "amazon": "fresh garlic bulb",
-          "from": [
-            "garlic-shrimp-scampi-linguine",
-            "chicken-enchiladas",
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-all",
-          "tag": "All meals"
-        },
-        {
-          "name": "½ yellow onion, diced",
-          "detail": "softened as the base of the filling",
-          "amazon": "yellow onion",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "2 limes",
-          "detail": "juiced into the filling",
-          "amazon": "fresh limes",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "1 small bunch fresh cilantro",
-          "detail": "chopped into the filling and used to garnish · blended into the falafel mixture and used to garnish bowls",
-          "amazon": "fresh cilantro",
-          "from": [
-            "chicken-enchiladas",
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-shared",
-          "tag": "Meals B+C"
-        },
-        {
-          "name": "1 small onion",
-          "detail": "blended into the falafel mixture",
-          "amazon": "small yellow onion",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "2 cups mixed greens",
-          "detail": "base of the falafel bowls",
-          "amazon": "mixed salad greens",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "1 cup cherry tomatoes",
-          "detail": "arranged as a topping in the bowls",
-          "amazon": "cherry tomatoes",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "1 medium cucumber",
-          "detail": "diced as a topping in the bowls",
-          "amazon": "english cucumber",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "½ red onion, sliced",
-          "detail": "layered into the bowls as a topping",
-          "amazon": "red onion",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "1 medium carrot",
-          "detail": "shredded as a topping in the bowls",
-          "amazon": "carrots",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "1 avocado",
-          "detail": "sliced over the bowls",
-          "amazon": "ripe avocado",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "1 bunch radishes",
-          "detail": "pickled and used as a topping in the bowls",
-          "amazon": "radishes",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        }
-      ]
     },
     {
-      "icon": "🥩",
-      "label": "Protein",
-      "items": [
-        {
-          "name": "1 lb large shrimp, peeled and deveined",
-          "detail": "seared and tossed into the pasta",
-          "amazon": "large shrimp peeled deveined",
-          "from": [
-            "garlic-shrimp-scampi-linguine"
-          ],
-          "tagClass": "tag-chili",
-          "tag": "Meal A"
-        },
-        {
-          "name": "2¾ cups shredded cooked chicken",
-          "detail": "seasoned and rolled into the enchiladas — rotisserie works great",
-          "amazon": "rotisserie chicken",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        }
-      ]
-    },
-    {
-      "icon": "🧈",
-      "label": "Dairy & Refrigerated",
-      "items": [
-        {
-          "name": "4 Tbsp unsalted butter",
-          "detail": "used in two additions to build the scampi sauce",
-          "amazon": "unsalted butter",
-          "from": [
-            "garlic-shrimp-scampi-linguine"
-          ],
-          "tagClass": "tag-chili",
-          "tag": "Meal A"
-        },
-        {
-          "name": "Parmesan cheese, for serving",
-          "detail": "grated at the table",
-          "amazon": "grated parmesan cheese",
-          "from": [
-            "garlic-shrimp-scampi-linguine"
-          ],
-          "tagClass": "tag-chili",
-          "tag": "Meal A"
-        },
-        {
-          "name": "3 cups shredded Mexican cheese blend",
-          "detail": "mixed into the filling and layered over the top before baking",
-          "amazon": "shredded mexican cheese blend",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "Sour cream, for serving",
-          "detail": "served alongside at the table",
-          "amazon": "sour cream",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        }
-      ]
-    },
-    {
-      "icon": "🫙",
-      "label": "Pantry & Canned",
-      "items": [
-        {
-          "name": "8 oz linguine",
-          "detail": "cooked al dente as the pasta base",
-          "amazon": "linguine pasta",
-          "from": [
-            "garlic-shrimp-scampi-linguine"
-          ],
-          "tagClass": "tag-chili",
-          "tag": "Meal A"
-        },
-        {
-          "name": "3 Tbsp olive oil",
-          "detail": "used with butter to sear the shrimp · drizzled to season cooked grains",
-          "amazon": "extra virgin olive oil",
-          "from": [
-            "garlic-shrimp-scampi-linguine",
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-shared",
-          "tag": "Meals A+C"
-        },
-        {
-          "name": "½ cup dry white wine",
-          "detail": "deglazed into the sauce and simmered down",
-          "amazon": "dry white wine cooking",
-          "from": [
-            "garlic-shrimp-scampi-linguine"
-          ],
-          "tagClass": "tag-chili",
-          "tag": "Meal A"
-        },
-        {
-          "name": "1–2 Tbsp avocado oil",
-          "detail": "used to sauté the onions",
-          "amazon": "avocado oil",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "15 oz red enchilada sauce",
-          "detail": "spread on the bottom of the dish and poured over the rolled tortillas",
-          "amazon": "red enchilada sauce",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "1 (15 oz) can black beans, drained and rinsed",
-          "detail": "stirred into the filling",
-          "amazon": "canned black beans",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "1 (4 oz) can diced green chiles",
-          "detail": "stirred into the filling undrained",
-          "amazon": "diced green chiles canned mild",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "1 tsp hot sauce",
-          "detail": "stirred into the filling",
-          "amazon": "hot sauce",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "1 tsp honey",
-          "detail": "stirred into the filling",
-          "amazon": "honey",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "8 (8-inch) flour tortillas",
-          "detail": "warmed and rolled around the filling",
-          "amazon": "8 inch flour tortillas",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "1 cup dried chickpeas",
-          "detail": "soaked overnight then blended as the falafel base",
-          "amazon": "dried chickpeas",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "3–4 Tbsp chickpea flour",
-          "detail": "added to the falafel mixture to help it hold together",
-          "amazon": "chickpea flour",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "½ tsp baking powder",
-          "detail": "blended into the falafel mixture for lift",
-          "amazon": "baking powder",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "2 cups quinoa or brown rice",
-          "detail": "cooked and used as the base of the bowls",
-          "amazon": "quinoa",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "½ cup hummus",
-          "detail": "spooned into the assembled bowls",
-          "amazon": "hummus",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "¼ cup tahini",
-          "detail": "whisked into the dressing and drizzled over the bowls",
-          "amazon": "tahini",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "1 Tbsp maple syrup",
-          "detail": "whisked into the tahini dressing",
-          "amazon": "pure maple syrup",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        }
-      ]
-    },
-    {
-      "icon": "🌿",
-      "label": "Spices",
-      "items": [
-        {
-          "name": "Salt",
-          "detail": "seasoning throughout",
-          "from": [
-            "garlic-shrimp-scampi-linguine",
-            "chicken-enchiladas",
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-all",
-          "tag": "All meals"
-        },
-        {
-          "name": "Black pepper",
-          "detail": "seasoning the shrimp and sauce",
-          "from": [
-            "garlic-shrimp-scampi-linguine"
-          ],
-          "tagClass": "tag-chili",
-          "tag": "Meal A"
-        },
-        {
-          "name": "Red pepper flakes",
-          "detail": "served on the side for adults",
-          "from": [
-            "garlic-shrimp-scampi-linguine"
-          ],
-          "tagClass": "tag-chili",
-          "tag": "Meal A"
-        },
-        {
-          "name": "Onion powder",
-          "detail": "part of the enchilada seasoning blend",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "Garlic powder",
-          "detail": "part of the enchilada seasoning blend",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "Ground cumin",
-          "detail": "part of the enchilada seasoning blend · blended into the falafel mixture",
-          "from": [
-            "chicken-enchiladas",
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-shared",
-          "tag": "Meals B+C"
-        },
-        {
-          "name": "Paprika",
-          "detail": "part of the enchilada seasoning blend",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "Dried oregano",
-          "detail": "part of the enchilada seasoning blend",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "Chili powder",
-          "detail": "part of the enchilada seasoning blend",
-          "from": [
-            "chicken-enchiladas"
-          ],
-          "tagClass": "tag-cauliflower",
-          "tag": "Meal B"
-        },
-        {
-          "name": "Ground coriander",
-          "detail": "blended into the falafel mixture",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        },
-        {
-          "name": "Cayenne pepper",
-          "detail": "optional — blended into the falafel mixture for heat",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "tagClass": "tag-pasta",
-          "tag": "Meal C"
-        }
+      "id": "spicy-garlic-chicken-bowl-with-hummus",
+      "icon": "🫕",
+      "name": "Spicy Garlic Chicken Bowl with Hummus",
+      "meta": "~20 min · Stovetop · Serves 4",
+      "ings": [
+        "1 lb boneless skinless chicken thighs, cubed",
+        "2 Tbsp olive oil",
+        "4 cloves garlic, minced",
+        "1 tsp paprika",
+        "½ tsp cayenne",
+        "1 tsp cumin",
+        "Salt and black pepper",
+        "1 cup hummus",
+        "1 large cucumber, diced",
+        "1 pint of cherry tomatoes",
+        "½ red onion, thinly sliced",
+        "¼ cup fresh parsley, chopped",
+        "2 Tbsp lemon juice",
+        "Cooked rice or quinoa for serving"
       ],
-      "note": "Check pantry before ordering — you likely have most of these."
+      "steps": [
+        "Toss chicken with oil, garlic, paprika, cayenne, cumin, salt, and pepper.",
+        "Heat skillet over medium-high; cook chicken until browned and cooked through, 8–10 min.",
+        "Combine cucumber, red onion, parsley, and lemon juice for the salad.",
+        "Divide rice or quinoa among bowls. Top with chicken, a scoop of hummus, and the cucumber salad. Serve immediately."
+      ],
+      "day": "Thursday",
+      "label": "Meal D",
+      "date": "9/3"
     }
   ],
-  "subhead": "3 dinners",
-  "updatedAt": 1788014032249,
-  "groceriesFor": [
-    "garlic-shrimp-scampi-linguine",
-    "chicken-enchiladas",
-    "falafel-bowl-with-tahini-dressing"
-  ],
-  "groceriesAt": "2026-08-29T14:34:50.908Z"
+  "subhead": "4 dinners",
+  "title": "Week of August 30",
+  "updatedAt": 1788156527777,
+  "weekOf": "2026-08-30"
 }
