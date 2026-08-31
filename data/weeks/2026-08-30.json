@@ -5,34 +5,36 @@
       "items": [
         {
           "amazon": "fresh lemon",
-          "detail": "juiced into the sauce",
+          "detail": "juiced into the scampi sauce · juiced over the cucumber salad",
           "from": [
-            "garlic-shrimp-scampi-linguine"
+            "garlic-shrimp-scampi-linguine",
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
           "name": "1 lemon",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
+          "tag": "Meals A+D",
+          "tagClass": "tag-shared"
         },
         {
           "amazon": "fresh flat leaf parsley",
-          "detail": "chopped and tossed in at the end · blended into the falafel mixture",
+          "detail": "chopped and tossed in at the end · chopped into the cucumber salad",
           "from": [
             "garlic-shrimp-scampi-linguine",
-            "falafel-bowl-with-tahini-dressing"
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
           "name": "1 small bunch fresh parsley",
-          "tag": "Meals A+C",
+          "tag": "Meals A+D",
           "tagClass": "tag-shared"
         },
         {
           "amazon": "fresh garlic bulb",
-          "detail": "6 minced into the scampi sauce · 3 minced into the filling · 1 clove whisked into the tahini dressing",
+          "detail": "6 minced into the scampi sauce · 3 minced into the enchilada filling · 3 minced into the stir-fry · 4 minced into the chicken marinade",
           "from": [
             "garlic-shrimp-scampi-linguine",
             "chicken-enchiladas",
-            "falafel-bowl-with-tahini-dressing"
+            "chicken-ramen-stir-fry",
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
-          "name": "9 cloves garlic",
+          "name": "16 cloves garlic",
           "tag": "All meals",
           "tagClass": "tag-all"
         },
@@ -58,94 +60,83 @@
         },
         {
           "amazon": "fresh cilantro",
-          "detail": "chopped into the filling and used to garnish · blended into the falafel mixture and used to garnish bowls",
+          "detail": "chopped into the filling and used to garnish",
           "from": [
-            "chicken-enchiladas",
-            "falafel-bowl-with-tahini-dressing"
+            "chicken-enchiladas"
           ],
           "name": "1 small bunch fresh cilantro",
-          "tag": "Meals B+C",
-          "tagClass": "tag-shared"
+          "tag": "Meal B",
+          "tagClass": "tag-cauliflower"
         },
         {
-          "amazon": "small yellow onion",
-          "detail": "blended into the falafel mixture",
+          "name": "2 cups broccoli florets",
+          "detail": "stir-fried with the chicken and noodles",
           "from": [
-            "falafel-bowl-with-tahini-dressing"
+            "chicken-ramen-stir-fry"
           ],
-          "name": "1 small onion",
+          "amazon": "broccoli florets",
           "tag": "Meal C",
           "tagClass": "tag-pasta"
         },
         {
-          "amazon": "mixed salad greens",
-          "detail": "base of the falafel bowls",
+          "name": "1 red bell pepper",
+          "detail": "thinly sliced and stir-fried",
           "from": [
-            "falafel-bowl-with-tahini-dressing"
+            "chicken-ramen-stir-fry"
           ],
-          "name": "2 cups mixed greens",
+          "amazon": "red bell pepper",
           "tag": "Meal C",
           "tagClass": "tag-pasta"
         },
         {
-          "amazon": "cherry tomatoes",
-          "detail": "arranged as a topping in the bowls",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "name": "1 cup cherry tomatoes",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "amazon": "english cucumber",
-          "detail": "diced as a topping in the bowls",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "name": "1 medium cucumber",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "amazon": "red onion",
-          "detail": "layered into the bowls as a topping",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "name": "½ red onion, sliced",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "amazon": "carrots",
-          "detail": "shredded as a topping in the bowls",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
           "name": "1 medium carrot",
+          "detail": "cut into matchsticks and stir-fried",
+          "from": [
+            "chicken-ramen-stir-fry"
+          ],
+          "amazon": "carrot",
           "tag": "Meal C",
           "tagClass": "tag-pasta"
         },
         {
-          "amazon": "ripe avocado",
-          "detail": "sliced over the bowls",
+          "name": "3 green onions",
+          "detail": "sliced and stirred in at the end",
           "from": [
-            "falafel-bowl-with-tahini-dressing"
+            "chicken-ramen-stir-fry"
           ],
-          "name": "1 avocado",
+          "amazon": "green onions",
           "tag": "Meal C",
           "tagClass": "tag-pasta"
         },
         {
-          "amazon": "radishes",
-          "detail": "pickled and used as a topping in the bowls",
+          "name": "1 large cucumber",
+          "detail": "diced into the cucumber salad",
           "from": [
-            "falafel-bowl-with-tahini-dressing"
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
-          "name": "1 bunch radishes",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
+          "amazon": "cucumber",
+          "tag": "Meal D",
+          "tagClass": "tag-d"
+        },
+        {
+          "name": "1 pint cherry tomatoes",
+          "detail": "added to the cucumber salad",
+          "from": [
+            "spicy-garlic-chicken-bowl-with-hummus"
+          ],
+          "amazon": "cherry tomatoes",
+          "tag": "Meal D",
+          "tagClass": "tag-d"
+        },
+        {
+          "name": "½ red onion",
+          "detail": "thinly sliced into the cucumber salad",
+          "from": [
+            "spicy-garlic-chicken-bowl-with-hummus"
+          ],
+          "amazon": "red onion",
+          "tag": "Meal D",
+          "tagClass": "tag-d"
         }
       ],
       "label": "Produce"
@@ -172,6 +163,26 @@
           "name": "2¾ cups shredded cooked chicken",
           "tag": "Meal B",
           "tagClass": "tag-cauliflower"
+        },
+        {
+          "name": "2 boneless skinless chicken breasts",
+          "detail": "cut into bite-sized pieces and stir-fried",
+          "from": [
+            "chicken-ramen-stir-fry"
+          ],
+          "amazon": "boneless skinless chicken breasts",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 lb boneless skinless chicken thighs",
+          "detail": "cubed, marinated, and pan-cooked",
+          "from": [
+            "spicy-garlic-chicken-bowl-with-hummus"
+          ],
+          "amazon": "boneless skinless chicken thighs",
+          "tag": "Meal D",
+          "tagClass": "tag-d"
         }
       ],
       "label": "Protein"
@@ -237,13 +248,13 @@
         },
         {
           "amazon": "extra virgin olive oil",
-          "detail": "used with butter to sear the shrimp · drizzled to season cooked grains",
+          "detail": "used with butter to sear the shrimp · used to cook the chicken",
           "from": [
             "garlic-shrimp-scampi-linguine",
-            "falafel-bowl-with-tahini-dressing"
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
-          "name": "3 Tbsp olive oil",
-          "tag": "Meals A+C",
+          "name": "5 Tbsp olive oil",
+          "tag": "Meals A+D",
           "tagClass": "tag-shared"
         },
         {
@@ -327,74 +338,94 @@
           "tagClass": "tag-cauliflower"
         },
         {
-          "amazon": "dried chickpeas",
-          "detail": "soaked overnight then blended as the falafel base",
+          "name": "9 oz dry ramen noodles (3 packets, flavor packets discarded)",
+          "detail": "cooked, drained, and tossed into the stir-fry",
           "from": [
-            "falafel-bowl-with-tahini-dressing"
+            "chicken-ramen-stir-fry"
           ],
-          "name": "1 cup dried chickpeas",
+          "amazon": "ramen noodles",
           "tag": "Meal C",
           "tagClass": "tag-pasta"
         },
         {
-          "amazon": "chickpea flour",
-          "detail": "added to the falafel mixture to help it hold together",
+          "name": "⅓ cup chicken broth",
+          "detail": "whisked into the stir-fry sauce",
           "from": [
-            "falafel-bowl-with-tahini-dressing"
+            "chicken-ramen-stir-fry"
           ],
-          "name": "3–4 Tbsp chickpea flour",
+          "amazon": "chicken broth",
           "tag": "Meal C",
           "tagClass": "tag-pasta"
         },
         {
-          "amazon": "baking powder",
-          "detail": "blended into the falafel mixture for lift",
+          "name": "3 Tbsp hoisin sauce",
+          "detail": "whisked into the stir-fry sauce",
           "from": [
-            "falafel-bowl-with-tahini-dressing"
+            "chicken-ramen-stir-fry"
           ],
-          "name": "½ tsp baking powder",
+          "amazon": "hoisin sauce",
           "tag": "Meal C",
           "tagClass": "tag-pasta"
         },
         {
-          "amazon": "quinoa",
-          "detail": "cooked and used as the base of the bowls",
+          "name": "2 Tbsp soy sauce",
+          "detail": "whisked into the stir-fry sauce",
           "from": [
-            "falafel-bowl-with-tahini-dressing"
+            "chicken-ramen-stir-fry"
           ],
-          "name": "2 cups quinoa or brown rice",
+          "amazon": "soy sauce",
           "tag": "Meal C",
           "tagClass": "tag-pasta"
         },
         {
+          "name": "1½ tsp rice wine vinegar",
+          "detail": "whisked into the stir-fry sauce",
+          "from": [
+            "chicken-ramen-stir-fry"
+          ],
+          "amazon": "rice wine vinegar",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 tsp sesame oil",
+          "detail": "whisked into the stir-fry sauce",
+          "from": [
+            "chicken-ramen-stir-fry"
+          ],
+          "amazon": "sesame oil",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1½ Tbsp canola oil",
+          "detail": "used to heat the wok for stir-frying",
+          "from": [
+            "chicken-ramen-stir-fry"
+          ],
+          "amazon": "canola oil",
+          "tag": "Meal C",
+          "tagClass": "tag-pasta"
+        },
+        {
+          "name": "1 cup hummus",
+          "detail": "spooned into each bowl",
+          "from": [
+            "spicy-garlic-chicken-bowl-with-hummus"
+          ],
           "amazon": "hummus",
-          "detail": "spooned into the assembled bowls",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "name": "½ cup hummus",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
+          "tag": "Meal D",
+          "tagClass": "tag-d"
         },
         {
-          "amazon": "tahini",
-          "detail": "whisked into the dressing and drizzled over the bowls",
+          "name": "Cooked rice or quinoa, for serving",
+          "detail": "base for each bowl",
           "from": [
-            "falafel-bowl-with-tahini-dressing"
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
-          "name": "¼ cup tahini",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "amazon": "pure maple syrup",
-          "detail": "whisked into the tahini dressing",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "name": "1 Tbsp maple syrup",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
+          "amazon": "white rice",
+          "tag": "Meal D",
+          "tagClass": "tag-d"
         }
       ],
       "label": "Pantry & Canned"
@@ -407,20 +438,22 @@
           "from": [
             "garlic-shrimp-scampi-linguine",
             "chicken-enchiladas",
-            "falafel-bowl-with-tahini-dressing"
+            "chicken-ramen-stir-fry",
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
           "name": "Salt",
           "tag": "All meals",
           "tagClass": "tag-all"
         },
         {
-          "detail": "seasoning the shrimp and sauce",
+          "detail": "seasoning the shrimp and sauce · seasoning the chicken marinade",
           "from": [
-            "garlic-shrimp-scampi-linguine"
+            "garlic-shrimp-scampi-linguine",
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
           "name": "Black pepper",
-          "tag": "Meal A",
-          "tagClass": "tag-chili"
+          "tag": "Meals A+D",
+          "tagClass": "tag-shared"
         },
         {
           "detail": "served on the side for adults",
@@ -450,23 +483,24 @@
           "tagClass": "tag-cauliflower"
         },
         {
-          "detail": "part of the enchilada seasoning blend · blended into the falafel mixture",
+          "detail": "part of the enchilada seasoning blend · part of the chicken marinade",
           "from": [
             "chicken-enchiladas",
-            "falafel-bowl-with-tahini-dressing"
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
           "name": "Ground cumin",
-          "tag": "Meals B+C",
+          "tag": "Meals B+D",
           "tagClass": "tag-shared"
         },
         {
-          "detail": "part of the enchilada seasoning blend",
+          "detail": "part of the enchilada seasoning blend · part of the chicken marinade",
           "from": [
-            "chicken-enchiladas"
+            "chicken-enchiladas",
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
           "name": "Paprika",
-          "tag": "Meal B",
-          "tagClass": "tag-cauliflower"
+          "tag": "Meals B+D",
+          "tagClass": "tag-shared"
         },
         {
           "detail": "part of the enchilada seasoning blend",
@@ -487,33 +521,25 @@
           "tagClass": "tag-cauliflower"
         },
         {
-          "detail": "blended into the falafel mixture",
+          "name": "Cayenne",
+          "detail": "part of the chicken marinade",
           "from": [
-            "falafel-bowl-with-tahini-dressing"
+            "spicy-garlic-chicken-bowl-with-hummus"
           ],
-          "name": "Ground coriander",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
-        },
-        {
-          "detail": "optional — blended into the falafel mixture for heat",
-          "from": [
-            "falafel-bowl-with-tahini-dressing"
-          ],
-          "name": "Cayenne pepper",
-          "tag": "Meal C",
-          "tagClass": "tag-pasta"
+          "tag": "Meal D",
+          "tagClass": "tag-d"
         }
       ],
       "label": "Spices",
       "note": "Check pantry before ordering — you likely have most of these."
     }
   ],
-  "groceriesAt": "2026-08-29T14:34:50.908Z",
+  "groceriesAt": "2026-08-31T06:49:40.263Z",
   "groceriesFor": [
     "garlic-shrimp-scampi-linguine",
     "chicken-enchiladas",
-    "falafel-bowl-with-tahini-dressing"
+    "chicken-ramen-stir-fry",
+    "spicy-garlic-chicken-bowl-with-hummus"
   ],
   "meals": [
     {
@@ -661,5 +687,11 @@
   "subhead": "4 dinners",
   "title": "Week of August 30",
   "updatedAt": 1788156527777,
-  "weekOf": "2026-08-30"
+  "weekOf": "2026-08-30",
+  "groceriesIngs": {
+    "garlic-shrimp-scampi-linguine": "866f123dc371",
+    "chicken-enchiladas": "5489b01c6a92",
+    "chicken-ramen-stir-fry": "5f6da366abfd",
+    "spicy-garlic-chicken-bowl-with-hummus": "25968010feee"
+  }
 }
