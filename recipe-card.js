@@ -3185,6 +3185,12 @@
     openDetail: openDetail,
     closeDetail: closeDetail,
     openAddForm: openAddForm,
+
+    /** The saved /recipe-edits overlay entry for a recipe id, or null. The
+     *  meal picker uses this so a just-edited recipe embeds its edited
+     *  ingredients instead of the page-load copy. */
+    editFor: function (id) { return recipeEdits[fbSafeKey(id)] || null; },
+
     idOf: idOf,
     isCustom: isCustom,
     makeThumb: makeThumb,

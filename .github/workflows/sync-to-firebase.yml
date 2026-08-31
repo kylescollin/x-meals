@@ -7,6 +7,9 @@ on:
       - 'data/weeks/**'
       # Safety net: something may still write the old single-week file.
       - 'data/week.json'
+      # An in-app recipe edit commits here; the refresh step below carries it
+      # into the current/upcoming week snapshots so grocery lists follow.
+      - 'data/recipes.json'
   workflow_dispatch:
     inputs:
       force:
@@ -56,11 +59,24 @@ jobs:
           node scripts/test-week-store.js
           node scripts/test-recipe-import.js
           node scripts/test-ingredient-format.js
+          node scripts/test-model-json.js
+          node scripts/test-refresh-meals.js
+
+      # A recipe edit changes data/recipes.json; the weeks embed a snapshot of
+      # each meal's ingredients from the moment it was added. Bring current and
+      # upcoming snapshots in line before the grocery delta looks at them.
+      # Deterministic and idempotent — no API, no Firebase.
+      - name: Refresh meal snapshots from recipes.json
+        run: node scripts/refresh-week-meals.js
 
       # Does the least work each week needs: nothing at all for a rearranged
       # week, one scoped call for a meal added or removed. That's what stops
-      # this from looping or burning API calls.
+      # this from looping or burning API calls. continue-on-error so the weeks
+      # that did build still get committed and synced below; the trailer step
+      # at the end makes any failure loud.
       - name: Update grocery lists
+        id: groceries
+        continue-on-error: true
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
@@ -105,4 +121,13 @@ jobs:
         if: steps.commit.outcome == 'failure'
         run: |
           echo "::error::Grocery lists synced to Firebase but could not be pushed to git."
+          exit 1
+
+      # Whatever succeeded above was committed and synced; a week that failed
+      # still has to be visible rather than silently green. Its file was left
+      # untouched, so the next run retries it automatically.
+      - name: Fail if any grocery list could not be generated
+        if: steps.groceries.outcome == 'failure'
+        run: |
+          echo "::error::One or more grocery lists failed to generate — see the 'Update grocery lists' step. Weeks that succeeded were still committed and synced; the failed week is retried on the next run (or dispatch this workflow manually)."
           exit 1

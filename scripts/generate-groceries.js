@@ -32,9 +32,10 @@ const Anthropic = require('@anthropic-ai/sdk');
 const Week = require('../week-utils.js');
 const { stripSections } = require('../ingredient-format.js');
 const { same } = require('./lib/stable.js');
+const { extractJson } = require('./lib/model-json.js');
 const {
   mergeGroceries, weekDelta, pruneRemoved, applyRevisions, relabelGroceries,
-  getTagClass, fromTag, groceryKey
+  getTagClass, fromTag, groceryKey, ingsFingerprint
 } = require('./lib/week-merge.js');
 
 const client = new Anthropic();
@@ -106,6 +107,7 @@ code fences. Return [] if nothing needs to change.
 
 { "op": "add", "section": "Produce", "name": "2 zucchini", "detail": "…", "amazon": "zucchini", "from": ["meal-id"] }
 { "op": "update", "match": "<the item's EXACT current name>", "name": "<its new name>", "detail": "…", "from": ["meal-id", …] }
+{ "op": "remove", "match": "<the item's EXACT current name>" }
 
 "match" must be copied character-for-character from an item in the current list.
 An operation naming an item that isn't there is discarded.
@@ -124,6 +126,19 @@ ${SHARED_RULES}
   a separate line for the EXTRA amount only, e.g. "2 more yellow onions", with
   "from" set to just the new meal's id.
 
+**For each meal whose RECIPE CHANGED** — its full NEW ingredient list is given.
+The current list's items carrying that meal's id in "from" were built from the
+OLD ingredients:
+- A new ingredient not covered by any item → "add" it.
+- An item whose quantity or wording no longer matches, and NOT ticked →
+  "update" it.
+- An item for an ingredient that is no longer in the recipe, and needed by no
+  other meal → "remove" it. If it is shared with another meal, "update" its
+  quantity and detail to drop this meal's share instead — never remove it.
+- Ticked items (marked "ticked": true): leave them entirely alone, including
+  when their ingredient left the recipe. A stale line someone already has in
+  the trolley is better than a lost tick.
+
 **For each item listed under "needs its quantity revised"** — a meal that used it
 has left the week:
 - Not ticked → "update" it with the reduced quantity and a "detail" that drops the
@@ -134,16 +149,41 @@ has left the week:
 tidy it, do not rename it. Items the meals never mentioned are hand-added by the
 family — never touch those.`;
 
+// One reply that began "I'll work through the meals..." instead of with JSON
+// took down a whole sync run. Three defences now: the assistant turn is
+// prefilled with "[" so the reply can't open with prose, extractJson tolerates
+// fences and prose anyway, and a reply that still won't parse is retried —
+// sampling variance usually fixes it — before giving up loudly.
 async function ask(system, user, maxTokens) {
-  const response = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: maxTokens,
-    system: [{ type: 'text', text: system, cache_control: { type: 'ephemeral' } }],
-    messages: [{ role: 'user', content: user }]
-  });
-  const text = response.content[0].text.trim();
-  const json = text.replace(/^```json\n?/, '').replace(/^```\n?/, '').replace(/\n?```$/, '');
-  return JSON.parse(json);
+  let lastErr;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    const response = await client.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: maxTokens,
+      system: [{ type: 'text', text: system, cache_control: { type: 'ephemeral' } }],
+      messages: [
+        { role: 'user', content: user },
+        // Both prompts return a JSON array. Starting the answer for the model
+        // rules out a prose preamble entirely.
+        { role: 'assistant', content: '[' }
+      ]
+    });
+    const text = '[' + (((response.content || [])[0] || {}).text || '');
+    try {
+      // Checked before parsing: a truncated array can still parse as smaller
+      // valid JSON, which would silently drop items.
+      if (response.stop_reason === 'max_tokens') {
+        throw new Error(`response truncated at ${maxTokens} tokens (stop_reason=max_tokens)`);
+      }
+      const parsed = extractJson(text);
+      if (!Array.isArray(parsed)) throw new Error('expected a JSON array, got ' + typeof parsed);
+      return parsed;
+    } catch (e) {
+      lastErr = e;
+      console.log(`  (attempt ${attempt} of 3 failed: ${e.message} — response began ${JSON.stringify(text.slice(0, 120))})`);
+    }
+  }
+  throw new Error('model returned unusable JSON after 3 attempts: ' + lastErr.message);
 }
 
 function generateGroceries(meals, existingNames) {
@@ -154,10 +194,14 @@ function generateGroceries(meals, existingNames) {
     4000);
 }
 
-function reviseGroceries({ addedMeals, removedMeals, needsRevising, currentList }) {
+function reviseGroceries({ addedMeals, removedMeals, changedMeals, needsRevising, currentList }) {
   const parts = [];
   if (addedMeals.length) {
     parts.push(`Meals that JOINED the week:\n\n${JSON.stringify(addedMeals, null, 2)}`);
+  }
+  if (changedMeals.length) {
+    parts.push(`Meals whose RECIPE CHANGED — the week now uses this ingredient list for them:\n\n` +
+      JSON.stringify(changedMeals.map(m => ({ id: m.id, name: m.name, ings: m.ings })), null, 2));
   }
   if (removedMeals.length) {
     parts.push(`Meals that LEFT the week (their exclusive items have already been removed for you):\n\n` +
@@ -230,8 +274,14 @@ async function processWeek(filePath, force) {
 
   if (!cookable.length) return null;                      // nothing to shop for
 
+  // Fingerprint of each meal's (section-stripped) ings, compared against the
+  // stored groceriesIngs — this is how an edited recipe becomes a delta even
+  // though the set of meal ids never moved.
+  const fingerprints = {};
+  cookable.forEach(m => { fingerprints[m.id] = ingsFingerprint(m.ings); });
+
   const hasList = (week.groceries || []).some(s => (s.items || []).length);
-  const delta = weekDelta(week, mealIds);
+  const delta = weekDelta(week, mealIds, fingerprints);
 
   // A list written before provenance existed can't be diffed — we can't tell
   // which line belongs to which meal. Leave it be until asked to rebuild it.
@@ -242,7 +292,7 @@ async function processWeek(filePath, force) {
 
   if (force || !hasList) {
     touched = await buildWholeWeek(week, cookable, mealIds);
-  } else if (!delta.added.length && !delta.removed.length) {
+  } else if (!delta.added.length && !delta.removed.length && !delta.changed.length) {
     touched = week.groceries;      // rearranged, not rewritten — only the letters moved
   } else {
     touched = await reviseForDelta(week, cookable, mealIds, delta);
@@ -255,10 +305,14 @@ async function processWeek(filePath, force) {
   touched = relabelGroceries(touched, cookable);
 
   const coversChanged = !same(week.groceriesFor, mealIds);
-  if (same(before, touched) && !coversChanged) return null;   // genuinely nothing to write
+  // An absent groceriesIngs also counts as changed — the one-time backfill
+  // that gives every current/upcoming week its fingerprint baseline.
+  const ingsChanged = !same(week.groceriesIngs, fingerprints);
+  if (same(before, touched) && !coversChanged && !ingsChanged) return null;   // genuinely nothing to write
 
   week.groceries = touched;
   week.groceriesFor = mealIds;
+  week.groceriesIngs = fingerprints;
   week.groceriesAt = new Date().toISOString();
 
   // Trailing newline to match what the in-app commit writes. Without it every
@@ -300,7 +354,8 @@ async function reviseForDelta(week, cookable, mealIds, delta) {
   const departed = (week.meals || []).filter(m => delta.removed.includes(m.id));
   const label = [
     delta.added.length ? `+${delta.added.length} meal${delta.added.length > 1 ? 's' : ''}` : '',
-    delta.removed.length ? `−${delta.removed.length} meal${delta.removed.length > 1 ? 's' : ''}` : ''
+    delta.removed.length ? `−${delta.removed.length} meal${delta.removed.length > 1 ? 's' : ''}` : '',
+    delta.changed.length ? `~${delta.changed.length} recipe${delta.changed.length > 1 ? 's' : ''} edited` : ''
   ].filter(Boolean).join(', ');
   console.log(`Revising week of ${week.weekOf} (${label})...`);
 
@@ -308,10 +363,11 @@ async function reviseForDelta(week, cookable, mealIds, delta) {
   const checked = await checkedKeysFor(week.weekOf);
 
   const addedMeals = cookable.filter(m => delta.added.includes(m.id));
+  const changedMeals = cookable.filter(m => delta.changed.includes(m.id));
   // A ticked line is left alone, so there is nothing to ask about it.
   const needsRevising = pruned.shared.filter(i => !checked.has(groceryKey(i.name)));
 
-  if (!addedMeals.length && !needsRevising.length) {
+  if (!addedMeals.length && !changedMeals.length && !needsRevising.length) {
     console.log('  (removal only — nothing to ask the model)');
     return pruned.sections;
   }
@@ -319,12 +375,16 @@ async function reviseForDelta(week, cookable, mealIds, delta) {
   const revisions = await reviseGroceries({
     addedMeals,
     removedMeals: departed,
+    changedMeals,
     needsRevising: needsRevising.map(i => ({ name: i.name, detail: i.detail || '', from: i.from })),
     currentList: listForPrompt(pruned.sections, checked)
   });
 
   console.log(`  ${revisions.length} revision${revisions.length === 1 ? '' : 's'} from the model.`);
-  return applyRevisions(pruned.sections, revisions, cookable, checked, delta.added);
+  // Adds with no usable `from` fall back to the joined-or-changed meals; only
+  // the changed meals' exclusive, unticked lines may be removed.
+  return applyRevisions(pruned.sections, revisions, cookable, checked,
+    delta.added.concat(delta.changed), delta.changed);
 }
 
 async function main() {
@@ -343,25 +403,36 @@ async function main() {
     .filter(f => Week.startOf(f.replace(/\.json$/, '')) >= thisWeek)
     .sort();
 
-  const done = [];
+  // One week's bad luck must not strand the others: its file is untouched (the
+  // write never happened), so its stale bookkeeping makes the next run retry
+  // it — while everything that succeeded still gets committed and synced.
+  const done = [], failedWeeks = [];
   for (const f of files) {
-    const weekOf = await processWeek(path.join(weeksDir, f), force);
-    if (weekOf) done.push(weekOf);
+    try {
+      const weekOf = await processWeek(path.join(weeksDir, f), force);
+      if (weekOf) done.push(weekOf);
+    } catch (e) {
+      failedWeeks.push(f.replace(/\.json$/, ''));
+      console.error(`✗ ${f}: ${e.message}`);
+    }
   }
 
-  if (!done.length) {
+  if (done.length) console.log(`Done. Updated ${done.join(', ')}.`);
+  if (!done.length && !failedWeeks.length) {
     console.log('Every current and upcoming week is already in step with its meals — nothing to do.');
-  } else {
-    console.log(`Done. Updated ${done.join(', ')}.`);
   }
+  if (failedWeeks.length) {
+    console.error(`Could not update ${failedWeeks.join(', ')} — whatever succeeded above is still written.`);
+  }
+  return failedWeeks.length;
 }
 
-main().then(() => {
+main().then(nFailed => {
   // Reading the check state opens a Realtime Database connection, and
   // firebase-admin holds the event loop open on it for as long as it lives. So
   // say when we're done, the way sync-firebase.js does — otherwise the CI step
   // just sits there until GitHub times the job out.
-  process.exit(0);
+  process.exit(nFailed ? 1 : 0);
 }).catch(err => {
   console.error('Error generating groceries:', err);
   process.exit(1);

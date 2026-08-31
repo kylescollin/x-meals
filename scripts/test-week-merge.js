@@ -5,7 +5,7 @@
  * keep its exact name, because that name IS its checkbox key.
  */
 const {
-  mergeGroceries, groceryKey, norm,
+  mergeGroceries, groceryKey, norm, ingsFingerprint,
   weekDelta, pruneRemoved, applyRevisions, relabelGroceries, stripMealNames
 } = require('./lib/week-merge.js');
 
@@ -103,24 +103,24 @@ const MEALS = [
   const week = (groceriesFor) => ({ groceries: list, groceriesFor });
 
   check('rearranged week has no delta',
-    weekDelta(week(['chili', 'curry']), ['curry', 'chili']), { added: [], removed: [], legacy: false });
+    weekDelta(week(['chili', 'curry']), ['curry', 'chili']), { added: [], removed: [], changed: [], legacy: false });
   check('a meal joined',
     weekDelta(week(['chili', 'curry']), ['chili', 'curry', 'tacos']),
-    { added: ['tacos'], removed: [], legacy: false });
+    { added: ['tacos'], removed: [], changed: [], legacy: false });
   check('a meal left',
-    weekDelta(week(['chili', 'curry']), ['chili']), { added: [], removed: ['curry'], legacy: false });
+    weekDelta(week(['chili', 'curry']), ['chili']), { added: [], removed: ['curry'], changed: [], legacy: false });
   check('swapped one meal for another',
     weekDelta(week(['chili', 'curry']), ['chili', 'tacos']),
-    { added: ['tacos'], removed: ['curry'], legacy: false });
+    { added: ['tacos'], removed: ['curry'], changed: [], legacy: false });
   check('no groceriesFor yet — falls back to the union of `from`',
-    weekDelta({ groceries: list }, ['chili']), { added: [], removed: ['curry'], legacy: false });
+    weekDelta({ groceries: list }, ['chili']), { added: [], removed: ['curry'], changed: [], legacy: false });
   check('a meal covered by nothing but consolidated lines still counts as covered',
     weekDelta({ groceries: produce([item('2 onions', ['chili'], 'Meal A')]), groceriesFor: ['chili', 'curry'] },
-      ['chili', 'curry']), { added: [], removed: [], legacy: false });
+      ['chili', 'curry']), { added: [], removed: [], changed: [], legacy: false });
   check('no provenance anywhere is legacy — leave it alone',
     weekDelta({ groceries: produce([{ name: 'onions' }]) }, ['chili']).legacy, true);
   check('no list at all means every meal is new',
-    weekDelta({ groceries: [] }, ['chili']), { added: ['chili'], removed: [], legacy: false });
+    weekDelta({ groceries: [] }, ['chili']), { added: ['chili'], removed: [], changed: [], legacy: false });
 }
 
 // ── 9. pruneRemoved: taking a meal out, with no model involved ──────────
@@ -260,6 +260,62 @@ const MEALS = [
     out[0].items[1], { name: 'birthday candles', detail: 'Fish tacos · not really' });
   check('...and a second relabel is a no-op',
     JSON.stringify(relabelGroceries(out, NAMED)), JSON.stringify(out));
+}
+
+// ── 14. Ingredient fingerprints — how an edited recipe becomes a delta ───
+{
+  const ings = ['2 yellow onions', '1 lb ground beef'];
+  check('same ings, same fingerprint', ingsFingerprint(ings), ingsFingerprint(ings.slice()));
+  check('a changed ingredient changes the fingerprint',
+    ingsFingerprint(ings) === ingsFingerprint(['3 yellow onions', '1 lb ground beef']), false);
+  check('the fingerprint is 12 hex chars', /^[0-9a-f]{12}$/.test(ingsFingerprint(ings)), true);
+
+  const fp = { chili: ingsFingerprint(['a']), curry: ingsFingerprint(['b']) };
+  const week = (ids) => ({ groceries: produce([item('2 onions', ids, 'Meal A')]), groceriesFor: ids, groceriesIngs: fp });
+
+  check('fingerprints match — nothing changed',
+    weekDelta(week(['chili', 'curry']), ['chili', 'curry'], fp),
+    { added: [], removed: [], changed: [], legacy: false });
+  check('an edited recipe on the plan comes back in `changed`',
+    weekDelta(week(['chili', 'curry']), ['chili', 'curry'],
+      { chili: fp.chili, curry: ingsFingerprint(['b', 'extra cheddar']) }),
+    { added: [], removed: [], changed: ['curry'], legacy: false });
+  check('a meal that JOINED is added, never changed',
+    weekDelta(week(['chili']), ['chili', 'tacos'], { chili: fp.chili, tacos: ingsFingerprint(['t']) }),
+    { added: ['tacos'], removed: [], changed: [], legacy: false });
+  check('no stored fingerprints — cannot tell, report nothing',
+    weekDelta({ groceries: produce([item('2 onions', ['chili'], 'Meal A')]), groceriesFor: ['chili'] },
+      ['chili'], { chili: ingsFingerprint(['different']) }).changed, []);
+  check('no current fingerprints given — the old two-argument call still works',
+    weekDelta(week(['chili', 'curry']), ['chili', 'curry']),
+    { added: [], removed: [], changed: [], legacy: false });
+}
+
+// ── 15. The remove op — allowed only where nothing can be lost ───────────
+{
+  const base = () => [{
+    icon: '🥦', label: 'Produce',
+    items: [
+      item('2 yellow onions', ['chili'], 'Meal A'),
+      item('1 lime', ['chili', 'curry'], 'Meals A+B'),
+      { name: 'birthday candles' }
+    ]
+  }];
+  const rm = (name) => [{ op: 'remove', match: name }];
+
+  check('an ingredient that left the recipe is removed',
+    applyRevisions(base(), rm('2 yellow onions'), MEALS, [], [], ['chili'])[0].items.map(i => i.name),
+    ['1 lime', 'birthday candles']);
+  check('a line shared with an unchanged meal survives',
+    applyRevisions(base(), rm('1 lime'), MEALS, [], [], ['chili'])[0].items.length, 3);
+  check('A TICKED LINE IS NEVER REMOVED',
+    applyRevisions(base(), rm('2 yellow onions'), MEALS, [groceryKey('2 yellow onions')], [], ['chili'])[0].items.length, 3);
+  check('a hand-added line is never removed',
+    applyRevisions(base(), rm('birthday candles'), MEALS, [], [], ['chili'])[0].items.length, 3);
+  check('a remove naming a line that is not there is ignored',
+    applyRevisions(base(), rm('6 parsnips'), MEALS, [], [], ['chili'])[0].items.length, 3);
+  check('with no removableIds, removes are disabled outright',
+    applyRevisions(base(), rm('2 yellow onions'), MEALS, [])[0].items.length, 3);
 }
 
 console.log(failed ? `\n✗ ${failed} failing\n` : '\n✓ all passing\n');

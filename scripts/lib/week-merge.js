@@ -31,11 +31,27 @@
  */
 'use strict';
 
+// This file only ever runs under node (the browser keeps its own copy of
+// groceryKey in week-store.js for exactly that reason), so crypto is fine.
+const crypto = require('crypto');
+const { stable } = require('./stable.js');
+
 // MUST stay byte-identical to groceryKey() in week-store.js, which is what the
 // browser writes checkboxes with. If these two ever disagree, every checkbox on
 // the site silently detaches from its item.
 function groceryKey(name) {
   return String(name || '').trim().replace(/[^a-z0-9]/gi, '_').substring(0, 60);
+}
+
+/**
+ * Stable 12-hex fingerprint of a meal's ingredient list, stored per meal as
+ * `groceriesIngs` next to `groceriesFor`. Same ings, same hash — which is what
+ * lets the second CI pass prove nothing changed. Callers hash the
+ * SECTION-STRIPPED ings (what cookableMeals produces), so editing only a
+ * "# For the sauce" header never looks like a shopping change.
+ */
+function ingsFingerprint(ings) {
+  return crypto.createHash('sha1').update(stable(ings || [])).digest('hex').slice(0, 12);
 }
 
 // Leading quantities vary between generations ("3 medium yellow onions" vs
@@ -209,9 +225,16 @@ function fromTag(tag, meals) {
  * and weeks with neither are `legacy` — we can't tell what covers what, so we
  * leave them alone unless explicitly asked to rebuild.
  *
- * @returns {{added: string[], removed: string[], legacy: boolean}}
+ * `ingsById` — current fingerprint per meal id (see ingsFingerprint) — is
+ * optional. When given, a meal that stayed on the plan but whose stored
+ * `groceriesIngs` fingerprint no longer matches comes back in `changed`: its
+ * recipe was edited. A meal with no stored fingerprint (a list from before
+ * fingerprints existed) reports nothing — we can't tell, and the write path
+ * backfills the baseline.
+ *
+ * @returns {{added: string[], removed: string[], changed: string[], legacy: boolean}}
  */
-function weekDelta(week, mealIds) {
+function weekDelta(week, mealIds, ingsById) {
   const ids = mealIds || [];
   const items = eachItem((week || {}).groceries).map(e => e.item);
 
@@ -226,13 +249,20 @@ function weekDelta(week, mealIds) {
     covers = [];                       // no list at all — everything is new
   }
 
-  if (!covers) return { added: [], removed: [], legacy: true };
+  if (!covers) return { added: [], removed: [], changed: [], legacy: true };
 
   const have = new Set(covers);
   const want = new Set(ids);
+  // Only a meal in BOTH sets can be "changed" — one that joined or left gets
+  // the full add/remove treatment already.
+  const prev = (week && week.groceriesIngs) || null;
+  const changed = (!prev || !ingsById) ? [] :
+    ids.filter(id => have.has(id) && prev[id] && ingsById[id] && prev[id] !== ingsById[id]);
+
   return {
     added: ids.filter(id => !have.has(id)),
     removed: covers.filter(id => !want.has(id)),
+    changed,
     legacy: false
   };
 }
@@ -277,8 +307,13 @@ function pruneRemoved(sections, removedIds, meals) {
  *
  *   { op: 'add',    section, name, detail, amazon, from }
  *   { op: 'update', match: '<exact existing name>', name, detail, from }
+ *   { op: 'remove', match: '<exact existing name>' }
  *
  * Guards, all deterministic:
+ *  - a `remove` only lands on an unticked, CI-owned line needed exclusively by
+ *    meals in `removableIds` (the recipe-changed meals). Hand-added lines
+ *    (no `from`), ticked lines, and lines shared with an unchanged meal are
+ *    untouchable; with `removableIds` omitted, removes are disabled outright
  *  - an `update` whose `match` isn't on the list is ignored
  *  - an `update` on a TICKED item keeps the old name (its checkbox key) and
  *    takes only detail/from — the same rule mergeGroceries has always applied
@@ -288,9 +323,10 @@ function pruneRemoved(sections, removedIds, meals) {
  *    ingredient is worse than a mislabelled one
  *  - tag and tagClass are always recomputed here, never taken from the model
  */
-function applyRevisions(sections, revisions, meals, checkedKeys, fallbackFrom) {
+function applyRevisions(sections, revisions, meals, checkedKeys, fallbackFrom, removableIds) {
   const checked = checkedKeys instanceof Set ? checkedKeys : new Set(checkedKeys || []);
   const ids = new Set((meals || []).map(m => m.id));
+  const removable = new Set(removableIds || []);
 
   const out = (sections || []).map(sec => Object.assign({}, sec, { items: (sec.items || []).slice() }));
   const byName = new Map();
@@ -304,7 +340,21 @@ function applyRevisions(sections, revisions, meals, checkedKeys, fallbackFrom) {
   }
 
   for (const rev of revisions || []) {
-    if (!rev || !rev.name) continue;
+    if (!rev) continue;
+
+    if (rev.op === 'remove') {
+      const entry = byName.get(rev.match);
+      if (!entry) continue;                                   // unknown line — ignore
+      const from = entry.item.from;
+      if (!Array.isArray(from) || !from.length) continue;     // hand-added / legacy — never
+      if (checked.has(groceryKey(entry.item.name))) continue; // ticked — someone is holding it
+      if (!from.every(id => removable.has(id))) continue;     // shared with an unchanged meal — survives
+      entry.sec.items.splice(entry.sec.items.indexOf(entry.item), 1);
+      byName.delete(rev.match);
+      continue;
+    }
+
+    if (!rev.name) continue;
 
     if (rev.op === 'update') {
       const entry = byName.get(rev.match);
@@ -450,7 +500,7 @@ function mergeGroceries(oldSections, newSections, mealIds, checkedKeys) {
 }
 
 module.exports = {
-  groceryKey, norm, sectionKey, mergeGroceries,
+  groceryKey, norm, sectionKey, mergeGroceries, ingsFingerprint,
   weekDelta, pruneRemoved, applyRevisions, relabelGroceries,
   tagFor, getTagClass, fromTag, retag, stripMealNames, orderSections, SECTION
 };

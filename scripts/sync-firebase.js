@@ -56,8 +56,10 @@ async function main() {
       await db.ref('/meals/weeks/' + key + '/groceries').set(week.groceries || []);
       if (week.groceriesAt) await db.ref('/meals/weeks/' + key + '/groceriesAt').set(week.groceriesAt);
       // Which meals the list covers is CI's bookkeeping too — without it the
-      // next run works out the wrong delta.
+      // next run works out the wrong delta. Same for the ingredient
+      // fingerprints, which is how a recipe edit gets noticed.
       if (week.groceriesFor) await db.ref('/meals/weeks/' + key + '/groceriesFor').set(week.groceriesFor);
+      if (week.groceriesIngs) await db.ref('/meals/weeks/' + key + '/groceriesIngs').set(week.groceriesIngs);
       console.log(`~ ${key} (Firebase is newer — synced groceries only)`);
     } else if (!same(remote, week)) {
       await db.ref('/meals/weeks/' + key).set(week);

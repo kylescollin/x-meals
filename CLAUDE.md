@@ -82,10 +82,19 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   the least work the change needs. Takes `--force` to rebuild from scratch. See **Grocery Lists**.
 - `scripts/lib/week-merge.js` — What actually changed about a week (`weekDelta`) and how to apply
   it (`pruneRemoved`, `applyRevisions`, `relabelGroceries`), plus the whole-week reconcile
-  (`mergeGroceries`). All pure, all unit-tested.
+  (`mergeGroceries`) and the per-meal ingredient fingerprint (`ingsFingerprint`) that lets an
+  edited recipe register as a delta. All pure, all unit-tested.
+- `scripts/refresh-week-meals.js` (and `scripts/lib/refresh-meals.js`) — Refreshes the meal
+  snapshots embedded in current/upcoming week files from `data/recipes.json`, so an in-app recipe
+  edit reaches the weeks that plan it. Runs in CI just before `generate-groceries.js`.
+  Deterministic and idempotent — no API, no Firebase.
+- `scripts/lib/model-json.js` — Finds the JSON in whatever the model actually said, fences and
+  prose included. One reply that began "I'll work through..." took down a whole sync run; this is
+  why it can't again.
 - `scripts/check-weeks.js`, `scripts/test-week-merge.js`, `scripts/test-week-store.js`,
-  `scripts/test-recipe-import.js`, `scripts/test-ingredient-format.js` — the repo's test suite.
-  All five run in CI before anything is written. `test-recipe-import.js` covers the guessing
+  `scripts/test-recipe-import.js`, `scripts/test-ingredient-format.js`,
+  `scripts/test-model-json.js`, `scripts/test-refresh-meals.js` — the repo's test suite.
+  All seven run in CI before anything is written. `test-recipe-import.js` covers the guessing
   rules; the ones that matter most are the tag cases, because recipe method text is full of
   words that mean something else in a title. `test-ingredient-format.js` leans the other way —
   most of its cases assert the parser does *nothing*, because "2 (14.5 oz) cans" and "1/16 tsp"
@@ -94,7 +103,8 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   browser can read it. Not part of the site; see its README and **Importing a recipe** below.
 - `scripts/fold-legacy-week.js` — Safety net: folds a stray `data/week.json` into `data/weeks/`.
 - `scripts/migrate-weeks.js` — The one-time migration. Already run; kept for reference.
-- `.github/workflows/sync-to-firebase.yml` — Triggers on push to `data/weeks/**`.
+- `.github/workflows/sync-to-firebase.yml` — Triggers on push to `data/weeks/**` and
+  `data/recipes.json` (so a recipe edit reaches the weeks that plan it).
 - `.github/workflows/tests.yml` — Runs the suite on any push touching `**.js`. Writes nothing.
   The sync workflow only fires on week data, so without this a change to a parser reached the
   live site untested.
@@ -375,7 +385,7 @@ historical and handled, but don't add to it.)
 
 **Tag classes:** A week can have 1–7 meals (labels `Meal A` … `Meal G`). Single-meal colors: `tag-chili` (A), `tag-cauliflower` (B), `tag-pasta` (C), `tag-d` (D), `tag-e` (E), `tag-f` (F), `tag-g` (G). Shared across multiple meals: `tag-shared`. All meals: `tag-all`. These control the color of the tag pill. Both `tag` and `tagClass` are computed automatically from each item's `from` by `scripts/lib/week-merge.js` — X doesn't need to set either.
 
-**CI-owned fields.** `groceries`, `groceriesFor` (the meal ids the list covers) and `groceriesAt` are written only by CI. X should leave all three alone — set `"groceries": []` on a brand-new week and omit the other two.
+**CI-owned fields.** `groceries`, `groceriesFor` (the meal ids the list covers), `groceriesIngs` (a fingerprint of each meal's ingredients as the list last saw them — how a recipe edit gets noticed) and `groceriesAt` are written only by CI. X should leave all four alone — set `"groceries": []` on a brand-new week and omit the other three.
 
 **Amazon button:** Only include `"amazon"` for produce, protein, dairy, and pantry items. Omit it for spices — the sheet falls back to searching the item's own name, so they still get a Fresh button.
 
@@ -472,15 +482,21 @@ check state is keyed by the item's rendered *name*: renaming "3 medium yellow on
 onions" silently un-ticks something somebody has already put in the trolley. A line nobody had a
 reason to touch is never touched.
 
-Every list records `groceriesFor` — the meal ids it was built for. Comparing that to the week's
-current meals gives the delta, and the delta picks one of four paths:
+Every list records `groceriesFor` — the meal ids it was built for — and `groceriesIngs`, a
+fingerprint of each meal's ingredients as the list last saw them. Comparing those to the week's
+current meals gives the delta, and the delta picks one of five paths:
 
 | what changed | what happens |
 |---|---|
 | **Nothing** — nights swapped, a placeholder added, a meal renamed | No API call. Only the `Meal A…G` letters moved, so `tag` and `tagClass` are recomputed locally from each item's `from`. |
 | **A meal left** | Its exclusive items are dropped locally. An item shared with a surviving meal stays, keeps the surviving ids, and only its *quantity* goes to the model. |
 | **A meal joined** | Only that meal's ingredients are considered. Something already on the list gets its quantity raised — unless it's ticked off, in which case that line is left alone and a separate line appears for the extra. |
+| **A recipe was edited** — same meals, different ingredients | The CI refresh step (`refresh-week-meals.js`) has already carried the edit into the week's snapshot, so the fingerprint no longer matches. One scoped call: new ingredients are added, unticked lines are corrected, and a line whose ingredient left the recipe is removed — but only if it's unticked, CI-owned, and needed by no other meal. Ticked lines are never touched, even stale ones. |
 | **No list yet** (a week X just published, or `--force`) | The one case that still generates all five sections at once, so ingredients consolidate across meals. |
+
+A recipe edit doesn't pass through the week page's `save()`, so the dock won't say "Building your
+grocery list…" for it — the list simply updates a minute later via the normal `groceriesAt` stamp.
+That's the safe direction of disagreement: CI may write more than the dock promised, never less.
 
 - **Anything currently ticked off keeps its exact name**, on every path. It still picks up a
   corrected `detail`, `from` and `tag`.

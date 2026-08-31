@@ -641,7 +641,8 @@ if(params.get('groceries')==='1'){
 var editMeals=[];
 var pickerTargetDay=null;   // which day the recipe picker is adding to
 var pickerCustomMode=false; // picker is naming a one-off meal, not searching recipes
-var allRecipes=null;
+var allRecipes=null;   // the picker's list, with any recipe edits overlaid
+var baseRecipes=null;  // the raw fetch+saved combination, built once per session
 // editMode itself is declared up with the week state — the background refreshes
 // have to know not to redraw the page while the editor is open, and they can
 // start before this section is reached.
@@ -806,13 +807,20 @@ function setupDrag(slot, handle, fromDay){
 
 // ── Recipe picker ─────────────────────────────────────────────────────────
 function loadAllRecipes(cb){
-  if(allRecipes){ cb(allRecipes); return; }
+  // The base list is fetched once, but the recipe-edits overlay is applied on
+  // every call — so a recipe edited mid-session hands the picker its edited
+  // ingredients, not the page-load copy.
+  function done(base){
+    allRecipes=base.map(function(r){ return RecipeCard.editFor(idOf(r)) || r; });
+    cb(allRecipes);
+  }
+  if(baseRecipes){ done(baseRecipes); return; }
   RecipeCard.loadSavedRecipes(function(saved){
     var seen={}, combined=[];
     (recipesResp.recipes||[]).forEach(function(r){ var id=idOf(r); if(!seen[id]){ seen[id]=1; combined.push(r); } });
     (saved||[]).forEach(function(r){ var id=idOf(r); if(!seen[id]){ seen[id]=1; combined.push(r); } });
     combined.sort(function(a,b){ return (a.name||'').localeCompare(b.name||''); });
-    allRecipes=combined; cb(combined);
+    baseRecipes=combined; done(combined);
   });
 }
 
@@ -1157,6 +1165,7 @@ async function save(){
     groceries:base.groceries||[]
   });
   if(base.groceriesFor) week.groceriesFor=base.groceriesFor;
+  if(base.groceriesIngs) week.groceriesIngs=base.groceriesIngs;
   if(base.groceriesAt) week.groceriesAt=base.groceriesAt;
   var sinceStamp=base.groceriesAt||'';
 
