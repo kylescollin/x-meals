@@ -8,32 +8,23 @@
       "name": "One-Pan Coconut Curry Salmon",
       "meta": "30 min · One Pan · Serves 4",
       "ings": [
-        "4 salmon fillets (5–6 oz each)",
-        "1 tsp salt, ½ tsp pepper",
+        "4 salmon fillets, 1 tsp salt, ½ tsp pepper, ½ tsp paprika",
         "1 Tbsp olive oil",
-        "2 Tbsp butter",
-        "4 cloves garlic, minced",
-        "1 tsp grated ginger",
-        "1 tsp curry powder",
-        "½ tsp turmeric",
-        "½ tsp paprika",
-        "2 (13.5 oz) cans coconut milk (full fat)",
+        "2 Tbsp butter, 4 cloves garlic, 1 tsp grated ginger",
+        "1 tsp curry powder, ½ tsp turmeric",
+        "½ tsp red pepper flakes (optional)",
+        "1 (13.5 oz) can coconut milk",
         "1 Tbsp tomato paste",
         "1 tsp honey or maple syrup",
-        "1 Tbsp soy sauce",
-        "2 limes",
-        "1 pint cherry tomatoes",
-        "2 cups jasmine rice",
+        "1 Tbsp soy sauce, juice of ½ lime",
         "Fresh cilantro or basil for garnish"
       ],
       "steps": [
-        "Cook rice with 1 can of coconut milk",
-        "Pat salmon dry; season with salt, pepper, paprika. Heat oil in skillet over medium-high. Sear salmon skin-side down 3–4 min until crispy. Flip, cook 2 more min. Remove to a plate.",
-        "Lower heat; melt butter in same pan. Sauté garlic and ginger 1 min. Stir in curry powder and turmeric; toast 30 sec until fragrant.",
-        "Add coconut milk, tomato paste, honey, soy sauce, and juice from 1 lime. Whisk together and simmer 5 min until slightly thickened.",
-        "Return salmon to pan; spoon sauce over. Simmer 5 min until salmon is cooked through and sauce coats it.",
-        "Cook cherry tomatoes in a pan until soft and starting to get jammy.",
-        "Garnish with cilantro. Serve over jasmine rice with extra sauce spooned over the top."
+        "Pat salmon dry; season with salt, pepper, paprika. Sear in oil skin-side down 3–4 min until crispy. Flip, cook 2 more min. Remove.",
+        "Lower heat; melt butter. Sauté garlic and ginger 1 min. Stir in curry powder, turmeric, pepper flakes; toast 30 sec.",
+        "Add coconut milk, tomato paste, honey, soy sauce, and lime juice. Simmer 5 min.",
+        "Return salmon; spoon sauce over. Simmer 5 min until cooked through.",
+        "Garnish with cilantro. Serve over rice, quinoa, or with naan."
       ],
       "day": "Monday",
       "note": "💡 Skipping the red pepper flakes keeps this totally kid-friendly. The curry powder + turmeric give warmth and color without heat. Serve over rice to soak up the sauce.",
@@ -101,7 +92,442 @@
       "date": "9/9"
     }
   ],
-  "groceries": [],
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "1 small yellow onion",
+          "detail": "chopped into the chili · finely diced into the fried rice",
+          "amazon": "small yellow onion",
+          "from": [
+            "white-chicken-chili",
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals B+C"
+        },
+        {
+          "name": "6 cloves garlic",
+          "detail": "4 cloves sautéed into the curry sauce · 2 cloves minced into the chili · 2 cloves minced into the fried rice",
+          "amazon": "garlic bulb",
+          "from": [
+            "one-pan-coconut-curry-salmon",
+            "white-chicken-chili",
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "1 small knob fresh ginger",
+          "detail": "grated into the curry sauce",
+          "amazon": "fresh ginger root",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 lime",
+          "detail": "½ juiced into the curry sauce · ½ juiced into the chili",
+          "amazon": "fresh lime",
+          "from": [
+            "one-pan-coconut-curry-salmon",
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "1 small bunch fresh cilantro",
+          "detail": "garnished over the curry · served as a topping for the chili",
+          "amazon": "fresh cilantro bunch",
+          "from": [
+            "one-pan-coconut-curry-salmon",
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "1 avocado",
+          "detail": "served as a topping for the chili",
+          "amazon": "ripe avocado",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 cup diced pineapple",
+          "detail": "stirred into the fried rice",
+          "amazon": "fresh pineapple chunks",
+          "from": [
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "4 salmon fillets",
+          "detail": "seasoned and seared for the main dish",
+          "amazon": "fresh salmon fillets",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 heaping cups cooked shredded chicken",
+          "detail": "stirred in at the end of the chili",
+          "amazon": "rotisserie chicken",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "½ lb skinless boneless chicken thighs",
+          "detail": "sliced, marinated, and fried into the rice",
+          "amazon": "boneless skinless chicken thighs",
+          "from": [
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "2 Tbsp butter",
+          "detail": "melted as the base of the curry sauce",
+          "amazon": "unsalted butter",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 cup sour cream or Greek yogurt",
+          "detail": "stirred in at the end to make the chili creamy",
+          "amazon": "sour cream",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "shredded cheese",
+          "detail": "served as a topping for the chili",
+          "amazon": "shredded mexican cheese blend",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "2 Tbsp olive oil",
+          "detail": "1 Tbsp for searing the salmon · 1 Tbsp for sautéing the chili base",
+          "amazon": "extra virgin olive oil",
+          "from": [
+            "one-pan-coconut-curry-salmon",
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "1 (13.5 oz) can coconut milk",
+          "detail": "simmered into the curry sauce",
+          "amazon": "coconut milk full fat can",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 Tbsp tomato paste",
+          "detail": "stirred into the curry sauce",
+          "amazon": "tomato paste",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 tsp honey or maple syrup",
+          "detail": "added to balance the curry sauce",
+          "amazon": "pure honey",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 Tbsp soy sauce",
+          "detail": "1 Tbsp into the curry sauce · 1½ Tbsp into the fried rice · 2 tsp in the chicken marinade",
+          "amazon": "low sodium soy sauce",
+          "from": [
+            "one-pan-coconut-curry-salmon",
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+C"
+        },
+        {
+          "name": "2½ cups low-sodium chicken broth",
+          "detail": "simmered as the base of the chili",
+          "amazon": "low sodium chicken broth",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 (4 oz) cans diced green chilies",
+          "detail": "stirred into the chili",
+          "amazon": "diced green chilies mild",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 (15 oz) cans great northern beans",
+          "detail": "drained, rinsed, and partially pureed into the chili",
+          "amazon": "great northern beans canned",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 cup frozen corn",
+          "detail": "stirred into the chili",
+          "amazon": "frozen sweet corn",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 bag tortilla chips",
+          "detail": "served as a topping for the chili",
+          "amazon": "tortilla chips",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "3 cups jasmine rice",
+          "detail": "cooked ahead and chilled for the fried rice",
+          "amazon": "jasmine rice",
+          "from": [
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 cup frozen mixed vegetables",
+          "detail": "cooked into the fried rice",
+          "amazon": "frozen mixed vegetables",
+          "from": [
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "2 Tbsp vegetable oil",
+          "detail": "used to fry the chicken and rice",
+          "amazon": "vegetable oil",
+          "from": [
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 tsp fish sauce",
+          "detail": "seasoned into the fried rice",
+          "amazon": "fish sauce",
+          "from": [
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "2 tsp sesame oil",
+          "detail": "mixed into the chicken marinade",
+          "amazon": "toasted sesame oil",
+          "from": [
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 tsp cornstarch",
+          "detail": "mixed into the chicken marinade to tenderize",
+          "amazon": "cornstarch",
+          "from": [
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "salt",
+          "detail": "seasoning the salmon · seasoning the chili · seasoning the fried rice",
+          "from": [
+            "one-pan-coconut-curry-salmon",
+            "white-chicken-chili",
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "black pepper",
+          "detail": "seasoning the salmon · seasoning the chili · seasoning the fried rice",
+          "from": [
+            "one-pan-coconut-curry-salmon",
+            "white-chicken-chili",
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "paprika",
+          "detail": "½ tsp rubbed on the salmon · ½ tsp stirred into the chili",
+          "from": [
+            "one-pan-coconut-curry-salmon",
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "1 tsp curry powder",
+          "detail": "toasted into the curry sauce",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "½ tsp ground turmeric",
+          "detail": "toasted into the curry sauce",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "½ tsp red pepper flakes",
+          "detail": "optional heat in the curry sauce",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1½ tsp ground cumin",
+          "detail": "stirred into the chili",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "¼ tsp cayenne pepper",
+          "detail": "stirred into the chili for heat",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "½ tsp dried oregano",
+          "detail": "stirred into the chili",
+          "from": [
+            "white-chicken-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "¼ tsp baking soda",
+          "detail": "mixed into the chicken marinade to tenderize",
+          "from": [
+            "chicken-pineapple-fried-rice"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
   "subhead": "3 dinners",
-  "updatedAt": 1788715651861
+  "updatedAt": 1788715651861,
+  "groceriesFor": [
+    "one-pan-coconut-curry-salmon",
+    "white-chicken-chili",
+    "chicken-pineapple-fried-rice"
+  ],
+  "groceriesIngs": {
+    "one-pan-coconut-curry-salmon": "4c50576ca8b0",
+    "white-chicken-chili": "442e9a6652db",
+    "chicken-pineapple-fried-rice": "fb8ca1c848dc"
+  },
+  "groceriesAt": "2026-09-06T17:28:26.021Z"
 }
