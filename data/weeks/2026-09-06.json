@@ -1,0 +1,107 @@
+{
+  "weekOf": "2026-09-06",
+  "title": "Week of September 6",
+  "meals": [
+    {
+      "id": "one-pan-coconut-curry-salmon",
+      "icon": "🥥",
+      "name": "One-Pan Coconut Curry Salmon",
+      "meta": "30 min · One Pan · Serves 4",
+      "ings": [
+        "4 salmon fillets (5–6 oz each)",
+        "1 tsp salt, ½ tsp pepper",
+        "1 Tbsp olive oil",
+        "2 Tbsp butter",
+        "4 cloves garlic, minced",
+        "1 tsp grated ginger",
+        "1 tsp curry powder",
+        "½ tsp turmeric",
+        "½ tsp paprika",
+        "2 (13.5 oz) cans coconut milk (full fat)",
+        "1 Tbsp tomato paste",
+        "1 tsp honey or maple syrup",
+        "1 Tbsp soy sauce",
+        "2 limes",
+        "1 pint cherry tomatoes",
+        "2 cups jasmine rice",
+        "Fresh cilantro or basil for garnish"
+      ],
+      "steps": [
+        "Cook rice with 1 can of coconut milk",
+        "Pat salmon dry; season with salt, pepper, paprika. Heat oil in skillet over medium-high. Sear salmon skin-side down 3–4 min until crispy. Flip, cook 2 more min. Remove to a plate.",
+        "Lower heat; melt butter in same pan. Sauté garlic and ginger 1 min. Stir in curry powder and turmeric; toast 30 sec until fragrant.",
+        "Add coconut milk, tomato paste, honey, soy sauce, and juice from 1 lime. Whisk together and simmer 5 min until slightly thickened.",
+        "Return salmon to pan; spoon sauce over. Simmer 5 min until salmon is cooked through and sauce coats it.",
+        "Cook cherry tomatoes in a pan until soft and starting to get jammy.",
+        "Garnish with cilantro. Serve over jasmine rice with extra sauce spooned over the top."
+      ],
+      "day": "Monday",
+      "note": "💡 Skipping the red pepper flakes keeps this totally kid-friendly. The curry powder + turmeric give warmth and color without heat. Serve over rice to soak up the sauce.",
+      "label": "Meal A",
+      "date": "9/7"
+    },
+    {
+      "id": "white-chicken-chili",
+      "icon": "🫕",
+      "name": "White Chicken Chili",
+      "meta": "45 min · Stovetop · Serves 5",
+      "ings": [
+        "1 Tbsp olive oil",
+        "1 small yellow onion, chopped",
+        "2 garlic cloves, finely minced",
+        "2½ cups low-sodium chicken broth",
+        "2 (4 oz) cans diced green chilies",
+        "1½ tsp ground cumin, ¼ tsp cayenne",
+        "½ tsp dried oregano, ½ tsp paprika",
+        "½ small lime, juiced",
+        "2 (15 oz) cans great northern beans",
+        "1 cup sour cream or Greek yogurt",
+        "1 cup corn",
+        "2 heaping cups cooked shredded chicken",
+        "Cilantro, cheese, tortilla chips, avocado"
+      ],
+      "steps": [
+        "Sauté onion in oil over medium-high 3–5 min. Add garlic 30 sec.",
+        "Add broth, green chilies, all spices, lime juice, salt and pepper.",
+        "Drain and rinse beans. Puree a ladleful with broth for creaminess. Add all beans and corn. Simmer uncovered 15–30 min.",
+        "Remove from heat. Stir in sour cream and chicken. Serve with toppings."
+      ],
+      "day": "Tuesday",
+      "note": "💡 For less spice: use 1 can green chilies, omit cayenne. Slow cooker: add raw chicken on low 5 hrs, shred, stir in sour cream at the end.",
+      "label": "Meal B",
+      "date": "9/8"
+    },
+    {
+      "id": "chicken-pineapple-fried-rice",
+      "icon": "🍍",
+      "name": "Chicken Pineapple Fried Rice",
+      "meta": "30 min · Stovetop · Serves 4",
+      "ings": [
+        "3 cups cooked jasmine rice, cold",
+        "½ lb skinless boneless chicken thighs",
+        "1 cup frozen mixed vegetables",
+        "1 cup diced pineapple",
+        "½ cup onion, finely diced",
+        "2 cloves garlic, minced",
+        "2 Tbsp vegetable oil",
+        "1½ Tbsp soy sauce, 1 tsp fish sauce",
+        "Salt and pepper",
+        "Marinade: 2 tsp soy sauce, 2 tsp sesame oil, 1 tsp cornstarch, ¼ tsp baking soda"
+      ],
+      "steps": [
+        "Break up cold day-old rice. Set aside.",
+        "Slice chicken on a bias; marinate with marinade ingredients 10–15 min.",
+        "Fry chicken in 1 Tbsp oil over medium-high until cooked through. Remove.",
+        "Sauté garlic and onions until fragrant. Add mixed vegetables and pineapple; cook 3–4 min, evaporating liquids. Push to side.",
+        "Add remaining oil and rice. Add soy sauce, fish sauce, salt and pepper. Toss everything. Add chicken back. Serve hot."
+      ],
+      "day": "Wednesday",
+      "note": "💡 Day-old cold rice is key — fresh rice will turn mushy.",
+      "label": "Meal C",
+      "date": "9/9"
+    }
+  ],
+  "groceries": [],
+  "subhead": "3 dinners",
+  "updatedAt": 1788715651861
+}
