@@ -517,8 +517,45 @@
   function loadRecipeEdits(callback) {
     authedFetch(FB_EDITS + '.json')
       .then(function (r) { return r.json(); })
-      .then(function (d) { recipeEdits = d || {}; applyEditsToCards(); if (callback) callback(); })
+      .then(function (d) {
+        recipeEdits = {};
+        Object.keys(d || {}).forEach(function (k) { if (d[k]) recipeEdits[k] = withIngsAlias(d[k]); });
+        applyEditsToCards();
+        if (callback) callback();
+        flushPendingEdits();
+      })
       .catch(function () { if (callback) callback(); });
+  }
+
+  // An overlay is stored in the data/recipes.json shape, which spells the
+  // list `ingredients`. A week page merges the overlay over its meal snapshot,
+  // which spells the same list `ings` — and the detail view, cooking mode and
+  // the edit form all read `ings` first. Without this alias a recipe edited
+  // and then opened from a week would show the snapshot's stale ingredients
+  // under the edited name. In-memory only; never written back.
+  function withIngsAlias(e) {
+    if (e && e.ingredients && !e.ings) e.ings = e.ingredients;
+    return e;
+  }
+
+  // Every recipe lives twice: the Firebase overlay (what the site shows,
+  // instantly) and data/recipes.json (what CI builds grocery lists from). An
+  // edit stamps the overlay with editedAt, and committedAt once the same edit
+  // is in data/recipes.json. Until the two match the edit is "pending" and the
+  // grocery list cannot see it. Overlays written before the stamps existed
+  // have no editedAt and are never treated as pending.
+  function isPendingEdit(e) {
+    return !!(e && e.editedAt && (!e.committedAt || e.committedAt < e.editedAt));
+  }
+
+  // Retry, quietly, every edit whose commit never landed — the phone lost
+  // signal, the token had expired. Once per page load, from either phone. The
+  // alert already fired when the edit was made; this is the self-healing half.
+  function flushPendingEdits() {
+    Object.keys(recipeEdits).forEach(function (safeId) {
+      var e = recipeEdits[safeId];
+      if (isPendingEdit(e) && e.id) commitEdit(safeId, e);
+    });
   }
 
   // Update any rendered card names/meta to reflect saved edits.
@@ -2327,7 +2364,12 @@
       .catch(function () { return null; });
   }
 
-  function commitRecipeToCore(coreRecipe) {
+  // Upsert one recipe into data/recipes.json on main. The PUT is retried once
+  // from a fresh read: CI reconciles pending overlays itself (see
+  // scripts/lib/recipe-overlay.js), so the file's sha can move under us while
+  // we are committing the very same edit.
+  function commitRecipeToCore(recipe) {
+    var coreRecipe = toCoreRecipe(recipe);   // never carries editedAt/committedAt
     return getGhToken().then(function (gh) {
       if (!gh) throw new Error('no token');
       var url = 'https://api.github.com/repos/' + REPO + '/contents/data/recipes.json';
@@ -2336,26 +2378,54 @@
         'Accept': 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28'
       };
-      return fetch(url + '?ref=main', { headers: headers, cache: 'no-store' })
-        .then(function (getR) { if (!getR.ok) throw new Error('get failed'); return getR.json(); })
-        .then(function (meta) {
-          var json = JSON.parse(base64ToUtf8(meta.content));
-          json.recipes = json.recipes || [];
-          // Upsert by id: replace an existing recipe (edit) or append (add).
-          var idx = json.recipes.findIndex(function (r) { return r.id === coreRecipe.id; });
-          var verb;
-          if (idx === -1) { json.recipes.push(coreRecipe); verb = 'Add'; }
-          else            { json.recipes[idx] = coreRecipe; verb = 'Update'; }
-          var content = utf8ToBase64(JSON.stringify(json, null, 2) + '\n');
-          return fetch(url, {
-            method: 'PUT', headers: headers,
-            body: JSON.stringify({
-              message: verb + ' recipe: ' + coreRecipe.name + ' (in-app)',
-              content: content, sha: meta.sha, branch: 'main'
-            })
-          }).then(function (putR) { if (!putR.ok) throw new Error('put failed'); return true; });
-        });
+      function attempt() {
+        return fetch(url + '?ref=main', { headers: headers, cache: 'no-store' })
+          .then(function (getR) { if (!getR.ok) throw new Error('get failed'); return getR.json(); })
+          .then(function (meta) {
+            var json = JSON.parse(base64ToUtf8(meta.content));
+            json.recipes = json.recipes || [];
+            // Upsert by id: replace an existing recipe (edit) or append (add).
+            var idx = json.recipes.findIndex(function (r) { return r.id === coreRecipe.id; });
+            var verb;
+            if (idx === -1) { json.recipes.push(coreRecipe); verb = 'Add'; }
+            else            { json.recipes[idx] = coreRecipe; verb = 'Update'; }
+            var content = utf8ToBase64(JSON.stringify(json, null, 2) + '\n');
+            return fetch(url, {
+              method: 'PUT', headers: headers,
+              body: JSON.stringify({
+                message: verb + ' recipe: ' + coreRecipe.name + ' (in-app)',
+                content: content, sha: meta.sha, branch: 'main'
+              })
+            }).then(function (putR) { if (!putR.ok) throw new Error('put failed ' + putR.status); return true; });
+          });
+      }
+      return attempt().catch(function () { return attempt(); });
     });
+  }
+
+  // Make an overlay edit permanent and stamp it committed. Resolves true when
+  // data/recipes.json has this exact edit — through this commit, or because
+  // something else (CI, the other phone) got there first, which the overlay's
+  // own committedAt tells us. False means it is still pending.
+  function commitEdit(safeId, overlay) {
+    return commitRecipeToCore(overlay)
+      .then(function () { return true; })
+      .catch(function (err) {
+        console.warn('Edit saved to Firebase but not committed to recipes.json:', err);
+        return authedFetch(FB_EDITS + '/' + safeId + '/committedAt.json')
+          .then(function (r) { return r.json(); })
+          .then(function (at) { return at === overlay.editedAt; })
+          .catch(function () { return false; });
+      })
+      .then(function (ok) {
+        if (!ok) return false;
+        coreIds[overlay.id] = true;
+        if (recipeEdits[safeId]) recipeEdits[safeId].committedAt = overlay.editedAt;
+        return authedFetch(FB_EDITS + '/' + safeId + '.json', {
+          method: 'PATCH',
+          body: JSON.stringify({ committedAt: overlay.editedAt })
+        }).then(function () { return true; }, function () { return true; });
+      });
   }
 
   // Shape a recipe object as a data/recipes.json entry.
@@ -2451,24 +2521,31 @@
     });
     if (f.note) { updated.note = f.note; } else { delete updated.note; }
 
-    // Update state
+    // The overlay is exactly a data/recipes.json entry plus its stamps — never
+    // the week-only label/day/date that a week page's curR carries. editedAt
+    // is now; committedAt follows once the commit below lands (see commitEdit).
+    var safeId  = fbSafeKey(id);
+    var overlay = toCoreRecipe(updated);
+    overlay.editedAt = Date.now();
+
     curR = updated;
-    recipeEdits[fbSafeKey(id)] = updated;
+    recipeEdits[safeId] = withIngsAlias(Object.assign({}, overlay));
 
     // Persist to Firebase overlay (instant, syncs between accounts).
-    authedFetch(FB_EDITS + '/' + fbSafeKey(id) + '.json', {
+    authedFetch(FB_EDITS + '/' + safeId + '.json', {
       method: 'PUT',
-      body: JSON.stringify(updated)
+      body: JSON.stringify(overlay)
     }).catch(function () {});
 
-    // For permanent recipes, also commit the change into data/recipes.json so
-    // Agent X's copy stays in sync. Best-effort; the Firebase overlay above is
-    // the instant, always-applied source of truth for the site.
-    if (isCore(id)) {
-      commitRecipeToCore(toCoreRecipe(updated)).catch(function (err) {
-        console.warn('Edit saved to Firebase but not committed to recipes.json:', err);
-      });
-    }
+    // And into data/recipes.json, always — that is the copy CI builds grocery
+    // lists from, and the site can't tell an edit that never got there from
+    // one that did. A recipe not yet in the collection is added by the same
+    // upsert. If it fails, say so: a quiet failure is how a week got shopped
+    // for one can of coconut milk against a recipe that said two.
+    commitEdit(safeId, overlay).then(function (ok) {
+      if (ok) return;
+      alert('"' + overlay.name + '" was saved and synced, but the change couldn’t reach your permanent recipe list just now — so a grocery list built from it would still use the old version. It will retry on its own the next time the app opens.');
+    });
 
     applyEditsToCards();
     exitEditMode();
