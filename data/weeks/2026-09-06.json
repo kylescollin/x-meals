@@ -8,23 +8,32 @@
       "name": "One-Pan Coconut Curry Salmon",
       "meta": "30 min · One Pan · Serves 4",
       "ings": [
-        "4 salmon fillets, 1 tsp salt, ½ tsp pepper, ½ tsp paprika",
+        "4 salmon fillets (5–6 oz each)",
+        "1 tsp salt, ½ tsp pepper",
         "1 Tbsp olive oil",
-        "2 Tbsp butter, 4 cloves garlic, 1 tsp grated ginger",
-        "1 tsp curry powder, ½ tsp turmeric",
-        "½ tsp red pepper flakes (optional)",
-        "1 (13.5 oz) can coconut milk",
+        "2 Tbsp butter",
+        "4 cloves garlic, minced",
+        "1 tsp grated ginger",
+        "1 tsp curry powder",
+        "½ tsp turmeric",
+        "½ tsp paprika",
+        "2 (13.5 oz) cans coconut milk (full fat)",
         "1 Tbsp tomato paste",
         "1 tsp honey or maple syrup",
-        "1 Tbsp soy sauce, juice of ½ lime",
+        "1 Tbsp soy sauce",
+        "2 limes",
+        "1 pint cherry tomatoes",
+        "2 cups jasmine rice",
         "Fresh cilantro or basil for garnish"
       ],
       "steps": [
-        "Pat salmon dry; season with salt, pepper, paprika. Sear in oil skin-side down 3–4 min until crispy. Flip, cook 2 more min. Remove.",
-        "Lower heat; melt butter. Sauté garlic and ginger 1 min. Stir in curry powder, turmeric, pepper flakes; toast 30 sec.",
-        "Add coconut milk, tomato paste, honey, soy sauce, and lime juice. Simmer 5 min.",
-        "Return salmon; spoon sauce over. Simmer 5 min until cooked through.",
-        "Garnish with cilantro. Serve over rice, quinoa, or with naan."
+        "Cook rice with 1 can of coconut milk",
+        "Pat salmon dry; season with salt, pepper, paprika. Heat oil in skillet over medium-high. Sear salmon skin-side down 3–4 min until crispy. Flip, cook 2 more min. Remove to a plate.",
+        "Lower heat; melt butter in same pan. Sauté garlic and ginger 1 min. Stir in curry powder and turmeric; toast 30 sec until fragrant.",
+        "Add coconut milk, tomato paste, honey, soy sauce, and juice from 1 lime. Whisk together and simmer 5 min until slightly thickened.",
+        "Return salmon to pan; spoon sauce over. Simmer 5 min until salmon is cooked through and sauce coats it.",
+        "Cook cherry tomatoes in a pan until soft and starting to get jammy.",
+        "Garnish with cilantro. Serve over jasmine rice with extra sauce spooned over the top."
       ],
       "day": "Monday",
       "note": "💡 Skipping the red pepper flakes keeps this totally kid-friendly. The curry powder + turmeric give warmth and color without heat. Serve over rice to soak up the sauce.",
@@ -171,6 +180,16 @@
           ],
           "tagClass": "tag-pasta",
           "tag": "Meal C"
+        },
+        {
+          "name": "1 pint cherry tomatoes",
+          "detail": "added to the pan and simmered in the curry sauce",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "amazon": "cherry tomatoes",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
         }
       ]
     },
@@ -411,6 +430,16 @@
           ],
           "tagClass": "tag-pasta",
           "tag": "Meal C"
+        },
+        {
+          "name": "2 cups jasmine rice",
+          "detail": "cooked as the base to serve under the curry",
+          "from": [
+            "one-pan-coconut-curry-salmon"
+          ],
+          "amazon": "jasmine rice",
+          "tag": "Meal A",
+          "tagClass": "tag-chili"
         }
       ]
     },
@@ -525,9 +554,9 @@
     "chicken-pineapple-fried-rice"
   ],
   "groceriesIngs": {
-    "one-pan-coconut-curry-salmon": "4c50576ca8b0",
+    "one-pan-coconut-curry-salmon": "3a150ca20ddc",
     "white-chicken-chili": "442e9a6652db",
     "chicken-pineapple-fried-rice": "fb8ca1c848dc"
   },
-  "groceriesAt": "2026-09-06T17:28:26.021Z"
+  "groceriesAt": "2026-09-08T23:59:34.978Z"
 }
