@@ -61,12 +61,18 @@ jobs:
           node scripts/test-ingredient-format.js
           node scripts/test-model-json.js
           node scripts/test-refresh-meals.js
+          node scripts/test-recipe-overlay.js
 
-      # A recipe edit changes data/recipes.json; the weeks embed a snapshot of
-      # each meal's ingredients from the moment it was added. Bring current and
-      # upcoming snapshots in line before the grocery delta looks at them.
-      # Deterministic and idempotent — no API, no Firebase.
-      - name: Refresh meal snapshots from recipes.json
+      # Every recipe lives twice — data/recipes.json and the Firebase overlay
+      # the site shows. Reconcile the two (a phone edit whose commit never
+      # landed is folded into recipes.json; an overlay the collection has
+      # overtaken is queued to be mirrored back), then bring current and
+      # upcoming meal snapshots in line before the grocery delta looks at
+      # them. The overlay writes wait in a file until the commit has landed.
+      - name: Reconcile recipe edits and refresh meal snapshots
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          OVERLAY_WRITES_FILE: ${{ runner.temp }}/overlay-writes.json
         run: node scripts/refresh-week-meals.js
 
       # Does the least work each week needs: nothing at all for a rearranged
@@ -92,7 +98,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/weeks
+          git add data/weeks data/recipes.json
           if git diff --cached --quiet; then
             echo "Nothing to commit."
             exit 0
@@ -109,9 +115,13 @@ jobs:
           echo "Could not push after 3 attempts."
           exit 1
 
+      # COMMIT_LANDED gates the recipe overlay writes queued above: an overlay
+      # is only ever stamped "committed" for a commit that is actually on main.
       - name: Sync to Firebase
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          OVERLAY_WRITES_FILE: ${{ runner.temp }}/overlay-writes.json
+          COMMIT_LANDED: ${{ steps.commit.outcome == 'success' }}
         run: node scripts/sync-firebase.js
 
       # The list reached the site above even when git wouldn't take it, but a

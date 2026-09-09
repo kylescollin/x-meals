@@ -40,3 +40,4 @@ jobs:
           node scripts/test-ingredient-format.js
           node scripts/test-model-json.js
           node scripts/test-refresh-meals.js
+          node scripts/test-recipe-overlay.js

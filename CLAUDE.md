@@ -85,16 +85,22 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   (`mergeGroceries`) and the per-meal ingredient fingerprint (`ingsFingerprint`) that lets an
   edited recipe register as a delta. All pure, all unit-tested.
 - `scripts/refresh-week-meals.js` (and `scripts/lib/refresh-meals.js`) — Refreshes the meal
-  snapshots embedded in current/upcoming week files from `data/recipes.json`, so an in-app recipe
-  edit reaches the weeks that plan it. Runs in CI just before `generate-groceries.js`.
-  Deterministic and idempotent — no API, no Firebase.
+  snapshots embedded in current/upcoming week files from the recipe collection, so a recipe edit
+  reaches the weeks that plan it. Runs in CI just before `generate-groceries.js`. "The recipe
+  collection" is `data/recipes.json` **reconciled with the Firebase overlays** first — see
+  **Two copies of every recipe** below. Without `FIREBASE_SERVICE_ACCOUNT` (a local run) it reads
+  `data/recipes.json` alone. Idempotent either way.
+- `scripts/lib/recipe-overlay.js` — The reconcile itself (`reconcileRecipes`): which of the two
+  copies of a recipe is newer, and what to write to make them agree. Pure, unit-tested, and the
+  second pass over its own output is provably empty.
 - `scripts/lib/model-json.js` — Finds the JSON in whatever the model actually said, fences and
   prose included. One reply that began "I'll work through..." took down a whole sync run; this is
   why it can't again.
 - `scripts/check-weeks.js`, `scripts/test-week-merge.js`, `scripts/test-week-store.js`,
   `scripts/test-recipe-import.js`, `scripts/test-ingredient-format.js`,
-  `scripts/test-model-json.js`, `scripts/test-refresh-meals.js` — the repo's test suite.
-  All seven run in CI before anything is written. `test-recipe-import.js` covers the guessing
+  `scripts/test-model-json.js`, `scripts/test-refresh-meals.js`,
+  `scripts/test-recipe-overlay.js` — the repo's test suite.
+  All eight run in CI before anything is written. `test-recipe-import.js` covers the guessing
   rules; the ones that matter most are the tag cases, because recipe method text is full of
   words that mean something else in a title. `test-ingredient-format.js` leans the other way —
   most of its cases assert the parser does *nothing*, because "2 (14.5 oz) cans" and "1/16 tsp"
@@ -183,8 +189,45 @@ ingredients, steps, tip). On **Save** (`saveNewRecipe` in `recipe-card.js`) it d
    editing (`commitRecipeToCore`), so it becomes a **permanent** recipe Agent X can see and suggest.
    Lands ~1 min later. The Firebase copy is the safe fallback if this commit fails.
 
-New recipes get an `id` that is a slug of the name, with a numeric suffix on collision. This is the
-only place outside Agent X that writes `data/recipes.json`.
+New recipes get an `id` that is a slug of the name, with a numeric suffix on collision.
+
+### Two copies of every recipe — and how they're kept in step
+
+Every recipe lives twice:
+
+| copy | where | who reads it |
+|---|---|---|
+| **collection** | `data/recipes.json` | Agent X, and CI when it refreshes week snapshots and builds grocery lists |
+| **overlay** | Firebase `/recipe-edits/<id>` | The site — every card, the detail view, and the week page's recipe picker apply it over the collection |
+
+An in-app edit (`saveRecipeEdit` in `recipe-card.js`) writes the overlay instantly and then
+commits the same recipe into `data/recipes.json` through the GitHub token. The overlay stores
+exactly a `recipes.json` entry plus two stamps: `editedAt` (when the phone saved it) and
+`committedAt` (set once the commit landed). **Until the stamps match, the edit is pending and
+the grocery list cannot see it** — so a failed commit alerts, and pending edits are retried
+quietly the next time either phone opens the app (`flushPendingEdits`).
+
+CI closes the loop from both directions in `refresh-week-meals.js`, before it touches any week:
+- a **pending** overlay is folded into `data/recipes.json` (and committed with the grocery lists);
+- a **committed** overlay that differs from the collection means the collection moved since — a git
+  edit by Agent X or a Claude session — so the overlay is rewritten from the collection.
+
+The overlay writes wait in a file until the commit step has actually landed (`COMMIT_LANDED` in
+the workflow), because stamping an overlay "committed" for a commit that got rejected would make
+the next run think the collection was newer and revert the phone's edit.
+
+This exists because the coconut curry salmon was edited on a phone before the commit-on-edit
+existed (June 2026); the overlay said two cans, `recipes.json` said one, and when the week was
+planned in September the refresh step "corrected" the week back to one can and shopped for it.
+
+Rules that follow:
+- **Editing `data/recipes.json` in git is fine** — CI mirrors the change into the overlay on its
+  next run. There's no need to touch Firebase by hand.
+- Never write `/recipe-edits` with week fields (`label`, `day`, `date`) or without stamps.
+  `toCore` in `scripts/lib/recipe-overlay.js` and `toCoreRecipe` in `recipe-card.js` are the
+  same shape on purpose; the two are compared through it, so they must stay identical.
+- Ticked grocery lines are still never renamed (see **Grocery Lists**). A recipe edit that changes
+  a quantity someone has already ticked shows up as new lines, not a rewritten one.
 
 ### Importing a recipe from a link
 

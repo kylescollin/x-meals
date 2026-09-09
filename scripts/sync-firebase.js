@@ -80,8 +80,32 @@ async function main() {
     console.log('No week planned for the week of ' + thisWeek + ' — leaving /meals/current alone.');
   }
 
+  await applyOverlayWrites();
+
   console.log('Sync complete');
   process.exit(0);
+}
+
+// The recipe-overlay reconcile (refresh-week-meals.js) may have folded a
+// phone's pending edit into data/recipes.json, and wants that overlay stamped
+// "committed" — or the collection overtook an overlay and wants it mirrored
+// back. Both are only true once the commit actually landed; a stamp written
+// for a commit that got rejected would tell the next run the collection is
+// newer, and it would revert the phone's edit. So the writes wait here, after
+// the commit step, and are dropped when it failed. Nothing is lost: the next
+// run reconciles from scratch.
+async function applyOverlayWrites() {
+  const file = process.env.OVERLAY_WRITES_FILE;
+  if (!file || !fs.existsSync(file)) return;
+  const writes = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const n = Object.keys(writes).length;
+  if (!n) return;
+  if (process.env.COMMIT_LANDED !== 'true') {
+    console.log(`Holding back ${n} recipe overlay write(s) — the commit did not land; the next run will reconcile again.`);
+    return;
+  }
+  await db.ref('/recipe-edits').update(writes);
+  console.log(`~ /recipe-edits: ${n} overlay write(s) brought in line with data/recipes.json`);
 }
 
 main().catch(function (err) {
