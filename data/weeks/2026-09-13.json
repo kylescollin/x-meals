@@ -66,7 +66,329 @@
       "date": "9/15"
     }
   ],
-  "groceries": [],
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "1 large sweet potato",
+          "detail": "microwaved until tender, mashed into the quesadilla base",
+          "amazon": "large sweet potato",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 avocados",
+          "detail": "1 avocado mashed into quesadilla filling · 1 avocado sliced for taco topping",
+          "amazon": "ripe avocado",
+          "from": [
+            "vegetarian-quesadillas",
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "1 mini red bell pepper",
+          "detail": "diced and sautéed into the veggie filling",
+          "amazon": "mini sweet red pepper",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 mini orange bell pepper",
+          "detail": "diced and sautéed into the veggie filling",
+          "amazon": "mini sweet orange pepper",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 jalapeño",
+          "detail": "optional — diced into the veggie filling",
+          "amazon": "fresh jalapeño pepper",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 lime",
+          "detail": "served alongside",
+          "amazon": "fresh lime",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 large English cucumber",
+          "detail": "thinly sliced for the sesame slaw",
+          "amazon": "english cucumber",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 bunch fresh cilantro",
+          "detail": "served alongside the quesadillas · tossed into the sesame cucumber slaw",
+          "amazon": "fresh cilantro bunch",
+          "from": [
+            "vegetarian-quesadillas",
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "1 bunch green onions",
+          "detail": "garnished over the tacos",
+          "amazon": "green onions scallions",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "2 lb boneless skinless chicken thighs",
+          "detail": "boiled, shredded, then broiled with teriyaki and sweet chili sauce",
+          "amazon": "boneless skinless chicken thighs",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "1 cup shredded cheddar or pepper jack cheese",
+          "detail": "sprinkled into the quesadilla filling",
+          "amazon": "shredded pepper jack cheese",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 Tbsp butter",
+          "detail": "spread on the outside of the tortilla for pan-frying",
+          "amazon": "unsalted butter",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 small container sour cream",
+          "detail": "served alongside",
+          "amazon": "sour cream",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "¼ cup Greek yogurt",
+          "detail": "whisked into the slaw dressing",
+          "amazon": "plain greek yogurt",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "12 (6-inch) flour tortillas",
+          "detail": "4 for the quesadillas · 8 for the tacos",
+          "amazon": "6 inch flour tortillas",
+          "from": [
+            "vegetarian-quesadillas",
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "1 can black beans",
+          "detail": "rinsed and added to the veggie filling",
+          "amazon": "canned black beans",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 small can or bag frozen corn",
+          "detail": "rinsed and added to the veggie filling",
+          "amazon": "canned corn kernels",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 jar salsa",
+          "detail": "served alongside",
+          "amazon": "salsa jar mild",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 tsp olive oil",
+          "detail": "drizzled over sweet potato before microwaving and used to sauté the veggie filling",
+          "amazon": "olive oil",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "½ cup teriyaki sauce",
+          "detail": "drizzled over shredded chicken before broiling",
+          "amazon": "teriyaki sauce",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "3 Tbsp sweet chili sauce",
+          "detail": "2 Tbsp drizzled over chicken before broiling · 1 Tbsp whisked into the slaw dressing",
+          "amazon": "sweet chili sauce",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1½ Tbsp mayonnaise",
+          "detail": "whisked into the slaw dressing",
+          "amazon": "mayonnaise",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 Tbsp rice vinegar",
+          "detail": "whisked into the slaw dressing",
+          "amazon": "rice vinegar",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 tsp sesame oil",
+          "detail": "whisked into the slaw dressing",
+          "amazon": "toasted sesame oil",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "¼ cup crushed peanuts",
+          "detail": "sprinkled over the assembled tacos",
+          "amazon": "crushed roasted peanuts",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 small jar sesame seeds",
+          "detail": "sprinkled over the assembled tacos",
+          "amazon": "sesame seeds",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "1 Tbsp taco seasoning",
+          "detail": "stirred into the veggie filling",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Salt and pepper",
+          "detail": "seasoning the chicken before cooking",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
   "subhead": "2 dinners",
-  "updatedAt": 1789330300269
+  "updatedAt": 1789330300269,
+  "groceriesFor": [
+    "vegetarian-quesadillas",
+    "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+  ],
+  "groceriesIngs": {
+    "vegetarian-quesadillas": "441876c4c92f",
+    "teriyaki-chicken-tacos-with-sesame-cucumber-slaw": "db74d26d2789"
+  },
+  "groceriesAt": "2026-09-13T20:12:31.052Z"
 }
