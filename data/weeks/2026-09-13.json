@@ -1,0 +1,72 @@
+{
+  "weekOf": "2026-09-13",
+  "title": "Week of September 13",
+  "meals": [
+    {
+      "id": "vegetarian-quesadillas",
+      "icon": "🫓",
+      "name": "Vegetarian Quesadillas",
+      "meta": "25 min · Stovetop · Serves 4",
+      "ings": [
+        "4 medium flour tortillas",
+        "1 large sweet potato",
+        "2 avocados",
+        "½ cup black beans, rinsed",
+        "¼ cup corn, rinsed",
+        "1 mini red pepper",
+        "1 mini orange pepper",
+        "1 tsp jalapeño, diced (optional)",
+        "1 Tbsp taco seasoning",
+        "1 cup cheddar or pepper jack cheese",
+        "1 Tbsp butter",
+        "2 tsp olive oil, divided",
+        "Cilantro, lime, salsa, sour cream to serve"
+      ],
+      "steps": [
+        "Poke holes in sweet potato, drizzle with oil, wrap in paper towels, microwave 8 min until very tender.",
+        "Dice peppers and jalapeño. Cook in pan until tender, 5–7 min. Add beans, corn, and taco seasoning. Cook 3 more min. Set aside.",
+        "Butter one side of tortilla. Spread sweet potato on the other, mash ½ avocado over it, add veggie filling, sprinkle cheese.",
+        "Cook butter-side down over medium heat until browned and cheese melts. Fold in half. Repeat. Slice and serve warm."
+      ],
+      "day": "Monday",
+      "label": "Meal A",
+      "date": "9/14"
+    },
+    {
+      "id": "teriyaki-chicken-tacos-with-sesame-cucumber-slaw",
+      "icon": "🌮",
+      "name": "Teriyaki Chicken Tacos with Sesame Cucumber Slaw",
+      "meta": "30 min · Stovetop · Serves 4",
+      "ings": [
+        "2 lb boneless skinless chicken thighs",
+        "Salt and pepper",
+        "½ cup teriyaki sauce",
+        "2 Tbsp sweet chili sauce",
+        "8 (6-inch) flour tortillas",
+        "1 avocado sliced, ¼ cup crushed peanuts, sesame seeds",
+        "# Slaw",
+        "1 large English cucumber, thinly sliced",
+        "¼ cup Greek yogurt",
+        "1½ Tbsp mayo",
+        "2 Tbsp rice vinegar",
+        "1 Tbsp sweet chili sauce",
+        "1 tsp sesame oil",
+        "fresh cilantro",
+        "green onions"
+      ],
+      "steps": [
+        "Boil chicken until cooked. Shred chicken.",
+        "Thinly slice cucumbers. Whisk dressing ingredients. Toss with cucumbers and herbs.",
+        "Spread chicken on lined baking sheet, drizzle with teriyaki and sweet chili sauce. Broil 3–6 min until caramelized.",
+        "Warm tortillas. Layer with chicken, cucumber slaw, avocado, crushed peanuts, sesame seeds."
+      ],
+      "day": "Tuesday",
+      "note": "💡 Crockpot: high 2.5–3.5 hrs or low 4–5 hrs. Oven: 400°F for 35 min. Always broil at the end for caramelized edges.",
+      "label": "Meal B",
+      "date": "9/15"
+    }
+  ],
+  "groceries": [],
+  "subhead": "2 dinners",
+  "updatedAt": 1789330300269
+}
