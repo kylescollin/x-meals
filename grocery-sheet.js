@@ -207,10 +207,12 @@
   // Where the shop button on each item goes. `btn` is the word on the button,
   // `url` takes an already-encoded search term. Amazon retired the Fresh name
   // for Amazon Grocery in late 2025; Fresh stays because the search still
-  // works and some weeks were shopped that way.
+  // works and some weeks were shopped that way. The Amazon Grocery link is
+  // copied from a real search in the storefront (Sept 2026): `i=same-day-grocery`
+  // is the department and `srs` the storefront id — both are needed.
   var STORES = [
     { id: 'amazon-grocery', name: 'Amazon Grocery', btn: 'Amazon',
-      url: function (q) { return 'https://www.amazon.com/s?k=' + q + '&i=grocery'; } },
+      url: function (q) { return 'https://www.amazon.com/s?k=' + q + '&i=same-day-grocery&srs=219444219011'; } },
     { id: 'amazon-fresh', name: 'Amazon Fresh', btn: 'Fresh',
       url: function (q) { return 'https://www.amazon.com/s?k=' + q + '&i=amazonfresh'; } },
     { id: 'target', name: 'Target', btn: 'Target',
