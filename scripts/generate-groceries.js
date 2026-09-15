@@ -54,8 +54,8 @@ Produce, Protein, Dairy & Refrigerated, Pantry & Canned, Spices
 - "detail": how the item is used — nothing else. Never name the meal or the recipe:
   the tag pill next to it already says which meal it's for, so naming it reads as a
   stutter. Write "diced into the sauce", not "Beef chili · diced into the sauce".
-- "amazon": lowercase Amazon Fresh search term, no punctuation, specific enough to
-  find the right product ("lean ground beef", "diced tomatoes green chilies mild").
+- "amazon": lowercase grocery search term (it is used for Amazon, Target and Safeway
+  alike), no punctuation, specific enough to find the right product ("lean ground beef", "diced tomatoes green chilies mild").
   OMIT this field entirely for Spices items.
 - "from": the "id" of every meal the item is needed for. Always include it.
 Never output "tag" or "tagClass" — both are computed from "from".`;
@@ -224,7 +224,7 @@ function reviseGroceries({ addedMeals, removedMeals, changedMeals, needsRevising
 //
 //   "# For the slaw" lines are labels, not shopping. Leaving them in meant
 //   trusting the model to notice — and a header that slips through becomes a
-//   real line item, with a tag pill, an Amazon Fresh button searching "slaw:",
+//   real line item, with a tag pill, a shop button searching "slaw:",
 //   and a Firebase tick key that makes it stick. Cheaper to be certain here.
 //
 // Returns copies: the week object is written back to disk afterwards and must

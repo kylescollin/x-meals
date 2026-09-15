@@ -73,7 +73,7 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 - `grocery-sheet.js` — One week's grocery list, as a card that slides up over the week page
   (`window.GrocerySheet`). Self-contained like `recipe-card.js`: it injects its own styles and
   markup. This is the whole engine that used to be `groceries.html` — sections, checkbox sync,
-  hand-added items, Amazon Fresh buttons. See **Grocery Lists** below.
+  hand-added items, the shop buttons and the store switch. See **Grocery Lists** below.
 
 **Scripts & Automation:**
 - `scripts/sync-firebase.js` — Syncs `data/weeks/*.json` → `/meals/weeks/*`, and mirrors the
@@ -417,7 +417,7 @@ historical and handled, but don't add to it.)
           "detail": "How it's used — never names the meal; the tag pill says that",
           "tag": "Meal A",
           "tagClass": "tag-chili",
-          "amazon": "search term for Amazon Fresh",
+          "amazon": "plain search term, used for every store",
           "from": ["recipe-slug"]
         }
       ]
@@ -430,7 +430,7 @@ historical and handled, but don't add to it.)
 
 **CI-owned fields.** `groceries`, `groceriesFor` (the meal ids the list covers), `groceriesIngs` (a fingerprint of each meal's ingredients as the list last saw them — how a recipe edit gets noticed) and `groceriesAt` are written only by CI. X should leave all four alone — set `"groceries": []` on a brand-new week and omit the other three.
 
-**Amazon button:** Only include `"amazon"` for produce, protein, dairy, and pantry items. Omit it for spices — the sheet falls back to searching the item's own name, so they still get a Fresh button.
+**Shop button:** Only include `"amazon"` for produce, protein, dairy, and pantry items. Omit it for spices — the sheet falls back to searching the item's own name, so they still get a shop button. The field is still called `amazon` for history's sake, but it is a plain search term and the sheet sends it to whichever store is chosen (see **Where the list lives on screen**).
 
 **Item subtitles (`detail`):** the tag pill next to every item already says which meal it's for, so `detail` describes only *how* the item is used ("stirred into the slaw"). `relabelGroceries` in `scripts/lib/week-merge.js` strips any meal name that slips through — it's display-only text, never the name a checkbox is keyed by.
 
@@ -488,6 +488,12 @@ hidden in timeline view and while editing meals.
 - **An unplanned week can have a grocery list.** Hand-added items live at
   `/groceries/{weekOf}/_custom/{id}` in Firebase, which doesn't require the week document to
   exist. This is how you start a shopping list before picking any meals.
+- **Every item has a shop button, and a chip row under the progress bar picks the store:**
+  Amazon Grocery (the default — Amazon retired the Fresh name for it in late 2025), Amazon
+  Fresh, Target or Safeway. The choice is saved per phone in `localStorage` under
+  `fbk-grocery-store`, deliberately not synced, so Kyle and Josephine can shop different
+  stores. Switching rewrites the buttons in place; the list and its ticks are untouched. The
+  store table is `STORES` at the top of `grocery-sheet.js` — adding a store is one entry there.
 
 ### Waiting for CI belongs to the week, not to the app
 

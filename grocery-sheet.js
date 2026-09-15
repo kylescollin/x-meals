@@ -6,6 +6,12 @@
    the same section rendering, the same Firebase check-state sync, the same
    hand-added items.
 
+   Every item carries a "shop" button that searches a store for it. Which
+   store is a chip row at the top of the sheet — Amazon Grocery, Amazon Fresh,
+   Target or Safeway — and the choice is remembered per phone in localStorage.
+   Nothing about the list itself changes with the store: the generator's
+   "amazon" term is just a plain search term and works for all of them.
+
    Self-contained in the recipe-card.js style — it injects its own styles and
    its own markup, so a page only has to load it and point it at a week:
 
@@ -83,8 +89,16 @@
     '#gs-sheet .tag-g{background:#ede7f6;color:#4527a0;}',
     '#gs-sheet .tag-shared{background:#e8f2fe;color:#2563a8;}',
     '#gs-sheet .tag-all{background:#f0ecd8;color:#7a6020;}',
-    '#gs-sheet .amz-btn{font-size:11px;font-weight:600;color:#fff;background:#FF9900;border:none;border-radius:5px;padding:3px 8px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;}',
-    '#gs-sheet .amz-btn:hover{background:#e88b00;}',
+    '#gs-sheet .shop-btn{font-size:11px;font-weight:600;color:#fff;background:#FF9900;border:none;border-radius:5px;padding:3px 8px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;}',
+    '#gs-sheet .shop-btn:hover{filter:brightness(.92);}',
+    '#gs-sheet .shop-btn.store-target{background:#cc0000;}',
+    '#gs-sheet .shop-btn.store-safeway{background:#c8102e;}',
+    /* ── store chips ── */
+    '#gs-sheet .gs-stores{display:flex;align-items:center;gap:6px;padding:10px 18px;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}',
+    '#gs-sheet .gs-stores::-webkit-scrollbar{display:none;}',
+    '#gs-sheet .gs-stores-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);flex-shrink:0;margin-right:4px;}',
+    '#gs-sheet .gs-store{flex-shrink:0;font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:600;color:var(--muted);background:#fff;border:1px solid var(--border);border-radius:100px;padding:5px 12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s,color .12s,border-color .12s;}',
+    '#gs-sheet .gs-store.on{color:#fff;background:var(--ink);border-color:var(--ink);}',
     '#gs-sheet .rm-btn{font-size:15px;line-height:1;font-weight:500;color:var(--muted);background:transparent;border:none;border-radius:5px;width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .12s,color .12s;}',
     '#gs-sheet .rm-btn:hover{background:#f3e3df;color:var(--accent);}',
     '#gs-sheet .add-bar{display:flex;gap:8px;margin-bottom:22px;}',
@@ -111,6 +125,7 @@
         '<div class="gs-track"><div class="gs-fill" id="gs-fill"></div></div>' +
         '<div class="gs-label" id="gs-label">0 of 0 items checked</div>' +
       '</div>' +
+      '<div class="gs-stores" id="gs-stores"><span class="gs-stores-label">Shop at</span></div>' +
       '<div class="gs-body">' +
         '<div class="add-bar">' +
           '<input class="add-input" id="gs-add-input" type="text" placeholder="Add an item…" ' +
@@ -188,14 +203,72 @@
     updateProgress();
   }
 
+  // ── Stores ────────────────────────────────────────────────────────────────
+  // Where the shop button on each item goes. `btn` is the word on the button,
+  // `url` takes an already-encoded search term. Amazon retired the Fresh name
+  // for Amazon Grocery in late 2025; Fresh stays because the search still
+  // works and some weeks were shopped that way.
+  var STORES = [
+    { id: 'amazon-grocery', name: 'Amazon Grocery', btn: 'Amazon',
+      url: function (q) { return 'https://www.amazon.com/s?k=' + q + '&i=grocery'; } },
+    { id: 'amazon-fresh', name: 'Amazon Fresh', btn: 'Fresh',
+      url: function (q) { return 'https://www.amazon.com/s?k=' + q + '&i=amazonfresh'; } },
+    { id: 'target', name: 'Target', btn: 'Target',
+      url: function (q) { return 'https://www.target.com/s?searchTerm=' + q; } },
+    { id: 'safeway', name: 'Safeway', btn: 'Safeway',
+      url: function (q) { return 'https://www.safeway.com/shop/search-results.html?q=' + q; } }
+  ];
+  var STORE_PREF = 'fbk-grocery-store';   // localStorage — per phone, on purpose
+  var store = STORES[0];
+
+  function storeById(id) {
+    for (var i = 0; i < STORES.length; i++) { if (STORES[i].id === id) return STORES[i]; }
+    return null;
+  }
+
+  // localStorage can throw (private browsing, cleared site data) — a missing
+  // or unknown preference just means the default store.
+  function loadStore() {
+    try { store = storeById(localStorage.getItem(STORE_PREF)) || STORES[0]; }
+    catch (_) { store = STORES[0]; }
+  }
+
+  function storeUrl(term, st) {
+    return (st || store).url(encodeURIComponent(term).replace(/%20/g, '+'));
+  }
+
+  // Switching stores rewrites the buttons in place rather than re-rendering
+  // the list, so nothing about the rows (ticks, custom items) is disturbed.
+  function setStore(id) {
+    var st = storeById(id);
+    if (!st) return;
+    store = st;
+    try { localStorage.setItem(STORE_PREF, id); } catch (_) {}
+    paintStores();
+    if (!root) return;
+    root.querySelectorAll('.shop-btn').forEach(function (a) {
+      a.href = storeUrl(a.getAttribute('data-term'));
+      a.textContent = st.btn;
+      a.className = 'shop-btn store-' + st.id;
+    });
+  }
+
+  function paintStores() {
+    var row = document.getElementById('gs-stores');
+    if (!row) return;
+    row.querySelectorAll('.gs-store').forEach(function (el) {
+      el.classList.toggle('on', el.getAttribute('data-store') === store.id);
+    });
+  }
+
   // ── Rendering the generated list ──────────────────────────────────────────
   // Spices carry no "amazon" term — the generator omits it on purpose. Falling
-  // back to the item's own name gives them a Fresh button anyway, the same way
+  // back to the item's own name gives them a shop button anyway, the same way
   // hand-added items have always worked, and it lights up every past week too.
-  function amzBtn(term) {
-    return '<a class="amz-btn" href="https://www.amazon.com/s?k=' +
-      encodeURIComponent(term).replace(/%20/g, '+') +
-      '&amp;i=amazonfresh" target="_blank" rel="noopener">Fresh</a>';
+  function shopBtn(term) {
+    return '<a class="shop-btn store-' + esc(store.id) + '" data-term="' + esc(term) +
+      '" href="' + esc(storeUrl(term)) + '" target="_blank" rel="noopener">' +
+      esc(store.btn) + '</a>';
   }
 
   function renderItem(item) {
@@ -203,7 +276,7 @@
       '<div class="item-body"><div class="item-name">' + esc(item.name) + '</div>' +
       (item.detail ? '<div class="item-detail">' + esc(item.detail) + '</div>' : '') + '</div>' +
       '<div class="item-right"><span class="tag ' + esc(item.tagClass) + '">' + esc(item.tag) + '</span>' +
-      amzBtn(item.amazon || item.name) + '</div></div>';
+      shopBtn(item.amazon || item.name) + '</div></div>';
   }
 
   function renderSection(sec) {
@@ -289,7 +362,7 @@
       row.setAttribute('data-id', id);
       row.innerHTML = '<div class="cb"><span class="cb-check">&#x2713;</span></div>' +
         '<div class="item-body"><div class="item-name">' + esc(it.name) + '</div></div>' +
-        '<div class="item-right">' + amzBtn(it.name) +
+        '<div class="item-right">' + shopBtn(it.name) +
         '<button type="button" class="rm-btn" title="Remove">&times;</button></div>';
       sec.appendChild(row);
     });
@@ -416,6 +489,19 @@
 
     document.getElementById('gs-close').addEventListener('click', close);
     document.getElementById('gs-reset').addEventListener('click', resetAll);
+
+    loadStore();
+    var storesEl = document.getElementById('gs-stores');
+    STORES.forEach(function (st) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'gs-store';
+      b.setAttribute('data-store', st.id);
+      b.textContent = st.name;
+      b.addEventListener('click', function () { setStore(st.id); });
+      storesEl.appendChild(b);
+    });
+    paintStores();
     document.getElementById('gs-add-btn').addEventListener('click', addCustom);
     document.getElementById('gs-add-input').addEventListener('keydown', function (ev) {
       if (ev.key === 'Enter') { ev.preventDefault(); addCustom(); }
@@ -432,7 +518,7 @@
         if (row) removeCustom(row.getAttribute('data-id'));
         return;
       }
-      if (ev.target.closest('.amz-btn')) return;   // let the link through
+      if (ev.target.closest('.shop-btn')) return;  // let the link through
       var item = ev.target.closest('.item');
       if (item) toggle(item);
     });
@@ -455,6 +541,11 @@
     close: close,
     isOpen: isOpen,
     progress: counts,
-    onProgress: function (fn) { progressFn = fn; }
+    onProgress: function (fn) { progressFn = fn; },
+    // Stores — exposed so the choice can be read or tested from the console.
+    stores: STORES.map(function (s) { return { id: s.id, name: s.name }; }),
+    store: function () { return store.id; },
+    setStore: setStore,
+    storeUrl: function (term, id) { return storeUrl(term, storeById(id) || store); }
   };
 })(window);
