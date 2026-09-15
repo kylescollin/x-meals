@@ -94,10 +94,12 @@
     '#gs-sheet .shop-btn.store-target{background:#cc0000;}',
     '#gs-sheet .shop-btn.store-safeway{background:#c8102e;}',
     /* ── store chips ── */
-    '#gs-sheet .gs-stores{display:flex;align-items:center;gap:6px;padding:10px 18px;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}',
+    /* overflow-y:hidden matters: with only overflow-x set, iOS lets the row pan
+       vertically too and the chips wander off diagonally. */
+    '#gs-sheet .gs-stores{display:flex;align-items:center;gap:8px;padding:12px 18px 14px;border-bottom:1px solid var(--border);overflow-x:auto;overflow-y:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;}',
     '#gs-sheet .gs-stores::-webkit-scrollbar{display:none;}',
     '#gs-sheet .gs-stores-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);flex-shrink:0;margin-right:4px;}',
-    '#gs-sheet .gs-store{flex-shrink:0;font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:600;color:var(--muted);background:#fff;border:1px solid var(--border);border-radius:100px;padding:5px 12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s,color .12s,border-color .12s;}',
+    '#gs-sheet .gs-store{flex-shrink:0;white-space:nowrap;line-height:1.3;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;color:var(--muted);background:#fff;border:1px solid var(--border);border-radius:100px;padding:7px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s,color .12s,border-color .12s;}',
     '#gs-sheet .gs-store.on{color:#fff;background:var(--ink);border-color:var(--ink);}',
     '#gs-sheet .rm-btn{font-size:15px;line-height:1;font-weight:500;color:var(--muted);background:transparent;border:none;border-radius:5px;width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .12s,color .12s;}',
     '#gs-sheet .rm-btn:hover{background:#f3e3df;color:var(--accent);}',
