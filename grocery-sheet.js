@@ -98,7 +98,7 @@
        vertically too and the chips wander off diagonally. flex-shrink:0 matters
        just as much: the sheet is a flex column, and without it the row was
        squeezed to make room for the list and the chips cropped. */
-    '#gs-sheet .gs-stores{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:10px 18px 18px;overflow-x:auto;overflow-y:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;}',
+    '#gs-sheet .gs-stores{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:14px 18px 22px;overflow-x:auto;overflow-y:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;}',
     '#gs-sheet .gs-stores::-webkit-scrollbar{display:none;}',
     '#gs-sheet .gs-stores-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);flex-shrink:0;margin-right:4px;}',
     '#gs-sheet .gs-store{flex-shrink:0;white-space:nowrap;line-height:1.3;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;color:var(--muted);background:#fff;border:1px solid var(--border);border-radius:100px;padding:7px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s,color .12s,border-color .12s;}',
