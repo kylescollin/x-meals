@@ -8,7 +8,7 @@
       "name": "Vegetarian Quesadillas",
       "meta": "25 min · Stovetop · Serves 4",
       "ings": [
-        "4 medium flour tortillas",
+        "8 medium flour tortillas",
         "1 large sweet potato",
         "2 avocados",
         "½ cup black beans, rinsed",
@@ -387,8 +387,8 @@
     "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
   ],
   "groceriesIngs": {
-    "vegetarian-quesadillas": "441876c4c92f",
+    "vegetarian-quesadillas": "da89065acf86",
     "teriyaki-chicken-tacos-with-sesame-cucumber-slaw": "db74d26d2789"
   },
-  "groceriesAt": "2026-09-13T20:12:31.052Z"
+  "groceriesAt": "2026-09-17T01:49:07.252Z"
 }
