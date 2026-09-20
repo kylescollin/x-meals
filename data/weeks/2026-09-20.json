@@ -1,0 +1,111 @@
+{
+  "weekOf": "2026-09-20",
+  "title": "Week of September 20",
+  "meals": [
+    {
+      "id": "sheet-pan-beef-broccoli",
+      "icon": "🥩",
+      "name": "Sheet Pan Beef & Broccoli",
+      "meta": "~30 min · Sheet pan · Serves 4",
+      "ings": [
+        "1½ lb flank steak or sirloin, sliced thin against the grain",
+        "4 cups broccoli florets",
+        "3 cloves garlic, minced",
+        "¼ cup low-sodium soy sauce",
+        "2 tbsp oyster sauce",
+        "1 tbsp sesame oil",
+        "1 tbsp honey",
+        "½ tsp ground ginger",
+        "2 tbsp cornstarch",
+        "2 tbsp vegetable oil",
+        "1½ cups jasmine rice",
+        "Sesame seeds + sliced green onions for garnish"
+      ],
+      "steps": [
+        "Preheat oven to 425°F. Start rice on stovetop: 1½ cups rice + 3 cups water, bring to boil, reduce to low, cover, 18 min.",
+        "Slice beef very thin against the grain. Whisk together soy sauce, oyster sauce, sesame oil, honey, ginger, garlic, and cornstarch into a marinade. Toss beef in half the marinade and set aside 10 minutes.",
+        "Toss broccoli florets with vegetable oil, salt, and pepper on a large sheet pan. Roast 8 minutes.",
+        "Push broccoli to the sides. Spread marinated beef in a single layer in the center. Roast everything 8–10 more minutes until beef is cooked through and broccoli is lightly charred.",
+        "Warm remaining marinade in a small saucepan over medium heat, adding a splash of water to thin slightly, until it simmers and thickens into a glossy sauce.",
+        "Serve beef and broccoli over rice. Drizzle with extra sauce. Garnish with sesame seeds and green onions."
+      ],
+      "day": "Monday",
+      "note": "💡 Slice the beef as thin as possible — even partially frozen beef is easier to slice thin. The marinade does double duty as the finishing sauce.",
+      "label": "Meal A",
+      "date": "9/21"
+    },
+    {
+      "id": "one-pot-vegetarian-ravioli-soup",
+      "icon": "🍲",
+      "name": "One-Pot Vegetarian Ravioli Soup",
+      "meta": "30 min · Stovetop · Serves 4",
+      "ings": [
+        "1 medium yellow onion",
+        "3-4 carrots",
+        "4 cloves garlic",
+        "1 tsp Italian seasoning blend ((I use salt-free Mrs. Dash))",
+        "1 TBSP avocado oil (or olive oil)",
+        "3 cups vegetable broth",
+        "28 oz canned crushed tomatoes",
+        "salt and pepper (to taste (I added ¼ tsp of each))",
+        "9-10 oz mini refrigerated cheese ravioli ((like Buitoni))",
+        "½-¾ cup heavy cream ((totally optional but super tasty!))",
+        "1-2 cups fresh chopped baby spinach",
+        "freshly grated Parmesan cheese",
+        "crushed red pepper flakes",
+        "fresh chopped basil"
+      ],
+      "steps": [
+        "Peel and finely dice carrots and onion. The smaller the dice the faster they'll cook. Peel 4 cloves of fresh garlic and finely mince.",
+        "Heat 1 TBSP oil in a dutch oven or large pot over medium-high heat.",
+        "Add onion and carrots. Sauté until tender (approx. 6 minutes). Then add garlic and Italian seasoning and saute an additional 30-60 seconds.",
+        "Add 3 cups of veggie stock and crushed tomatoes. Stir well to combine. Bring soup to a rolling boil, then reduce heat to low/simmer to allow the flavors to mingle and the carrots/onion to fully soften. Cover and simmer 5-10 minutes.",
+        "Once the veggies have reached your ideal tenderness (I like to scoop out a carrot and check for doneness), bring the soup back up to a medium simmer and add your fresh mini ravioli.",
+        "Allow the ravioli to simmer approx. 5 minutes until fully cooked and softened.",
+        "Stir in heavy cream.",
+        "Lastly chop your spinach and stir into the hot soup to wilt the greens. Give it a taste and season with salt and black pepper to taste. Add your favorite toppings (grated parm and fresh basil for me!) and dive in while it’s hot. Enjoy!"
+      ],
+      "day": "Tuesday",
+      "label": "Meal B",
+      "date": "9/22"
+    },
+    {
+      "id": "greek-chicken-flatbread-the-30-minute-weeknight-winner-",
+      "icon": "🍗",
+      "name": "Greek Chicken Flatbread (The 30-Minute Weeknight Winner)",
+      "meta": "30 min · Stovetop · Serves 4",
+      "ings": [
+        "1 lb boneless, skinless chicken breasts (cut into bite-sized pieces)",
+        "2 tbsp olive oil",
+        "1 lemon (juiced)",
+        "2 cloves garlic (minced)",
+        "1 tsp dried oregano",
+        "½ tsp salt",
+        "¼ tsp black pepper",
+        "1 cup plain Greek yogurt",
+        "½ cucumber (grated and squeezed dry)",
+        "1 tbsp fresh dill (chopped)",
+        "1 clove garlic (minced)",
+        "1 tbsp lemon juice",
+        "4 large flatbreads or naan",
+        "1 cup cherry tomatoes (halved)",
+        "½ red onion (thinly sliced)",
+        "½ cup kalamata olives (halved)",
+        "½ cup feta cheese (crumbled)"
+      ],
+      "steps": [
+        "In a medium bowl, combine the chicken pieces with olive oil, lemon juice, 2 cloves of minced garlic, oregano, salt, and pepper. Stir to coat and set aside to marinate for at least 15 minutes.",
+        "While the chicken marinates, make the tzatziki. Grate the cucumber and use a clean kitchen towel to squeeze out as much moisture as possible. In a separate bowl, mix the squeezed cucumber, Greek yogurt, dill, 1 clove of minced garlic, and lemon juice. Season with a pinch of salt and stir to combine.",
+        "Heat a large skillet over medium-high heat. Add the chicken in a single layer and cook for 3-4 minutes per side, until golden brown and cooked through.",
+        "Warm the flatbreads in a dry skillet or oven until soft and pliable.",
+        "To assemble, spread a generous layer of tzatziki on each warm flatbread. Top with the cooked chicken, tomatoes, red onion, olives, and crumbled feta cheese. Serve immediately."
+      ],
+      "day": "Wednesday",
+      "label": "Meal C",
+      "date": "9/23"
+    }
+  ],
+  "groceries": [],
+  "subhead": "3 dinners",
+  "updatedAt": 1789926995352
+}
