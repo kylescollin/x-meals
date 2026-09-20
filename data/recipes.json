@@ -1666,6 +1666,43 @@
         "Lastly chop your spinach and stir into the hot soup to wilt the greens. Give it a taste and season with salt and black pepper to taste. Add your favorite toppings (grated parm and fresh basil for me!) and dive in while it’s hot. Enjoy!"
       ],
       "source": "https://peasandcrayons.com/ravioli-soup/#wprm-recipe-container-105639"
+    },
+    {
+      "id": "greek-chicken-flatbread-the-30-minute-weeknight-winner-",
+      "icon": "🍗",
+      "name": "Greek Chicken Flatbread (The 30-Minute Weeknight Winner)",
+      "meta": "30 min · Stovetop · Serves 4",
+      "tags": [
+        "Skillet Dinner",
+        "Mediterranean"
+      ],
+      "ingredients": [
+        "1 lb boneless, skinless chicken breasts (cut into bite-sized pieces)",
+        "2 tbsp olive oil",
+        "1 lemon (juiced)",
+        "2 cloves garlic (minced)",
+        "1 tsp dried oregano",
+        "½ tsp salt",
+        "¼ tsp black pepper",
+        "1 cup plain Greek yogurt",
+        "½ cucumber (grated and squeezed dry)",
+        "1 tbsp fresh dill (chopped)",
+        "1 clove garlic (minced)",
+        "1 tbsp lemon juice",
+        "4 large flatbreads or naan",
+        "1 cup cherry tomatoes (halved)",
+        "½ red onion (thinly sliced)",
+        "½ cup kalamata olives (halved)",
+        "½ cup feta cheese (crumbled)"
+      ],
+      "steps": [
+        "In a medium bowl, combine the chicken pieces with olive oil, lemon juice, 2 cloves of minced garlic, oregano, salt, and pepper. Stir to coat and set aside to marinate for at least 15 minutes.",
+        "While the chicken marinates, make the tzatziki. Grate the cucumber and use a clean kitchen towel to squeeze out as much moisture as possible. In a separate bowl, mix the squeezed cucumber, Greek yogurt, dill, 1 clove of minced garlic, and lemon juice. Season with a pinch of salt and stir to combine.",
+        "Heat a large skillet over medium-high heat. Add the chicken in a single layer and cook for 3-4 minutes per side, until golden brown and cooked through.",
+        "Warm the flatbreads in a dry skillet or oven until soft and pliable.",
+        "To assemble, spread a generous layer of tzatziki on each warm flatbread. Top with the cooked chicken, tomatoes, red onion, olives, and crumbled feta cheese. Serve immediately."
+      ],
+      "source": "https://crispcrumbs.com/greek-chicken-flatbread"
     }
   ]
 }
