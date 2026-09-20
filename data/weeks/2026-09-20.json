@@ -105,7 +105,420 @@
       "date": "9/23"
     }
   ],
-  "groceries": [],
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "4 cups broccoli florets",
+          "detail": "roasted on the sheet pan",
+          "amazon": "fresh broccoli florets",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 bunch green onions",
+          "detail": "sliced for garnish",
+          "amazon": "green onions scallions",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 medium yellow onion",
+          "detail": "finely diced into the soup base",
+          "amazon": "yellow onion",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "3–4 medium carrots",
+          "detail": "peeled and finely diced into the soup",
+          "amazon": "carrots",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1–2 cups fresh baby spinach",
+          "detail": "chopped and stirred in at the end to wilt",
+          "amazon": "fresh baby spinach",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 small bunch fresh basil",
+          "detail": "chopped for topping",
+          "amazon": "fresh basil",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 lemons",
+          "detail": "1 juiced for the chicken marinade · 1 tbsp juice stirred into the tzatziki",
+          "amazon": "lemons",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "½ cucumber",
+          "detail": "grated and squeezed dry for the tzatziki",
+          "amazon": "english cucumber",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 small bunch fresh dill",
+          "detail": "chopped into the tzatziki",
+          "amazon": "fresh dill",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 cup cherry tomatoes",
+          "detail": "halved for topping the flatbreads",
+          "amazon": "cherry tomatoes",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "½ red onion",
+          "detail": "thinly sliced for topping the flatbreads",
+          "amazon": "red onion",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "9 cloves garlic",
+          "detail": "3 minced into the beef marinade · 4 minced into the soup base · 2 minced for the chicken and tzatziki",
+          "amazon": "garlic bulb",
+          "from": [
+            "sheet-pan-beef-broccoli",
+            "one-pot-vegetarian-ravioli-soup",
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "1½ lb flank steak or sirloin",
+          "detail": "sliced very thin against the grain, marinated and roasted",
+          "amazon": "flank steak",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 lb boneless skinless chicken breasts",
+          "detail": "cut into bite-sized pieces and pan-cooked for the flatbreads",
+          "amazon": "boneless skinless chicken breasts",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "9–10 oz mini refrigerated cheese ravioli",
+          "detail": "simmered directly in the soup",
+          "amazon": "buitoni mini cheese ravioli refrigerated",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "½–¾ cup heavy cream",
+          "detail": "stirred in at the end for richness",
+          "amazon": "heavy whipping cream",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 block Parmesan cheese",
+          "detail": "freshly grated for topping",
+          "amazon": "parmesan cheese block",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 cup plain Greek yogurt",
+          "detail": "base of the tzatziki sauce",
+          "amazon": "plain greek yogurt",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "½ cup feta cheese crumbled",
+          "detail": "scattered over the assembled flatbreads",
+          "amazon": "crumbled feta cheese",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "¼ cup low-sodium soy sauce",
+          "detail": "whisked into the beef marinade and finishing sauce",
+          "amazon": "low sodium soy sauce",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 tbsp oyster sauce",
+          "detail": "whisked into the beef marinade and finishing sauce",
+          "amazon": "oyster sauce",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 tbsp sesame oil",
+          "detail": "whisked into the beef marinade",
+          "amazon": "toasted sesame oil",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 tbsp honey",
+          "detail": "whisked into the beef marinade for sweetness",
+          "amazon": "honey",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 tbsp cornstarch",
+          "detail": "whisked into the marinade to help thicken the finishing sauce",
+          "amazon": "cornstarch",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 tbsp vegetable oil",
+          "detail": "tossed with the broccoli before roasting",
+          "amazon": "vegetable oil",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1½ cups jasmine rice",
+          "detail": "cooked on the stovetop to serve alongside",
+          "amazon": "jasmine rice",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 tbsp sesame seeds",
+          "detail": "sprinkled over the finished dish as garnish",
+          "amazon": "sesame seeds",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 tbsp avocado oil or olive oil",
+          "detail": "used to sauté the soup vegetables · used for the chicken marinade",
+          "amazon": "avocado oil",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup",
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals B+C"
+        },
+        {
+          "name": "3 cups vegetable broth",
+          "detail": "the liquid base of the soup",
+          "amazon": "vegetable broth low sodium",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "28 oz canned crushed tomatoes",
+          "detail": "stirred into the soup with the broth",
+          "amazon": "canned crushed tomatoes",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "½ cup kalamata olives",
+          "detail": "halved and scattered over the finished flatbreads",
+          "amazon": "kalamata olives pitted",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "4 large flatbreads or naan",
+          "detail": "warmed and used as the base for assembling",
+          "amazon": "naan flatbread",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "½ tsp ground ginger",
+          "detail": "whisked into the beef marinade",
+          "from": [
+            "sheet-pan-beef-broccoli"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Salt and black pepper",
+          "detail": "seasoning the broccoli before roasting · seasoning the soup to taste · seasoning the chicken marinade and tzatziki",
+          "from": [
+            "sheet-pan-beef-broccoli",
+            "one-pot-vegetarian-ravioli-soup",
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "1 tsp Italian seasoning blend",
+          "detail": "stirred into the sautéed vegetables for the soup",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Crushed red pepper flakes",
+          "detail": "optional topping for the soup",
+          "from": [
+            "one-pot-vegetarian-ravioli-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 tsp dried oregano",
+          "detail": "mixed into the chicken marinade",
+          "from": [
+            "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
   "subhead": "3 dinners",
-  "updatedAt": 1789926995352
+  "updatedAt": 1789926995352,
+  "groceriesFor": [
+    "sheet-pan-beef-broccoli",
+    "one-pot-vegetarian-ravioli-soup",
+    "greek-chicken-flatbread-the-30-minute-weeknight-winner-"
+  ],
+  "groceriesIngs": {
+    "sheet-pan-beef-broccoli": "1bc8d99cf148",
+    "one-pot-vegetarian-ravioli-soup": "b127300fdde9",
+    "greek-chicken-flatbread-the-30-minute-weeknight-winner-": "cfb6531f4e4c"
+  },
+  "groceriesAt": "2026-09-20T17:57:34.136Z"
 }
