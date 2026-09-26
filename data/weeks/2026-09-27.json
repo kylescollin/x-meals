@@ -94,7 +94,377 @@
       "date": "9/30"
     }
   ],
-  "groceries": [],
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "1 medium yellow onion",
+          "detail": "finely chopped into the meat sauce",
+          "amazon": "yellow onion",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 medium onion",
+          "detail": "diced into the soup base",
+          "amazon": "yellow onion",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 celery stalks",
+          "detail": "diced into the soup base",
+          "amazon": "celery",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 medium carrots",
+          "detail": "peeled and diced into the soup base",
+          "amazon": "carrots",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "8 cloves garlic",
+          "detail": "4 sliced for the soup (2 into the base, 2 crisped in oil to finish) · 4 minced into the meat sauce",
+          "amazon": "garlic",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic",
+            "best-lasagna"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+C"
+        },
+        {
+          "name": "3–4 cups Swiss chard or kale",
+          "detail": "shredded and stirred in at the end",
+          "amazon": "swiss chard",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 lemon",
+          "detail": "half sliced thin to lay on the fillets while roasting, half squeezed over everything to finish",
+          "amazon": "lemon",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "4 cups broccoli florets",
+          "detail": "tossed in oil and roasted on the sheet pan",
+          "amazon": "broccoli florets",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "4 large links (1 lb) sweet Italian sausage",
+          "detail": "browned in the pot to start the soup",
+          "amazon": "sweet italian sausage links",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "4 salmon fillets (5–6 oz each)",
+          "detail": "rubbed with oil and spices and roasted on the sheet pan",
+          "amazon": "salmon fillets",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 lb ground beef",
+          "detail": "browned with onion and garlic for the meat sauce",
+          "amazon": "lean ground beef",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "Pecorino Romano (wedge or pre-grated)",
+          "detail": "grated over bowls to finish",
+          "amazon": "pecorino romano cheese",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "16 oz whole milk ricotta",
+          "detail": "mixed with egg and Parmesan for the ricotta layer",
+          "amazon": "whole milk ricotta",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 large egg",
+          "detail": "beaten into the ricotta mixture",
+          "amazon": "large eggs",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 cup grated Parmesan (plus extra for topping)",
+          "detail": "mixed into the ricotta layer and sprinkled on top",
+          "amazon": "grated parmesan cheese",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "6 cups grated mozzarella",
+          "detail": "layered throughout and melted on top",
+          "amazon": "shredded mozzarella cheese",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "¼ cup + 1 tbsp olive oil",
+          "detail": "¼ cup divided for sautéing and finishing the soup · 2 tbsp total for coating the salmon and roasting the broccoli",
+          "amazon": "olive oil",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic",
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "2 cups brown lentils",
+          "detail": "sorted, rinsed, and simmered into the soup",
+          "amazon": "brown lentils dried",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 (28 oz) can crushed tomatoes",
+          "detail": "stirred into the soup",
+          "amazon": "crushed tomatoes canned",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "6 cups chicken broth",
+          "detail": "the base liquid for the soup",
+          "amazon": "chicken broth carton",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 pouches microwaveable brown rice (8.5 oz each)",
+          "detail": "microwaved and served alongside the salmon and broccoli",
+          "amazon": "microwaveable brown rice pouches",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 lb dried lasagna noodles",
+          "detail": "boiled al dente and layered throughout",
+          "amazon": "dried lasagna noodles",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "¼ cup tomato paste",
+          "detail": "stirred into the browned meat and cooked briefly before the crushed tomatoes go in",
+          "amazon": "tomato paste",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "2 (28 oz) cans crushed tomatoes",
+          "detail": "simmered into the meat sauce",
+          "amazon": "crushed tomatoes canned",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "2 tsp sugar",
+          "detail": "balances the acidity in the meat sauce",
+          "amazon": "granulated sugar",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "Kosher salt",
+          "detail": "seasoning throughout the soup · seasoning for the salmon and broccoli · layered into the lasagna",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic",
+            "lemon-dill-salmon-roasted-broccoli",
+            "best-lasagna"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "Red pepper flakes",
+          "detail": "optional heat added to the soup base",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 bay leaves",
+          "detail": "simmered in the soup and removed before serving",
+          "from": [
+            "lentil-soup-with-sausage-chard-and-garlic"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Black pepper",
+          "detail": "seasoning for the salmon and broccoli · layered into the lasagna",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli",
+            "best-lasagna"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals B+C"
+        },
+        {
+          "name": "1 tsp garlic powder",
+          "detail": "rubbed onto the salmon fillets",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 tsp dried dill",
+          "detail": "rubbed onto the salmon fillets",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 tsp Italian seasoning",
+          "detail": "stirred into the meat sauce",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 Tbsp dried parsley",
+          "detail": "mixed into the ricotta layer",
+          "from": [
+            "best-lasagna"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
   "subhead": "3 dinners",
-  "updatedAt": 1790446232686
+  "updatedAt": 1790446232686,
+  "groceriesFor": [
+    "lentil-soup-with-sausage-chard-and-garlic",
+    "lemon-dill-salmon-roasted-broccoli",
+    "best-lasagna"
+  ],
+  "groceriesIngs": {
+    "lentil-soup-with-sausage-chard-and-garlic": "ffff9a7f3b88",
+    "lemon-dill-salmon-roasted-broccoli": "f3f35eea3385",
+    "best-lasagna": "58b44da18078"
+  },
+  "groceriesAt": "2026-09-26T18:11:30.790Z"
 }
