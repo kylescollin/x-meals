@@ -1,0 +1,100 @@
+{
+  "weekOf": "2026-09-27",
+  "title": "Week of September 27",
+  "meals": [
+    {
+      "id": "lentil-soup-with-sausage-chard-and-garlic",
+      "icon": "🥣",
+      "name": "Lentil Soup with Sausage, Chard and Garlic",
+      "meta": "~1 hour · Stovetop · Serves 6",
+      "ings": [
+        "¼ cup olive oil, divided",
+        "4 large links (1 lb) sweet Italian sausage",
+        "1 medium onion, diced",
+        "3 celery stalks, diced",
+        "3 medium carrots, peeled and diced",
+        "4 cloves garlic, sliced (reserve half)",
+        "Kosher salt and red pepper flakes",
+        "2 cups brown lentils, sorted and rinsed",
+        "2 bay leaves",
+        "1 (28 oz) can crushed tomatoes",
+        "6 cups chicken broth",
+        "3–4 cups shredded Swiss chard or kale",
+        "Grated Pecorino Romano to finish"
+      ],
+      "steps": [
+        "Heat 2 Tbsp olive oil in large pot over medium-high. Add sausage, brown 5 min. Add onion, celery, carrots, 2 garlic cloves, salt, optional pepper flakes; cook 5 min.",
+        "Add lentils, bay leaves, tomatoes, broth, salt and pepper. Simmer until lentils are tender, ~40 min.",
+        "Add chard, cook until tender, a few minutes. Discard bay leaves.",
+        "In small skillet, heat remaining garlic in remaining olive oil until softened. Drizzle over bowls with Romano."
+      ],
+      "day": "Monday",
+      "label": "Meal A",
+      "date": "9/28"
+    },
+    {
+      "id": "lemon-dill-salmon-roasted-broccoli",
+      "icon": "🐟",
+      "name": "Lemon Dill Salmon with Roasted Broccoli & Brown Rice",
+      "meta": "~25 min · Sheet pan · Serves 4",
+      "ings": [
+        "4 salmon fillets (5–6 oz each)",
+        "1 lemon, half sliced thin, half for juice",
+        "1 tbsp olive oil",
+        "1 tsp garlic powder",
+        "1 tsp dried dill (or 1 tbsp fresh)",
+        "Salt and black pepper",
+        "4 cups broccoli florets",
+        "1 tbsp olive oil (for broccoli)",
+        "2 pouches microwaveable brown rice (8.5 oz each)",
+        "Optional: lemon zest, fresh dill, flaky salt to finish"
+      ],
+      "steps": [
+        "Preheat oven to 400°F. Line a large sheet pan with foil.",
+        "Toss broccoli florets with olive oil, salt, and pepper. Spread on the sheet pan. Roast 10 minutes.",
+        "Pat salmon dry. Rub with olive oil, garlic powder, dill, salt, and pepper. Place on the sheet pan alongside the broccoli. Lay lemon slices on top of each fillet.",
+        "Roast 12–14 minutes until salmon flakes easily and broccoli edges are lightly charred.",
+        "Microwave brown rice pouches per package directions (about 90 seconds). Fluff and serve.",
+        "Squeeze fresh lemon over everything before serving. Finish with a pinch of flaky salt if you have it."
+      ],
+      "day": "Tuesday",
+      "note": "💡 The lemon slices on top perfume the fish as it roasts. If fillets are thick (over 1 inch), add 2 minutes. Broccoli should be in a single layer for good char — use two pans if needed.",
+      "label": "Meal B",
+      "date": "9/29"
+    },
+    {
+      "id": "best-lasagna",
+      "icon": "🫕",
+      "name": "Best Lasagna",
+      "meta": "1 hr 55 min · Oven · Serves 12",
+      "ings": [
+        "1 lb dried lasagna noodles",
+        "1 lb ground beef (or turkey, or ½ beef ½ mild sausage)",
+        "1 medium yellow onion, finely chopped",
+        "4 garlic cloves, minced",
+        "¼ cup tomato paste",
+        "2 (28 oz) cans crushed tomatoes",
+        "1½ tsp kosher salt, ¾ tsp black pepper",
+        "1 tsp Italian seasoning, 2 tsp sugar",
+        "16 oz whole milk ricotta",
+        "1 large egg",
+        "1 cup grated Parmesan, plus extra",
+        "1 Tbsp dried parsley",
+        "6 cups grated mozzarella"
+      ],
+      "steps": [
+        "Preheat oven to 375°F. Boil salted water; cook noodles al dente ~8 min. Drain, rinse, separate.",
+        "Brown beef with onion and garlic over medium-high, ~8 min. Stir in tomato paste, 1 min. Add tomatoes, salt, pepper, seasoning, sugar. Simmer covered 15–20 min.",
+        "Mix ricotta, egg, ¾ cup Parmesan, remaining salt and pepper.",
+        "In 9×13 dish: 1 cup sauce, noodles, 1½ cups sauce, ¼ ricotta mix, 1¼ cups mozzarella. Repeat 3 more times. Top with remaining sauce, mozzarella, Parmesan.",
+        "Cover loosely with foil. Bake 30 min. Uncover, bake 20 more min. Rest 5–10 min before serving."
+      ],
+      "day": "Wednesday",
+      "label": "Meal C",
+      "date": "9/30"
+    }
+  ],
+  "groceries": [],
+  "subhead": "3 dinners",
+  "updatedAt": 1790446232686
+}
