@@ -103,6 +103,9 @@
   .tl-range{font-family:'Playfair Display',serif;font-size:18px;font-weight:500;color:var(--ink);flex:1;}
   .tl-count{font-size:12px;color:var(--muted);font-weight:300;flex-shrink:0;}
   .tl-entry{display:flex;flex-direction:column;gap:10px;}
+  /* Days breathe: the 12px week gap is right under the header but cramped
+     once a card carries a note and a photo, so each following day adds more. */
+  .tl-entry+.tl-entry{margin-top:14px;}
   .tl-loading{font-size:13px;color:var(--muted);font-weight:300;padding:4px 0;}
 
   /* Week picker sheet */
