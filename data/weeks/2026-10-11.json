@@ -1,0 +1,96 @@
+{
+  "weekOf": "2026-10-11",
+  "title": "Week of October 11",
+  "meals": [
+    {
+      "id": "ground-turkey-teriyaki-stir-fry",
+      "icon": "🥦",
+      "name": "Ground Turkey Teriyaki Stir Fry",
+      "meta": "30 min · Stovetop · Serves 4",
+      "ings": [
+        "1 lb ground turkey",
+        "2 tsp sesame oil",
+        "3 cups broccoli florets",
+        "1 small onion, small diced",
+        "1 cup shredded carrots",
+        "Salt and pepper",
+        "Sauce: ¼ cup soy sauce",
+        "3 Tbsp brown sugar, 1 cup water divided",
+        "2 Tbsp honey, 3 garlic cloves minced",
+        "1 tsp fresh ginger, 2 Tbsp cornstarch",
+        "1 Tbsp orange zest"
+      ],
+      "steps": [
+        "Sauce: Combine ¾ cup water, soy sauce, garlic, ginger, honey, and brown sugar in saucepan over medium. Bring to low boil. Whisk remaining water with cornstarch; stir in slowly until thickened. Add orange zest. Set aside.",
+        "Heat sesame oil in wok or skillet over medium-high. Sauté onion until softened. Add turkey; cook until fully cooked, 7–10 min.",
+        "Add broccoli and carrots; cook until tender.",
+        "Reduce heat to low; stir in teriyaki sauce. Simmer a few minutes. Serve over rice."
+      ],
+      "day": "Monday",
+      "label": "Meal A",
+      "date": "10/12"
+    },
+    {
+      "id": "honey-mustard-chicken-sheet-pan",
+      "icon": "🍯",
+      "name": "Sheet Pan Honey Mustard Chicken with Potatoes & Green Beans",
+      "meta": "~45 min · Sheet pan · Serves 4",
+      "ings": [
+        "4 bone-in, skin-on chicken thighs",
+        "1 lb baby red potatoes, halved",
+        "8 oz green beans, trimmed",
+        "2 tbsp olive oil",
+        "Salt, pepper, garlic powder, paprika",
+        "# Honey Mustard Sauce",
+        "3 tbsp honey",
+        "2 tbsp Dijon mustard",
+        "1 tbsp whole grain mustard (or extra Dijon)",
+        "1 tbsp olive oil",
+        "1 tsp apple cider vinegar",
+        "½ tsp garlic powder",
+        "½ tsp paprika",
+        "Salt and pepper to taste"
+      ],
+      "steps": [
+        "Preheat oven to 425°F. Whisk together all honey mustard sauce ingredients in a bowl. Set aside.",
+        "Toss halved baby potatoes with olive oil, salt, pepper, garlic powder, and paprika. Spread on a large sheet pan in a single layer. Roast 15 minutes.",
+        "Season chicken thighs all over with salt, pepper, garlic powder, and paprika. Remove pan from oven. Push potatoes to the sides and add chicken thighs skin-side up in the center. Brush generously with honey mustard sauce.",
+        "Return to oven and roast 15 more minutes.",
+        "Add green beans to the pan, tossing with any remaining sauce and pan juices. Roast 12–15 more minutes until chicken reaches 165°F and skin is golden and caramelized.",
+        "Rest chicken 5 minutes. Drizzle pan juices over everything before serving."
+      ],
+      "day": "Tuesday",
+      "note": "💡 The staggered timing — potatoes first, then chicken, then green beans — is the key to everything cooking perfectly together. Don't crowd the pan.",
+      "label": "Meal B",
+      "date": "10/13"
+    },
+    {
+      "id": "butternut-squash-ravioli-with-brown-butter-sage",
+      "icon": "🧈",
+      "name": "Butternut Squash Ravioli with Brown Butter Sage",
+      "meta": "8 min · Stovetop · Serves 4",
+      "ings": [
+        "8–10 oz butternut squash ravioli",
+        "½ cup unsalted butter, cubed",
+        "15 fresh sage leaves",
+        "2 Tbsp heavy cream",
+        "½ tsp kosher salt",
+        "¼ tsp fresh cracked black pepper",
+        "Grated pecorino or Parmesan for serving"
+      ],
+      "steps": [
+        "Boil ravioli per package. Drain al dente; do not rinse.",
+        "Melt butter in skillet over medium, stirring until it bubbles, then froths. Add sage — it will fry in the butter. Cook until froth subsides and brown bits form. Remove from heat. Transfer sage to paper towel.",
+        "Return pan to medium-low. Whisk in cream. Simmer 1–2 min, add salt and pepper.",
+        "Add ravioli to sauce and toss. Serve with Parmesan and crispy sage."
+      ],
+      "day": "Wednesday",
+      "note": "💡 Total butter browning time: 4–5 minutes. Watch carefully — it goes from golden to burnt quickly.",
+      "label": "Meal C",
+      "date": "10/14"
+    }
+  ],
+  "groceries": [],
+  "subhead": "3 dinners",
+  "updatedAt": 1791695242277
+}
