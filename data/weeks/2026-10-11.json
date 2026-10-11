@@ -90,7 +90,329 @@
       "date": "10/14"
     }
   ],
-  "groceries": [],
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "3 cups broccoli florets",
+          "detail": "stir-fried with the turkey and carrots",
+          "amazon": "fresh broccoli florets",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 small yellow onion",
+          "detail": "small diced and sautéed before the turkey",
+          "amazon": "yellow onion",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 cup shredded carrots",
+          "detail": "stir-fried with the broccoli",
+          "amazon": "shredded carrots bag",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 orange",
+          "detail": "zested into the teriyaki sauce",
+          "amazon": "navel orange",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 small piece fresh ginger",
+          "detail": "1 tsp minced into the teriyaki sauce",
+          "amazon": "fresh ginger root",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 garlic cloves",
+          "detail": "minced into the teriyaki sauce",
+          "amazon": "garlic bulb",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 lb baby red potatoes",
+          "detail": "halved and roasted on the sheet pan",
+          "amazon": "baby red potatoes",
+          "from": [
+            "honey-mustard-chicken-sheet-pan"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "8 oz green beans, trimmed",
+          "detail": "added to the sheet pan in the final roasting stage",
+          "amazon": "fresh green beans",
+          "from": [
+            "honey-mustard-chicken-sheet-pan"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "15 fresh sage leaves",
+          "detail": "fried in the brown butter for the sauce and garnish",
+          "amazon": "fresh sage",
+          "from": [
+            "butternut-squash-ravioli-with-brown-butter-sage"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "1 lb ground turkey",
+          "detail": "cooked in the wok as the base of the stir fry",
+          "amazon": "lean ground turkey",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "4 bone-in, skin-on chicken thighs",
+          "detail": "seasoned and roasted on the sheet pan with honey mustard glaze",
+          "amazon": "bone-in skin-on chicken thighs",
+          "from": [
+            "honey-mustard-chicken-sheet-pan"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "½ cup unsalted butter, cubed",
+          "detail": "browned in the skillet as the base of the pasta sauce",
+          "amazon": "unsalted butter",
+          "from": [
+            "butternut-squash-ravioli-with-brown-butter-sage"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "2 Tbsp heavy cream",
+          "detail": "whisked into the brown butter sauce",
+          "amazon": "heavy whipping cream",
+          "from": [
+            "butternut-squash-ravioli-with-brown-butter-sage"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "Grated pecorino or Parmesan",
+          "detail": "served over the finished ravioli",
+          "amazon": "grated parmesan cheese",
+          "from": [
+            "butternut-squash-ravioli-with-brown-butter-sage"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "2 tsp sesame oil",
+          "detail": "used to heat the wok before sautéing",
+          "amazon": "toasted sesame oil",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "¼ cup soy sauce",
+          "detail": "base of the teriyaki sauce",
+          "amazon": "soy sauce",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 Tbsp brown sugar",
+          "detail": "sweetens the teriyaki sauce",
+          "amazon": "light brown sugar",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 Tbsp honey",
+          "detail": "stirred into the teriyaki sauce · whisked into the honey mustard glaze",
+          "amazon": "pure honey",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry",
+            "honey-mustard-chicken-sheet-pan"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "2 Tbsp cornstarch",
+          "detail": "whisked with water to thicken the teriyaki sauce",
+          "amazon": "cornstarch",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 Tbsp olive oil",
+          "detail": "tossed with the potatoes and used in the honey mustard glaze",
+          "amazon": "extra virgin olive oil",
+          "from": [
+            "honey-mustard-chicken-sheet-pan"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 Tbsp Dijon mustard",
+          "detail": "base of the honey mustard glaze",
+          "amazon": "dijon mustard",
+          "from": [
+            "honey-mustard-chicken-sheet-pan"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 Tbsp whole grain mustard",
+          "detail": "stirred into the honey mustard glaze",
+          "amazon": "whole grain mustard",
+          "from": [
+            "honey-mustard-chicken-sheet-pan"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 tsp apple cider vinegar",
+          "detail": "added to the honey mustard glaze",
+          "amazon": "apple cider vinegar",
+          "from": [
+            "honey-mustard-chicken-sheet-pan"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "8–10 oz butternut squash ravioli",
+          "detail": "boiled and tossed in the brown butter sage sauce",
+          "amazon": "butternut squash ravioli refrigerated",
+          "from": [
+            "butternut-squash-ravioli-with-brown-butter-sage"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "Salt and pepper",
+          "detail": "seasoning throughout the stir fry · seasoning on the chicken and potatoes · finishing the brown butter sauce",
+          "from": [
+            "ground-turkey-teriyaki-stir-fry",
+            "honey-mustard-chicken-sheet-pan",
+            "butternut-squash-ravioli-with-brown-butter-sage"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "Garlic powder",
+          "detail": "seasoning for the potatoes and chicken",
+          "from": [
+            "honey-mustard-chicken-sheet-pan"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Paprika",
+          "detail": "seasoning for the potatoes and chicken",
+          "from": [
+            "honey-mustard-chicken-sheet-pan"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Kosher salt",
+          "detail": "finishing the brown butter sauce",
+          "from": [
+            "butternut-squash-ravioli-with-brown-butter-sage"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
   "subhead": "3 dinners",
-  "updatedAt": 1791695242277
+  "updatedAt": 1791695242277,
+  "groceriesFor": [
+    "ground-turkey-teriyaki-stir-fry",
+    "honey-mustard-chicken-sheet-pan",
+    "butternut-squash-ravioli-with-brown-butter-sage"
+  ],
+  "groceriesIngs": {
+    "ground-turkey-teriyaki-stir-fry": "090e087b0820",
+    "honey-mustard-chicken-sheet-pan": "26108e16e058",
+    "butternut-squash-ravioli-with-brown-butter-sage": "247a0b4061e0"
+  },
+  "groceriesAt": "2026-10-11T05:08:08.878Z"
 }
