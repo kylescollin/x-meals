@@ -718,7 +718,8 @@
         "1 small onion, small diced",
         "1 cup shredded carrots",
         "Salt and pepper",
-        "Sauce: ¼ cup soy sauce",
+        "#Sauce",
+        "¼ cup soy sauce",
         "3 Tbsp brown sugar, 1 cup water divided",
         "2 Tbsp honey, 3 garlic cloves minced",
         "1 tsp fresh ginger, 2 Tbsp cornstarch",
@@ -729,8 +730,7 @@
         "Heat sesame oil in wok or skillet over medium-high. Sauté onion until softened. Add turkey; cook until fully cooked, 7–10 min.",
         "Add broccoli and carrots; cook until tender.",
         "Reduce heat to low; stir in teriyaki sauce. Simmer a few minutes. Serve over rice."
-      ],
-      "note": ""
+      ]
     },
     {
       "id": "corn-chowder",
