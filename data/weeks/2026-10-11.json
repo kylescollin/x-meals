@@ -16,9 +16,12 @@
         "Salt and pepper",
         "#Sauce",
         "¼ cup soy sauce",
-        "3 Tbsp brown sugar, 1 cup water divided",
-        "2 Tbsp honey, 3 garlic cloves minced",
-        "1 tsp fresh ginger, 2 Tbsp cornstarch",
+        "3 Tbsp brown sugar,",
+        "1 cup water divided",
+        "2 Tbsp honey,",
+        "3 garlic cloves minced",
+        "1 tsp fresh ginger,",
+        "2 Tbsp cornstarch",
         "1 Tbsp orange zest"
       ],
       "steps": [
@@ -411,9 +414,9 @@
     "butternut-squash-ravioli-with-brown-butter-sage"
   ],
   "groceriesIngs": {
-    "ground-turkey-teriyaki-stir-fry": "52d28e2d6761",
+    "ground-turkey-teriyaki-stir-fry": "63014f35f910",
     "honey-mustard-chicken-sheet-pan": "26108e16e058",
     "butternut-squash-ravioli-with-brown-butter-sage": "247a0b4061e0"
   },
-  "groceriesAt": "2026-10-13T23:52:28.267Z"
+  "groceriesAt": "2026-10-14T00:12:59.425Z"
 }
