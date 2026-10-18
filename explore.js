@@ -71,6 +71,11 @@ let nextMonth = 0;
 let loading = false;
 let filterSource = '';
 let query = '';
+// The feed is for dinners. Everything else the blogs post — cakes, muffins,
+// sides, drinks — waits behind one chip rather than being thrown away. An item
+// labelled before courses existed counts as a dinner.
+let sweets = false;
+function isDinner(it) { return !it.course || it.course === 'dinner'; }
 
 const els = {
   hm:    document.getElementById('hm'),
@@ -190,6 +195,7 @@ let renderedUpTo = 0;
 
 function visible(it) {
   if (!it.recipe || hidden[it.key]) return false;
+  if (isDinner(it) === sweets) return false;
   if (filterSource && it.sourceId !== filterSource) return false;
   if (query && haystack(it).indexOf(query) === -1) return false;
   return true;
@@ -271,7 +277,14 @@ function refreshEmpty() {
   if (!months.length) {
     els.empty.innerHTML = '<strong>Nothing here yet</strong>The first batch of recipes arrives tomorrow morning.';
   } else if (allLoaded && (query || filterSource)) {
-    els.empty.innerHTML = '<strong>No matches</strong>Try another word, or a different blog.';
+    // The match may be sitting in the other pile.
+    const elsewhere = items.filter((it) => it.recipe && !hidden[it.key] && isDinner(it) === sweets &&
+      (!filterSource || it.sourceId === filterSource) && (!query || haystack(it).indexOf(query) !== -1)).length;
+    const where = sweets ? 'under dinners' : 'under Sweets &amp; sides';
+    els.empty.innerHTML = '<strong>No matches</strong>' +
+      (elsewhere ? elsewhere + (elsewhere === 1 ? ' is ' : ' are ') + where + '.' : 'Try another word, or a different blog.');
+  } else if (allLoaded && sweets) {
+    els.empty.innerHTML = '<strong>No sweets or sides yet</strong>Cakes, muffins, salads and drinks the blogs post land here.';
   } else if (allLoaded) {
     els.empty.innerHTML = '<strong>All caught up</strong>You’ve seen or hidden everything so far. New recipes arrive each morning.';
   } else {
@@ -289,9 +302,14 @@ function refreshFoot() {
 
 function refreshCount() {
   if (!manifest) { els.hm.textContent = 'Nothing pulled in yet'; return; }
-  const total = Object.keys(manifest.counts || {}).reduce((n, m) => n + (manifest.counts[m] || 0), 0);
+  const sum = (map) => Object.keys(map || {}).reduce((n, m) => n + (map[m] || 0), 0);
+  const all = sum(manifest.counts);
+  // A manifest from before courses existed has no dinners map: everything counts.
+  const dinners = manifest.dinners ? sum(manifest.dinners) : all;
+  const total = sweets ? all - dinners : dinners;
+  const what = sweets ? (total === 1 ? 'sweet or side' : 'sweets & sides') : (total === 1 ? 'dinner' : 'dinners');
   const blogs = manifest.sources || sources.length;
-  els.hm.textContent = total + ' recipe' + (total === 1 ? '' : 's') + ' from ' + blogs + ' blogs · updated ' + whenText(manifest.updatedAt);
+  els.hm.textContent = total + ' ' + what + ' from ' + blogs + ' blogs · updated ' + whenText(manifest.updatedAt);
 }
 
 function whenText(iso) {
@@ -309,13 +327,23 @@ function whenText(iso) {
 // ── Chips + search ──────────────────────────────────────────────────────
 function buildChips() {
   const all = [{ id: '', name: 'All' }].concat(sources);
-  els.chips.innerHTML = all.map((s) =>
-    '<button type="button" class="chip' + (s.id === filterSource ? ' selected' : '') + '" data-id="' + escHtml(s.id) + '">' + escHtml(s.name) + '</button>'
-  ).join('');
+  els.chips.innerHTML =
+    '<button type="button" class="chip chip-sweets' + (sweets ? ' selected' : '') + '" data-sweets="1">🍰 Sweets &amp; sides</button>' +
+    all.map((s) =>
+      '<button type="button" class="chip' + (s.id === filterSource ? ' selected' : '') + '" data-id="' + escHtml(s.id) + '">' + escHtml(s.name) + '</button>'
+    ).join('');
 }
 els.chips.addEventListener('click', async (e) => {
   const chip = e.target.closest('.chip');
   if (!chip) return;
+  if (chip.hasAttribute('data-sweets')) {
+    sweets = !sweets;
+    buildChips();
+    refreshCount();
+    if (sweets) await loadAll();      // the pile is small; show all of it at once
+    render(true);
+    return;
+  }
   filterSource = chip.getAttribute('data-id') || '';
   buildChips();
   if (filterSource) await loadAll();

@@ -449,7 +449,10 @@
       image:   bestImage(imageCandidates(n.image)),
       hints:   [n.recipeCuisine, n.recipeCategory, n.keywords]
                  .map(function (h) { return Array.isArray(h) ? h.join(' ') : (h || ''); })
-                 .join(' ')
+                 .join(' '),
+      // The site's own word for what kind of dish this is ("Dessert", "Main
+      // Course"). Passed through untouched; the Explore feed sorts by it.
+      category: [].concat(n.recipeCategory || []).map(function (c) { return cleanText(String(c)); }).join(', ')
     };
   }
 
@@ -477,7 +480,8 @@
       minutes: timeEl ? isoMinutes(timeEl.getAttribute('datetime') || timeEl.getAttribute('content')) : 0,
       serves:  yieldEl ? servingsText(yieldEl.getAttribute('content') || yieldEl.textContent) : '',
       image:   '',
-      hints:   ''
+      hints:   '',
+      category: textsOf(scope, '[itemprop="recipeCategory"]').map(cleanText).join(', ')
     };
   }
 
@@ -500,10 +504,11 @@
       // either of which may be missing ("1 hour" has no minutes span at all).
       { ing: '.wprm-recipe-ingredient',      step: '.wprm-recipe-instruction-text',
         name: '.wprm-recipe-name',           serves: '.wprm-recipe-servings',
-        time: '.wprm-recipe-total_time-minutes', hours: '.wprm-recipe-total_time-hours' },
+        time: '.wprm-recipe-total_time-minutes', hours: '.wprm-recipe-total_time-hours',
+        course: '.wprm-recipe-course' },
       { ing: '.tasty-recipes-ingredients li', step: '.tasty-recipes-instructions li',
         name: '.tasty-recipes-title',         serves: '.tasty-recipes-yield',
-        time: '.tasty-recipes-total-time' },
+        time: '.tasty-recipes-total-time',    course: '.tasty-recipes-category' },
       { ing: '.jetpack-recipe-ingredient',    step: '.jetpack-recipe-directions',
         name: '.jetpack-recipe-title',        serves: '.jetpack-recipe-servings',
         time: '.jetpack-recipe-time', paragraphs: true }
@@ -519,6 +524,7 @@
       var mins = (timeEl ? parseInt(cleanText(timeEl.textContent), 10) : 0) +
                  (hourEl ? parseInt(cleanText(hourEl.textContent), 10) * 60 : 0);
       var stepTexts = p.paragraphs ? paragraphsOf(doc, p.step) : textsOf(doc, p.step);
+      var courseEl = p.course ? doc.querySelector(p.course) : null;
       return {
         name:    nameEl ? cleanText(nameEl.textContent) : '',
         ings:    ings,
@@ -526,7 +532,8 @@
         minutes: isNaN(mins) ? 0 : mins,
         serves:  servEl ? servingsText(servEl.textContent) : '',
         image:   '',
-        hints:   ''
+        hints:   '',
+        category: courseEl ? cleanText(courseEl.textContent) : ''
       };
     }
     return null;
@@ -578,6 +585,7 @@
       if (!found) { found = next; continue; }
       if (!(found.steps || []).length && (next.steps || []).length) found.steps = next.steps;
       if (!(found.ings  || []).length && (next.ings  || []).length) found.ings  = next.ings;
+      if (!found.category && next.category) found.category = next.category;
     }
     if (!found) return null;
 
@@ -605,7 +613,10 @@
       steps: steps,
       note:  '',
       image: safeImage(picked.url, sourceUrl),
-      source: sourceUrl || ''
+      source: sourceUrl || '',
+      // Not a recipe field: the import form ignores it. The Explore feed reads
+      // it to tell a dinner from a dessert.
+      category: found.category || ''
     };
   }
 

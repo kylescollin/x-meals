@@ -23,8 +23,9 @@
 - **Line icons** — A local Lucide subset (`icons.js`) drives the week header and the nav tabs.
 - **Explore** — A third tab: a photo grid of new recipes pulled from nine food blogs every morning,
   read with the same parser as the import button. One tap saves one into the collection with an
-  `Explore` tag; "Not for us" hides it for both of you. Static JSON in `data/explore/`, no API,
-  no cost.
+  `Explore` tag; "Not for us" hides it for both of you. Dinners only by default — the blogs' own
+  course labels sort cakes, muffins, sides and drinks behind a **Sweets & sides** chip, no AI
+  involved. Static JSON in `data/explore/`, no API, no cost.
 
 ---
 

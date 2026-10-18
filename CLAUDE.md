@@ -326,9 +326,32 @@ data/explore/manifest.json     months + per-month counts of readable recipes; th
 
 An item carries `key` (12 hex chars of the canonical URL — Firebase-safe), `id` (`explore-<key>`,
 so it can never collide with a real recipe id), `url`, `site`, `sourceId`, `published`, `fetched`,
-`image` and — when readable — the `recipes.json` fields (`name`, `icon`, `tags`, `meta`,
-`ingredients`, `steps`, `note`, `source`), so it can be handed to `RecipeCard.openDetail` and to
-`RecipeCard.saveRecipe` as is. Photos are links to the blog's own image, never copied.
+`image` and — when readable — a `course` (below) and the `recipes.json` fields (`name`, `icon`,
+`tags`, `meta`, `ingredients`, `steps`, `note`, `source`), so it can be handed to
+`RecipeCard.openDetail` and to `RecipeCard.saveRecipe` as is. Photos are links to the blog's own
+image, never copied. `course` is never saved into the collection.
+
+### Dinners first
+
+The tab is for dinners, and the blogs post plenty that isn't: cakes, muffins, side salads, drinks.
+Every readable item gets a `course` — `dinner`, `breakfast`, `dessert`, `drink`, `side` or
+`other` — and the grid shows only dinners until the **Sweets & sides** chip flips it to the rest.
+Nothing is deleted; the manifest carries a `dinners` count per month beside `counts`.
+
+No AI decides this. `courseOf` in `fetch-explore.js` reads three things the blog already
+published, each on its own and in order of trust: the recipe card's **Course** line ("Dessert",
+"Main Course" — `recipe-import.js` returns it as `category` from JSON-LD `recipeCategory`, the
+WPRM/Tasty course span or microdata); the post's **categories** in the feed ("Dessert Recipes",
+"Breakfast and Brunch", "Cake"); and last the **name** (cookies, blondies, lemonade). A "dinner"
+word anywhere in a label wins outright, and when nothing matches the answer is `dinner` — a
+wrong "dinner" costs one swipe, a wrong "dessert" hides a meal. Budget Bytes lists every
+ingredient as a category, so phrases like "Baking Powder" and "Puff Pastry" are struck before
+matching, and so are "Crab Cakes", "Pot Pie" and "Sweet Potato". The cases live in
+`scripts/test-explore-feed.js`; add one there before touching the word lists.
+
+Items written before this existed are labelled on the next run — from the feed while the post is
+still in it, from the name alone once it has dropped out — and an item with no `course` counts as
+a dinner on the page, so an older month file is never wrong, only less sorted.
 
 ```
 /explore/hidden/<key>  = <ms>            "Not for us" — gone from both phones
@@ -355,7 +378,8 @@ a recipe and never add it itself.
 - Only `data/explore/**` is ever written, and only by this workflow, so it has its own concurrency
   group and no `continue-on-error`: a failed push goes red and tries again tomorrow. `GITHUB_TOKEN`
   pushes trigger no other workflow and the sync workflow's path filter excludes `data/explore`.
-- Be a polite guest: one page a second, and each post read at most three times, ever.
+- Be a polite guest: one page a second, and each post read at most three times, ever. Labelling
+  an older item never fetches a page.
 
 ## Photos & the Cook Log
 

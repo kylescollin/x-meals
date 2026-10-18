@@ -64,7 +64,7 @@ const xml = new XMLParser({
   attributeNamePrefix: '@_',
   cdataPropName: '__cdata',
   htmlEntities: true,
-  isArray: (name) => ['item', 'entry', 'link', 'enclosure', 'media:content', 'media:thumbnail'].includes(name)
+  isArray: (name) => ['item', 'entry', 'link', 'enclosure', 'media:content', 'media:thumbnail', 'category'].includes(name)
 });
 
 // A node may be a string, {#text}, {__cdata}, {@_attr, #text} or an array.
@@ -87,7 +87,7 @@ function firstImg(html) {
   return m ? m[1] : '';
 }
 
-/** Every post in a feed, RSS 2.0 or Atom, as {link, title, published, content, image}. */
+/** Every post in a feed, RSS 2.0 or Atom, as {link, title, published, content, image, categories}. */
 function feedItems(feedXml) {
   const doc = xml.parse(feedXml);
   if (doc.rss) {
@@ -100,7 +100,8 @@ function feedItems(feedXml) {
         published: text(it.pubDate) || text(it['dc:date']),
         content,
         image:     attr(it['media:content'], 'url') || attr(it['media:thumbnail'], 'url') ||
-                   attr(it.enclosure, 'url') || firstImg(content)
+                   attr(it.enclosure, 'url') || firstImg(content),
+        categories: (it.category || []).map(text).filter(Boolean)
       };
     });
   }
@@ -113,7 +114,8 @@ function feedItems(feedXml) {
       published: text(e.published) || text(e.updated),
       content,
       image:     attr(e['media:content'], 'url') || attr(e['media:thumbnail'], 'url') ||
-                 atomLink(e.link, 'enclosure') || firstImg(content)
+                 atomLink(e.link, 'enclosure') || firstImg(content),
+      categories: (e.category || []).map((c) => attr(c, 'label') || attr(c, 'term') || text(c)).filter(Boolean)
     };
   });
 }
@@ -142,6 +144,61 @@ function toIso(dateText, fallback) {
 
 function monthOf(iso) { return iso.slice(0, 7); }
 
+// ── Dinner or not ────────────────────────────────────────────────────────
+//
+// The Explore tab is for dinners. No AI here: the blogs already label their
+// own posts, three ways — the recipe card's "Course" line ("Dessert", "Main
+// Course"), the post's categories in the feed ("Dessert Recipes", "Breakfast
+// and Brunch", "Cake"), and failing both, the name. Read in that order; when
+// nothing says otherwise, it's a dinner, because most posts are and a wrong
+// "dinner" costs one swipe where a wrong "dessert" hides a meal.
+
+const COURSES = ['dinner', 'breakfast', 'dessert', 'drink', 'side', 'other'];
+
+// Phrases that would mislead the word match, removed before it runs. Budget
+// Bytes lists every ingredient as a category, so "Baking Powder" and "Puff
+// Pastry" turn up on fritters and onion tarts.
+const LABEL_NOISE = /\b(dinner party|(crab|fish|rice|potato|salmon|corn|zucchini|veggie|quinoa|bean) cakes?|(pot|shepherd'?s|cottage|pizza|taco|tamale|chicken) pies?|sweet potato(es)?|sweet and sour|sweet chili|baking (powder|soda|sheet|dish|mix)|(puff|phyllo|filo|shortcrust) pastry|pie crust|tea towel|green tea|coffee grounds|(egg|spring|summer|lobster|cabbage|sushi|lettuce) rolls?)\b/g;
+
+// First match wins, in this order: a "Dinner, Dessert" post is a dinner.
+const LABEL_RULES = [
+  ['dinner',    /\b(dinners?|main dish(es)?|main course|mains?|entr[ée]es?|supper|weeknight)\b/],
+  ['breakfast', /\b(breakfasts?|brunch|muffins?|pancakes?|waffles?|granola|oatmeal|oats|scones?|french toast|bagels?)\b/],
+  ['other',     /\b(breads?|loaf|loaves|rolls?|dough|sauces?|condiments?|dressings?|jams?|pickles?|preserves|spice blends?|basics|how to)\b/],
+  ['dessert',   /\b(desserts?|cakes?|cookies?|brownies?|blondies?|cupcakes?|cheesecakes?|pies?|tarts?|crisps?|cobblers?|crumbles?|puddings?|ice cream|cand(y|ies)|sweets|baking|baked goods|pastr(y|ies)|frosting|mousse|fudge|macarons?|meringue|caramel|truffles?|dough?nuts?)\b/],
+  ['drink',     /\b(drinks?|beverages?|cocktails?|mocktails?|smoothies?|lemonade|lattes?|coffee|tea|punch|margaritas?|sangria)\b/],
+  ['side',      /\b(sides?|side dish(es)?|appetizers?|starters?|snacks?|salads?|dips?|vegetables?|veggies)\b/]
+];
+
+// A name is weaker evidence than a label, so this list is shorter and never
+// says "dinner" — that's the default. "Pie" and "tart" are left out on
+// purpose: pot pies and onion tarts are dinner.
+const NAME_RULES = [
+  ['breakfast', /\b(muffins?|pancakes?|waffles?|granola|oatmeal|overnight oats|scones?|french toast)\b/],
+  ['dessert',   /\b(cookies?|brownies?|blondies?|cupcakes?|cheesecakes?|cobblers?|crisps?|crumbles?|puddings?|fudge|macarons?|meringue|ice cream|shortbread|biscotti|tiramisu|baklava|mille-feuille)\b|\bcakes?\b/],
+  ['drink',     /\b(lemonade|smoothies?|lattes?|cocktails?|mocktails?|margaritas?|sangria|hot chocolate)\b/],
+  ['other',     /\b(bread|loaf|focaccia|rolls|buns)\)?$/]
+];
+
+function firstRule(rules, s) {
+  for (const [course, re] of rules) if (re.test(s)) return course;
+  return '';
+}
+
+function clean(s) { return (s || '').toLowerCase().replace(LABEL_NOISE, ' '); }
+
+/**
+ * One of COURSES for a post, from the card's course line, the feed's
+ * categories and the name, in that order of trust — each on its own, so a
+ * card that says "Appetizer" isn't outvoted by a "Puff Pastry" category.
+ */
+function courseOf(name, categories, cardCourse) {
+  return firstRule(LABEL_RULES, clean(cardCourse)) ||
+         firstRule(LABEL_RULES, clean((categories || []).join(' | '))) ||
+         firstRule(NAME_RULES, clean(name)) ||
+         'dinner';
+}
+
 // ── One post → one item ──────────────────────────────────────────────────
 
 /** `recipe` is the parser's output or null; the item shape matches data/recipes.json. */
@@ -162,6 +219,7 @@ function buildItem(post, source, recipe, fetchedIso) {
   if (!recipe) return Object.assign(base, { recipe: false, tries: 1 });
   return Object.assign(base, {
     icon: recipe.icon || '🍽',
+    course: courseOf(base.name, post.categories, recipe.category),
     tags: recipe.tags || [],
     meta: recipe.meta || '',
     ingredients: recipe.ings || [],
@@ -232,11 +290,17 @@ function sortItems(items) {
   return items.slice().sort((a, b) => (a.published < b.published ? 1 : a.published > b.published ? -1 : 0));
 }
 
+// An item written before courses existed counts as a dinner, as on the page.
+function isDinner(it) { return !it.course || it.course === 'dinner'; }
+
 function manifestFor(months, sourceCount, nowIso) {
   const keys = Object.keys(months).sort().reverse();
-  const counts = {};
-  keys.forEach((m) => { counts[m] = months[m].filter((it) => it.recipe).length; });
-  return { months: keys, counts, sources: sourceCount, updatedAt: nowIso };
+  const counts = {}, dinners = {};
+  keys.forEach((m) => {
+    counts[m]  = months[m].filter((it) => it.recipe).length;
+    dinners[m] = months[m].filter((it) => it.recipe && isDinner(it)).length;
+  });
+  return { months: keys, counts, dinners, sources: sourceCount, updatedAt: nowIso };
 }
 
 function stable(obj) { return JSON.stringify(obj, null, 2) + '\n'; }
@@ -258,6 +322,7 @@ function writeStore(dir, months, touched, manifest) {
   const same = prevManifest &&
     JSON.stringify(prevManifest.months) === JSON.stringify(manifest.months) &&
     JSON.stringify(prevManifest.counts) === JSON.stringify(manifest.counts) &&
+    JSON.stringify(prevManifest.dinners) === JSON.stringify(manifest.dinners) &&
     prevManifest.sources === manifest.sources;
   if (!same) { fs.writeFileSync(mf, stable(manifest)); written.push('manifest.json'); }
   return written;
@@ -314,7 +379,7 @@ async function run(opts) {
   const known   = knownItems(months);
   const touched = {};
   const perSource = {};
-  let added = 0, readable = 0, retried = 0;
+  let added = 0, readable = 0, retried = 0, relabelled = 0;
 
   for (const source of sources) {
     const stat = { inFeed: 0, fresh: 0, retried: 0, readable: 0, via: {} };
@@ -330,7 +395,17 @@ async function run(opts) {
       const url = canonical(post.link);
       if (!url) continue;
       const prior = known.get(url);
-      if (prior && settled(prior)) continue;
+      if (prior && settled(prior)) {
+        if (prior.recipe && !prior.course) {
+          // Written before courses existed, and still in the feed: label it
+          // from the feed's categories and card. No page fetch for this.
+          const card = parsed(post.content, url);
+          prior.course = courseOf(prior.name, post.categories, card && card.category);
+          touched[monthOf(prior.published)] = true;
+          relabelled++;
+        }
+        continue;
+      }
 
       const { recipe, via } = await readPost(post, net);
       stat.via[via] = (stat.via[via] || 0) + 1;
@@ -366,10 +441,16 @@ async function run(opts) {
     log(`${source.name}: ${stat.inFeed} in feed, ${stat.fresh} new${again}, ${stat.readable} readable${how ? ' (' + how + ')' : ''}`);
   }
 
+  // Anything readable that has dropped out of its feed gets labelled from its
+  // name alone, so every shown item has a course.
+  Object.keys(months).forEach((m) => months[m].forEach((it) => {
+    if (it.recipe && !it.course) { it.course = courseOf(it.name, [], ''); touched[m] = true; relabelled++; }
+  }));
+
   const manifest = manifestFor(months, sources.length === 1 && opts.only ? manifestSourceCount(dir, sources) : sources.length, nowIso);
   const written = opts.dryRun ? [] : writeStore(dir, months, touched, manifest);
-  log(`${added} new post${added === 1 ? '' : 's'}${retried ? ', ' + retried + ' retried' : ''}, ${readable} readable; wrote ${written.length ? written.join(', ') : 'nothing'}`);
-  return { added, retried, readable, written, perSource };
+  log(`${added} new post${added === 1 ? '' : 's'}${retried ? ', ' + retried + ' retried' : ''}${relabelled ? ', ' + relabelled + ' labelled' : ''}, ${readable} readable; wrote ${written.length ? written.join(', ') : 'nothing'}`);
+  return { added, retried, readable, relabelled, written, perSource };
 }
 
 // A --source run shouldn't record "1 source" in the manifest.
@@ -378,7 +459,7 @@ function manifestSourceCount(dir, fallback) {
   catch (e) { return fallback.length; }
 }
 
-module.exports = { feedItems, canonical, keyFor, monthOf, buildItem, readPost, run, loadStore, writeStore, manifestFor, FETCHER, MAX_TRIES };
+module.exports = { feedItems, canonical, keyFor, monthOf, buildItem, readPost, run, loadStore, writeStore, manifestFor, courseOf, COURSES, FETCHER, MAX_TRIES };
 
 if (require.main === module) {
   const args = process.argv.slice(2);

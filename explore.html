@@ -39,6 +39,9 @@
   .chip{flex-shrink:0;background:#fff;border:1.5px solid var(--border);border-radius:100px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s,transform .12s;white-space:nowrap;}
   .chip:active{transform:scale(.95);}
   .chip.selected{border-color:var(--accent);background:var(--accent-light);font-weight:500;}
+  /* The one chip that isn't a blog: flips the grid to the non-dinner pile. */
+  .chip-sweets{border-style:dashed;margin-right:6px;}
+  .chip-sweets.selected{border-style:solid;}
 
   /* The grid: two columns, tiles dropped into whichever is shorter. */
   .grid{max-width:680px;margin:0 auto;padding:0 20px;display:flex;gap:10px;align-items:flex-start;}
