@@ -1,0 +1,112 @@
+{
+  "weekOf": "2026-10-18",
+  "title": "Week of October 18",
+  "meals": [
+    {
+      "id": "sweet-potato-taco-bowls",
+      "icon": "🌮",
+      "name": "Sweet Potato Taco Bowls",
+      "meta": "45 min · Sheet pan",
+      "ings": [
+        "2 large sweet potatoes, peeled and cubed",
+        "2 tablespoons olive oil",
+        "1 teaspoon ground cumin",
+        "1 teaspoon smoked paprika",
+        "½ teaspoon chili powder",
+        "Salt and pepper to taste",
+        "1 can (15 oz) black beans, drained and rinsed",
+        "1 cup cherry tomatoes, halved",
+        "½ red onion, finely diced",
+        "1 avocado, diced",
+        "1 cup corn kernels (fresh, frozen, or canned)",
+        "Juice of 1 lime",
+        "¼ cup chopped fresh cilantro",
+        "4 small flour or corn tortillas",
+        "¼ cup crumbled feta or cotija cheese (optional)",
+        "Salsa or hot sauce, for serving"
+      ],
+      "steps": [
+        "Preheat your oven to 400°F (200°C).",
+        "In a large bowl, toss the cubed sweet potatoes with olive oil, ground cumin, smoked paprika, chili powder, salt, and pepper until they are well coated.",
+        "Spread the sweet potatoes in an even layer on a baking sheet. Roast them in the preheated oven for 20-25 minutes, or until they are tender and lightly browned, stirring halfway through cooking.",
+        "While the sweet potatoes are roasting, prepare the other components. In a medium bowl, combine the black beans, cherry tomatoes, red onion, avocado, corn, lime juice, and cilantro. Mix gently to combine and add salt and pepper to taste.",
+        "Heat the tortillas in a dry skillet over medium heat for about 30 seconds on each side or until warm and pliable.",
+        "To assemble the taco bowls, start by placing a warm tortilla in a bowl or on a plate. Add a generous scoop of the roasted sweet potatoes followed by the black bean and vegetable mixture.",
+        "If using, sprinkle some crumbled cheese on top for added flavor.",
+        "Serve with your favorite salsa or hot sauce on the side."
+      ],
+      "day": "Monday",
+      "label": "Meal A",
+      "date": "10/19"
+    },
+    {
+      "id": "classic-split-pea-soup",
+      "icon": "🍲",
+      "name": "Classic Split Pea Soup",
+      "meta": "1 hr 35 min · Stovetop · Serves 6",
+      "ings": [
+        "2 tablespoons extra-virgin olive oil",
+        "1 medium onion (diced)",
+        "3 carrots (diced)",
+        "3 ribs of celery (diced)",
+        "2 garlic cloves (minced)",
+        "1 pound dried split peas (rinsed)",
+        "½ teaspoon dried thyme",
+        "½ teaspoon kosher salt",
+        "½ teaspoon freshly ground black pepper",
+        "1 bay leaf",
+        "1 meaty ham bone (see tips and alternatives above)",
+        "4 cups low-sodium chicken broth",
+        "3 to 4 cups water",
+        "1 cup diced ham (from ham bone or added separately)",
+        "finely chopped fresh parsley, for garnish"
+      ],
+      "steps": [
+        "Heat the oil in a large pot or Dutch oven over medium-high heat. Add the onion, carrots, and celery, and saute for 3 to 4 minutes. Then add the garlic and saute for another minute.",
+        "Add the split peas, thyme, salt, and pepper. Stir together.",
+        "Add the bay leaf, ham bone, chicken broth, and 3 cups of water. Bring to a boil, reduce the heat to a simmer, cover, and cook for 50 to 60 minutes, stirring occasionally, until the soup has thickened and the peas have broken down.",
+        "Using tongs, remove the ham bone to a cutting board and dice the remaining meat (about 1 cup of diced ham), then add it back to the soup. Stir and simmer uncovered for an additional 5 to 15 minutes, or until it's thickened to your liking. If it's too thick, you can add another cup of water. Note that the soup will continue to thicken as it sits, so it's best if it's not overly thick at this stage.",
+        "Discard the bay leaf, ladle the soup into bowls, and garnish with finely chopped fresh parsley and black pepper."
+      ],
+      "day": "Tuesday",
+      "label": "Meal B",
+      "date": "10/20"
+    },
+    {
+      "id": "teriyaki-chicken-tacos-with-sesame-cucumber-slaw",
+      "icon": "🌮",
+      "name": "Teriyaki Chicken Tacos with Sesame Cucumber Slaw",
+      "meta": "30 min · Stovetop · Serves 4",
+      "ings": [
+        "2 lb boneless skinless chicken thighs",
+        "Salt and pepper",
+        "½ cup teriyaki sauce",
+        "2 Tbsp sweet chili sauce",
+        "8 (6-inch) flour tortillas",
+        "1 avocado sliced, ¼ cup crushed peanuts, sesame seeds",
+        "# Slaw",
+        "1 large English cucumber, thinly sliced",
+        "¼ cup Greek yogurt",
+        "1½ Tbsp mayo",
+        "2 Tbsp rice vinegar",
+        "1 Tbsp sweet chili sauce",
+        "1 tsp sesame oil",
+        "fresh cilantro",
+        "green onions"
+      ],
+      "steps": [
+        "Boil chicken until cooked. Shred chicken.",
+        "Thinly slice cucumbers. Whisk dressing ingredients. Toss with cucumbers and herbs.",
+        "Spread chicken on lined baking sheet, drizzle with teriyaki and sweet chili sauce. Broil 3–6 min until caramelized.",
+        "Warm tortillas. Layer with chicken, cucumber slaw, avocado, crushed peanuts, sesame seeds."
+      ],
+      "day": "Wednesday",
+      "note": "💡 Crockpot: high 2.5–3.5 hrs or low 4–5 hrs. Oven: 400°F for 35 min. Always broil at the end for caramelized edges.",
+      "label": "Meal C",
+      "date": "10/21"
+    }
+  ],
+  "groceries": [],
+  "subhead": "3 dinners",
+  "updatedAt": 1792359387244
+}
