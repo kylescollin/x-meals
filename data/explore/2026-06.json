@@ -1,0 +1,99 @@
+{
+  "month": "2026-06",
+  "items": [
+    {
+      "key": "2042e10c2c11",
+      "id": "explore-2042e10c2c11",
+      "url": "https://smittenkitchen.com/2026/06/strawberry-chiffon-shortcake-perfected/",
+      "site": "Smitten Kitchen",
+      "sourceId": "smittenkitchen",
+      "published": "2026-06-17T16:02:59.000Z",
+      "fetched": "2026-10-18T19:13:37.842Z",
+      "name": "strawberry chiffon shortcake, perfected",
+      "image": "https://i0.wp.com/smittenkitchen.com/wp-content/uploads/2026/06/strawberry-chiffon-shortcake-perfected-19-scaled.jpg?fit=640%2C427&amp;quality=89&amp;ssl=1",
+      "recipe": false,
+      "tries": 1
+    },
+    {
+      "key": "de6221711b8d",
+      "id": "explore-de6221711b8d",
+      "url": "https://damndelicious.net/2026/06/12/chicken-fajita-quesadillas/",
+      "site": "Damn Delicious",
+      "sourceId": "damndelicious",
+      "published": "2026-06-13T04:00:00.000Z",
+      "fetched": "2026-10-18T19:13:37.842Z",
+      "name": "Chicken Fajita Quesadillas",
+      "image": "https://damndelicious.net/wp-content/uploads/2026/03/Chicken-Fajitas-Quesadillas_545-768x1152.jpg",
+      "icon": "🍗",
+      "tags": [
+        "Skillet Dinner",
+        "Mexican"
+      ],
+      "meta": "30 min · Stovetop · Serves 6",
+      "ingredients": [
+        "2 tablespoons vegetable oil divided",
+        "½ medium sweet onion cut into strips",
+        "1 medium red bell pepper cut into strips",
+        "1 medium green bell pepper cut into strips",
+        "2 cloves garlic minced",
+        "1 teaspoon chili powder",
+        "½ teaspoon ground cumin",
+        "Kosher salt and freshly ground black pepper to taste",
+        "6 ounces shredded sharp cheddar cheese",
+        "6 ounces shredded pepper jack cheese",
+        "⅓ cup chopped fresh cilantro leaves",
+        "6 (8-inch) flour tortillas",
+        "2 cups leftover shredded rotisserie chicken warmed",
+        "1 cup guacamole",
+        "1 cup pico de gallo",
+        "¼ cup sour cream"
+      ],
+      "steps": [
+        "Preheat oven to 200 degrees F.",
+        "Heat 1 tablespoon vegetable oil in a large cast iron skillet over medium high heat. Add onion and bell peppers, and cook, stirring occasionally, until tender and lightly charred, about 4-5 minutes.",
+        "Stir in garlic, chili powder and cumin until fragrant, about 1 minute; season with salt and pepper, to taste. Set aside.",
+        "In a medium bowl, combine cheeses and cilantro.",
+        "Heat 1 teaspoon vegetable oil in the skillet over medium low heat. Working one at a time, add 1 tortilla to the skillet and sprinkle with ⅓ cup cheese mixture in an even layer.",
+        "Top with ⅓ cup chicken and some of the bell pepper mixture on half of the tortilla.",
+        "Cook until the cheeses have melted and the underside is golden brown, about 3-4 minutes; gently fold in half, pressing lightly. Keep warm in oven up to 20 minutes. Repeat with remaining vegetable oil and tortillas to make 6 quesadillas.",
+        "Serve warm with desired toppings."
+      ],
+      "note": "",
+      "source": "https://damndelicious.net/2026/06/12/chicken-fajita-quesadillas/",
+      "recipe": true
+    },
+    {
+      "key": "c2fc0067f11c",
+      "id": "explore-c2fc0067f11c",
+      "url": "https://smittenkitchen.com/2026/06/snow-pea-salad-with-avocado/",
+      "site": "Smitten Kitchen",
+      "sourceId": "smittenkitchen",
+      "published": "2026-06-03T20:05:49.000Z",
+      "fetched": "2026-10-18T19:13:37.842Z",
+      "name": "Snow Pea Salad with Avocado",
+      "image": "https://i0.wp.com/smittenkitchen.com/wp-content/uploads/2026/06/snow-pea-salad-with-avocado-6-scaled.jpg?fit=1200%2C800&quality=89&ssl=1",
+      "icon": "🥗",
+      "tags": [
+        "Salad"
+      ],
+      "meta": "20 min · Serves 2",
+      "ingredients": [
+        "8 ounces (225 grams) fresh snow peas",
+        "½ cup (50 grams) toasted walnuts (see note)",
+        "4 tablespoons (60 ml) olive oil",
+        "Juice of half a big lemon (1 ½ tablespoons/20 ml)",
+        "Kosher salt, to taste",
+        "Freshly ground black pepper and mild red pepper flakes",
+        "1 avocado, halved, pitted, and sliced thin"
+      ],
+      "steps": [
+        "Soak snow peas in a large bowl of ice water for 10 to 20 minutes (longer is fine too). Drain and pat dry with a towel. Gather the peas in small stacks at a time and cut them lengthwise into thin ribbons.",
+        "Chop walnuts into rubble-sized pieces and place in a large bowl. Add olive oil, lemon juice, ½ to 1 teaspoon kosher salt (to taste), many grinds of black pepper, and pepper flakes to taste (I use ½ teaspoon). Whisk to combine. Add snow peas and toss until the vegetables are coated. Add avocado and gently toss until combined. Eat right away.",
+        "Do ahead: The lemon juice in the dressing discolors the snow peas a little over time, so if planning ahead, I add the walnut dressing right before serving."
+      ],
+      "note": "",
+      "source": "https://smittenkitchen.com/2026/06/snow-pea-salad-with-avocado/",
+      "recipe": true
+    }
+  ]
+}

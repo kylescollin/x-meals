@@ -1,0 +1,11 @@
+[
+  { "id": "budgetbytes",       "name": "Budget Bytes",           "feed": "https://www.budgetbytes.com/feed/" },
+  { "id": "recipetineats",     "name": "RecipeTin Eats",         "feed": "https://www.recipetineats.com/feed/" },
+  { "id": "skinnytaste",       "name": "Skinnytaste",            "feed": "https://www.skinnytaste.com/feed/" },
+  { "id": "damndelicious",     "name": "Damn Delicious",         "feed": "https://damndelicious.net/feed/" },
+  { "id": "mediterraneandish", "name": "The Mediterranean Dish", "feed": "https://www.themediterraneandish.com/feed/" },
+  { "id": "wellplated",        "name": "Well Plated",            "feed": "https://www.wellplated.com/feed/" },
+  { "id": "pinchofyum",        "name": "Pinch of Yum",           "feed": "https://pinchofyum.com/feed" },
+  { "id": "smittenkitchen",    "name": "Smitten Kitchen",        "feed": "https://smittenkitchen.com/feed/" },
+  { "id": "bonappetit",        "name": "Bon Appétit",            "feed": "https://www.bonappetit.com/feed/recipes-rss-feed/rss" }
+]

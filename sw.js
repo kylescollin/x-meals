@@ -31,6 +31,8 @@ const SHELL = [
   './index.html',
   './groceries.html',
   './recipes.html',
+  './explore.html',
+  './explore.js',
   './journal.html',
   './login.html',
   './theme.css',

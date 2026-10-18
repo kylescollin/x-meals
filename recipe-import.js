@@ -481,16 +481,32 @@
     };
   }
 
-  // ── Readers 3 & 4: the two big WordPress recipe plugins ─────────────────
+  // ── Readers 3–5: the WordPress recipe plugins ───────────────────────────
+
+  // Jetpack (WordPress.com's own recipe block — Smitten Kitchen) writes the
+  // directions as one element of paragraphs rather than one element per step,
+  // so they're split on the paragraph breaks instead of read as a run-on.
+  function paragraphsOf(doc, selector) {
+    var out = [];
+    Array.prototype.forEach.call(doc.querySelectorAll(selector), function (el) {
+      (el.innerHTML || '').split(/<\/p>|<br\s*\/?>|<\/li>/i).forEach(function (chunk) { out.push(chunk); });
+    });
+    return out;
+  }
 
   function fromPluginMarkup(doc) {
     var PLUGINS = [
+      // WP Recipe Maker splits the total into an hours span and a minutes span,
+      // either of which may be missing ("1 hour" has no minutes span at all).
       { ing: '.wprm-recipe-ingredient',      step: '.wprm-recipe-instruction-text',
         name: '.wprm-recipe-name',           serves: '.wprm-recipe-servings',
-        time: '.wprm-recipe-total_time-minutes' },
+        time: '.wprm-recipe-total_time-minutes', hours: '.wprm-recipe-total_time-hours' },
       { ing: '.tasty-recipes-ingredients li', step: '.tasty-recipes-instructions li',
         name: '.tasty-recipes-title',         serves: '.tasty-recipes-yield',
-        time: '.tasty-recipes-total-time' }
+        time: '.tasty-recipes-total-time' },
+      { ing: '.jetpack-recipe-ingredient',    step: '.jetpack-recipe-directions',
+        name: '.jetpack-recipe-title',        serves: '.jetpack-recipe-servings',
+        time: '.jetpack-recipe-time', paragraphs: true }
     ];
     for (var i = 0; i < PLUGINS.length; i++) {
       var p = PLUGINS[i];
@@ -499,11 +515,14 @@
       var nameEl = doc.querySelector(p.name);
       var servEl = doc.querySelector(p.serves);
       var timeEl = doc.querySelector(p.time);
-      var mins = timeEl ? parseInt(cleanText(timeEl.textContent), 10) : 0;
+      var hourEl = p.hours ? doc.querySelector(p.hours) : null;
+      var mins = (timeEl ? parseInt(cleanText(timeEl.textContent), 10) : 0) +
+                 (hourEl ? parseInt(cleanText(hourEl.textContent), 10) * 60 : 0);
+      var stepTexts = p.paragraphs ? paragraphsOf(doc, p.step) : textsOf(doc, p.step);
       return {
         name:    nameEl ? cleanText(nameEl.textContent) : '',
         ings:    ings,
-        steps:   tidyList(explodeLong(textsOf(doc, p.step)), MAX_STEPS),
+        steps:   tidyList(explodeLong(stepTexts), MAX_STEPS),
         minutes: isNaN(mins) ? 0 : mins,
         serves:  servEl ? servingsText(servEl.textContent) : '',
         image:   '',
@@ -539,14 +558,27 @@
   }
 
   // Budget Bytes prints a per-item cost in every ingredient line. It's their
-  // whole point, and useless in a shopping list.
+  // whole point, and useless in a shopping list. Their page wraps it in
+  // parentheses, "($0.08)"; their feed's recipe card doesn't, "$0.08".
   function stripPrices(line) {
-    return line.replace(/\s*\(\$[\d.,]+\)\s*$/, '').trim();
+    return line.replace(/\s*\(?\$[\d.,]+\)?\s*$/, '').trim();
   }
 
   function parseDocument(html, sourceUrl) {
     var doc = new DOMParser().parseFromString(html, 'text/html');
-    var found = fromJsonLd(doc) || fromMicrodata(doc) || fromPluginMarkup(doc);
+    // First reader with both halves wins. Short of that, a later reader fills
+    // what an earlier one missed: Smitten Kitchen's microdata carries the
+    // ingredients and time, and only its Jetpack markup carries the steps.
+    var readers = [fromJsonLd, fromMicrodata, fromPluginMarkup];
+    var found = null;
+    for (var ri = 0; ri < readers.length; ri++) {
+      if (found && (found.ings || []).length && (found.steps || []).length) break;
+      var next = readers[ri](doc);
+      if (!next) continue;
+      if (!found) { found = next; continue; }
+      if (!(found.steps || []).length && (next.steps || []).length) found.steps = next.steps;
+      if (!(found.ings  || []).length && (next.ings  || []).length) found.ings  = next.ings;
+    }
     if (!found) return null;
 
     var name  = found.name || titleFallback(doc);

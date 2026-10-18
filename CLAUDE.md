@@ -41,6 +41,9 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   dock and grocery sheet, the recipe detail overlay and full cooking mode. Reads Firebase
   `/meals/weeks/{weekOf}`. Takes `?week=`, `?view=timeline` and `?groceries=1`.
 - `recipes.html` — Browsable recipe collection. Fetches `data/recipes.json` on load.
+- `explore.html` + `explore.js` — The Explore tab: a photo grid of new recipes pulled in from
+  food blogs each morning, with one-tap Save into the collection. Reads `data/explore/` and
+  Firebase `/explore`. See **Explore feed** below.
 - `groceries.html` — Retired. A redirect to `index.html?week=…&groceries=1` (the `?week=` param
   is forwarded); kept because it's in the service worker shell and may be bookmarked.
 - `journal.html` — Retired. A redirect to `index.html?view=timeline`; kept because it's in the
@@ -52,6 +55,9 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 - `data/recipes.json` — All saved recipes (~45). Agent X can update this as new recipes are added.
   Each carries a `tags` array — see **Recipe Tags** below.
 - `recipes.md` — Human-readable master recipe list. Source of truth for Agent X when suggesting meals.
+- `data/explore/sources.json` — The blogs the Explore feed pulls from. One line per blog.
+- `data/explore/YYYY-MM.json`, `data/explore/manifest.json` — **CI-owned.** The Explore feed
+  itself, one file per month. Written only by `scripts/fetch-explore.js`. See **Explore feed**.
 - `data/week.json`, `data/history.json`, `data/history/*.json` — **Frozen legacy.** Kept so
   nothing is lost. Nothing reads them. Do not write them.
 
@@ -96,11 +102,14 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 - `scripts/lib/model-json.js` — Finds the JSON in whatever the model actually said, fences and
   prose included. One reply that began "I'll work through..." took down a whole sync run; this is
   why it can't again.
+- `scripts/fetch-explore.js` — Pulls the Explore feed: reads each blog's RSS, turns new posts
+  into recipes with `recipe-import.js` (under Node, with `linkedom` as the DOM), writes
+  `data/explore/`. Idempotent. Runs daily from `explore-feed.yml`. See **Explore feed**.
 - `scripts/check-weeks.js`, `scripts/test-week-merge.js`, `scripts/test-week-store.js`,
   `scripts/test-recipe-import.js`, `scripts/test-ingredient-format.js`,
   `scripts/test-model-json.js`, `scripts/test-refresh-meals.js`,
-  `scripts/test-recipe-overlay.js` — the repo's test suite.
-  All eight run in CI before anything is written. `test-recipe-import.js` covers the guessing
+  `scripts/test-recipe-overlay.js`, `scripts/test-explore-feed.js` — the repo's test suite.
+  All nine run in CI before anything is written. `test-recipe-import.js` covers the guessing
   rules; the ones that matter most are the tag cases, because recipe method text is full of
   words that mean something else in a title. `test-ingredient-format.js` leans the other way —
   most of its cases assert the parser does *nothing*, because "2 (14.5 oz) cans" and "1/16 tsp"
@@ -114,6 +123,8 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 - `.github/workflows/tests.yml` — Runs the suite on any push touching `**.js`. Writes nothing.
   The sync workflow only fires on week data, so without this a change to a parser reached the
   live site untested.
+- `.github/workflows/explore-feed.yml` — Daily at 6 am Pacific (and from the Actions tab): runs
+  `fetch-explore.js` and commits `data/explore/`. No secrets. Its own concurrency group.
 
 **Other:**
 - `cooking-demo.html` — Standalone prototype page. Not part of the main nav.
@@ -238,9 +249,13 @@ Save, so a scrape that comes back slightly wrong is something to tidy, not somet
 
 There is no AI involved and it costs nothing per import. Recipe sites publish a machine-readable
 `schema.org/Recipe` block so Google can show them as a rich result, and that block is precisely the
-ingredients, steps, time, servings and photo we want. `recipe-import.js` has four readers, tried in
-order: **JSON-LD** (what most sites publish), **microdata**, **WP Recipe Maker** and **Tasty
-Recipes** (the two WordPress plugins behind a huge slice of food blogs).
+ingredients, steps, time, servings and photo we want. `recipe-import.js` has five readers, tried in
+order: **JSON-LD** (what most sites publish), **microdata**, **WP Recipe Maker**, **Tasty
+Recipes** (the two WordPress plugins behind a huge slice of food blogs) and **Jetpack** (WordPress
+.com's own block — Smitten Kitchen). The first reader with both ingredients and steps wins; short
+of that, a later reader fills what an earlier one missed, because Smitten Kitchen's microdata has
+the ingredients and time and only its Jetpack markup has the steps. The same parser runs in CI for
+the Explore feed, so a reader added here reaches both.
 
 **Why there's a Vercel deployment.** The Kitchen is static, so a browser can't fetch another site's
 HTML directly, and the free public CORS relays are refused by most recipe sites. `recipe-fetcher/`
@@ -252,7 +267,8 @@ If it's ever down the import still works, just less often: `recipe-import.js` fa
 public relays and then offers a **paste-the-recipe-text** box, which parses ingredients and steps
 out of whatever Kyle copies. That box is also the answer for sites that block us — the Dotdash
 Meredith family (**Allrecipes, Serious Eats, Simply Recipes**) and **Food Network** refuse
-datacenter traffic outright and can't be imported by link.
+datacenter traffic outright and can't be imported by link. So do Cookie and Kate, Gimme Some
+Oven, Two Peas & Their Pod, Half Baked Harvest and The Woks of Life (checked October 2026).
 
 Imported recipes keep a `source` field — the page they came from — shown as a small link under the
 tags. `toCoreRecipe` carries it into `data/recipes.json`.
@@ -272,6 +288,74 @@ tags. `toCoreRecipe` carries it into `data/recipes.json`.
 Share Target** ([WebKit #194593](https://bugs.webkit.org/show_bug.cgi?id=194593)), so on Kyle's
 iPhone the share sheet route is an iOS Shortcut that opens
 `https://kylescollin.github.io/x-meals/recipes.html?import=<shared url>`.
+
+## Explore feed
+
+A Pinterest-style grid of new recipes pulled from food blogs, on its own tab (`explore.html`). The
+feed is **static JSON written by CI** and read straight from GitHub Pages; Firebase holds only what
+the two of you do with it.
+
+### How it's built
+
+`scripts/fetch-explore.js` runs every morning from `.github/workflows/explore-feed.yml`. The blog
+list is `data/explore/sources.json` — adding or removing a blog is one line there. For each feed it
+reads every post, skips URLs it has already seen, and turns each new one into a recipe with the
+**same parser the import button uses** (`recipe-import.js`, under Node with `linkedom` standing in
+for `DOMParser`). Four attempts, in order, stopping at the first that yields ingredients *and*
+steps:
+
+1. **the feed body** — Budget Bytes, RecipeTin, Damn Delicious, Well Plated, Pinch of Yum and The
+   Mediterranean Dish embed their whole recipe card in the feed, so the page is never fetched and
+   can't block us;
+2. the page, fetched directly;
+3. the page, through the `recipe-fetcher` deployment;
+4. none of those — the item is recorded with `recipe:false`, retried on the next two runs (a blog
+   can have a bad day), then left alone for good. **The site never shows these.** Nearly all are
+   roundups and meal plans, which were never recipes.
+
+A blog whose pages refuse datacenter traffic *and* whose feed carries only a summary can't be read
+at all, which is why the five named under **Importing a recipe** aren't in the list.
+
+### Where it lives
+
+```
+data/explore/sources.json      the blogs
+data/explore/YYYY-MM.json      one file per month (by publish date), items newest first
+data/explore/manifest.json     months + per-month counts of readable recipes; the page reads this first
+```
+
+An item carries `key` (12 hex chars of the canonical URL — Firebase-safe), `id` (`explore-<key>`,
+so it can never collide with a real recipe id), `url`, `site`, `sourceId`, `published`, `fetched`,
+`image` and — when readable — the `recipes.json` fields (`name`, `icon`, `tags`, `meta`,
+`ingredients`, `steps`, `note`, `source`), so it can be handed to `RecipeCard.openDetail` and to
+`RecipeCard.saveRecipe` as is. Photos are links to the blog's own image, never copied.
+
+```
+/explore/hidden/<key>  = <ms>            "Not for us" — gone from both phones
+/explore/saved/<key>   = "<recipe id>"   saved into the collection
+```
+
+### Saving
+
+Tapping a tile opens the normal recipe view in its **external** mode
+(`openDetail(r, null, {external:true, onSave, onHide})`): the feed photo as the hero, no ⋯ menu, no
+notes, no photo bucket — nothing may write under `explore-<key>` — and a Save bar in place of the
+Cook pill. Save calls `RecipeCard.saveRecipe`, which is the add form's own path factored out:
+minted id, Firebase, cover from `image`, commit to `data/recipes.json` through the GitHub token.
+The recipe gets a third tag, **`Explore`**, so the Recipes filter panel can show or hide them
+under **Found via**.
+
+`Explore` belongs to a tag family with `picker:false`: it has no dropdown in the add/edit form, and
+`keptTags()` carries it through an in-app edit untouched. Agent X should keep it when editing such
+a recipe and never add it itself.
+
+### Rules that follow
+- The run is idempotent: nothing new → no file changes → nothing to commit. `manifest.updatedAt` is
+  deliberately left out of the comparison so it can't produce a commit on its own.
+- Only `data/explore/**` is ever written, and only by this workflow, so it has its own concurrency
+  group and no `continue-on-error`: a failed push goes red and tries again tomorrow. `GITHUB_TOKEN`
+  pushes trigger no other workflow and the sync workflow's path filter excludes `data/explore`.
+- Be a polite guest: one page a second, and each post read at most three times, ever.
 
 ## Photos & the Cook Log
 
@@ -329,7 +413,7 @@ never the canonical Sunday.
 ## Recipe Tags
 
 Every recipe in `data/recipes.json` is categorised by an **ordered `tags` array** — one dish type,
-then one cuisine. There is no `label` or `category` field; the vocabulary lives in `TAG_FAMILIES`
+then one cuisine, and (only on recipes saved from the Explore tab) a trailing `Explore`. There is no `label` or `category` field; the vocabulary lives in `TAG_FAMILIES`
 at the top of `recipe-card.js` and drives the card eyebrow, the recipe detail view, and the filter
 panel on `recipes.html`.
 
@@ -346,6 +430,8 @@ Rules for Agent X when adding a recipe:
 - Always set `tags` with exactly one dish type followed by one cuisine, both from the lists above.
   Don't invent new values — a new tag fragments the filter panel. If nothing fits, say so rather
   than guessing.
+- A third tag `Explore` marks a recipe saved from the Explore feed (family **Found via**). Keep it
+  when editing such a recipe; never add it yourself.
 - Cook time is **not** a tag. It stays as the first segment of `meta`
   (`"30 min · Stovetop · Serves 4"`), which is also what the time and equipment filters parse.
 - Weekly meals don't need tags — the site looks them up by recipe `id` from `data/recipes.json`.

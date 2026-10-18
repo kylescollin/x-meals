@@ -41,3 +41,4 @@ jobs:
           node scripts/test-model-json.js
           node scripts/test-refresh-meals.js
           node scripts/test-recipe-overlay.js
+          node scripts/test-explore-feed.js

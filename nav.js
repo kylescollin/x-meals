@@ -37,12 +37,14 @@
   document.head.appendChild(style);
 
   var page = location.pathname.split('/').pop() || 'index.html';
-  // Two tabs, because two things are destinations. The Journal is gone — the
-  // week page's timeline view shows the same weeks, cards, photos and notes —
-  // and so are Groceries: a week's list is now a card that slides up over the
-  // week itself, reached from the dock at the bottom of the week page.
+  // Three tabs, because three things are destinations. The Journal is gone —
+  // the week page's timeline view shows the same weeks, cards, photos and
+  // notes — and so are Groceries: a week's list is now a card that slides up
+  // over the week itself, reached from the dock at the bottom of the week
+  // page. Explore is the feed of new recipes pulled in from food blogs.
   var links = [
     {href:'index.html',     label:'Weeks',     icon:'calendar-days',  emoji:'\uD83D\uDCC5'},
+    {href:'explore.html',   label:'Explore',   icon:'compass',        emoji:'\uD83E\uDDED'},
     {href:'recipes.html',   label:'Recipes',   icon:'book-open',      emoji:'\uD83D\uDCD6'}
   ];
   var nav = document.createElement('nav');

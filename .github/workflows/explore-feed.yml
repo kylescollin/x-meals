@@ -1,0 +1,67 @@
+name: Explore feed
+
+# Pulls the food blogs in data/explore/sources.json every morning and turns
+# each new post into a recipe for the Explore tab. No secrets: the feeds are
+# public and the output is plain JSON under data/explore/ that the site reads
+# straight from GitHub Pages.
+#
+# Its own concurrency group, not sync-meals: this job only ever touches
+# data/explore/**, which no other workflow writes, so the rebase-and-retry
+# below settles any race with a grocery commit. Pushes made with GITHUB_TOKEN
+# trigger no other workflow, and the sync workflow's path filter excludes
+# data/explore anyway — so no loops.
+
+on:
+  schedule:
+    - cron: '0 13 * * *'      # 6 am Pacific (5 am in winter)
+  workflow_dispatch:
+
+concurrency:
+  group: explore-feed
+  cancel-in-progress: false
+
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      # Full history: the commit step rebases before pushing, and a shallow
+      # clone has no common ancestor to rebase onto.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: cd scripts && npm install
+
+      - name: Run tests
+        run: node scripts/test-explore-feed.js
+
+      - name: Pull today's recipes
+        run: node scripts/fetch-explore.js
+
+      - name: Commit feed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/explore
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          git commit -m "Explore: $(date -u +%F) feed"
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected — rebasing onto origin/main and retrying."
+            git pull --rebase --autostash origin main
+          done
+          echo "Could not push after 3 attempts."
+          exit 1

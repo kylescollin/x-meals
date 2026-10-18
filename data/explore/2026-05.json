@@ -1,0 +1,136 @@
+{
+  "month": "2026-05",
+  "items": [
+    {
+      "key": "55560b090eb2",
+      "id": "explore-55560b090eb2",
+      "url": "https://damndelicious.net/2026/05/29/lemon-butter-fish/",
+      "site": "Damn Delicious",
+      "sourceId": "damndelicious",
+      "published": "2026-05-29T16:00:00.000Z",
+      "fetched": "2026-10-18T19:13:37.842Z",
+      "name": "Lemon Butter Fish",
+      "image": "https://damndelicious.net/wp-content/uploads/2026/03/251218_DD_Lemon-Butter-Fish_268-768x1152.jpg",
+      "icon": "🐟",
+      "tags": [
+        "Skillet Dinner"
+      ],
+      "meta": "20 min · Stovetop · Serves 4",
+      "ingredients": [
+        "½ cup cold salted butter sliced",
+        "1 clove garlic minced",
+        "1 tablespoon lemon zest",
+        "1 tablespoon freshly squeezed lemon juice",
+        "2 tablespoons chopped fresh parsley leaves",
+        "1 ¼ pounds orange roughy, snapper, sole, or rock fish fillets",
+        "Kosher salt and freshly ground black pepper to taste",
+        "½ cup all-purpose flour",
+        "4 tablespoons vegetable oil",
+        "4 wedges lemon"
+      ],
+      "steps": [
+        "Melt butter in a medium saucepan over medium heat, stirring frequently until melted and foam has subsided, about 3-4 minutes. Stir in garlic until fragrant, about 30 seconds.",
+        "Remove from heat; stir in lemon zest, lemon juice and parsley. Set aside.",
+        "Season fish with salt and pepper; to taste. Dredge fish in flour until evenly coated, shaking off excess flour.",
+        "Heat 2 tablespoons vegetable oil in a large nonstick skillet over medium high heat. Working in batches, add fish to the skillet in a single layer and cook until golden brown and cooked through, about 2-4 minutes per side.",
+        "Serve immediately, drizzled with butter and garnished with lemon wedges, if desired."
+      ],
+      "note": "",
+      "source": "https://damndelicious.net/2026/05/29/lemon-butter-fish/",
+      "recipe": true
+    },
+    {
+      "key": "5f2c835b7994",
+      "id": "explore-5f2c835b7994",
+      "url": "https://smittenkitchen.com/2026/05/chicken-salad-for-celery-enthusiasts/",
+      "site": "Smitten Kitchen",
+      "sourceId": "smittenkitchen",
+      "published": "2026-05-20T15:22:28.000Z",
+      "fetched": "2026-10-18T19:13:37.842Z",
+      "name": "Chicken Salad for Celery Enthusiasts",
+      "image": "https://i0.wp.com/smittenkitchen.com/wp-content/uploads/2026/05/chicken-salad-for-celery-enthusiasts-07-scaled.jpg?fit=1200%2C800&quality=89&ssl=1",
+      "icon": "🥗",
+      "tags": [
+        "Salad"
+      ],
+      "meta": "Sheet pan · Serves 6",
+      "ingredients": [
+        "2 bone-in skin-on chicken breasts (about 2 pounds)",
+        "Olive oil",
+        "Kosher salt",
+        "Freshly ground black pepper",
+        "3 to 4 large ribs celery, diced small (about 1 ½ cups)",
+        "3 scallions, all parts, minced",
+        "1 tablespoon (15 grams) smooth Dijon mustard, plus more to taste",
+        "3 tablespoons (40 grams) mayonnaise, plus more to taste"
+      ],
+      "steps": [
+        "Heat oven to 350°F (176°C). Coat chicken breasts lightly in olive oil and season generously on both sides with salt and freshly ground black pepper. Place in a baking pan (ideally one that can collect juices) and roast for 40 to 45 minutes (use less time for smaller pieces), until the internal temperature reaches 150°F–155°F (65°C–68°C). Let cool to room temperature.",
+        "Remove meat from chicken breasts and cut into ¾-inch (2-cm) pieces. Place in a large bowl and season with salt and freshly ground black pepper. I pour any juices/drippings from the baking pan back over the chicken here too. Add celery and scallions and stir to combine.",
+        "Dollop the Dijon mustard into the bowl and stir so that it’s distributed over the chicken and vegetables. Add the mayo and stir to combine. Season with additional salt, if needed, and more grinds of black pepper. Add more Dijon or mayo to taste.",
+        "→ If you’d like to make crispy skin pieces for your sandwiches, flatten the skin as much as possible on a baking sheet, season with a couple more pinches of salt, and bake in a 400°F (205°C) oven for 5 to 10 minutes, keeping an eye on it, until it’s darker in color and mostly crisp throughout. Cut into strips."
+      ],
+      "note": "",
+      "source": "https://smittenkitchen.com/2026/05/chicken-salad-for-celery-enthusiasts/",
+      "recipe": true
+    },
+    {
+      "key": "39c0783200f2",
+      "id": "explore-39c0783200f2",
+      "url": "https://damndelicious.net/2026/05/17/easy-memorial-day-recipes-to-feed-any-crowd/",
+      "site": "Damn Delicious",
+      "sourceId": "damndelicious",
+      "published": "2026-05-18T04:00:00.000Z",
+      "fetched": "2026-10-18T19:13:37.842Z",
+      "name": "30+ Easy Memorial Day Recipes to Feed Any Crowd",
+      "image": "https://damndelicious.net/wp-content/uploads/2018/06/260401_DD_maple-rosemary-grilled-chk_732-768x1152.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
+      "key": "bac1ff0ecd00",
+      "id": "explore-bac1ff0ecd00",
+      "url": "https://damndelicious.net/2026/05/15/simple-side-salad/",
+      "site": "Damn Delicious",
+      "sourceId": "damndelicious",
+      "published": "2026-05-16T04:00:00.000Z",
+      "fetched": "2026-10-18T19:13:37.842Z",
+      "name": "Simple Side Salad",
+      "image": "https://damndelicious.net/wp-content/uploads/2026/03/250925_DD_Simple-Side-Salad_346-768x1152.jpg",
+      "icon": "🥗",
+      "tags": [
+        "Salad",
+        "Italian"
+      ],
+      "meta": "30 min · Sheet pan · Serves 6",
+      "ingredients": [
+        "3 tablespoons extra-virgin olive oil",
+        "2 tablespoons chopped fresh parsley leaves",
+        "½ teaspoon garlic powder",
+        "Kosher salt and freshly ground black pepper to taste",
+        "4 cups ciabatta, baguette or sourdough bread cubes",
+        "½ cup extra-virgin olive oil",
+        "3 tablespoons red wine vinegar",
+        "2 teaspoons Dijon mustard",
+        "¾ teaspoon dried oregano",
+        "1 head romaine lettuce roughly chopped",
+        "1 cup halved cherry tomatoes",
+        "2 Persian cucumbers sliced",
+        "1 carrot grated",
+        "¼ small onion thinly sliced",
+        "⅓ cup sliced toasted almonds",
+        "⅓ cup freshly grated Parmesan"
+      ],
+      "steps": [
+        "Preheat the oven to 400 degrees F.",
+        "In a small bowl, whisk together olive oil, parsley and garlic powder; season with salt and pepper, to taste.",
+        "Spread bread cubes in a single layer on a baking sheet. Stir in olive oil mixture and gently toss to combine. Place into oven and bake until crisp and golden, about 13-15 minutes; set aside.",
+        "In a medium bowl, whisk olive oil, vinegar, Dijon, oregano and garlic powder; season with salt and pepper, to taste.",
+        "To assemble the salad, place romaine in a large bowl; top with tomatoes, cucumbers, carrot, onion, almonds, Parmesan and croutons. Pour half the dressing on top of the salad and gently toss to combine. Serve with remaining dressing, if desired."
+      ],
+      "note": "",
+      "source": "https://damndelicious.net/2026/05/15/simple-side-salad/",
+      "recipe": true
+    }
+  ]
+}

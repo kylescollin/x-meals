@@ -45,7 +45,13 @@
     { key: 'cuisine', title: 'Cuisine', tags: [
       'Italian', 'Mexican', 'American', 'Asian', 'Indian', 'Mediterranean',
       'Middle Eastern', 'Cajun', 'French'
-    ] }
+    ] },
+    // Where a recipe came from. "Explore" marks one saved from the Explore
+    // feed, so the Recipes filter panel can show or hide them as a group.
+    // picker:false keeps it out of the add/edit form's dropdowns — it isn't
+    // something to choose, it's something a recipe arrives with — and
+    // keptTags() carries it through an edit untouched.
+    { key: 'origin', title: 'Found via', tags: ['Explore'], picker: false }
   ];
 
   // tag → family key, for anything in the vocabulary; 'custom' otherwise.
@@ -207,6 +213,8 @@
     if (!src || thumb.classList.contains('has-photo')) return;
     var img = document.createElement('img');
     img.alt = '';
+    // Covers can be links to a blog's photo; some CDNs refuse a foreign referrer.
+    img.referrerPolicy = 'no-referrer';
     img.src = src;
     thumb.appendChild(img);
     thumb.classList.add('has-photo');
@@ -696,6 +704,18 @@
       '.rc-rd-cook-fab{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:5;display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--cream);border:none;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:15px;font-weight:600;letter-spacing:.02em;padding:15px 34px;cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 8px 24px rgba(20,19,17,.35);transition:transform .12s,background .15s;}',
       '.rc-rd-cook-fab:active{transform:translateX(-50%) scale(.96);background:#333;}',
       '.rc-rd-cook-fab svg{width:14px;height:14px;fill:currentColor;}',
+      // External (Explore) preview: a Save bar instead of the Cook pill, and
+      // everything that would write under this recipe's id put away.
+      '.rc-rd-ext-bar{display:none;}',
+      '.rc-rd-external .rc-rd-ext-bar{display:flex;position:absolute;left:0;right:0;bottom:0;z-index:5;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--cream);border-top:1px solid var(--border);}',
+      '.rc-rd-ext-save,.rc-rd-ext-hide{flex:1;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;padding:13px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}',
+      '.rc-rd-ext-save{flex:1.6;background:var(--accent);color:#fff;border:none;}',
+      '.rc-rd-ext-save:active{transform:scale(.97);background:#b3581f;}',
+      '.rc-rd-ext-save:disabled{background:var(--accent-light);color:var(--accent);cursor:default;}',
+      '.rc-rd-ext-hide{background:#fff;color:var(--ink);border:1.5px solid var(--border);}',
+      '.rc-rd-ext-hide:active{transform:scale(.97);background:#f0ece5;}',
+      '.rc-rd-external #rc-rd-cook,.rc-rd-external .rc-rd-more-wrap,.rc-rd-external .rc-cm-section,.rc-rd-external #rc-rd-hero-edit,.rc-rd-external #rc-rd-hero-count,.rc-rd-external .rc-rd-hero-cta{display:none;}',
+      '.rc-rd-external .rc-rd-hero{cursor:default;}',
       '.rc-rd-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 20px calc(104px + env(safe-area-inset-bottom,0px));}',
       '.rc-rd-inner{max-width:640px;margin:0 auto;}',
       '.rc-rd-note{margin-bottom:20px;padding:11px 14px;background:var(--accent-light);border-radius:8px;font-size:13px;color:#7a4520;line-height:1.5;}',
@@ -1026,6 +1046,11 @@
           '</div>',
         '</div>',
         '<button class="rc-rd-cook-fab" id="rc-rd-cook"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Cook</button>',
+        // Only shown for an external (Explore) recipe — see openDetail.
+        '<div class="rc-rd-ext-bar" id="rc-rd-ext-bar">',
+          '<button class="rc-rd-ext-hide" id="rc-rd-ext-hide" type="button">Not for us</button>',
+          '<button class="rc-rd-ext-save" id="rc-rd-ext-save" type="button">Save to my recipes</button>',
+        '</div>',
       '</div>',
 
       // ── Photo action sheet + hidden file inputs
@@ -1123,6 +1148,9 @@
   var rdEl      = null;
   var inEditMode = false;
   var inAddMode  = false;
+  // Set while an external recipe — one from the Explore feed, not yet ours —
+  // is open. See openDetail.
+  var externalOpts = null;
 
   function refreshSaveUI(id) {
     // Save/Remove now lives in the ⋯ menu. Core recipes are already in the
@@ -1130,7 +1158,8 @@
     var saveOpt = document.getElementById('rc-rd-menu-save');
     var labelEl = document.getElementById('rc-rd-menu-save-label');
     if (!saveOpt || !labelEl) return;
-    if (isCore(id)) {
+    // An external recipe has its own Save bar; two Saves would be one too many.
+    if (externalOpts || isCore(id)) {
       saveOpt.style.display = 'none';
     } else {
       saveOpt.style.display = '';
@@ -1188,9 +1217,18 @@
     catch (e) { return 'the original recipe'; }
   }
 
-  function openDetail(r, weekOf) {
+  /**
+   * Open a recipe. `opts.external` marks a recipe that isn't ours yet — an
+   * item from the Explore feed. It's a preview: no /recipe-edits overlay, no
+   * notes, no photo bucket (its id is explore-<key>, and nothing may write
+   * under that), the feed's photo as the hero, and a Save bar in place of the
+   * ⋯ menu. `opts.onSave(recipe)` and `opts.onHide(recipe)` are the page's.
+   */
+  function openDetail(r, weekOf, opts) {
+    externalOpts = (opts && opts.external) ? opts : null;
+    rdEl.classList.toggle('rc-rd-external', !!externalOpts);
     var id     = idOf(r);
-    var edit   = recipeEdits[fbSafeKey(id)];
+    var edit   = externalOpts ? null : recipeEdits[fbSafeKey(id)];
     curR = edit ? Object.assign({}, r, edit) : r;
 
     renderDetailBody(curR);
@@ -1199,9 +1237,20 @@
     currentRecipeId = fbSafeKey(id);
     // Notes posted from here are stamped with the week this card belongs to.
     currentWeekOf = weekOf || defaultWeekOf;
-    loadPhoto(currentRecipeId);
-    loadComments(currentRecipeId);
-    refreshHeroCount(currentRecipeId);
+    if (externalOpts) {
+      renderHero(r.image || null);
+      // Already in the collection (the other phone saved it, say): the bar
+      // says so instead of offering to save it twice.
+      var extSave = document.getElementById('rc-rd-ext-save');
+      if (extSave) {
+        extSave.textContent = externalOpts.saved ? 'Saved to your recipes' : 'Save to my recipes';
+        extSave.disabled = !!externalOpts.saved;
+      }
+    } else {
+      loadPhoto(currentRecipeId);
+      loadComments(currentRecipeId);
+      refreshHeroCount(currentRecipeId);
+    }
     var cmTa = document.getElementById('rc-cm-textarea');
     if (cmTa) cmTa.value = '';
     clearComposerPhotos();
@@ -1222,6 +1271,8 @@
   }
 
   function closeDetail() {
+    externalOpts = null;
+    if (rdEl) rdEl.classList.remove('rc-rd-external');
     if (inEditMode) exitEditMode();
     if (inAddMode) exitAddMode();
     closeMoreMenu();
@@ -1249,7 +1300,7 @@
     if (src) {
       hero.classList.remove('empty');
       hero.classList.add('has-photo');
-      media.innerHTML = '<img src="' + escAttr(src) + '" alt="">';
+      media.innerHTML = '<img src="' + escAttr(src) + '" alt="" referrerpolicy="no-referrer">';
     } else {
       hero.classList.remove('has-photo');
       hero.classList.add('empty');
@@ -1818,6 +1869,7 @@
     // Tapping the image browses your photos; changing the cover is the small
     // camera button. With no photos yet, the whole hero is the "add" target.
     hero.addEventListener('click', function (e) {
+      if (externalOpts) return;                            // a preview: look, don't touch
       if (e.target.closest('#rc-rd-hero-edit')) return;   // handled below
       galleryKeysWithCover(currentRecipeId).then(function (keys) {
         if (keys.length) openGallery(curR, { safeId: currentRecipeId });
@@ -1891,6 +1943,7 @@
       if (!picked[fam]) picked[fam] = t;
     });
     TAG_FAMILIES.forEach(function (fam) {
+      if (fam.picker === false) return;      // no dropdown to park it in
       if (!picked[fam.key] && spare.length) picked[fam.key] = spare.shift();
     });
     return picked;
@@ -1898,7 +1951,7 @@
 
   function buildTagPickerHTML(tags) {
     var picked = tagsByFamily(tags);
-    var cols = TAG_FAMILIES.map(function (fam) {
+    var cols = TAG_FAMILIES.filter(function (f) { return f.picker !== false; }).map(function (fam) {
       var cur = picked[fam.key] || '';
       // A tag already on this recipe but not in the vocabulary still needs an
       // option to sit in, or the dropdown would quietly reset it to nothing.
@@ -2278,13 +2331,26 @@
     return sortTags(tags);
   }
 
+  // Tags from families with no dropdown (see TAG_FAMILIES) ride through an
+  // edit untouched — the picker can neither show nor drop them. Add mode has
+  // nothing to keep.
+  function keptTags() {
+    if (inAddMode || !curR) return [];
+    return tagsFor(curR).filter(function (t) {
+      var fam = TAG_FAMILIES.filter(function (f) { return f.key === familyOf(t); })[0];
+      return !!fam && fam.picker === false;
+    });
+  }
+
   // Read all fields from the mounted recipe form.
   function readRecipeForm() {
     var iconEl = document.getElementById('rc-rd-ef-icon');
+    var tags = readTagPicker();
+    keptTags().forEach(function (t) { if (tags.indexOf(t) === -1) tags.push(t); });
     return {
       icon:     iconEl ? iconEl.value.trim() : '',
       name:     document.getElementById('rc-rd-ef-title').value.trim(),
-      tags:     readTagPicker(),
+      tags:     sortTags(tags),
       meta:     document.getElementById('rc-rd-ef-meta').value.trim(),
       ings:     document.getElementById('rc-rd-ef-ings').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean),
       steps:    document.getElementById('rc-rd-ef-steps').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean),
@@ -2444,6 +2510,46 @@
     return core;
   }
 
+  // Save a new recipe from an object — the add form and the Explore tab both
+  // end up here. `r` may carry `image` (an https URL, which becomes the
+  // cover) and `source` (the page it came from). Resolves with the saved
+  // recipe once the commit lands; rejects if the commit failed, but by then
+  // the Firebase save has already happened, so nothing is lost either way.
+  function saveRecipeObject(r) {
+    // Unique id: slug of the name, with a numeric suffix on collision.
+    var baseId = idOf({ name: r.name });
+    var id = baseId, n = 2;
+    while (isCore(id) || isSaved(id)) { id = baseId + '-' + n; n++; }
+
+    var ings = r.ingredients || r.ings || [];
+    var recipe = {
+      id:          id,
+      icon:        r.icon || '🍽️',
+      name:        r.name,
+      meta:        r.meta || '',
+      tags:        sortTags(r.tags || []),
+      ingredients: ings,
+      ings:        ings,
+      steps:       r.steps || []
+    };
+    if (r.note) recipe.note = r.note;
+    if (r.source) recipe.source = r.source;
+
+    // Persist to Firebase + insert the card via the existing save flow.
+    // (Instant, syncs between accounts, and is the safe fallback if the
+    // git commit below fails.)
+    toggleSave(id, recipe);
+
+    // The photo that came with the recipe becomes the cover, through the same
+    // path as pasting an image URL by hand. Best-effort — a recipe with no
+    // cover is just a recipe waiting for its first cook-log photo.
+    if (r.image) savePhoto(r.image, fbSafeKey(id));
+
+    // Also commit into data/recipes.json so it becomes a permanent recipe
+    // that Agent X can see. Lands ~1 min later (after GitHub Pages rebuilds).
+    return commitRecipeToCore(toCoreRecipe(recipe)).then(function () { return recipe; });
+  }
+
   function saveNewRecipe() {
     var f = readRecipeForm();
     if (!f.name) {
@@ -2455,42 +2561,17 @@
       return;
     }
 
-    // Unique id: slug of the name, with a numeric suffix on collision.
-    var baseId = idOf({ name: f.name });
-    var id = baseId, n = 2;
-    while (isCore(id) || isSaved(id)) { id = baseId + '-' + n; n++; }
-
-    var recipe = {
-      id:          id,
-      icon:        f.icon || '🍽️',
-      name:        f.name,
-      meta:        f.meta,
-      tags:        f.tags,
-      ingredients: f.ings,
-      ings:        f.ings,
-      steps:       f.steps
-    };
-    if (f.note) recipe.note = f.note;
-    if (pendingSource) recipe.source = pendingSource;
-
-    // Persist to Firebase + insert the card via the existing save flow.
-    // (Instant, syncs between accounts, and is the safe fallback if the
-    // git commit below fails.)
-    toggleSave(id, recipe);
-
-    // The photo scraped from the imported page becomes the cover, through the
-    // same path as pasting an image URL by hand. Best-effort — a recipe with no
-    // cover is just a recipe waiting for its first cook-log photo.
-    if (pendingCover) savePhoto(pendingCover, fbSafeKey(id));
+    var saving = saveRecipeObject({
+      icon: f.icon, name: f.name, meta: f.meta, tags: f.tags, ings: f.ings,
+      steps: f.steps, note: f.note, source: pendingSource, image: pendingCover
+    });
 
     exitAddMode();
     closeDetail();
 
-    // Also commit into data/recipes.json so it becomes a permanent recipe
-    // that Agent X can see. Lands ~1 min later (after GitHub Pages rebuilds).
-    commitRecipeToCore(toCoreRecipe(recipe)).catch(function (err) {
+    saving.catch(function (err) {
       console.warn('Recipe saved to Firebase but not committed to recipes.json:', err);
-      alert('"' + recipe.name + '" was saved and synced, but couldn’t be added to your permanent recipe list just now. It will still show up for you and Josephine. You can try adding it again later to make it permanent.');
+      alert('"' + f.name + '" was saved and synced, but couldn’t be added to your permanent recipe list just now. It will still show up for you and Josephine. You can try adding it again later to make it permanent.');
     });
   }
 
@@ -3091,6 +3172,12 @@
       document.getElementById('rc-rd-save-edit').addEventListener('click', function () {
         if (inAddMode) saveNewRecipe(); else saveRecipeEdit();
       });
+      document.getElementById('rc-rd-ext-save').addEventListener('click', function () {
+        if (externalOpts && externalOpts.onSave) externalOpts.onSave(curR);
+      });
+      document.getElementById('rc-rd-ext-hide').addEventListener('click', function () {
+        if (externalOpts && externalOpts.onHide) externalOpts.onHide(curR);
+      });
       document.getElementById('rc-cm-post').addEventListener('click', function () {
         if (currentRecipeId) submitComment(currentRecipeId);
       });
@@ -3262,6 +3349,11 @@
     openDetail: openDetail,
     closeDetail: closeDetail,
     openAddForm: openAddForm,
+
+    /** Save a recipe object into the collection, exactly as the add form
+     *  does: minted id, Firebase, cover from `image`, commit to
+     *  data/recipes.json. Returns a promise of the saved recipe. */
+    saveRecipe: saveRecipeObject,
 
     /** The saved /recipe-edits overlay entry for a recipe id, or null. The
      *  meal picker uses this so a just-edited recipe embeds its edited

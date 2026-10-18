@@ -21,6 +21,10 @@
 - **Timeline view** — The old Journal, folded into the week page as a second view. Same cards and
   cook-log blocks, loading each week as you scroll to it.
 - **Line icons** — A local Lucide subset (`icons.js`) drives the week header and the nav tabs.
+- **Explore** — A third tab: a photo grid of new recipes pulled from nine food blogs every morning,
+  read with the same parser as the import button. One tap saves one into the collection with an
+  `Explore` tag; "Not for us" hides it for both of you. Static JSON in `data/explore/`, no API,
+  no cost.
 
 ---
 
@@ -40,6 +44,17 @@ Recipe icons (🌶️ 🥘 🍜) should stay emoji — they're content, not chro
 Every page carries its own copy of the reset, the body rules, the header block and the bottom-sheet
 styles. `theme.css` holds only the colour tokens. Pulling the shared components out would make
 changes like the header rework a one-file edit instead of a four-file one.
+
+### Explore, next
+- **Picks for you** — a short strip at the top ranked by Claude from the pool, against what the
+  family actually cooks. The daily job already has everything it needs; this is one scoped call.
+- **Back catalogs** — the blogs that allow it publish sitemaps listing every post (Budget Bytes
+  alone has ~3,000). A one-off `--backfill <sourceId>` would seed thousands into the pool.
+- **Share into Explore** — point the iOS Shortcut at the feed instead of importing straight away,
+  so anything spotted on Instagram or Safari lands in the grid to decide on later.
+- **Blocked blogs** — Cookie and Kate, Gimme Some Oven, Two Peas, Half Baked Harvest and The Woks
+  of Life refuse scripts and ship summary-only feeds. If any of them ever carries its recipe card in
+  the feed again, it's one line in `data/explore/sources.json` to bring back.
 
 ### Family Hub Expansion
 More pages on the same Firebase backend — home projects, trip planning, shared lists. Each is a new

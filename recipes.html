@@ -246,6 +246,8 @@ var FILTER_GROUPS = [
     values:function(f) { return tagsInFamily(f, 'dish'); } },
   { key:'cuisine', title:'Cuisine',
     values:function(f) { return tagsInFamily(f, 'cuisine'); } },
+  { key:'origin',  title:'Found via',
+    values:function(f) { return tagsInFamily(f, 'origin'); } },
   { key:'custom',  title:'Your tags',
     values:function(f) { return tagsInFamily(f, 'custom'); } },
   { key:'time',    title:'Total time', fixed:TIME_BUCKETS.map(function(b) { return b.label; }),
