@@ -47,7 +47,8 @@
       ],
       "note": "",
       "source": "https://smittenkitchen.com/2026/08/peach-cobbler-loaf/",
-      "recipe": true
+      "recipe": true,
+      "course": "dessert"
     },
     {
       "key": "a0c6c4ae83bd",
@@ -90,7 +91,8 @@
       ],
       "note": "",
       "source": "https://pinchofyum.com/peanut-chicken-with-ginger-slaw",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "bad4b1e8279c",
@@ -135,7 +137,8 @@
       ],
       "note": "",
       "source": "https://damndelicious.net/2026/08/21/honey-bbq-chicken-bites/",
-      "recipe": true
+      "recipe": true,
+      "course": "side"
     },
     {
       "key": "0c2cac7679a1",
@@ -148,7 +151,7 @@
       "name": "cucumber salad with sesame and rice vinegar",
       "image": "https://i0.wp.com/smittenkitchen.com/wp-content/uploads/2026/08/cucumber-salad-with-sesame-7-scaled.jpg?fit=640%2C427&amp;quality=89&amp;ssl=1",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "b6c3aad24f5f",
@@ -161,7 +164,7 @@
       "name": "30+ Easy Grilling Recipes for Summer",
       "image": "https://damndelicious.net/wp-content/uploads/2023/05/230125_DD_Grilled-BBQ-Chx_349-768x1152.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     }
   ]
 }

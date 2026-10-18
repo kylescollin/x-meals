@@ -37,7 +37,8 @@
       ],
       "note": "",
       "source": "https://damndelicious.net/2026/05/29/lemon-butter-fish/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "5f2c835b7994",
@@ -72,7 +73,8 @@
       ],
       "note": "",
       "source": "https://smittenkitchen.com/2026/05/chicken-salad-for-celery-enthusiasts/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "39c0783200f2",
@@ -85,7 +87,7 @@
       "name": "30+ Easy Memorial Day Recipes to Feed Any Crowd",
       "image": "https://damndelicious.net/wp-content/uploads/2018/06/260401_DD_maple-rosemary-grilled-chk_732-768x1152.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "bac1ff0ecd00",
@@ -130,7 +132,8 @@
       ],
       "note": "",
       "source": "https://damndelicious.net/2026/05/15/simple-side-salad/",
-      "recipe": true
+      "recipe": true,
+      "course": "side"
     }
   ]
 }

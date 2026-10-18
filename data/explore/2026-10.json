@@ -53,7 +53,8 @@
       ],
       "note": "",
       "source": "https://www.budgetbytes.com/italian-wedding-soup/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "eb492445d68e",
@@ -97,7 +98,8 @@
       ],
       "note": "",
       "source": "https://www.themediterraneandish.com/steak-au-poivre/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "0ab91be72479",
@@ -126,7 +128,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/best-roasted-brussels-sprouts",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "fdcfdc7dc9c3",
@@ -139,7 +142,7 @@
       "name": "7 Day High Protein Diet Meal Plan",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/10/Week_563_Oct-19-Oct-25_High-Protein-600x750.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "140cc755ed5a",
@@ -194,7 +197,8 @@
       ],
       "note": "",
       "source": "https://www.budgetbytes.com/apple-spice-cake/",
-      "recipe": true
+      "recipe": true,
+      "course": "dessert"
     },
     {
       "key": "2690b541876e",
@@ -238,7 +242,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/cider-braised-sausage-lentils",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "f2d0de0cd966",
@@ -312,7 +317,8 @@
       ],
       "note": "",
       "source": "https://www.recipetineats.com/mille-feuille-recipe/",
-      "recipe": true
+      "recipe": true,
+      "course": "dessert"
     },
     {
       "key": "da0d4a72c896",
@@ -356,7 +362,8 @@
       ],
       "note": "",
       "source": "https://www.skinnytaste.com/chicken-curry-with-coconut-milk-43-pts/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "174d463eb451",
@@ -403,7 +410,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/creamy-miso-mushroom-pasta",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "12968097de42",
@@ -444,7 +452,8 @@
       ],
       "note": "",
       "source": "https://www.skinnytaste.com/pumpkin-cornbread-muffins/",
-      "recipe": true
+      "recipe": true,
+      "course": "breakfast"
     },
     {
       "key": "b32d67d2ef87",
@@ -485,7 +494,8 @@
       ],
       "note": "",
       "source": "https://www.budgetbytes.com/baked-chicken-breast/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "1d885c40e050",
@@ -525,7 +535,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/bas-best-chocolate-chip-cookies",
-      "recipe": true
+      "recipe": true,
+      "course": "dessert"
     },
     {
       "key": "b8f638d18409",
@@ -538,7 +549,7 @@
       "name": "13 Easy Meatloaf Recipes for Weeknight Dinners",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2020/10/Meatloaf-and-Gravy-8.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "0204e74065ca",
@@ -577,7 +588,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/mussels-garlicky-miso-broth",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "6a22f9d834e2",
@@ -619,7 +631,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/maple-bourbon-chicken-brussels-sprouts",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "1de7aac4db64",
@@ -660,7 +673,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/butternut-pasta-sausage-dates",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "53c3d7504ef3",
@@ -709,7 +723,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/garlic-steak-bites-spinach-couscous",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "668af714b0fe",
@@ -761,7 +776,8 @@
       ],
       "note": "",
       "source": "https://www.budgetbytes.com/crockpot-chili/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "2764031d563a",
@@ -803,7 +819,8 @@
       ],
       "note": "",
       "source": "https://www.themediterraneandish.com/greek-lentil-soup-fakes/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "b9144e3e2c2d",
@@ -849,7 +866,8 @@
       ],
       "note": "",
       "source": "https://www.wellplated.com/taco-rice/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "f11bcd49097e",
@@ -888,7 +906,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/schmaltzy-chicken-stuffing-skillet",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "1a81fbb46188",
@@ -940,7 +959,8 @@
       ],
       "note": "",
       "source": "https://www.recipetineats.com/baked-macaroni-cheese-with-chicken-broccoli-one-pot/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "048c2603265d",
@@ -973,7 +993,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/fricoed-brussels-sprouts",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "2a0c340ddeb5",
@@ -986,7 +1007,7 @@
       "name": "Best Pumpkin Recipes",
       "image": "https://www.budgetbytes.com/wp-content/uploads/2022/10/Pumpkin-Recipes-Collage.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "ea3ef2f4ad06",
@@ -1036,7 +1057,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/toasted-meringue-hazelnut-blondies",
-      "recipe": true
+      "recipe": true,
+      "course": "dessert"
     },
     {
       "key": "ff411542394a",
@@ -1087,7 +1109,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/bas-best-bolognese",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "af4e14eb15df",
@@ -1130,7 +1153,8 @@
       ],
       "note": "",
       "source": "https://pinchofyum.com/apple-streusel-meal-prep-muffins",
-      "recipe": true
+      "recipe": true,
+      "course": "breakfast"
     },
     {
       "key": "1628d6d0412d",
@@ -1143,7 +1167,7 @@
       "name": "How Long to Cook a Turkey",
       "image": "https://www.wellplated.com/wp-content/uploads/2022/10/turkey-cooking-times-and-temperatures.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "63615c264fee",
@@ -1156,7 +1180,7 @@
       "name": "Free 7 Day Healthy Meal Plan (Oct 12-18)",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/10/Week_562_Oct-12-Oct-18-600x750.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "d97dec466131",
@@ -1208,7 +1232,8 @@
       ],
       "note": "",
       "source": "https://www.budgetbytes.com/coconut-curry-beans-and-greens/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "58198b588bd8",
@@ -1250,7 +1275,8 @@
       ],
       "note": "",
       "source": "https://www.themediterraneandish.com/pan-de-cristal-glass-bread/",
-      "recipe": true
+      "recipe": true,
+      "course": "other"
     },
     {
       "key": "01eee05ef81b",
@@ -1308,7 +1334,8 @@
       ],
       "note": "",
       "source": "https://www.recipetineats.com/slow-cooked-lamb-ragu-pasta/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "872a202d27fb",
@@ -1343,7 +1370,8 @@
       ],
       "note": "",
       "source": "https://www.skinnytaste.com/delightfully-baked-apples/",
-      "recipe": true
+      "recipe": true,
+      "course": "dessert"
     },
     {
       "key": "d58a86574999",
@@ -1356,7 +1384,7 @@
       "name": "19 Healthy Ground Beef Recipes You'll Come Back To",
       "image": "https://assets.bonappetit.com/photos/65bbf89e2c3c1e1bdd2c7f0d/master/pass/2023-12-14-BA-Sizzle_GBeef-059.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "f6e07b70fdd7",
@@ -1400,7 +1428,8 @@
       ],
       "note": "",
       "source": "https://www.bonappetit.com/recipe/spiced-beef-baked-potatoes",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "ac5b47a2f027",
@@ -1441,7 +1470,8 @@
       ],
       "note": "",
       "source": "https://www.wellplated.com/onion-tart/",
-      "recipe": true
+      "recipe": true,
+      "course": "side"
     },
     {
       "key": "c78fccd8119f",
@@ -1454,7 +1484,7 @@
       "name": "29 Green Bean Recipes That’ll Make Other Veggies Envious",
       "image": "https://assets.bonappetit.com/photos/67042bc229540ff7f25c2c55/master/pass/1124_Reasons%20to%20Love%20Thanksgiving_Joe%20Lingeman_008.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "6dd251bdfd95",
@@ -1495,7 +1525,8 @@
       ],
       "note": "",
       "source": "https://www.skinnytaste.com/bacon-wrapped-pork-tenderloin/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "9d0d16b76799",
@@ -1543,7 +1574,8 @@
       ],
       "note": "",
       "source": "https://www.budgetbytes.com/savory-pumpkin-fritters/",
-      "recipe": true
+      "recipe": true,
+      "course": "side"
     },
     {
       "key": "ced7411e8a49",
@@ -1592,7 +1624,8 @@
       ],
       "note": "",
       "source": "https://www.recipetineats.com/creamy-sausage-gnocchi-soup/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "51d97af831bc",
@@ -1625,7 +1658,8 @@
       ],
       "note": "",
       "source": "https://www.skinnytaste.com/cacio-e-pepe-peas/",
-      "recipe": true
+      "recipe": true,
+      "course": "side"
     },
     {
       "key": "d665d53427f0",
@@ -1666,7 +1700,8 @@
       ],
       "note": "",
       "source": "https://www.budgetbytes.com/crockpot-mac-and-cheese/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "5ac57da62213",
@@ -1717,7 +1752,8 @@
       ],
       "note": "",
       "source": "https://www.themediterraneandish.com/turkish-pasta/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "2fe9289c2419",
@@ -1764,7 +1800,8 @@
       ],
       "note": "",
       "source": "https://www.wellplated.com/buffalo-chicken-pasta/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "13a468b3f1be",
@@ -1811,7 +1848,8 @@
       ],
       "note": "",
       "source": "https://www.budgetbytes.com/greek-chicken-soup/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "87667c2f5af0",
@@ -1824,7 +1862,7 @@
       "name": "7 Day High Protein Diet Meal Plan",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/10/Week_561_Oct-5-Oct-11_High-Protein-600x750.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "e0a0522b1c8a",
@@ -1876,7 +1914,8 @@
       ],
       "note": "",
       "source": "https://www.budgetbytes.com/pumpkin-curry/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "95da5391e125",
@@ -1919,7 +1958,8 @@
       ],
       "note": "",
       "source": "https://www.skinnytaste.com/maple-dijon-sheet-pan-chicken/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "2f46a05b21ca",
@@ -1958,7 +1998,8 @@
       ],
       "note": "",
       "source": "https://pinchofyum.com/pastina-soup-italian-penicillin",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     }
   ]
 }

@@ -33,7 +33,8 @@
       ],
       "note": "",
       "source": "https://smittenkitchen.com/2026/07/spaghetti-aglio-e-olio/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "a286526bcfbc",
@@ -80,7 +81,8 @@
       ],
       "note": "",
       "source": "https://damndelicious.net/2026/07/24/marry-me-chicken/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "a5f84386e78c",
@@ -108,7 +110,8 @@
       ],
       "note": "",
       "source": "https://smittenkitchen.com/2026/07/house-lemonade/",
-      "recipe": true
+      "recipe": true,
+      "course": "drink"
     },
     {
       "key": "7c7d54584760",
@@ -144,7 +147,8 @@
       ],
       "note": "",
       "source": "https://smittenkitchen.com/2026/07/hot-dogs-with-vinegared-iceberg-and-potato-chips/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     }
   ]
 }

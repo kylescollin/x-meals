@@ -52,7 +52,8 @@
       ],
       "note": "",
       "source": "https://smittenkitchen.com/2026/09/simple-chicken-tacos/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "39b36b7b46d1",
@@ -90,7 +91,8 @@
       ],
       "note": "",
       "source": "https://pinchofyum.com/apple-crisp",
-      "recipe": true
+      "recipe": true,
+      "course": "dessert"
     },
     {
       "key": "e45706c0c0a2",
@@ -146,7 +148,8 @@
       ],
       "note": "",
       "source": "https://www.wellplated.com/taco-pie/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "b160db43ac38",
@@ -193,7 +196,8 @@
       ],
       "note": "",
       "source": "https://www.wellplated.com/ground-chicken-stir-fry/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "8a11d21adf98",
@@ -235,7 +239,8 @@
       ],
       "note": "",
       "source": "https://damndelicious.net/2026/09/18/cheeseburger-sliders/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "f37cb955c666",
@@ -248,7 +253,7 @@
       "name": "36 Healthy Fall Dinners With All The Cozy",
       "image": "https://pinchofyum.com/tachyon/Healthy-Fall-Dinners-scaled.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "c8d82802666f",
@@ -290,7 +295,8 @@
       ],
       "note": "",
       "source": "https://pinchofyum.com/chicken-with-cajun-cream-sauce",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "c0c3b0b3e476",
@@ -330,7 +336,8 @@
       ],
       "note": "",
       "source": "https://www.wellplated.com/upside-down-apple-tart/",
-      "recipe": true
+      "recipe": true,
+      "course": "dessert"
     },
     {
       "key": "1c0bef90ffd4",
@@ -374,7 +381,8 @@
       ],
       "note": "",
       "source": "https://smittenkitchen.com/2026/09/tomato-risotto-with-frizzled-red-onions/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "15b8b11e6598",
@@ -419,7 +427,8 @@
       ],
       "note": "",
       "source": "https://www.wellplated.com/gyro-recipe/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "3460b6ace8f8",
@@ -432,7 +441,7 @@
       "name": "21 Best Cozy Fall Baking Recipes",
       "image": "https://pinchofyum.com/tachyon/Fall-Baking-Recipes-01.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "6903fe25e9db",
@@ -445,7 +454,7 @@
       "name": "30+ Cheap and Easy Dinners",
       "image": "https://damndelicious.net/wp-content/uploads/2018/09/Creamy-Beef-and-ShellsIMG_6408.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "d5f8fd5d8b57",
@@ -477,7 +486,8 @@
       ],
       "note": "",
       "source": "https://damndelicious.net/2026/09/04/air-fryer-chicken/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "af2c6441cc75",

@@ -12,7 +12,7 @@
       "name": "strawberry chiffon shortcake, perfected",
       "image": "https://i0.wp.com/smittenkitchen.com/wp-content/uploads/2026/06/strawberry-chiffon-shortcake-perfected-19-scaled.jpg?fit=640%2C427&amp;quality=89&amp;ssl=1",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "de6221711b8d",
@@ -60,7 +60,8 @@
       ],
       "note": "",
       "source": "https://damndelicious.net/2026/06/12/chicken-fajita-quesadillas/",
-      "recipe": true
+      "recipe": true,
+      "course": "dinner"
     },
     {
       "key": "c2fc0067f11c",
@@ -93,7 +94,8 @@
       ],
       "note": "",
       "source": "https://smittenkitchen.com/2026/06/snow-pea-salad-with-avocado/",
-      "recipe": true
+      "recipe": true,
+      "course": "side"
     }
   ]
 }
