@@ -1789,6 +1789,41 @@
         "Serve with your favorite salsa or hot sauce on the side."
       ],
       "source": "https://recipesbyree.com/recipe/sweet-potato-taco-bowls/#google_vignette"
+    },
+    {
+      "id": "classic-split-pea-soup",
+      "icon": "🍲",
+      "name": "Classic Split Pea Soup",
+      "meta": "1 hr 35 min · Stovetop · Serves 6",
+      "tags": [
+        "Soup",
+        "American"
+      ],
+      "ingredients": [
+        "2 tablespoons extra-virgin olive oil",
+        "1 medium onion (diced)",
+        "3 carrots (diced)",
+        "3 ribs of celery (diced)",
+        "2 garlic cloves (minced)",
+        "1 pound dried split peas (rinsed)",
+        "½ teaspoon dried thyme",
+        "½ teaspoon kosher salt",
+        "½ teaspoon freshly ground black pepper",
+        "1 bay leaf",
+        "1 meaty ham bone (see tips and alternatives above)",
+        "4 cups low-sodium chicken broth",
+        "3 to 4 cups water",
+        "1 cup diced ham (from ham bone or added separately)",
+        "finely chopped fresh parsley, for garnish"
+      ],
+      "steps": [
+        "Heat the oil in a large pot or Dutch oven over medium-high heat. Add the onion, carrots, and celery, and saute for 3 to 4 minutes. Then add the garlic and saute for another minute.",
+        "Add the split peas, thyme, salt, and pepper. Stir together.",
+        "Add the bay leaf, ham bone, chicken broth, and 3 cups of water. Bring to a boil, reduce the heat to a simmer, cover, and cook for 50 to 60 minutes, stirring occasionally, until the soup has thickened and the peas have broken down.",
+        "Using tongs, remove the ham bone to a cutting board and dice the remaining meat (about 1 cup of diced ham), then add it back to the soup. Stir and simmer uncovered for an additional 5 to 15 minutes, or until it's thickened to your liking. If it's too thick, you can add another cup of water. Note that the soup will continue to thicken as it sits, so it's best if it's not overly thick at this stage.",
+        "Discard the bay leaf, ladle the soup into bowls, and garnish with finely chopped fresh parsley and black pepper."
+      ],
+      "source": "https://downshiftology.com/recipes/split-pea-soup/"
     }
   ]
 }
