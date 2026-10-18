@@ -139,7 +139,7 @@
       "name": "7 Day High Protein Diet Meal Plan",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/10/Week_563_Oct-19-Oct-25_High-Protein-600x750.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "140cc755ed5a",
@@ -538,7 +538,7 @@
       "name": "13 Easy Meatloaf Recipes for Weeknight Dinners",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2020/10/Meatloaf-and-Gravy-8.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "0204e74065ca",
@@ -986,7 +986,7 @@
       "name": "Best Pumpkin Recipes",
       "image": "https://www.budgetbytes.com/wp-content/uploads/2022/10/Pumpkin-Recipes-Collage.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "ea3ef2f4ad06",
@@ -1090,6 +1090,49 @@
       "recipe": true
     },
     {
+      "key": "af4e14eb15df",
+      "id": "explore-af4e14eb15df",
+      "url": "https://pinchofyum.com/apple-streusel-meal-prep-muffins",
+      "site": "Pinch of Yum",
+      "sourceId": "pinchofyum",
+      "published": "2026-10-09T16:17:51.000Z",
+      "fetched": "2026-10-18T19:15:31.770Z",
+      "name": "Apple Streusel Meal Prep Muffins",
+      "image": "https://pinchofyum.com/tachyon/Apple-Streusel-Muffins-scaled.jpg",
+      "icon": "🍳",
+      "tags": [
+        "Mediterranean"
+      ],
+      "meta": "33 min · Oven · Serves 16–18",
+      "ingredients": [
+        "1 cup whole milk Greek yogurt",
+        "3 eggs",
+        "3 ½ cups old-fashioned oats (I don’t recommend the Costco sprouted oats or quick oats)",
+        "¾ cup brown sugar, lightly packed",
+        "1 ½ teaspoons baking soda",
+        "1 teaspoon baking powder",
+        "1 teaspoon vanilla",
+        "½ teaspoon cinnamon",
+        "½ teaspoon kosher salt",
+        "2 cups roughly chopped Honeycrisp apples (I did not peel mine)",
+        "4 tablespoons butter, melted",
+        "⅓ cup brown sugar",
+        "½ cup + 3 tablespoons all-purpose flour"
+      ],
+      "steps": [
+        "Prep: Preheat the oven to 350 degrees. Spray a muffin tin with avocado oil.",
+        "Blend: Add ingredients to the blender in order, but leave out the apples for now. Blend in short bursts until it starts to move (you may need to help it along initially). Once it gets going, blend for 15-20 seconds, until mostly smooth. There should still be some flecks of texture, similar to a bran muffin batter.",
+        "Apples: Add the apple chunks; blend again for 15-20 seconds until they are worked into the batter in small flecks.",
+        "Streusel: Mix the streusel ingredients in a small bowl until it resembles small pebbles – I start with a fork, and then mix with my hands. (The batter can rest for 10 minutes during this time.)",
+        "Assemble: Pour batter in the muffin tin – filling each cup ⅔ of the way full, but not all the way to the top. Add a spoonful of streusel on each one. (I typically get 16-17 muffins from this recipe, so I bake in two batches.)",
+        "Bake: Bake for 16-18 minutes, until the tops spring back when gently pressed. Cool for 10-15 minutes so they are easier to remove from the pan. I love eating these warm with a shmear of butter!",
+        "Storing: I put them in a ziplock bag and keep them in the freezer or fridge. To reheat, I pop them in the microwave for 30 seconds (from fridge) or 60 seconds (from frozen)."
+      ],
+      "note": "",
+      "source": "https://pinchofyum.com/apple-streusel-meal-prep-muffins",
+      "recipe": true
+    },
+    {
       "key": "1628d6d0412d",
       "id": "explore-1628d6d0412d",
       "url": "https://www.wellplated.com/how-long-to-cook-a-turkey/",
@@ -1100,7 +1143,7 @@
       "name": "How Long to Cook a Turkey",
       "image": "https://www.wellplated.com/wp-content/uploads/2022/10/turkey-cooking-times-and-temperatures.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "63615c264fee",
@@ -1113,7 +1156,7 @@
       "name": "Free 7 Day Healthy Meal Plan (Oct 12-18)",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/10/Week_562_Oct-12-Oct-18-600x750.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "d97dec466131",
@@ -1313,7 +1356,7 @@
       "name": "19 Healthy Ground Beef Recipes You'll Come Back To",
       "image": "https://assets.bonappetit.com/photos/65bbf89e2c3c1e1bdd2c7f0d/master/pass/2023-12-14-BA-Sizzle_GBeef-059.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "f6e07b70fdd7",
@@ -1411,7 +1454,7 @@
       "name": "29 Green Bean Recipes That’ll Make Other Veggies Envious",
       "image": "https://assets.bonappetit.com/photos/67042bc229540ff7f25c2c55/master/pass/1124_Reasons%20to%20Love%20Thanksgiving_Joe%20Lingeman_008.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "6dd251bdfd95",
@@ -1781,7 +1824,7 @@
       "name": "7 Day High Protein Diet Meal Plan",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/10/Week_561_Oct-5-Oct-11_High-Protein-600x750.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "e0a0522b1c8a",
@@ -1876,6 +1919,45 @@
       ],
       "note": "",
       "source": "https://www.skinnytaste.com/maple-dijon-sheet-pan-chicken/",
+      "recipe": true
+    },
+    {
+      "key": "2f46a05b21ca",
+      "id": "explore-2f46a05b21ca",
+      "url": "https://pinchofyum.com/pastina-soup-italian-penicillin",
+      "site": "Pinch of Yum",
+      "sourceId": "pinchofyum",
+      "published": "2026-10-01T14:58:20.000Z",
+      "fetched": "2026-10-18T19:15:31.770Z",
+      "name": "Pastina Soup (Italian Penicillin)",
+      "image": "https://pinchofyum.com/tachyon/Pastina-Soup-scaled.jpg",
+      "icon": "🍲",
+      "tags": [
+        "Soup",
+        "Italian"
+      ],
+      "meta": "45 min · Stovetop · Serves 6–8",
+      "ingredients": [
+        "2 tablespoons olive oil",
+        "3 large carrots, peeled and cut into large chunks",
+        "2 stalks of celery, cut into large chunks",
+        "half of 1 yellow onion, peeled and cut into large chunks",
+        "4 cloves garlic, peeled and smashed",
+        "10 cups chicken or vegetable broth (I use 10 cups water plus 2 tablespoons Better Than Bouillon chicken base)",
+        "1 teaspoon salt",
+        "1 ½ cups pastina (I use Stelline from the Good and Gather brand at Target)",
+        "freshly grated Parmesan cheese for topping"
+      ],
+      "steps": [
+        "Sauté Veggies: Heat oil in a large Dutch oven over medium-high heat. Add the chunky carrots, celery, onion, and garlic to the pot. Sauté for 5 minutes.",
+        "Simmer: Add broth and salt. Simmer for 30 minutes, until the vegetables are very tender.",
+        "Remove Veggies: Use a slotted spoon to transfer the vegetable chunks to a bowl. Set aside to cool for a few minutes (you don’t want to add scorching hot veggies to your plastic blender).",
+        "Blend: When the veggies have cooled a bit, blend them with 1-2 cups of broth until very smooth. Add the blended mixture back to the pot; stir to incorporate.",
+        "Pastina: Cook pasta according to package directions. Drain and toss with olive oil and a pinch of salt.",
+        "Serve: Put a scoop of pastina in a shallow bowl. Ladle the steaming-hot broth over the top, then top each bowl with freshly grated Parmesan."
+      ],
+      "note": "",
+      "source": "https://pinchofyum.com/pastina-soup-italian-penicillin",
       "recipe": true
     }
   ]
