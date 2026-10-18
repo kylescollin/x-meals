@@ -1706,6 +1706,50 @@
         "To assemble, spread a generous layer of tzatziki on each warm flatbread. Top with the cooked chicken, tomatoes, red onion, olives, and crumbled feta cheese. Serve immediately."
       ],
       "source": "https://crispcrumbs.com/greek-chicken-flatbread"
+    },
+    {
+      "id": "one-pot-broccoli-chicken-mac-and-cheese",
+      "icon": "🍗",
+      "name": "One Pot Broccoli Chicken Mac and Cheese",
+      "meta": "45 min · Grill · Serves 5",
+      "tags": [
+        "Pasta",
+        "American",
+        "Explore"
+      ],
+      "ingredients": [
+        "500g / 1 lb chicken thigh fillets, skinless and boneless, cut into small bite size pieces",
+        "½ tsp garlic powder",
+        "½ tsp cooking salt / kosher salt (halve for table salt, +50% for flakes)",
+        "¼ tsp black pepper",
+        "3 tbsp (50g) unsalted butter",
+        "2 garlic cloves , finely minced",
+        "1 small onion , finely chopped",
+        "¼ cup plain flour (all-purpose flour)",
+        "3 cups milk , full fat best but low fat is fine",
+        "2 cups chicken stock / broth , low sodium",
+        "¾ tsp cooking salt / kosher salt (halve for table salt, +50% for flakes)",
+        "300 g (3 cups) macaroni (elbow pasta) (Note 1)",
+        "1 large head of broccoli , broken into florets (or 1 ½ smaller ones)",
+        "1 ½ – 2 cups (150 – 200g) cups shredded cheese (cheddar, Monterey Jack, Colby, tasty – not mozzarella, too plain), preferably freshly shredded but I usually use pre-shredded (\"3 cheese blend\" mozzarella, Colby and parmesan)",
+        "25 g (2 tbsp) unsalted butter , melted",
+        "½ cup panko (or ordinary breadcrumbs)",
+        "2 tbsp parmesan cheese , I use the store bought sandy-type (from fridge not aisle), else finely shred you own (tightly pack the tablespoons)",
+        "1 pinch salt"
+      ],
+      "steps": [
+        "Preheat oven to 180°C/350°F (160°C fan-forced).",
+        "Sauté onion – Melt butter over high heat in a large deep oven-proof skillet (30cm/12\" wide), or use a large pot. Add onion and cook for 2 minutes.",
+        "Cook chicken – Add the chicken and garlic, and sprinkle the garlic powder, salt and pepper over. Cook, stirring, until the surface of the chicken is sealed.",
+        "Creamy sauce – Reduce heat to medium high and add flour. Stir until you no longer see white flour. Pour in the stock and stir until it turns milky from the flour dissolving into the liquid. Add milk, salt and pepper. Turn the heat up to high and stir.",
+        "Macaroni and broccoli – Add macaroni, stir, then once you start seeing bubbles, spread the broccoli across the surface.",
+        "Bake 20 minutes – Cover with a lid and transfer to the oven. Bake 20 minutes.",
+        "Crunchy topping – Meanwhile, mix the Crunchy Topping ingredients together.",
+        "Cheese and crunch it! Remove the pan from the oven. Flick to oven grill/broiler on high. Remove lid. Scatter with cheese then gently (but quickly!) stir through. It might look a bit watery still, that's good! It will thicken quickly into a creamy sauce. Smooth surface, then sprinkle with Topping.",
+        "Golden topping – Place under the broiler/grill for 3 to 5 minutes, or until top is golden. By this time excess liquid will be absorbed by the pasta and the sauce will be thickened and creamy.",
+        "Serve immediately while hot and oozy and creamy!"
+      ],
+      "source": "https://www.recipetineats.com/baked-macaroni-cheese-with-chicken-broccoli-one-pot/"
     }
   ]
 }
