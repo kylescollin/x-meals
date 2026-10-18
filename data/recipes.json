@@ -1750,6 +1750,45 @@
         "Serve immediately while hot and oozy and creamy!"
       ],
       "source": "https://www.recipetineats.com/baked-macaroni-cheese-with-chicken-broccoli-one-pot/"
+    },
+    {
+      "id": "sweet-potato-taco-bowls",
+      "icon": "🌮",
+      "name": "Sweet Potato Taco Bowls",
+      "meta": "45 min · Sheet pan",
+      "tags": [
+        "Tacos",
+        "Mexican"
+      ],
+      "ingredients": [
+        "2 large sweet potatoes, peeled and cubed",
+        "2 tablespoons olive oil",
+        "1 teaspoon ground cumin",
+        "1 teaspoon smoked paprika",
+        "½ teaspoon chili powder",
+        "Salt and pepper to taste",
+        "1 can (15 oz) black beans, drained and rinsed",
+        "1 cup cherry tomatoes, halved",
+        "½ red onion, finely diced",
+        "1 avocado, diced",
+        "1 cup corn kernels (fresh, frozen, or canned)",
+        "Juice of 1 lime",
+        "¼ cup chopped fresh cilantro",
+        "4 small flour or corn tortillas",
+        "¼ cup crumbled feta or cotija cheese (optional)",
+        "Salsa or hot sauce, for serving"
+      ],
+      "steps": [
+        "Preheat your oven to 400°F (200°C).",
+        "In a large bowl, toss the cubed sweet potatoes with olive oil, ground cumin, smoked paprika, chili powder, salt, and pepper until they are well coated.",
+        "Spread the sweet potatoes in an even layer on a baking sheet. Roast them in the preheated oven for 20-25 minutes, or until they are tender and lightly browned, stirring halfway through cooking.",
+        "While the sweet potatoes are roasting, prepare the other components. In a medium bowl, combine the black beans, cherry tomatoes, red onion, avocado, corn, lime juice, and cilantro. Mix gently to combine and add salt and pepper to taste.",
+        "Heat the tortillas in a dry skillet over medium heat for about 30 seconds on each side or until warm and pliable.",
+        "To assemble the taco bowls, start by placing a warm tortilla in a bowl or on a plate. Add a generous scoop of the roasted sweet potatoes followed by the black bean and vegetable mixture.",
+        "If using, sprinkle some crumbled cheese on top for added flavor.",
+        "Serve with your favorite salsa or hot sauce on the side."
+      ],
+      "source": "https://recipesbyree.com/recipe/sweet-potato-taco-bowls/#google_vignette"
     }
   ]
 }
