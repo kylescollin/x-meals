@@ -106,7 +106,421 @@
       "date": "10/21"
     }
   ],
-  "groceries": [],
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "2 large sweet potatoes, peeled and cubed",
+          "detail": "roasted with spices as the taco bowl base",
+          "amazon": "large sweet potatoes",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 cup cherry tomatoes, halved",
+          "detail": "stirred into the black bean and vegetable mixture",
+          "amazon": "cherry tomatoes",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 avocado, diced · 1 avocado, sliced",
+          "detail": "folded into the black bean salsa · layered into the tacos as a topping",
+          "amazon": "ripe avocado",
+          "from": [
+            "sweet-potato-taco-bowls",
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+C"
+        },
+        {
+          "name": "½ red onion, finely diced",
+          "detail": "stirred into the black bean and vegetable mixture",
+          "amazon": "red onion",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 limes",
+          "detail": "juiced over the black bean and vegetable mixture",
+          "amazon": "fresh limes",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 bunch fresh cilantro",
+          "detail": "chopped into the black bean mixture · scattered over the cucumber slaw and tacos",
+          "amazon": "fresh cilantro",
+          "from": [
+            "sweet-potato-taco-bowls",
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+C"
+        },
+        {
+          "name": "1 medium onion, diced",
+          "detail": "sautéed as the soup base",
+          "amazon": "yellow onion",
+          "from": [
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "3 carrots, diced",
+          "detail": "sautéed into the soup base",
+          "amazon": "carrots",
+          "from": [
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "3 ribs celery, diced",
+          "detail": "sautéed into the soup base",
+          "amazon": "celery",
+          "from": [
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 garlic cloves, minced",
+          "detail": "sautéed into the soup base",
+          "amazon": "garlic",
+          "from": [
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 bunch fresh parsley",
+          "detail": "finely chopped as a garnish",
+          "amazon": "fresh flat leaf parsley",
+          "from": [
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 large English cucumber, thinly sliced",
+          "detail": "tossed with the sesame dressing for the slaw",
+          "amazon": "english cucumber",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 bunch green onions",
+          "detail": "scattered over the finished tacos",
+          "amazon": "green onions scallions",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "1 meaty ham bone",
+          "detail": "simmered into the soup for depth, meat pulled and stirred back in",
+          "amazon": "meaty ham bone",
+          "from": [
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 lb boneless skinless chicken thighs",
+          "detail": "boiled, shredded, then broiled with teriyaki and sweet chili sauce",
+          "amazon": "boneless skinless chicken thighs",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "¼ cup crumbled feta or cotija cheese (optional)",
+          "detail": "sprinkled over the finished taco bowls",
+          "amazon": "crumbled cotija cheese",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "¼ cup Greek yogurt",
+          "detail": "whisked into the sesame cucumber slaw dressing",
+          "amazon": "plain greek yogurt",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1½ Tbsp mayonnaise",
+          "detail": "whisked into the sesame cucumber slaw dressing",
+          "amazon": "mayonnaise",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "4 tablespoons extra-virgin olive oil",
+          "detail": "tossed with the sweet potatoes before roasting · used to sauté the soup base",
+          "amazon": "extra virgin olive oil",
+          "from": [
+            "sweet-potato-taco-bowls",
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "1 can (15 oz) black beans, drained and rinsed",
+          "detail": "stirred into the black bean and vegetable mixture",
+          "amazon": "canned black beans",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 cup corn kernels",
+          "detail": "folded into the black bean and vegetable mixture",
+          "amazon": "canned or frozen corn kernels",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Salsa or hot sauce, for serving",
+          "detail": "served alongside the taco bowls",
+          "amazon": "salsa jar medium",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "12 small flour tortillas",
+          "detail": "warmed and used as taco bowl vessels · warmed and filled with chicken and slaw",
+          "amazon": "small flour tortillas",
+          "from": [
+            "sweet-potato-taco-bowls",
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+C"
+        },
+        {
+          "name": "1 pound dried split peas, rinsed",
+          "detail": "simmered into the soup until broken down and thickened",
+          "amazon": "dried green split peas",
+          "from": [
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 bay leaf",
+          "detail": "simmered in the soup, removed before serving",
+          "amazon": "bay leaves",
+          "from": [
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "4 cups low-sodium chicken broth",
+          "detail": "forms the soup liquid base",
+          "amazon": "low sodium chicken broth",
+          "from": [
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "½ cup teriyaki sauce",
+          "detail": "drizzled over the shredded chicken before broiling",
+          "amazon": "teriyaki sauce",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "3 Tbsp sweet chili sauce",
+          "detail": "drizzled over the chicken before broiling · whisked into the slaw dressing",
+          "amazon": "sweet chili sauce",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "2 Tbsp rice vinegar",
+          "detail": "whisked into the sesame cucumber slaw dressing",
+          "amazon": "rice vinegar",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 tsp sesame oil",
+          "detail": "whisked into the sesame cucumber slaw dressing",
+          "amazon": "toasted sesame oil",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "¼ cup crushed peanuts",
+          "detail": "sprinkled over the finished tacos",
+          "amazon": "roasted peanuts unsalted",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "Sesame seeds",
+          "detail": "sprinkled over the finished tacos",
+          "amazon": "white sesame seeds",
+          "from": [
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "1 tsp ground cumin",
+          "detail": "seasoned onto the sweet potatoes before roasting",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 tsp smoked paprika",
+          "detail": "seasoned onto the sweet potatoes before roasting",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "½ tsp chili powder",
+          "detail": "seasoned onto the sweet potatoes before roasting",
+          "from": [
+            "sweet-potato-taco-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Salt and pepper",
+          "detail": "seasoned onto the sweet potatoes · seasoned into the soup · seasoned onto the chicken",
+          "from": [
+            "sweet-potato-taco-bowls",
+            "classic-split-pea-soup",
+            "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "½ tsp dried thyme",
+          "detail": "stirred into the soup with the split peas",
+          "from": [
+            "classic-split-pea-soup"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
   "subhead": "3 dinners",
-  "updatedAt": 1792359387244
+  "updatedAt": 1792359387244,
+  "groceriesFor": [
+    "sweet-potato-taco-bowls",
+    "classic-split-pea-soup",
+    "teriyaki-chicken-tacos-with-sesame-cucumber-slaw"
+  ],
+  "groceriesIngs": {
+    "sweet-potato-taco-bowls": "22d992ec5a76",
+    "classic-split-pea-soup": "7a47fd152594",
+    "teriyaki-chicken-tacos-with-sesame-cucumber-slaw": "db74d26d2789"
+  },
+  "groceriesAt": "2026-10-18T21:37:24.801Z"
 }
