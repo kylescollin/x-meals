@@ -44,8 +44,8 @@
   // page. Explore is the feed of new recipes pulled in from food blogs.
   var links = [
     {href:'index.html',     label:'Weeks',     icon:'calendar-days',  emoji:'\uD83D\uDCC5'},
-    {href:'explore.html',   label:'Explore',   icon:'compass',        emoji:'\uD83E\uDDED'},
-    {href:'recipes.html',   label:'Recipes',   icon:'book-open',      emoji:'\uD83D\uDCD6'}
+    {href:'recipes.html',   label:'Recipes',   icon:'book-open',      emoji:'\uD83D\uDCD6'},
+    {href:'explore.html',   label:'Explore',   icon:'compass',        emoji:'\uD83E\uDDED'}
   ];
   var nav = document.createElement('nav');
   nav.className = 'site-nav';
