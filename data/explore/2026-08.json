@@ -141,6 +141,55 @@
       "course": "side"
     },
     {
+      "key": "12544eef9a03",
+      "id": "explore-12544eef9a03",
+      "url": "https://pinchofyum.com/teriyaki-chicken-with-ginger-peaches",
+      "site": "Pinch of Yum",
+      "sourceId": "pinchofyum",
+      "published": "2026-08-19T11:00:00.000Z",
+      "fetched": "2026-10-19T18:52:00.442Z",
+      "name": "Teriyaki Chicken with Ginger Peaches and Sesame Drench",
+      "image": "https://pinchofyum.com/tachyon/Teriyaki-Chicken-with-Ginger-Peaches.jpg",
+      "icon": "🍗",
+      "course": "dinner",
+      "tags": [
+        "Skillet Dinner",
+        "Asian"
+      ],
+      "meta": "2 min · Stovetop · Serves 4",
+      "ingredients": [
+        "½ cup teriyaki sauce (I use Soy Vay)",
+        "1 large clove garlic, grated (or ½ teaspoon garlic powder)",
+        "1 lb. chicken breasts",
+        "2 teaspoons avocado oil",
+        "4 peaches or nectarines, diced",
+        "¼ cup chopped scallions, or cilantro, or both",
+        "1 teaspoon freshly grated ginger",
+        "1–2 tablespoons fresh lime juice (from 1–2 limes)",
+        "½ teaspoon salt",
+        "1 tablespoon sugar",
+        "1 tablespoon reduced sodium soy sauce",
+        "1 tablespoon toasted sesame oil",
+        "1 ½ tablespoons brown sugar",
+        "1 teaspoon chili crisp",
+        "1–2 tablespoons water (as needed, to thin it out)",
+        "1 cup of white rice",
+        "Green beans (optional)"
+      ],
+      "steps": [
+        "Prep Chicken: Slice the chicken breast into thinner pieces, or pound them out to be thinner.",
+        "Marinate Chicken: Marinate the chicken in the sauce and garlic for 2-12 hours. (Optional – more time = better flavor, but it will work even with a shorter 15-30 minute marinate time!)",
+        "Make Rice: Start cooking your rice according to package directions.",
+        "Make Sauce: Whisk the sesame drench ingredients together and set aside.",
+        "Make Gingery Peaches: When you’re close to being ready to eat, toss peaches, scallions, ginger, salt, and sugar together. Usually the peaches will release some juices and it will become slightly saucy, but you can add a bit of honey to help it along if it seems too dry.",
+        "Cook Chicken: Heat the avocado oil in a large skillet over medium heat. Let any excess marinade drip off the chicken, then add to the pan and sauté for 3-4 minutes per side, until the chicken reaches an internal temperature of 165 degrees.",
+        "Serve: Serve the chicken over rice, with a scoop of the peaches, and a drench of the sesame sauce! Add green beans if you’d like! So super fresh!"
+      ],
+      "note": "",
+      "source": "https://pinchofyum.com/teriyaki-chicken-with-ginger-peaches",
+      "recipe": true
+    },
+    {
       "key": "0c2cac7679a1",
       "id": "explore-0c2cac7679a1",
       "url": "https://smittenkitchen.com/2026/08/cucumber-salad-with-sesame-and-rice-vinegar/",
