@@ -82,8 +82,10 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   hand-added items, the shop buttons and the store switch. See **Grocery Lists** below.
 
 **Scripts & Automation:**
-- `scripts/sync-firebase.js` — Syncs `data/weeks/*.json` → `/meals/weeks/*`, and mirrors the
-  current week to `/meals/current` for anything still reading it.
+- `scripts/sync-firebase.js` — Syncs `data/weeks/*.json` → `/meals/weeks/*`, mirrors the
+  current week to `/meals/current` for anything still reading it, and rebuilds `/meals/cooked`.
+- `scripts/lib/cooked-index.js` — The "last cooked" index: recipe id → every night it was
+  planned, newest first, built from the week files. Pure, unit-tested. See **Recipe cards**.
 - `scripts/generate-groceries.js` — Brings each week's grocery list in line with its meals, doing
   the least work the change needs. Takes `--force` to rebuild from scratch. See **Grocery Lists**.
 - `scripts/lib/week-merge.js` — What actually changed about a week (`weekDelta`) and how to apply
@@ -108,8 +110,9 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
 - `scripts/check-weeks.js`, `scripts/test-week-merge.js`, `scripts/test-week-store.js`,
   `scripts/test-recipe-import.js`, `scripts/test-ingredient-format.js`,
   `scripts/test-model-json.js`, `scripts/test-refresh-meals.js`,
-  `scripts/test-recipe-overlay.js`, `scripts/test-explore-feed.js` — the repo's test suite.
-  All nine run in CI before anything is written. `test-recipe-import.js` covers the guessing
+  `scripts/test-recipe-overlay.js`, `scripts/test-explore-feed.js`,
+  `scripts/test-cooked-index.js` — the repo's test suite.
+  All ten run in CI before anything is written. `test-recipe-import.js` covers the guessing
   rules; the ones that matter most are the tag cases, because recipe method text is full of
   words that mean something else in a title. `test-ingredient-format.js` leans the other way —
   most of its cases assert the parser does *nothing*, because "2 (14.5 oz) cans" and "1/16 tsp"
@@ -137,7 +140,9 @@ The HTML pages are render-only shells — they contain no embedded meal or recip
 1. **Grocery checkbox sync** — When Kyle or Josephine checks an item, the other person's screen updates instantly. Stored at `groceries/{weekOf}/{itemName}`.
 2. **Meal data** — Every week lives at `/meals/weeks/{weekOf}`. `/meals/current` is a mirror of
    the week containing today, kept only for backward compatibility. `/meals/history` is frozen and
-   never written again.
+   never written again. `/meals/cooked` is a derived index (see **Recipe cards**), CI-written.
+3. **Favorites** — `/favorites/{safeId} = true`, shared by both accounts, written one key at a
+   time from the star in the recipe detail view.
 
 ### Two meanings of "week" — don't conflate them
 
@@ -417,7 +422,7 @@ never the canonical Sunday.
 
 - `RecipeCard.init({weekOf})` sets a page default; `RecipeCard.setWeekOf(key)` moves it when the
   week page navigates. `recipes.html` sets neither.
-- `makeCard(r, labelOverride, metaOverride, weekOf)` writes `data-week-of` on the card. The timeline
+- `makeCard(r, weekOf)` writes `data-week-of` on the card. The timeline
   view passes each week's own key, so adding a note to a past week's card files it under **that**
   week. This is how a meal gets logged days after it was cooked.
 - A note with no `weekOf` (added from the Recipes page) shows on the recipe but never in a week.
@@ -433,6 +438,30 @@ never the canonical Sunday.
 - The composer's file input has **no `capture` attribute** — that's what makes iOS offer
   "Take Photo / Photo Library / Choose File" instead of jumping straight to the camera.
 - Deleting a note deletes its photos (with a confirm); deleting a photo drops its key from the note.
+
+## Recipe cards
+
+A card (`RecipeCard.makeCard` in `recipe-card.js`) is deliberately quiet: the thumbnail, the
+name, and one small line under it — **"Last cooked Sep 14"** (with the year once it isn't this
+year), or nothing at all if the recipe never has been. No tags, no cook time, no chevron, and on
+the week page no day either; the day lives in Edit mode's slots. A **favorite** shows a gold
+star just ahead of the name.
+
+- **Favorites** are toggled from the star in the top-right of the detail view, beside the ⋯ menu.
+  They're shared between the two accounts and live at `/favorites/{safeId}`; the star is hidden in
+  the Explore preview, which may write nothing.
+- **"Last cooked"** comes from `/meals/cooked` — `{safeId: ["YYYY-MM-DD", …]}`, newest first —
+  which `scripts/sync-firebase.js` rebuilds from the week files on every run via
+  `scripts/lib/cooked-index.js`. A night's date is `Week.startOf(weekOf)` + the meal's day (the
+  canonical Sunday, never the raw key); a meal with no day falls back to that Sunday. The index
+  **includes nights still ahead**; the browser shows the newest one *before today*, so a planned
+  meal turns into a cooked one as the days pass without a CI run. A skipped meal still counts —
+  there's no better signal. Placeholder meals are left out.
+- Because the index is CI-written, an in-app week edit reaches it about a minute later, like the
+  grocery list. A `.js`-only push doesn't run the sync workflow; dispatch it from the Actions tab
+  if the index ever needs rebuilding by hand.
+- `RecipeCard.applyBadges()` and `RecipeCard.refresh()` repaint stars and cooked lines along with
+  the saved badges, so cards appended after load (timeline weeks) just need the same call.
 
 ## Recipe Tags
 

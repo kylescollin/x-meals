@@ -12,6 +12,10 @@
       ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email  == 'missjosephinefox@gmail.com')",
       ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"
     },
+    "favorites": {
+      ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')",
+      ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"
+    },
     "saved-recipe-data": {
       ".read": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')",
       ".write": "auth != null && (auth.token.email == 'kscollin@gmail.com' || auth.token.email == 'missjosephinefox@gmail.com')"

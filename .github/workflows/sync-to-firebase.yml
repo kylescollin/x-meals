@@ -63,6 +63,7 @@ jobs:
           node scripts/test-refresh-meals.js
           node scripts/test-recipe-overlay.js
           node scripts/test-explore-feed.js
+          node scripts/test-cooked-index.js
 
       # Every recipe lives twice — data/recipes.json and the Firebase overlay
       # the site shows. Reconcile the two (a phone edit whose commit never

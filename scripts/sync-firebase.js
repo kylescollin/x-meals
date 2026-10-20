@@ -13,6 +13,10 @@
  * anything still reading the old node (a phone with a cached page, an older
  * Agent X) keeps working. Nothing new reads it.
  *
+ * /meals/cooked is a derived index — recipe id → the nights it was planned,
+ * newest first — rebuilt from the same files on every run. See
+ * scripts/lib/cooked-index.js.
+ *
  * /meals/history is frozen. scripts/migrate-weeks.js copied it into
  * /meals/weeks; it is never written again and never deleted.
  */
@@ -21,6 +25,7 @@ const fs = require('fs');
 const path = require('path');
 const Week = require('../week-utils.js');
 const { same } = require('./lib/stable.js');
+const { cookedIndex } = require('./lib/cooked-index.js');
 
 admin.initializeApp({
   credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)),
@@ -39,11 +44,13 @@ async function main() {
   const files = fs.readdirSync(weeksDir).filter(f => f.endsWith('.json')).sort();
   const thisWeek = Week.todayStart();
   let currentWeek = null;
+  const weeks = [];
 
   for (const file of files) {
     const week = JSON.parse(fs.readFileSync(path.join(weeksDir, file), 'utf8'));
     const key = week.weekOf;
     if (!key) { console.log(`Skipping ${file} — no weekOf`); continue; }
+    weeks.push(week);
 
     const remote = (await db.ref('/meals/weeks/' + key).once('value')).val();
 
@@ -78,6 +85,16 @@ async function main() {
     }
   } else {
     console.log('No week planned for the week of ' + thisWeek + ' — leaving /meals/current alone.');
+  }
+
+  // Which recipes were cooked when, so a card can say "Last cooked Sep 14"
+  // without reading every week. Derived entirely from the files above; written
+  // only when it differs so CI's second pass over its own commit stays a no-op.
+  const cooked = cookedIndex(weeks);
+  const remoteCooked = (await db.ref('/meals/cooked').once('value')).val();
+  if (!same(remoteCooked, cooked)) {
+    await db.ref('/meals/cooked').set(cooked);
+    console.log(`= /meals/cooked (${Object.keys(cooked).length} recipes)`);
   }
 
   await applyOverlayWrites();

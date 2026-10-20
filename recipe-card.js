@@ -19,8 +19,13 @@
   var FB_EDITS    = FB_BASE + '/recipe-edits';
   var FB_COMMENTS = FB_BASE + '/recipe-comments';
   var FB_PHOTOS   = FB_BASE + '/recipe-photos';
+  var FB_FAVS     = FB_BASE + '/favorites';      // safeId → true, shared by both phones
+  var FB_COOKED   = FB_BASE + '/meals/cooked';   // safeId → [nights planned], CI-written
 
   var AUTHOR_MAP = { 'kscollin@gmail.com': 'Kyle', 'missjosephinefox@gmail.com': 'Josephine' };
+
+  // Lucide "star", used for favorites on the card and in the detail top bar.
+  var STAR_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
 
   // Curated food emojis for the recipe emoji picker (shared by Add + Edit).
   var FOOD_EMOJIS = [
@@ -134,6 +139,8 @@
   }
 
   var savedIds         = {};    // id → true/false
+  var favIds           = {};    // safeId → true (Firebase /favorites)
+  var cookedDates      = {};    // safeId → ['YYYY-MM-DD', …] newest first, incl. future nights
   var coreIds          = {};    // id → true (already in recipes.html RECIPES array)
   var recipeEdits      = {};    // safeId → edited recipe object
   var _onSaveChange    = null;  // optional callback(id, isSaved)
@@ -458,6 +465,68 @@
       .catch(function () { if (callback) callback(); });
   }
 
+  // ── Favorites + "last cooked" ───────────────────────────────────────────
+  function loadFavorites(callback) {
+    authedFetch(FB_FAVS + '.json')
+      .then(function (r) { return r.json(); })
+      .then(function (d) { favIds = (d && typeof d === 'object' && !d.error) ? d : {}; if (callback) callback(); })
+      .catch(function () { if (callback) callback(); });
+  }
+
+  function isFav(id) { return favIds[fbSafeKey(id)] === true; }
+
+  // One key per recipe rather than the whole map, so a toggle on one phone
+  // can't overwrite a toggle made on the other a moment earlier.
+  function toggleFavorite(id) {
+    var k = fbSafeKey(id), on = !isFav(id);
+    if (on) favIds[k] = true; else delete favIds[k];
+    authedFetch(FB_FAVS + '/' + k + '.json', on ? { method: 'PUT', body: 'true' } : { method: 'DELETE' }).catch(function () {});
+    refreshFavUI(id);
+    document.querySelectorAll('.rc-card-star[data-id="' + escAttr(id) + '"]').forEach(function (el) {
+      el.classList.toggle('on', on);
+    });
+  }
+
+  // /meals/cooked is built by CI from the week files (scripts/lib/cooked-index.js)
+  // and includes nights still ahead; "last cooked" is the newest one before
+  // today, so a planned meal becomes a cooked one as the days pass.
+  function loadCooked(callback) {
+    authedFetch(FB_COOKED + '.json')
+      .then(function (r) { return r.json(); })
+      .then(function (d) { cookedDates = (d && typeof d === 'object' && !d.error) ? d : {}; if (callback) callback(); })
+      .catch(function () { if (callback) callback(); });
+  }
+
+  var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  function todayISO() {
+    var n = new Date(), m = n.getMonth() + 1, d = n.getDate();
+    return n.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (d < 10 ? '0' : '') + d;
+  }
+
+  // "Last cooked Sep 14", with the year once it isn't this one; '' if never.
+  function lastCookedLabel(id) {
+    var dates = cookedDates[fbSafeKey(id)] || [];
+    var today = todayISO(), last = '';
+    for (var i = 0; i < dates.length; i++) {
+      if (dates[i] < today) { last = dates[i]; break; }   // ISO strings sort as dates
+    }
+    if (!last) return '';
+    var p = last.split('-'), y = +p[0], m = +p[1], d = +p[2];
+    return 'Last cooked ' + MON[m - 1] + ' ' + d + (y !== new Date().getFullYear() ? ', ' + y : '');
+  }
+
+  // Repaint what every card derives from shared data: the favorite star and
+  // the "last cooked" line. Cheap, so it runs from applyBadges and refresh.
+  function paintCards() {
+    document.querySelectorAll('.rc-card-star[data-id]').forEach(function (el) {
+      el.classList.toggle('on', isFav(el.dataset.id));
+    });
+    document.querySelectorAll('.rc-card-cooked[data-id]').forEach(function (el) {
+      el.textContent = lastCookedLabel(el.dataset.id);
+    });
+  }
+
   // ── Activity index (notes + which photos hang off them) ─────────────────
   // Normalise one raw Firebase comment into the shape the UI uses everywhere.
   function normaliseNote(key, raw) {
@@ -566,7 +635,9 @@
     });
   }
 
-  // Update any rendered card names/meta to reflect saved edits.
+  // Update any rendered card names/icons to reflect saved edits. The card
+  // shows nothing else of the recipe itself — the line under the title is
+  // "last cooked", which an edit can't change.
   // querySelectorAll, not querySelector: the same recipe can be on screen once
   // per week it was cooked, and every one of those cards needs the edit.
   function applyEditsToCards() {
@@ -574,21 +645,10 @@
       var edit = recipeEdits[safeId];
       if (!edit || !edit.id) return;
       document.querySelectorAll('.rc-card[data-recipe-id="' + escAttr(edit.id) + '"]').forEach(function (card) {
-        var nameEl  = card.querySelector('.rc-card-name');
-        var metaEl  = card.querySelector('.rc-card-meta');
+        var titleEl = card.querySelector('.rc-card-title');
         var iconEl  = card.querySelector('.rc-thumb-emoji');
-        var labelEl = card.querySelector('.rc-card-label');
-        if (nameEl && edit.name) nameEl.textContent = edit.name;
-        if (metaEl && edit.meta !== undefined) {
-          // Week/journal cards prefix the meta with the day — keep it.
-          var prefix = card.getAttribute('data-meta-prefix') || '';
-          metaEl.textContent = prefix + edit.meta;
-        }
+        if (titleEl && edit.name) titleEl.textContent = edit.name;
         if (iconEl && edit.icon) iconEl.textContent = edit.icon;
-        // Only cards showing tags (not a "Meal A · Tuesday" override) repaint here.
-        if (labelEl && edit.tags && !card.hasAttribute('data-label-fixed')) {
-          labelEl.textContent = sortTags(edit.tags).slice(0, 2).join(' · ');
-        }
       });
     });
   }
@@ -673,14 +733,18 @@
       '.rc-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}',
       '.rc-thumb.has-photo .rc-thumb-emoji{display:none;}',
       '.rc-card-body{flex:1;min-width:0;}',
-      '.rc-card-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:2px;}',
       '.rc-card-name{font-family:"Playfair Display",serif;font-size:15px;font-weight:500;line-height:1.3;}',
+      // Favorite star, just ahead of the title. Hidden until the recipe is one.
+      '.rc-card-star{display:none;width:13px;height:13px;margin-right:5px;vertical-align:-1px;}',
+      '.rc-card-star.on{display:inline-block;}',
+      '.rc-card-star svg{display:block;width:100%;height:100%;fill:#f0b429;stroke:#f0b429;stroke-width:1.5;stroke-linejoin:round;}',
+      // "Last cooked Sep 14" — the one small line under the title; gone when never cooked.
       '.rc-card-meta{font-size:11px;color:var(--muted);margin-top:2px;font-weight:300;}',
+      '.rc-card-meta:empty{display:none;}',
       '.rc-card-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}',
       '.rc-saved-badge{display:none;align-items:center;gap:4px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:3px 8px;border-radius:99px;flex-shrink:0;}',
       '.rc-saved-badge.visible{display:flex;}',
       '.rc-saved-badge svg{width:10px;height:10px;fill:var(--accent);}',
-      '.rc-chevron{font-size:20px;color:var(--border);}',
 
       // Detail overlay
       '#rc-rd-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;opacity:0;pointer-events:none;transition:opacity .38s ease;}',
@@ -693,6 +757,10 @@
       '.rc-rd-topbtns > *{pointer-events:auto;}',
       '.rc-rd-iconbtn{width:38px;height:38px;border-radius:50%;background:rgba(20,19,17,.5);color:#fff;border:none;font-size:19px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .15s,transform .12s;}',
       '.rc-rd-iconbtn:active{transform:scale(.92);background:rgba(20,19,17,.72);}',
+      // Right-hand group: favorite star + ⋯ menu.
+      '.rc-rd-topright{display:flex;align-items:flex-start;gap:8px;}',
+      '.rc-rd-fav svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:fill .15s,stroke .15s;}',
+      '.rc-rd-fav.on svg{fill:#f0b429;stroke:#f0b429;}',
       '.rc-rd-more-wrap{position:relative;}',
       '.rc-rd-more-menu{position:absolute;top:46px;right:0;min-width:196px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.22);overflow:hidden;display:none;flex-direction:column;}',
       '.rc-rd-more-menu.open{display:flex;}',
@@ -714,7 +782,7 @@
       '.rc-rd-ext-save:disabled{background:var(--accent-light);color:var(--accent);cursor:default;}',
       '.rc-rd-ext-hide{background:#fff;color:var(--ink);border:1.5px solid var(--border);}',
       '.rc-rd-ext-hide:active{transform:scale(.97);background:#f0ece5;}',
-      '.rc-rd-external #rc-rd-cook,.rc-rd-external .rc-rd-more-wrap,.rc-rd-external .rc-cm-section,.rc-rd-external #rc-rd-hero-edit,.rc-rd-external #rc-rd-hero-count,.rc-rd-external .rc-rd-hero-cta{display:none;}',
+      '.rc-rd-external #rc-rd-cook,.rc-rd-external #rc-rd-fav,.rc-rd-external .rc-rd-more-wrap,.rc-rd-external .rc-cm-section,.rc-rd-external #rc-rd-hero-edit,.rc-rd-external #rc-rd-hero-count,.rc-rd-external .rc-rd-hero-cta{display:none;}',
       '.rc-rd-external .rc-rd-hero{cursor:default;}',
       '.rc-rd-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 20px calc(104px + env(safe-area-inset-bottom,0px));}',
       '.rc-rd-inner{max-width:640px;margin:0 auto;}',
@@ -981,12 +1049,15 @@
         // Floating top buttons (view mode) — back + more menu
         '<div class="rc-rd-topbtns" id="rc-rd-topbtns">',
           '<button class="rc-rd-iconbtn rc-rd-back" id="rc-rd-back" aria-label="Close">←</button>',
+          '<div class="rc-rd-topright">',
+          '<button class="rc-rd-iconbtn rc-rd-fav" id="rc-rd-fav" type="button" aria-label="Add to favorites">' + STAR_SVG + '</button>',
           '<div class="rc-rd-more-wrap">',
             '<button class="rc-rd-iconbtn" id="rc-rd-more" aria-label="More options">⋯</button>',
             '<div class="rc-rd-more-menu" id="rc-rd-more-menu">',
               '<button class="rc-rd-more-opt" id="rc-rd-menu-edit"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Edit recipe</button>',
               '<button class="rc-rd-more-opt" id="rc-rd-menu-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span id="rc-rd-menu-save-label">Save to recipes</span></button>',
             '</div>',
+          '</div>',
           '</div>',
         '</div>',
         // Edit mode header
@@ -1167,6 +1238,14 @@
     }
   }
 
+  function refreshFavUI(id) {
+    var b = document.getElementById('rc-rd-fav');
+    if (!b) return;
+    var on = isFav(id);
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-label', on ? 'Remove from favorites' : 'Add to favorites');
+  }
+
   // Show/hide the view-mode chrome (top buttons + Cook pill); also closes the
   // ⋯ menu. Called when entering/leaving edit & add modes.
   function setViewChrome(visible) {
@@ -1261,6 +1340,9 @@
     var saveOpt = document.getElementById('rc-rd-menu-save');
     if (saveOpt) saveOpt.onclick = function () { toggleSave(id, curR); closeMoreMenu(); };
     refreshSaveUI(id);
+    var favBtn = document.getElementById('rc-rd-fav');
+    if (favBtn) favBtn.onclick = function () { toggleFavorite(id); };
+    refreshFavUI(id);
 
     setViewChrome(true);
     closeMoreMenu();
@@ -3219,9 +3301,11 @@
       initGallery();
       syncPostButton();
 
-      var pending = 4;
+      var pending = 6;
       function onLoaded() { if (--pending === 0 && options.onReady) options.onReady(); }
       loadSavedState(onLoaded);
+      loadFavorites(onLoaded);
+      loadCooked(onLoaded);
       loadRecipeEdits(onLoaded);
       // Any tag Kyle added by hand, so it lands in the right family everywhere
       // before onReady builds the Recipes filter panel.
@@ -3235,42 +3319,40 @@
     },
 
     /**
-     * makeCard(recipe, labelOverride, metaOverride, weekOf)
-     * Returns a DOM element for a meal card. Click opens detail overlay.
-     * The eyebrow shows the recipe's first two tags unless `labelOverride` is
-     * given. `metaOverride` replaces the bottom line (used to prefix the day).
+     * makeCard(recipe, weekOf)
+     * Returns a DOM element for a meal card: thumbnail, the name (with a star
+     * ahead of it when the recipe is a favorite) and one small line saying
+     * when it was last cooked — nothing when it never has been.
      * `weekOf` stamps notes added from this card to a specific week — the
      * Journal passes each week's own value so a note added months later still
      * files under the right week. Omit it to use the page default.
-     * A placeholder meal (see isCustom) renders inert: no chevron, no click.
+     * A placeholder meal (see isCustom) renders inert: name only, no click.
      */
-    makeCard: function (r, labelOverride, metaOverride, weekOf) {
-      var id     = idOf(r);
-      var safeId = fbSafeKey(id);
-      var plain  = isCustom(r);
-      var fixed  = labelOverride !== undefined && labelOverride !== null;
-      var lbl    = fixed ? labelOverride : (plain ? 'One-off' : tagsFor(r).slice(0, 2).join(' · '));
-      var meta   = metaOverride !== undefined && metaOverride !== null ? metaOverride : (r.meta || '');
+    makeCard: function (r, weekOf) {
+      var id    = idOf(r);
+      var plain = isCustom(r);
       var div = document.createElement('div');
       div.className = 'rc-card' + (plain ? ' rc-card-plain' : '');
       div.setAttribute('data-recipe-id', id);
-      if (fixed) div.setAttribute('data-label-fixed', '');
       if (weekOf) div.setAttribute('data-week-of', weekOf);
       div.innerHTML =
         '<div class="rc-card-inner">' +
           '<div class="rc-card-body">' +
-            '<div class="rc-card-label">' + escHtml(lbl) + '</div>' +
-            '<div class="rc-card-name">' + escHtml(r.name) + '</div>' +
-            '<div class="rc-card-meta">' + escHtml(meta) + '</div>' +
-          '</div>' +
-          '<div class="rc-card-right">' +
+            '<div class="rc-card-name">' +
+              (plain ? '' :
+                '<span class="rc-card-star' + (isFav(id) ? ' on' : '') + '" data-id="' + escAttr(id) + '">' + STAR_SVG + '</span>') +
+              '<span class="rc-card-title">' + escHtml(r.name) + '</span>' +
+            '</div>' +
             (plain ? '' :
+              '<div class="rc-card-meta rc-card-cooked" data-id="' + escAttr(id) + '">' + escHtml(lastCookedLabel(id)) + '</div>') +
+          '</div>' +
+          (plain ? '' :
+            '<div class="rc-card-right">' +
               '<span class="rc-saved-badge" data-id="' + escAttr(id) + '">' +
                 '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
                 'Saved' +
               '</span>' +
-              '<span class="rc-chevron">›</span>') +
-          '</div>' +
+            '</div>') +
         '</div>';
       var inner = div.querySelector('.rc-card-inner');
       inner.insertBefore(makeThumb(r), inner.firstChild);
@@ -3290,12 +3372,13 @@
     /** Open the photo gallery for a recipe. opts: {safeId, startKey, weekOf} */
     openGallery: openGallery,
 
-    /** Apply saved badges to all rc-saved-badge elements in the DOM */
+    /** Apply saved badges, favorite stars and "last cooked" lines to every card in the DOM */
     applyBadges: function () {
       document.querySelectorAll('.rc-saved-badge').forEach(function (b) {
         var id = b.dataset.id;
         b.classList.toggle('visible', !isCore(id) && isSaved(id));
       });
+      paintCards();
     },
 
     /** Load saved recipe data from Firebase (for "From Your Journal" section in recipes.html) */
@@ -3330,7 +3413,7 @@
 
     /**
      * Repaint everything that init() otherwise only paints once: saved badges,
-     * recipe edits, activity counts and activity blocks. Call after appending
+     * favorite stars, "last cooked" lines, recipe edits and activity blocks. Call after appending
      * cards that weren't in the DOM when the shared data loaded — which is
      * every lazily-loaded week in the timeline.
      */
@@ -3339,6 +3422,7 @@
         var id = b.dataset.id;
         b.classList.toggle('visible', !isCore(id) && isSaved(id));
       });
+      paintCards();
       applyEditsToCards();
       refreshAllActivityBlocks();
     },

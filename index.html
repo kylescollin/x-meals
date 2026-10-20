@@ -343,13 +343,7 @@ var mealCards=document.getElementById('mealCards');
 
 // Shared by the week view and the timeline so a meal looks the same in both.
 function mealCard(m, key){
-  var day=m.day ? (DAY_ABBR[m.day]||m.day) + ' ' + (m.date||'') : '';
-  // Placeholder meals have no meta, so only join with " · " when there's
-  // something to join to — otherwise the line ends in a dangling separator.
-  var meta=[day, m.meta||''].filter(Boolean).join(' · ');
-  var card=RecipeCard.makeCard(m, null, meta, key);
-  if(day && m.meta) card.setAttribute('data-meta-prefix', day + ' · ');
-  return card;
+  return RecipeCard.makeCard(m, key);
 }
 
 function renderViewCards(meals){
