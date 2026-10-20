@@ -504,16 +504,40 @@
     return n.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (d < 10 ? '0' : '') + d;
   }
 
+  // Nights before today, newest first. ISO strings sort as dates.
+  function cookedBefore(id) {
+    var today = todayISO();
+    return (cookedDates[fbSafeKey(id)] || []).filter(function (d) { return d < today; });
+  }
+
   // "Last cooked Sep 14", with the year once it isn't this one; '' if never.
   function lastCookedLabel(id) {
-    var dates = cookedDates[fbSafeKey(id)] || [];
-    var today = todayISO(), last = '';
-    for (var i = 0; i < dates.length; i++) {
-      if (dates[i] < today) { last = dates[i]; break; }   // ISO strings sort as dates
-    }
+    var last = cookedBefore(id)[0];
     if (!last) return '';
     var p = last.split('-'), y = +p[0], m = +p[1], d = +p[2];
     return 'Last cooked ' + MON[m - 1] + ' ' + d + (y !== new Date().getFullYear() ? ', ' + y : '');
+  }
+
+  // How many nights in the last six months, as a phrase. '' if never cooked.
+  function cookedRecentlyLabel(id) {
+    var past = cookedBefore(id);
+    if (!past.length) return '';
+    var n = new Date(), since = new Date(n.getFullYear(), n.getMonth() - 6, n.getDate());
+    var m = since.getMonth() + 1, d = since.getDate();
+    var sinceISO = since.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (d < 10 ? '0' : '') + d;
+    var count = past.filter(function (x) { return x >= sinceISO; }).length;
+    if (!count) return 'Not cooked in the last 6 months';
+    return 'Cooked ' + (count === 1 ? 'once' : count === 2 ? 'twice' : count + ' times') + ' in the last 6 months';
+  }
+
+  // The hero subtitle: the recipe's meta minus its cooking method. Time and
+  // servings stay; "Stovetop" / "Sheet pan" / "One pan" go — the method is the
+  // second segment unless that segment is the servings (recipes.html's
+  // parseMethods reads it the same way).
+  function heroMeta(meta) {
+    var seg = (meta || '').split('·').map(function (x) { return x.trim(); }).filter(Boolean);
+    if (seg.length > 1 && !/^serves/i.test(seg[1])) seg.splice(1, 1);
+    return seg.join(' · ');
   }
 
   // Repaint what every card derives from shared data: the favorite star and
@@ -817,6 +841,9 @@
       '.rc-rd-hero-title{position:absolute;left:0;right:0;bottom:0;padding:20px 60px 20px 22px;z-index:2;pointer-events:none;}',
       '.rc-rd-name{font-family:"Playfair Display",serif;font-size:clamp(26px,7vw,40px);font-weight:700;color:#fff;line-height:1.08;letter-spacing:-.01em;text-shadow:0 1px 12px rgba(0,0,0,.45);}',
       '.rc-rd-meta{margin-top:7px;font-family:"DM Sans",sans-serif;font-size:12.5px;font-weight:400;color:rgba(255,255,255,.9);text-shadow:0 1px 8px rgba(0,0,0,.5);}',
+      // Second line under the subtitle: last cooked · how often lately.
+      '.rc-rd-cooked{margin-top:3px;}',
+      '.rc-rd-external #rc-rd-cooked{display:none;}',
       '.rc-rd-hero-cta{position:absolute;top:0;left:0;right:0;bottom:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#fff;z-index:1;pointer-events:none;}',
       '.rc-rd-hero.has-photo .rc-rd-hero-cta{display:none;}',
       '.rc-rd-hero-cta svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.92;}',
@@ -1085,6 +1112,7 @@
               '<div class="rc-rd-hero-title">',
                 '<div class="rc-rd-name" id="rc-rd-name"></div>',
                 '<div class="rc-rd-meta" id="rc-rd-meta"></div>',
+                '<div class="rc-rd-meta rc-rd-cooked" id="rc-rd-cooked"></div>',
               '</div>',
             '</div>',
             '<div class="rc-rd-note" id="rc-rd-note" style="display:none"></div>',
@@ -1262,7 +1290,7 @@
   function renderDetailBody(recipe) {
     document.getElementById('rc-rd-name').textContent = recipe.name;
     var metaEl = document.getElementById('rc-rd-meta');
-    if (metaEl) { metaEl.textContent = recipe.meta || ''; metaEl.style.display = recipe.meta ? '' : 'none'; }
+    if (metaEl) { var hm = heroMeta(recipe.meta); metaEl.textContent = hm; metaEl.style.display = hm ? '' : 'none'; }
     document.getElementById('rc-rd-ings').innerHTML  = ingListHTML(recipe.ings || recipe.ingredients || []);
     document.getElementById('rc-rd-steps').innerHTML = (recipe.steps || []).map(function (s, n) {
       return '<li><span class="rc-rd-step-num">' + (n + 1) + '</span><span>' + escHtml(s) + '</span></li>';
@@ -1343,6 +1371,14 @@
     var favBtn = document.getElementById('rc-rd-fav');
     if (favBtn) favBtn.onclick = function () { toggleFavorite(id); };
     refreshFavUI(id);
+
+    // When it was last cooked, and how often lately. Nothing when never.
+    var cookedEl = document.getElementById('rc-rd-cooked');
+    if (cookedEl) {
+      var line = externalOpts ? '' : [lastCookedLabel(id), cookedRecentlyLabel(id)].filter(Boolean).join(' · ');
+      cookedEl.textContent = line;
+      cookedEl.style.display = line ? '' : 'none';
+    }
 
     setViewChrome(true);
     closeMoreMenu();

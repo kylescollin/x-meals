@@ -447,6 +447,11 @@ year), or nothing at all if the recipe never has been. No tags, no cook time, no
 the week page no day either; the day lives in Edit mode's slots. A **favorite** shows a gold
 star just ahead of the name.
 
+- **The detail view's hero subtitle** is the meta minus its cooking method ("30 min · Serves 4";
+  `heroMeta` drops the second segment unless it's the servings, the same reading as
+  `parseMethods` in `recipes.html`). Under it, a second line: "Last cooked Sep 15 · Cooked 3
+  times in the last 6 months" (once / twice / "Not cooked in the last 6 months"); nothing when
+  never cooked, and never in the Explore preview.
 - **Favorites** are toggled from the star in the top-right of the detail view, beside the ⋯ menu.
   They're shared between the two accounts and live at `/favorites/{safeId}`; the star is hidden in
   the Explore preview, which may write nothing.
