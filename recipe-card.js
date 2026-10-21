@@ -144,6 +144,7 @@
   var coreIds          = {};    // id → true (already in recipes.html RECIPES array)
   var recipeEdits      = {};    // safeId → edited recipe object
   var _onSaveChange    = null;  // optional callback(id, isSaved)
+  var _onFavoriteChange = null; // optional callback(id, isFav)
   var currentUserEmail = null;  // set in init() via options.userEmail
   var currentRecipeId  = null;  // safe key of the open recipe, for comment ops
 
@@ -485,6 +486,7 @@
     document.querySelectorAll('.rc-card-star[data-id="' + escAttr(id) + '"]').forEach(function (el) {
       el.classList.toggle('on', on);
     });
+    if (_onFavoriteChange) _onFavoriteChange(id, on);
   }
 
   // /meals/cooked is built by CI from the week files (scripts/lib/cooked-index.js)
@@ -518,14 +520,20 @@
     return 'Last cooked ' + MON[m - 1] + ' ' + d + (y !== new Date().getFullYear() ? ', ' + y : '');
   }
 
-  // How many nights in the last six months, as a phrase. '' if never cooked.
-  function cookedRecentlyLabel(id) {
-    var past = cookedBefore(id);
-    if (!past.length) return '';
+  // How many nights in the last six months, before today. The detail view's
+  // subtitle and the Recipes page's "Cooked in the last 6 months" filter both
+  // read this, so the two can never disagree.
+  function cookedRecentCount(id) {
     var n = new Date(), since = new Date(n.getFullYear(), n.getMonth() - 6, n.getDate());
     var m = since.getMonth() + 1, d = since.getDate();
     var sinceISO = since.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (d < 10 ? '0' : '') + d;
-    var count = past.filter(function (x) { return x >= sinceISO; }).length;
+    return cookedBefore(id).filter(function (x) { return x >= sinceISO; }).length;
+  }
+
+  // How many nights in the last six months, as a phrase. '' if never cooked.
+  function cookedRecentlyLabel(id) {
+    if (!cookedBefore(id).length) return '';
+    var count = cookedRecentCount(id);
     if (!count) return 'Not cooked in the last 6 months';
     return 'Cooked ' + (count === 1 ? 'once' : count === 2 ? 'twice' : count + ' times') + ' in the last 6 months';
   }
@@ -3253,6 +3261,7 @@
      * init(options)
      * options.coreIds      — object of id→true for recipes already in the collection
      * options.onSaveChange — fn(id, isSaved, recipeObj) called after save toggle
+     * options.onFavoriteChange — fn(id, isFav) called after the star is toggled
      * options.onReady      — fn() called after saved state + edits loaded from Firebase
      * options.weekOf       — default week to stamp notes and photos with. Pages
      *                        showing a specific week pass it; the Recipes page
@@ -3262,6 +3271,7 @@
       options = options || {};
       coreIds          = options.coreIds      || {};
       _onSaveChange    = options.onSaveChange || null;
+      _onFavoriteChange = options.onFavoriteChange || null;
       currentUserEmail = options.userEmail    || null;
       defaultWeekOf    = options.weekOf       || '';
 
@@ -3485,6 +3495,11 @@
     makeThumb: makeThumb,
     isSaved: isSaved,
     isCore: isCore,
+    /** Shared favorite flag (/favorites) and nights cooked in the last six
+     *  months (/meals/cooked), as the cards show them. Both are empty until
+     *  onReady has fired. */
+    isFavorite: isFav,
+    cookedRecentCount: cookedRecentCount,
     tagsFor: tagsFor,
     sortTags: sortTags,
     familyOf: familyOf,

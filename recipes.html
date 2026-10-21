@@ -148,6 +148,7 @@ function indexRecipe(r) {
   var tags = RecipeCard.tagsFor(r);
   searchIndex[id] = [r.name, tags.join(' '), r.meta, ings.join(' ')].join(' ').toLowerCase();
   facets[id] = {
+    id:       id,   // for groups that read live data (favorites, cooked) at filter time
     tags:     tags,
     minutes:  parseMinutes(r.meta),
     methods:  parseMethods(r.meta),
@@ -241,7 +242,28 @@ var TIME_BUCKETS = [
   { label:'Over 1 hour',    test:function(m) { return m > 60; } }
 ];
 
+// Nights cooked in the last six months, from the same index the cards' "Last
+// cooked" line reads. Buckets rather than a free count so the chips stay few.
+var COOKED_BUCKETS = [
+  { label:'Never',    test:function(n) { return n === 0; } },
+  { label:'Once',     test:function(n) { return n === 1; } },
+  { label:'Twice',    test:function(n) { return n === 2; } },
+  { label:'3 times',  test:function(n) { return n === 3; } },
+  { label:'4+ times', test:function(n) { return n >= 4; } }
+];
+
+// Favorites and cooked counts arrive from Firebase after the cards are
+// indexed, so those two groups look them up by id at filter time rather than
+// baking a value into the facet — onReady rebuilds the panel once they're in.
 var FILTER_GROUPS = [
+  { key:'fav',     title:'Favorites', fixed:['★ Favorites'],
+    values:function(f) { return RecipeCard.isFavorite(f.id) ? ['★ Favorites'] : []; } },
+  { key:'cooked',  title:'Cooked in the last 6 months', fixed:COOKED_BUCKETS.map(function(b) { return b.label; }),
+    values:function(f) {
+      var n = RecipeCard.cookedRecentCount(f.id);
+      return COOKED_BUCKETS.filter(function(b) { return b.test(n); })
+                           .map(function(b) { return b.label; });
+    } },
   { key:'dish',    title:'Type of dish',
     values:function(f) { return tagsInFamily(f, 'dish'); } },
   { key:'cuisine', title:'Cuisine',
@@ -262,11 +284,13 @@ var FILTER_GROUPS = [
 
 var selected  = {};
 FILTER_GROUPS.forEach(function(g) { selected[g.key] = {}; });
-var savedOnly = false;
 
 RecipeCard.init({
     coreIds: CORE_IDS,
     userEmail: user.email,
+    // The star lives in the detail view, which sits over the list — keep the
+    // Favorites chip and the cards behind it honest when it's toggled.
+    onFavoriteChange: function() { refreshChips(); runFilter(); },
     onSaveChange: function(id, saved, recipeObj) {
       // If a journal recipe was just saved, add it to the list; if unsaved, remove it
       var existing = list.querySelector('.rc-card[data-saved-id="' + id + '"]');
@@ -357,7 +381,7 @@ function updateCount(savedCount) {
 }
 
 function activeFilterCount() {
-  var n = savedOnly ? 1 : 0;
+  var n = 0;
   FILTER_GROUPS.forEach(function(g) { n += Object.keys(selected[g.key]).length; });
   return n;
 }
@@ -366,8 +390,7 @@ function activeFilterCount() {
 // what each option would yield without counting its own group twice.
 function facetMatch(id, skipGroup) {
   var f = facets[id];
-  if (savedOnly && !RecipeCard.isSaved(id)) return false;
-  if (!f) return activeFilterCount() === (savedOnly ? 1 : 0);
+  if (!f) return activeFilterCount() === 0;
   return FILTER_GROUPS.every(function(g) {
     if (g.key === skipGroup) return true;
     var picks = Object.keys(selected[g.key]);
@@ -478,22 +501,6 @@ function buildFilterPanel() {
     body.appendChild(wrap);
   });
 
-  // Saved-only toggle
-  var savedWrap = document.createElement('div');
-  savedWrap.className = 'filt-group';
-  savedWrap.innerHTML = '<div class="filt-group-label">Collection</div><div class="filt-chips"></div>';
-  var savedChip = document.createElement('button');
-  savedChip.className = 'filt-chip';
-  savedChip.id = 'filt-saved';
-  savedChip.textContent = '⭐ Saved by us';
-  savedChip.addEventListener('click', function() {
-    savedOnly = !savedOnly;
-    refreshChips();
-    runFilter();
-  });
-  savedWrap.querySelector('.filt-chips').appendChild(savedChip);
-  body.appendChild(savedWrap);
-
   refreshChips();
 }
 
@@ -515,9 +522,6 @@ function refreshChips() {
     chip.classList.toggle('empty', n === 0 && !isOn);
     chip.querySelector('.filt-n').textContent = n;
   });
-
-  var savedChip = document.getElementById('filt-saved');
-  if (savedChip) savedChip.classList.toggle('selected', savedOnly);
 }
 
 // Search box
@@ -540,7 +544,6 @@ document.getElementById('filt-apply').addEventListener('click', closeFilters);
 filtOv.addEventListener('click', function(e) { if (e.target === filtOv) closeFilters(); });
 document.getElementById('filt-clear').addEventListener('click', function() {
   FILTER_GROUPS.forEach(function(g) { selected[g.key] = {}; });
-  savedOnly = false;
   refreshChips();
   runFilter();
 });

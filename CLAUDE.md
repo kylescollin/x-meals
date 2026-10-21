@@ -454,7 +454,10 @@ star just ahead of the name.
   never cooked, and never in the Explore preview.
 - **Favorites** are toggled from the star in the top-right of the detail view, beside the ⋯ menu.
   They're shared between the two accounts and live at `/favorites/{safeId}`; the star is hidden in
-  the Explore preview, which may write nothing.
+  the Explore preview, which may write nothing. The Recipes filter panel opens with a
+  **Favorites** chip and a **Cooked in the last 6 months** group (Never / Once / Twice / 3 times /
+  4+ times); both read the same `isFavorite` / `cookedRecentCount` the cards and detail view use,
+  exposed on `window.RecipeCard`. (There is no longer a "Saved by us" toggle.)
 - **"Last cooked"** comes from `/meals/cooked` — `{safeId: ["YYYY-MM-DD", …]}`, newest first —
   which `scripts/sync-firebase.js` rebuilds from the week files on every run via
   `scripts/lib/cooked-index.js`. A night's date is `Week.startOf(weekOf)` + the meal's day (the
