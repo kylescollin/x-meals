@@ -2,6 +2,119 @@
   "month": "2026-10",
   "items": [
     {
+      "key": "23c53048210c",
+      "id": "explore-23c53048210c",
+      "url": "https://www.budgetbytes.com/smothered-pork-chops/",
+      "site": "Budget Bytes",
+      "sourceId": "budgetbytes",
+      "published": "2026-10-21T13:30:00.000Z",
+      "fetched": "2026-10-21T17:42:56.132Z",
+      "name": "Smothered Pork Chops",
+      "image": "https://www.budgetbytes.com/wp-content/uploads/2026/10/1-Smothered-Pork-Chops-Overhead-Wide.jpg",
+      "icon": "🥓",
+      "course": "dinner",
+      "tags": [
+        "Skillet Dinner"
+      ],
+      "meta": "35 min · Stovetop · Serves 4",
+      "ingredients": [
+        "1 Tbsp vegetable oil",
+        "4 pork center-cut loin chops boneless, $4.00*",
+        "¾ tsp salt divided,",
+        "½ tsp black pepper freshly cracked, (divided)",
+        "½ tsp paprika",
+        "¼ cup all-purpose flour",
+        "1 yellow onion sliced, (2 cups)",
+        "2 Tbsp butter",
+        "2 garlic cloves minced, (1 Tbsp)",
+        "1 cup chicken broth $0.13**",
+        "¼ cup heavy cream $0.33***",
+        "¼ tsp dried thyme"
+      ],
+      "steps": [
+        "Gather and prepare all ingredients.",
+        "Heat the oil in a medium cast-iron over medium-high heat. Pat the pork chops dry with paper towels and season evenly with ¼ tsp salt, ¼ tsp pepper, and paprika.",
+        "Sprinkle the flour on a plate and dredge the pork chops in the flour. Reserve the remaining flour to make the roux.",
+        "Once the pan is hot, gently place the pork in the cast-iron. Let the pork cook undisturbed for 3-4 minutes on each side until a golden-brown crust forms. Remove the cooked pork from the pan and set them aside on a plate while you make the sauce.",
+        "Turn the heat to medium, and add the onions, stirring occasionally. Cook until they start to brown, for about 5 minutes.",
+        "Melt the butter and add the garlic. Cook for 1 minute.",
+        "Sprinkle in 2 Tbsp of the reserved flour and cook for 1 minute.",
+        "Add the chicken broth, heavy cream, thyme, and remaining salt and pepper. Cook until it thickens, for about 5 minutes.",
+        "Return the pork and any juices to the skillet to warm it through."
+      ],
+      "note": "",
+      "source": "https://www.budgetbytes.com/smothered-pork-chops/",
+      "recipe": true
+    },
+    {
+      "key": "7555fb10a005",
+      "id": "explore-7555fb10a005",
+      "url": "https://www.bonappetit.com/recipe/soothing-rice-porridge",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-10-21T11:00:00.000Z",
+      "fetched": "2026-10-21T17:42:56.132Z",
+      "name": "Soothing Rice Porridge",
+      "image": "https://assets.bonappetit.com/photos/6ac6c7d15619a072da57a83d/16:9/w_4275,h_2405,c_limit/soothing-rice-porridge_RECIPE_V2_100726_0088_VOG_final.jpg",
+      "icon": "🍚",
+      "course": "dinner",
+      "tags": [
+        "Rice",
+        "Asian"
+      ],
+      "meta": "Stovetop · Serves 4",
+      "ingredients": [
+        "1 cup short-grain rice, washed, soaked if desired",
+        "¼ cup dried wakame (seaweed)",
+        "1 Tbsp. dried red shiso",
+        "6 cups low-sodium broth (any kind) or water",
+        "Fine sea salt",
+        "Toasted sesame seeds, toasted sesame oil, and/or thinly sliced scallions (for serving)"
+      ],
+      "steps": [
+        "Combine 1 cup short-grain rice, washed, soaked if desired, ¼ cup dried wakame (seaweed), 1 Tbsp. dried red shiso, and 6 cups low-sodium broth (any kind) or water in a large donabe, medium Dutch oven, or other heavy pot. Cover and bring to a boil over medium-high heat (you’ll hear bubbling).",
+        "Uncover and stir, making sure nothing is stuck to bottom of pot. Cover and reduce heat to low. Continue to cook porridge 30 minutes more (resist the urge to peek).",
+        "Remove pot from heat and let porridge sit (still covered) 10 minutes. Uncover and stir. Rice grains should be cooked through, broken open, and creamy, but porridge should still be fairly loose. Season porridge with fine sea salt.",
+        "Ladle porridge into bowls and serve, topped with toasted sesame seeds, toasted sesame oil, and/or thinly sliced scallions."
+      ],
+      "note": "",
+      "source": "https://www.bonappetit.com/recipe/soothing-rice-porridge",
+      "recipe": true
+    },
+    {
+      "key": "adcff5d0e232",
+      "id": "explore-adcff5d0e232",
+      "url": "https://www.recipetineats.com/blue-cheese-dressing/",
+      "site": "RecipeTin Eats",
+      "sourceId": "recipetineats",
+      "published": "2026-10-21T05:00:00.000Z",
+      "fetched": "2026-10-21T17:42:56.132Z",
+      "name": "Blue Cheese Dressing",
+      "image": "https://www.recipetineats.com/tachyon/2026/10/Blue-cheese-dressing-9.jpg",
+      "icon": "🧀",
+      "course": "other",
+      "tags": [],
+      "meta": "Serves 1",
+      "ingredients": [
+        "120g / 3 oz Roquefort, or other creamy blue cheese – about 1 lightly packed cup when crumbled (Note 1)",
+        "¼ cup whole-egg mayonnaise (Note 2)",
+        "¼ cup sour cream",
+        "½ cup buttermilk , plus more as needed (Note 3 for substitute)",
+        "½ tsp garlic powder",
+        "2 tsp apple cider vinegar , or lemon juice",
+        "¼ tsp cooking salt / kosher salt",
+        "¼ tsp black pepper"
+      ],
+      "steps": [
+        "Mash – Put the blue cheese in a bowl and mash with a fork until it's crumbly (blue cheese is soft so it's easy).",
+        "Whisk – Add the remaining ingredients and whisk vigorously for about 15 seconds so the blue cheese blends in. There will be some little lumps – this is normal. Desirable! Lovely little pops of blue cheese (for completely smooth, see Note 4 ).",
+        "Thickness – This dressing is pretty thick, ideal for dipping, and clings well to leafy greens. To loosen, add a little bit more buttermilk."
+      ],
+      "note": "",
+      "source": "https://www.recipetineats.com/blue-cheese-dressing/",
+      "recipe": true
+    },
+    {
       "key": "4ec564d79b83",
       "id": "explore-4ec564d79b83",
       "url": "https://www.bonappetit.com/gallery/best-pumpkin-desserts",
@@ -12,7 +125,7 @@
       "name": "29 Best Pumpkin Desserts to Bake This Fall",
       "image": "https://assets.bonappetit.com/photos/66be3f6058396dbb64da25ed/master/pass/pumpkin-silk-pie_HERO_080824_9017_VOG_final.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "d59cec64c43b",
