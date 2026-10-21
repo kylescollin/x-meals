@@ -291,6 +291,20 @@ RecipeCard.init({
     // The star lives in the detail view, which sits over the list — keep the
     // Favorites chip and the cards behind it honest when it's toggled.
     onFavoriteChange: function() { refreshChips(); runFilter(); },
+    onDelete: function(id) {
+      delete CORE_IDS[id];
+      delete facets[id];
+      delete searchIndex[id];
+      list.querySelectorAll('.rc-card[data-recipe-id="' + id + '"]').forEach(function(c) { c.remove(); });
+      if (!list.querySelector('.rc-card[data-saved-id]')) {
+        var div = list.querySelector('.section-divider');
+        if (div) div.remove();
+      }
+      RECIPES = RECIPES.filter(function(r) { return r.id !== id; });
+      buildFilterPanel();
+      runFilter();
+      updateCount();
+    },
     onSaveChange: function(id, saved, recipeObj) {
       // If a journal recipe was just saved, add it to the list; if unsaved, remove it
       var existing = list.querySelector('.rc-card[data-saved-id="' + id + '"]');

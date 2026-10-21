@@ -207,6 +207,20 @@ ingredients, steps, tip). On **Save** (`saveNewRecipe` in `recipe-card.js`) it d
 
 New recipes get an `id` that is a slug of the name, with a numeric suffix on collision.
 
+### Deleting a recipe (⋯ menu in the detail view)
+
+**Delete recipe** sits under Edit in the ⋯ menu, for any recipe that is in the collection or
+saved — never in the Explore preview. `deleteRecipe` in `recipe-card.js` does the git copy
+first (`removeRecipeFromCore`: a read-modify-write of `data/recipes.json` through the GitHub
+token, same as the commit-on-edit), so a failed commit leaves everything as it was and alerts.
+Only then does it clear every Firebase node that names the recipe: the `/saved-recipes` flag
+and `/saved-recipe-data` copy, the `/recipe-edits` overlay, `/favorites`, and any
+`/explore/saved` entry pointing at the id. **Notes and photos are kept on purpose** — past
+weeks still carry their snapshot of the meal, and the Journal reads those buckets by id.
+A week that plans the recipe is untouched too: CI leaves meal ids it can't find in the
+collection alone. `onDelete(id)` tells the page; `recipes.html` drops the card and rebuilds
+the filter panel, and the week page needs nothing.
+
 ### Two copies of every recipe — and how they're kept in step
 
 Every recipe lives twice:

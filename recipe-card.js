@@ -145,6 +145,7 @@
   var recipeEdits      = {};    // safeId → edited recipe object
   var _onSaveChange    = null;  // optional callback(id, isSaved)
   var _onFavoriteChange = null; // optional callback(id, isFav)
+  var _onDelete        = null;  // optional callback(id) after a recipe is deleted
   var currentUserEmail = null;  // set in init() via options.userEmail
   var currentRecipeId  = null;  // safe key of the open recipe, for comment ops
 
@@ -799,6 +800,7 @@
       '.rc-rd-more-opt{background:#fff;border:none;text-align:left;padding:13px 16px;font-family:"DM Sans",sans-serif;font-size:14px;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;gap:11px;transition:background .12s;}',
       '.rc-rd-more-opt:not(:last-child){border-bottom:1px solid var(--border);}',
       '.rc-rd-more-opt:active{background:#f0ece5;}',
+      '.rc-rd-more-opt.rc-rd-danger{color:#b3402a;}',
       '.rc-rd-more-opt svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}',
       // Floating Cook pill
       '.rc-rd-cook-fab{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:5;display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--cream);border:none;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:15px;font-weight:600;letter-spacing:.02em;padding:15px 34px;cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 8px 24px rgba(20,19,17,.35);transition:transform .12s,background .15s;}',
@@ -1091,6 +1093,7 @@
             '<div class="rc-rd-more-menu" id="rc-rd-more-menu">',
               '<button class="rc-rd-more-opt" id="rc-rd-menu-edit"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Edit recipe</button>',
               '<button class="rc-rd-more-opt" id="rc-rd-menu-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span id="rc-rd-menu-save-label">Save to recipes</span></button>',
+              '<button class="rc-rd-more-opt rc-rd-danger" id="rc-rd-menu-delete"><svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>Delete recipe</button>',
             '</div>',
           '</div>',
           '</div>',
@@ -1272,6 +1275,10 @@
       saveOpt.style.display = '';
       labelEl.textContent = isSaved(id) ? 'Remove from recipes' : 'Save to recipes';
     }
+    // Delete is for recipes that are ours: never in the Explore preview, and
+    // not for one that was never saved (there's nothing to delete yet).
+    var delOpt = document.getElementById('rc-rd-menu-delete');
+    if (delOpt) delOpt.style.display = (!externalOpts && (isCore(id) || isSaved(id))) ? '' : 'none';
   }
 
   function refreshFavUI(id) {
@@ -1375,6 +1382,8 @@
     // Wire the ⋯-menu Save item to this recipe
     var saveOpt = document.getElementById('rc-rd-menu-save');
     if (saveOpt) saveOpt.onclick = function () { toggleSave(id, curR); closeMoreMenu(); };
+    var delOpt = document.getElementById('rc-rd-menu-delete');
+    if (delOpt) delOpt.onclick = function () { closeMoreMenu(); deleteRecipe(id, curR); };
     refreshSaveUI(id);
     var favBtn = document.getElementById('rc-rd-fav');
     if (favBtn) favBtn.onclick = function () { toggleFavorite(id); };
@@ -2595,6 +2604,92 @@
     });
   }
 
+  // Drop one recipe from data/recipes.json on main. Same read-modify-write
+  // and one retry as commitRecipeToCore. Resolves without a commit when the
+  // id isn't in the file (a recipe that only ever lived in Firebase).
+  function removeRecipeFromCore(id) {
+    return getGhToken().then(function (gh) {
+      if (!gh) throw new Error('no token');
+      var url = 'https://api.github.com/repos/' + REPO + '/contents/data/recipes.json';
+      var headers = {
+        'Authorization': 'Bearer ' + gh,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
+      };
+      function attempt() {
+        return fetch(url + '?ref=main', { headers: headers, cache: 'no-store' })
+          .then(function (getR) { if (!getR.ok) throw new Error('get failed'); return getR.json(); })
+          .then(function (meta) {
+            var json = JSON.parse(base64ToUtf8(meta.content));
+            var before = (json.recipes || []).length;
+            var gone = (json.recipes || []).filter(function (r) { return r.id === id; })[0];
+            json.recipes = (json.recipes || []).filter(function (r) { return r.id !== id; });
+            if (json.recipes.length === before) return false;
+            var content = utf8ToBase64(JSON.stringify(json, null, 2) + '\n');
+            return fetch(url, {
+              method: 'PUT', headers: headers,
+              body: JSON.stringify({
+                message: 'Delete recipe: ' + (gone.name || id) + ' (in-app)',
+                content: content, sha: meta.sha, branch: 'main'
+              })
+            }).then(function (putR) { if (!putR.ok) throw new Error('put failed ' + putR.status); return true; });
+          });
+      }
+      return attempt().catch(function () { return attempt(); });
+    });
+  }
+
+  // Delete a recipe from the collection: the git copy first (so a failed
+  // commit leaves everything as it was), then every Firebase node that names
+  // it — saved flag and data, the edit overlay, the favorite star, and the
+  // Explore tile's "saved" pill. Notes and photos are deliberately kept: they
+  // hang off past weeks too, and those keep their snapshot of the meal.
+  function deleteRecipe(id, r) {
+    var name = (r && r.name) || 'this recipe';
+    if (!confirm('Delete "' + name + '" from your recipes?\n\nWeeks that already planned it keep their copy, with any notes and photos. This can’t be undone.')) return;
+    var safeId = fbSafeKey(id);
+    var delOpt = document.getElementById('rc-rd-menu-delete');
+    if (delOpt) delOpt.disabled = true;
+
+    removeRecipeFromCore(id)
+      .catch(function (err) {
+        // A recipe that was never committed has nothing in git to remove.
+        if (!isCore(id)) return false;
+        throw err;
+      })
+      .then(function () {
+        delete coreIds[id];
+        delete savedIds[id];
+        delete favIds[safeId];
+        delete recipeEdits[safeId];
+        var writes = [
+          authedFetch(FB_FLAGS, { method: 'PUT', body: JSON.stringify(savedIds) }),
+          authedFetch(FB_BASE + '/saved-recipe-data/' + safeId + '.json', { method: 'DELETE' }),
+          authedFetch(FB_EDITS + '/' + safeId + '.json', { method: 'DELETE' }),
+          authedFetch(FB_FAVS + '/' + safeId + '.json', { method: 'DELETE' }),
+          authedFetch(FB_BASE + '/explore/saved.json')
+            .then(function (res) { return res.json(); })
+            .then(function (map) {
+              if (!map || typeof map !== 'object') return;
+              return Promise.all(Object.keys(map).filter(function (k) { return map[k] === id; }).map(function (k) {
+                return authedFetch(FB_BASE + '/explore/saved/' + k + '.json', { method: 'DELETE' });
+              }));
+            })
+        ];
+        return Promise.all(writes.map(function (p) { return p.catch(function () {}); }));
+      })
+      .then(function () {
+        if (delOpt) delOpt.disabled = false;
+        closeDetail();
+        if (_onDelete) _onDelete(id);
+      })
+      .catch(function (err) {
+        console.warn('Delete failed:', err);
+        if (delOpt) delOpt.disabled = false;
+        alert('"' + name + '" couldn’t be deleted just now — nothing was changed. Please try again.');
+      });
+  }
+
   // Make an overlay edit permanent and stamp it committed. Resolves true when
   // data/recipes.json has this exact edit — through this commit, or because
   // something else (CI, the other phone) got there first, which the overlay's
@@ -3262,6 +3357,7 @@
      * options.coreIds      — object of id→true for recipes already in the collection
      * options.onSaveChange — fn(id, isSaved, recipeObj) called after save toggle
      * options.onFavoriteChange — fn(id, isFav) called after the star is toggled
+     * options.onDelete     — fn(id) called once a recipe has been deleted everywhere
      * options.onReady      — fn() called after saved state + edits loaded from Firebase
      * options.weekOf       — default week to stamp notes and photos with. Pages
      *                        showing a specific week pass it; the Recipes page
@@ -3272,6 +3368,7 @@
       coreIds          = options.coreIds      || {};
       _onSaveChange    = options.onSaveChange || null;
       _onFavoriteChange = options.onFavoriteChange || null;
+      _onDelete        = options.onDelete       || null;
       currentUserEmail = options.userEmail    || null;
       defaultWeekOf    = options.weekOf       || '';
 
