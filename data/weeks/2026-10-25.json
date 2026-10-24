@@ -1,0 +1,111 @@
+{
+  "weekOf": "2026-10-25",
+  "title": "Week of October 25",
+  "meals": [
+    {
+      "id": "vegetarian-quesadillas",
+      "icon": "🫓",
+      "name": "Vegetarian Quesadillas",
+      "meta": "25 min · Stovetop · Serves 4",
+      "ings": [
+        "8 medium flour tortillas",
+        "1 large sweet potato",
+        "2 avocados",
+        "½ cup black beans, rinsed",
+        "¼ cup corn, rinsed",
+        "1 mini red pepper",
+        "1 mini orange pepper",
+        "1 tsp jalapeño, diced (optional)",
+        "1 Tbsp taco seasoning",
+        "1 cup cheddar or pepper jack cheese",
+        "1 Tbsp butter",
+        "2 tsp olive oil, divided",
+        "Cilantro, lime, salsa, sour cream to serve"
+      ],
+      "steps": [
+        "Poke holes in sweet potato, drizzle with oil, wrap in paper towels, microwave 8 min until very tender.",
+        "Dice peppers and jalapeño. Cook in pan until tender, 5–7 min. Add beans, corn, and taco seasoning. Cook 3 more min. Set aside.",
+        "Butter one side of tortilla. Spread sweet potato on the other, mash ½ avocado over it, add veggie filling, sprinkle cheese.",
+        "Cook butter-side down over medium heat until browned and cheese melts. Fold in half. Repeat. Slice and serve warm."
+      ],
+      "day": "Monday",
+      "label": "Meal A",
+      "date": "10/26"
+    },
+    {
+      "id": "chicken-enchiladas",
+      "icon": "🍗",
+      "name": "Chicken Enchiladas",
+      "meta": "1 hr · Oven · Serves 8",
+      "ings": [
+        "½ teaspoon EACH: onion powder, garlic powder, cumin, paprika, dried oregano, chili powder",
+        "1-2 tablespoons avocado oil (can sub olive oil)",
+        "½ yellow onion (diced)",
+        "15 oz. red enchilada sauce (I highly recommend my homemade version)",
+        "2 ¾ cups shredded chicken (see notes)",
+        "Salt (to taste)",
+        "3 cloves garlic (minced)",
+        "1 (15 oz.) can black beans (drained and rinsed)",
+        "1 (4 oz.) can diced green chiles (undrained)",
+        "2 tablespoons lime juice",
+        "1 teaspoon hot sauce",
+        "1 teaspoon honey",
+        "2 tablespoons finely chopped cilantro (plus more to garnish)",
+        "8 (8-inch) flour tortillas",
+        "3 cups shredded Mexican cheese (divided)",
+        "Sour cream (for serving)"
+      ],
+      "steps": [
+        "Preheat oven to 350° F.",
+        "Combine the seasonings and set aside. Measure out remaining ingredients before beginning.",
+        "Heat olive oil in a large skillet over medium heat. Add the diced onions and soften for 5 minutes.",
+        "Reduce heat to medium-low. Add ⅓ cup of enchilada sauce to the skillet along with the garlic.",
+        "Add the cooked chicken and season with salt to taste if not already salted. Rotisserie chicken likely won’t require additional salt.",
+        "Sprinkle the chicken with the combined seasonings (from step 2) and toss to coat. Stir in the black beans, green chiles, lime juice, hot sauce, honey, and cilantro and heat through for 1 to 2 minutes. Remove and set aside.",
+        "Lightly grease a 9 x 13-inch casserole dish. Spread ¼ cup of enchilada sauce on the bottom, the layer will be thin.",
+        "Optional: Microwave 4 tortillas at a time for 30 seconds to make them more pliable.",
+        "Spoon the filling on the bottom third of each tortilla and top with a heaping tablespoon of cheese. Roll tightly and place seam-side-down in the casserole dish.",
+        "Pour/spread enchilada sauce over the top of the rolled tortillas. (I use up to ¾ cup, you don't have to use all remaining sauce, it may be too heavy.) Sprinkle with an even layer of the remaining cheese.",
+        "Cover and bake for 10 minutes. (If topping with foil, spray the bottom with nonstick cooking spray to prevent the cheese from sticking to it.)",
+        "Remove cover and bake for 13 more minutes. Broil on low (450) for 1-2 minutes to brown the top slightly if desired. Watch it closely during this time.",
+        "Garnish with cilantro and desired toppings (see notes for suggestions) and serve with sour cream!"
+      ],
+      "day": "Tuesday",
+      "label": "Meal B",
+      "date": "10/27"
+    },
+    {
+      "id": "creamy-parmesan-sausage-ditalini-soup",
+      "icon": "🍲",
+      "name": "Creamy Parmesan Sausage Ditalini Soup",
+      "meta": "~30 min · Stovetop",
+      "ings": [
+        "1 lb Italian sausage",
+        "1 Tbsp olive oil",
+        "1 small onion, diced",
+        "3 cloves garlic, minced",
+        "4 cups chicken broth",
+        "1 cup heavy cream",
+        "1 (14.5 oz) can diced tomatoes, drained",
+        "2 carrots, chopped",
+        "1 cup ditalini pasta",
+        "2 cups fresh spinach, chopped",
+        "½ cup grated Parmesan, plus extra",
+        "Salt, pepper, fresh parsley"
+      ],
+      "steps": [
+        "Cook sausage in oil over medium, breaking into pieces until browned. Remove and set aside.",
+        "Sauté onion and garlic in same pot 2–3 min.",
+        "Add broth, simmer. Stir in tomatoes and sausage.",
+        "Add ditalini; cook per package (8–10 min).",
+        "Stir in cream, Parmesan, and spinach. Simmer 2–3 min until spinach wilts. Season and garnish."
+      ],
+      "day": "Wednesday",
+      "label": "Meal C",
+      "date": "10/28"
+    }
+  ],
+  "groceries": [],
+  "subhead": "3 dinners",
+  "updatedAt": 1792871918734
+}
