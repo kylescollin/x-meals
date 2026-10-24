@@ -2,6 +2,69 @@
   "month": "2026-10",
   "items": [
     {
+      "key": "081dbf37d37a",
+      "id": "explore-081dbf37d37a",
+      "url": "https://www.budgetbytes.com/sheet-pan-dinners/",
+      "site": "Budget Bytes",
+      "sourceId": "budgetbytes",
+      "published": "2026-10-24T13:30:00.000Z",
+      "fetched": "2026-10-24T16:18:31.059Z",
+      "name": "13 Easy Sheet Pan Dinners",
+      "image": "https://www.budgetbytes.com/wp-content/uploads/2026/10/Sheet-Pan-Dinners-Featured.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
+      "key": "e6847002253e",
+      "id": "explore-e6847002253e",
+      "url": "https://www.bonappetit.com/recipe/alton-brown-s-classic-brined-and-roasted-turkey",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-10-23T20:45:50.000Z",
+      "fetched": "2026-10-24T16:18:31.059Z",
+      "name": "Alton Brown's Brined Turkey",
+      "image": "https://assets.bonappetit.com/photos/581cee8a052381c26d3b9e05/16:9/w_1343,h_755,c_limit/roast-turkey.jpg",
+      "icon": "🍗",
+      "course": "dinner",
+      "tags": [
+        "American"
+      ],
+      "meta": "Oven · Serves 12",
+      "ingredients": [
+        "1 (14–18-lb.) frozen turkey",
+        "3 cups (1 lb.) Diamond Crystal or 1¾ cups Morton kosher salt",
+        "⅔ cup sugar",
+        "4 qt. low-sodium vegetable broth",
+        "8 lb. ice (from 1 gallon water)",
+        "1 large onion, coarsely chopped",
+        "2 large carrots, scrubbed, coarsely chopped",
+        "2 celery stalks, coarsely chopped",
+        "Sprigs of thyme, rosemary, and/or sage (for turkey)",
+        "Nonstick vegetable oil spray (for foil)",
+        "2 Tbsp. unsalted butter",
+        "1 cup low-sodium chicken broth",
+        "1 Tbsp. cornstarch",
+        "Kosher salt, freshly ground black pepper"
+      ],
+      "steps": [
+        "Place wrapped one 14–18-lb. Frozen turkey in a 5-gal. cooler with a drain spout. Place cooler in a bathtub and pour in cold water to cover turkey. Let sit, draining and replacing water every 2–3 hours and making sure to keep water temperature below 40°, until turkey is thawed, 8–10 hours.",
+        "Remove turkey and clean cooler with soap and pat dry. Pour in 3 cups (1 lb.) Diamond Crystal or 1¾ cups Morton kosher salt, ⅔ cup sugar, and 2 qt. hot tap water. Stir to dissolve salt and sugar. Pour in 4 qt. low-sodium vegetable broth and 8 lb. ice (from 1 gallon water).",
+        "Unwrap turkey and remove giblets and any other parts (such as neck) that may be inside cavity; save for gravy if desired. Place turkey, breast side up, in brine. If turkey floats, fill a 1-gallon resealable plastic bag with ice water and place it on top of turkey.",
+        "Close lid and set cooler in a cool place. Let sit, turning turkey over once if possible, 8–12 hours. Check brining liquid periodically with a probe-style thermometer ; if temperature is above 40°, add a few freezer packs enclosed in resealable plastic bags.",
+        "Place a rack in lower third of oven and remove remaining racks; preheat to 500°. Remove turkey from brine and pat dry inside and out with paper towels. Fill turkey cavity with 1 large onion, coarsely chopped, 2 large carrots, scrubbed, coarsely chopped, 2 celery stalks, coarsely chopped, and some thyme, rosemary, and/or sage sprigs; keep packing loose.",
+        "Place turkey, breast side up, on a V-shaped rack set inside a large roasting pan. Cut a piece of foil big enough to cover breast and mold over breast. Remove foil, then coat foil with nonstick vegetable oil spray and set aside.",
+        "Rub 2 Tbsp. unsalted butter between your hands until liberally coated (you may use disposable food-grade gloves if desired). Rub butter all over turkey, re-buttering your hands and repeating process until you have a nice, even coating.",
+        "Slide turkey into oven neck end first and roast until well browned, 30–40 minutes. Remove turkey from oven and place greased foil over breast. Insert probe-style thermometer through foil into thickest part of breast. Reduce oven temperature to 350° and return turkey to oven. Roast until probe inserted into breast registers 161°, and 181° for thigh, 2–2½ hours (do not open oven to baste turkey).",
+        "Transfer turkey to carving board and let rest 30 minutes. Reserve drippings for gravy.",
+        "Set roasting pan across 2 burners over medium heat. Add 1 cup low-sodium chicken broth and whisk to scrape up pan drippings. Whisk 1 Tbsp. cornstarch and 1 cup cold water in a small bowl to combine. Add cornstarch slurry to pan and cook, whisking, until gravy is glossy and thickened.",
+        "Taste and season with kosher salt and freshly ground pepper if needed. Editor’s note: We first published this wet-brined turkey recipe in November 2011; it has been updated for style.",
+        "If you and your guests haven’t finished the whole bird by the night’s end, put it to work in these leftover turkey recipes."
+      ],
+      "note": "",
+      "source": "https://www.bonappetit.com/recipe/alton-brown-s-classic-brined-and-roasted-turkey",
+      "recipe": true
+    },
+    {
       "key": "5ca1c60d0cff",
       "id": "explore-5ca1c60d0cff",
       "url": "https://www.skinnytaste.com/free-7-day-healthy-meal-plan-oct-26-nov-1/",
@@ -12,7 +75,7 @@
       "name": "Free 7 Day Healthy Meal Plan (Oct 26-Nov 1)",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/10/Week_564_Oct-26-Nov-1-600x750.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "35a2b98371b7",
