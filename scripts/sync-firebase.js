@@ -26,6 +26,8 @@ const path = require('path');
 const Week = require('../week-utils.js');
 const { same } = require('./lib/stable.js');
 const { cookedIndex } = require('./lib/cooked-index.js');
+const { isOwed } = require('../grocery-status.js');
+const { getStage, setStage } = require('./lib/job-status.js');
 
 admin.initializeApp({
   credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)),
@@ -62,6 +64,9 @@ async function main() {
       // win; only hand over the groceries, which only CI writes.
       await db.ref('/meals/weeks/' + key + '/groceries').set(week.groceries || []);
       if (week.groceriesAt) await db.ref('/meals/weeks/' + key + '/groceriesAt').set(week.groceriesAt);
+      // The request CI just served, so the dock stops waiting even though the
+      // phone's newer edit kept its copy of the document.
+      if (week.groceriesServed) await db.ref('/meals/weeks/' + key + '/groceriesServed').set(week.groceriesServed);
       // Which meals the list covers is CI's bookkeeping too — without it the
       // next run works out the wrong delta. Same for the ingredient
       // fingerprints, which is how a recipe edit gets noticed.
@@ -98,9 +103,24 @@ async function main() {
   }
 
   await applyOverlayWrites();
+  await finishJobs(weeks);
 
   console.log('Sync complete');
   process.exit(0);
+}
+
+// A week whose list this run built now has its list in Firebase, so its job
+// can read "done". Cosmetic — the phone decides "done" from the week's own
+// stamps — so a miss here costs nothing but a prettier last frame.
+async function finishJobs(weeks) {
+  for (const w of weeks) {
+    if (!w.groceriesServed || isOwed(w)) continue;
+    const job = await getStage(w.weekOf);
+    if (job && job.stage === 'built') {
+      await setStage(w.weekOf, 'done', { items: job.items });
+      console.log(`✓ ${w.weekOf} grocery job done`);
+    }
+  }
 }
 
 // The recipe-overlay reconcile (refresh-week-meals.js) may have folded a

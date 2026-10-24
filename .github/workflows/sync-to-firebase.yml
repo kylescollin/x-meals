@@ -31,10 +31,15 @@ jobs:
       contents: write
     steps:
       # Full history: the commit step rebases before pushing, and a shallow
-      # clone has no common ancestor to rebase onto.
+      # clone has no common ancestor to rebase onto. `ref: main` rather than
+      # the push that triggered us: a run that queued behind another starts
+      # from the tip as it is NOW — including that run's "Update grocery
+      # lists" commit — so it doesn't rebuild a week that was just built and
+      # then collide with it on push.
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: main
 
       - uses: actions/setup-node@v4
         with:
@@ -42,6 +47,14 @@ jobs:
 
       - name: Install dependencies
         run: cd scripts && npm install
+
+      # Tell the dock on the phone that its request is under way. Cosmetic —
+      # see scripts/lib/job-status.js — so it may never fail the run.
+      - name: Mark owed grocery lists as started
+        continue-on-error: true
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: node scripts/job-status.js started
 
       # Anything still writing data/week.json gets folded into data/weeks/
       # before the rest of the pipeline looks at the week data.
@@ -64,6 +77,7 @@ jobs:
           node scripts/test-recipe-overlay.js
           node scripts/test-explore-feed.js
           node scripts/test-cooked-index.js
+          node scripts/test-grocery-status.js
 
       # Every recipe lives twice — data/recipes.json and the Firebase overlay
       # the site shows. Reconcile the two (a phone edit whose commit never
@@ -77,11 +91,13 @@ jobs:
           OVERLAY_WRITES_FILE: ${{ runner.temp }}/overlay-writes.json
         run: node scripts/refresh-week-meals.js
 
-      # Does the least work each week needs: nothing at all for a rearranged
-      # week, one scoped call for a meal added or removed. That's what stops
-      # this from looping or burning API calls. continue-on-error so the weeks
-      # that did build still get committed and synced below; the trailer step
-      # at the end makes any failure loud.
+      # Builds a list only for a week that has asked for one (the Build /
+      # Update button on the phone writes `groceriesRequested`; CI answers with
+      # `groceriesServed`). Everything else is free: letters relabelled for a
+      # rearranged week, nothing at all for a week whose meals changed but
+      # which hasn't asked yet. continue-on-error so the weeks that did build
+      # still get committed and synced below; the trailer step at the end
+      # makes any failure loud.
       - name: Update grocery lists
         id: groceries
         continue-on-error: true
@@ -143,3 +159,12 @@ jobs:
         run: |
           echo "::error::One or more grocery lists failed to generate — see the 'Update grocery lists' step. Weeks that succeeded were still committed and synced; the failed week is retried on the next run (or dispatch this workflow manually)."
           exit 1
+
+      # The dock would otherwise spin for five minutes before offering a retry.
+      # Only weeks still owed are marked — one that built fine keeps "built".
+      - name: Mark owed grocery lists as failed
+        if: failure()
+        continue-on-error: true
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: node scripts/job-status.js failed

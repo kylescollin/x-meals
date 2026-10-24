@@ -1,29 +1,34 @@
-/* Fox & Bear Kitchen — keeping each week's grocery list in step with its meals.
+/* Fox & Bear Kitchen — building each week's grocery list, on request.
  *
- * Walks every current-and-upcoming week in data/weeks/ and does the least work
- * that will make its list right. There are four outcomes, and only two of them
- * cost an API call:
+ * Walks every current-and-upcoming week in data/weeks/. A list is built only
+ * for a week that is OWED one — its `groceriesRequested` stamp has no matching
+ * `groceriesServed` (see grocery-status.js). The phone's Build / Update button
+ * writes the request; Agent X may write one at publish time. Saving meals
+ * never does, so a half-planned week costs nothing.
  *
- *   nothing changed      Rearranged the nights, added a "Pizza night", renamed
- *                        a placeholder. The letters on the tag pills may have
- *                        moved, so those get recomputed locally. No API call.
+ * For an owed week, the least work that makes the list right:
  *
- *   meals left           Their exclusive items are dropped outright. An item
- *                        shared with a meal that's still on the plan survives,
- *                        and only its quantity needs revising.
+ *   no list yet          Generate the whole week from scratch, so one onion
+ *                        line can consolidate across three meals.
  *
- *   meals joined         Only their ingredients are considered — folded into
- *                        existing lines where they overlap.
+ *   meals joined/left,   One scoped call: only the joined meals' ingredients,
+ *   recipe edited        only the lines whose quantity a departure moved, only
+ *                        the edited recipes' lines.
  *
- *   no list yet          The one case that still generates the whole week from
- *                        scratch (a week X has just published, or --force).
+ *   nothing changed      Nothing to ask. The request is consumed and that's all.
+ *
+ * For a week that is NOT owed, the only work allowed is free: if nothing about
+ * the meals changed, the Meal A…G letters are recomputed locally; if something
+ * did change, the file is left byte-for-byte alone, so the phone can see the
+ * list is behind and offer the button. The decision itself is groceryPlan() in
+ * grocery-status.js, which is unit-tested.
  *
  * Nothing here ever rewrites a line it didn't have to. Grocery check state is
  * keyed by an item's rendered NAME, so a gratuitous rename un-ticks something
  * somebody has already put in the trolley. See scripts/lib/week-merge.js.
  *
  * Usage: node scripts/generate-groceries.js [--force]
- *   --force  rebuild every week's list from scratch, ignoring the delta. Only
+ *   --force  rebuild every week's list from scratch, request or not. Only
  *            needed to give a pre-provenance list its `from` fields back.
  */
 const fs = require('fs');
@@ -37,6 +42,8 @@ const {
   mergeGroceries, weekDelta, pruneRemoved, applyRevisions, relabelGroceries,
   getTagClass, fromTag, groceryKey, ingsFingerprint
 } = require('./lib/week-merge.js');
+const { isOwed, groceryPlan } = require('../grocery-status.js');
+const { setStage } = require('./lib/job-status.js');
 
 const client = new Anthropic();
 
@@ -273,8 +280,7 @@ async function processWeek(filePath, force) {
   const week = JSON.parse(fs.readFileSync(filePath, 'utf8'));
   const cookable = cookableMeals(week);
   const mealIds = cookable.map(m => m.id);
-
-  if (!cookable.length) return null;                      // nothing to shop for
+  const owed = isOwed(week);
 
   // Fingerprint of each meal's (section-stripped) ings, compared against the
   // stored groceriesIngs — this is how an edited recipe becomes a delta even
@@ -284,20 +290,39 @@ async function processWeek(filePath, force) {
 
   const hasList = (week.groceries || []).some(s => (s.items || []).length);
   const delta = weekDelta(week, mealIds, fingerprints);
+  const plan = groceryPlan({ owed, force, hasList, hasCookable: cookable.length > 0, delta });
 
-  // A list written before provenance existed can't be diffed — we can't tell
-  // which line belongs to which meal. Leave it be until asked to rebuild it.
-  if (delta.legacy && !force) return null;
+  if (plan.action === 'skip') {
+    console.log(`Leaving week of ${week.weekOf} alone: ${plan.reason}.`);
+    return null;
+  }
+
+  // Owed, but nothing to shop for (every meal is a placeholder, or there are
+  // none). Consume the request and touch nothing else.
+  if (!cookable.length) {
+    week.groceriesServed = week.groceriesRequested;
+    fs.writeFileSync(filePath, JSON.stringify(week, null, 2) + '\n');
+    console.log(`Week of ${week.weekOf}: nothing to shop for — request served.`);
+    await setStage(week.weekOf, 'built', { items: 0 });
+    return week.weekOf;
+  }
 
   const before = JSON.parse(JSON.stringify(week.groceries || []));
   let touched;
 
-  if (force || !hasList) {
-    touched = await buildWholeWeek(week, cookable, mealIds);
-  } else if (!delta.added.length && !delta.removed.length && !delta.changed.length) {
-    touched = week.groceries;      // rearranged, not rewritten — only the letters moved
+  if (plan.action === 'build' || plan.action === 'revise') {
+    await setStage(week.weekOf, 'generating', { meals: cookable.length, action: plan.action });
+    try {
+      touched = plan.action === 'build'
+        ? await buildWholeWeek(week, cookable, mealIds)
+        : await reviseForDelta(week, cookable, mealIds, delta);
+    } catch (e) {
+      await setStage(week.weekOf, 'failed', { message: String(e.message || e).slice(0, 200) });
+      throw e;
+    }
   } else {
-    touched = await reviseForDelta(week, cookable, mealIds, delta);
+    // serve / relabel — rearranged, not rewritten. Only the letters moved.
+    touched = week.groceries || [];
   }
 
   // Whatever produced the list, the tags are display only and are derived here
@@ -307,15 +332,20 @@ async function processWeek(filePath, force) {
   touched = relabelGroceries(touched, cookable);
 
   const coversChanged = !same(week.groceriesFor, mealIds);
-  // An absent groceriesIngs also counts as changed — the one-time backfill
-  // that gives every current/upcoming week its fingerprint baseline.
+  // An absent or older-format groceriesIngs also counts as changed — the
+  // backfill that gives every current/upcoming week its fingerprint baseline.
   const ingsChanged = !same(week.groceriesIngs, fingerprints);
-  if (same(before, touched) && !coversChanged && !ingsChanged) return null;   // genuinely nothing to write
+  if (!owed && same(before, touched) && !coversChanged && !ingsChanged) return null;   // genuinely nothing to write
 
   week.groceries = touched;
   week.groceriesFor = mealIds;
   week.groceriesIngs = fingerprints;
   week.groceriesAt = new Date().toISOString();
+  // The request is consumed by copying it, never by deleting it: a copy can be
+  // mirrored field-by-field into Firebase when the phone has moved on
+  // (sync-firebase.js), and a stamp is clock-skew-proof where a comparison
+  // against groceriesAt would not be.
+  if (owed) week.groceriesServed = week.groceriesRequested;
 
   // Trailing newline to match what the in-app commit writes. Without it every
   // CI write differs from every in-app write by one byte, so `git diff --quiet`
@@ -323,7 +353,8 @@ async function processWeek(filePath, force) {
   fs.writeFileSync(filePath, JSON.stringify(week, null, 2) + '\n');
 
   const total = week.groceries.reduce((n, s) => n + s.items.length, 0);
-  console.log(`  → ${total} items across ${week.groceries.length} sections.`);
+  console.log(`  → ${total} items across ${week.groceries.length} sections${owed ? ' — request served' : ''}.`);
+  if (owed) await setStage(week.weekOf, 'built', { items: total });
   return week.weekOf;
 }
 

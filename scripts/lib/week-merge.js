@@ -32,9 +32,8 @@
 'use strict';
 
 // This file only ever runs under node (the browser keeps its own copy of
-// groceryKey in week-store.js for exactly that reason), so crypto is fine.
-const crypto = require('crypto');
-const { stable } = require('./stable.js');
+// groceryKey in week-store.js for exactly that reason).
+const { ingsFingerprint, knownFingerprint } = require('../../grocery-status.js');
 
 // MUST stay byte-identical to groceryKey() in week-store.js, which is what the
 // browser writes checkboxes with. If these two ever disagree, every checkbox on
@@ -43,16 +42,9 @@ function groceryKey(name) {
   return String(name || '').trim().replace(/[^a-z0-9]/gi, '_').substring(0, 60);
 }
 
-/**
- * Stable 12-hex fingerprint of a meal's ingredient list, stored per meal as
- * `groceriesIngs` next to `groceriesFor`. Same ings, same hash — which is what
- * lets the second CI pass prove nothing changed. Callers hash the
- * SECTION-STRIPPED ings (what cookableMeals produces), so editing only a
- * "# For the sauce" header never looks like a shopping change.
- */
-function ingsFingerprint(ings) {
-  return crypto.createHash('sha1').update(stable(ings || [])).digest('hex').slice(0, 12);
-}
+// ingsFingerprint lives in grocery-status.js now — the browser needs the same
+// function to tell whether a list is behind its meals — and is re-exported
+// below so nothing that imports it from here has to move.
 
 // Leading quantities vary between generations ("3 medium yellow onions" vs
 // "2 yellow onions"), so they can't be part of identity. Strip the quantity,
@@ -256,8 +248,10 @@ function weekDelta(week, mealIds, ingsById) {
   // Only a meal in BOTH sets can be "changed" — one that joined or left gets
   // the full add/remove treatment already.
   const prev = (week && week.groceriesIngs) || null;
+  // A stored fingerprint from an older algorithm is unknown, not different —
+  // the write path backfills it for free rather than calling the model.
   const changed = (!prev || !ingsById) ? [] :
-    ids.filter(id => have.has(id) && prev[id] && ingsById[id] && prev[id] !== ingsById[id]);
+    ids.filter(id => have.has(id) && knownFingerprint(prev[id]) && ingsById[id] && prev[id] !== ingsById[id]);
 
   return {
     added: ids.filter(id => !have.has(id)),

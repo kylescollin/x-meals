@@ -18,6 +18,12 @@
      GrocerySheet.setWeek(weekKey, weekData)   // which week's list is this?
      GrocerySheet.open() / .close()
      GrocerySheet.onProgress(fn)               // {checked,total} on every change
+     GrocerySheet.setJob(progress|null)        // a list being built: bar + message
+     GrocerySheet.setStatus({canBuild,behind,hasList})   // show the Build/Update bar?
+     GrocerySheet.onRequest(fn)                // the Build / Update button was tapped
+
+   The sheet never decides whether a list is owed or behind — index.html does,
+   from the week document (grocery-status.js) — it only shows what it's told.
 
    Two things that must not drift:
    - Check state is keyed by WeekStore.groceryKey(<rendered item name>), which
@@ -40,6 +46,9 @@
   var lastKnownState = {};   // whole Firebase node: flags + _custom
   var pollTimer = null;
   var progressFn = null;
+  var requestFn = null;
+  var jobState = null;                      // what setJob was last given
+  var status = { canBuild: false, behind: false, hasList: false };
   var root = null, ovEl = null, sectionsEl = null, emptyEl = null;
 
   function esc(s) {
@@ -57,6 +66,22 @@
     '#gs-sheet .gs-track{background:var(--border);border-radius:99px;height:6px;overflow:hidden;margin-bottom:6px;}',
     '#gs-sheet .gs-fill{height:100%;background:var(--check);border-radius:99px;width:0;transition:width .3s ease;}',
     '#gs-sheet .gs-label{font-size:12px;color:var(--muted);}',
+    // A list being built. Dark like the dock, so the two read as one thing.
+    '#gs-sheet.working .gs-progress{display:none;}',
+    '#gs-sheet .gs-job{display:none;margin:12px 18px 6px;padding:12px 14px 13px;background:var(--ink);color:#fff;border-radius:12px;}',
+    '#gs-sheet .gs-job.on{display:block;}',
+    '#gs-sheet .gs-job-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;font-weight:600;margin-bottom:9px;}',
+    '#gs-sheet .gs-job-pct{font-variant-numeric:tabular-nums;font-weight:500;opacity:.85;}',
+    '#gs-sheet .gs-job .gs-track{background:rgba(255,255,255,.18);margin:0;height:5px;}',
+    '#gs-sheet .gs-job .gs-fill{background:var(--accent);background-image:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.4) 50%,rgba(255,255,255,0) 100%);background-size:200% 100%;animation:gs-shimmer 1.6s linear infinite;transition:width .6s ease;}',
+    '#gs-sheet .gs-job.still .gs-fill{animation:none;}',
+    '@keyframes gs-shimmer{from{background-position:200% 0}to{background-position:-200% 0}}',
+    // The ask: no list yet, or the meals have moved on since it was built.
+    '#gs-sheet .gs-cta{display:none;align-items:center;justify-content:space-between;gap:12px;margin:0 0 16px;padding:12px 14px;background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;}',
+    '#gs-sheet .gs-cta.on{display:flex;}',
+    '#gs-sheet .gs-cta-text{font-size:13px;color:#7a4820;line-height:1.35;}',
+    '#gs-sheet .gs-cta-btn{font-family:\'DM Sans\',sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:100px;padding:10px 16px;cursor:pointer;white-space:nowrap;flex-shrink:0;}',
+    '#gs-sheet .gs-cta-btn:hover{background:#b0531f;}',
     '#gs-sheet .gs-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px calc(24px + env(safe-area-inset-bottom,0px));}',
     '#gs-sheet .gs-reset{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:500;border-radius:100px;padding:6px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,color .15s;}',
     '#gs-sheet .gs-reset:hover{border-color:#bbb;color:var(--ink);}',
@@ -129,8 +154,16 @@
         '<div class="gs-track"><div class="gs-fill" id="gs-fill"></div></div>' +
         '<div class="gs-label" id="gs-label">0 of 0 items checked</div>' +
       '</div>' +
+      '<div class="gs-job" id="gs-job">' +
+        '<div class="gs-job-row"><span id="gs-job-text"></span><span class="gs-job-pct" id="gs-job-pct"></span></div>' +
+        '<div class="gs-track"><div class="gs-fill" id="gs-job-fill"></div></div>' +
+      '</div>' +
       '<div class="gs-stores" id="gs-stores"><span class="gs-stores-label">Shop at</span></div>' +
       '<div class="gs-body">' +
+        '<div class="gs-cta" id="gs-cta">' +
+          '<span class="gs-cta-text" id="gs-cta-text"></span>' +
+          '<button type="button" class="gs-cta-btn" id="gs-cta-btn">Build list</button>' +
+        '</div>' +
         '<div class="add-bar">' +
           '<input class="add-input" id="gs-add-input" type="text" placeholder="Add an item…" ' +
                  'autocomplete="off" enterkeyhint="done">' +
@@ -416,10 +449,47 @@
     var any = sectionsEl.querySelector('.item');
     emptyEl.style.display = any ? 'none' : '';
     if (!any) {
-      emptyEl.textContent = hasMeals
-        ? 'No list for this week yet — it builds itself a minute or so after the meals are saved.'
-        : 'Nothing planned for this week yet. Add anything you need below.';
+      emptyEl.textContent = jobState
+        ? 'Your list is on its way — it appears here the moment it’s ready.'
+        : hasMeals
+          ? 'Nothing on the list yet. Build it above, or add anything you need below.'
+          : 'Nothing planned for this week yet. Add anything you need below.';
     }
+  }
+
+  // ── Building, and asking to build ─────────────────────────────────────────
+  // index.html works out whether a list is owed or behind from the week
+  // document and tells the sheet; the sheet only paints.
+  function setJob(pr) {
+    jobState = pr || null;
+    var el = document.getElementById('gs-job');
+    root.classList.toggle('working', !!jobState);
+    el.classList.toggle('on', !!jobState);
+    el.classList.toggle('still', !!(jobState && (jobState.failed || jobState.stale)));
+    if (jobState) {
+      document.getElementById('gs-job-text').textContent = jobState.text || '';
+      document.getElementById('gs-job-pct').textContent =
+        (jobState.failed || jobState.stale) ? '' : Math.round((jobState.pct || 0) * 100) + '%';
+      document.getElementById('gs-job-fill').style.width = ((jobState.pct || 0) * 100) + '%';
+    }
+    paintCta();
+    syncEmptyNote();
+  }
+
+  function setStatus(st) {
+    status = st || { canBuild: false, behind: false, hasList: false };
+    paintCta();
+  }
+
+  function paintCta() {
+    var el = document.getElementById('gs-cta');
+    var on = !jobState && status.canBuild && (!status.hasList || status.behind);
+    el.classList.toggle('on', !!on);
+    if (!on) return;
+    document.getElementById('gs-cta-text').textContent = status.hasList
+      ? 'Your meals have changed since this list was built.'
+      : 'No grocery list for this week yet.';
+    document.getElementById('gs-cta-btn').textContent = status.hasList ? 'Update list' : 'Build list';
   }
 
   function setWeek(key, weekData) {
@@ -495,6 +565,9 @@
 
     document.getElementById('gs-close').addEventListener('click', close);
     document.getElementById('gs-reset').addEventListener('click', resetAll);
+    document.getElementById('gs-cta-btn').addEventListener('click', function () {
+      if (requestFn) requestFn();
+    });
 
     loadStore();
     var storesEl = document.getElementById('gs-stores');
@@ -548,6 +621,9 @@
     isOpen: isOpen,
     progress: counts,
     onProgress: function (fn) { progressFn = fn; },
+    setJob: setJob,
+    setStatus: setStatus,
+    onRequest: function (fn) { requestFn = fn; },
     // Stores — exposed so the choice can be read or tested from the console.
     stores: STORES.map(function (s) { return { id: s.id, name: s.name }; }),
     store: function () { return store.id; },

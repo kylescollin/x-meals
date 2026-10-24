@@ -72,6 +72,11 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   trailing `(notes)`, fraction glyphs (`window.IngFormat`, and `require`-able from `scripts/`).
   Pure, no DOM. Must load before `recipe-import.js` and `recipe-card.js`. See **Ingredient
   Lines** below.
+- `grocery-status.js` — What the browser and CI must agree on about a week's grocery list
+  (`window.GroceryStatus`, and `require`-able from `scripts/`). Pure. Whether a list is **owed**
+  (`isOwed`), whether it is **behind** its meals (`listBehind`), the per-meal ingredient
+  fingerprint, and `groceryPlan` — the one decision that decides whether CI spends a model call.
+  Must load after `ingredient-format.js`. See **Grocery Lists**.
 - `week-utils.js` — All week math (`window.Week`, and `require`-able from `scripts/`). Weeks run
   **Sunday → Saturday**.
 - `week-store.js` — Reading and writing weeks from the browser (`window.WeekStore`). Owns
@@ -86,8 +91,13 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   current week to `/meals/current` for anything still reading it, and rebuilds `/meals/cooked`.
 - `scripts/lib/cooked-index.js` — The "last cooked" index: recipe id → every night it was
   planned, newest first, built from the week files. Pure, unit-tested. See **Recipe cards**.
-- `scripts/generate-groceries.js` — Brings each week's grocery list in line with its meals, doing
-  the least work the change needs. Takes `--force` to rebuild from scratch. See **Grocery Lists**.
+- `scripts/generate-groceries.js` — Builds a week's grocery list **when asked** (the week carries a
+  `groceriesRequested` stamp CI hasn't answered yet), doing the least work the change needs. For a
+  week that hasn't asked it does only free work. Takes `--force` to rebuild from scratch. See
+  **Grocery Lists**.
+- `scripts/lib/job-status.js`, `scripts/job-status.js` — The live progress of a build, written to
+  Firebase `/grocery-jobs/{weekOf}` for the dock on the phone. Cosmetic and best-effort: nothing
+  waits on it and it never fails a run. The CLI marks every owed week `started` or `failed`.
 - `scripts/lib/week-merge.js` — What actually changed about a week (`weekDelta`) and how to apply
   it (`pruneRemoved`, `applyRevisions`, `relabelGroceries`), plus the whole-week reconcile
   (`mergeGroceries`) and the per-meal ingredient fingerprint (`ingsFingerprint`) that lets an
@@ -111,8 +121,9 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   `scripts/test-recipe-import.js`, `scripts/test-ingredient-format.js`,
   `scripts/test-model-json.js`, `scripts/test-refresh-meals.js`,
   `scripts/test-recipe-overlay.js`, `scripts/test-explore-feed.js`,
-  `scripts/test-cooked-index.js` — the repo's test suite.
-  All ten run in CI before anything is written. `test-recipe-import.js` covers the guessing
+  `scripts/test-cooked-index.js`, `scripts/test-grocery-status.js` — the repo's test suite.
+  All eleven run in CI before anything is written. `test-grocery-status.js` is the one that stands
+  between "Kyle saved a half-planned week" and a model call. `test-recipe-import.js` covers the guessing
   rules; the ones that matter most are the tag cases, because recipe method text is full of
   words that mean something else in a title. `test-ingredient-format.js` leans the other way —
   most of its cases assert the parser does *nothing*, because "2 (14.5 oz) cans" and "1/16 tsp"
@@ -143,6 +154,9 @@ The HTML pages are render-only shells — they contain no embedded meal or recip
    never written again. `/meals/cooked` is a derived index (see **Recipe cards**), CI-written.
 3. **Favorites** — `/favorites/{safeId} = true`, shared by both accounts, written one key at a
    time from the star in the recipe detail view.
+4. **Grocery job progress** — `/grocery-jobs/{weekOf} = {stage, at}`, written by the phone
+   (`requested`) and then by CI (`started` → `generating` → `built` → `done`, or `failed`). Purely
+   for the progress bar; "done" is never decided from it. See **Grocery Lists**.
 
 ### Two meanings of "week" — don't conflate them
 
@@ -178,17 +192,13 @@ On **Done** it:
 2. Writes the updated week to Firebase via `WeekStore.put` → `/meals/weeks/{weekOf}` (meals update
    instantly), carrying that `groceries` array through untouched.
 3. Fetches a fine-grained GitHub token from Firebase `/config/githubToken` and commits the same
-   object to `data/weeks/{weekOf}.json` via the GitHub Contents API — which triggers the sync
-   Action, so the grocery list catches up ~1 min later.
+   object to `data/weeks/{weekOf}.json` via the GitHub Contents API, so Agent X and CI see it.
 
-**It never empties `groceries` to force a rebuild.** CI works out what changed and touches only that.
-
-**Only mark the week as waiting when a list is genuinely coming.** `save()` asks the same four
-questions CI does, and stays quiet unless all four hold: the commit landed, the set of *recipes*
-changed (moving a night or adding a placeholder changes no shopping), something cookable is left,
-and **the week is not in the past** — `generate-groceries.js` skips past weeks outright, so
-promising an update there is a promise nothing will ever keep. Both sides use the identical
-`viewStart < Week.todayStart()` test so they cannot disagree.
+**Saving never builds a grocery list.** That was the old behaviour, and it made Kyle reluctant to
+save a half-planned week because every save spent a model call. The list is built from the
+**Build list / Update list** pill on the grocery dock (and the same button inside the sheet) —
+see **Asking for the list** under **Grocery Lists**. `save()` carries every grocery field through
+untouched, including the two request stamps. **It never empties `groceries` to force a rebuild.**
 
 The token lives in Firebase under `/config` (read/write restricted to the two allow-listed emails,
 same as all meal data); it is scoped to only this repo with Contents read/write. It is **not** in
@@ -589,7 +599,12 @@ historical and handled, but don't add to it.)
 
 **Tag classes:** A week can have 1–7 meals (labels `Meal A` … `Meal G`). Single-meal colors: `tag-chili` (A), `tag-cauliflower` (B), `tag-pasta` (C), `tag-d` (D), `tag-e` (E), `tag-f` (F), `tag-g` (G). Shared across multiple meals: `tag-shared`. All meals: `tag-all`. These control the color of the tag pill. Both `tag` and `tagClass` are computed automatically from each item's `from` by `scripts/lib/week-merge.js` — X doesn't need to set either.
 
-**CI-owned fields.** `groceries`, `groceriesFor` (the meal ids the list covers), `groceriesIngs` (a fingerprint of each meal's ingredients as the list last saw them — how a recipe edit gets noticed) and `groceriesAt` are written only by CI. X should leave all four alone — set `"groceries": []` on a brand-new week and omit the other three.
+**CI-owned fields.** `groceries`, `groceriesFor` (the meal ids the list covers), `groceriesIngs` (a fingerprint of each meal's ingredients as the list last saw them — how a recipe edit gets noticed), `groceriesAt` and `groceriesServed` are written only by CI. X should leave all five alone — set `"groceries": []` on a brand-new week and omit the other four.
+
+**The one stamp X may write: `groceriesRequested`.** An ISO timestamp. A list is **owed** while it
+differs from `groceriesServed`, and CI builds a list only for an owed week. Set it on a new week to
+have the list built at publish time; leave it out to let Kyle ask from the dock when he's ready to
+shop. Never write `groceriesServed`, and never copy an old `groceriesRequested` onto a new week.
 
 **Shop button:** Only include `"amazon"` for produce, protein, dairy, and pantry items. Omit it for spices — the sheet falls back to searching the item's own name, so they still get a shop button. The field is still called `amazon` for history's sake, but it is a plain search term and the sheet sends it to whichever store is chosen (see **Where the list lives on screen**).
 
@@ -624,6 +639,8 @@ Publishing a week is now a single file write. There is no archiving step, and no
 another — planning three weeks ahead is just three files.
 
 1. Write `data/weeks/{weekOf}.json` with the meals array fully populated and `"groceries": []`.
+   Add `"groceriesRequested": "<ISO timestamp, now>"` **only if** the list should be built right
+   away; otherwise Kyle builds it from the dock. See **Week File Schema**.
 2. Commit and push to `main`.
 
 That's it. Don't touch `data/week.json` or `data/history.json` — they are frozen legacy.
@@ -644,8 +661,13 @@ hidden in timeline view and while editing meals.
 
 - The dock's counts come straight from the sheet's own item count via `GrocerySheet.onProgress`,
   so the two can never disagree.
-- A week with no list yet reads **"Building your grocery list…"** while CI works; any other week
-  with nothing to count reads **"Add groceries"**. Both still open the sheet.
+- The right-hand side is either the `checked/total` count or an **action pill**: **Build list**
+  when the week has cookable meals and no list, **Update list** when the meals have moved on since
+  the list was built (title: "List is behind your meals"), **Retry** when a build failed or has
+  taken more than five minutes. A week with nothing cookable reads **"Add groceries"**. Tapping the
+  pill asks for the list; tapping anywhere else opens the sheet.
+- While a list is being built the dock shows the job's progress instead — a message per stage and
+  a percentage, with the track in the accent colour. See **Asking for the list**.
 - **An unplanned week can have a grocery list.** Hand-added items live at
   `/groceries/{weekOf}/_custom/{id}` in Firebase, which doesn't require the week document to
   exist. This is how you start a shopping list before picking any meals.
@@ -656,38 +678,79 @@ hidden in timeline view and while editing meals.
   stores. Switching rewrites the buttons in place; the list and its ticks are untouched. The
   store table is `STORES` at the top of `grocery-sheet.js` — adding a store is one entry there.
 
-### Waiting for CI belongs to the week, not to the app
+### Asking for the list
 
-The list catches up about a minute after the meals are saved, and the dock is what says so. Saving
-puts the week in a `pending` map (mirrored to `sessionStorage`, so a reload doesn't lose it), and a
-**single watcher** — not one timer per save — re-reads each pending week until its `groceriesAt`
-stamp moves. That stamp is the signal: a merged list that didn't change looks identical to one that
-never ran.
+Saving meals never builds a list. The **Build list / Update list** pill does. `requestGroceries()`
+in `index.html`:
 
-The rule this encodes: **a message about a week has to live on that week.** The floating "grocery
-list updating…" pill this replaced was owned by the app, so it outlived its own poll — change week
-and the timer died without ever clearing the pill.
+1. Re-reads the week, stamps it `groceriesRequested = now`, writes it to Firebase via
+   `WeekStore.put` — so both phones see the week as owed at once — and writes
+   `/grocery-jobs/{weekOf} = {stage:'requested'}`.
+2. Commits the week file through the GitHub token. The push runs the sync workflow; CI sees the
+   stamp, builds (or revises) the list, copies the stamp into `groceriesServed`, commits and syncs.
+   If the commit fails, the stamp is taken back and nothing is owed.
 
-Three things follow, and all three are load-bearing:
+**A list is owed while `groceriesRequested !== groceriesServed`.** That pair, on the week document,
+is the only truth about whether a build is pending. It is clock-skew-proof (CI copies the value, it
+never compares times), it survives a reload on either phone with nothing stored, and a phone that
+edits the week mid-build carries both stamps through (`save()`), so the request is never lost.
 
-- **`GrocerySheet` and `WeekStore` never refresh themselves.** The sheet renders from the in-memory
-  `weekData` it was handed, and its own 8s poll reads only `/groceries/{key}` — the ticks and
-  hand-added items, never the week document. `WeekStore.get` caches per key for the whole session.
-  So a CI-written list reaches the screen **only** via `WeekStore.get(key, true)`.
+**Progress is cosmetic.** `/grocery-jobs/{weekOf}` goes `requested` → `started` (right after
+`npm install`) → `generating` (before the model call) → `built` (file written) → `done` (list in
+Firebase), or `failed`. The dock polls it every 3 s while the week is owed and paints a bar from a
+per-stage estimate (`STAGES` in `index.html`: where the bar sits when a stage begins and how long
+it usually lasts), creeping by wall-clock time since the stage's own `at` stamp — iOS freezes
+timers when the app is backgrounded, and a frozen timer can't desync a clock. The bar never
+reaches the next stage's floor on its own.
+
+**"Done" is never read from the job node.** Every ~20 s — and every 6 s once the job says `built`
+— the watcher re-reads the week document (`WeekStore.get(key, true)`); the list has landed when
+the fresh copy is no longer owed. So a missed status write, undeployed rules, or a run that died
+before `started` all degrade to "the bar creeps and the week re-read still resolves it". After
+five minutes owed the dock reads "Taking longer than usual" with a **Retry** pill; Retry re-reads
+first and only re-requests if the list genuinely hasn't come. `failed` shows Retry at once.
+
+Three things follow:
+
+- **`GrocerySheet` and `WeekStore` never refresh themselves.** The sheet renders from the
+  `weekData` it was handed and only paints what `setJob` / `setStatus` tell it; its own 8 s poll
+  reads only `/groceries/{key}` — the ticks and hand-added items. `WeekStore.get` caches per key
+  for the whole session. A CI-written list reaches the screen **only** via `WeekStore.get(key, true)`.
 - **That forced re-read runs at every moment the list could have landed while we weren't looking:**
-  `visibilitychange` (the big one — iOS suspends timers the moment the app is backgrounded, which is
-  exactly the minute CI needs), tapping the dock, and navigating to a week that is pending.
-- **Giving up is a retry, not a dead end.** After ~4 minutes the entry goes *stale* rather than being
-  dropped; the dock reads "tap to check" and tapping re-arms it. Any later refresh still resolves it,
-  so the dock can't be left claiming to wait for something that already arrived.
+  `visibilitychange`, tapping the dock, navigating to a week whose cached copy is owed, and the
+  watcher's own ticks.
+- **A message about a week lives on that week.** There is no app-level pill or per-save timer; the
+  dock reads the week on screen and nothing else.
 
 `toast()` has no `persist` option, deliberately. Every toast clears itself.
 
+### What the dock means by "behind"
+
+`GroceryStatus.listBehind(week, cookableMeals)`: the stored `groceriesFor` isn't exactly the
+current set of cookable meal ids, or a stored ingredient fingerprint differs from the meal's
+current one. The fingerprint is versioned (`"1:…"`); one from the older SHA-1 format reads as
+*unknown*, never as *changed*, and CI backfills it for free. Past weeks are never judged.
+
 ### How the list gets built
 
-X does not write the `groceries` array — `scripts/generate-groceries.js` does, in CI.
+X does not write the `groceries` array — `scripts/generate-groceries.js` does, in CI, and **only
+for a week that is owed a list** (see **Asking for the list**). The decision is `groceryPlan` in
+`grocery-status.js`, unit-tested in `scripts/test-grocery-status.js`:
 
-It does **the least work the change needs**, never a fresh start. That matters because grocery
+| week is… | meals vs. list | CI does |
+|---|---|---|
+| not owed | nothing changed | `relabel` — the Meal A…G letters, locally. Free. |
+| not owed | a meal joined/left, or a recipe was edited | `skip` — the file is left byte-for-byte alone, so the dock can say the list is behind. Free. |
+| owed | no list yet, or a legacy list | `build` — the whole week. One model call. |
+| owed | a meal joined/left, or a recipe was edited | `revise` — one scoped call. |
+| owed | nothing changed | `serve` — just copy the stamp. Free. |
+| `--force` | anything | `build`. |
+
+Every served week gets `groceriesServed = groceriesRequested` and a fresh `groceriesAt`.
+**Recipe edits no longer revise lists on their own** — the refresh step still carries the edit
+into the week snapshot, so the fingerprint moves and the dock says the list is behind.
+
+Once asked, it does **the least work the change needs**, never a fresh start. That matters because grocery
 check state is keyed by the item's rendered *name*: renaming "3 medium yellow onions" to "2 yellow
 onions" silently un-ticks something somebody has already put in the trolley. A line nobody had a
 reason to touch is never touched.
@@ -704,9 +767,8 @@ current meals gives the delta, and the delta picks one of five paths:
 | **A recipe was edited** — same meals, different ingredients | The CI refresh step (`refresh-week-meals.js`) has already carried the edit into the week's snapshot, so the fingerprint no longer matches. One scoped call: new ingredients are added, unticked lines are corrected, and a line whose ingredient left the recipe is removed — but only if it's unticked, CI-owned, and needed by no other meal. Ticked lines are never touched, even stale ones. |
 | **No list yet** (a week X just published, or `--force`) | The one case that still generates all five sections at once, so ingredients consolidate across meals. |
 
-A recipe edit doesn't pass through the week page's `save()`, so the dock won't say "Building your
-grocery list…" for it — the list simply updates a minute later via the normal `groceriesAt` stamp.
-That's the safe direction of disagreement: CI may write more than the dock promised, never less.
+Those five paths describe what happens *once asked*; a week nobody has asked about gets only the
+free rows of the table above.
 
 - **Anything currently ticked off keeps its exact name**, on every path. It still picks up a
   corrected `detail`, `from` and `tag`.
@@ -717,8 +779,8 @@ That's the safe direction of disagreement: CI may write more than the dock promi
 - Lists written before `from` existed can't be diffed, so they're left alone. `--force` rebuilds
   them once; after that they're on the delta path like everything else.
 - **Only the current week and the ones ahead of it are ever touched.** Rebuilding the list for a week
-  that has already been shopped for and cooked helps nobody. Anything in the UI that implies a past
-  week's list is about to update is a bug — see the four questions `save()` asks.
+  that has already been shopped for and cooked helps nobody. The dock never offers Build / Update
+  on a past week, and a `groceriesRequested` on one is simply never served.
 
 Never commit `"groceries": []` to force a rebuild — that was the old mechanism and it threw away
 the check state along with the list. To rebuild deliberately, run the sync workflow from the
@@ -733,6 +795,16 @@ freshly built list with it. Three defences now, in order — the queue makes the
 commit step rebases and retries, and it is `continue-on-error` so the site gets the list even when
 git won't take it. A final step then fails the run loudly, because git is the source of truth the
 next run reads from and a commit that never landed must not look green.
+
+The checkout uses `ref: main`, not the push that triggered the run: a run that queued behind
+another starts from the tip as it is *now*, including that run's "Update grocery lists" commit, so
+it doesn't rebuild a week that was just built and then collide with it on push. Only one run can
+wait in the queue — GitHub drops older pending runs in a group — which is fine, because the
+request lives in the week file and the surviving run serves it.
+
+**Known edge, accepted:** a request or save that lands while a run is mid-build can cost one extra
+model call (the next run sees the stamps still differ and builds again). The stamps make it
+converge; it never loses a list.
 
 ## Design Conventions
 

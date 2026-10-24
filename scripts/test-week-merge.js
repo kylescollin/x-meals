@@ -268,7 +268,7 @@ const MEALS = [
   check('same ings, same fingerprint', ingsFingerprint(ings), ingsFingerprint(ings.slice()));
   check('a changed ingredient changes the fingerprint',
     ingsFingerprint(ings) === ingsFingerprint(['3 yellow onions', '1 lb ground beef']), false);
-  check('the fingerprint is 12 hex chars', /^[0-9a-f]{12}$/.test(ingsFingerprint(ings)), true);
+  check('the fingerprint is versioned', /^1:[0-9a-z]+$/.test(ingsFingerprint(ings)), true);
 
   const fp = { chili: ingsFingerprint(['a']), curry: ingsFingerprint(['b']) };
   const week = (ids) => ({ groceries: produce([item('2 onions', ids, 'Meal A')]), groceriesFor: ids, groceriesIngs: fp });
