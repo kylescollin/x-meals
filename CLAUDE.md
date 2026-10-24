@@ -42,8 +42,9 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   `/meals/weeks/{weekOf}`. Takes `?week=`, `?view=timeline` and `?groceries=1`.
 - `recipes.html` — Browsable recipe collection. Fetches `data/recipes.json` on load.
 - `explore.html` + `explore.js` — The Explore tab: a photo grid of new recipes pulled in from
-  food blogs each morning, with one-tap Save into the collection. Reads `data/explore/` and
-  Firebase `/explore`. See **Explore feed** below.
+  food blogs each morning, with one-tap Save into the collection. Search field and the same
+  filter sheet as Recipes (`recipe-filters.js`), opening on dinners only. Reads `data/explore/`
+  and Firebase `/explore`. See **Explore feed** below.
 - `groceries.html` — Retired. A redirect to `index.html?week=…&groceries=1` (the `?week=` param
   is forwarded); kept because it's in the service worker shell and may be bookmarked.
 - `journal.html` — Retired. A redirect to `index.html?view=timeline`; kept because it's in the
@@ -85,6 +86,12 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   (`window.GrocerySheet`). Self-contained like `recipe-card.js`: it injects its own styles and
   markup. This is the whole engine that used to be `groceries.html` — sections, checkbox sync,
   hand-added items, the shop buttons and the store switch. See **Grocery Lists** below.
+- `recipe-filters.js` — The filter sheet behind the icon button next to the search field on
+  **both** the Recipes and Explore tabs (`window.RecipeFilters`, and `require`-able from
+  `scripts/`). Self-contained like `grocery-sheet.js`: it injects its own markup and styles. Reads
+  dish type and cuisine from `tags`, time and equipment out of `meta`, the protein out of the
+  ingredients; each page hands it an ordered list of groups and adds its own (Favorites and
+  Cooked on Recipes; Course, Saved and Blog on Explore). See **Filtering** under **Explore feed**.
 
 **Scripts & Automation:**
 - `scripts/sync-firebase.js` — Syncs `data/weeks/*.json` → `/meals/weeks/*`, mirrors the
@@ -121,8 +128,9 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   `scripts/test-recipe-import.js`, `scripts/test-ingredient-format.js`,
   `scripts/test-model-json.js`, `scripts/test-refresh-meals.js`,
   `scripts/test-recipe-overlay.js`, `scripts/test-explore-feed.js`,
-  `scripts/test-cooked-index.js`, `scripts/test-grocery-status.js` — the repo's test suite.
-  All eleven run in CI before anything is written. `test-grocery-status.js` is the one that stands
+  `scripts/test-cooked-index.js`, `scripts/test-grocery-status.js`,
+  `scripts/test-recipe-filters.js` — the repo's test suite.
+  All twelve run in CI before anything is written. `test-grocery-status.js` is the one that stands
   between "Kyle saved a half-planned week" and a model call. `test-recipe-import.js` covers the guessing
   rules; the ones that matter most are the tag cases, because recipe method text is full of
   words that mean something else in a title. `test-ingredient-format.js` leans the other way —
@@ -364,8 +372,9 @@ image, never copied. `course` is never saved into the collection.
 
 The tab is for dinners, and the blogs post plenty that isn't: cakes, muffins, side salads, drinks.
 Every readable item gets a `course` — `dinner`, `breakfast`, `dessert`, `drink`, `side` or
-`other` — and the grid shows only dinners until the **Sweets & sides** chip flips it to the rest.
-Nothing is deleted; the manifest carries a `dinners` count per month beside `counts`.
+`other` — and the filter sheet opens with **Dinners** picked in its Course group, so the grid
+shows only dinners until Kyle picks another course (see **Filtering** below). Nothing is
+deleted; the manifest carries a `dinners` count per month beside `counts`.
 
 No AI decides this. `courseOf` in `fetch-explore.js` reads three things the blog already
 published, each on its own and in order of trust: the recipe card's **Course** line ("Dessert",
@@ -381,6 +390,20 @@ matching, and so are "Crab Cakes", "Pot Pie" and "Sweet Potato". The cases live 
 Items written before this existed are labelled on the next run — from the feed while the post is
 still in it, from the name alone once it has dropped out — and an item with no `course` counts as
 a dinner on the page, so an older month file is never wrong, only less sorted.
+
+### Filtering
+
+The search field and the icon button beside it are the Recipes tab's, and the sheet behind the
+button is the same engine (`recipe-filters.js`) — there is no chip row any more. The groups, in
+order: **Course** (one chip per course, **Dinners picked by default**), **Saved** (Not saved yet /
+Saved), **Blog** (one chip per entry in `sources.json`), then Type of dish, Cuisine, Total time,
+How it cooks and Main protein, read from each item's `tags`, `meta` and ingredients exactly as the
+Recipes page reads them. A group sitting on its defaults counts as no filter, so the button's badge
+reads 0 with only Dinners picked; un-ticking Dinners shows every course. **Clear all** returns to
+Dinners, not to nothing. Opening the sheet, searching, or picking anything loads every month first
+so the chip counts are complete (the feed is a handful of small files). Blog recipes often carry
+no time ("Oven · Serves 12"), so `parseMethods` finds the method wherever it sits — that is the
+one way the shared parser differs from what `recipes.html` used to do inline.
 
 ```
 /explore/hidden/<key>  = <ms>            "Not for us" — gone from both phones

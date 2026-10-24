@@ -25,23 +25,15 @@
   h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;line-height:1.1;margin-bottom:8px;}
   .hm{font-size:13px;color:var(--muted);font-weight:300;}
 
-  /* Search — same field as the Recipes page. 16px minimum so iOS doesn't zoom. */
-  .srch-wrap{max-width:680px;margin:0 auto;padding:0 20px 12px;}
-  .srch-field{position:relative;}
+  /* Search row — the same field and filter button as the Recipes page. 16px
+     minimum so iOS doesn't zoom. The button's own styles come with
+     recipe-filters.js. */
+  .srch-wrap{max-width:680px;margin:0 auto;padding:0 20px 18px;display:flex;align-items:center;gap:10px;}
+  .srch-field{position:relative;flex:1;min-width:0;}
   #srch{width:100%;padding:12px 40px 12px 16px;border:1.5px solid var(--border);border-radius:10px;background:#fff;font-family:'DM Sans',sans-serif;font-size:16px;color:var(--ink);outline:none;-webkit-appearance:none;}
   #srch:focus{border-color:var(--accent);}
   #srch::placeholder{color:var(--muted);}
   .srch-x{display:none;position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 8px;line-height:1;-webkit-tap-highlight-color:transparent;}
-
-  /* Blog chips: one row, scrolls sideways, no scrollbar. */
-  .chips{max-width:680px;margin:0 auto;padding:0 20px 18px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
-  .chips::-webkit-scrollbar{display:none;}
-  .chip{flex-shrink:0;background:#fff;border:1.5px solid var(--border);border-radius:100px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s,transform .12s;white-space:nowrap;}
-  .chip:active{transform:scale(.95);}
-  .chip.selected{border-color:var(--accent);background:var(--accent-light);font-weight:500;}
-  /* The one chip that isn't a blog: flips the grid to the non-dinner pile. */
-  .chip-sweets{border-style:dashed;margin-right:6px;}
-  .chip-sweets.selected{border-style:solid;}
 
   /* The grid: two columns, tiles dropped into whichever is shorter. */
   .grid{max-width:680px;margin:0 auto;padding:0 20px;display:flex;gap:10px;align-items:flex-start;}
@@ -83,8 +75,8 @@
     <input type="search" id="srch" placeholder="Search new recipes…" autocomplete="off" autocorrect="off" spellcheck="false">
     <button class="srch-x" id="srch-x" aria-label="Clear">✕</button>
   </div>
+  <button class="filt-btn" id="filt-btn" aria-label="Filter new recipes"></button>
 </div>
-<div class="chips" id="chips"></div>
 <div class="empty" id="empty" style="display:none"></div>
 <div class="grid" id="grid">
   <div class="col" id="col-a"></div>
@@ -97,6 +89,7 @@
 <script src="ingredient-format.js"></script>
 <script src="recipe-import.js"></script>
 <script src="recipe-card.js"></script>
+<script src="recipe-filters.js"></script>
 <script type="module" src="explore.js"></script>
 </body>
 </html>

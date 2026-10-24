@@ -7,6 +7,11 @@
  *   /explore/hidden/<key> = <ms>          "Not for us" — never shown again
  *   /explore/saved/<key>  = "<recipe id>" saved into the collection
  *
+ * Filtering is the same sheet the Recipes tab uses (recipe-filters.js), with
+ * three groups of its own: Course (Dinners picked by default — the feed is
+ * for dinners, and everything else the blogs post waits behind that chip
+ * rather than being thrown away), Saved, and Blog.
+ *
  * Tapping a tile opens the normal recipe view in its "external" mode (see
  * openDetail in recipe-card.js), whose Save bar calls back here. Saving goes
  * through RecipeCard.saveRecipe — the same path as the add form, so the
@@ -69,25 +74,19 @@ const byKey  = {};
 const byUrl  = {};
 let nextMonth = 0;
 let loading = false;
-let filterSource = '';
 let query = '';
-// The feed is for dinners. Everything else the blogs post — cakes, muffins,
-// sides, drinks — waits behind one chip rather than being thrown away. An item
-// labelled before courses existed counts as a dinner.
-let sweets = false;
-function isDinner(it) { return !it.course || it.course === 'dinner'; }
 
 const els = {
-  hm:    document.getElementById('hm'),
-  srch:  document.getElementById('srch'),
-  srchX: document.getElementById('srch-x'),
-  chips: document.getElementById('chips'),
-  empty: document.getElementById('empty'),
-  grid:  document.getElementById('grid'),
-  cols:  [document.getElementById('col-a'), document.getElementById('col-b')],
-  more:  document.getElementById('more'),
-  foot:  document.getElementById('foot'),
-  toast: document.getElementById('toast')
+  hm:      document.getElementById('hm'),
+  srch:    document.getElementById('srch'),
+  srchX:   document.getElementById('srch-x'),
+  filtBtn: document.getElementById('filt-btn'),
+  empty:   document.getElementById('empty'),
+  grid:    document.getElementById('grid'),
+  cols:    [document.getElementById('col-a'), document.getElementById('col-b')],
+  more:    document.getElementById('more'),
+  foot:    document.getElementById('foot'),
+  toast:   document.getElementById('toast')
 };
 
 // ── Recipe view + saving ────────────────────────────────────────────────
@@ -115,6 +114,8 @@ function markSaved(it, id) {
   const tile = tileFor(it.key);
   if (tile) tile.classList.add('saved');
   fbPut('/saved/' + it.key, id);
+  // With "Not saved yet" picked, the tile has just stopped belonging here.
+  if (Object.keys(filters.selected.saved || {}).length) render(true);
 }
 
 function open(it) {
@@ -150,6 +151,7 @@ function hide(it) {
   if (tile) tile.remove();
   fbPut('/hidden/' + it.key, hidden[it.key]);
   refreshEmpty();
+  refreshCount();
   toast('Hidden', {
     label: 'Undo',
     onClick() {
@@ -184,21 +186,72 @@ async function loadNext() {
   return true;
 }
 
-// Search and the blog chips look across everything, so they pull in every
+// Search and the filters look across everything, so they pull in every
 // month first. A handful of files for a long while yet.
 async function loadAll() {
   while (nextMonth < months.length) await loadNext();
 }
+
+// ── Filters ─────────────────────────────────────────────────────────────
+// The sheet is recipe-filters.js, shared with the Recipes tab. The common
+// facet (dish, cuisine, time, method, protein) comes from the item's tags,
+// meta and ingredients; Explore adds the course, the blog, and whether it has
+// been saved. Items that can be shown at all — readable and not hidden — are
+// the pool every count is taken over.
+const COURSE_LABEL = { dinner: 'Dinners', breakfast: 'Breakfast', dessert: 'Desserts', side: 'Sides', drink: 'Drinks', other: 'Other' };
+const COURSES = ['Dinners', 'Breakfast', 'Desserts', 'Sides', 'Drinks', 'Other'];
+const sourceName = {};
+sources.forEach((s) => { sourceName[s.id] = s.name; });
+
+// An item labelled before courses existed counts as a dinner.
+function courseLabel(f) { return COURSE_LABEL[f.course] || 'Dinners'; }
+
+function facetOf(it) {
+  if (!it._facet) {
+    it._facet = RecipeFilters.facetFor(it, it.tags, it.key);
+    it._facet.course = it.course;
+    it._facet.sourceId = it.sourceId;
+  }
+  it._facet.saved = !!savedId(it);     // live — saving a tile changes it
+  return it._facet;
+}
+
+function pool() { return items.filter((it) => it.recipe && !hidden[it.key]); }
+function textOK(it) { return !query || haystack(it).indexOf(query) !== -1; }
+
+const G = RecipeFilters.groups;
+const FILTER_GROUPS = [
+  { key: 'course', title: 'Course', fixed: COURSES, defaults: ['Dinners'],
+    values: (f) => [courseLabel(f)] },
+  { key: 'saved',  title: 'Saved', fixed: ['Not saved yet', 'Saved'],
+    values: (f) => [f.saved ? 'Saved' : 'Not saved yet'] },
+  { key: 'blog',   title: 'Blog', fixed: sources.map((s) => s.name),
+    values: (f) => sourceName[f.sourceId] ? [sourceName[f.sourceId]] : [] },
+  G.dish, G.cuisine, G.time, G.method, G.protein
+];
+
+const filters = RecipeFilters.attach({
+  button:    els.filtBtn,
+  title:     'Filter new recipes',
+  groups:    FILTER_GROUPS,
+  ids:       () => pool().map((it) => it.key),
+  facet:     (id) => byKey[id] ? facetOf(byKey[id]) : undefined,
+  textMatch: (id) => !!byKey[id] && textOK(byKey[id]),
+  // Every month is loaded before the sheet opens, so the counts are complete.
+  onOpen:    loadAll,
+  onChange:  async () => {
+    if (filters.activeCount()) await loadAll();
+    render(true);
+    filters.refresh();
+  }
+});
 
 // ── Rendering ───────────────────────────────────────────────────────────
 let renderedUpTo = 0;
 
 function visible(it) {
   if (!it.recipe || hidden[it.key]) return false;
-  if (isDinner(it) === sweets) return false;
-  if (filterSource && it.sourceId !== filterSource) return false;
-  if (query && haystack(it).indexOf(query) === -1) return false;
-  return true;
+  return filters.matches(it.key) && textOK(it);
 }
 
 function haystack(it) {
@@ -268,6 +321,7 @@ function render(reset) {
   }
   refreshEmpty();
   refreshFoot();
+  refreshCount();
 }
 
 function refreshEmpty() {
@@ -276,15 +330,13 @@ function refreshEmpty() {
   const allLoaded = nextMonth >= months.length;
   if (!months.length) {
     els.empty.innerHTML = '<strong>Nothing here yet</strong>The first batch of recipes arrives tomorrow morning.';
-  } else if (allLoaded && (query || filterSource)) {
-    // The match may be sitting in the other pile.
-    const elsewhere = items.filter((it) => it.recipe && !hidden[it.key] && isDinner(it) === sweets &&
-      (!filterSource || it.sourceId === filterSource) && (!query || haystack(it).indexOf(query) !== -1)).length;
-    const where = sweets ? 'under dinners' : 'under Sweets &amp; sides';
+  } else if (allLoaded && (query || filters.activeCount())) {
+    // The match may be sitting under another course.
+    const others = pool().filter((it) => textOK(it) && filters.matches(it.key, 'course')).length;
     els.empty.innerHTML = '<strong>No matches</strong>' +
-      (elsewhere ? elsewhere + (elsewhere === 1 ? ' is ' : ' are ') + where + '.' : 'Try another word, or a different blog.');
-  } else if (allLoaded && sweets) {
-    els.empty.innerHTML = '<strong>No sweets or sides yet</strong>Cakes, muffins, salads and drinks the blogs post land here.';
+      (others
+        ? others + (others === 1 ? ' is' : ' are') + ' under another course — change the Course filter to see ' + (others === 1 ? 'it' : 'them') + '.'
+        : 'Try another word, or loosen the filters.');
   } else if (allLoaded) {
     els.empty.innerHTML = '<strong>All caught up</strong>You’ve seen or hidden everything so far. New recipes arrive each morning.';
   } else {
@@ -302,14 +354,17 @@ function refreshFoot() {
 
 function refreshCount() {
   if (!manifest) { els.hm.textContent = 'Nothing pulled in yet'; return; }
+  if (query || filters.activeCount()) {
+    const all = pool();
+    const shown = all.filter(visible).length;
+    els.hm.textContent = shown + ' of ' + all.length + ' recipes match';
+    return;
+  }
   const sum = (map) => Object.keys(map || {}).reduce((n, m) => n + (map[m] || 0), 0);
-  const all = sum(manifest.counts);
   // A manifest from before courses existed has no dinners map: everything counts.
-  const dinners = manifest.dinners ? sum(manifest.dinners) : all;
-  const total = sweets ? all - dinners : dinners;
-  const what = sweets ? (total === 1 ? 'sweet or side' : 'sweets & sides') : (total === 1 ? 'dinner' : 'dinners');
+  const dinners = manifest.dinners ? sum(manifest.dinners) : sum(manifest.counts);
   const blogs = manifest.sources || sources.length;
-  els.hm.textContent = total + ' ' + what + ' from ' + blogs + ' blogs · updated ' + whenText(manifest.updatedAt);
+  els.hm.textContent = dinners + (dinners === 1 ? ' dinner' : ' dinners') + ' from ' + blogs + ' blogs · updated ' + whenText(manifest.updatedAt);
 }
 
 function whenText(iso) {
@@ -324,32 +379,7 @@ function whenText(iso) {
   return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 }
 
-// ── Chips + search ──────────────────────────────────────────────────────
-function buildChips() {
-  const all = [{ id: '', name: 'All' }].concat(sources);
-  els.chips.innerHTML =
-    '<button type="button" class="chip chip-sweets' + (sweets ? ' selected' : '') + '" data-sweets="1">🍰 Sweets &amp; sides</button>' +
-    all.map((s) =>
-      '<button type="button" class="chip' + (s.id === filterSource ? ' selected' : '') + '" data-id="' + escHtml(s.id) + '">' + escHtml(s.name) + '</button>'
-    ).join('');
-}
-els.chips.addEventListener('click', async (e) => {
-  const chip = e.target.closest('.chip');
-  if (!chip) return;
-  if (chip.hasAttribute('data-sweets')) {
-    sweets = !sweets;
-    buildChips();
-    refreshCount();
-    if (sweets) await loadAll();      // the pile is small; show all of it at once
-    render(true);
-    return;
-  }
-  filterSource = chip.getAttribute('data-id') || '';
-  buildChips();
-  if (filterSource) await loadAll();
-  render(true);
-});
-
+// ── Search ──────────────────────────────────────────────────────────────
 els.srch.addEventListener('input', async () => {
   query = els.srch.value.trim().toLowerCase();
   els.srchX.style.display = query ? 'block' : 'none';
@@ -388,8 +418,6 @@ function clearToast() {
 }
 
 // ── Go ──────────────────────────────────────────────────────────────────
-refreshCount();
-buildChips();
 await loadNext();
 render(true);
 sentinel.observe(els.more);
