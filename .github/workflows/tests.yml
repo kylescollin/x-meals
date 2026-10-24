@@ -44,3 +44,4 @@ jobs:
           node scripts/test-explore-feed.js
           node scripts/test-cooked-index.js
           node scripts/test-grocery-status.js
+          node scripts/test-recipe-filters.js
