@@ -1,12 +1,10 @@
 {
-  "weekOf": "2026-10-25",
-  "title": "Week of October 25",
   "meals": [
     {
-      "id": "vegetarian-quesadillas",
+      "date": "10/26",
+      "day": "Monday",
       "icon": "🫓",
-      "name": "Vegetarian Quesadillas",
-      "meta": "25 min · Stovetop · Serves 4",
+      "id": "vegetarian-quesadillas",
       "ings": [
         "8 medium flour tortillas",
         "1 large sweet potato",
@@ -22,21 +20,21 @@
         "2 tsp olive oil, divided",
         "Cilantro, lime, salsa, sour cream to serve"
       ],
+      "label": "Meal A",
+      "meta": "25 min · Stovetop · Serves 4",
+      "name": "Vegetarian Quesadillas",
       "steps": [
         "Poke holes in sweet potato, drizzle with oil, wrap in paper towels, microwave 8 min until very tender.",
         "Dice peppers and jalapeño. Cook in pan until tender, 5–7 min. Add beans, corn, and taco seasoning. Cook 3 more min. Set aside.",
         "Butter one side of tortilla. Spread sweet potato on the other, mash ½ avocado over it, add veggie filling, sprinkle cheese.",
         "Cook butter-side down over medium heat until browned and cheese melts. Fold in half. Repeat. Slice and serve warm."
-      ],
-      "day": "Monday",
-      "label": "Meal A",
-      "date": "10/26"
+      ]
     },
     {
-      "id": "chicken-enchiladas",
+      "date": "10/27",
+      "day": "Tuesday",
       "icon": "🍗",
-      "name": "Chicken Enchiladas",
-      "meta": "1 hr · Oven · Serves 8",
+      "id": "chicken-enchiladas",
       "ings": [
         "½ teaspoon EACH: onion powder, garlic powder, cumin, paprika, dried oregano, chili powder",
         "1-2 tablespoons avocado oil (can sub olive oil)",
@@ -55,6 +53,9 @@
         "3 cups shredded Mexican cheese (divided)",
         "Sour cream (for serving)"
       ],
+      "label": "Meal B",
+      "meta": "1 hr · Oven · Serves 8",
+      "name": "Chicken Enchiladas",
       "steps": [
         "Preheat oven to 350° F.",
         "Combine the seasonings and set aside. Measure out remaining ingredients before beginning.",
@@ -69,16 +70,13 @@
         "Cover and bake for 10 minutes. (If topping with foil, spray the bottom with nonstick cooking spray to prevent the cheese from sticking to it.)",
         "Remove cover and bake for 13 more minutes. Broil on low (450) for 1-2 minutes to brown the top slightly if desired. Watch it closely during this time.",
         "Garnish with cilantro and desired toppings (see notes for suggestions) and serve with sour cream!"
-      ],
-      "day": "Tuesday",
-      "label": "Meal B",
-      "date": "10/27"
+      ]
     },
     {
-      "id": "creamy-parmesan-sausage-ditalini-soup",
+      "date": "10/28",
+      "day": "Wednesday",
       "icon": "🍲",
-      "name": "Creamy Parmesan Sausage Ditalini Soup",
-      "meta": "~30 min · Stovetop",
+      "id": "creamy-parmesan-sausage-ditalini-soup",
       "ings": [
         "1 lb Italian sausage",
         "1 Tbsp olive oil",
@@ -93,19 +91,21 @@
         "½ cup grated Parmesan, plus extra",
         "Salt, pepper, fresh parsley"
       ],
+      "label": "Meal C",
+      "meta": "~30 min · Stovetop",
+      "name": "Creamy Parmesan Sausage Ditalini Soup",
       "steps": [
         "Cook sausage in oil over medium, breaking into pieces until browned. Remove and set aside.",
         "Sauté onion and garlic in same pot 2–3 min.",
         "Add broth, simmer. Stir in tomatoes and sausage.",
         "Add ditalini; cook per package (8–10 min).",
         "Stir in cream, Parmesan, and spinach. Simmer 2–3 min until spinach wilts. Season and garnish."
-      ],
-      "day": "Wednesday",
-      "label": "Meal C",
-      "date": "10/28"
+      ]
     }
   ],
-  "groceries": [],
   "subhead": "3 dinners",
-  "updatedAt": 1792871918734
+  "title": "Week of October 25",
+  "updatedAt": 1792958972862,
+  "weekOf": "2026-10-25",
+  "groceriesRequested": "2026-10-25T20:09:32.759Z"
 }
