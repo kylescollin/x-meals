@@ -12,7 +12,7 @@
       "name": "13 Easy Sheet Pan Dinners",
       "image": "https://www.budgetbytes.com/wp-content/uploads/2026/10/Sheet-Pan-Dinners-Featured.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "e6847002253e",
@@ -75,7 +75,7 @@
       "name": "Free 7 Day Healthy Meal Plan (Oct 26-Nov 1)",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/10/Week_564_Oct-26-Nov-1-600x750.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "35a2b98371b7",
@@ -1517,6 +1517,19 @@
       "source": "https://www.skinnytaste.com/pumpkin-cornbread-muffins/",
       "recipe": true,
       "course": "breakfast"
+    },
+    {
+      "key": "b93ae4417315",
+      "id": "explore-b93ae4417315",
+      "url": "https://pinchofyum.com/fall-freezer-meals-2",
+      "site": "Pinch of Yum",
+      "sourceId": "pinchofyum",
+      "published": "2026-10-14T14:00:32.000Z",
+      "fetched": "2026-10-25T16:53:04.366Z",
+      "name": "Fall Freezer Meals #2",
+      "image": "https://pinchofyum.com/tachyon/Fall-Freezer-Meals-2-1.jpg",
+      "recipe": false,
+      "tries": 1
     },
     {
       "key": "b32d67d2ef87",
