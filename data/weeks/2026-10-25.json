@@ -107,5 +107,479 @@
   "title": "Week of October 25",
   "updatedAt": 1792958972862,
   "weekOf": "2026-10-25",
-  "groceriesRequested": "2026-10-25T20:09:32.759Z"
+  "groceriesRequested": "2026-10-25T20:09:32.759Z",
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "1 large sweet potato",
+          "detail": "microwaved until tender, mashed into the quesadilla filling",
+          "amazon": "large sweet potato",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 avocados",
+          "detail": "mashed onto the tortillas before filling",
+          "amazon": "ripe avocados",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 mini red pepper",
+          "detail": "diced and sautéed into the filling",
+          "amazon": "mini sweet red pepper",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 mini orange pepper",
+          "detail": "diced and sautéed into the filling",
+          "amazon": "mini sweet orange pepper",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 jalapeño",
+          "detail": "small amount diced into the filling (optional)",
+          "amazon": "fresh jalapeño pepper",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 lime",
+          "detail": "served alongside the quesadillas · juiced into the filling",
+          "amazon": "fresh lime",
+          "from": [
+            "vegetarian-quesadillas",
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "1 bunch fresh cilantro",
+          "detail": "served alongside the quesadillas · finely chopped into the filling and used as garnish",
+          "amazon": "fresh cilantro bunch",
+          "from": [
+            "vegetarian-quesadillas",
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "½ yellow onion, diced",
+          "detail": "sautéed as the base of the enchilada filling",
+          "amazon": "yellow onion",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "4 cloves garlic",
+          "detail": "3 cloves minced into the enchilada filling · 1 clove minced into the soup base",
+          "amazon": "fresh garlic",
+          "from": [
+            "chicken-enchiladas",
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals B+C"
+        },
+        {
+          "name": "2 carrots",
+          "detail": "chopped into the soup",
+          "amazon": "carrots",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "2 cups fresh spinach",
+          "detail": "chopped and stirred in at the end until wilted",
+          "amazon": "fresh baby spinach",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 small onion, diced",
+          "detail": "sautéed as the base of the soup",
+          "amazon": "small yellow onion",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 small bunch fresh parsley",
+          "detail": "used as garnish",
+          "amazon": "fresh parsley bunch",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "2¾ cups shredded chicken",
+          "detail": "cooked and shredded into the enchilada filling (rotisserie chicken works great)",
+          "amazon": "rotisserie chicken",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 lb Italian sausage",
+          "detail": "browned and broken into pieces for the soup",
+          "amazon": "italian sausage ground",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "1 cup shredded cheddar or pepper jack cheese",
+          "detail": "sprinkled into the quesadilla filling",
+          "amazon": "shredded cheddar pepper jack cheese",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 Tbsp butter",
+          "detail": "spread on the outside of the tortillas for crisping",
+          "amazon": "unsalted butter",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 cups shredded Mexican cheese blend",
+          "detail": "mixed into the enchilada filling and layered on top before baking",
+          "amazon": "shredded mexican cheese blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Sour cream, for serving",
+          "detail": "served alongside the quesadillas · served alongside the enchiladas",
+          "amazon": "sour cream",
+          "from": [
+            "vegetarian-quesadillas",
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "1 cup heavy cream",
+          "detail": "stirred in at the end to make the soup creamy",
+          "amazon": "heavy whipping cream",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "½ cup grated Parmesan cheese",
+          "detail": "stirred in at the end plus extra for topping",
+          "amazon": "grated parmesan cheese",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "16 (8-inch) flour tortillas",
+          "detail": "8 used as the quesadilla wraps · 8 used as the enchilada wraps",
+          "amazon": "8 inch flour tortillas",
+          "from": [
+            "vegetarian-quesadillas",
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "1 (15 oz.) can black beans",
+          "detail": "½ cup rinsed into the quesadilla filling · remainder drained and rinsed into the enchilada filling",
+          "amazon": "canned black beans",
+          "from": [
+            "vegetarian-quesadillas",
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "¼ cup corn, rinsed",
+          "detail": "stirred into the quesadilla filling",
+          "amazon": "canned corn",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 tsp olive oil",
+          "detail": "2 tsp divided for cooking the quesadilla filling · 1 Tbsp for sautéing the soup base",
+          "amazon": "olive oil",
+          "from": [
+            "vegetarian-quesadillas",
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+C"
+        },
+        {
+          "name": "1 jar salsa, for serving",
+          "detail": "served alongside the quesadillas",
+          "amazon": "salsa jar mild medium",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1–2 Tbsp avocado oil",
+          "detail": "used to sauté the enchilada filling (can sub olive oil)",
+          "amazon": "avocado oil",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "15 oz. red enchilada sauce",
+          "detail": "spread on the bottom of the dish and poured over the rolled enchiladas",
+          "amazon": "red enchilada sauce canned",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 (4 oz.) can diced green chiles",
+          "detail": "stirred undrained into the enchilada filling",
+          "amazon": "diced green chiles canned mild",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 tsp hot sauce",
+          "detail": "stirred into the enchilada filling",
+          "amazon": "hot sauce",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 tsp honey",
+          "detail": "stirred into the enchilada filling",
+          "amazon": "honey",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "4 cups chicken broth",
+          "detail": "the liquid base of the soup",
+          "amazon": "chicken broth carton",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 (14.5 oz.) can diced tomatoes",
+          "detail": "drained and stirred into the soup",
+          "amazon": "diced tomatoes canned",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 cup ditalini pasta",
+          "detail": "cooked directly in the soup",
+          "amazon": "ditalini pasta",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "1 Tbsp taco seasoning",
+          "detail": "tossed into the quesadilla filling",
+          "from": [
+            "vegetarian-quesadillas"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Onion powder",
+          "detail": "part of the enchilada spice blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Garlic powder",
+          "detail": "part of the enchilada spice blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Ground cumin",
+          "detail": "part of the enchilada spice blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Paprika",
+          "detail": "part of the enchilada spice blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Dried oregano",
+          "detail": "part of the enchilada spice blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Chili powder",
+          "detail": "part of the enchilada spice blend",
+          "from": [
+            "chicken-enchiladas"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Salt",
+          "detail": "seasoning the enchilada filling to taste · seasoning the soup to taste",
+          "from": [
+            "chicken-enchiladas",
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals B+C"
+        },
+        {
+          "name": "Black pepper",
+          "detail": "seasoning the soup to taste",
+          "from": [
+            "creamy-parmesan-sausage-ditalini-soup"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
+  "groceriesFor": [
+    "vegetarian-quesadillas",
+    "chicken-enchiladas",
+    "creamy-parmesan-sausage-ditalini-soup"
+  ],
+  "groceriesIngs": {
+    "vegetarian-quesadillas": "1:1da2o9rjt5g",
+    "chicken-enchiladas": "1:1rkd6f51j5a",
+    "creamy-parmesan-sausage-ditalini-soup": "1:28xz4qz9wqi"
+  },
+  "groceriesAt": "2026-10-25T20:10:31.073Z",
+  "groceriesServed": "2026-10-25T20:09:32.759Z"
 }
