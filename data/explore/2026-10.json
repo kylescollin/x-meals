@@ -2,6 +2,63 @@
   "month": "2026-10",
   "items": [
     {
+      "key": "c9dee79f0859",
+      "id": "explore-c9dee79f0859",
+      "url": "https://www.skinnytaste.com/southwest-turkey-meatballs-with-creamy/",
+      "site": "Skinnytaste",
+      "sourceId": "skinnytaste",
+      "published": "2026-10-27T13:42:00.000Z",
+      "fetched": "2026-10-27T18:24:52.946Z",
+      "name": "Baked Southwest Turkey Meatballs",
+      "image": "https://www.skinnytaste.com/wp-content/uploads/2011/02/Southwest-Turkey-Meatballs-15.jpg",
+      "icon": "🍗",
+      "course": "side",
+      "tags": [
+        "Bake",
+        "Mexican"
+      ],
+      "meta": "25 min · Oven · Serves 12",
+      "ingredients": [
+        "1-¼ lbs 99% lean ground turkey",
+        "1 jalapeño (seeds removed (leave some in for spicier meatballs))",
+        "2 cloves garlic",
+        "¼ cup chopped fresh cilantro",
+        "3 scallions (chopped)",
+        "¼ cup seasoned plain or gluten-free bread crumbs",
+        "1 large egg",
+        "1 tsp cumin",
+        "pinch oregano",
+        "salt and fresh pepper",
+        "cooking spray",
+        "Creamy Cilantro Tomatillo Dipping Sauce (optional for dipping)"
+      ],
+      "steps": [
+        "Lightly spray baking pan with oil. Preheat oven to 400°.",
+        "Place jalapeño, garlic, cilantro, and scallions into a small food processor or chopper and pulse a few times until finely minced.",
+        "In a large bowl combine turkey, chopped herbs, bread crumbs, egg, cumin, salt and pepper.",
+        "Using your hands, mix well and measure ¼ cup meat, then divide in two so you end up with each meatball ⅛ cup in size.",
+        "Roll and place on a baking pan.",
+        "Bake meatballs at 400° 15 minutes.",
+        "Makes 24 meatball."
+      ],
+      "note": "",
+      "source": "https://www.skinnytaste.com/southwest-turkey-meatballs-with-creamy/",
+      "recipe": true
+    },
+    {
+      "key": "c55f85acad98",
+      "id": "explore-c55f85acad98",
+      "url": "https://www.bonappetit.com/gallery/best-apple-dessert-recipes",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-10-26T21:16:08.000Z",
+      "fetched": "2026-10-27T18:24:52.946Z",
+      "name": "43 Apple Desserts That Make Us Want to Pick the Whole Orchard",
+      "image": "https://assets.bonappetit.com/photos/6a7f6f66499e649e138b9355/master/pass/dutch-apple-snacking-cake_IG_V2_081326_15003_VOG_final.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
       "key": "f4f6d1996ab6",
       "id": "explore-f4f6d1996ab6",
       "url": "https://www.budgetbytes.com/chicken-and-broccoli-skillet-lasagna/",
@@ -1787,7 +1844,7 @@
       "name": "Fall Freezer Meals #2",
       "image": "https://pinchofyum.com/tachyon/Fall-Freezer-Meals-2-1.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "b32d67d2ef87",
