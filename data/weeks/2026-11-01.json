@@ -1,0 +1,98 @@
+{
+  "weekOf": "2026-11-01",
+  "title": "Week of November 1",
+  "meals": [
+    {
+      "id": "creamy-chicken-tortilla-soup",
+      "icon": "🍲",
+      "name": "Creamy Chicken Tortilla Soup",
+      "meta": "30 min · Stovetop · Serves 6",
+      "ings": [
+        "1 Tbsp olive oil",
+        "½ medium onion, chopped",
+        "1 (28 oz) can crushed tomatoes",
+        "1 (10 oz) can Rotel diced tomatoes with green chilies",
+        "1 cup chicken broth",
+        "1 tsp garlic powder",
+        "1 tsp smoked paprika",
+        "½ Tbsp chili powder",
+        "1 (12 oz) can corn, drained",
+        "1 (14 oz) can black beans, drained & rinsed",
+        "1 cup heavy cream",
+        "2 cups cooked shredded chicken",
+        "Tortilla strips, avocado, sour cream, Tex-Mex cheese"
+      ],
+      "steps": [
+        "Sauté onion in oil over medium-high 5–7 min until lightly browned.",
+        "Stir in tomatoes, Rotel, broth, spices, corn, and beans. Increase to high.",
+        "Boil, then reduce and simmer lid slightly ajar for 5 min.",
+        "Stir in cream and chicken. Warm through 3–5 min. Season and serve with toppings."
+      ],
+      "day": "Monday",
+      "label": "Meal A",
+      "date": "11/2"
+    },
+    {
+      "id": "lemon-dill-salmon-roasted-broccoli",
+      "icon": "🐟",
+      "name": "Lemon Dill Salmon with Roasted Broccoli & Brown Rice",
+      "meta": "~25 min · Sheet pan · Serves 4",
+      "ings": [
+        "4 salmon fillets (5–6 oz each)",
+        "1 lemon, half sliced thin, half for juice",
+        "1 tbsp olive oil",
+        "1 tsp garlic powder",
+        "1 tsp dried dill (or 1 tbsp fresh)",
+        "Salt and black pepper",
+        "4 cups broccoli florets",
+        "1 tbsp olive oil (for broccoli)",
+        "2 pouches microwaveable brown rice (8.5 oz each)",
+        "Optional: lemon zest, fresh dill, flaky salt to finish"
+      ],
+      "steps": [
+        "Preheat oven to 400°F. Line a large sheet pan with foil.",
+        "Toss broccoli florets with olive oil, salt, and pepper. Spread on the sheet pan. Roast 10 minutes.",
+        "Pat salmon dry. Rub with olive oil, garlic powder, dill, salt, and pepper. Place on the sheet pan alongside the broccoli. Lay lemon slices on top of each fillet.",
+        "Roast 12–14 minutes until salmon flakes easily and broccoli edges are lightly charred.",
+        "Microwave brown rice pouches per package directions (about 90 seconds). Fluff and serve.",
+        "Squeeze fresh lemon over everything before serving. Finish with a pinch of flaky salt if you have it."
+      ],
+      "day": "Tuesday",
+      "note": "💡 The lemon slices on top perfume the fish as it roasts. If fillets are thick (over 1 inch), add 2 minutes. Broccoli should be in a single layer for good char — use two pans if needed.",
+      "label": "Meal B",
+      "date": "11/3"
+    },
+    {
+      "id": "falafel-bowl-with-tahini-dressing",
+      "icon": "🧆",
+      "name": "Falafel Bowl with Tahini Dressing",
+      "meta": "~45 min · Oven or Air Fryer · Serves 4",
+      "ings": [
+        "1 cup dried chickpeas, soaked overnight",
+        "½ cup fresh cilantro, ½ cup fresh parsley",
+        "3 garlic cloves, 1 small onion",
+        "1 tsp cumin, 1 tsp coriander, ½ tsp cayenne (optional)",
+        "½ tsp baking powder, 3–4 Tbsp chickpea flour",
+        "2 cups cooked quinoa or brown rice",
+        "2 cups mixed greens",
+        "1 cup diced cucumber, 1 cup cherry tomatoes",
+        "½ red onion sliced, 1 shredded carrot, ½ cup hummus",
+        "1 avocado, pickled radishes",
+        "Tahini dressing: ¼ cup tahini, lemon juice, olive oil, water, garlic, maple syrup"
+      ],
+      "steps": [
+        "Drain soaked chickpeas. Pulse in food processor with cilantro, parsley, garlic, onion, spices, baking powder, and salt. Add chickpea flour until mixture holds together. Chill 30 min.",
+        "Shape into balls or patties. Fry 3–4 min per side, or bake 375°F for 25–30 min flipping halfway, or air fry 375°F for 15–18 min.",
+        "Cook grains per package. Season with olive oil and salt.",
+        "Whisk tahini dressing ingredients until pourable.",
+        "Assemble bowls: divide grains and greens, arrange toppings, add 3–4 falafels, spoon hummus, drizzle dressing. Garnish with cilantro."
+      ],
+      "day": "Wednesday",
+      "label": "Meal C",
+      "date": "11/4"
+    }
+  ],
+  "groceries": [],
+  "subhead": "3 dinners",
+  "updatedAt": 1793307259144
+}
