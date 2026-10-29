@@ -1325,3 +1325,45 @@ Stir in Parmesan until melted and the sauce is creamy. Top with torn basil. Serv
 The base recipe is mild — keep the red pepper flakes off to the side so the kids can eat it. Gnocchi cooks right in the sauce, no boiling needed.
 
 ---
+## Mom's New Year's Black-Eyed Peas
+
+**Meta:** 1 hr 30 min · Stovetop · Serves 6
+
+### Ingredients
+
+1 lb dried black-eyed peas
+4 slices thick-cut bacon, chopped
+12 oz smoked sausage (andouille or kielbasa), sliced into half-moons
+1 large yellow onion, diced
+2 stalks celery, diced
+1 green bell pepper, diced ((optional))
+3 cloves garlic, minced
+1 jalapeño, seeded and minced (or ¼ tsp cayenne)
+1 tsp dried thyme (or 2 tsp fresh)
+½ tsp dried oregano
+1 tsp smoked paprika
+1 tsp chili powder
+1½ tsp Creole seasoning (or 1 tsp more each of smoked paprika and chili powder)
+2 bay leaves
+1 (14.5 oz) can diced tomatoes, with juice
+6 cups chicken broth, plus water as needed
+1 bunch collard greens or kale, stems removed, chopped (about 4 cups)
+Salt and black pepper
+# To serve
+Cooked white or brown rice
+3 green onions, sliced
+Hot sauce and a splash of apple cider vinegar
+
+### Instructions
+
+Rinse the peas and pick out any stones. If you have time, soak them in cold water for 2–3 hours or overnight, then drain. Unsoaked works too — just add about 20 minutes to the simmer.
+In a large Dutch oven over medium heat, cook the bacon until crisp, 4–5 min. Add the sausage and brown it 3 min more. Lift both out with a slotted spoon and set aside, leaving about 2 Tbsp of fat in the pot.
+Add the onion, celery and bell pepper; cook 5 min until soft. Stir in the garlic, jalapeño, thyme, oregano, smoked paprika, chili powder and Creole seasoning and cook 1 min until fragrant.
+Add the peas, tomatoes with their juice, broth and bay leaves. Bring to a boil and skim off any foam, then reduce to a simmer, partly cover, and cook 45–60 min (closer to 40 if soaked), stirring now and then, until the peas are tender. Add a splash of water if it looks dry.
+Stir in the greens, bacon and sausage. Simmer uncovered 10–15 min until the greens are tender and the pot has thickened — somewhat creamy, not watery. Mash a few peas against the side of the pot to thicken it further.
+Remove the bay leaves. Season with salt and pepper at the end — the bacon, sausage and Creole seasoning are already salty. Serve over rice with green onions, hot sauce and a splash of vinegar.
+
+### Notes
+Mom's New Year's Day tradition — the peas stand for coins and the greens for paper money. Vegetarian: skip the bacon and sausage, start with 2 Tbsp olive oil, use vegetable broth, and the smoked paprika keeps it smoky.
+
+---
