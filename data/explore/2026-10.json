@@ -2,6 +2,63 @@
   "month": "2026-10",
   "items": [
     {
+      "key": "a5f44d5eccd4",
+      "id": "explore-a5f44d5eccd4",
+      "url": "https://damndelicious.net/2026/10/30/one-pot-creamy-orzo-and-meatballs/",
+      "site": "Damn Delicious",
+      "sourceId": "damndelicious",
+      "published": "2026-10-31T04:00:00.000Z",
+      "fetched": "2026-10-31T17:24:13.717Z",
+      "name": "One Pot Creamy Orzo and Meatballs",
+      "image": "https://damndelicious.net/wp-content/uploads/2026/08/250925_DD_One-Pot-Orzo-Meatballs_293-768x1152.jpg",
+      "icon": "🍳",
+      "course": "dinner",
+      "tags": [
+        "Pasta",
+        "Italian"
+      ],
+      "meta": "1 hr · Stovetop · Serves 4",
+      "ingredients": [
+        "¼ cup freshly grated Parmesan cheese",
+        "¼ cup Panko breadcrumbs",
+        "3 tablespoons chopped fresh parsley leaves",
+        "¼ cup whole milk",
+        "1 large egg",
+        "2 tablespoons grated white onion",
+        "2 cloves garlic minced",
+        "Kosher salt and freshly ground black pepper to taste",
+        "1 pound lean ground beef 90/10",
+        "2 tablespoons olive oil",
+        "½ medium sweet onion diced",
+        "½ cup dry red wine",
+        "11/2 cups marinara sauce",
+        "11/2 cups beef stock",
+        "1 cup orzo pasta",
+        "⅓ cup heavy cream",
+        "⅓ cup freshly grated Parmesan cheese",
+        "3 tablespoons chopped fresh basil leaves",
+        "1 cup halved small cherry tomatoes",
+        "1 clove garlic minced",
+        "1 tablespoon extra virgin olive oil",
+        "1 tablespoon chopped fresh parsley leaves"
+      ],
+      "steps": [
+        "In a large bowl, combine Parmesan, Panko, parsley, milk, egg, onion and garlic; season with 1 teaspoon salt and ½ teaspoon pepper. Let stand 5 minutes.",
+        "Using a wooden spoon or clean hands, add ground beef, stirring until well combined. Roll the mixture into 1-to-1-½-inch meatballs, forming about 24 meatballs.",
+        "Heat olive oil in a Dutch oven over medium heat. Working in batches, add meatballs and cook, turning occasionally, until browned on all sides, about 8-10 minutes. Set aside.",
+        "Add onion and garlic, and cook, stirring occasionally, until translucent, about 3-4 minutes.",
+        "Stir in wine, scraping any browned bits from the bottom of the Dutch oven.",
+        "Stir in meatballs, marinara sauce and beef stock. Bring to a boil; reduce heat and simmer, covered, for 5 minutes.",
+        "Stir in orzo; season with salt and pepper, to taste. Continue to simmer, uncovered, stirring occasionally, until pasta is cooked through, about 8-10 minutes.",
+        "Stir in heavy cream, Parmesan and basil until heated through, about 2-3 minutes.",
+        "Serve immediately, garnished with tomato topping and additional Parmesan, if desired.",
+        "In a large bowl, combine tomatoes, garlic, olive oil and parsley; season with salt and pepper, to taste."
+      ],
+      "note": "",
+      "source": "https://damndelicious.net/2026/10/30/one-pot-creamy-orzo-and-meatballs/",
+      "recipe": true
+    },
+    {
       "key": "082d565f983b",
       "id": "explore-082d565f983b",
       "url": "https://www.bonappetit.com/gallery/thanksgiving-bread-recipes",
@@ -12,7 +69,7 @@
       "name": "23 Thanksgiving Bread Recipes: Rolls, Biscuits, and More",
       "image": "https://assets.bonappetit.com/photos/5f870b30707a2caadcd72db9/master/pass/Sour-Cream-and-Chive-Rolls-dough-13.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "3fce9d482c18",
@@ -77,7 +134,7 @@
       "name": "7 Day High Protein Diet Meal Plan",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/10/Week_565_Nov-2-Nov-8_High-Protein-600x750.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "16649f688352",
@@ -426,7 +483,7 @@
       "name": "37 Thanksgiving Appetizers, Including Make-Ahead Ideas",
       "image": "https://assets.bonappetit.com/photos/6734d80ba466e2a089997ebd/master/pass/its-chicago-pigs-blanket-LEDE_091824_3808_VOG_final.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "7daaa37c9637",
@@ -561,7 +618,7 @@
       "name": "The Holiday Tariff Trap: How to Host a Crowd Without Breaking the Bank",
       "image": "https://www.budgetbytes.com/wp-content/uploads/2026/10/1-Overhead-Table-Downsized-Almost-Tariff-Proof-Holiday-Guide.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "aa0de021b22a",
