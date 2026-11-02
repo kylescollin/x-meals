@@ -97,5 +97,370 @@
   "title": "Week of November 1",
   "updatedAt": 1793634095274,
   "weekOf": "2026-11-01",
-  "groceriesRequested": "2026-11-02T15:41:35.184Z"
+  "groceriesRequested": "2026-11-02T15:41:35.184Z",
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "½ medium yellow onion",
+          "detail": "chopped and sautéed as the soup base",
+          "amazon": "yellow onion",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 lemon",
+          "detail": "half sliced thin and laid on top of the fillets while roasting · half squeezed over everything before serving",
+          "amazon": "fresh lemon",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "4 cups broccoli florets",
+          "detail": "tossed in oil and roasted alongside the salmon",
+          "amazon": "fresh broccoli florets",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 small shallot",
+          "detail": "diced and sautéed after searing the chicken",
+          "amazon": "fresh shallots",
+          "from": [
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "4 cloves garlic",
+          "detail": "minced and cooked with the sun-dried tomatoes",
+          "amazon": "fresh garlic",
+          "from": [
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "2 cups fresh baby spinach",
+          "detail": "stirred in at the end and wilted into the sauce",
+          "amazon": "fresh baby spinach",
+          "from": [
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 small bunch fresh basil",
+          "detail": "torn and scattered on top before serving",
+          "amazon": "fresh basil",
+          "from": [
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "2 cups cooked shredded chicken",
+          "detail": "stirred in at the end to warm through",
+          "amazon": "rotisserie chicken",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "4 salmon fillets (5–6 oz each)",
+          "detail": "rubbed with oil and spices and roasted on the sheet pan",
+          "amazon": "fresh salmon fillets",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1¼ lb boneless skinless chicken thighs or breasts",
+          "detail": "cut into bite-sized pieces, seared until golden, then returned to finish in the sauce",
+          "amazon": "boneless skinless chicken thighs",
+          "from": [
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "1 cup heavy cream",
+          "detail": "stirred in at the end to make the soup creamy",
+          "amazon": "heavy whipping cream",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 cup half-and-half",
+          "detail": "poured into the pan with the broth to form the creamy sauce",
+          "amazon": "half and half",
+          "from": [
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "½ cup Parmesan, freshly grated",
+          "detail": "stirred in at the end until melted and the sauce is creamy",
+          "amazon": "parmesan cheese block",
+          "from": [
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "Sour cream, for topping",
+          "detail": "served alongside as a garnish",
+          "amazon": "sour cream",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Tex-Mex shredded cheese, for topping",
+          "detail": "served alongside as a garnish",
+          "amazon": "tex mex shredded cheese blend",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "3 Tbsp olive oil",
+          "detail": "used to sauté the onion · used to toss the broccoli and rub the salmon · used to sear the chicken and sauté the shallot",
+          "amazon": "olive oil",
+          "from": [
+            "creamy-chicken-tortilla-soup",
+            "lemon-dill-salmon-roasted-broccoli",
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "1 (28 oz) can crushed tomatoes",
+          "detail": "stirred into the soup base",
+          "amazon": "crushed tomatoes canned",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 (10 oz) can Rotel diced tomatoes with green chilies",
+          "detail": "stirred into the soup base for heat and flavor",
+          "amazon": "rotel diced tomatoes green chilies mild",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 cups chicken broth, low-sodium",
+          "detail": "used as the soup liquid · poured into the pan to cook the gnocchi",
+          "amazon": "low sodium chicken broth",
+          "from": [
+            "creamy-chicken-tortilla-soup",
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+C"
+        },
+        {
+          "name": "1 (12 oz) can corn, drained",
+          "detail": "stirred into the soup",
+          "amazon": "canned corn",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 (14 oz) can black beans, drained and rinsed",
+          "detail": "stirred into the soup",
+          "amazon": "canned black beans",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Tortilla strips, for topping",
+          "detail": "served alongside as a crunchy garnish",
+          "amazon": "tortilla strips",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 avocado",
+          "detail": "sliced and served alongside as a topping",
+          "amazon": "fresh avocado",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 pouches microwaveable brown rice (8.5 oz each)",
+          "detail": "microwaved and served as the base",
+          "amazon": "microwaveable brown rice pouches",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "⅔ cup sun-dried tomatoes, oil-packed",
+          "detail": "drained, chopped, and cooked with the garlic to build the sauce base",
+          "amazon": "sun dried tomatoes oil packed jar",
+          "from": [
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 (16 oz) package shelf-stable potato gnocchi",
+          "detail": "added uncooked directly to the sauce and simmered until tender",
+          "amazon": "shelf stable potato gnocchi",
+          "from": [
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "1 tsp garlic powder",
+          "detail": "seasoned into the soup · rubbed onto the salmon",
+          "from": [
+            "creamy-chicken-tortilla-soup",
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "1 tsp smoked paprika",
+          "detail": "stirred into the soup with the other spices",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "½ Tbsp chili powder",
+          "detail": "stirred into the soup with the other spices",
+          "from": [
+            "creamy-chicken-tortilla-soup"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Salt and black pepper",
+          "detail": "seasoned throughout · used to season the broccoli and salmon · used to season the chicken and sauce",
+          "from": [
+            "creamy-chicken-tortilla-soup",
+            "lemon-dill-salmon-roasted-broccoli",
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "1 tsp dried dill",
+          "detail": "rubbed onto the salmon before roasting",
+          "from": [
+            "lemon-dill-salmon-roasted-broccoli"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "Red pepper flakes (optional)",
+          "detail": "served on the side for adults",
+          "from": [
+            "marry-me-chicken-gnocchi"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
+  "groceriesFor": [
+    "creamy-chicken-tortilla-soup",
+    "lemon-dill-salmon-roasted-broccoli",
+    "marry-me-chicken-gnocchi"
+  ],
+  "groceriesIngs": {
+    "creamy-chicken-tortilla-soup": "1:118ukvcleb8",
+    "lemon-dill-salmon-roasted-broccoli": "1:h0m0qrcw9p",
+    "marry-me-chicken-gnocchi": "1:27josj3gunk"
+  },
+  "groceriesAt": "2026-11-02T15:42:28.334Z",
+  "groceriesServed": "2026-11-02T15:41:35.184Z"
 }
