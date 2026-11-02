@@ -1,12 +1,10 @@
 {
-  "weekOf": "2026-11-01",
-  "title": "Week of November 1",
   "meals": [
     {
-      "id": "creamy-chicken-tortilla-soup",
+      "date": "11/2",
+      "day": "Monday",
       "icon": "🍲",
-      "name": "Creamy Chicken Tortilla Soup",
-      "meta": "30 min · Stovetop · Serves 6",
+      "id": "creamy-chicken-tortilla-soup",
       "ings": [
         "1 Tbsp olive oil",
         "½ medium onion, chopped",
@@ -22,21 +20,21 @@
         "2 cups cooked shredded chicken",
         "Tortilla strips, avocado, sour cream, Tex-Mex cheese"
       ],
+      "label": "Meal A",
+      "meta": "30 min · Stovetop · Serves 6",
+      "name": "Creamy Chicken Tortilla Soup",
       "steps": [
         "Sauté onion in oil over medium-high 5–7 min until lightly browned.",
         "Stir in tomatoes, Rotel, broth, spices, corn, and beans. Increase to high.",
         "Boil, then reduce and simmer lid slightly ajar for 5 min.",
         "Stir in cream and chicken. Warm through 3–5 min. Season and serve with toppings."
-      ],
-      "day": "Monday",
-      "label": "Meal A",
-      "date": "11/2"
+      ]
     },
     {
-      "id": "lemon-dill-salmon-roasted-broccoli",
+      "date": "11/3",
+      "day": "Tuesday",
       "icon": "🐟",
-      "name": "Lemon Dill Salmon with Roasted Broccoli & Brown Rice",
-      "meta": "~25 min · Sheet pan · Serves 4",
+      "id": "lemon-dill-salmon-roasted-broccoli",
       "ings": [
         "4 salmon fillets (5–6 oz each)",
         "1 lemon, half sliced thin, half for juice",
@@ -49,6 +47,10 @@
         "2 pouches microwaveable brown rice (8.5 oz each)",
         "Optional: lemon zest, fresh dill, flaky salt to finish"
       ],
+      "label": "Meal B",
+      "meta": "~25 min · Sheet pan · Serves 4",
+      "name": "Lemon Dill Salmon with Roasted Broccoli & Brown Rice",
+      "note": "💡 The lemon slices on top perfume the fish as it roasts. If fillets are thick (over 1 inch), add 2 minutes. Broccoli should be in a single layer for good char — use two pans if needed.",
       "steps": [
         "Preheat oven to 400°F. Line a large sheet pan with foil.",
         "Toss broccoli florets with olive oil, salt, and pepper. Spread on the sheet pan. Roast 10 minutes.",
@@ -56,43 +58,44 @@
         "Roast 12–14 minutes until salmon flakes easily and broccoli edges are lightly charred.",
         "Microwave brown rice pouches per package directions (about 90 seconds). Fluff and serve.",
         "Squeeze fresh lemon over everything before serving. Finish with a pinch of flaky salt if you have it."
-      ],
-      "day": "Tuesday",
-      "note": "💡 The lemon slices on top perfume the fish as it roasts. If fillets are thick (over 1 inch), add 2 minutes. Broccoli should be in a single layer for good char — use two pans if needed.",
-      "label": "Meal B",
-      "date": "11/3"
+      ]
     },
     {
-      "id": "falafel-bowl-with-tahini-dressing",
-      "icon": "🧆",
-      "name": "Falafel Bowl with Tahini Dressing",
-      "meta": "~45 min · Oven or Air Fryer · Serves 4",
+      "id": "marry-me-chicken-gnocchi",
+      "icon": "🍲",
+      "name": "Marry Me Chicken Gnocchi",
+      "meta": "~30 min · One pan · Serves 4",
       "ings": [
-        "1 cup dried chickpeas, soaked overnight",
-        "½ cup fresh cilantro, ½ cup fresh parsley",
-        "3 garlic cloves, 1 small onion",
-        "1 tsp cumin, 1 tsp coriander, ½ tsp cayenne (optional)",
-        "½ tsp baking powder, 3–4 Tbsp chickpea flour",
-        "2 cups cooked quinoa or brown rice",
-        "2 cups mixed greens",
-        "1 cup diced cucumber, 1 cup cherry tomatoes",
-        "½ red onion sliced, 1 shredded carrot, ½ cup hummus",
-        "1 avocado, pickled radishes",
-        "Tahini dressing: ¼ cup tahini, lemon juice, olive oil, water, garlic, maple syrup"
+        "1¼ lb boneless skinless chicken thighs or breasts, cut into bite-sized pieces",
+        "2 Tbsp olive oil (or oil from the sun-dried tomato jar)",
+        "Salt and black pepper",
+        "1 small shallot or ½ onion, diced",
+        "4 cloves garlic, minced",
+        "⅔ cup sun-dried tomatoes (oil-packed), drained and chopped",
+        "1 (16 oz) package shelf-stable potato gnocchi",
+        "1 cup low-sodium chicken broth",
+        "1 cup half-and-half (or ¾ cup heavy cream)",
+        "½ cup freshly grated Parmesan",
+        "2 cups fresh baby spinach",
+        "Fresh basil, torn, for serving",
+        "Red pepper flakes (optional, for adults only)"
       ],
       "steps": [
-        "Drain soaked chickpeas. Pulse in food processor with cilantro, parsley, garlic, onion, spices, baking powder, and salt. Add chickpea flour until mixture holds together. Chill 30 min.",
-        "Shape into balls or patties. Fry 3–4 min per side, or bake 375°F for 25–30 min flipping halfway, or air fry 375°F for 15–18 min.",
-        "Cook grains per package. Season with olive oil and salt.",
-        "Whisk tahini dressing ingredients until pourable.",
-        "Assemble bowls: divide grains and greens, arrange toppings, add 3–4 falafels, spoon hummus, drizzle dressing. Garnish with cilantro."
+        "Season chicken with salt and pepper. Heat 1 Tbsp oil in a large high-sided skillet over medium-high. Sear chicken in a single layer 3–4 min per side until golden (doesn't need to be cooked through). Remove and set aside.",
+        "Add remaining oil and shallot to the skillet; sauté 2–3 min. Add garlic and sun-dried tomatoes; cook 1 min until fragrant.",
+        "Add uncooked gnocchi, breaking apart any stuck pieces. Pour in chicken broth and half-and-half; season with salt and pepper. Cover and cook over medium 5 min until gnocchi are tender and fluffy.",
+        "Return chicken to the pan. Add spinach; cook uncovered 3–5 min until chicken is cooked through and spinach is wilted.",
+        "Stir in Parmesan until melted and the sauce is creamy. Top with torn basil. Serve with red pepper flakes on the side for adults."
       ],
       "day": "Wednesday",
+      "note": "💡 The base recipe is mild — keep the red pepper flakes off to the side so the kids can eat it. Gnocchi cooks right in the sauce, no boiling needed.",
       "label": "Meal C",
       "date": "11/4"
     }
   ],
-  "groceries": [],
   "subhead": "3 dinners",
-  "updatedAt": 1793307259144
+  "title": "Week of November 1",
+  "updatedAt": 1793634090133,
+  "weekOf": "2026-11-01",
+  "groceries": []
 }
