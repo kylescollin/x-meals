@@ -2,6 +2,45 @@
   "month": "2026-11",
   "items": [
     {
+      "key": "09c0f0b6f38d",
+      "id": "explore-09c0f0b6f38d",
+      "url": "https://www.budgetbytes.com/corn-recipes/",
+      "site": "Budget Bytes",
+      "sourceId": "budgetbytes",
+      "published": "2026-11-07T14:30:00.000Z",
+      "fetched": "2026-11-07T17:53:14.274Z",
+      "name": "19 Easy Corn Recipes",
+      "image": "https://www.budgetbytes.com/wp-content/uploads/2026/11/Corn-Recipes.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
+      "key": "b0feeb8c4061",
+      "id": "explore-b0feeb8c4061",
+      "url": "https://www.bonappetit.com/gallery/thanksgiving-pies",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-11-07T14:00:00.000Z",
+      "fetched": "2026-11-07T17:53:14.274Z",
+      "name": "31 Thanksgiving Pies Worth a Second Slice at Breakfast",
+      "image": "https://assets.bonappetit.com/photos/6a7ce7ec2f7cf0310d010dac/master/pass/cranberry-meringue-pie_IG_V6_072226_5421_VOG_final.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
+      "key": "1e542a710be3",
+      "id": "explore-1e542a710be3",
+      "url": "https://www.bonappetit.com/gallery/healthy-thanksgiving-recipes",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-11-06T20:57:15.000Z",
+      "fetched": "2026-11-07T17:53:14.274Z",
+      "name": "53 Healthy Thanksgiving Recipes to Brighten Up the Table",
+      "image": "https://assets.bonappetit.com/photos/6531a43d7bc98685bb07cc76/master/pass/20230911-1123-FOB-0738%201.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
       "key": "89e5707dc094",
       "id": "explore-89e5707dc094",
       "url": "https://www.skinnytaste.com/free-7-day-healthy-meal-plan-nov-9-15/",
@@ -12,7 +51,7 @@
       "name": "Free 7 Day Healthy Meal Plan (Nov 9-15)",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/11/Week_566_Nov-9-Nov-15-600x750.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "78f0a5e2e911",
@@ -432,7 +471,7 @@
       "name": "31 Thanksgiving Desserts to Cap Your Holiday Feast",
       "image": "https://assets.bonappetit.com/photos/68bb587cfb8124efd122306b/master/pass/amish-pecan-cream-pie_RECIPE_V2_072425_12934_VOG_final.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "a4f07ab34780",
