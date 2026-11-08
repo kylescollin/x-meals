@@ -1880,6 +1880,46 @@
         "Finish and serve. Stir in juice of 1 lime and the cilantro. Taste and adjust salt and pepper or add more lime juice if needed. Ladle into bowls, drizzle with olive oil, and serve with the toppings of your choice."
       ],
       "source": "https://www.themediterraneandish.com/black-bean-soup/"
+    },
+    {
+      "id": "crispy-fish-taco-bowl",
+      "icon": "🌮",
+      "name": "Crispy Fish Taco Bowl",
+      "meta": "45 min · Instant Pot · Serves 6",
+      "tags": [
+        "Tacos",
+        "Mexican"
+      ],
+      "ingredients": [
+        "12 Gorton's Beer Battered Fish Fillets",
+        "3 cups cilantro-lime rice ((recipe below) )",
+        "3 cups black beans",
+        "3 avocadoes",
+        "3 cups freshly chopped lettuce",
+        "1¼ cups sweet corn",
+        "¾ cup chopped tomatoes",
+        "6 tbsp diced red onion",
+        "salsa",
+        "1.5 cups long grain white rice",
+        "1.5 cups chicken broth ((or use water plus 1 teaspoon salt) )",
+        "2 tbsp oil",
+        "1 tbsp minced garlic",
+        "zest of one lime",
+        "3 tbsp lime juice",
+        "¾ cup lightly-packed chopped cilantro"
+      ],
+      "steps": [
+        "Rinse the rice under cold running water until the water runs clear; drain well.",
+        "Press the “Sauté” function key. Select a temperature with the “Adjust” key for “Normal”.When Instant Pot reaches the given working temperature, it displays “Hot” and you can start sautéing.",
+        "Heat the oil, add rice, and saute for about 2 minutes.",
+        "Add the garlic and cook for about 45 seconds.",
+        "Add water or broth, and lime zest together in an Instant Pot or Ninja Foodi. Be sure to scrap tthe bottom of the pot to make sure there is nothing stuck on it and to prevent burning.",
+        "Follow the manufacturer's guide for locking the lid and preparing to cook. Set to pressure cook or manual on high for 3 minutes. After the cooking cycle finished, wait 10 minutes before moving the Venting Knob from Sealing Position to Venting Position to release the remaining pressure.",
+        "Transfer the rice into a large bowl. Let it cool down for 10 minutes then use a fork to gently stir the rice and break up any obvious lumps. Pour lime juice over the rice and toss with chopped cilantro just before serving.",
+        "Cook the Gorton's Beer Battered Fish Fillets in the oven according to the product packaging.",
+        "Plate each bowl with 2 pieces of fish fillets, ½ cup of rice , ½ cup of black beans, ½ cup chopped lettuce, 2 tbsp of chopped tomatoes, 1 tbsp of chopped red onion, 3 tbsp of corn, and a half avocado. Serve with salsa and lime wedges."
+      ],
+      "source": "https://poshjournal.com/crispy-fish-taco-bowl"
     }
   ]
 }
