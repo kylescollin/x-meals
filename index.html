@@ -165,11 +165,11 @@
   .ds-action{flex:1;background:transparent;border:none;color:var(--accent);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:8px 6px;border-radius:8px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s;}
   .ds-action:hover{background:#fff;}
   .ds-action.ds-shuffle:active{transform:scale(.95);}
-  .ds-action+.ds-action{border-left:1px solid var(--border);}
+  /* Its own element, not a border on the rounded button — a border there curves at the ends. */
+  .ds-sep{width:1px;align-self:stretch;margin:5px 0;background:var(--border);flex-shrink:0;}
 
   /* Bottom edit bar */
   .edit-bar{position:fixed;left:0;right:0;bottom:0;z-index:200;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-top:1px solid var(--border);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(0,0,0,.06);}
-  .edit-bar .eb-count{font-size:12px;color:var(--muted);font-weight:500;}
   .eb-cancel{background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:8px 6px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
   .eb-cancel:active{opacity:.6;}
   .eb-done{background:var(--accent);color:#fff;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:10px 24px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}
@@ -179,7 +179,10 @@
   /* Bottom-sheet overlays (picker + day) */
   .sheet-ov{position:fixed;inset:0;z-index:1200;background:rgba(20,18,15,.4);opacity:0;visibility:hidden;transition:opacity .25s;}
   .sheet-ov.open{opacity:1;visibility:visible;}
-  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--cream);border-radius:18px 18px 0 0;max-height:85vh;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);padding-bottom:env(safe-area-inset-bottom,0px);}
+  /* --kb is how much of the layout viewport the iOS keyboard hides (see
+     fitSheetsToKeyboard): the sheet sits on top of the keyboard, not under it.
+     --vvh is the visible height, so the sheet can't be taller than what's left. */
+  .sheet{position:absolute;left:0;right:0;bottom:var(--kb,0px);background:var(--cream);border-radius:18px 18px 0 0;max-height:min(85vh, calc(var(--vvh,100vh) - 24px));display:flex;flex-direction:column;transform:translateY(100%);transition:transform .32s cubic-bezier(.4,0,.2,1),bottom .2s ease-out;padding-bottom:env(safe-area-inset-bottom,0px);}
   .sheet-ov.open .sheet{transform:translateY(0);}
   .sheet-grab{width:38px;height:4px;border-radius:2px;background:var(--border);margin:10px auto 4px;}
   .sheet-head{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 12px;border-bottom:1px solid var(--border);}
@@ -205,6 +208,8 @@
   .picker-row.added .picker-add{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--check);}
   /* Pinned first row: name a one-off instead of picking a recipe. Outlined when
      it's an option, filled while it's the mode you're in. */
+  .picker-note{padding:14px 6px 4px;font-size:12px;line-height:1.5;color:var(--muted);font-weight:300;}
+  .picker-note.error{color:#9b2a2a;font-weight:400;}
   .picker-row.picker-custom{background:transparent;border-style:dashed;border-color:var(--accent);}
   .picker-row.picker-custom:hover{border-color:var(--accent);background:#fff;}
   .picker-row.picker-custom .picker-name{font-family:'DM Sans',sans-serif;font-weight:600;color:var(--accent);}
@@ -274,7 +279,6 @@
 
 <div class="edit-bar" id="editBar" style="display:none">
   <button class="eb-cancel" id="cancelBtn">Cancel</button>
-  <span class="eb-count" id="editCount"></span>
   <button class="eb-done" id="doneBtn">Done</button>
 </div>
 
@@ -312,6 +316,7 @@
 <div class="toast" id="toast"></div>
 
 <script src="ingredient-format.js"></script>
+<script src="recipe-import.js"></script>
 <script src="grocery-status.js"></script>
 <script src="week-utils.js"></script>
 <script src="week-store.js"></script>
@@ -380,11 +385,9 @@ function buildEmptyState(){
   plan.className='edit-toggle primary';
   plan.textContent=past?'Add meals':'Plan this week';
   plan.addEventListener('click',enterEdit);
-  var shuf=document.createElement('button');
-  shuf.className='edit-toggle';
-  shuf.textContent='🎲 Shuffle meals';
-  shuf.addEventListener('click',function(){ enterEdit(); shuffleWeek(); });
-  actions.appendChild(plan); actions.appendChild(shuf);
+  // Shuffle isn't offered here — it lives inside Edit mode (the pill top-right
+  // and the per-day Shuffle), so the empty week has one thing to tap.
+  actions.appendChild(plan);
   wrap.appendChild(actions);
   return wrap;
 }
@@ -715,7 +718,8 @@ if(params.get('groceries')==='1'){
 // ── Edit state ────────────────────────────────────────────────────────────
 var editMeals=[];
 var pickerTargetDay=null;   // which day the recipe picker is adding to
-var pickerCustomMode=false; // picker is naming a one-off meal, not searching recipes
+var pickerMode='search';    // 'search' the collection | 'custom' name a one-off | 'link' import a URL
+var pickerBusy=false;       // a link import is in flight
 var allRecipes=null;   // the picker's list, with any recipe edits overlaid
 var baseRecipes=null;  // the raw fetch+saved combination, built once per session
 // editMode itself is declared up with the week state — the background refreshes
@@ -762,10 +766,6 @@ function renderEditCards(){
   var c=document.getElementById('editCards');
   c.innerHTML='';
   DAYS.forEach(function(day){ c.appendChild(buildDaySlot(day)); });
-
-  var n=editMeals.length;
-  document.getElementById('editCount').textContent=
-    Week.rangeLabel(viewStart)+' · '+n+(n===1?' meal':' meals');
   document.getElementById('doneBtn').disabled=false;
 }
 
@@ -810,7 +810,8 @@ function buildDaySlot(day){
     var shufBtn=document.createElement('button');
     shufBtn.className='ds-action ds-shuffle'; shufBtn.textContent='🎲 Shuffle';
     shufBtn.addEventListener('click',function(){ shuffleDay(day); });
-    actions.appendChild(addBtn); actions.appendChild(shufBtn);
+    var sep=document.createElement('span'); sep.className='ds-sep'; sep.setAttribute('aria-hidden','true');
+    actions.appendChild(addBtn); actions.appendChild(sep); actions.appendChild(shufBtn);
     inner.appendChild(actions);
     slot.appendChild(label); slot.appendChild(inner);
   }
@@ -890,47 +891,74 @@ function loadAllRecipes(cb){
   });
 }
 
-// The pinned first row of the picker. Tapping it selects a mode: the row fills
-// in, the recipe list disappears, and the search box becomes the name field for
-// a one-off meal (eating out, leftovers, cooking something off-plan). Tapping it
-// again backs out to searching. It's one <button>, so the ✕ is an affordance
-// rather than its own control — anywhere on the row toggles.
-function buildCustomRow(){
+// The two pinned rows at the top of the picker. Tapping one selects a mode: the
+// row fills in, the recipe list disappears, and the search box becomes either
+// the name field for a one-off meal (eating out, leftovers, cooking something
+// off-plan) or the link field for a recipe URL. Tapping the row again backs out
+// to searching. Each is one <button>, so the ✕ is an affordance rather than its
+// own control — anywhere on the row toggles.
+var PICKER_MODES={
+  custom:{ icon:'✏️', name:'Something else…',
+           idle:'Eating out, leftovers, off-plan', on:'One-off · no groceries',
+           placeholder:'What are you eating?', confirm:'Add to ' },
+  link:  { icon:'🔗', name:'From a link…',
+           idle:'Paste a recipe URL · this week only', on:'Imported for this week only',
+           placeholder:'Paste a recipe link', confirm:'Import to ' }
+};
+function buildModeRow(mode){
+  var def=PICKER_MODES[mode], on=(pickerMode===mode);
   var row=document.createElement('button');
-  row.className='picker-row picker-custom'+(pickerCustomMode?' selected':'');
-  var ic=document.createElement('span'); ic.className='picker-custom-icon'; ic.textContent='✏️';
+  row.className='picker-row picker-custom'+(on?' selected':'');
+  row.disabled=pickerBusy;
+  var ic=document.createElement('span'); ic.className='picker-custom-icon'; ic.textContent=def.icon;
   var info=document.createElement('span'); info.className='picker-info';
-  var nm=document.createElement('span'); nm.className='picker-name';
-  var mt=document.createElement('span'); mt.className='picker-meta';
-  nm.textContent='Something else…';
-  mt.textContent=pickerCustomMode ? 'One-off · no groceries' : 'Eating out, leftovers, off-plan';
+  var nm=document.createElement('span'); nm.className='picker-name'; nm.textContent=def.name;
+  var mt=document.createElement('span'); mt.className='picker-meta'; mt.textContent=on?def.on:def.idle;
   info.appendChild(nm); info.appendChild(mt);
-  var add=document.createElement('span'); add.className='picker-add'; add.textContent=pickerCustomMode?'✕':'+';
+  var add=document.createElement('span'); add.className='picker-add'; add.textContent=on?'✕':'+';
   row.appendChild(ic); row.appendChild(info); row.appendChild(add);
-  row.addEventListener('click',function(){ setCustomMode(!pickerCustomMode); });
+  row.addEventListener('click',function(){ setPickerMode(on?'search':mode); });
   return row;
 }
 
-// Enter or leave name-a-one-off mode. The typed text is deliberately kept in
-// both directions — a half-typed search is a fine start for a name, and vice versa.
-function setCustomMode(on, opts){
+// Switch what the search box is for. The typed text is deliberately kept across
+// modes — a half-typed search is a fine start for a name, and vice versa — except
+// a pasted URL, which is no use as a search and is cleared on the way out.
+function setPickerMode(mode, opts){
   opts=opts||{};
-  pickerCustomMode=!!on;
+  var was=pickerMode;
+  pickerMode=mode;
   var searchEl=document.getElementById('picker-search');
-  searchEl.placeholder = on ? 'What are you eating?' : 'Search recipes or ingredients…';
-  searchEl.setAttribute('enterkeyhint', on ? 'done' : 'search');
-  if(on && !opts.noFocus) searchEl.focus();
+  if(was==='link' && mode!=='link') searchEl.value='';
+  var def=PICKER_MODES[mode];
+  searchEl.placeholder = def ? def.placeholder : 'Search recipes or ingredients…';
+  searchEl.setAttribute('enterkeyhint', mode==='search' ? 'search' : (mode==='link' ? 'go' : 'done'));
+  searchEl.setAttribute('inputmode', mode==='link' ? 'url' : 'text');
+  searchEl.setAttribute('autocapitalize', mode==='link' ? 'off' : 'sentences');
+  if(mode!=='search' && !opts.noFocus) searchEl.focus();
   renderPickerList(searchEl.value);
 }
 
-// The bottom bar only exists in custom mode, and only commits once there's a name.
+// The bottom bar only exists in custom and link mode, and only commits once
+// there's something in the box.
 function syncConfirmBar(){
   var wrap=document.getElementById('picker-confirm-wrap');
   var btn=document.getElementById('picker-confirm');
-  wrap.style.display = pickerCustomMode ? '' : 'none';
-  if(!pickerCustomMode) return;
-  btn.textContent = pickerTargetDay ? ('Add to '+pickerTargetDay) : 'Add meal';
+  var def=PICKER_MODES[pickerMode];
+  wrap.style.display = def ? '' : 'none';
+  if(!def) return;
+  if(pickerBusy){ btn.textContent='Reading the page…'; btn.disabled=true; return; }
+  btn.textContent = pickerTargetDay ? (def.confirm+pickerTargetDay) : (pickerMode==='link'?'Import meal':'Add meal');
   btn.disabled = !(document.getElementById('picker-search').value||'').trim();
+}
+
+// A line under the mode rows: the hint for link mode, or why an import failed.
+function pickerNote(text, isError){
+  var listEl=document.getElementById('picker-list');
+  var old=listEl.querySelector('.picker-note'); if(old) old.remove();
+  if(!text) return;
+  var p=document.createElement('p'); p.className='picker-note'+(isError?' error':''); p.textContent=text;
+  listEl.appendChild(p);
 }
 
 function renderPickerList(q){
@@ -938,11 +966,13 @@ function renderPickerList(q){
   var listEl=document.getElementById('picker-list');
   var emptyEl=document.getElementById('picker-empty');
   listEl.innerHTML='';
-  listEl.appendChild(buildCustomRow());   // always first, whatever the search says
+  listEl.appendChild(buildModeRow('custom'));   // always first, whatever the search says
+  listEl.appendChild(buildModeRow('link'));
   syncConfirmBar();
-  if(pickerCustomMode){
-    // Naming a one-off — the search box isn't searching, so there's nothing to list.
+  if(pickerMode!=='search'){
+    // Naming a one-off or pasting a link — the box isn't searching, so there's nothing to list.
     emptyEl.style.display='none';
+    if(pickerMode==='link') pickerNote('The recipe is read from the page and added to this day with its ingredients and steps, so groceries and cooking mode work. It isn’t saved to your recipes.');
     return;
   }
   var inWeek={}; editMeals.forEach(function(m){ inWeek[m.id]=true; });
@@ -997,12 +1027,69 @@ function mealFromCustom(name, day){
   };
 }
 
+// A meal imported from a link lives only on this week. It carries its own
+// ingredients and steps (so the grocery list and cooking mode work exactly as
+// for a collection recipe) and a `source` back to the page, but it is never
+// written to data/recipes.json and never appears on the Recipes tab. The id is
+// prefixed so it can't collide with a collection recipe — CI leaves meal ids it
+// doesn't recognise alone, which is what makes the snapshot the whole truth.
+function mealFromLink(recipe, url, day){
+  var slug=(recipe.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40) || 'recipe';
+  var meal={
+    id:'link-'+slug+'-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+    icon:recipe.icon||'🍽', name:recipe.name||'Imported recipe', meta:recipe.meta||'',
+    ings:(recipe.ings||[]).slice(),
+    steps:(recipe.steps||[]).slice(),
+    day:day
+  };
+  if(recipe.note) meal.note=recipe.note;
+  meal.source=recipe.source||url;
+  return meal;
+}
+
+// Read the recipe at a URL (the same parser as the Recipes tab's import) and put
+// it straight on the chosen day. Nothing is written anywhere until Done.
+function importLinkMeal(url){
+  url=(url||'').trim();
+  if(!url || pickerBusy) return;
+  var day=pickerTargetDay||nextEmptyDay();
+  if(!day){ closeSheet('picker-overlay'); return; }
+  if(!window.RecipeImport){ pickerNote('Import isn’t available right now.', true); return; }
+  pickerBusy=true;
+  document.getElementById('picker-search').blur();
+  renderPickerList(url);
+  pickerNote('Reading the page…');
+  window.RecipeImport.fromUrl(url).then(function(result){
+    pickerBusy=false;
+    if(!result.ok){
+      renderPickerList(url);
+      pickerNote('Couldn’t read that page — '+result.reason+'. Try another link, or import it on the Recipes tab, where you can paste the recipe text instead.', true);
+      return;
+    }
+    var meal=mealFromLink(result.recipe, url, day);
+    editMeals=editMeals.filter(function(m){ return m.day!==day; });  // replace any meal on that day
+    editMeals.push(meal);
+    sortMealsByDay();
+    // The page's photo becomes the card's thumbnail. Best-effort, like saveRecipe.
+    if(result.recipe.image && RecipeCard.setCover) RecipeCard.setCover(meal.id, result.recipe.image);
+    setPickerMode('search', {noFocus:true});   // next open starts on the recipe list
+    closeSheet('picker-overlay');
+    renderEditCards();
+    toast('Added '+meal.name+' to '+day+' — this week only', {success:true});
+  }).catch(function(){
+    pickerBusy=false;
+    renderPickerList(url);
+    pickerNote('Something went wrong reading that page.', true);
+  });
+}
+
 // Open the recipe picker so the chosen recipe lands on a specific day.
 function openPickerForDay(day){
   pickerTargetDay=day;
+  pickerBusy=false;
   // Always open on the recipe list. noFocus: the keyboard shouldn't fight the
   // sheet animation, and the render below is replaced by the loading placeholder.
-  setCustomMode(false, {noFocus:true});
+  setPickerMode('search', {noFocus:true});
   document.getElementById('picker-search').value='';
   document.getElementById('picker-list').innerHTML='<div class="picker-loading">Loading recipes…</div>';
   openSheet('picker-overlay');
@@ -1026,7 +1113,7 @@ function addCustomMeal(name){
   editMeals=editMeals.filter(function(m){ return m.day!==day; });  // replace any meal on that day
   editMeals.push(mealFromCustom(name, day));
   sortMealsByDay();
-  pickerCustomMode=false;   // next open starts on the recipe list
+  pickerMode='search';   // next open starts on the recipe list
   closeSheet('picker-overlay');
   renderEditCards();
 }
@@ -1089,6 +1176,24 @@ function shuffleWeek(){
 }
 
 // ── Sheet helpers ─────────────────────────────────────────────────────────
+// iOS Safari doesn't shrink the layout viewport when the keyboard comes up, so
+// a bottom sheet stays where it was and the keyboard simply covers it (tapping
+// "Something else…" used to hide the whole sheet behind the keyboard). The
+// visual viewport does shrink, so the sheet is lifted by whatever is hidden.
+(function fitSheetsToKeyboard(){
+  var vv=window.visualViewport;
+  if(!vv) return;
+  var root=document.documentElement;
+  function fit(){
+    var hidden=Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
+    root.style.setProperty('--kb', hidden+'px');
+    root.style.setProperty('--vvh', Math.round(vv.height)+'px');
+  }
+  vv.addEventListener('resize', fit);
+  vv.addEventListener('scroll', fit);
+  fit();
+})();
+
 function openSheet(id){
   var ov=document.getElementById(id);
   ov.classList.add('open'); ov.setAttribute('aria-hidden','false');
@@ -1478,12 +1583,14 @@ document.getElementById('shuffleWeekBtn').addEventListener('click', shuffleWeek)
 document.getElementById('picker-close').addEventListener('click', function(){ closeSheet('picker-overlay'); });
 document.getElementById('picker-search').addEventListener('input', function(){ renderPickerList(this.value); });
 document.getElementById('picker-search').addEventListener('keydown', function(e){
-  if(e.key!=='Enter' || !pickerCustomMode) return;
+  if(e.key!=='Enter' || pickerMode==='search') return;
   e.preventDefault();
-  if((this.value||'').trim()) addCustomMeal(this.value);
+  if(!(this.value||'').trim()) return;
+  if(pickerMode==='link') importLinkMeal(this.value); else addCustomMeal(this.value);
 });
 document.getElementById('picker-confirm').addEventListener('click', function(){
-  addCustomMeal(document.getElementById('picker-search').value);
+  var v=document.getElementById('picker-search').value;
+  if(pickerMode==='link') importLinkMeal(v); else addCustomMeal(v);
 });
 document.getElementById('picker-overlay').addEventListener('click', function(e){ if(e.target===this) closeSheet('picker-overlay'); });
 </script>

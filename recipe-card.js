@@ -3590,6 +3590,10 @@
     idOf: idOf,
     isCustom: isCustom,
     makeThumb: makeThumb,
+    /** Set a recipe's cover photo from a URL (PATCH, so a gallery is never
+     *  wiped). The week page uses it for a meal imported from a link, so the
+     *  page's photo shows on the card without the recipe being saved. */
+    setCover: function (id, src) { return savePhoto(src, fbSafeKey(id)); },
     isSaved: isSaved,
     isCore: isCore,
     /** Shared favorite flag (/favorites) and nights cooked in the last six

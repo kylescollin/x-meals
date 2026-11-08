@@ -28,9 +28,8 @@
   .add-recipe-btn:active{transform:scale(.95);background:#b3581f;}
   .add-recipe-btn .plus{font-size:16px;line-height:1;margin-top:-1px;}
   .rl{max-width:680px;margin:0 auto 60px;padding:0 20px;display:flex;flex-direction:column;gap:10px;}
-  .section-divider{display:flex;align-items:center;gap:14px;}
-  .section-divider-line{flex:1;height:1px;background:var(--border);}
-  .section-divider-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+  /* "New" — on a recipe added this session only; gone on the next page load. */
+  .rc-new-badge{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--accent);padding:3px 8px;border-radius:99px;flex-shrink:0;}
   .srch-wrap{max-width:680px;margin:0 auto;padding:0 20px 18px;display:flex;align-items:center;gap:10px;}
   .srch-field{position:relative;flex:1;min-width:0;}
   /* 16px minimum — anything smaller makes iOS zoom the page in on focus. */
@@ -154,40 +153,33 @@ RecipeCard.init({
       delete facets[id];
       delete searchIndex[id];
       list.querySelectorAll('.rc-card[data-recipe-id="' + id + '"]').forEach(function(c) { c.remove(); });
-      if (!list.querySelector('.rc-card[data-saved-id]')) {
-        var div = list.querySelector('.section-divider');
-        if (div) div.remove();
-      }
       RECIPES = RECIPES.filter(function(r) { return r.id !== id; });
       filters.rebuild();
       runFilter();
       updateCount();
     },
     onSaveChange: function(id, saved, recipeObj) {
-      // If a journal recipe was just saved, add it to the list; if unsaved, remove it
+      // A recipe saved just now goes to the TOP of the list with a "New" tag, so
+      // Kyle can see it landed without scrolling past the whole collection. The
+      // tag lives only in this page's DOM — the next load sorts the recipe in
+      // with the rest (it's in data/recipes.json by then). Unsaving removes it.
       var existing = list.querySelector('.rc-card[data-saved-id="' + id + '"]');
       if (saved && !CORE_IDS[id] && !existing) {
-        var divider = list.querySelector('.section-divider');
-        if (!divider) {
-          divider = document.createElement('div');
-          divider.className = 'section-divider';
-          divider.innerHTML = '<div class="section-divider-line"></div><span class="section-divider-label">Your Recipes</span><div class="section-divider-line"></div>';
-          list.appendChild(divider);
-        }
         indexRecipe(recipeObj);
         var card = RecipeCard.makeCard(recipeObj);
         card.setAttribute('data-saved-id', id);
-        list.appendChild(card);
+        var badge = document.createElement('span');
+        badge.className = 'rc-new-badge';
+        badge.textContent = 'New';
+        var right = card.querySelector('.rc-card-right');
+        if (right) right.insertBefore(badge, right.firstChild);
+        list.insertBefore(card, list.firstChild);
         filters.rebuild();
         runFilter();
         updateCount();
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else if (!saved && existing) {
         existing.remove();
-        if (!list.querySelector('.rc-card[data-saved-id]')) {
-          var div = list.querySelector('.section-divider');
-          if (div) div.remove();
-        }
         filters.rebuild();
         runFilter();
         updateCount();
@@ -195,16 +187,15 @@ RecipeCard.init({
     },
     onReady: function() {
       RecipeCard.applyBadges();
-      // Load recently saved recipes not yet promoted to core (data/recipes.json)
+      // Recipes saved earlier that haven't been promoted into data/recipes.json
+      // yet (the commit is still landing, or failed). They sort in with the rest,
+      // at the end — which is where recipes.json puts a new recipe anyway — with
+      // no section label and no "New" tag.
       RecipeCard.loadSavedRecipes(function(saved) {
         var newlySaved = saved.filter(function(r) {
           return !CORE_IDS[RecipeCard.idOf(r)];
         });
         if (newlySaved.length > 0) {
-          var divider = document.createElement('div');
-          divider.className = 'section-divider';
-          divider.innerHTML = '<div class="section-divider-line"></div><span class="section-divider-label">Your Recipes</span><div class="section-divider-line"></div>';
-          list.appendChild(divider);
           newlySaved.forEach(function(r) {
             indexRecipe(r);
             var card = RecipeCard.makeCard(r);
@@ -265,14 +256,6 @@ function runFilter() {
     card.style.display = match ? '' : 'none';
     if (match) visible++;
   });
-
-  // Hide the "Your Recipes" divider if all journal cards are filtered
-  var divider = list.querySelector('.section-divider');
-  if (divider) {
-    var anyJournal = Array.from(list.querySelectorAll('.rc-card[data-saved-id]'))
-      .some(function(c) { return c.style.display !== 'none'; });
-    divider.style.display = anyJournal ? '' : 'none';
-  }
 
   // Empty state
   srchEmpty.textContent = q

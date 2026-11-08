@@ -213,12 +213,29 @@ same as all meal data); it is scoped to only this repo with Contents read/write.
 any committed file. If grocery regeneration ever stops working, check that the token is present and
 unexpired at `/config/githubToken`.
 
+**The Add a meal sheet** (`#picker-overlay`) has three modes, switched by the two pinned rows at
+the top of its list (`PICKER_MODES` / `setPickerMode` in `index.html`): **search** the
+collection, **Something else…** (a placeholder meal, below), and **From a link…**. The link mode
+runs the same `recipe-import.js` parser as the Recipes tab and puts the result straight on the
+chosen day as a meal that **lives only on that week**: it carries its own `ings`, `steps`,
+`meta` and a `source`, so the grocery list, the detail view and cooking mode treat it like any
+other meal, but it is never written to `data/recipes.json` and never shows on the Recipes tab.
+Its id is `link-<slug>-<base36>` so it can't collide with a collection recipe; CI leaves meal ids
+it doesn't recognise alone, which is what makes the week's snapshot the whole truth for it. The
+page's photo becomes its cover through `RecipeCard.setCover`. If Kyle later wants to keep it,
+"Save to recipes" in the detail view's ⋯ menu is still there. The sheet is lifted above the iOS
+keyboard by `fitSheetsToKeyboard` (visual viewport → `--kb`), because iOS never shrinks the
+layout viewport for the keyboard and a fixed bottom sheet would otherwise sit underneath it.
+
 ### In-browser recipe adding (Add mode on recipes.html)
 
 `recipes.html` has a **"+ Add recipe"** button that opens a blank form (emoji, name, tags, details,
 ingredients, steps, tip). On **Save** (`saveNewRecipe` in `recipe-card.js`) it does two things:
 1. Saves the recipe to Firebase via the existing `toggleSave` flow — instant, syncs between the two
-   accounts, and shows it immediately under the **"Your Recipes"** section.
+   accounts, and shows it immediately at the **top of the list with a "New" tag**. The tag exists
+   only in that page's DOM; on the next load the recipe sorts in with the rest (there is no
+   "Your Recipes" section any more — a saved recipe still waiting on its commit simply renders
+   at the end of the list, where `recipes.json` would put it).
 2. Commits the recipe into `data/recipes.json` via the same GitHub token + Contents API used by meal
    editing (`commitRecipeToCore`), so it becomes a **permanent** recipe Agent X can see and suggest.
    Lands ~1 min later. The Firebase copy is the safe fallback if this commit fails.
