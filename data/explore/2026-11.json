@@ -2,6 +2,38 @@
   "month": "2026-11",
   "items": [
     {
+      "key": "942079775948",
+      "id": "explore-942079775948",
+      "url": "https://www.bonappetit.com/recipe/sticky-miso-chicken",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-11-08T11:00:00.000Z",
+      "fetched": "2026-11-08T18:07:42.819Z",
+      "name": "Sticky Miso Chicken",
+      "image": "https://assets.bonappetit.com/photos/6a8e09753461fc5df8007e51/16:9/w_4327,h_2434,c_limit/miso-honey-chicken_RECIPE_V1_081926_15163_VOG_final.jpg",
+      "icon": "🍗",
+      "course": "dinner",
+      "tags": [
+        "Asian"
+      ],
+      "meta": "Sheet pan · Serves 4",
+      "ingredients": [
+        "¼ cup honey",
+        "¼ cup white miso",
+        "1 Tbsp. low-sodium soy sauce",
+        "1½ lb. skinless, boneless chicken thighs",
+        "Steamed white rice and thinly sliced scallions (for serving; optional)"
+      ],
+      "steps": [
+        "Heat broiler. Whisk ¼ cup honey, ¼ cup white miso, and 1 Tbsp. low-sodium soy sauce in a large bowl to combine. Add 1½ lb. skinless, boneless chicken thighs (the miso and soy sauce are plenty salty, so no need to season the chicken) and toss to coat.",
+        "Arrange on wire rack set inside a rimmed baking sheet lined with foil and spoon any marinade remaining in bowl over. Broil chicken, turning halfway through, until cooked through and deeply charred in spots, 10–15 minutes (keep a close eye on it). Thinly slice chicken.",
+        "Serve over steamed white rice, topped with thinly sliced scallions, if desired."
+      ],
+      "note": "",
+      "source": "https://www.bonappetit.com/recipe/sticky-miso-chicken",
+      "recipe": true
+    },
+    {
       "key": "09c0f0b6f38d",
       "id": "explore-09c0f0b6f38d",
       "url": "https://www.budgetbytes.com/corn-recipes/",
@@ -12,7 +44,7 @@
       "name": "19 Easy Corn Recipes",
       "image": "https://www.budgetbytes.com/wp-content/uploads/2026/11/Corn-Recipes.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "b0feeb8c4061",
@@ -25,7 +57,7 @@
       "name": "31 Thanksgiving Pies Worth a Second Slice at Breakfast",
       "image": "https://assets.bonappetit.com/photos/6a7ce7ec2f7cf0310d010dac/master/pass/cranberry-meringue-pie_IG_V6_072226_5421_VOG_final.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "1e542a710be3",
@@ -38,7 +70,7 @@
       "name": "53 Healthy Thanksgiving Recipes to Brighten Up the Table",
       "image": "https://assets.bonappetit.com/photos/6531a43d7bc98685bb07cc76/master/pass/20230911-1123-FOB-0738%201.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "89e5707dc094",
@@ -51,7 +83,7 @@
       "name": "Free 7 Day Healthy Meal Plan (Nov 9-15)",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/11/Week_566_Nov-9-Nov-15-600x750.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "78f0a5e2e911",
