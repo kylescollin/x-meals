@@ -109,5 +109,465 @@
   "title": "Week of November 8",
   "updatedAt": 1794205114176,
   "weekOf": "2026-11-08",
-  "groceriesRequested": "2026-11-09T06:18:34.084Z"
+  "groceriesRequested": "2026-11-09T06:18:34.084Z",
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "1 cup sliced Persian cucumbers",
+          "detail": "sliced into the bowl",
+          "amazon": "persian cucumbers",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 Persian cucumbers, sliced",
+          "detail": "layered onto the finished burgers",
+          "amazon": "persian cucumbers",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 cup shredded carrots",
+          "detail": "layered into the bowl",
+          "amazon": "shredded carrots bag",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "2 small ripe avocados, thinly sliced",
+          "detail": "fanned over the bowl",
+          "amazon": "ripe avocado",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 avocados",
+          "detail": "halved and served in each bowl",
+          "amazon": "ripe avocado",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "¼ cup fresh basil, finely chopped",
+          "detail": "mixed into the pork patty blend",
+          "amazon": "fresh basil",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "5 green onions, finely chopped",
+          "detail": "3 mixed into the pork patties · 2 whisked into the sriracha mayo",
+          "amazon": "green onions",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "¼ cup roughly chopped cilantro, plus ¾ cup lightly-packed chopped cilantro",
+          "detail": "piled onto the burgers · stirred through the lime rice",
+          "amazon": "fresh cilantro bunch",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq",
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals B+C"
+        },
+        {
+          "name": "1 jalapeño, thinly sliced",
+          "detail": "layered onto the burgers (optional)",
+          "amazon": "fresh jalapeno pepper",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "3 cups freshly chopped lettuce",
+          "detail": "base layer in each bowl",
+          "amazon": "romaine lettuce",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "¾ cup chopped tomatoes",
+          "detail": "spooned over each bowl",
+          "amazon": "roma tomatoes",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "6 tbsp diced red onion",
+          "detail": "scattered over each bowl",
+          "amazon": "red onion",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1¼ cups sweet corn",
+          "detail": "added to each bowl",
+          "amazon": "sweet corn frozen or canned",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "4 garlic cloves, minced, plus 1 tbsp minced garlic",
+          "detail": "mixed into the pork patty blend · sautéed with the rice",
+          "amazon": "fresh garlic",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq",
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals B+C"
+        },
+        {
+          "name": "2 limes",
+          "detail": "zested and juiced for the cilantro-lime rice",
+          "amazon": "fresh limes",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "4 (4 oz) cooked salmon filets",
+          "detail": "flaked over the sushi bowls",
+          "amazon": "cooked salmon fillets",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 pound ground pork",
+          "detail": "formed into patties for the burgers",
+          "amazon": "ground pork",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "12 Gorton's Beer Battered Fish Fillets",
+          "detail": "baked and placed over the taco bowls",
+          "amazon": "gortons beer battered fish fillets",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "4 brioche buns",
+          "detail": "toasted and used as the burger base",
+          "amazon": "brioche burger buns",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "2½ cups sushi or jasmine rice",
+          "detail": "cooked as the bowl base",
+          "amazon": "sushi rice",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "¼ cup rice vinegar",
+          "detail": "mixed into the seasoned sushi rice",
+          "amazon": "rice vinegar",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "⅓ cup panko breadcrumbs",
+          "detail": "toasted in oil and scattered over the bowls for crunch",
+          "amazon": "panko breadcrumbs",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 nori sheet",
+          "detail": "torn and placed over the finished bowls",
+          "amazon": "nori sheets",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Pickled ginger",
+          "detail": "served alongside the sushi bowls",
+          "amazon": "pickled ginger sushi",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "Toasted sesame seeds",
+          "detail": "sprinkled over the finished sushi bowls",
+          "amazon": "toasted sesame seeds",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 cup mayonnaise",
+          "detail": "½ cup blended into sriracha mayo for the sushi bowls · ½ cup whisked into sriracha mayo for the burgers",
+          "amazon": "mayonnaise",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls",
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "Sriracha",
+          "detail": "stirred into the sushi bowl mayo · mixed into pork patties and burger mayo",
+          "amazon": "sriracha hot sauce",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls",
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        },
+        {
+          "name": "Low-sodium soy sauce",
+          "detail": "stirred into the sushi bowl sriracha mayo",
+          "amazon": "low sodium soy sauce",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 tbsp oil",
+          "detail": "1 tbsp used to toast the panko · 2 tbsp used to sauté the rice",
+          "amazon": "neutral cooking oil",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls",
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+C"
+        },
+        {
+          "name": "1 tablespoon fish sauce",
+          "detail": "mixed into the pork patties",
+          "amazon": "fish sauce",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 teaspoons toasted sesame oil",
+          "detail": "used to cook the pork patties (optional)",
+          "amazon": "toasted sesame oil",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 teaspoons cornstarch",
+          "detail": "mixed into the pork patties to help them hold together",
+          "amazon": "cornstarch",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "½ cup quick pickled vegetables",
+          "detail": "drained and layered onto the burgers",
+          "amazon": "quick pickled vegetables asian",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1½ cups long grain white rice",
+          "detail": "cooked as the base for the cilantro-lime rice",
+          "amazon": "long grain white rice",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1½ cups chicken broth",
+          "detail": "used to cook the rice in the Instant Pot",
+          "amazon": "chicken broth low sodium",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "3 cups black beans",
+          "detail": "spooned into each taco bowl",
+          "amazon": "canned black beans",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "Salsa",
+          "detail": "served alongside each taco bowl",
+          "amazon": "salsa jar mild or medium",
+          "from": [
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "6 tsp granulated sugar",
+          "detail": "5 tsp dissolved into the sushi rice seasoning · 1 tsp stirred into the sushi bowl sriracha mayo",
+          "amazon": "granulated sugar",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls",
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-shared",
+          "tag": "Meals A+B"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "Salt",
+          "detail": "dissolved into the sushi rice seasoning · seasoning the pork patties · optional substitute for broth in the rice",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls",
+            "link-pork-banh-mi-burger-mw8vdova5ejq",
+            "crispy-fish-taco-bowl"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "Garlic salt",
+          "detail": "pinch added to the toasted panko crunchies",
+          "from": [
+            "easy-weeknight-salmon-sushi-bowls"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "1 teaspoon freshly cracked black pepper",
+          "detail": "mixed into the pork patties",
+          "from": [
+            "link-pork-banh-mi-burger-mw8vdova5ejq"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
+  "groceriesFor": [
+    "easy-weeknight-salmon-sushi-bowls",
+    "link-pork-banh-mi-burger-mw8vdova5ejq",
+    "crispy-fish-taco-bowl"
+  ],
+  "groceriesIngs": {
+    "easy-weeknight-salmon-sushi-bowls": "1:sn651jrv4d",
+    "link-pork-banh-mi-burger-mw8vdova5ejq": "1:16gwvc36ltv",
+    "crispy-fish-taco-bowl": "1:1xs0pnn1bpl"
+  },
+  "groceriesAt": "2026-11-09T06:20:53.846Z",
+  "groceriesServed": "2026-11-09T06:18:34.084Z"
 }
