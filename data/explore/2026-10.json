@@ -791,6 +791,51 @@
       "recipe": true
     },
     {
+      "key": "ae26cb7abaa0",
+      "id": "explore-ae26cb7abaa0",
+      "url": "https://pinchofyum.com/sloppy-joes",
+      "site": "Pinch of Yum",
+      "sourceId": "pinchofyum",
+      "published": "2026-10-28T13:18:57.000Z",
+      "fetched": "2026-11-10T20:04:04.162Z",
+      "name": "Sloppy Joe’s",
+      "image": "https://pinchofyum.com/tachyon/Sloppy-Joes_HighRes-014-scaled.jpg",
+      "icon": "🥩",
+      "course": "dinner",
+      "tags": [
+        "Sandwich",
+        "American"
+      ],
+      "meta": "30 min · Sheet pan · Serves 4–6",
+      "ingredients": [
+        "1 tablespoon avocado oil",
+        "2 lbs ground beef (85/15)",
+        "1 tablespoon onion powder",
+        "1 ½ teaspoons garlic powder",
+        "1 teaspoon salt",
+        "2 teaspoons Better Than Bouillon beef base (optional, gives it a richer flavor – if you skip it, you’ll want to add salt to taste)",
+        "1 cup ketchup",
+        "⅔ cup BBQ sauce",
+        "½ cup water (more as needed)",
+        "1 24–ounce bag baby gold potatoes, halved or quartered",
+        "3 tablespoons butter",
+        "1 tablespoon ranch seasoning (hard to beat good ol’ Hidden Valley)",
+        "Hamburger buns",
+        "Pickles or pickled jalapeños, if you want"
+      ],
+      "steps": [
+        "Brown the Beef: Heat the avocado oil in a large skillet over high heat. Brown the ground beef, leaving undisturbed for a few minutes to get extra browned bits. Cook until no longer pink; break it apart into very small pieces with a spatula. Optional: tip the pan and use a paper towel to absorb a bit of the oil (I do it once or twice to just reduce oil slightly).",
+        "Add Spices: Add onion powder, garlic powder, bouillon base, and salt; stir to incorporate.",
+        "Add Sauces: Add ketchup and BBQ sauce; stir to coat everything. Add water a little bit at a time until it becomes a thick, glossy, meaty sauce. Bring to a low simmer until it deepens a bit in color and starts to caramelized around the edges.",
+        "Potatoes: Preheat oven to 425 degrees. Place potatoes on a sheet pan; toss with avocado oil and a tiny pinch of salt. Roast for 25-30 minutes, stirring them once or twice, until lightly golden on the outside and tender on the inside. (The Sloppy Joe mixture can just keep simmering over low during this time.)",
+        "Make Them Ranchy: Remove potatoes from the oven. Add butter to the sheet pan; toss with the potatoes so the butter melts. Add ranch seasoning and toss one more time to coat. Yum.",
+        "Serve: Serve Sloppy Joe mixture on softened burger buns! We top ours with pickled jalapenos. Serve with a scoop of ranch potatoes."
+      ],
+      "note": "",
+      "source": "https://pinchofyum.com/sloppy-joes",
+      "recipe": true
+    },
+    {
       "key": "3dcf96253fcc",
       "id": "explore-3dcf96253fcc",
       "url": "https://www.recipetineats.com/nigellas-bar-nuts/",

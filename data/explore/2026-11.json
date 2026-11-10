@@ -2,6 +2,44 @@
   "month": "2026-11",
   "items": [
     {
+      "key": "bca58ac15bd5",
+      "id": "explore-bca58ac15bd5",
+      "url": "https://www.bonappetit.com/recipe/roasted-brussels-sprouts-with-warm-honey-glaze",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-11-10T19:45:03.000Z",
+      "fetched": "2026-11-10T20:04:04.162Z",
+      "name": "Hot Honey Brussels Sprouts",
+      "image": "https://assets.bonappetit.com/photos/5b9a90176534064ad1e2ecc8/16:9/w_5000,h_2812,c_limit/ba-recipe-roasted-glazy-brussels-sprouts.jpg",
+      "icon": "🍽️",
+      "course": "dinner",
+      "tags": [],
+      "meta": "Sheet pan · Serves 4",
+      "ingredients": [
+        "1½ lb. brussels sprouts, trimmed, halved",
+        "¼ cup extra-virgin olive oil",
+        "1 tsp. Diamond Crystal or ½ tsp. Morton kosher salt, divided, plus more",
+        "Freshly ground black pepper",
+        "¼ cup honey",
+        "⅓ cup sherry vinegar or red wine vinegar",
+        "¾ tsp. crushed red pepper flakes",
+        "3 Tbsp. unsalted butter",
+        "3 scallions, thinly sliced on a diagonal",
+        "1 tsp. finely grated lemon zest"
+      ],
+      "steps": [
+        "Place a rimmed baking sheet on bottom rack of oven; preheat to 450°. Toss 1½ lb. brussels sprouts, trimmed, halved, and ¼ cup extra-virgin olive oil in a large bowl; sprinkle with ½ tsp. Diamond Crystal or ¼ tsp. Morton kosher salt, and season with freshly ground black pepper.",
+        "Carefully remove baking sheet from oven. Using tongs, arrange brussels sprouts cut-side down on hot baking sheet. Roast brussels on bottom rack until softened and deeply browned, 15–25 minutes.",
+        "Meanwhile, bring ¼ cup honey to a simmer in a small saucepan over medium-high heat. Reduce heat to medium-low and cook, stirring often, until honey is a deep amber color but not burnt (it will be foamy, that’s okay), 3–4 minutes.",
+        "Remove from heat and add ⅓ cup sherry vinegar or red wine vinegar (it will bubble up quite aggressively) and ¾ tsp. crushed red pepper flakes; whisk until sauce is smooth. Return saucepan to medium heat and add 3 Tbsp. unsalted butter and ½ tsp. Diamond Crystal or ¼ tsp. Morton kosher salt. Cook, whisking constantly, until glaze is glossy, bubbling, and slightly thickened, 3–4 minutes.",
+        "Transfer roasted brussels sprouts to a large bowl. Add half the hot honey glaze and scallions and toss to combine. Taste and add more glaze if desired. Transfer to a platter and top with lemon zest. Serve remaining glaze alongside.",
+        "Do ahead: Glaze can be made 5 days ahead; refrigerate after cooling. Editor’s note: This recipe was first published in September 2018 as “Charred Brussels Sprouts With Warm Honey Glaze”; it has been updated for style and clarity. Head this way for more of our best Thanksgiving side dishes →"
+      ],
+      "note": "",
+      "source": "https://www.bonappetit.com/recipe/roasted-brussels-sprouts-with-warm-honey-glaze",
+      "recipe": true
+    },
+    {
       "key": "24ae576c4fa8",
       "id": "explore-24ae576c4fa8",
       "url": "https://www.bonappetit.com/gallery/family-friendly-dinners",
@@ -12,7 +50,7 @@
       "name": "37 Family Dinner Ideas You’ll Make on Repeat",
       "image": "https://assets.bonappetit.com/photos/69b1832ef80fa98c5ca9814e/master/pass/pepperoni-pasta_IG_V3_022626_14219_VOG_final.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "f9e0e19183ae",
