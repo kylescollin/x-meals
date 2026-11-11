@@ -4,9 +4,47 @@ Filed by Dev Inbox. Status goes `new` (open questions) → `ready` → `planned`
 
 ## Inbox
 
-_Empty — everything captured on 2026-11-08 has shipped._
+_Empty — everything captured on 2026-11-11 has shipped._
 
 ## Done
+
+### Replace Explore's "Save to my recipes" with a star (favorite for later)
+- **Type:** feature
+- **Where:** Explore tab, the tile grid and the recipe modal (`explore.js` — `open`, `save`, `markSaved`, `tile`; the external-mode Save bar in `recipe-card.js` `openDetail`; Firebase `/explore/saved`)
+- **Problem:** Opening an Explore recipe offers "Not for us" or "Save to my recipes". Saving copies it straight into the collection, which is a bigger commitment than Kyle wants while browsing. There is no lightweight "keep this for later".
+- **Want:** The second action becomes a favorite toggle (star) instead of a save. Starring does **not** add the recipe to the collection; it only marks it, stored in Firebase under `/explore` (for example `/explore/starred/<key>`) so both phones share it. A starred recipe shows a small star icon in the top corner of its tile in the grid and in the top corner of the full modal. Tapping again un-stars it. "Not for us" stays as it is. Recipes that are already in the collection (earlier saves, or added later from favorites) keep their existing pill so it's clear they're already in Recipes.
+- **Kyle's words:** "Instead of saving it directly to my recipes, what I want to have it do is just favorite it, basically like star it, save it for later… that should just put like a little star icon in the top corner of it, both in the preview along with the like full modal." (2026-11-11_110604 @ 1:07)
+- **Status:** done · 2026-11-11 · 6b82127
+
+### Filter the Explore tab down to starred recipes
+- **Type:** feature
+- **Where:** Explore tab filter sheet (`explore.js` — the `saved` filter group, `facetOf`, `visible`; shared sheet in `recipe-filters.js`)
+- **Problem:** Once recipes can be starred in Explore, there's no way to see just those.
+- **Want:** A "★ Favorites" filter on Explore (same look as the Favorites chip on the Recipes tab) that narrows the grid to starred recipes only. It takes the place of the current Saved / Not saved yet group, which no longer matches how Explore works. Starring or un-starring while the filter is on updates the grid straight away. Depends on the star item above.
+- **Kyle's words:** "I should be able to filter out based on that, which should allow me to then just see in the explore tab, the ones that I've saved." (2026-11-11_110604 @ 1:34)
+- **Status:** done · 2026-11-11 · 919df03
+
+### Start "Add recipe" with a three-way choice: link, type it in, or from Explore
+- **Type:** feature
+- **Where:** Recipes tab → "+ Add recipe" (`recipes.html` — `#add-recipe` click → `RecipeCard.openAddForm`; the form and its "Import from a link" panel are in `recipe-card.js` — `openAddForm`, `wireImportPanel`, `runImport`)
+- **Problem:** Add recipe opens one all-purpose form: an "Import from a link" box on top of every manual field. Importing and typing are different jobs squeezed into one screen, and there is no way to bring in something found on Explore.
+- **Want:** Tapping "+ Add recipe" first shows a small chooser with three options:
+  1. **Import from a link**: a screen with just the link field (and the existing paste-the-text fallback when a page can't be read); after a successful import it shows the filled-in recipe to check and save, as now.
+  2. **Type it in**: the manual form on its own, without the import panel.
+  3. **From Explore**: a list of the recipes starred in Explore (photo, name, blog). Tapping one adds it to the collection through the same path Explore's Save used (`RecipeCard.saveRecipe` with the "Explore" tag, plus `/explore/saved/<key>`), so it appears at the top of Recipes with the "New" tag. Recipes already in the collection are shown as added and can't be added twice. With nothing starred, say so and point to the Explore tab.
+  The share-target / `?url=` path that opens the form with a link pre-filled goes straight to the link screen. Depends on the star item above.
+- **Kyle's words:** "right now… when you add a recipe it will take you to a one-size-fits-all modal experience to either import from a URL or fill in the details. What I want to do is actually split that up into three separate components. So when I first tap import I should get essentially like a choice from three options to either import from a link, manually type the recipe, or add it from the explore tab." (2026-11-11_110604 @ 0:00) · "in the recipes tab, I should be able to add one of those recipes from my favorites." (@ 1:48)
+- **Status:** done · 2026-11-11 · b2e1cc1
+
+### Add a meal to the week from Explore favorites
+- **Type:** feature
+- **Where:** Week view → Edit mode → "Add a meal" picker sheet (`index.html` — `pickerMode`, `buildModeRow`, `renderPickerList`, `mealFromLink`, `importLinkMeal`)
+- **Problem:** The Add a meal sheet offers the saved collection, "From a link…" and "Something else…". Recipes starred in Explore can't be put on a day without first adding them on the Recipes tab.
+- **Want:** A third mode row, "From Explore…", next to "From a link…". Choosing it lists the recipes starred in Explore (photo, name, blog); tapping one places it on the chosen day with its ingredients and steps, so groceries and cooking mode work. With nothing starred, say so. Depends on the star item above.
+- **Kyle's words:** "Same thing for the week planning, when I add, um, one of the options that I should have is to add from the explore tab and be able to select from that menu as well." (2026-11-11_110604 @ 2:01)
+- **Answered:**
+  - [x] Also save to the collection? No. Kyle (2026-11-11): week only, like a link import (same shape as `mealFromLink`: own `ings`, `steps`, `meta`, `source`, a non-colliding id, cover from the feed photo). "Save to recipes" in the ⋯ menu remains the way to keep it.
+- **Status:** done · 2026-11-11 · f332fdd
 
 ### Show a freshly imported recipe at the top with a temporary "New" tag
 - **Type:** polish
