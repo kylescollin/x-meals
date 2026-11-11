@@ -22,7 +22,7 @@
    already picks up changes immediately.
 */
 
-const CACHE_VERSION = 'fbk-v11';
+const CACHE_VERSION = 'fbk-v12';
 const CACHE_NAME = 'fox-bear-kitchen-' + CACHE_VERSION;
 
 // The app shell: everything needed to render a page with no network.
@@ -33,6 +33,7 @@ const SHELL = [
   './recipes.html',
   './explore.html',
   './explore.js',
+  './explore-stars.js',
   './journal.html',
   './login.html',
   './theme.css',

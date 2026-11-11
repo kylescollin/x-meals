@@ -45,6 +45,9 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   food blogs each morning, with a star to keep one for later. Search field and the same
   filter sheet as Recipes (`recipe-filters.js`), opening on dinners only. Reads `data/explore/`
   and Firebase `/explore`. See **Explore feed** below.
+- `explore-stars.js` — The starred Explore recipes for pages that aren't Explore
+  (`/explore/starred` joined with the feed). Used by Add recipe's "From Explore" screen and the
+  week page's Add a meal sheet. See **Starring (and saving)**.
 - `groceries.html` — Retired. A redirect to `index.html?week=…&groceries=1` (the `?week=` param
   is forwarded); kept because it's in the service worker shell and may be bookmarked.
 - `journal.html` — Retired. A redirect to `index.html?view=timeline`; kept because it's in the
@@ -229,8 +232,26 @@ layout viewport for the keyboard and a fixed bottom sheet would otherwise sit un
 
 ### In-browser recipe adding (Add mode on recipes.html)
 
-`recipes.html` has a **"+ Add recipe"** button that opens a blank form (emoji, name, tags, details,
-ingredients, steps, tip). On **Save** (`saveNewRecipe` in `recipe-card.js`) it does two things:
+`recipes.html` has a **"+ Add recipe"** button. It opens a **three-way chooser**
+(`RecipeCard.openAddForm` → `showAddScreen` in `recipe-card.js`), each choice its own screen in
+the same sheet, with "‹ Back" in place of Cancel to return to the chooser:
+
+1. **Import from a link** — only the paste-a-link panel (and its paste-the-text fallback). The
+   recipe fields and the Save button stay hidden until an import has filled them in; then it is
+   the usual form to check and save. See **Importing a recipe from a link**.
+2. **Type it in** — the blank form (emoji, name, tags, details, ingredients, steps, tip) with no
+   import panel.
+3. **From Explore** — the recipes starred on the Explore tab (photo, name, blog), read through
+   `explore-stars.js`. Tapping one adds it straight to the collection: `saveRecipeObject` with
+   the `Explore` tag, cover from the feed photo, and `/explore/saved/<key>` written the moment the
+   id is minted (`ExploreStars.markSaved`), so Explore shows its Saved pill. The sheet closes and
+   the recipe is at the top of the list with its "New" tag. One already in the collection is
+   listed as **Added** and can't be tapped. Nothing starred → an empty state linking to Explore.
+
+A shared link (`openAddForm(url)`, see **Sharing a link into the app**) skips the chooser: it
+lands on the link screen with the import running, and Cancel closes the sheet.
+
+On **Save** (`saveNewRecipe` in `recipe-card.js`) the form does two things:
 1. Saves the recipe to Firebase via the existing `toggleSave` flow — instant, syncs between the two
    accounts, and shows it immediately at the **top of the list with a "New" tag**. The tag exists
    only in that page's DOM; on the next load the recipe sorts in with the rest (there is no
@@ -296,9 +317,9 @@ Rules that follow:
 
 ### Importing a recipe from a link
 
-The add form carries a **paste-a-link bar** at the top. Paste a recipe URL, tap Import, and the
-fields below fill in — name, ingredients, steps, time, servings, a guessed emoji and tags, and the
-page's photo as the cover. **It only ever prefills the form.** Nothing is written until Kyle taps
+Add recipe's **Import from a link** screen is a paste-a-link bar on its own. Paste a recipe URL,
+tap Import, and the form appears underneath, filled in — name, ingredients, steps, time, servings,
+a guessed emoji and tags, and the page's photo as the cover. **It only ever prefills the form.** Nothing is written until Kyle taps
 Save, so a scrape that comes back slightly wrong is something to tidy, not something to undo.
 
 There is no AI involved and it costs nothing per import. Recipe sites publish a machine-readable
@@ -336,7 +357,8 @@ tags. `toCoreRecipe` carries it into `data/recipes.json`.
   Stovetop. Appliances (slow cooker, Instant Pot, air fryer) are decisive on a single mention.
 - Where nothing fits, a tag is left off rather than guessed — a wrong tag fragments the filter panel.
 
-**Sharing a link into the app.** `recipes.html` opens straight into an import when given
+**Sharing a link into the app.** `recipes.html` opens straight into an import (the link screen,
+no chooser) when given
 `?import=<url>` (it also accepts the `?url=`/`?text=` a share sheet sends). The manifest declares a
 `share_target`, which works on Android and desktop Chrome — **iOS Safari does not implement Web
 Share Target** ([WebKit #194593](https://bugs.webkit.org/show_bug.cgi?id=194593)), so on Kyle's
@@ -442,7 +464,13 @@ starred tile carries a small gold star in its top-right corner; tapping the star
 modal) removes it. This star is **not** `/favorites` — that one is for collection recipes and is
 keyed by recipe id; `onStar` belongs to `explore.js` and returns the new state.
 
-Explore itself no longer saves. A recipe already in the collection — an `/explore/saved` entry,
+`explore-stars.js` (`window.ExploreStars`) is the one place the other pages read the starred
+list from: `load()` joins `/explore/starred` with the feed files (newest month first, stopping
+once every star is found), leaves out anything marked Not for us, and says which are already in
+the collection. Add recipe's **From Explore** screen and the week page's Add a meal sheet both
+use it; its pure `pick()` is covered in `scripts/test-explore-feed.js`.
+
+Explore itself no longer saves — **From Explore** under "+ Add recipe" on the Recipes tab does. A recipe already in the collection — an `/explore/saved` entry,
 or a collection recipe whose `source` is the same URL — keeps its **Saved** pill on the tile
 (top left), and its bar reads "Saved to your recipes" in place of the star button. Getting a
 recipe into the collection goes through `RecipeCard.saveRecipe`, the add form's own path

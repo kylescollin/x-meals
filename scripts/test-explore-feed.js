@@ -312,6 +312,36 @@ function freshDir() {
 
   fs.rmSync(dir, { recursive: true, force: true });
 
+  // ── The starred list other pages read (explore-stars.js) ───────────────
+  console.log('\nstarred recipes, joined with the feed');
+  {
+    const S = require('../explore-stars.js');
+    const feed = [
+      { key: 'aaa', url: 'https://example.com/orzo/', name: 'Orzo', recipe: true },
+      { key: 'bbb', url: 'https://example.com/chili/', name: 'Chili', recipe: true },
+      { key: 'ccc', url: 'https://example.com/stew/', name: 'Stew', recipe: true },
+      { key: 'ddd', url: 'https://example.com/roundup/', name: 'Roundup', recipe: false },
+      { key: 'eee', url: 'https://example.com/tacos/', name: 'Tacos', recipe: true },
+      { key: 'fff', url: 'https://example.com/soup/', name: 'Soup', recipe: true },
+      { key: 'aaa', url: 'https://example.com/orzo/', name: 'Orzo again', recipe: true }
+    ];
+    const state = {
+      starred: { aaa: 100, bbb: 300, ccc: 200, ddd: 400, eee: 50, gone: 500 },
+      hidden:  { eee: 60, fff: 10 },
+      saved:   { ccc: 'beef-stew' }
+    };
+    const collection = [{ id: 'weeknight-chili', source: 'https://example.com/chili/?utm=x#top' }, { id: 'no-source' }];
+    const rows = S.pick(state, feed, collection);
+    check('only starred, readable, not hidden — most recently starred first',
+      rows.map((r) => r.item.key), ['bbb', 'ccc', 'aaa']);
+    check('an /explore/saved entry marks it as in the collection', rows[1].savedId, 'beef-stew');
+    check('…and so does a collection recipe from the same page', rows[0].savedId, 'weeknight-chili');
+    check('otherwise it can still be added', rows[2].savedId, '');
+    check('the item is handed over untouched', rows[2].item === feed[0], true);
+    check('nothing starred → nothing', S.pick({}, feed, collection), []);
+    check('no /explore node at all → nothing', S.pick(null, feed, null), []);
+  }
+
   if (failed) { console.log('\n' + failed + ' failed'); process.exit(1); }
   console.log('\nall passed');
 })().catch((e) => { console.error(e); process.exit(1); });

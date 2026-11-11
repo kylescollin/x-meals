@@ -954,8 +954,31 @@
       '.rc-rd-import-status.is-ok{color:#3f7350;}',
       '.rc-rd-import-link{align-self:flex-start;background:none;border:none;padding:0;color:var(--accent);font-family:"DM Sans",sans-serif;font-size:13px;text-decoration:underline;cursor:pointer;-webkit-tap-highlight-color:transparent;}',
       '.rc-rd-import-thumb{width:100%;height:130px;object-fit:cover;border-radius:8px;display:block;}',
-      '.rc-rd-import-or{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;}',
-      '.rc-rd-import-or::before,.rc-rd-import-or::after{content:"";flex:1 1 auto;height:1px;background:var(--border);}',
+      // Add recipe: the three-way chooser, and the list of Explore favorites.
+      '.rc-rd-add-lead{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;line-height:1.2;}',
+      '.rc-rd-add-opts{display:flex;flex-direction:column;gap:12px;}',
+      '.rc-rd-add-opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 14px;min-height:76px;font-family:"DM Sans",sans-serif;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,transform .12s,background .15s;}',
+      '.rc-rd-add-opt:active{transform:scale(.985);background:#f0ece5;}',
+      '.rc-rd-add-ic{flex:none;width:42px;height:42px;border-radius:50%;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;}',
+      '.rc-rd-add-ic svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}',
+      '.rc-rd-add-txt{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:3px;}',
+      '.rc-rd-add-t{font-family:"Playfair Display",serif;font-size:16px;font-weight:500;line-height:1.25;}',
+      '.rc-rd-add-s{font-size:12.5px;font-weight:300;color:var(--muted);line-height:1.4;}',
+      '.rc-rd-add-chev{flex:none;color:var(--muted);font-size:20px;line-height:1;}',
+      '.rc-rd-xp-list{display:flex;flex-direction:column;gap:10px;}',
+      '.rc-rd-xp-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px 12px 10px 10px;font-family:"DM Sans",sans-serif;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}',
+      '.rc-rd-xp-row:active{transform:scale(.985);background:#f0ece5;}',
+      '.rc-rd-xp-row:disabled{cursor:default;transform:none;background:#fff;}',
+      '.rc-rd-xp-row:disabled .rc-rd-xp-thumb,.rc-rd-xp-row:disabled .rc-rd-xp-txt{opacity:.55;}',
+      '.rc-rd-xp-thumb{flex:none;width:60px;height:60px;border-radius:8px;background:#f0ece5;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:26px;line-height:1;}',
+      '.rc-rd-xp-thumb img{width:100%;height:100%;object-fit:cover;display:block;}',
+      '.rc-rd-xp-name{font-family:"Playfair Display",serif;font-size:15px;font-weight:500;line-height:1.3;}',
+      '.rc-rd-xp-site{font-size:12px;font-weight:300;color:var(--muted);}',
+      '.rc-rd-xp-pill{flex:none;border-radius:100px;font-size:12px;font-weight:500;padding:7px 14px;background:var(--accent);color:#fff;}',
+      '.rc-rd-xp-row:disabled .rc-rd-xp-pill{background:var(--accent-light);color:var(--accent);}',
+      '.rc-rd-xp-empty{text-align:center;color:var(--muted);font-size:14px;font-weight:300;line-height:1.5;padding:36px 8px;}',
+      '.rc-rd-xp-empty strong{display:block;font-family:"Playfair Display",serif;font-size:20px;font-weight:500;color:var(--ink);margin-bottom:8px;}',
+      '.rc-rd-xp-go{display:inline-block;margin-top:18px;background:var(--accent);color:#fff;border-radius:100px;font-size:14px;font-weight:500;padding:12px 22px;text-decoration:none;}',
       '.rc-rd-source{margin-top:18px;font-size:12px;color:var(--muted);}',
       '.rc-rd-source a{color:var(--accent);}',
       // Emoji: a square button on the end of the name row, opening a popover.
@@ -2304,9 +2327,9 @@
             'placeholder="https://…" value="' + escAttr(prefill || '') + '">' +
           '<button type="button" class="rc-rd-import-go" id="rc-rd-import-go">Import</button>' +
         '</div>' +
+        '<div class="rc-rd-field-hint">Paste the address of a recipe page. It fills the recipe in for you to check before anything is saved.</div>' +
         '<div class="rc-rd-import-status" id="rc-rd-import-status"></div>' +
-      '</div>' +
-      '<div class="rc-rd-import-or"><span>or fill it in below</span></div>';
+      '</div>';
   }
 
   function importStatus(message, kind, extraHTML) {
@@ -2324,10 +2347,14 @@
   }
 
   // Swap the fields out from under the import panel, leaving the panel itself
-  // (and whatever it's saying) in place.
+  // (and whatever it's saying) in place. On the link screen the fields are
+  // hidden until there is something in them — this is where they appear,
+  // along with the Save button.
   function refillFormFields(values) {
     var fields = document.getElementById('rc-rd-form-fields');
     if (!fields) return;
+    fields.style.display = '';
+    setAddSaveVisible(true);
     fields.innerHTML = buildRecipeFormHTML(values, true, true);
     wireEmojiPicker(fields);
     wireTagPicker(fields);
@@ -2387,7 +2414,12 @@
     importBusy(true);
     importStatus('Reading the page…');
 
+    // Backing out to the chooser (or closing) while the page is still being
+    // read must not leave its photo and source on whatever is typed in next.
+    var seq = addLoadSeq;
+
     window.RecipeImport.fromUrl(url).then(function (result) {
+      if (seq !== addLoadSeq) return;
       importBusy(false);
       if (result.ok) { applyImported(result.recipe, url); return; }
       importStatus('Couldn’t read that page — ' + result.reason + '.', 'error',
@@ -2396,6 +2428,7 @@
       var paste = document.getElementById('rc-rd-import-paste');
       if (paste) paste.addEventListener('click', showPasteFallback);
     }).catch(function () {
+      if (seq !== addLoadSeq) return;
       importBusy(false);
       importStatus('Something went wrong reading that page.', 'error',
         '<br><button type="button" class="rc-rd-import-link" id="rc-rd-import-paste">' +
@@ -2451,7 +2484,9 @@
 
   // Build + inject the recipe form (with emoji + tags) into the detail body
   // and wire the emoji + tag pickers. Shared by Add and Edit — `importUrl` is
-  // add-only (pass a string, even an empty one, to get the import panel).
+  // the add flow's link screen only (pass a string, even an empty one): it
+  // puts the import panel on top and keeps the fields hidden until an import
+  // has filled them in (see refillFormFields).
   function mountRecipeForm(values, importUrl) {
     var existing = document.getElementById('rc-rd-edit-form');
     if (existing) existing.remove();
@@ -2461,7 +2496,8 @@
     form.className = 'rc-rd-edit-form';
     form.innerHTML =
       (typeof importUrl === 'string' ? importPanelHTML(importUrl) : '') +
-      '<div id="rc-rd-form-fields" class="rc-rd-edit-form" style="padding:0;gap:20px">' +
+      '<div id="rc-rd-form-fields" class="rc-rd-edit-form" style="padding:0;gap:20px' +
+        (typeof importUrl === 'string' ? ';display:none' : '') + '">' +
         buildRecipeFormHTML(values, true, true) +
       '</div>';
 
@@ -2535,22 +2571,170 @@
   }
 
   // ── Add new recipe ──────────────────────────────────────────────────────
-  // `prefillUrl` comes from a shared link (see recipes.html): the URL is filled
-  // in and imported straight away, so a share lands on a finished form.
-  function openAddForm(prefillUrl) {
-    inAddMode = true;
-    curR = null;
-    currentRecipeId = null;
+  // Three ways in, each its own screen behind a chooser:
+  //   link     just the paste-a-link panel; the fields (and Save) appear once
+  //            an import — or the paste-the-text fallback — has filled them
+  //   manual   the blank form, no import panel
+  //   explore  the recipes starred on the Explore tab; tapping one adds it
+  // `prefillUrl` comes from a shared link (see recipes.html): it skips the
+  // chooser and lands on the link screen with the import already running.
+  var addScreen = '';       // '' | 'choose' | 'link' | 'manual' | 'explore'
+  var addDirect = false;    // opened by a shared link: Cancel closes, no chooser to go back to
+  var addLoadSeq = 0;       // drops a late Explore list that arrives after leaving the screen
+
+  var ADD_ICONS = {
+    link:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+    manual:  '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+    explore: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>'
+  };
+  var ADD_TITLES = { choose: 'New Recipe', link: 'Import from a link', manual: 'New Recipe', explore: 'From Explore' };
+
+  function setAddSaveVisible(on) {
+    var save = document.getElementById('rc-rd-save-edit');
+    // visibility, not display, so the bar's title stays centred.
+    if (save) save.style.visibility = (!inAddMode || on) ? '' : 'hidden';
+  }
+
+  // A plain panel in the form's slot (so exitAddMode clears it like a form).
+  function mountAddPanel(html) {
+    var existing = document.getElementById('rc-rd-edit-form');
+    if (existing) existing.remove();
+    var panel = document.createElement('div');
+    panel.id = 'rc-rd-edit-form';
+    panel.className = 'rc-rd-edit-form';
+    panel.innerHTML = html;
+    var body = document.querySelector('.rc-rd-body');
+    body.appendChild(panel);
+    body.scrollTop = 0;
+    return panel;
+  }
+
+  function showAddScreen(screen, prefillUrl) {
+    addScreen = screen;
+    addLoadSeq++;
     pendingCover = '';
     pendingSource = '';
+    var bar = document.getElementById('rc-rd-edit-bar');
+    bar.querySelector('.rc-rd-edit-bar-title').textContent = ADD_TITLES[screen];
+    document.getElementById('rc-rd-cancel').textContent = (screen === 'choose' || addDirect) ? 'Cancel' : '‹ Back';
+    setAddSaveVisible(screen === 'manual');
+
+    if (screen === 'link')         mountRecipeForm({}, prefillUrl || '');
+    else if (screen === 'manual')  mountRecipeForm({});
+    else if (screen === 'explore') showAddFromExplore();
+    else                           showAddChooser();
+  }
+
+  function addOptHTML(key, title, sub) {
+    return '<button type="button" class="rc-rd-add-opt" data-add="' + key + '">' +
+        '<span class="rc-rd-add-ic">' + ADD_ICONS[key] + '</span>' +
+        '<span class="rc-rd-add-txt"><span class="rc-rd-add-t">' + title + '</span>' +
+          '<span class="rc-rd-add-s">' + sub + '</span></span>' +
+        '<span class="rc-rd-add-chev" aria-hidden="true">›</span>' +
+      '</button>';
+  }
+
+  function showAddChooser() {
+    var panel = mountAddPanel(
+      '<div class="rc-rd-add-lead">How do you want to add it?</div>' +
+      '<div class="rc-rd-add-opts">' +
+        addOptHTML('link', 'Import from a link', 'Paste a recipe page’s address and it fills itself in.') +
+        addOptHTML('manual', 'Type it in', 'A blank recipe to fill in yourself.') +
+        addOptHTML('explore', 'From Explore', 'Pick from the recipes you starred on the Explore tab.') +
+      '</div>');
+    panel.querySelectorAll('.rc-rd-add-opt').forEach(function (b) {
+      b.addEventListener('click', function () { showAddScreen(b.getAttribute('data-add')); });
+    });
+  }
+
+  // The starred Explore recipes (explore-stars.js). Tapping one saves it to
+  // the collection — the path Explore's own Save used to take: saveRecipe
+  // with the "Explore" tag, then /explore/saved/<key> so the tile over on
+  // Explore gets its pill. One already in the collection is listed as Added.
+  function showAddFromExplore() {
+    var panel = mountAddPanel('<div class="rc-rd-xp-empty">Loading your Explore favorites…</div>');
+    var seq = addLoadSeq;
+    var stale = function () { return seq !== addLoadSeq || !panel.isConnected; };
+    if (!window.ExploreStars) {
+      panel.innerHTML = '<div class="rc-rd-xp-empty"><strong>Couldn’t load them</strong>Explore favorites aren’t available right now.</div>';
+      return;
+    }
+    window.ExploreStars.load().then(function (rows) {
+      if (stale()) return;
+      if (!rows.length) {
+        panel.innerHTML = '<div class="rc-rd-xp-empty"><strong>Nothing starred yet</strong>' +
+          'Star a recipe on the Explore tab and it will be waiting here to add.' +
+          '<br><a class="rc-rd-xp-go" href="explore.html">Go to Explore</a></div>';
+        return;
+      }
+      panel.innerHTML = '<div class="rc-rd-field-hint">Starred on the Explore tab. Tap one to add it to your recipes.</div>' +
+        '<div class="rc-rd-xp-list"></div>';
+      var listEl = panel.querySelector('.rc-rd-xp-list');
+      rows.forEach(function (row) {
+        var it = row.item;
+        // Already ours — or saved a moment ago on this page, before
+        // /explore/saved could say so.
+        var added = !!row.savedId;
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'rc-rd-xp-row';
+        b.disabled = added;
+        // referrerpolicy: the photos are the blogs' own, and some refuse a foreign referrer.
+        b.innerHTML =
+          '<span class="rc-rd-xp-thumb">' + (it.image
+            ? '<img loading="lazy" referrerpolicy="no-referrer" alt="" src="' + escAttr(it.image) + '">'
+            : escHtml(it.icon || '🍽')) + '</span>' +
+          '<span class="rc-rd-add-txt rc-rd-xp-txt"><span class="rc-rd-xp-name">' + escHtml(it.name) + '</span>' +
+            '<span class="rc-rd-xp-site">' + escHtml(it.site || '') + '</span></span>' +
+          '<span class="rc-rd-xp-pill">' + (added ? 'Added' : 'Add') + '</span>';
+        var im = b.querySelector('img');
+        if (im) im.addEventListener('error', function () { im.parentNode.textContent = it.icon || '🍽'; });
+        if (!added) b.addEventListener('click', function () { b.disabled = true; addFromExplore(it); });
+        listEl.appendChild(b);
+      });
+    }).catch(function () {
+      if (stale()) return;
+      panel.innerHTML = '<div class="rc-rd-xp-empty"><strong>Couldn’t load them</strong>Check your connection and try again.</div>';
+    });
+  }
+
+  function addFromExplore(it) {
+    var saving = saveRecipeObject({
+      icon: it.icon, name: it.name, meta: it.meta,
+      tags: (it.tags || []).concat(['Explore']),
+      ingredients: it.ingredients, steps: it.steps, note: it.note || '',
+      source: it.url, image: it.image
+    }, function (recipe) {
+      window.ExploreStars.markSaved(it.key, recipe.id);
+    });
+
+    exitAddMode();
+    closeDetail();
+
+    saving.catch(function (err) {
+      console.warn('Saved to Firebase but not committed to recipes.json:', err);
+      alert('"' + it.name + '" was saved and synced, but couldn’t be added to your permanent recipe list just now. It will still show up for you and Josephine.');
+    });
+  }
+
+  // Cancel in the add flow: back to the chooser from one of its screens,
+  // otherwise close.
+  function cancelAdd() {
+    if (addScreen === 'choose' || addDirect) closeDetail();
+    else showAddScreen('choose');
+  }
+
+  function openAddForm(prefillUrl) {
+    inAddMode = true;
+    addDirect = !!prefillUrl;
+    curR = null;
+    currentRecipeId = null;
 
     setViewChrome(false);
     document.getElementById('rc-rd-inner').style.display = 'none';
-    var editBar = document.getElementById('rc-rd-edit-bar');
-    editBar.style.display = '';
-    editBar.querySelector('.rc-rd-edit-bar-title').textContent = 'New Recipe';
+    document.getElementById('rc-rd-edit-bar').style.display = '';
 
-    mountRecipeForm({}, prefillUrl || '');
+    showAddScreen(prefillUrl ? 'link' : 'choose', prefillUrl);
 
     document.getElementById('rc-rd-backdrop').classList.add('open');
     rdEl.classList.add('open');
@@ -2566,11 +2750,16 @@
 
   function exitAddMode() {
     inAddMode = false;
+    addScreen = '';
+    addDirect = false;
+    addLoadSeq++;
     pendingCover = '';
     pendingSource = '';
     setViewChrome(true);
     document.getElementById('rc-rd-inner').style.display = '';
     document.getElementById('rc-rd-edit-bar').style.display = 'none';
+    document.getElementById('rc-rd-cancel').textContent = 'Cancel';
+    setAddSaveVisible(true);
     var form = document.getElementById('rc-rd-edit-form');
     if (form) form.remove();
   }
@@ -2759,12 +2948,14 @@
     return core;
   }
 
-  // Save a new recipe from an object — the add form and the Explore tab both
+  // Save a new recipe from an object — the add form and "From Explore" both
   // end up here. `r` may carry `image` (an https URL, which becomes the
   // cover) and `source` (the page it came from). Resolves with the saved
   // recipe once the commit lands; rejects if the commit failed, but by then
   // the Firebase save has already happened, so nothing is lost either way.
-  function saveRecipeObject(r) {
+  // `onMinted(recipe)` fires at once, as soon as the id exists and Firebase
+  // has it — long before the commit.
+  function saveRecipeObject(r, onMinted) {
     // Unique id: slug of the name, with a numeric suffix on collision.
     var baseId = idOf({ name: r.name });
     var id = baseId, n = 2;
@@ -2788,6 +2979,7 @@
     // (Instant, syncs between accounts, and is the safe fallback if the
     // git commit below fails.)
     toggleSave(id, recipe);
+    if (onMinted) onMinted(recipe);
 
     // The photo that came with the recipe becomes the cover, through the same
     // path as pasting an image URL by hand. Best-effort — a recipe with no
@@ -3420,7 +3612,7 @@
         if (menu && menu.classList.contains('open') && !e.target.closest('.rc-rd-more-wrap')) closeMoreMenu();
       });
       document.getElementById('rc-rd-cancel').addEventListener('click', function () {
-        if (inAddMode) closeDetail(); else exitEditMode();
+        if (inAddMode) cancelAdd(); else exitEditMode();
       });
       document.getElementById('rc-rd-save-edit').addEventListener('click', function () {
         if (inAddMode) saveNewRecipe(); else saveRecipeEdit();
