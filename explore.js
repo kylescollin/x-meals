@@ -10,9 +10,10 @@
  *                                         starred list on the Recipes tab)
  *
  * Filtering is the same sheet the Recipes tab uses (recipe-filters.js), with
- * three groups of its own: Course (Dinners picked by default — the feed is
- * for dinners, and everything else the blogs post waits behind that chip
- * rather than being thrown away), Saved, and Blog.
+ * three groups of its own: a ★ Favorites chip (the starred ones), Course
+ * (Dinners picked by default — the feed is for dinners, and everything else
+ * the blogs post waits behind that chip rather than being thrown away), and
+ * Blog.
  *
  * Tapping a tile opens the normal recipe view in its "external" mode (see
  * openDetail in recipe-card.js), whose bar — Not for us / star — calls back
@@ -127,6 +128,10 @@ function toggleStar(it) {
   }
   const tile = tileFor(it.key);
   if (tile) tile.classList.toggle('starred', on);
+  // With ★ Favorites picked, the grid is the starred ones: redraw it now
+  // (the recipe view is open over it). Either way the chip's count moved.
+  if (Object.keys(filters.selected.fav || {}).length) render(true);
+  filters.refresh();
   return on;
 }
 
@@ -182,7 +187,7 @@ async function loadAll() {
 // The sheet is recipe-filters.js, shared with the Recipes tab. The common
 // facet (dish, cuisine, time, method, protein) comes from the item's tags,
 // meta and ingredients; Explore adds the course, the blog, and whether it has
-// been saved. Items that can be shown at all — readable and not hidden — are
+// been starred. Items that can be shown at all — readable and not hidden — are
 // the pool every count is taken over.
 const COURSE_LABEL = { dinner: 'Dinners', breakfast: 'Breakfast', dessert: 'Desserts', side: 'Sides', drink: 'Drinks', other: 'Other' };
 const COURSES = ['Dinners', 'Breakfast', 'Desserts', 'Sides', 'Drinks', 'Other'];
@@ -198,7 +203,7 @@ function facetOf(it) {
     it._facet.course = it.course;
     it._facet.sourceId = it.sourceId;
   }
-  it._facet.saved = !!savedId(it);     // live — saving a tile changes it
+  it._facet.starred = !!starred[it.key];     // live — the star is a toggle
   return it._facet;
 }
 
@@ -206,11 +211,12 @@ function pool() { return items.filter((it) => it.recipe && !hidden[it.key]); }
 function textOK(it) { return !query || haystack(it).indexOf(query) !== -1; }
 
 const G = RecipeFilters.groups;
+const FAV = '★ Favorites';       // the same chip the Recipes tab has
 const FILTER_GROUPS = [
+  { key: 'fav',    title: 'Favorites', fixed: [FAV],
+    values: (f) => f.starred ? [FAV] : [] },
   { key: 'course', title: 'Course', fixed: COURSES, defaults: ['Dinners'],
     values: (f) => [courseLabel(f)] },
-  { key: 'saved',  title: 'Saved', fixed: ['Not saved yet', 'Saved'],
-    values: (f) => [f.saved ? 'Saved' : 'Not saved yet'] },
   { key: 'blog',   title: 'Blog', fixed: sources.map((s) => s.name),
     values: (f) => sourceName[f.sourceId] ? [sourceName[f.sourceId]] : [] },
   G.dish, G.cuisine, G.time, G.method, G.protein

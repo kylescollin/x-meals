@@ -109,5 +109,32 @@ console.log('\nmatches / activeCount');
   check('no facet passes only when nothing is on', [RF.matches(gs, RF.emptySelection(gs), undefined), RF.matches(gs, sel, undefined)], [true, false]);
 }
 
+// ── 6. Explore's ★ Favorites chip ────────────────────────────────────────
+// A one-chip group read live off the facet: starring or un-starring an item
+// must change the answer without rebuilding anything.
+console.log('\nfavorites chip beside a defaulted group');
+{
+  const FAV = '★ Favorites';
+  const fav = { key: 'fav', title: 'Favorites', fixed: [FAV], values: (f) => f.starred ? [FAV] : [] };
+  const course = { key: 'course', title: 'Course', fixed: ['Dinners', 'Desserts'], defaults: ['Dinners'],
+    values: (f) => [f.course === 'dessert' ? 'Desserts' : 'Dinners'] };
+  const gs = [fav, course];
+  const stew = { starred: true };
+  const tart = { starred: true, course: 'dessert' };
+  const rice = { starred: false };
+
+  const sel = RF.emptySelection(gs);
+  check('off: starred or not, dinners show', [RF.matches(gs, sel, stew), RF.matches(gs, sel, rice)], [true, true]);
+  sel.fav[FAV] = true;
+  check('on: only the starred', [RF.matches(gs, sel, stew), RF.matches(gs, sel, rice)], [true, false]);
+  check('on: it counts as one filter', RF.activeCount(gs, sel), 1);
+  check('still AND-ed with the course', RF.matches(gs, sel, tart), false);
+  check('…which is what the "under another course" hint counts', RF.matches(gs, sel, tart, 'course'), true);
+  stew.starred = false;
+  check('un-starring drops it at once', RF.matches(gs, sel, stew), false);
+  rice.starred = true;
+  check('starring adds it at once', RF.matches(gs, sel, rice), true);
+}
+
 console.log(failed ? `\n${failed} failing` : '\nAll recipe-filters tests passed.');
 process.exit(failed ? 1 : 0);

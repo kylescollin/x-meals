@@ -412,8 +412,10 @@ a dinner on the page, so an older month file is never wrong, only less sorted.
 
 The search field and the icon button beside it are the Recipes tab's, and the sheet behind the
 button is the same engine (`recipe-filters.js`) — there is no chip row any more. The groups, in
-order: **Course** (one chip per course, **Dinners picked by default**), **Saved** (Not saved yet /
-Saved), **Blog** (one chip per entry in `sources.json`), then Type of dish, Cuisine, Total time,
+order: **Favorites** (one **★ Favorites** chip, the same as the Recipes tab's, which narrows the
+grid to the starred recipes — star or un-star with it on and the grid redraws at once; it is
+AND-ed with Course like any other group, so a starred dessert needs its course picked too),
+**Course** (one chip per course, **Dinners picked by default**), **Blog** (one chip per entry in `sources.json`), then Type of dish, Cuisine, Total time,
 How it cooks and Main protein, read from each item's `tags`, `meta` and ingredients exactly as the
 Recipes page reads them. A group sitting on its defaults counts as no filter, so the button's badge
 reads 0 with only Dinners picked; un-ticking Dinners shows every course. **Clear all** returns to
