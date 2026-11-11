@@ -214,6 +214,9 @@
   .picker-row.picker-custom:hover{border-color:var(--accent);background:#fff;}
   .picker-row.picker-custom .picker-name{font-family:'DM Sans',sans-serif;font-weight:600;color:var(--accent);}
   .picker-custom-icon{width:40px;height:40px;flex-shrink:0;border-radius:7px;background:#f0ece5;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1;}
+  /* A starred Explore recipe in the list: the blog's own photo, a little larger than a recipe thumb. */
+  .picker-xp-thumb{width:48px;height:48px;flex-shrink:0;border-radius:7px;background:#f0ece5;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;}
+  .picker-xp-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
   .picker-row.picker-custom.selected{background:var(--accent);border-style:solid;border-color:var(--accent);}
   .picker-row.picker-custom.selected:hover{background:var(--accent);}
   .picker-row.picker-custom.selected:active{background:#b3581f;}
@@ -321,6 +324,7 @@
 <script src="week-utils.js"></script>
 <script src="week-store.js"></script>
 <script src="recipe-card.js"></script>
+<script src="explore-stars.js"></script>
 <script src="grocery-sheet.js"></script>
 <script type="module">
 import { requireAuth, getAuthToken, signOut } from './auth.js';
@@ -718,7 +722,9 @@ if(params.get('groceries')==='1'){
 // ── Edit state ────────────────────────────────────────────────────────────
 var editMeals=[];
 var pickerTargetDay=null;   // which day the recipe picker is adding to
-var pickerMode='search';    // 'search' the collection | 'custom' name a one-off | 'link' import a URL
+var pickerMode='search';    // 'search' the collection | 'custom' name a one-off | 'link' import a URL | 'explore' pick a starred Explore recipe
+var exploreRows=null;       // explore mode: null while loading, 'error', or ExploreStars.load()'s rows
+var exploreSeq=0;           // drops a list that arrives after the mode was left
 var pickerBusy=false;       // a link import is in flight
 var allRecipes=null;   // the picker's list, with any recipe edits overlaid
 var baseRecipes=null;  // the raw fetch+saved combination, built once per session
@@ -891,11 +897,13 @@ function loadAllRecipes(cb){
   });
 }
 
-// The two pinned rows at the top of the picker. Tapping one selects a mode: the
+// The three pinned rows at the top of the picker. Tapping one selects a mode: the
 // row fills in, the recipe list disappears, and the search box becomes either
 // the name field for a one-off meal (eating out, leftovers, cooking something
-// off-plan) or the link field for a recipe URL. Tapping the row again backs out
-// to searching. Each is one <button>, so the ✕ is an affordance rather than its
+// off-plan), the link field for a recipe URL, or a filter over the recipes
+// starred on the Explore tab, which are listed in its place (a mode with no
+// `confirm` has no bottom bar — its rows are the buttons). Tapping the row
+// again backs out to searching. Each is one <button>, so the ✕ is an affordance rather than its
 // own control — anywhere on the row toggles.
 var PICKER_MODES={
   custom:{ icon:'✏️', name:'Something else…',
@@ -903,7 +911,10 @@ var PICKER_MODES={
            placeholder:'What are you eating?', confirm:'Add to ' },
   link:  { icon:'🔗', name:'From a link…',
            idle:'Paste a recipe URL · this week only', on:'Imported for this week only',
-           placeholder:'Paste a recipe link', confirm:'Import to ' }
+           placeholder:'Paste a recipe link', confirm:'Import to ' },
+  explore:{ icon:'🧭', name:'From Explore…',
+           idle:'Your starred recipes · this week only', on:'Added for this week only',
+           placeholder:'Search your Explore favorites…' }
 };
 function buildModeRow(mode){
   var def=PICKER_MODES[mode], on=(pickerMode===mode);
@@ -935,8 +946,24 @@ function setPickerMode(mode, opts){
   searchEl.setAttribute('enterkeyhint', mode==='search' ? 'search' : (mode==='link' ? 'go' : 'done'));
   searchEl.setAttribute('inputmode', mode==='link' ? 'url' : 'text');
   searchEl.setAttribute('autocapitalize', mode==='link' ? 'off' : 'sentences');
-  if(mode!=='search' && !opts.noFocus) searchEl.focus();
+  // Explore mode is a list to tap, so it doesn't call the keyboard up.
+  if(mode!=='search' && mode!=='explore' && !opts.noFocus) searchEl.focus();
+  if(mode==='explore' && was!=='explore') loadExploreRows();
   renderPickerList(searchEl.value);
+}
+
+// Fetch the starred Explore recipes (explore-stars.js) each time the mode is
+// entered, so a star added on the other phone a minute ago is there.
+function loadExploreRows(){
+  exploreRows=null;
+  var seq=++exploreSeq;
+  var done=function(rows){
+    if(seq!==exploreSeq) return;
+    exploreRows=rows;
+    if(pickerMode==='explore') renderPickerList(document.getElementById('picker-search').value);
+  };
+  if(!window.ExploreStars){ done('error'); return; }
+  window.ExploreStars.load().then(done, function(){ done('error'); });
 }
 
 // The bottom bar only exists in custom and link mode, and only commits once
@@ -945,8 +972,8 @@ function syncConfirmBar(){
   var wrap=document.getElementById('picker-confirm-wrap');
   var btn=document.getElementById('picker-confirm');
   var def=PICKER_MODES[pickerMode];
-  wrap.style.display = def ? '' : 'none';
-  if(!def) return;
+  wrap.style.display = (def && def.confirm) ? '' : 'none';
+  if(!def || !def.confirm) return;
   if(pickerBusy){ btn.textContent='Reading the page…'; btn.disabled=true; return; }
   btn.textContent = pickerTargetDay ? (def.confirm+pickerTargetDay) : (pickerMode==='link'?'Import meal':'Add meal');
   btn.disabled = !(document.getElementById('picker-search').value||'').trim();
@@ -968,7 +995,9 @@ function renderPickerList(q){
   listEl.innerHTML='';
   listEl.appendChild(buildModeRow('custom'));   // always first, whatever the search says
   listEl.appendChild(buildModeRow('link'));
+  listEl.appendChild(buildModeRow('explore'));
   syncConfirmBar();
+  if(pickerMode==='explore'){ emptyEl.style.display='none'; renderExploreRows(q, listEl); return; }
   if(pickerMode!=='search'){
     // Naming a one-off or pasting a link — the box isn't searching, so there's nothing to list.
     emptyEl.style.display='none';
@@ -996,6 +1025,45 @@ function renderPickerList(q){
     listEl.appendChild(row); shown++;
   });
   emptyEl.style.display = (shown===0) ? 'block' : 'none';
+}
+
+// Explore mode's list: the recipes starred on the Explore tab — photo, name,
+// blog. Tapping one puts it on the day (addExploreMeal). `q` filters by name
+// or blog. One already on this week is shown as Added.
+function renderExploreRows(q, listEl){
+  if(exploreRows===null){ pickerNote('Loading your Explore favorites…'); return; }
+  if(exploreRows==='error'){ pickerNote('Couldn’t load your Explore favorites. Check your connection and try again.', true); return; }
+  if(!exploreRows.length){ pickerNote('Nothing starred yet. Star a recipe on the Explore tab and it will show up here, ready to add to a day.'); return; }
+  var onWeek={}; editMeals.forEach(function(m){ if(m.source) onWeek[m.source]=true; });
+  // The hint sits between the mode rows and the list, as it does in link mode.
+  pickerNote('Added to this day with its ingredients and steps, so groceries and cooking mode work. It isn’t saved to your recipes.');
+  var shown=0;
+  exploreRows.forEach(function(x){
+    var it=x.item;
+    if(q && [it.name, it.site].join(' ').toLowerCase().indexOf(q)<0) return;
+    var already=!!onWeek[it.url];
+    var row=document.createElement('button');
+    row.className='picker-row'+(already?' added':'');
+    row.disabled=already;
+    var th=document.createElement('span'); th.className='picker-xp-thumb';
+    if(it.image){
+      // referrerpolicy: the photo is the blog's own, and some refuse a foreign referrer.
+      var im=document.createElement('img');
+      im.alt=''; im.loading='lazy'; im.referrerPolicy='no-referrer';
+      im.addEventListener('error',function(){ th.textContent=it.icon||'🍽'; });
+      im.src=it.image;
+      th.appendChild(im);
+    } else th.textContent=it.icon||'🍽';
+    var info=document.createElement('span'); info.className='picker-info';
+    var nm=document.createElement('span'); nm.className='picker-name'; nm.textContent=it.name;
+    var mt=document.createElement('span'); mt.className='picker-meta'; mt.textContent=it.site||'';
+    info.appendChild(nm); info.appendChild(mt);
+    var add=document.createElement('span'); add.className='picker-add'; add.textContent=already?'Added':'+';
+    row.appendChild(th); row.appendChild(info); row.appendChild(add);
+    if(!already) row.addEventListener('click',function(){ addExploreMeal(it); });
+    listEl.appendChild(row); shown++;
+  });
+  if(!shown) pickerNote('None of your Explore favorites match that.');
 }
 
 function mealFromRecipe(r, day){
@@ -1081,6 +1149,27 @@ function importLinkMeal(url){
     renderPickerList(url);
     pickerNote('Something went wrong reading that page.', true);
   });
+}
+
+// A starred Explore recipe goes on the day exactly as a link import does: the
+// same week-only meal (mealFromLink — its own ings, steps, meta and source, a
+// link-… id that can't collide), with the feed's photo as its cover. It is not
+// saved to the collection, and the feed item's explore-<key> id is never used.
+function addExploreMeal(it){
+  var day=pickerTargetDay||nextEmptyDay();
+  if(!day){ closeSheet('picker-overlay'); return; }
+  var meal=mealFromLink({
+    icon:it.icon, name:it.name, meta:it.meta,
+    ings:it.ingredients||[], steps:it.steps||[], note:it.note, source:it.url
+  }, it.url, day);
+  editMeals=editMeals.filter(function(m){ return m.day!==day; });  // replace any meal on that day
+  editMeals.push(meal);
+  sortMealsByDay();
+  if(it.image && RecipeCard.setCover) RecipeCard.setCover(meal.id, it.image);
+  setPickerMode('search', {noFocus:true});   // next open starts on the recipe list
+  closeSheet('picker-overlay');
+  renderEditCards();
+  toast('Added '+meal.name+' to '+day+' — this week only', {success:true});
 }
 
 // Open the recipe picker so the chosen recipe lands on a specific day.
@@ -1583,7 +1672,7 @@ document.getElementById('shuffleWeekBtn').addEventListener('click', shuffleWeek)
 document.getElementById('picker-close').addEventListener('click', function(){ closeSheet('picker-overlay'); });
 document.getElementById('picker-search').addEventListener('input', function(){ renderPickerList(this.value); });
 document.getElementById('picker-search').addEventListener('keydown', function(e){
-  if(e.key!=='Enter' || pickerMode==='search') return;
+  if(e.key!=='Enter' || pickerMode==='search' || pickerMode==='explore') return;
   e.preventDefault();
   if(!(this.value||'').trim()) return;
   if(pickerMode==='link') importLinkMeal(this.value); else addCustomMeal(this.value);

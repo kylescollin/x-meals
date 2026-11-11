@@ -216,9 +216,10 @@ same as all meal data); it is scoped to only this repo with Contents read/write.
 any committed file. If grocery regeneration ever stops working, check that the token is present and
 unexpired at `/config/githubToken`.
 
-**The Add a meal sheet** (`#picker-overlay`) has three modes, switched by the two pinned rows at
+**The Add a meal sheet** (`#picker-overlay`) has four modes, switched by the three pinned rows at
 the top of its list (`PICKER_MODES` / `setPickerMode` in `index.html`): **search** the
-collection, **Something else…** (a placeholder meal, below), and **From a link…**. The link mode
+collection, **Something else…** (a placeholder meal, below), **From a link…** and
+**From Explore…**. The link mode
 runs the same `recipe-import.js` parser as the Recipes tab and puts the result straight on the
 chosen day as a meal that **lives only on that week**: it carries its own `ings`, `steps`,
 `meta` and a `source`, so the grocery list, the detail view and cooking mode treat it like any
@@ -226,7 +227,13 @@ other meal, but it is never written to `data/recipes.json` and never shows on th
 Its id is `link-<slug>-<base36>` so it can't collide with a collection recipe; CI leaves meal ids
 it doesn't recognise alone, which is what makes the week's snapshot the whole truth for it. The
 page's photo becomes its cover through `RecipeCard.setCover`. If Kyle later wants to keep it,
-"Save to recipes" in the detail view's ⋯ menu is still there. The sheet is lifted above the iOS
+"Save to recipes" in the detail view's ⋯ menu is still there. **From Explore…** lists the
+recipes starred on the Explore tab (photo, name, blog — `explore-stars.js`, reloaded each time
+the mode is entered; the search box filters them) and tapping one puts it on the day as **the
+same week-only meal** (`addExploreMeal` builds it with `mealFromLink`: a `link-…` id, never the
+feed's `explore-<key>`; cover from the feed photo). It is **not** saved to the collection and
+writes nothing under `/explore`. The mode has no confirm bar, since its rows are the buttons, and
+says so when nothing is starred. The sheet is lifted above the iOS
 keyboard by `fitSheetsToKeyboard` (visual viewport → `--kb`), because iOS never shrinks the
 layout viewport for the keyboard and a fixed bottom sheet would otherwise sit underneath it.
 
