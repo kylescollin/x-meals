@@ -806,17 +806,22 @@
       '.rc-rd-cook-fab{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:5;display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--cream);border:none;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:15px;font-weight:600;letter-spacing:.02em;padding:15px 34px;cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 8px 24px rgba(20,19,17,.35);transition:transform .12s,background .15s;}',
       '.rc-rd-cook-fab:active{transform:translateX(-50%) scale(.96);background:#333;}',
       '.rc-rd-cook-fab svg{width:14px;height:14px;fill:currentColor;}',
-      // External (Explore) preview: a Save bar instead of the Cook pill, and
+      // External (Explore) preview: a bar (Not for us / star) instead of the Cook pill, and
       // everything that would write under this recipe's id put away.
       '.rc-rd-ext-bar{display:none;}',
       '.rc-rd-external .rc-rd-ext-bar{display:flex;position:absolute;left:0;right:0;bottom:0;z-index:5;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--cream);border-top:1px solid var(--border);}',
-      '.rc-rd-ext-save,.rc-rd-ext-hide{flex:1;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;padding:13px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}',
-      '.rc-rd-ext-save{flex:1.6;background:var(--accent);color:#fff;border:none;}',
-      '.rc-rd-ext-save:active{transform:scale(.97);background:#b3581f;}',
-      '.rc-rd-ext-save:disabled{background:var(--accent-light);color:var(--accent);cursor:default;}',
+      '.rc-rd-ext-star,.rc-rd-ext-hide{flex:1;border-radius:100px;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;padding:13px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .15s;}',
+      '.rc-rd-ext-star{flex:1.6;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:#fff;border:none;}',
+      '.rc-rd-ext-star:active{transform:scale(.97);background:#b3581f;}',
+      '.rc-rd-ext-star svg{width:16px;height:16px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round;}',
+      // Starred: the quiet state, with the same gold star the cards use.
+      '.rc-rd-ext-star.on{background:var(--accent-light);color:var(--accent);}',
+      '.rc-rd-ext-star.on:active{background:var(--accent-light);}',
+      '.rc-rd-ext-star.on svg{fill:#f0b429;stroke:#f0b429;}',
+      '.rc-rd-ext-star:disabled{background:var(--accent-light);color:var(--accent);cursor:default;}',
       '.rc-rd-ext-hide{background:#fff;color:var(--ink);border:1.5px solid var(--border);}',
       '.rc-rd-ext-hide:active{transform:scale(.97);background:#f0ece5;}',
-      '.rc-rd-external #rc-rd-cook,.rc-rd-external #rc-rd-fav,.rc-rd-external .rc-rd-more-wrap,.rc-rd-external .rc-cm-section,.rc-rd-external #rc-rd-hero-edit,.rc-rd-external #rc-rd-hero-count,.rc-rd-external .rc-rd-hero-cta{display:none;}',
+      '.rc-rd-external #rc-rd-cook,.rc-rd-external .rc-rd-more-wrap,.rc-rd-external .rc-cm-section,.rc-rd-external #rc-rd-hero-edit,.rc-rd-external #rc-rd-hero-count,.rc-rd-external .rc-rd-hero-cta{display:none;}',
       '.rc-rd-external .rc-rd-hero{cursor:default;}',
       '.rc-rd-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 20px calc(104px + env(safe-area-inset-bottom,0px));}',
       '.rc-rd-inner{max-width:640px;margin:0 auto;}',
@@ -1159,7 +1164,7 @@
         // Only shown for an external (Explore) recipe — see openDetail.
         '<div class="rc-rd-ext-bar" id="rc-rd-ext-bar">',
           '<button class="rc-rd-ext-hide" id="rc-rd-ext-hide" type="button">Not for us</button>',
-          '<button class="rc-rd-ext-save" id="rc-rd-ext-save" type="button">Save to my recipes</button>',
+          '<button class="rc-rd-ext-star" id="rc-rd-ext-star" type="button"></button>',
         '</div>',
       '</div>',
 
@@ -1268,7 +1273,7 @@
     var saveOpt = document.getElementById('rc-rd-menu-save');
     var labelEl = document.getElementById('rc-rd-menu-save-label');
     if (!saveOpt || !labelEl) return;
-    // An external recipe has its own Save bar; two Saves would be one too many.
+    // An external recipe is a preview: it's starred, not saved, from its own bar.
     if (externalOpts || isCore(id)) {
       saveOpt.style.display = 'none';
     } else {
@@ -1284,9 +1289,32 @@
   function refreshFavUI(id) {
     var b = document.getElementById('rc-rd-fav');
     if (!b) return;
-    var on = isFav(id);
+    // An external recipe's star is the page's (Explore keeps it under
+    // /explore/starred) — never /favorites, which is keyed by recipe id.
+    var on = externalOpts ? !!externalOpts.starred : isFav(id);
     b.classList.toggle('on', on);
     b.setAttribute('aria-label', on ? 'Remove from favorites' : 'Add to favorites');
+  }
+
+  // The external bar's second button: a star toggle, or — for a recipe that
+  // is already in the collection — a plain statement of that.
+  function refreshExternalBar() {
+    var b = document.getElementById('rc-rd-ext-star');
+    if (!b || !externalOpts) return;
+    var on = !!externalOpts.starred;
+    b.classList.toggle('on', on && !externalOpts.saved);
+    b.disabled = !!externalOpts.saved;
+    if (externalOpts.saved) b.textContent = 'Saved to your recipes';
+    else b.innerHTML = STAR_SVG + '<span>' + (on ? 'Favorited' : 'Favorite') + '</span>';
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  // onStar flips the star on the page's side and answers with the new state.
+  function toggleExternalStar() {
+    if (!externalOpts || !externalOpts.onStar) return;
+    externalOpts.starred = !!externalOpts.onStar(curR);
+    refreshExternalBar();
+    refreshFavUI(idOf(curR));
   }
 
   // Show/hide the view-mode chrome (top buttons + Cook pill); also closes the
@@ -1343,8 +1371,12 @@
    * Open a recipe. `opts.external` marks a recipe that isn't ours yet — an
    * item from the Explore feed. It's a preview: no /recipe-edits overlay, no
    * notes, no photo bucket (its id is explore-<key>, and nothing may write
-   * under that), the feed's photo as the hero, and a Save bar in place of the
-   * ⋯ menu. `opts.onSave(recipe)` and `opts.onHide(recipe)` are the page's.
+   * under that), the feed's photo as the hero, no ⋯ menu, and a bar in place
+   * of the Cook pill: Not for us, and a star. The star (also the one in the
+   * top corner) is the page's, not /favorites: `opts.starred` is its state
+   * and `opts.onStar(recipe)` toggles it and returns the new one.
+   * `opts.saved` marks a recipe already in the collection; `opts.onHide(recipe)`
+   * is the page's too.
    */
   function openDetail(r, weekOf, opts) {
     externalOpts = (opts && opts.external) ? opts : null;
@@ -1361,13 +1393,9 @@
     currentWeekOf = weekOf || defaultWeekOf;
     if (externalOpts) {
       renderHero(r.image || null);
-      // Already in the collection (the other phone saved it, say): the bar
-      // says so instead of offering to save it twice.
-      var extSave = document.getElementById('rc-rd-ext-save');
-      if (extSave) {
-        extSave.textContent = externalOpts.saved ? 'Saved to your recipes' : 'Save to my recipes';
-        extSave.disabled = !!externalOpts.saved;
-      }
+      // Already in the collection: the bar says so in place of the star
+      // toggle (the top-corner star still works).
+      refreshExternalBar();
     } else {
       loadPhoto(currentRecipeId);
       loadComments(currentRecipeId);
@@ -1386,7 +1414,7 @@
     if (delOpt) delOpt.onclick = function () { closeMoreMenu(); deleteRecipe(id, curR); };
     refreshSaveUI(id);
     var favBtn = document.getElementById('rc-rd-fav');
-    if (favBtn) favBtn.onclick = function () { toggleFavorite(id); };
+    if (favBtn) favBtn.onclick = function () { if (externalOpts) toggleExternalStar(); else toggleFavorite(id); };
     refreshFavUI(id);
 
     // When it was last cooked, and how often lately. Nothing when never.
@@ -3397,9 +3425,7 @@
       document.getElementById('rc-rd-save-edit').addEventListener('click', function () {
         if (inAddMode) saveNewRecipe(); else saveRecipeEdit();
       });
-      document.getElementById('rc-rd-ext-save').addEventListener('click', function () {
-        if (externalOpts && externalOpts.onSave) externalOpts.onSave(curR);
-      });
+      document.getElementById('rc-rd-ext-star').addEventListener('click', toggleExternalStar);
       document.getElementById('rc-rd-ext-hide').addEventListener('click', function () {
         if (externalOpts && externalOpts.onHide) externalOpts.onHide(curR);
       });
@@ -3600,6 +3626,8 @@
      *  months (/meals/cooked), as the cards show them. Both are empty until
      *  onReady has fired. */
     isFavorite: isFav,
+    /** The star icon the favorites use, for pages that draw their own. */
+    STAR_SVG: STAR_SVG,
     cookedRecentCount: cookedRecentCount,
     tagsFor: tagsFor,
     sortTags: sortTags,

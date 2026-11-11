@@ -5,7 +5,9 @@
  * GitHub Pages. Firebase holds only what the two of you do with it:
  *
  *   /explore/hidden/<key> = <ms>          "Not for us" — never shown again
- *   /explore/saved/<key>  = "<recipe id>" saved into the collection
+ *   /explore/starred/<key> = <ms>         starred — kept for later, NOT saved
+ *   /explore/saved/<key>  = "<recipe id>" in the collection (added from the
+ *                                         starred list on the Recipes tab)
  *
  * Filtering is the same sheet the Recipes tab uses (recipe-filters.js), with
  * three groups of its own: Course (Dinners picked by default — the feed is
@@ -13,10 +15,11 @@
  * rather than being thrown away), Saved, and Blog.
  *
  * Tapping a tile opens the normal recipe view in its "external" mode (see
- * openDetail in recipe-card.js), whose Save bar calls back here. Saving goes
- * through RecipeCard.saveRecipe — the same path as the add form, so the
- * recipe lands in Firebase at once and in data/recipes.json a minute later —
- * with an extra "Explore" tag so the Recipes filter panel can group them.
+ * openDetail in recipe-card.js), whose bar — Not for us / star — calls back
+ * here. Starring only marks the item; nothing is added to the collection from
+ * this page. This star is not /favorites (that one is for collection
+ * recipes, by recipe id): nothing is written under an explore-<key> id
+ * outside /explore.
  */
 import { requireAuth, getAuthToken, signOut } from './auth.js';
 window.getToken  = getAuthToken;
@@ -50,12 +53,13 @@ function canonical(url) {
 }
 
 // ── Load everything the page needs, in parallel ─────────────────────────
-const [recipesData, sources, manifest, hiddenMap, savedMap] = await Promise.all([
+const [recipesData, sources, manifest, hiddenMap, savedMap, starredMap] = await Promise.all([
   fetch('data/recipes.json').then((r) => r.json()).catch(() => ({ recipes: [] })),
   fetch('data/explore/sources.json').then((r) => r.ok ? r.json() : []).catch(() => []),
   fetch('data/explore/manifest.json', { cache: 'no-cache' }).then((r) => r.ok ? r.json() : null).catch(() => null),
   fbGet('/hidden'),
-  fbGet('/saved')
+  fbGet('/saved'),
+  fbGet('/starred')
 ]);
 
 const RECIPES  = recipesData.recipes || [];
@@ -67,6 +71,7 @@ RECIPES.forEach((r) => {
 });
 const hidden = hiddenMap && typeof hiddenMap === 'object' ? hiddenMap : {};
 const saved  = savedMap  && typeof savedMap  === 'object' ? savedMap  : {};
+const starred = starredMap && typeof starredMap === 'object' ? starredMap : {};
 
 const months = (manifest && manifest.months) || [];
 const items  = [];           // every loaded item, newest first
@@ -89,59 +94,40 @@ const els = {
   toast:   document.getElementById('toast')
 };
 
-// ── Recipe view + saving ────────────────────────────────────────────────
+// ── Recipe view + starring ──────────────────────────────────────────────
 await new Promise((resolve) => {
   RecipeCard.init({
     coreIds: CORE_IDS,
     userEmail: user.email,
-    // Fires the moment saveRecipe writes to Firebase, with the minted id —
-    // which is how the tile gets its pill and /explore/saved its entry
-    // before the git commit has even started.
-    onSaveChange(id, saving, obj) {
-      if (!saving || !obj || !obj.source) return;
-      const it = byUrl[canonical(obj.source)];
-      if (it) markSaved(it, id);
-    },
     onReady: resolve
   });
 });
 
 function savedId(it) { return saved[it.key] || coreBySource[it.url] || ''; }
 
-function markSaved(it, id) {
-  if (saved[it.key] === id) return;
-  saved[it.key] = id;
-  const tile = tileFor(it.key);
-  if (tile) tile.classList.add('saved');
-  fbPut('/saved/' + it.key, id);
-  // With "Not saved yet" picked, the tile has just stopped belonging here.
-  if (Object.keys(filters.selected.saved || {}).length) render(true);
-}
-
 function open(it) {
   RecipeCard.openDetail(it, null, {
     external: true,
     saved: !!savedId(it),
-    onSave: () => save(it),
+    starred: !!starred[it.key],
+    onStar: () => toggleStar(it),
     onHide: () => hide(it)
   });
 }
 
-async function save(it) {
-  RecipeCard.closeDetail();
-  if (savedId(it)) { toast('Already in your recipes'); return; }
-  toast('Saved to your recipes');
-  try {
-    await RecipeCard.saveRecipe({
-      icon: it.icon, name: it.name, meta: it.meta,
-      tags: (it.tags || []).concat(['Explore']),
-      ingredients: it.ingredients, steps: it.steps, note: it.note || '',
-      source: it.url, image: it.image
-    });
-  } catch (err) {
-    console.warn('Saved to Firebase but not committed to recipes.json:', err);
-    alert('"' + it.name + '" was saved and synced, but couldn’t be added to your permanent recipe list just now. It will still show up for you and Josephine.');
+/** Flip the star; returns the new state (the recipe view paints from it). */
+function toggleStar(it) {
+  const on = !starred[it.key];
+  if (on) {
+    starred[it.key] = Date.now();
+    fbPut('/starred/' + it.key, starred[it.key]);
+  } else {
+    delete starred[it.key];
+    fbDelete('/starred/' + it.key);
   }
+  const tile = tileFor(it.key);
+  if (tile) tile.classList.toggle('starred', on);
+  return on;
 }
 
 function hide(it) {
@@ -269,7 +255,7 @@ function subline(it) {
 
 function tile(it) {
   const el = document.createElement('div');
-  el.className = 'xt' + (savedId(it) ? ' saved' : '');
+  el.className = 'xt' + (savedId(it) ? ' saved' : '') + (starred[it.key] ? ' starred' : '');
   el.setAttribute('data-key', it.key);
   // referrerpolicy: the photos are links to each blog's CDN, and some refuse
   // a foreign referrer. loading=lazy keeps a long grid cheap.
@@ -281,7 +267,8 @@ function tile(it) {
       '<span class="xt-emoji">' + escHtml(it.icon || '🍽') + '</span></div>' +
     '<div class="xt-body"><div class="xt-name">' + escHtml(it.name) + '</div>' +
       '<div class="xt-sub">' + escHtml(subline(it)) + '</div></div>' +
-    '<span class="xt-saved">Saved</span>';
+    '<span class="xt-saved">Saved</span>' +
+    '<span class="xt-star" aria-label="Favorite">' + RecipeCard.STAR_SVG + '</span>';
   const im = el.querySelector('img');
   if (im) {
     // Let the photo take its own shape, within reason: a panorama or a

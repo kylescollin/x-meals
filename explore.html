@@ -50,6 +50,10 @@
   .xt-sub{font-size:11px;color:var(--muted);margin-top:4px;font-weight:300;}
   .xt-saved{display:none;position:absolute;top:8px;left:8px;background:var(--accent);color:#fff;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:99px;}
   .xt.saved .xt-saved{display:inline-block;}
+  /* Starred for later: the gold favorite star, top right (the Saved pill is top left). */
+  .xt-star{display:none;position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:rgba(20,19,17,.5);align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+  .xt-star svg{display:block;width:14px;height:14px;fill:#f0b429;stroke:#f0b429;stroke-width:1.5;stroke-linejoin:round;}
+  .xt.starred .xt-star{display:flex;}
 
   .foot{max-width:680px;margin:0 auto;padding:22px 20px 40px;text-align:center;font-size:12px;color:var(--muted);font-weight:300;}
   .empty{max-width:680px;margin:0 auto;padding:48px 20px;text-align:center;color:var(--muted);font-size:14px;font-weight:300;line-height:1.5;}

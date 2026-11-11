@@ -42,7 +42,7 @@ This is **Fox & Bear Kitchen** — a personal meal planning and recipe site for 
   `/meals/weeks/{weekOf}`. Takes `?week=`, `?view=timeline` and `?groceries=1`.
 - `recipes.html` — Browsable recipe collection. Fetches `data/recipes.json` on load.
 - `explore.html` + `explore.js` — The Explore tab: a photo grid of new recipes pulled in from
-  food blogs each morning, with one-tap Save into the collection. Search field and the same
+  food blogs each morning, with a star to keep one for later. Search field and the same
   filter sheet as Recipes (`recipe-filters.js`), opening on dinners only. Reads `data/explore/`
   and Firebase `/explore`. See **Explore feed** below.
 - `groceries.html` — Retired. A redirect to `index.html?week=…&groceries=1` (the `?week=` param
@@ -423,19 +423,30 @@ no time ("Oven · Serves 12"), so `parseMethods` finds the method wherever it si
 one way the shared parser differs from what `recipes.html` used to do inline.
 
 ```
-/explore/hidden/<key>  = <ms>            "Not for us" — gone from both phones
-/explore/saved/<key>   = "<recipe id>"   saved into the collection
+/explore/hidden/<key>   = <ms>            "Not for us" — gone from both phones
+/explore/starred/<key>  = <ms>            starred: kept for later, NOT in the collection
+/explore/saved/<key>    = "<recipe id>"   in the collection
 ```
 
-### Saving
+### Starring (and saving)
 
 Tapping a tile opens the normal recipe view in its **external** mode
-(`openDetail(r, null, {external:true, onSave, onHide})`): the feed photo as the hero, no ⋯ menu, no
-notes, no photo bucket — nothing may write under `explore-<key>` — and a Save bar in place of the
-Cook pill. Save calls `RecipeCard.saveRecipe`, which is the add form's own path factored out:
-minted id, Firebase, cover from `image`, commit to `data/recipes.json` through the GitHub token.
-The recipe gets a third tag, **`Explore`**, so the Recipes filter panel can show or hide them
-under **Found via**.
+(`openDetail(r, null, {external:true, saved, starred, onStar, onHide})`): the feed photo as the
+hero, no ⋯ menu, no notes, no photo bucket — nothing may write under `explore-<key>` — and a bar
+in place of the Cook pill with **Not for us** and a **star toggle** ("Favorite" / "Favorited").
+The star in the modal's top corner is the same toggle. Starring is deliberately light: it writes
+`/explore/starred/<key>` and nothing else, so the recipe is **not** added to the collection. A
+starred tile carries a small gold star in its top-right corner; tapping the star again (in the
+modal) removes it. This star is **not** `/favorites` — that one is for collection recipes and is
+keyed by recipe id; `onStar` belongs to `explore.js` and returns the new state.
+
+Explore itself no longer saves. A recipe already in the collection — an `/explore/saved` entry,
+or a collection recipe whose `source` is the same URL — keeps its **Saved** pill on the tile
+(top left), and its bar reads "Saved to your recipes" in place of the star button. Getting a
+recipe into the collection goes through `RecipeCard.saveRecipe`, the add form's own path
+factored out: minted id, Firebase, cover from `image`, commit to `data/recipes.json` through the
+GitHub token. Saved that way it gets a third tag, **`Explore`**, so the Recipes filter panel can
+show or hide them under **Found via**.
 
 `Explore` belongs to a tag family with `picker:false`: it has no dropdown in the add/edit form, and
 `keptTags()` carries it through an in-app edit untouched. Agent X should keep it when editing such
