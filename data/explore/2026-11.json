@@ -2,6 +2,54 @@
   "month": "2026-11",
   "items": [
     {
+      "key": "df39aab39bd6",
+      "id": "explore-df39aab39bd6",
+      "url": "https://www.bonappetit.com/gallery/healthy-breakfast-recipes",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-11-12T13:00:00.000Z",
+      "fetched": "2026-11-12T20:30:29.731Z",
+      "name": "23 Healthy Breakfasts That'll Keep You Full Till Lunch",
+      "image": "https://assets.bonappetit.com/photos/68559bd300c1db6c62411f48/master/pass/bran-muffins_RECIPE_V3_051525_2994_VOG_final.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
+      "key": "3e777017a78a",
+      "id": "explore-3e777017a78a",
+      "url": "https://www.bonappetit.com/recipe/maple-pumpkin-overnight-oats",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-11-12T13:00:00.000Z",
+      "fetched": "2026-11-12T20:30:29.731Z",
+      "name": "Maple Pumpkin Overnight Oats",
+      "image": "https://assets.bonappetit.com/photos/6a7b3b81e0407c5e8c95394a/4:3/w_3961,h_2971,c_limit/pumpkin-chia-seed-overnight-oats_RECIPE_V3_072226_5293_VOG_final.jpg",
+      "icon": "🍽️",
+      "course": "breakfast",
+      "tags": [],
+      "meta": "Oven · Serves 4–6",
+      "ingredients": [
+        "1 15-oz. can pure pumpkin purée",
+        "1½ cups unsweetened milk of choice",
+        "2 tsp. vanilla bean paste or vanilla extract",
+        "¼ tsp. Diamond Crystal or Morton kosher salt",
+        "¼ cup pure maple syrup; plus more for serving (optional)",
+        "½ tsp. ground cinnamon or cardamom; plus more for serving (optional)",
+        "3 Tbsp. chia seeds",
+        "1¼ cups old-fashioned oats",
+        "Plain whole-milk yogurt, unsalted roasted pumpkin seeds (pepitas), and/or granola (for serving; optional)"
+      ],
+      "steps": [
+        "Whisk one 15-oz. can pure pumpkin purée, 1½ cups unsweetened milk of choice, 2 tsp. vanilla bean paste or vanilla extract, ¼ tsp. Diamond Crystal or Morton kosher salt, ¼ cup pure maple syrup, and ½ tsp. ground cinnamon or cardamom in a large bowl until smooth. Add 3 Tbsp.",
+        "chia seeds and whisk to combine. Let sit 10 minutes. (Doing this gives the seeds a head start on hydrating and prevents them from sticking together. But if you can’t spare the time, just give the mixture a good stir before serving.)",
+        "Stir chia mixture again, then add 1¼ cups old-fashioned oats and mix well to combine. Cover oat mixture and chill at least 8 hours.",
+        "Spoon oat mixture into bowls and top with plain whole-milk yogurt, unsalted roasted pumpkin seeds (pepitas), and/or granola, maple syrup, and cinnamon as desired. Do Ahead: Oat mixture (without toppings) can be made 4 days ahead. Keep chilled."
+      ],
+      "note": "",
+      "source": "https://www.bonappetit.com/recipe/maple-pumpkin-overnight-oats",
+      "recipe": true
+    },
+    {
       "key": "0bce4c6c16cd",
       "id": "explore-0bce4c6c16cd",
       "url": "https://www.bonappetit.com/recipe/pecan-cream-pie",
@@ -80,7 +128,7 @@
       "name": "19 Pumpkin Purée Recipes From Cake to Pie",
       "image": "https://assets.bonappetit.com/photos/6a9b41269ba6192987c24da7/master/pass/pumpkin-cheesecake-muffins_IG_V7_090126_5967_VOG_final.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "dfeada12de77",
