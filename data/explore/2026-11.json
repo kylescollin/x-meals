@@ -2,6 +2,151 @@
   "month": "2026-11",
   "items": [
     {
+      "key": "e167281dac6c",
+      "id": "explore-e167281dac6c",
+      "url": "https://www.skinnytaste.com/7-day-high-protein-diet-meal-plan-57/",
+      "site": "Skinnytaste",
+      "sourceId": "skinnytaste",
+      "published": "2026-11-13T15:49:00.000Z",
+      "fetched": "2026-11-13T20:07:39.903Z",
+      "name": "7 Day High Protein Diet Meal Plan",
+      "image": "https://www.skinnytaste.com/wp-content/uploads/2026/11/7-Day-High-Protein-Meal-Plan-599x749.png",
+      "recipe": false,
+      "tries": 1
+    },
+    {
+      "key": "5433a1f0abcc",
+      "id": "explore-5433a1f0abcc",
+      "url": "https://www.budgetbytes.com/everyday-cornbread/",
+      "site": "Budget Bytes",
+      "sourceId": "budgetbytes",
+      "published": "2026-11-13T14:30:00.000Z",
+      "fetched": "2026-11-13T20:07:39.903Z",
+      "name": "Easy Homemade Cornbread Recipe",
+      "image": "https://www.budgetbytes.com/wp-content/uploads/2015/09/2-Easy-Homemade-Cornbread-Front-Slice.jpg",
+      "icon": "🍳",
+      "course": "breakfast",
+      "tags": [
+        "Skillet Dinner",
+        "American"
+      ],
+      "meta": "30 min · Oven · Serves 8",
+      "ingredients": [
+        "1 cup yellow cornmeal $0.29*",
+        "1 cup all-purpose flour $0.23**",
+        "¼ cup granulated sugar",
+        "2 tsp baking powder",
+        "½ tsp salt",
+        "1 cup milk",
+        "1 large egg",
+        "¼ cup cooking oil"
+      ],
+      "steps": [
+        "Gather and measure all ingredients. Preheat the oven to 425ºF/220℃/200℃ fan or Gas Mark 7 and coat the inside of a 9-inch pie plate, cast iron skillet, or 8×8 casserole dish with non-stick spray (or butter for more flavor).",
+        "In a large bowl, stir together the cornmeal, flour, sugar, baking powder, and salt until evenly combined.",
+        "In a separate bowl, whisk together the milk, egg, and oil.",
+        "Pour the bowl of wet ingredients into the bowl of dry ingredients and stir just until everything is moist. Avoid over stirring. It’s okay if there are a few lumps.",
+        "Pour the batter into the prepared dish and bake for about 20 minutes, or until the top and edges are golden brown. Cut into 8 pieces and serve."
+      ],
+      "note": "",
+      "source": "https://www.budgetbytes.com/everyday-cornbread/",
+      "recipe": true
+    },
+    {
+      "key": "e35d21c24772",
+      "id": "explore-e35d21c24772",
+      "url": "https://www.themediterraneandish.com/chicken-and-rice-soup/",
+      "site": "The Mediterranean Dish",
+      "sourceId": "mediterraneandish",
+      "published": "2026-11-13T13:00:00.000Z",
+      "fetched": "2026-11-13T20:07:39.903Z",
+      "name": "Chicken and Rice Soup",
+      "image": "https://www.themediterraneandish.com/wp-content/uploads/2026/10/TMD-Chicken-and-Rice-Soup-Leads-03-Angle.jpg",
+      "icon": "🍲",
+      "course": "dinner",
+      "tags": [
+        "Soup"
+      ],
+      "meta": "45 min · Stovetop · Serves 4",
+      "ingredients": [
+        "2 tablespoons extra virgin olive oil",
+        "1 yellow onion, chopped",
+        "2 celery stalks, chopped",
+        "2 carrots, sliced into ¼-inch rounds",
+        "3 garlic cloves, minced",
+        "Kosher salt",
+        "Black pepper",
+        "1 pound boneless skinless chicken breast (about 2 breast halves)",
+        "4 cups chicken stock",
+        "2 cups water",
+        "2 teaspoons dried oregano",
+        "1 teaspoon dried thyme",
+        "1 bay leaf",
+        "½ teaspoon red pepper flakes or 1 teaspoon Aleppo pepper",
+        "¾ cup basmati rice, rinsed",
+        "1 lemon, zested and juiced",
+        "2 green onions, chopped (whites and green parts)",
+        "½ cup chopped fresh parsley",
+        "Lemon slices, to serve"
+      ],
+      "steps": [
+        "Cook the vegetables. In a large Dutch oven, heat the olive oil over medium. When the oil shimmers, add the onion, celery, carrots, and garlic. Season with a good pinch of salt and pepper. Cook, stirring occasionally, until the veggies have softened, about 5 minutes.",
+        "Poach the chicken. Add the chicken, chicken stock, and water. Season with the oregano, thyme, bay leaf, red pepper flakes, and another dash of salt and pepper. Bring to a boil, then turn the heat to medium-low. Cook until the chicken is nearly fully cooked, 10 to 15 minutes, spooning out any foam that bubbles to the top of the cooking liquid.",
+        "Cook the rice. Transfer the chicken to a rimmed plate for now. Add the rinsed rice to the pot and raise the heat to bring the liquid back to a boil, then reduce the heat to medium-low and simmer until the rice is tender, 12 to 15 minutes or so.",
+        "Shred the chicken. While the rice is cooking, shred the chicken breasts into smaller pieces using two forks (hold one fork in each hand, tines facing down. Use one fork to pin the chicken in place, then drag the other fork through the meat, pulling away from the first.)",
+        "Finish and serve. Add the shredded chicken to the pot and simmer briefly, just to warm the chicken through. Remove and discard the bay leaf. Turn the heat off and stir in the lemon juice and zest, green onion, and fresh parsley. Taste and adjust the seasoning. Ladle into bowls and serve with lemon slices."
+      ],
+      "note": "",
+      "source": "https://www.themediterraneandish.com/chicken-and-rice-soup/",
+      "recipe": true
+    },
+    {
+      "key": "b1dfb6f7e8b3",
+      "id": "explore-b1dfb6f7e8b3",
+      "url": "https://www.recipetineats.com/chocolate-crinkle-cookies/",
+      "site": "RecipeTin Eats",
+      "sourceId": "recipetineats",
+      "published": "2026-11-13T05:00:00.000Z",
+      "fetched": "2026-11-13T20:07:39.903Z",
+      "name": "Chocolate Crinkle Cookies",
+      "image": "https://www.recipetineats.com/tachyon/2026/11/Crinkle-Cookies-6-1.jpg",
+      "icon": "🍳",
+      "course": "dessert",
+      "tags": [],
+      "meta": "1 hr 45 min · Oven · Serves 22",
+      "ingredients": [
+        "200g/ 6.5oz dark chocolate chips or discs/melts (US: semi-sweet chocolate) – Note 1",
+        "60g (4 tbsp) unsalted butter , melted and cooled",
+        "2 large eggs , at room temperature (50 – 55g/2oz each, no larger)",
+        "¼ cup white sugar / granulated sugar (or caster sugar / superfine sugar)",
+        "¼ cup (tightly packed) brown sugar",
+        "1 tsp vanilla extract",
+        "¼ cup unsweetened cocoa , sifted (not Dutch processed) – Note 1",
+        "1 cup plain flour / all-purpose flour",
+        "1 ½ tsp baking powder (make sure yours is still alive), don’t substitute with baking soda",
+        "⅛ tsp cooking salt / kosher salt",
+        "¼ cup white sugar / granulated sugar (not caster sugar / superfine, it’s too fine)",
+        "¾ cup icing sugar / powdered sugar , no need to sift"
+      ],
+      "steps": [
+        "Melt chocolate, cool 5 min. Add Wet ingredients, whisk well. Stir in Dry ingredients with wooden spoon. Fridge 30 min. Roll 20 – 22 x 1.5 tbsp balls, roll in sugar then pack on icing sugar thickly – only do what fits on the trays. Bake 13 min 180°C/350°F (160°C fan).",
+        "Mix dry ingredients – Whisk the cocoa powder, flour, baking powder and salt together in a medium bowl. Set aside.",
+        "Melt chocolate – Place the chocolate in a large heatproof bowl. Microwave in 20-second increments, stirring between each, until melted and smooth. Leave to cool for 5 minutes.",
+        "Make cookie dough – Add the butter, eggs, both sugars and vanilla to the melted chocolate. Whisk until thoroughly combined. Add the dry ingredients and mix with a wooden spoon until incorporated. The dough should be very thick but too soft to roll into balls. Refrigerate for 30 minutes to firm up, don't leave it in so long the dough gets hard. (Note 2 for skipping this step.)",
+        "Preheat oven to 180°C/350°F (160°C fan-forced). Line 2 baking trays with baking paper/parchment paper.",
+        "Prepare coating – Place the sugar in one shallow bowl and the icing sugar in another. Wider bowls make coating easier.",
+        "Roll balls – Take the dough out of the fridge. It should be firm enough to roll into soft balls (if not, refrigerate a little longer). Scoop out 1 ½ tablespoons of dough (size 40 cookie scoop) and roll into balls. You should get 20–22 balls.",
+        "Coat – Roll a ball lightly in the sugar, then coat in the icing sugar, packing it on thickly until the ball is completely covered. Aim for full coverage so you can't see cookie dough! Place on a prepared tray. Repeat with enough balls to fill both trays, spacing them 7.5cm/3\" apart.",
+        "(I do 6 per tray for the first batch, then 4 – 5 per tray for the second. Feel free to fit more if you have larger trays and oven.) Keep the remaining uncoated balls in the fridge until needed (don't coat until just before baking, it will sweat off).",
+        "Bake for 13 minutes. The cookies will puff up into domes and be very soft. Don't open the oven or rotate the trays during baking – this can cause the cookies to collapse. The cookies are ready when they have a light crust on the outside but they will still be jiggly inside.",
+        "Cool – Leave the cookies on the trays for 5 minutes to set a bit (the outside goes crispier and the inside will set like fudge). Then carefully transfer to cooling racks using a spatula, cool for another 5 minutes (avoid touching the icing sugar coating with your fingers).",
+        "Coat and bake remaining dough balls. Most people enjoy these a bit warm. But I like them fully cool because they become chewier and fudgier!"
+      ],
+      "note": "",
+      "source": "https://www.recipetineats.com/chocolate-crinkle-cookies/",
+      "recipe": true
+    },
+    {
       "key": "df39aab39bd6",
       "id": "explore-df39aab39bd6",
       "url": "https://www.bonappetit.com/gallery/healthy-breakfast-recipes",
@@ -12,7 +157,7 @@
       "name": "23 Healthy Breakfasts That'll Keep You Full Till Lunch",
       "image": "https://assets.bonappetit.com/photos/68559bd300c1db6c62411f48/master/pass/bran-muffins_RECIPE_V3_051525_2994_VOG_final.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "3e777017a78a",
@@ -128,7 +273,7 @@
       "name": "19 Pumpkin Purée Recipes From Cake to Pie",
       "image": "https://assets.bonappetit.com/photos/6a9b41269ba6192987c24da7/master/pass/pumpkin-cheesecake-muffins_IG_V7_090126_5967_VOG_final.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "dfeada12de77",
