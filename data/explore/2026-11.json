@@ -2,6 +2,32 @@
   "month": "2026-11",
   "items": [
     {
+      "key": "3ed328c1a7b0",
+      "id": "explore-3ed328c1a7b0",
+      "url": "https://www.budgetbytes.com/sweet-potato-recipes-2/",
+      "site": "Budget Bytes",
+      "sourceId": "budgetbytes",
+      "published": "2026-11-14T14:30:00.000Z",
+      "fetched": "2026-11-14T18:33:24.853Z",
+      "name": "Sweet Potato Recipes",
+      "image": "https://www.budgetbytes.com/wp-content/uploads/2023/09/Sweet-Potato-Recipes-Featured.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
+      "key": "756b2862932d",
+      "id": "explore-756b2862932d",
+      "url": "https://www.budgetbytes.com/sweet-potato-recipes/",
+      "site": "Budget Bytes",
+      "sourceId": "budgetbytes",
+      "published": "2026-11-14T14:30:00.000Z",
+      "fetched": "2026-11-14T18:33:24.853Z",
+      "name": "Sweet Potato Recipes",
+      "image": "https://www.budgetbytes.com/wp-content/uploads/2023/09/Sweet-Potato-Recipes-Featured.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
       "key": "e167281dac6c",
       "id": "explore-e167281dac6c",
       "url": "https://www.skinnytaste.com/7-day-high-protein-diet-meal-plan-57/",
@@ -12,7 +38,7 @@
       "name": "7 Day High Protein Diet Meal Plan",
       "image": "https://www.skinnytaste.com/wp-content/uploads/2026/11/7-Day-High-Protein-Meal-Plan-599x749.png",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "5433a1f0abcc",
@@ -157,7 +183,7 @@
       "name": "23 Healthy Breakfasts That'll Keep You Full Till Lunch",
       "image": "https://assets.bonappetit.com/photos/68559bd300c1db6c62411f48/master/pass/bran-muffins_RECIPE_V3_051525_2994_VOG_final.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "3e777017a78a",
