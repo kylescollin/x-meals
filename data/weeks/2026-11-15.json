@@ -1,0 +1,106 @@
+{
+  "weekOf": "2026-11-15",
+  "title": "Week of November 15",
+  "meals": [
+    {
+      "id": "creamy-spinach-and-mushroom-tortellini",
+      "icon": "🍄",
+      "name": "Creamy Spinach and Mushroom Tortellini",
+      "meta": "50 min · Stovetop · Serves 4",
+      "ings": [
+        "2 Tbsp olive oil",
+        "2 large yellow onions, thinly sliced",
+        "1 Tbsp olive oil",
+        "8 oz crimini mushrooms, sliced",
+        "8 oz spinach",
+        "1 cup heavy cream",
+        "¼ tsp salt, ¼ tsp black pepper",
+        "9 oz refrigerated 3-cheese tortellini"
+      ],
+      "steps": [
+        "Caramelize onions: heat 2 Tbsp oil over medium-high; cook onions 10 min stirring constantly. Reduce to medium, cook 10 more min. Add pinch of salt, cook 10 min on medium-low. Total: 30 min. Remove to a plate.",
+        "Heat 1 Tbsp oil in same skillet over medium. Cook mushrooms with a pinch of salt 5 min until soft.",
+        "Add spinach; stir on low until wilted. Add back caramelized onions. Pour in cream and salt; bring to quick boil. Reduce, simmer 2 min.",
+        "Cook tortellini per package; drain. Add to sauce; stir on low a few minutes. Serve with cracked black pepper."
+      ],
+      "day": "Monday",
+      "note": "💡 Caramelized onions can be made 1–2 days ahead and refrigerated.",
+      "label": "Meal A",
+      "date": "11/16"
+    },
+    {
+      "id": "slow-cooker-chili",
+      "icon": "🌶️",
+      "name": "Slow Cooker Chili",
+      "meta": "6 hrs 15 min · Slow Cooker · Serves 8",
+      "ings": [
+        "1 Tbsp olive oil",
+        "2 lbs lean ground beef",
+        "1 large yellow onion, finely chopped",
+        "3 cloves garlic, finely minced",
+        "2 (14.5 oz) cans diced tomatoes with green chilies",
+        "3 (8 oz) cans tomato sauce",
+        "½ cup beef broth",
+        "2 Tbsp chili powder",
+        "2½ tsp ground cumin",
+        "2 tsp paprika",
+        "2 tsp unsweetened cocoa powder",
+        "1 tsp granulated sugar",
+        "½ tsp ground coriander",
+        "Salt and freshly ground black pepper",
+        "1 (15 oz) can dark red kidney beans, drained",
+        "1 (15 oz) can light red kidney beans, drained",
+        "Shredded cheddar cheese for serving"
+      ],
+      "steps": [
+        "Heat olive oil in a large skillet over medium-high. Sauté onion 3 min, add garlic 30 sec. Pour into slow cooker.",
+        "Return skillet to medium-high. Add beef and cook, stirring occasionally, until browned. Drain most fat.",
+        "Add beef to slow cooker. Stir in tomatoes, tomato sauce, broth, all spices, salt and pepper.",
+        "Cover and cook on low 5–6 hours.",
+        "Stir in kidney beans and heat through, about 2 min. Serve with desired toppings."
+      ],
+      "day": "Tuesday",
+      "note": "💡 Look for tomatoes labeled \"mild\" green chilies. Bloom spices in the last minute for extra depth.",
+      "label": "Meal B",
+      "date": "11/17"
+    },
+    {
+      "id": "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj",
+      "icon": "🥓",
+      "name": "Rigatoni with Sausage, Tomatoes, and Zucchini",
+      "meta": "40 min · Stovetop · Serves 6",
+      "ings": [
+        "¾ lb rigatoni pasta",
+        "3 tablespoons olive oil",
+        "1 large yellow onion (finely chopped )",
+        "¼ teaspoon crushed red pepper flakes (optional )",
+        "1 lb Italian sausage (mild, sweet, or spicy will work)",
+        "5 cloves garlic, minced",
+        "3 Tablespoons tomato paste",
+        "2 cups grape tomatoes",
+        "1 cup white wine or chicken broth",
+        "2 small zucchini (diced )",
+        "1 teaspoon salt",
+        "½ teaspoon black pepper",
+        "½ cup fresh basil (chopped )",
+        "freshly grated Parmesan cheese"
+      ],
+      "steps": [
+        "Bring a large pot of salted water to a boil over medium-high heat.",
+        "Add oil to a large, wide pot and bring to a simmer over medium heat. Add in the onion and crushed red pepper and cook until the onion is very soft, about 10 minutes. Add in the sausage and, using a wooden spoon, break it into small pieces. Cook until sausage is brown and no pink color remains.",
+        "Add in the garlic and cook for 1 minute, or until fragrant. Stir in the tomato paste.",
+        "Add in the tomatoes and wine (or stock) and season with salt and pepper. Cook, stirring occasionally, until the tomatoes begin to burst and give off their juices, about 10 minutes. Use a wooden spoon to gently press the tomatoes if they're not bursting on their own. Stir in the zucchini and cook for 5 minutes.",
+        "In the meantime, add the rigatoni into the boiling water and cook for 9 to 10 minutes, or until al dente.",
+        "Drain the pasta, reserving a ½ cup of the pasta water. Toss the pasta immediately into the pot with the sauce and stir well to combine. Add in some of the reserved cooking water, if needed. Finally, stir in the basil.",
+        "Remove from heat and divide among serving bowls. Top with cheese and serve at once!"
+      ],
+      "day": "Wednesday",
+      "source": "https://bakerbynature.com/rigatoni-with-sausage-tomatoes-and-zucchini/?utm_source=Pinterest&utm_medium=organic",
+      "label": "Meal C",
+      "date": "11/18"
+    }
+  ],
+  "groceries": [],
+  "subhead": "3 dinners",
+  "updatedAt": 1794896527057
+}
