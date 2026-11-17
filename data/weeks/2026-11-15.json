@@ -102,5 +102,371 @@
   "title": "Week of November 15",
   "updatedAt": 1794896630680,
   "weekOf": "2026-11-15",
-  "groceriesRequested": "2026-11-17T06:23:50.593Z"
+  "groceriesRequested": "2026-11-17T06:23:50.593Z",
+  "groceries": [
+    {
+      "icon": "🥦",
+      "label": "Produce",
+      "items": [
+        {
+          "name": "3 large yellow onions",
+          "detail": "2 thinly sliced and caramelized into the sauce · 1 finely chopped and sautéed as the base · 1 finely chopped and sautéed as the base",
+          "amazon": "large yellow onions",
+          "from": [
+            "creamy-spinach-and-mushroom-tortellini",
+            "slow-cooker-chili",
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "8 oz crimini mushrooms, sliced",
+          "detail": "sautéed and folded into the creamy sauce",
+          "amazon": "crimini mushrooms",
+          "from": [
+            "creamy-spinach-and-mushroom-tortellini"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "8 oz fresh spinach",
+          "detail": "wilted into the cream sauce",
+          "amazon": "fresh baby spinach",
+          "from": [
+            "creamy-spinach-and-mushroom-tortellini"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "3 cloves garlic",
+          "detail": "finely minced into the chili base",
+          "amazon": "fresh garlic",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "5 cloves garlic",
+          "detail": "minced into the sausage and tomato sauce",
+          "amazon": "fresh garlic",
+          "from": [
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "2 cups grape tomatoes",
+          "detail": "cooked in the sauce until burst",
+          "amazon": "grape tomatoes",
+          "from": [
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "2 small zucchini, diced",
+          "detail": "stirred into the sauce during the last few minutes of cooking",
+          "amazon": "zucchini",
+          "from": [
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "½ cup fresh basil",
+          "detail": "chopped and stirred in just before serving",
+          "amazon": "fresh basil",
+          "from": [
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🥩",
+      "label": "Protein",
+      "items": [
+        {
+          "name": "2 lbs lean ground beef",
+          "detail": "browned and added to the slow cooker",
+          "amazon": "lean ground beef",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 lb Italian sausage",
+          "detail": "crumbled and browned into the tomato sauce",
+          "amazon": "italian sausage mild",
+          "from": [
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🧈",
+      "label": "Dairy & Refrigerated",
+      "items": [
+        {
+          "name": "1 cup heavy cream",
+          "detail": "poured into the mushroom and spinach sauce",
+          "amazon": "heavy whipping cream",
+          "from": [
+            "creamy-spinach-and-mushroom-tortellini"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "9 oz refrigerated 3-cheese tortellini",
+          "detail": "cooked and tossed in the creamy sauce",
+          "amazon": "refrigerated three cheese tortellini",
+          "from": [
+            "creamy-spinach-and-mushroom-tortellini"
+          ],
+          "tagClass": "tag-chili",
+          "tag": "Meal A"
+        },
+        {
+          "name": "shredded cheddar cheese for serving",
+          "detail": "offered as a topping",
+          "amazon": "shredded cheddar cheese",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "freshly grated Parmesan cheese for serving",
+          "detail": "grated over the top at the table",
+          "amazon": "parmesan cheese wedge",
+          "from": [
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🫙",
+      "label": "Pantry & Canned",
+      "items": [
+        {
+          "name": "5 Tbsp olive oil",
+          "detail": "3 Tbsp for caramelizing onions and sautéing mushrooms · 1 Tbsp for browning the beef · 3 Tbsp for sautéing the sausage base",
+          "amazon": "olive oil",
+          "from": [
+            "creamy-spinach-and-mushroom-tortellini",
+            "slow-cooker-chili",
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "2 (14.5 oz) cans diced tomatoes with green chilies",
+          "detail": "stirred into the chili base",
+          "amazon": "diced tomatoes green chilies mild",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "3 (8 oz) cans tomato sauce",
+          "detail": "added to the slow cooker for the chili",
+          "amazon": "tomato sauce canned",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "½ cup beef broth",
+          "detail": "stirred into the slow cooker chili",
+          "amazon": "beef broth",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 (15 oz) can dark red kidney beans, drained",
+          "detail": "stirred in at the end of cooking",
+          "amazon": "dark red kidney beans canned",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 (15 oz) can light red kidney beans, drained",
+          "detail": "stirred in at the end of cooking",
+          "amazon": "light red kidney beans canned",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 tsp unsweetened cocoa powder",
+          "detail": "added to deepen the chili flavor",
+          "amazon": "unsweetened cocoa powder",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "1 tsp granulated sugar",
+          "detail": "balances acidity in the chili",
+          "amazon": "granulated sugar",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "¾ lb rigatoni pasta",
+          "detail": "boiled until al dente and tossed with the sauce",
+          "amazon": "rigatoni pasta",
+          "from": [
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "3 Tbsp tomato paste",
+          "detail": "stirred in to build the sauce base",
+          "amazon": "tomato paste",
+          "from": [
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        },
+        {
+          "name": "1 cup white wine or chicken broth",
+          "detail": "deglazed into the tomato sauce",
+          "amazon": "dry white wine cooking",
+          "from": [
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ]
+    },
+    {
+      "icon": "🌿",
+      "label": "Spices",
+      "items": [
+        {
+          "name": "salt",
+          "detail": "seasoning throughout",
+          "from": [
+            "creamy-spinach-and-mushroom-tortellini",
+            "slow-cooker-chili",
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "black pepper",
+          "detail": "cracked over the finished dish · freshly ground into the chili · seasoning the sauce",
+          "from": [
+            "creamy-spinach-and-mushroom-tortellini",
+            "slow-cooker-chili",
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-all",
+          "tag": "All meals"
+        },
+        {
+          "name": "2 Tbsp chili powder",
+          "detail": "primary spice blend for the chili",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2½ tsp ground cumin",
+          "detail": "stirred into the chili spice mix",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "2 tsp paprika",
+          "detail": "added to the chili spice mix",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "½ tsp ground coriander",
+          "detail": "part of the chili spice blend",
+          "from": [
+            "slow-cooker-chili"
+          ],
+          "tagClass": "tag-cauliflower",
+          "tag": "Meal B"
+        },
+        {
+          "name": "¼ tsp crushed red pepper flakes",
+          "detail": "optional heat in the sausage sauce",
+          "from": [
+            "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+          ],
+          "tagClass": "tag-pasta",
+          "tag": "Meal C"
+        }
+      ],
+      "note": "Check pantry before ordering — you likely have most of these."
+    }
+  ],
+  "groceriesFor": [
+    "creamy-spinach-and-mushroom-tortellini",
+    "slow-cooker-chili",
+    "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj"
+  ],
+  "groceriesIngs": {
+    "creamy-spinach-and-mushroom-tortellini": "1:1ijrpc2hsk",
+    "slow-cooker-chili": "1:1aqatcfo0c2",
+    "link-rigatoni-with-sausage-tomatoes-and-zucch-mwkb0n6nnghj": "1:13a1vpq4mgi"
+  },
+  "groceriesAt": "2026-11-17T06:24:44.212Z",
+  "groceriesServed": "2026-11-17T06:23:50.593Z"
 }
