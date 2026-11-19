@@ -2,6 +2,76 @@
   "month": "2026-11",
   "items": [
     {
+      "key": "738d09bbf865",
+      "id": "explore-738d09bbf865",
+      "url": "https://www.bonappetit.com/gallery/leftover-turkey-sandwiches",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-11-19T19:00:00.000Z",
+      "fetched": "2026-11-19T21:02:15.278Z",
+      "name": "11 Leftover Turkey Sandwiches to Look Forward To",
+      "image": "https://assets.bonappetit.com/photos/6358155c6db3ef49ffd91e97/master/pass/1025-turkey-club-seo-lede.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
+      "key": "b3890f4ad4b3",
+      "id": "explore-b3890f4ad4b3",
+      "url": "https://www.bonappetit.com/story/how-to-make-whipped-cream",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-11-19T18:06:28.000Z",
+      "fetched": "2026-11-19T21:02:15.278Z",
+      "name": "How to Make Whipped Cream Perfectly, Every Time",
+      "image": "https://assets.bonappetit.com/photos/633340843cb394f07ba0879e/master/pass/20220913-SHOPPING-9368.jpg",
+      "recipe": false,
+      "tries": 1
+    },
+    {
+      "key": "9ea71db175a3",
+      "id": "explore-9ea71db175a3",
+      "url": "https://www.bonappetit.com/recipe/maple-sausage-breakfast-casserole",
+      "site": "Bon Appétit",
+      "sourceId": "bonappetit",
+      "published": "2026-11-19T11:00:00.000Z",
+      "fetched": "2026-11-19T21:02:15.278Z",
+      "name": "Maple-Sausage Breakfast Casserole",
+      "image": "https://assets.bonappetit.com/photos/6ae8c690ecea81a126d36bb2/16:9/w_3580,h_2014,c_limit/maple-sausage-breakfast-bake_RECIPE_V1_102126_6566_VOG_final.jpg",
+      "icon": "🥓",
+      "course": "dinner",
+      "tags": [
+        "Eggs"
+      ],
+      "meta": "Oven · Serves 12",
+      "ingredients": [
+        "Nonstick vegetable oil spray (for pan)",
+        "2½ cups (313 g) all-purpose flour",
+        "¼ cup (50 g) sugar",
+        "2 Tbsp. baking powder",
+        "2 tsp. freshly ground pepper",
+        "1 tsp. Diamond Crystal or ½ tsp. Morton kosher salt",
+        "2 lb. breakfast sausage, casings removed if needed",
+        "Vegetable oil (optional)",
+        "2 large eggs",
+        "2 cups whole milk",
+        "8 oz. sharp yellow cheddar, coarsely grated (about 2 cups)",
+        "2 Tbsp. pure maple syrup, plus more for serving",
+        "2 Tbsp. unsalted butter, plus more for serving"
+      ],
+      "steps": [
+        "Place a rack in middle of oven; preheat to 400°. Lightly coat a 13x9\" baking dish with nonstick vegetable oil spray. Whisk 2½ cups (313 g) all-purpose flour, ¼ cup (50 g) sugar, 2 Tbsp. baking powder, 2 tsp. freshly ground pepper, and 1 tsp. Diamond Crystal or ½ tsp. Morton kosher salt in a large bowl to combine. Set aside.",
+        "Cook 2 lb. breakfast sausage, casings removed if needed, in a large skillet set over medium-high heat, stirring and breaking into small pieces with a wooden spoon, until browned and cooked through, 10–12 minutes. Using a slotted spoon, transfer sausage to a small plate, leaving fat behind.",
+        "Pour fat into a heatproof measuring glass. You want ½ cup fat; spoon out any excess or pour in vegetable oil as needed if you don’t have enough. Stir 2 large eggs and 2 cups whole milk into fat. Let sausage cool slightly, then crumble into small, even pieces with your hands.",
+        "Pour fat mixture into reserved dry ingredients and stir until just combined and no large dry pockets of flour remain (batter may be thin and lumpy; it’ll be fine). Set aside ½ cup sausage and ½ cup cheese from 8 oz. sharp yellow cheddar, coarsely grated (about 2 cups), for topping, then add remaining sausage and cheddar to batter and stirring until evenly distributed.",
+        "Scrape batter into prepared baking dish and evenly scatter reserved sausage and cheese over. Bake casserole until top springs back when gently pressed with your finger and a tester inserted into the center comes out with just a few moist crumbs attached, 20–30 minutes.",
+        "Just before casserole is done, heat 2 Tbsp. pure maple syrup and 2 Tbsp. unsalted butter in a small skillet over medium, stirring occasionally, until butter is melted, about 2 minutes.",
+        "Brush maple butter over casserole and let cool 10 minutes. Cut into squares. Serve with more maple syrup and butter alongside."
+      ],
+      "note": "",
+      "source": "https://www.bonappetit.com/recipe/maple-sausage-breakfast-casserole",
+      "recipe": true
+    },
+    {
       "key": "d66c114b3f26",
       "id": "explore-d66c114b3f26",
       "url": "https://www.bonappetit.com/gallery/alternative-thanksgiving-dinner",
@@ -12,7 +82,7 @@
       "name": "31 Thanksgiving Dinner Alternatives to Turkey",
       "image": "https://assets.bonappetit.com/photos/6165a264f4957e0dd6624f3d/master/pass/charsiuwellington.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "8986ad4ccf5d",
@@ -166,7 +236,7 @@
       "name": "11 Pasta Sauce Recipes for Easy, Cozy Dinners",
       "image": "https://www.themediterraneandish.com/wp-content/uploads/2023/07/TMD-Roasted-Red-Pepper-Pasta-WEB-32.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "ab6149865565",
@@ -257,7 +327,7 @@
       "name": "31 Cranberry Recipes for Thanksgiving and Beyond",
       "image": "https://assets.bonappetit.com/photos/6a7ce818d94e2d0d6f10b229/master/pass/cranberry-meringue-pie_RECIPE_V6_072226_5496_VOG_NoBadge_final.jpg",
       "recipe": false,
-      "tries": 1
+      "tries": 2
     },
     {
       "key": "83dae7fb973d",
@@ -354,7 +424,7 @@
       "name": "How to Blind-Bake Pie Crust—and When You Need To",
       "image": "https://assets.bonappetit.com/photos/6af348a1c44c23e68a4c9777/master/pass/how-to-blind-bake-pie-crust_LEDE_V1_110926_0212_VOG_final.jpg",
       "recipe": false,
-      "tries": 2
+      "tries": 3
     },
     {
       "key": "51ada6fbf0c6",
